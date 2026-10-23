@@ -1,0 +1,183 @@
+{
+  "verfahren": [
+    {
+      "id": "verfahren_elterngeld",
+      "formular_link": "https://www.elterngeld.digital",
+      "bearbeitungsdauer_tage": 20,
+      "frist_tage": 365,
+      "koste": 0,
+      "unterlagen": [
+        {
+          "id": "unterlage_geburtsurkunde",
+          "name": "Geburtsurkunde des Kindes",
+          "beschreibung": "Offizielle Geburtsurkunde",
+          "pflicht": true,
+          "reihenfolge": 1
+        },
+        {
+          "id": "unterlage_steuer_id",
+          "name": "Steuer-Identifikationsnummer",
+          "beschreibung": "Steuer-ID von Antragstellerin und ggf. Partner",
+          "pflicht": true,
+          "reihenfolge": 2
+        },
+        {
+          "id": "unterlage_einkommensnachweise",
+          "name": "Einkommensnachweise",
+          "beschreibung": "Gehaltsabrechnungen der letzten 12 Monate",
+          "pflicht": true,
+          "reihenfolge": 3
+        },
+        {
+          "id": "unterlage_beschäftigungsbestätigung",
+          "name": "Beschäftigungsbestätigung",
+          "beschreibung": "Bestätigung des Arbeitgebers über Beschäftigung",
+          "pflicht": false,
+          "reihenfolge": 4
+        }
+      ],
+      "schritte": [
+        {
+          "id": "schritt_antrag_ausfuellen",
+          "beschreibung": "Antragsformular online ausfüllen",
+          "geschatzte_dauer_minuten": 30,
+          "reihenfolge": 1
+        },
+        {
+          "id": "schritt_unterlagen_hochladen",
+          "beschreibung": "Erforderliche Unterlagen hochladen",
+          "geschatzte_dauer_minuten": 20,
+          "reihenfolge": 2
+        },
+        {
+          "id": "schritt_antrag_abschicken",
+          "beschreibung": "Antrag elektronisch abschicken",
+          "geschatzte_dauer_minuten": 5,
+          "reihenfolge": 3
+        },
+        {
+          "id": "schritt_bestaetigung_abwarten",
+          "beschreibung": "Auf Bearbeitungsbestätigung warten",
+          "geschatzte_dauer_minuten": 0,
+          "reihenfolge": 4
+        }
+      ]
+    },
+    {
+      "id": "verfahren_kindergeld",
+      "formular_link": "https://www.familienkasse.de/kindergeld",
+      "bearbeitungsdauer_tage": 14,
+      "frist_tage": null,
+      "koste": 0,
+      "unterlagen": [
+        {
+          "id": "unterlage_geburtsurkunde_kind",
+          "name": "Geburtsurkunde des Kindes",
+          "pflicht": true,
+          "reihenfolge": 1
+        },
+        {
+          "id": "unterlage_steuer_id_kind",
+          "name": "Steuer-Identifikationsnummern",
+          "pflicht": true,
+          "reihenfolge": 2
+        }
+      ],
+      "schritte": [
+        {
+          "id": "schritt_antrag_kindergeld",
+          "beschreibung": "Antrag online oder per Post stellen",
+          "geschatzte_dauer_minuten": 25,
+          "reihenfolge": 1
+        }
+      ]
+    },
+    {
+      "id": "verfahren_mutterschaftsgeld",
+      "formular_link": null,
+      "bearbeitungsdauer_tage": 7,
+      "frist_tage": 7,
+      "koste": 0,
+      "unterlagen": [
+        {
+          "id": "unterlage_aerztliche_bestaetigung",
+          "name": "Ärztliche Bestätigung der Schwangerschaft",
+          "pflicht": true,
+          "reihenfolge": 1
+        }
+      ],
+      "schritte": [
+        {
+          "id": "schritt_antrag_krankenkasse",
+          "beschreibung": "Antrag bei der Krankenkasse stellen",
+          "geschatzte_dauer_minuten": 15,
+          "reihenfolge": 1
+        }
+      ]
+    },
+    {
+      "id": "verfahren_geburtsurkunde",
+      "formular_link": null,
+      "bearbeitungsdauer_tage": 1,
+      "frist_tage": 7,
+      "koste": 12,
+      "unterlagen": [
+        {
+          "id": "unterlage_personalausweis",
+          "name": "Personalausweis oder Reisepass",
+          "pflicht": true,
+          "reihenfolge": 1
+        },
+        {
+          "id": "unterlage_krankenhaus_bestaetigung",
+          "name": "Bestätigung des Krankenhauses über die Geburt",
+          "pflicht": true,
+          "reihenfolge": 2
+        }
+      ],
+      "schritte": [
+        {
+          "id": "schritt_standesamt",
+          "beschreibung": "Persönliche Vorsprache beim Standesamt",
+          "geschatzte_dauer_minuten": 30,
+          "reihenfolge": 1
+        },
+        {
+          "id": "schritt_urkunde_abholen",
+          "beschreibung": "Geburtsurkunde abholen (meist sofort möglich)",
+          "geschatzte_dauer_minuten": 10,
+          "reihenfolge": 2
+        }
+      ]
+    },
+    {
+      "id": "verfahren_bayerisches_familiengeld",
+      "formular_link": "https://www.stmas.bayern.de/familie/familiengeld",
+      "bearbeitungsdauer_tage": 30,
+      "frist_tage": null,
+      "koste": 0,
+      "unterlagen": [
+        {
+          "id": "unterlage_geburtsurkunde_bayern",
+          "name": "Geburtsurkunde des Kindes",
+          "pflicht": true,
+          "reihenfolge": 1
+        },
+        {
+          "id": "unterlage_wohnsitznachweis",
+          "name": "Wohnsitznachweis in Bayern",
+          "pflicht": true,
+          "reihenfolge": 2
+        }
+      ],
+      "schritte": [
+        {
+          "id": "schritt_antrag_online_bayern",
+          "beschreibung": "Antrag online stellen",
+          "geschatzte_dauer_minuten": 20,
+          "reihenfolge": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "zustaendigkeiten": [
+    {
+      "id": "zustaendigkeit_elterngeld",
+      "behoerde_name": "Familienkasse Bayern",
+      "behoerde_kontakt": "089 12345678",
+      "portal_link": "https://www.familienkasse.de",
+      "post_adresse": "Familienkasse Bayern\n80331 München"
+    },
+    {
+      "id": "zustaendigkeit_elterngeld_bayern",
+      "behoerde_name": "Landesamt für Familie und Soziales Bayern",
+      "behoerde_kontakt": "089 98765432",
+      "portal_link": "https://www.stmas.bayern.de",
+      "post_adresse": "Landesamt für Familie und Soziales\n80538 München"
+    },
+    {
+      "id": "zustaendigkeit_kindergeld",
+      "behoerde_name": "Familienkasse Bayern",
+      "behoerde_kontakt": "089 12345678",
+      "portal_link": "https://www.familienkasse.de",
+      "post_adresse": "Familienkasse Bayern\n80331 München"
+    },
+    {
+      "id": "zustaendigkeit_krankenkasse",
+      "behoerde_name": "Gesetzliche Krankenkasse",
+      "behoerde_kontakt": null,
+      "portal_link": null,
+      "post_adresse": null
+    },
+    {
+      "id": "zustaendigkeit_standesamt_muenchen",
+      "behoerde_name": "Standesamt München",
+      "behoerde_kontakt": "089 23300",
+      "portal_link": "https://www.muenchen.de/standesamt",
+      "post_adresse": "Standesamt München\n80331 München"
+    },
+    {
+      "id": "zustaendigkeit_standesamt",
+      "behoerde_name": "Standesamt",
+      "behoerde_kontakt": null,
+      "portal_link": null,
+      "post_adresse": null
+    },
+    {
+      "id": "zustaendigkeit_familiengeld_bayern",
+      "behoerde_name": "Bayerisches Staatsministerium für Familie, Arbeit und Soziales",
+      "behoerde_kontakt": "089 12610",
+      "portal_link": "https://www.stmas.bayern.de",
+      "post_adresse": "Bayerisches Staatsministerium für Familie, Arbeit und Soziales\n80534 München"
+    }
+  ]
+}

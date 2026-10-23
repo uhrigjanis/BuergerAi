@@ -1,0 +1,74 @@
+{
+  "quellen": [
+    {
+      "id": "leika_12345",
+      "name": "LeiKa - Elterngeld",
+      "url": "https://www.leika.de/leistungen/elterngeld",
+      "typ": "amtlich",
+      "beschreibung": "Offizielle Informationen zum Elterngeld auf dem LeiKa-Portal"
+    },
+    {
+      "id": "bmg_elterngeld",
+      "name": "Bundesministerium für Familie - Elterngeld",
+      "url": "https://www.bmfsfj.de/bmfsfj/themes/familie/familienleistungen/elterngeld",
+      "typ": "amtlich",
+      "beschreibung": "Informationen des Bundesministeriums für Familie, Senioren, Frauen und Jugend"
+    },
+    {
+      "id": "leika_67890",
+      "name": "LeiKa - Kindergeld",
+      "url": "https://www.leika.de/leistungen/kindergeld",
+      "typ": "amtlich",
+      "beschreibung": "Offizielle Informationen zum Kindergeld auf dem LeiKa-Portal"
+    },
+    {
+      "id": "familienkasse_kindergeld",
+      "name": "Familienkasse - Kindergeld",
+      "url": "https://www.familienkasse.de",
+      "typ": "portal",
+      "beschreibung": "Offizielles Portal der Familienkassen"
+    },
+    {
+      "id": "leika_11111",
+      "name": "LeiKa - Mutterschaftsgeld",
+      "url": "https://www.leika.de/leistungen/mutterschaftsgeld",
+      "typ": "amtlich",
+      "beschreibung": "Offizielle Informationen zum Mutterschaftsgeld auf dem LeiKa-Portal"
+    },
+    {
+      "id": "gkv_mutterschaftsgeld",
+      "name": "GKV - Mutterschaftsgeld",
+      "url": "https://www.gkv-spitzenverband.de",
+      "typ": "amtlich",
+      "beschreibung": "Informationen des GKV-Spitzenverbands"
+    },
+    {
+      "id": "muenchen_de_geburtsurkunde",
+      "name": "Stadt München - Geburtsurkunde",
+      "url": "https://www.muenchen.de/standesamt/geburtsurkunde",
+      "typ": "portal",
+      "beschreibung": "Informationen der Stadt München zur Geburtsurkunde"
+    },
+    {
+      "id": "bayern_de_geburtsurkunde",
+      "name": "BayernPortal - Geburtsurkunde",
+      "url": "https://www.bayernportal.de/geburtsurkunde",
+      "typ": "portal",
+      "beschreibung": "Informationen des Freistaats Bayern zur Geburtsurkunde"
+    },
+    {
+      "id": "bayern_de_familiengeld",
+      "name": "BayernPortal - Familiengeld",
+      "url": "https://www.bayernportal.de/familiengeld",
+      "typ": "amtlich",
+      "beschreibung": "Offizielle Informationen zum Bayerischen Familiengeld"
+    },
+    {
+      "id": "stmas_familiengeld",
+      "name": "StMAS - Familiengeld",
+      "url": "https://www.stmas.bayern.de/familie/familiengeld",
+      "typ": "amtlich",
+      "beschreibung": "Informationen des Bayerischen Staatsministeriums für Familie, Arbeit und Soziales"
+    }
+  ]
+}

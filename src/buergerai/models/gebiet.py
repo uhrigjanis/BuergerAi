@@ -32,7 +32,6 @@ class Gebiet:
         gueltig_ab: Gültigkeitsbeginn
         gueltig_bis: Gültigkeitsende (None für aktuell gültig)
     """
-    id: str
     name: str
     ebene: GebietsEbene
     ags: str
@@ -40,11 +39,7 @@ class Gebiet:
     plz_bereich: List[str] = field(default_factory=list)
     gueltig_ab: date = field(default_factory=date.today)
     gueltig_bis: Optional[date] = None
-    
-    def __post_init__(self):
-        """Validierung nach Initialisierung"""
-        if self.id is None:
-            object.__setattr__(self, 'id', str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     
     def __post_init__(self):
         """Validierung nach Initialisierung"""

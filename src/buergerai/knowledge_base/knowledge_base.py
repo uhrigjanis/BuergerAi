@@ -63,6 +63,10 @@ class KnowledgeBase:
         """Holt eine Leistung für einen gegebenen Namen"""
         return self.leistung_repo.get_by_name(name)
     
+    def get_all_leistungen(self) -> List[Leistung]:
+        """Holt alle Leistungen"""
+        return self.leistung_repo.get_all()
+    
     def get_varianten_for_leistung(self, leistung_id: str) -> List[Leistungsvariante]:
         """Holt alle Varianten für eine Leistung"""
         return self.leistung_repo.get_varianten_for_leistung(leistung_id)
@@ -70,6 +74,10 @@ class KnowledgeBase:
     def get_varianten_for_gebiet(self, gebiet_id: str) -> List[Leistungsvariante]:
         """Holt alle Varianten für ein Gebiet"""
         return self.leistung_repo.get_varianten_for_gebiet(gebiet_id)
+    
+    def get_all_varianten(self) -> List[Leistungsvariante]:
+        """Holt alle Varianten"""
+        return self.leistung_repo.get_all_varianten()
     
     def suche_leistungen_by_tags(
         self, 

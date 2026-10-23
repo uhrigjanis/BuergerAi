@@ -6,7 +6,7 @@ from typing import Optional, List, Dict, Any
 from datetime import date
 
 from ..models import (
-    Leistungsvariante, GebietsHierarchie, Gebiet
+    Leistungsvariante, Gebiet
 )
 from ..knowledge_base import KnowledgeBase
 from .experten import (
@@ -18,6 +18,9 @@ from .experten import (
     AbhaengigkeitsExperte,
     AusgabeExperte
 )
+
+# Typ-Alias für Hierarchie-Pfade
+GebietsHierarchie = List[Gebiet]
 
 
 class Orchestrator:

@@ -6,9 +6,12 @@ from typing import Optional, List, Dict, Any
 from datetime import date
 
 from ...models import (
-    Leistung, Leistungsvariante, Abdeckungsstatus, GebietsHierarchie, Gebiet
+    Leistung, Leistungsvariante, Abdeckungsstatus, Gebiet
 )
 from ...knowledge_base import KnowledgeBase
+
+# Typ-Alias für Hierarchie-Pfade
+GebietsHierarchie = List[Gebiet]
 
 
 class LeistungsExperte:

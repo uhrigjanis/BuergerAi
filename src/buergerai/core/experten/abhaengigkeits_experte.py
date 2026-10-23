@@ -6,8 +6,11 @@ from typing import Optional, List, Dict, Any, Set, Tuple
 from datetime import date
 import networkx as nx
 
-from ...models import Leistungsvariante, Gebiet, GebietsHierarchie
+from ...models import Leistungsvariante, Gebiet
 from ...knowledge_base import KnowledgeBase
+
+# Typ-Alias für Hierarchie-Pfade
+GebietsHierarchie = List[Gebiet]
 
 
 class AbhaengigkeitsExperte:

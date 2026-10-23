@@ -5,8 +5,11 @@ GebietsExperte - Experte für die Auflösung von Gebieten und Hierarchien
 from typing import Optional, List, Dict, Any
 from datetime import date
 
-from ...models import Gebiet, GebietsEbene, GebietsHierarchie
+from ...models import Gebiet, GebietsEbene
 from ...knowledge_base import KnowledgeBase
+
+# Typ-Alias für Hierarchie-Pfade
+GebietsHierarchie = List[Gebiet]
 
 
 class GebietsExperte:

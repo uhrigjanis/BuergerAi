@@ -9,7 +9,7 @@
 #   ./buergerai_cli.sh --help             # Hilfe anzeigen
 
 # Projektverzeichnis
-PROJECT_DIR="/workspace/github__uhrigjanis__BuergerAi"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # PYTHONPATH setzen
 export PYTHONPATH="$PROJECT_DIR/src:$PYTHONPATH"

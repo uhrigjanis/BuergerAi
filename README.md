@@ -21,6 +21,10 @@ Optional mit virtueller Umgebung, pytest und einmaligem Komplett-Check:
 source .venv/bin/activate   # danach ist auch der Befehl "buergerai" verfügbar
 ```
 
+### In GitHub Codespaces
+
+Auf GitHub **Code → Codespaces → Create codespace** wählen. Die Umgebung richtet sich automatisch ein (Python 3.12, `.venv`, pytest, einmaliger Komplett-Check). Danach im Terminal `./bai` starten. Tests laufen auch über die Test-Ansicht von VS Code.
+
 ## Manuell testen
 
 | Was | Befehl |

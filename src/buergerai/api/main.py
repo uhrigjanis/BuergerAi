@@ -34,6 +34,7 @@ app = FastAPI(
 )
 
 # CORS-Middleware für Frontend-Anbindung
+# Erlaube alle Ursprünge für Entwicklung, insbesondere GitHub Codespaces
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -43,6 +44,8 @@ app.add_middleware(
         "http://127.0.0.1",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:8000",
+        "https://*.githubpreview.dev",  # GitHub Codespaces
+        "*",  # Erlaube alle Ursprünge (für Entwicklung)
     ],
     allow_credentials=True,
     allow_methods=["*"],

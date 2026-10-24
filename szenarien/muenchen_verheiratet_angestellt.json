@@ -1,0 +1,41 @@
+{
+  "name": "München: verheiratet, beide angestellt und gesetzlich versichert",
+  "beschreibung": "Kind noch nicht geboren; Mutter pausiert, Partner arbeitet 32 Stunden.",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-GEB-01", "ANF-MU-01", "ANF-MU-03", "ANF-EZ-01", "ANF-EG-03"],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2026-12-15",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "ja",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 95000,
+    "brutto_haushalt_monat": 7500,
+    "mutter.staatsangehoerigkeit": "deutsch",
+    "mutter.krankenversicherung": "gesetzlich_mitglied",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja",
+    "partner.staatsangehoerigkeit": "deutsch",
+    "partner.krankenversicherung": "gesetzlich_mitglied",
+    "partner.beschaeftigt": "ja",
+    "partner.erwerbsstunden_nach_geburt": 32,
+    "partner.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "ja",
+    "kindergeld": "ja",
+    "kinderzuschlag": "unklar",
+    "mutterschaftsgeld_krankenkasse": "ja",
+    "mutterschaftsgeld_bas": "nein",
+    "arbeitgeberzuschuss_mutterschaftsgeld": "ja",
+    "elternzeit": "ja",
+    "familienversicherung_kind": "ja",
+    "vaterschaftsanerkennung": "nein",
+    "sorgeerklaerung": "nein",
+    "bayerisches_familiengeld": "nein"
+  },
+  "erwartet_fehlend": []
+}

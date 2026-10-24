@@ -1,0 +1,115 @@
+{
+  "_hinweis": "Landesvarianten Bayern für das Lebensereignis Geburt.",
+  "quellen": [
+    {
+      "id": "fim_by_elterngeld",
+      "titel": "Leistungsbeschreibung Elterngeld Bayern (FIM-Portal, ZBFS)",
+      "url": "https://www.fimportal.de/api/v0/xzufi-services/L100042/26757/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Bayern / FIM",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis gefunden (Rückwirkung 3 Lebensmonate). Zuständigkeit ZBFS im Volltext bestätigen."
+    },
+    {
+      "id": "zbfs_elterngeld",
+      "titel": "ZBFS – Bayerisches Elterngeld (Antrag)",
+      "url": "https://www.zbfs.bayern.de/familie/elterngeld/",
+      "typ": "behoerde",
+      "herausgeber": "Zentrum Bayern Familie und Soziales",
+      "pruefstatus": "ungeprueft",
+      "notiz": "URL aus dieser Umgebung nicht erreichbar; bitte im Browser prüfen."
+    },
+    {
+      "id": "stmas_familiengeld_2024",
+      "titel": "StMAS-Infoblatt Familiengeld/Krippengeld (Stand 14.11.2024)",
+      "url": "https://stmas.bayern.de/imperia/md/content/stmas/stmas_inet/241114_infoblatt_homepage.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bayerisches Staatsministerium für Familie, Arbeit und Soziales",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Infoblatt 11/2024: Familiengeld nur für Kinder, die vor dem 1.1.2025 geboren sind. Spätere Landtagsdrucksachen (u. a. 19/8839) nennen den Stichtag 1.9.2026 mit einkommensabhängiger Übergangsregel bis 100.000 €. Beschlossene Fassung im GVBl. prüfen."
+    },
+    {
+      "id": "landtag_by_familiengeld",
+      "titel": "Bayerischer Landtag – Abstimmung 'Verzicht auf Kinderstartgeld und Reform des Familiengelds'",
+      "url": "https://www.abgeordnetenwatch.de/bayern/19/abstimmungen/verzicht-auf-kinderstartgeld-und-reform-des-familiengelds-aenderungsantrag/tabelle",
+      "typ": "sekundaer",
+      "herausgeber": "abgeordnetenwatch.de",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Das geplante Kinderstartgeld (3.000 €) wurde nicht eingeführt; Krippengeld und Familiengeld für neue Jahrgänge eingestellt. Stichtag widersprüchlich."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "zbfs_elterngeld",
+      "name": "Zentrum Bayern Familie und Soziales (ZBFS) – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in ganz Bayern; Antrag online möglich.",
+      "url": "https://www.zbfs.bayern.de/familie/elterngeld/",
+      "quellen": ["fim_by_elterngeld", "zbfs_elterngeld"]
+    },
+    {
+      "id": "zbfs_familiengeld",
+      "name": "Zentrum Bayern Familie und Soziales (ZBFS)",
+      "quellen": ["stmas_familiengeld_2024"]
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "bayerisches_familiengeld",
+      "name": "Bayerisches Familiengeld",
+      "kurz": "Landesleistung für Kinder im 2. und 3. Lebensjahr – wird für neue Geburtsjahrgänge abgeschafft.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "betraege": [
+        {"text": "nach altem Recht 250 € im Monat je Kind (ab dem 3. Kind 300 €), im 13. bis 36. Lebensmonat", "quellen": ["stmas_familiengeld_2024"]}
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_by",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "09",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "zbfs_elterngeld",
+      "quellen": ["beeg_1", "beeg_7", "fim_by_elterngeld", "zbfs_elterngeld"]
+    },
+    {
+      "id": "geburtsanzeige_by",
+      "leistung_id": "geburtsanzeige",
+      "gebiet_id": "09",
+      "erbt_von": "geburtsanzeige_bund",
+      "zustaendigkeit_id": "standesamt_geburtsort",
+      "hinweise": ["Für Ihre Gemeinde sind die Kontaktdaten des Standesamts noch nicht erfasst. Zuständig ist das Standesamt am Geburtsort (bei Klinikgeburt: Ort der Klinik)."]
+    },
+    {
+      "id": "bayerisches_familiengeld_by",
+      "leistung_id": "bayerisches_familiengeld",
+      "gebiet_id": "09",
+      "regel": {
+        "eine": [
+          {"fakt": "geburtsdatum_oder_termin", "op": "<", "wert": "2025-01-01", "text": "Kind vor dem 1.1.2025 geboren", "quellen": ["stmas_familiengeld_2024"]},
+          {
+            "alle": [
+              {"fakt": "geburtsdatum_oder_termin", "op": "<", "wert": "2026-09-01", "text": "Geburt vor dem 1.9.2026", "quellen": ["landtag_by_familiengeld"]},
+              {"pruefung_noetig": "Für Geburten zwischen 1.1.2025 und 31.8.2026 sind die Quellen widersprüchlich (Abschaffung ab 1.1.2025 oder Übergangsregel bis 31.8.2026 mit Einkommensgrenze 100.000 €). Bitte beim ZBFS nachfragen.", "quellen": ["stmas_familiengeld_2024", "landtag_by_familiengeld"]}
+            ]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "zbfs_familiengeld",
+      "quellen": ["stmas_familiengeld_2024", "landtag_by_familiengeld"],
+      "hinweise": ["Das 2025 angekündigte Bayerische Kinderstartgeld (3.000 €) wurde laut Berichten nicht eingeführt."],
+      "verfahren": {
+        "schritte": ["Beim ZBFS nachfragen, ob und in welcher Höhe für Ihr Kind noch Familiengeld gezahlt wird."]
+      }
+    }
+  ]
+}

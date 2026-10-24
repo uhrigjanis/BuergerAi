@@ -1,0 +1,54 @@
+{
+  "_hinweis": "Pilotkommune München (AGS 09162000): kommunale Varianten für das Lebensereignis Geburt.",
+  "quellen": [
+    {
+      "id": "muenchen_geburtsurkunde",
+      "titel": "Stadt München – Geburtsurkunde für Neugeborene",
+      "url": "https://stadt.muenchen.de/service/info/geburtsurkunde-neugeborene/1063604/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München, Standesamt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: Geburtenbüro München bzw. München-Pasing je nach Stadtteil; ca. 4 Wochen Bearbeitung ab vollständigen Unterlagen; 12 € je Urkunde; je eine gebührenfreie Urkunde für Elterngeld, Kindergeld und Mutterschaftshilfe."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "standesamt_muenchen",
+      "name": "Standesamt München (Geburtenbüro)",
+      "beschreibung": "Für Geburten in München. Je nach Stadtteil ist das Geburtenbüro München oder München-Pasing zuständig; die Klinik gibt dazu ein Merkblatt aus.",
+      "url": "https://stadt.muenchen.de/service/info/geburtsurkunde-neugeborene/1063604/",
+      "quellen": ["muenchen_geburtsurkunde"]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "geburtsanzeige_muenchen",
+      "leistung_id": "geburtsanzeige",
+      "gebiet_id": "09162000",
+      "erbt_von": "geburtsanzeige_bund",
+      "zustaendigkeit_id": "standesamt_muenchen",
+      "quellen": ["pstg_18", "muenchen_geburtsurkunde"],
+      "hinweise": ["Gilt für Geburten in München. Wurde das Kind anderswo geboren, ist das Standesamt dort zuständig."],
+      "verfahren": {
+        "unterlagen": [
+          "Unterschriebene Erklärung zum Namen des Kindes",
+          "Gültiger Personalausweis oder Reisepass der Eltern",
+          "Verheiratet: Eheurkunde bzw. Auszug aus dem Eheregister",
+          "Nicht verheiratet: Geburtsurkunde der Mutter, ggf. Urkunde über die Vaterschaftsanerkennung"
+        ],
+        "schritte": [
+          "Merkblatt der Klinik beachten: Es nennt das zuständige Geburtenbüro (München oder München-Pasing).",
+          "Unterlagen erst nach der Geburt einreichen.",
+          "Die gebührenfreien Urkunden für Elterngeld, Kindergeld und Mutterschaftshilfe mitbestellen."
+        ],
+        "fristen": [
+          {"text": "Geburt innerhalb einer Woche anzeigen (der Geburtstag zählt nicht mit)", "bezug": "geburt", "art": "spaetestens", "tage": 7, "quellen": ["pstg_18"]}
+        ],
+        "kosten": "12 € je Geburtsurkunde; je eine Urkunde für Elterngeld, Kindergeld und Mutterschaftshilfe gebührenfrei.",
+        "hinweise": ["Bearbeitungszeit derzeit etwa 4 Wochen ab vollständigen Unterlagen."]
+      }
+    }
+  ]
+}

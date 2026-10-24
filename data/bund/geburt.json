@@ -1,0 +1,510 @@
+{
+  "_hinweis": "Lebensereignis Geburt: Leistungen und Bundesvarianten. Landes- und Kommunalvarianten liegen unter data/laender bzw. data/kommunen.",
+  "zustaendigkeiten": [
+    {
+      "id": "standesamt_geburtsort",
+      "name": "Standesamt des Geburtsorts",
+      "beschreibung": "Zuständig ist das Standesamt der Gemeinde, in der das Kind geboren wurde – nicht unbedingt das am Wohnort."
+    },
+    {
+      "id": "jugendamt",
+      "name": "Jugendamt (Landkreis bzw. kreisfreie Stadt)",
+      "beschreibung": "Beurkundung beim Jugendamt ist kostenlos. Alternativ: Standesamt (nur Vaterschaft) oder Notar."
+    },
+    {"id": "krankenkasse_mutter", "name": "Krankenkasse der Mutter"},
+    {
+      "id": "bas",
+      "name": "Bundesamt für Soziale Sicherung (Mutterschaftsgeldstelle)",
+      "url": "https://www.bundesamtsozialesicherung.de/de/mutterschaftsgeld/",
+      "quellen": ["bas_mutterschaftsgeld"]
+    },
+    {"id": "arbeitgeber_mutter", "name": "Arbeitgeber der Mutter"},
+    {"id": "arbeitgeber", "name": "Arbeitgeber des jeweiligen Elternteils"},
+    {
+      "id": "elterngeldstelle_land",
+      "name": "Elterngeldstelle Ihres Bundeslandes",
+      "beschreibung": "Elterngeld wird von den Ländern ausgezahlt. Die zuständige Stelle hängt vom Bundesland (teils vom Kreis) ab."
+    },
+    {
+      "id": "familienkasse",
+      "name": "Familienkasse der Bundesagentur für Arbeit",
+      "url": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld",
+      "quellen": ["ba_kindergeld"]
+    },
+    {"id": "krankenkasse_eltern", "name": "Krankenkasse des gesetzlich versicherten Elternteils"}
+  ],
+  "leistungen": [
+    {
+      "id": "geburtsanzeige",
+      "name": "Geburt anzeigen und Geburtsurkunde erhalten",
+      "kurz": "Pflicht: Die Geburt muss beim Standesamt angezeigt werden. Die Geburtsurkunde brauchen Sie für fast alle weiteren Anträge.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht"
+    },
+    {
+      "id": "vaterschaftsanerkennung",
+      "name": "Vaterschaft anerkennen",
+      "kurz": "Bei nicht verheirateten Eltern ist der Vater erst nach Anerkennung rechtlich Vater (z. B. Eintrag in der Geburtsurkunde, Unterhalt, Erbrecht).",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt"
+    },
+    {
+      "id": "sorgeerklaerung",
+      "name": "Gemeinsame Sorgeerklärung",
+      "kurz": "Nicht verheiratete Eltern haben das gemeinsame Sorgerecht nur mit einer Sorgeerklärung; sonst hat es die Mutter allein.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt"
+    },
+    {
+      "id": "mutterschaftsgeld_krankenkasse",
+      "name": "Mutterschaftsgeld der Krankenkasse",
+      "kurz": "Ersatz für das Einkommen während der Mutterschutzfristen für gesetzlich versicherte Mitglieder.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "mutter",
+      "art": "geldleistung",
+      "betraege": [
+        {"text": "bis zu 13 € je Kalendertag während der Schutzfristen (der Arbeitgeber stockt auf)", "quellen": ["sgb5_24i"]}
+      ]
+    },
+    {
+      "id": "mutterschaftsgeld_bas",
+      "name": "Mutterschaftsgeld vom Bundesamt für Soziale Sicherung",
+      "kurz": "Für angestellte Mütter, die privat oder familienversichert sind.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "mutter",
+      "art": "geldleistung",
+      "betraege": [
+        {"text": "einmalig höchstens 210 € für die gesamte Schutzfrist", "quellen": ["muschg_19_20"]}
+      ]
+    },
+    {
+      "id": "arbeitgeberzuschuss_mutterschaftsgeld",
+      "name": "Arbeitgeberzuschuss zum Mutterschaftsgeld",
+      "kurz": "Der Arbeitgeber stockt das Mutterschaftsgeld während der Schutzfristen auf das bisherige Nettogehalt auf.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "mutter",
+      "art": "geldleistung",
+      "betraege": [
+        {"text": "Unterschied zwischen 13 € je Kalendertag und dem durchschnittlichen Nettoarbeitsentgelt", "quellen": ["muschg_19_20"]}
+      ]
+    },
+    {
+      "id": "elternzeit",
+      "name": "Elternzeit beim Arbeitgeber anmelden",
+      "kurz": "Unbezahlte Freistellung mit Kündigungsschutz, bis zu 3 Jahre je Elternteil.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "jeder_elternteil"
+    },
+    {
+      "id": "elterngeld",
+      "name": "Elterngeld",
+      "kurz": "Ersetzt einen Teil des wegfallenden Einkommens, wenn Sie nach der Geburt weniger oder gar nicht arbeiten.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "land",
+      "fuer": "jeder_elternteil",
+      "art": "geldleistung",
+      "voraussetzungen": ["geburtsanzeige"],
+      "betraege": [
+        {
+          "text": "Basiselterngeld: 65–67 % des wegfallenden Nettoeinkommens, mindestens 300 €, höchstens 1.800 € im Monat (ElterngeldPlus: halber Betrag, doppelt so lange). Genaue Höhe: offizieller Elterngeldrechner.",
+          "quellen": ["familienportal_elterngeld", "elterngeldrechner"]
+        }
+      ]
+    },
+    {
+      "id": "kindergeld",
+      "name": "Kindergeld",
+      "kurz": "Monatliche Zahlung für jedes Kind, unabhängig vom Einkommen.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "voraussetzungen": ["geburtsanzeige"],
+      "betraege": [
+        {"text": "255 € im Monat je Kind", "gueltig_ab": "2025-01-01", "gueltig_bis": "2025-12-31", "quellen": ["estg_66"]},
+        {"text": "259 € im Monat je Kind", "gueltig_ab": "2026-01-01", "quellen": ["estg_66"]}
+      ]
+    },
+    {
+      "id": "kinderzuschlag",
+      "name": "Kinderzuschlag",
+      "kurz": "Zusätzlich zum Kindergeld für Familien, deren Einkommen knapp nicht für alle reicht.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "voraussetzungen": ["kindergeld"],
+      "betraege": [
+        {"text": "bis zu 297 € im Monat je Kind", "gueltig_ab": "2026-01-01", "gueltig_bis": "2026-12-31", "quellen": ["bkgg_6a"]}
+      ]
+    },
+    {
+      "id": "familienversicherung_kind",
+      "name": "Kind in der Krankenkasse versichern",
+      "kurz": "Kinder sind in der Regel kostenlos über einen gesetzlich versicherten Elternteil familienversichert.",
+      "ereignisse": ["geburt"],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "voraussetzungen": ["geburtsanzeige"]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "geburtsanzeige_bund",
+      "leistung_id": "geburtsanzeige",
+      "gebiet_id": "DE",
+      "regel": {"alle": []},
+      "zustaendigkeit_id": "standesamt_geburtsort",
+      "quellen": ["pstg_18"],
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis oder Reisepass der Eltern",
+          "Verheiratet: Eheurkunde bzw. Auszug aus dem Eheregister",
+          "Nicht verheiratet: Geburtsurkunde der Mutter, ggf. Urkunde über die Vaterschaftsanerkennung",
+          "Erklärung zum Vornamen des Kindes"
+        ],
+        "schritte": [
+          "Bei einer Geburt in der Klinik meldet die Klinik die Geburt in der Regel an das Standesamt – fragen Sie dort nach, welche Unterlagen Sie nachreichen müssen.",
+          "Bei einer Hausgeburt zeigen die Eltern die Geburt selbst beim Standesamt an.",
+          "Unterlagen beim Standesamt einreichen und Geburtsurkunden bestellen (auch die gebührenfreien Bescheinigungen für Elterngeld, Kindergeld und Mutterschaftsgeld)."
+        ],
+        "fristen": [
+          {"text": "Geburt innerhalb einer Woche anzeigen (der Geburtstag zählt nicht mit)", "bezug": "geburt", "art": "spaetestens", "tage": 7, "quellen": ["pstg_18"]}
+        ],
+        "kosten": "Anzeige gebührenfrei; Urkunden kosten je nach Gemeinde Gebühren."
+      }
+    },
+    {
+      "id": "vaterschaftsanerkennung_bund",
+      "leistung_id": "vaterschaftsanerkennung",
+      "gebiet_id": "DE",
+      "regel": {
+        "fakt": "eltern_verheiratet", "op": "==", "wert": false,
+        "text": "Die Eltern sind nicht miteinander verheiratet",
+        "quellen": ["bgb_1592_1594"]
+      },
+      "zustaendigkeit_id": "jugendamt",
+      "quellen": ["bgb_1592_1594"],
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis oder Reisepass beider Eltern",
+          "Geburtsurkunden der Eltern",
+          "Nach der Geburt: Geburtsurkunde des Kindes; vorher: Mutterpass"
+        ],
+        "schritte": [
+          "Termin beim Jugendamt (kostenlos), Standesamt oder Notar vereinbaren.",
+          "Der Vater erkennt die Vaterschaft an, die Mutter stimmt zu – beide persönlich."
+        ],
+        "fristen": [
+          {"text": "Am besten schon vor der Geburt, damit der Vater gleich in die Geburtsurkunde eingetragen wird", "bezug": "keiner", "art": "empfohlen"}
+        ],
+        "kosten": "Beim Jugendamt kostenlos."
+      }
+    },
+    {
+      "id": "sorgeerklaerung_bund",
+      "leistung_id": "sorgeerklaerung",
+      "gebiet_id": "DE",
+      "regel": {
+        "fakt": "eltern_verheiratet", "op": "==", "wert": false,
+        "text": "Die Eltern sind nicht miteinander verheiratet",
+        "quellen": ["bgb_1626a"]
+      },
+      "zustaendigkeit_id": "jugendamt",
+      "quellen": ["bgb_1626a"],
+      "hinweise": ["Freiwillig: Ohne Sorgeerklärung hat die Mutter das alleinige Sorgerecht."],
+      "verfahren": {
+        "unterlagen": ["Personalausweis oder Reisepass beider Eltern", "Urkunde über die Vaterschaftsanerkennung"],
+        "schritte": ["Beide Eltern geben die Erklärung persönlich beim Jugendamt oder Notar ab (auch schon vor der Geburt möglich)."],
+        "kosten": "Beim Jugendamt kostenlos."
+      }
+    },
+    {
+      "id": "mutterschaftsgeld_krankenkasse_bund",
+      "leistung_id": "mutterschaftsgeld_krankenkasse",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {
+            "fakt": "mutter.krankenversicherung", "op": "==", "wert": "gesetzlich_mitglied",
+            "text": "Die Mutter ist selbst Mitglied einer gesetzlichen Krankenkasse",
+            "quellen": ["sgb5_24i"]
+          },
+          {
+            "eine": [
+              {"fakt": "mutter.beschaeftigt", "op": "==", "wert": true, "text": "Die Mutter ist angestellt", "quellen": ["sgb5_24i"]},
+              {"fakt": "mutter.krankengeldanspruch", "op": "==", "wert": true, "text": "Die Mutter hat Anspruch auf Krankengeld", "quellen": ["sgb5_24i"]}
+            ]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "krankenkasse_mutter",
+      "quellen": ["sgb5_24i", "familienportal_mutterschaft"],
+      "verfahren": {
+        "unterlagen": [
+          "Ärztliche Bescheinigung (oder von der Hebamme) über den errechneten Termin",
+          "Nach der Geburt: Geburtsbescheinigung für Mutterschaftsgeld (gebührenfrei vom Standesamt)"
+        ],
+        "schritte": [
+          "Bescheinigung über den errechneten Termin bei der Krankenkasse einreichen.",
+          "Der Krankenkasse nach der Geburt die Geburtsbescheinigung schicken.",
+          "Arbeitgeber informieren (für den Zuschuss)."
+        ],
+        "fristen": [
+          {"text": "Bescheinigung frühestens 7 Wochen vor dem errechneten Termin einreichen", "bezug": "termin", "art": "fruehestens", "wochen": -7, "quellen": ["familienportal_mutterschaft"]},
+          {"text": "Vor Beginn der Schutzfrist (6 Wochen vor dem Termin) beantragen", "bezug": "termin", "art": "empfohlen", "wochen": -6, "quellen": ["muschg_19_20"]}
+        ],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "mutterschaftsgeld_bas_bund",
+      "leistung_id": "mutterschaftsgeld_bas",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {"fakt": "mutter.beschaeftigt", "op": "==", "wert": true, "text": "Die Mutter ist angestellt", "quellen": ["muschg_19_20"]},
+          {
+            "fakt": "mutter.krankenversicherung", "op": "in", "wert": ["privat", "gesetzlich_familienversichert"],
+            "text": "Die Mutter ist privat oder familienversichert (kein eigenes Kassenmitglied)",
+            "quellen": ["muschg_19_20"]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "bas",
+      "quellen": ["muschg_19_20", "bas_mutterschaftsgeld"],
+      "verfahren": {
+        "unterlagen": ["Bescheinigung über den errechneten Termin", "Arbeitgeberbescheinigung"],
+        "schritte": ["Antrag beim Bundesamt für Soziale Sicherung stellen (online möglich)."],
+        "fristen": [
+          {"text": "Vor Beginn der Schutzfrist (6 Wochen vor dem Termin) beantragen", "bezug": "termin", "art": "empfohlen", "wochen": -6, "quellen": ["muschg_19_20"]}
+        ],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "arbeitgeberzuschuss_mutterschaftsgeld_bund",
+      "leistung_id": "arbeitgeberzuschuss_mutterschaftsgeld",
+      "gebiet_id": "DE",
+      "regel": {"fakt": "mutter.beschaeftigt", "op": "==", "wert": true, "text": "Die Mutter ist angestellt", "quellen": ["muschg_19_20"]},
+      "zustaendigkeit_id": "arbeitgeber_mutter",
+      "quellen": ["muschg_19_20"],
+      "verfahren": {
+        "schritte": ["Arbeitgeber über Schwangerschaft und errechneten Termin informieren; der Zuschuss wird mit dem Gehalt gezahlt."],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "elternzeit_bund",
+      "leistung_id": "elternzeit",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {"fakt": "person.beschaeftigt", "op": "==", "wert": true, "text": "Ist angestellt", "quellen": ["beeg_15_16"]},
+          {"fakt": "kind_lebt_im_haushalt", "op": "==", "wert": true, "text": "Das Kind lebt im eigenen Haushalt", "quellen": ["beeg_15_16"]},
+          {"fakt": "person.betreut_kind_selbst", "op": "==", "wert": true, "text": "Betreut und erzieht das Kind selbst", "quellen": ["beeg_15_16"]}
+        ]
+      },
+      "zustaendigkeit_id": "arbeitgeber",
+      "quellen": ["beeg_15_16"],
+      "verfahren": {
+        "schritte": [
+          "Elternzeit schriftlich (mit eigenhändiger Unterschrift) beim Arbeitgeber anmelden.",
+          "Für die ersten zwei Jahre verbindlich festlegen, in welchen Zeiträumen Elternzeit genommen wird."
+        ],
+        "fristen": [
+          {"text": "Spätestens 7 Wochen vor Beginn anmelden – hier für einen Beginn ab dem errechneten Termin", "bezug": "termin", "art": "spaetestens", "wochen": -7, "quellen": ["beeg_15_16"]},
+          {"text": "Mutter mit Beginn direkt nach der Schutzfrist (8 Wochen nach der Geburt): Anmeldung etwa 1 Woche nach der Geburt", "bezug": "geburt", "art": "spaetestens", "wochen": 1, "quellen": ["beeg_15_16"]}
+        ],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "elterngeld_bund",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {"fakt": "wohnsitz_in_deutschland", "op": "==", "wert": true, "text": "Wohnsitz in Deutschland", "quellen": ["beeg_1"]},
+          {"fakt": "kind_lebt_im_haushalt", "op": "==", "wert": true, "text": "Das Kind lebt im eigenen Haushalt", "quellen": ["beeg_1"]},
+          {"fakt": "person.betreut_kind_selbst", "op": "==", "wert": true, "text": "Betreut und erzieht das Kind selbst", "quellen": ["beeg_1"]},
+          {"fakt": "person.erwerbsstunden_nach_geburt", "op": "<=", "wert": 32, "text": "Arbeitet höchstens 32 Stunden pro Woche", "quellen": ["beeg_1"]},
+          {
+            "eine": [
+              {"fakt": "person.staatsangehoerigkeit", "op": "in", "wert": ["deutsch", "eu_ewr_ch"], "text": "Deutsche oder EU/EWR/Schweizer Staatsangehörigkeit", "quellen": ["beeg_1"]},
+              {"pruefung_noetig": "Bei anderer Staatsangehörigkeit hängt der Anspruch vom Aufenthaltstitel ab (§ 1 Abs. 7 BEEG) – bitte bei der Elterngeldstelle klären.", "quellen": ["beeg_1"]}
+            ]
+          },
+          {
+            "eine": [
+              {
+                "alle": [
+                  {"fakt": "geburtsdatum_oder_termin", "op": ">=", "wert": "2025-04-01", "text": "Geburt ab dem 1.4.2025", "quellen": ["beeg_1"]},
+                  {"fakt": "zve_eltern", "op": "<=", "wert": 175000, "text": "Zu versteuerndes Einkommen höchstens 175.000 €", "quellen": ["beeg_1"]}
+                ]
+              },
+              {
+                "alle": [
+                  {"fakt": "geburtsdatum_oder_termin", "op": ">=", "wert": "2024-04-01", "text": "Geburt ab dem 1.4.2024", "quellen": ["beeg_1"]},
+                  {"fakt": "geburtsdatum_oder_termin", "op": "<", "wert": "2025-04-01", "text": "Geburt vor dem 1.4.2025", "quellen": ["beeg_1"]},
+                  {"fakt": "zve_eltern", "op": "<=", "wert": 200000, "text": "Zu versteuerndes Einkommen höchstens 200.000 €", "quellen": ["beeg_1"]}
+                ]
+              },
+              {
+                "alle": [
+                  {"fakt": "geburtsdatum_oder_termin", "op": "<", "wert": "2024-04-01", "text": "Geburt vor dem 1.4.2024", "quellen": ["beeg_1"]},
+                  {"pruefung_noetig": "Für Geburten vor dem 1.4.2024 galten andere Einkommensgrenzen – nicht im Pilotumfang."}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "elterngeldstelle_land",
+      "quellen": ["beeg_1", "beeg_7", "familienportal_elterngeld"],
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsbescheinigung für Elterngeld (gebührenfrei vom Standesamt)",
+          "Einkommensnachweise der 12 Monate vor der Geburt (Selbstständige: Steuerbescheid)",
+          "Bescheinigung der Krankenkasse über Mutterschaftsgeld und Bescheinigung des Arbeitgeberzuschusses",
+          "Ggf. Arbeitszeitbestätigung des Arbeitgebers"
+        ],
+        "schritte": [
+          "Mit dem offiziellen Elterngeldrechner Höhe und Aufteilung der Monate planen.",
+          "Bezugsmonate mit dem anderen Elternteil abstimmen.",
+          "Antrag bei der Elterngeldstelle stellen (in vielen Ländern online)."
+        ],
+        "fristen": [
+          {"text": "Bis zum Ende des 3. Lebensmonats beantragen – rückwirkend wird höchstens für 3 Lebensmonate vor dem Antragsmonat gezahlt", "bezug": "geburt", "art": "empfohlen", "monate": 3, "tage": -1, "quellen": ["beeg_7"]}
+        ],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "kindergeld_bund",
+      "leistung_id": "kindergeld",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {"fakt": "wohnsitz_in_deutschland", "op": "==", "wert": true, "text": "Wohnsitz in Deutschland", "quellen": ["estg_62"]},
+          {"fakt": "kind_lebt_im_haushalt", "op": "==", "wert": true, "text": "Das Kind lebt im eigenen Haushalt", "quellen": ["estg_62"]},
+          {
+            "eine": [
+              {"fakt": "mutter.staatsangehoerigkeit", "op": "in", "wert": ["deutsch", "eu_ewr_ch"], "text": "Die Mutter hat die deutsche oder eine EU/EWR/Schweizer Staatsangehörigkeit", "quellen": ["estg_62"]},
+              {
+                "alle": [
+                  {"fakt": "partner_im_haushalt", "op": "==", "wert": true, "text": "Der andere Elternteil lebt im Haushalt"},
+                  {"fakt": "partner.staatsangehoerigkeit", "op": "in", "wert": ["deutsch", "eu_ewr_ch"], "text": "Der andere Elternteil hat die deutsche oder eine EU/EWR/Schweizer Staatsangehörigkeit", "quellen": ["estg_62"]}
+                ]
+              },
+              {"pruefung_noetig": "Bei anderer Staatsangehörigkeit hängt der Anspruch vom Aufenthaltstitel ab (§ 62 Abs. 2 EStG) – bitte bei der Familienkasse klären.", "quellen": ["estg_62"]}
+            ]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "familienkasse",
+      "quellen": ["estg_62", "estg_66", "ba_kindergeld"],
+      "verfahren": {
+        "unterlagen": [
+          "Steuer-Identifikationsnummer des Kindes (kommt nach der Geburtsanzeige automatisch per Post)",
+          "Steuer-Identifikationsnummer des antragstellenden Elternteils",
+          "Ggf. Geburtsbescheinigung für Kindergeld"
+        ],
+        "schritte": [
+          "Auf die Steuer-ID des Kindes warten.",
+          "Antrag bei der Familienkasse stellen (online oder per Formular)."
+        ],
+        "fristen": [
+          {"text": "Innerhalb von 6 Monaten nach der Geburt beantragen – rückwirkend wird höchstens 6 Monate gezahlt", "bezug": "geburt", "art": "empfohlen", "monate": 6, "quellen": ["estg_66"]}
+        ],
+        "kosten": "kostenlos",
+        "online_url": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld"
+      }
+    },
+    {
+      "id": "kinderzuschlag_bund",
+      "leistung_id": "kinderzuschlag",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {"fakt": "kind_lebt_im_haushalt", "op": "==", "wert": true, "text": "Das Kind lebt im eigenen Haushalt", "quellen": ["bkgg_6a"]},
+          {
+            "eine": [
+              {
+                "alle": [
+                  {"fakt": "partner_im_haushalt", "op": "==", "wert": true, "text": "Elternpaar"},
+                  {"fakt": "brutto_haushalt_monat", "op": ">=", "wert": 900, "text": "Mindesteinkommen für Elternpaare: 900 € brutto im Monat", "quellen": ["bkgg_6a"]}
+                ]
+              },
+              {
+                "alle": [
+                  {"fakt": "partner_im_haushalt", "op": "==", "wert": false, "text": "Alleinerziehend"},
+                  {"fakt": "brutto_haushalt_monat", "op": ">=", "wert": 600, "text": "Mindesteinkommen für Alleinerziehende: 600 € brutto im Monat", "quellen": ["bkgg_6a"]}
+                ]
+              }
+            ]
+          },
+          {"pruefung_noetig": "Ob das Einkommen für den Bedarf der Familie knapp nicht reicht, lässt sich nur mit einer Bedarfsrechnung klären – bitte den KiZ-Lotsen der Familienkasse nutzen.", "quellen": ["kiz_lotse"]}
+        ]
+      },
+      "zustaendigkeit_id": "familienkasse",
+      "quellen": ["bkgg_6a", "kiz_lotse"],
+      "verfahren": {
+        "unterlagen": ["Einkommensnachweise der letzten 6 Monate", "Nachweise über Wohnkosten (Miete, Nebenkosten)"],
+        "schritte": ["Mit dem KiZ-Lotsen vorab prüfen.", "Antrag bei der Familienkasse stellen (online möglich)."],
+        "kosten": "kostenlos",
+        "online_url": "https://www.arbeitsagentur.de/familie-und-kinder/kiz-lotse"
+      }
+    },
+    {
+      "id": "familienversicherung_kind_bund",
+      "leistung_id": "familienversicherung_kind",
+      "gebiet_id": "DE",
+      "regel": {
+        "alle": [
+          {
+            "eine": [
+              {"fakt": "mutter.krankenversicherung", "op": "in", "wert": ["gesetzlich_mitglied", "gesetzlich_familienversichert"], "text": "Die Mutter ist gesetzlich versichert", "quellen": ["sgb5_10"]},
+              {
+                "alle": [
+                  {"fakt": "partner_im_haushalt", "op": "==", "wert": true, "text": "Der andere Elternteil lebt im Haushalt"},
+                  {"fakt": "partner.krankenversicherung", "op": "in", "wert": ["gesetzlich_mitglied", "gesetzlich_familienversichert"], "text": "Der andere Elternteil ist gesetzlich versichert", "quellen": ["sgb5_10"]}
+                ]
+              }
+            ]
+          },
+          {
+            "eine": [
+              {"nicht": {"fakt": "eltern_verheiratet", "op": "==", "wert": true, "text": "verheiratet"}, "text": "Die Eltern sind nicht verheiratet (Sonderregel für Ehepaare greift nicht)", "quellen": ["sgb5_10"]},
+              {
+                "alle": [
+                  {"fakt": "mutter.krankenversicherung", "op": "in", "wert": ["gesetzlich_mitglied", "gesetzlich_familienversichert"], "text": "Die Mutter ist gesetzlich versichert"},
+                  {"fakt": "partner.krankenversicherung", "op": "in", "wert": ["gesetzlich_mitglied", "gesetzlich_familienversichert"], "text": "Der andere Elternteil ist gesetzlich versichert"}
+                ]
+              },
+              {"pruefung_noetig": "Verheiratet und ein Elternteil privat versichert: Familienversicherung ist ausgeschlossen, wenn dieser Elternteil mehr verdient und über der Jahresarbeitsentgeltgrenze liegt (§ 10 Abs. 3 SGB V) – bitte bei der Krankenkasse klären.", "quellen": ["sgb5_10"]}
+            ]
+          }
+        ]
+      },
+      "zustaendigkeit_id": "krankenkasse_eltern",
+      "quellen": ["sgb5_10"],
+      "verfahren": {
+        "unterlagen": ["Geburtsurkunde des Kindes", "Fragebogen zur Familienversicherung der Krankenkasse"],
+        "schritte": ["Kind bei der Krankenkasse des gesetzlich versicherten Elternteils anmelden."],
+        "fristen": [
+          {"text": "Möglichst bald nach der Geburt anmelden (für Arzttermine und die U-Untersuchungen)", "bezug": "keiner", "art": "empfohlen"}
+        ],
+        "kosten": "kostenlos"
+      }
+    }
+  ]
+}

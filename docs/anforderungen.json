@@ -1,0 +1,64 @@
+{
+  "_hinweis": "Anforderungen der Phase 1. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "anforderungen": [
+    {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ einer Pilotkommune wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
+    {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
+    {"id": "ANF-GEB-03", "bereich": "Gebiete", "titel": "Mehrdeutige PLZ führt zur Rückfrage nach der Gemeinde"},
+    {"id": "ANF-GEB-04", "bereich": "Gebiete", "titel": "Nicht erfasste PLZ: Bitte um Bundesland, dann Fallback auf Landes- und Bundesdaten"},
+    {"id": "ANF-GEB-05", "bereich": "Gebiete", "titel": "Ungültige PLZ wird mit verständlicher Meldung abgelehnt"},
+
+    {"id": "ANF-DAT-01", "bereich": "Datenmodell", "titel": "Spezifischste gültige Variante wird gewählt (Gemeinde > Kreis > Land > Bund)"},
+    {"id": "ANF-DAT-02", "bereich": "Datenmodell", "titel": "Gültigkeitszeiträume von Varianten und Beträgen gelten zum Stichtag"},
+    {"id": "ANF-DAT-03", "bereich": "Datenmodell", "titel": "Abdeckungsstatus: vollständig bzw. allgemein (Fallback auf höhere Ebene)"},
+    {"id": "ANF-DAT-04", "bereich": "Datenmodell", "titel": "Nicht-Pilotgebiete erzeugen eine Warnung statt stiller Lücken"},
+    {"id": "ANF-DAT-05", "bereich": "Datenmodell", "titel": "Jede Variante hat Quellen; je Eintrag wird der schlechteste Prüfstatus angezeigt"},
+    {"id": "ANF-DAT-06", "bereich": "Datenmodell", "titel": "Konsistenzprüfung erkennt kaputte Verweise, unbekannte Fakten/Operatoren und Bedingungen ohne Text"},
+    {"id": "ANF-DAT-07", "bereich": "Datenmodell", "titel": "Varianten können Regel, Verfahren und Quellen erben (erbt_von)"},
+
+    {"id": "ANF-ENG-01", "bereich": "Regel-Engine", "titel": "Dreiwertige Logik (Ja/Nein/Unklar) für alle, eine, nicht"},
+    {"id": "ANF-ENG-02", "bereich": "Regel-Engine", "titel": "Fehlende Angaben ergeben Unklar, nie Nein"},
+    {"id": "ANF-ENG-03", "bereich": "Regel-Engine", "titel": "Rückfragen nur für Angaben, die das Ergebnis noch ändern können"},
+    {"id": "ANF-ENG-04", "bereich": "Regel-Engine", "titel": "'Weiß nicht' ergibt Unklar ohne erneute Rückfrage"},
+    {"id": "ANF-ENG-05", "bereich": "Regel-Engine", "titel": "Nicht regelbasiert entscheidbare Voraussetzungen ergeben höchstens Unklar"},
+    {"id": "ANF-ENG-06", "bereich": "Regel-Engine", "titel": "Jedes Ergebnis ist mit Begründung und Quellen nachvollziehbar"},
+    {"id": "ANF-ENG-07", "bereich": "Regel-Engine", "titel": "Datumsvergleiche in Regeln"},
+    {"id": "ANF-ENG-08", "bereich": "Regel-Engine", "titel": "Leistungen je Elternteil werden pro Person geprüft"},
+
+    {"id": "ANF-FRI-01", "bereich": "Fristen", "titel": "Fristen ab Geburtsdatum, vor der Geburt ab errechnetem Termin als 'voraussichtlich'"},
+    {"id": "ANF-FRI-02", "bereich": "Fristen", "titel": "Monatsarithmetik am Monatsende korrekt"},
+    {"id": "ANF-FRI-03", "bereich": "Fristen", "titel": "Abgelaufene Fristen werden markiert"},
+
+    {"id": "ANF-CHK-01", "bereich": "Checkliste", "titel": "Voraussetzungen stehen vor abhängigen Leistungen"},
+    {"id": "ANF-CHK-02", "bereich": "Checkliste", "titel": "Reihenfolge: Ja vor Unklar vor Nein, innerhalb nach nächster Frist"},
+
+    {"id": "ANF-GA-01", "bereich": "Fachregeln Bund", "titel": "Geburtsanzeige immer nötig, Frist eine Woche nach der Geburt"},
+    {"id": "ANF-VA-01", "bereich": "Fachregeln Bund", "titel": "Vaterschaftsanerkennung und Sorgeerklärung nur bei nicht verheirateten Eltern"},
+    {"id": "ANF-MU-01", "bereich": "Fachregeln Bund", "titel": "Mutterschaftsgeld der Krankenkasse: GKV-Mitglied und angestellt oder Krankengeldanspruch"},
+    {"id": "ANF-MU-02", "bereich": "Fachregeln Bund", "titel": "Mutterschaftsgeld vom BAS: angestellt und privat oder familienversichert"},
+    {"id": "ANF-MU-03", "bereich": "Fachregeln Bund", "titel": "Arbeitgeberzuschuss bei Beschäftigung der Mutter"},
+    {"id": "ANF-EZ-01", "bereich": "Fachregeln Bund", "titel": "Elternzeit nur für angestellte Elternteile"},
+    {"id": "ANF-EG-01", "bereich": "Fachregeln Bund", "titel": "Elterngeld: Einkommensgrenze 175.000 € für Geburten ab 1.4.2025"},
+    {"id": "ANF-EG-02", "bereich": "Fachregeln Bund", "titel": "Elterngeld: Einkommensgrenze 200.000 € für Geburten 1.4.2024–31.3.2025"},
+    {"id": "ANF-EG-03", "bereich": "Fachregeln Bund", "titel": "Elterngeld: höchstens 32 Wochenstunden Erwerbstätigkeit"},
+    {"id": "ANF-EG-04", "bereich": "Fachregeln Bund", "titel": "Elterngeld: andere Staatsangehörigkeit ergibt Unklar (Aufenthaltstitel)"},
+    {"id": "ANF-EG-05", "bereich": "Fachregeln Bund", "titel": "Elterngeld: alleinerziehend wird nur die Mutter geprüft"},
+    {"id": "ANF-EG-06", "bereich": "Fachregeln Bund", "titel": "Elterngeld-Frist: Antrag bis Ende des 3. Lebensmonats"},
+    {"id": "ANF-KG-01", "bereich": "Fachregeln Bund", "titel": "Kindergeld: 255 € (2025), 259 € (ab 2026)"},
+    {"id": "ANF-KG-02", "bereich": "Fachregeln Bund", "titel": "Kindergeld: deutsche/EU-Staatsangehörigkeit eines Elternteils genügt, sonst Unklar"},
+    {"id": "ANF-KG-03", "bereich": "Fachregeln Bund", "titel": "Kindergeld-Frist: 6 Monate rückwirkend"},
+    {"id": "ANF-KV-01", "bereich": "Fachregeln Bund", "titel": "Familienversicherung: beide GKV ja, keiner GKV nein, verheiratet mit privat versichertem Elternteil unklar"},
+    {"id": "ANF-KZ-01", "bereich": "Fachregeln Bund", "titel": "Kinderzuschlag: unter Mindesteinkommen Nein, sonst höchstens Unklar"},
+
+    {"id": "ANF-BY-01", "bereich": "Pilotland Bayern", "titel": "Elterngeld in Bayern: Zuständigkeit ZBFS"},
+    {"id": "ANF-BY-02", "bereich": "Pilotland Bayern", "titel": "Familiengeld: Unklar für Geburten 1.1.2025–31.8.2026 (widersprüchliche Quellen), Nein ab 1.9.2026"},
+    {"id": "ANF-BY-03", "bereich": "Pilotland Bayern", "titel": "München: Standesamt München vollständig erfasst; Freising: Fallback auf Landesdaten"},
+
+    {"id": "ANF-CLI-01", "bereich": "Terminal", "titel": "Bericht über 'pruefen', auch als JSON"},
+    {"id": "ANF-CLI-02", "bereich": "Terminal", "titel": "Interaktiver Modus fragt nur fehlende Angaben und akzeptiert 'weiß nicht'"},
+    {"id": "ANF-CLI-03", "bereich": "Terminal", "titel": "Szenarien laden und gegen Erwartungen prüfen"},
+    {"id": "ANF-CLI-04", "bereich": "Terminal", "titel": "Fehlerhafte Eingaben werden verständlich gemeldet"},
+
+    {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
+    {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
+  ]
+}

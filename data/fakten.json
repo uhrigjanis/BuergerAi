@@ -1,0 +1,122 @@
+{
+  "_hinweis": "Faktenkatalog: alle Angaben, die Regeln abfragen dürfen. 'person.'-Fakten gibt es je Elternteil (mutter./partner.).",
+  "fakten": [
+    {
+      "id": "wohnsitz_in_deutschland",
+      "typ": "ja_nein",
+      "frage": "Wohnen Sie in Deutschland?",
+      "abgeleitet": true,
+      "hilfe": "Wird automatisch gesetzt, sobald der Wohnort aufgelöst wurde."
+    },
+    {
+      "id": "wohnsitz_land",
+      "typ": "text",
+      "frage": "In welchem Bundesland wohnen Sie?",
+      "abgeleitet": true,
+      "hilfe": "Wird automatisch aus dem Wohnort abgeleitet (Kürzel, z. B. BY)."
+    },
+    {
+      "id": "geburtsdatum_oder_termin",
+      "typ": "datum",
+      "frage": "Geburtsdatum oder errechneter Termin",
+      "abgeleitet": true,
+      "hilfe": "Geburtsdatum, falls das Kind geboren ist, sonst der errechnete Termin."
+    },
+    {
+      "id": "kind_geboren",
+      "typ": "ja_nein",
+      "grunddaten": true,
+      "frage": "Ist das Kind schon geboren?"
+    },
+    {
+      "id": "geburtsdatum",
+      "typ": "datum",
+      "grunddaten": true,
+      "nur_wenn": {"fakt": "kind_geboren", "wert": true},
+      "frage": "Wann wurde das Kind geboren? (TT.MM.JJJJ)"
+    },
+    {
+      "id": "errechneter_termin",
+      "typ": "datum",
+      "grunddaten": true,
+      "nur_wenn": {"fakt": "kind_geboren", "wert": false},
+      "frage": "Wann ist der errechnete Geburtstermin? (TT.MM.JJJJ)"
+    },
+    {
+      "id": "kind_lebt_im_haushalt",
+      "typ": "ja_nein",
+      "frage": "Lebt das Kind (nach der Geburt) bei Ihnen im Haushalt?"
+    },
+    {
+      "id": "partner_im_haushalt",
+      "typ": "ja_nein",
+      "grunddaten": true,
+      "frage": "Lebt der andere Elternteil mit im Haushalt?",
+      "hilfe": "Nein bedeutet: Sie sind alleinerziehend."
+    },
+    {
+      "id": "eltern_verheiratet",
+      "typ": "ja_nein",
+      "frage": "Sind die Eltern miteinander verheiratet?"
+    },
+    {
+      "id": "zve_eltern",
+      "typ": "zahl",
+      "frage": "Wie hoch war das zu versteuernde Einkommen im letzten Kalenderjahr vor der Geburt (beide Eltern zusammen, bei Alleinerziehenden allein) in Euro?",
+      "hilfe": "Steht im Einkommensteuerbescheid (\"zu versteuerndes Einkommen\"). Das ist nicht das Bruttogehalt, sondern meist deutlich weniger."
+    },
+    {
+      "id": "brutto_haushalt_monat",
+      "typ": "zahl",
+      "frage": "Wie hoch ist das monatliche Bruttoeinkommen des Haushalts in Euro?",
+      "hilfe": "Erwerbseinkommen aller Erwachsenen im Haushalt vor Abzügen."
+    },
+    {
+      "id": "person.staatsangehoerigkeit",
+      "je_person": true,
+      "typ": "auswahl",
+      "frage": "Welche Staatsangehörigkeit hat {wer}?",
+      "optionen": [
+        {"wert": "deutsch", "text": "deutsch"},
+        {"wert": "eu_ewr_ch", "text": "EU, EWR oder Schweiz"},
+        {"wert": "andere", "text": "andere"}
+      ]
+    },
+    {
+      "id": "person.krankenversicherung",
+      "je_person": true,
+      "typ": "auswahl",
+      "frage": "Wie ist {wer} krankenversichert?",
+      "optionen": [
+        {"wert": "gesetzlich_mitglied", "text": "gesetzlich, eigenes Mitglied (pflicht- oder freiwillig versichert)"},
+        {"wert": "gesetzlich_familienversichert", "text": "gesetzlich, familienversichert"},
+        {"wert": "privat", "text": "privat"},
+        {"wert": "keine", "text": "nicht versichert"}
+      ]
+    },
+    {
+      "id": "person.beschaeftigt",
+      "je_person": true,
+      "typ": "ja_nein",
+      "frage": "Ist {wer} angestellt (Arbeitsverhältnis, auch Minijob oder Ausbildung)?"
+    },
+    {
+      "id": "person.erwerbsstunden_nach_geburt",
+      "je_person": true,
+      "typ": "zahl",
+      "frage": "Wie viele Stunden pro Woche wird {wer} in der Elterngeldzeit durchschnittlich arbeiten? (0, wenn gar nicht)"
+    },
+    {
+      "id": "person.betreut_kind_selbst",
+      "je_person": true,
+      "typ": "ja_nein",
+      "frage": "Wird {wer} das Kind selbst betreuen und erziehen?"
+    },
+    {
+      "id": "mutter.krankengeldanspruch",
+      "typ": "ja_nein",
+      "frage": "Hat die Mutter Anspruch auf Krankengeld (z. B. freiwillig versichert mit Krankengeld oder Bezug von Arbeitslosengeld I)?",
+      "hilfe": "Nur relevant, wenn die Mutter nicht angestellt ist."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "München: alleinerziehend, Staatsangehörigkeit außerhalb EU, geringes Einkommen",
+  "beschreibung": "Zeigt ehrliche 'unklar'-Ergebnisse, wenn der Aufenthaltstitel entscheidet.",
+  "plz": "81667",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-EG-04", "ANF-EG-05", "ANF-KG-02", "ANF-ENG-05"],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-02-01",
+    "partner_im_haushalt": "nein",
+    "eltern_verheiratet": "nein",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 28000,
+    "brutto_haushalt_monat": 1800,
+    "mutter.staatsangehoerigkeit": "andere",
+    "mutter.krankenversicherung": "gesetzlich_mitglied",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "unklar",
+    "kindergeld": "unklar",
+    "kinderzuschlag": "unklar",
+    "mutterschaftsgeld_krankenkasse": "ja",
+    "mutterschaftsgeld_bas": "nein",
+    "arbeitgeberzuschuss_mutterschaftsgeld": "ja",
+    "elternzeit": "ja",
+    "familienversicherung_kind": "ja",
+    "vaterschaftsanerkennung": "ja",
+    "sorgeerklaerung": "ja",
+    "bayerisches_familiengeld": "nein"
+  },
+  "erwartet_fehlend": []
+}

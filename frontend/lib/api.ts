@@ -1,4 +1,5 @@
 // API Client for BuergerAI Frontend
+// Optimiert für GitHub Codespaces und lokale Entwicklung
 
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import {
@@ -12,10 +13,60 @@ import {
 } from '@/types';
 
 // ============================================================================
-// API Configuration
+// API Configuration - Intelligente URL-Erkennung für Codespaces
 // ============================================================================
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+/**
+ * Normalisiert eine API-URL und stellt sicher, dass es genau ein Protokoll gibt
+ * und keine doppelten Slashes oder Protokolle enthalten sind.
+ */
+function normalizeApiUrl(rawUrl?: string): string {
+  if (!rawUrl) {
+    return 'http://localhost:8000';
+  }
+  
+  // Entferne alle Protokolle (http://, https://) vom Anfang
+  let url = rawUrl.replace(/^https?:\/\//, '');
+  
+  // Entferne führende Slashes
+  url = url.replace(/^\/+/, '');
+  
+  // Entferne eventuell übrig gebliebene doppelte Protokolle
+  url = url.replace(/^https?:\/\//, '');
+  
+  // Füge genau ein Protokoll hinzu
+  if (url.startsWith('localhost') || url.startsWith('127.0.0.1')) {
+    return `http://${url}`;
+  }
+  
+  // Für Codespaces und externe URLs: immer https
+  return `https://${url}`;
+}
+
+/**
+ * Erkennt automatisch, ob wir in GitHub Codespaces laufen
+ * und konstruiert die passende Backend-URL
+ */
+function getBackendUrl(): string {
+  // 1. Prüfe, ob NEXT_PUBLIC_API_URL explizit gesetzt ist
+  const explicitUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (explicitUrl) {
+    return normalizeApiUrl(explicitUrl);
+  }
+  
+  // 2. Versuche, die Codespaces-Umgebung zu erkennen
+  // In Codespaces ist CODESPACE_NAME gesetzt
+  if (typeof process !== 'undefined' && process.env.CODESPACE_NAME) {
+    // Backend-Port in Codespaces
+    return `https://${process.env.CODESPACE_NAME}-8000.githubpreview.dev`;
+  }
+  
+  // 3. Fallback für lokale Entwicklung
+  return 'http://localhost:8000';
+}
+
+// API Base URL - wird automatisch für Codespaces und lokal angepasst
+const API_BASE_URL = getBackendUrl();
 
 // Create axios instance with default configuration
 const apiClient: AxiosInstance = axios.create({
@@ -29,7 +80,10 @@ const apiClient: AxiosInstance = axios.create({
 // Add request interceptor for logging
 apiClient.interceptors.request.use(
   (config) => {
-    // Can add auth token here if needed
+    // In Entwicklung: Logge die Request-URL
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
+    }
     return config;
   },
   (error) => {
@@ -41,10 +95,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    // Handle specific error cases
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
       const status = error.response.status;
       
       if (status === 400) {
@@ -57,10 +108,8 @@ apiClient.interceptors.response.use(
         throw new Error('Serverfehler: Bitte versuchen Sie es später noch einmal');
       }
     } else if (error.request) {
-      // The request was made but no response was received
-      throw new Error('Keine Antwort vom Server. Bitte überprüfen Sie Ihre Internetverbindung.');
+      throw new Error('Keine Antwort vom Server. Bitte überprüfen Sie Ihre Internetverbindung oder ob das Backend läuft.');
     } else {
-      // Something happened in setting up the request
       throw new Error('Anfragefehler: ' + error.message);
     }
   }
@@ -80,7 +129,7 @@ export const checkHealth = async (): Promise<boolean> => {
   }
 };
 
-// Main request: Get checklist
+// Main request: Get checklist with details
 export const fetchChecklist = async (
   plz: string,
   situationen: string[],
@@ -94,7 +143,6 @@ export const fetchChecklist = async (
 
   const response = await apiClient.post('/api/anfrage/details', request);
   
-  // Transform the response to match our expected format
   const result: AnfrageResult = {
     checkliste: response.data.checkliste || [],
     zusammenfassung: response.data.zusammenfassung || {
@@ -209,9 +257,7 @@ export const searchLeistungen = async (
 
 // Format PLZ to ensure it's 5 digits
 export const formatPlz = (plz: string): string => {
-  // Remove all non-digit characters
   const cleaned = plz.replace(/\D/g, '');
-  // Pad with leading zeros if necessary
   return cleaned.padStart(5, '0');
 };
 
@@ -228,8 +274,7 @@ export const getAvailableSituationen = async (): Promise<string[]> => {
     const situationenSet = new Set<string>();
     
     leistungen.forEach((leistung) => {
-      leistung.tags.forEach((tag) => {
-        // Extract life situations from tags
+      leistung.tags?.forEach((tag) => {
         const lifeSituations = [
           'Schwangerschaft', 'Geburt', 'Heirat', 'Trennung', 'Tod',
           'Arbeitslosigkeit', 'Erkrankung', 'Pflege', 'Umzug',
@@ -243,7 +288,7 @@ export const getAvailableSituationen = async (): Promise<string[]> => {
       });
     });
     
-    // Add common life situations that might not be in tags
+    // Add common life situations
     const commonSituationen = [
       'Schwangerschaft', 'Geburt', 'Heirat', 'Trennung', 'Scheidung',
       'Tod', 'Arbeitslosigkeit', 'Erkrankung', 'Pflege', 'Umzug',
@@ -255,7 +300,6 @@ export const getAvailableSituationen = async (): Promise<string[]> => {
     
     return Array.from(situationenSet).sort();
   } catch {
-    // Return default list if API fails
     return [
       'Schwangerschaft',
       'Geburt',
@@ -277,6 +321,11 @@ export const getAvailableSituationen = async (): Promise<string[]> => {
       'Schwerbehinderung'
     ];
   }
+};
+
+// Get the current API base URL (for debugging)
+export const getApiBaseUrl = (): string => {
+  return API_BASE_URL;
 };
 
 // ============================================================================

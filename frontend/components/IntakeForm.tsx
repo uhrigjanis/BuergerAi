@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   TextField,
-  Autocomplete,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -146,9 +145,7 @@ const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading = false }) 
   // Handle PLZ change - auto format
   const handlePlzChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Only allow digits
     const digitsOnly = value.replace(/\D/g, '');
-    // Limit to 5 digits
     const limited = digitsOnly.slice(0, 5);
     setValue('plz', limited);
   };
@@ -372,29 +369,6 @@ const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading = false }) 
         )}
       </Paper>
 
-      {/* Additional Profile Info (Optional) */}
-      <Collapse in={selectedSituationen.length > 0}>
-        <Box mb={3}>
-          <Paper
-            elevation={0}
-            variant="outlined"
-            sx={{
-              p: 2,
-              backgroundColor: 'background.paper',
-              borderRadius: 2,
-            }}
-          >
-            <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-              <InfoIcon fontSize="small" color="action" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
-              Optional: Geben Sie weitere Informationen an, um die Ergebnisse zu verbessern
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              z.B. Alter, Einkommen, Anzahl der Kinder
-            </Typography>
-          </Paper>
-        </Box>
-      </Collapse>
-
       {/* Submit Button */}
       <Box display="flex" justifyContent="flex-end" mt={2}>
         <Button
@@ -402,7 +376,6 @@ const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading = false }) 
           variant="contained"
           size="large"
           disabled={!isValid || isLoading}
-          startIcon={isLoading ? <CircularProgress size={20} /> : null}
           sx={{ minWidth: 150 }}
         >
           {isLoading ? 'Lädt...' : 'Leistungen prüfen'}
@@ -411,8 +384,5 @@ const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading = false }) 
     </Box>
   );
 };
-
-// CircularProgress needs to be imported
-import { CircularProgress } from '@mui/material';
 
 export default IntakeForm;

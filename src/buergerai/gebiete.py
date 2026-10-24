@@ -1,0 +1,97 @@
+"""Gebietsauflösung: PLZ bzw. Bundesland -> Hierarchie (Gemeinde -> Kreis -> Land -> Bund)."""
+
+from __future__ import annotations
+
+from typing import Optional
+
+from .modell import Ebene, Gebiet
+from .wissensbasis import Wissensbasis
+
+
+class GebietFehler(ValueError):
+    pass
+
+
+class PlzUnbekannt(GebietFehler):
+    """Die PLZ liegt nicht im erfassten Gebiet. Das Bundesland muss angegeben werden."""
+
+
+class PlzMehrdeutig(GebietFehler):
+    def __init__(self, plz: str, gemeinden: list[Gebiet]):
+        namen = ", ".join(f"{g.name} ({g.id})" for g in gemeinden)
+        super().__init__(f"PLZ {plz} gehört zu mehreren Gemeinden: {namen}. Bitte Gemeinde wählen.")
+        self.gemeinden = gemeinden
+
+
+def plz_gueltig(plz: str) -> bool:
+    return len(plz) == 5 and plz.isdigit()
+
+
+def gemeinden_fuer_plz(kb: Wissensbasis, plz: str) -> list[Gebiet]:
+    """Exakte PLZ-Treffer haben Vorrang vor Präfix-Treffern."""
+    gemeinden = [g for g in kb.gebiete.values() if g.ebene is Ebene.GEMEINDE]
+    exakt = [g for g in gemeinden if plz in g.plz]
+    if exakt:
+        return exakt
+    return [g for g in gemeinden if any(plz.startswith(p) for p in g.plz_praefixe)]
+
+
+def hierarchie(kb: Wissensbasis, gebiet_id: str) -> list[Gebiet]:
+    """Vom spezifischsten zum allgemeinsten Gebiet."""
+    kette: list[Gebiet] = []
+    aktuell: Optional[Gebiet] = kb.gebiete.get(gebiet_id)
+    if aktuell is None:
+        raise GebietFehler(f"Unbekanntes Gebiet {gebiet_id}")
+    while aktuell is not None:
+        if aktuell in kette:
+            raise GebietFehler(f"Zyklus in der Gebietshierarchie bei {aktuell.id}")
+        kette.append(aktuell)
+        aktuell = kb.gebiete.get(aktuell.parent_id) if aktuell.parent_id else None
+    return kette
+
+
+def land_nach_kuerzel(kb: Wissensbasis, kuerzel: str) -> Gebiet:
+    kuerzel = kuerzel.strip().upper()
+    for g in kb.gebiete.values():
+        if g.ebene is Ebene.LAND and (g.kuerzel == kuerzel or g.id == kuerzel):
+            return g
+    raise GebietFehler(f"Unbekanntes Bundesland: {kuerzel}")
+
+
+def laender(kb: Wissensbasis) -> list[Gebiet]:
+    return sorted((g for g in kb.gebiete.values() if g.ebene is Ebene.LAND), key=lambda g: g.id)
+
+
+def aufloesen(
+    kb: Wissensbasis,
+    plz: Optional[str] = None,
+    gemeinde_id: Optional[str] = None,
+    land: Optional[str] = None,
+) -> list[Gebiet]:
+    """Ermittelt die Gebietshierarchie.
+
+    Reihenfolge: explizite Gemeinde > PLZ > Bundesland. Ist die PLZ nicht
+    erfasst, wird mit dem angegebenen Bundesland weitergemacht (Fallback auf
+    Landes- und Bundesdaten). Ohne Bundesland: ``PlzUnbekannt``.
+    """
+    if gemeinde_id:
+        gebiet = kb.gebiete.get(gemeinde_id)
+        if gebiet is None or gebiet.ebene is not Ebene.GEMEINDE:
+            raise GebietFehler(f"Unbekannte Gemeinde {gemeinde_id}")
+        return hierarchie(kb, gebiet.id)
+    if plz:
+        if not plz_gueltig(plz):
+            raise GebietFehler(f"Ungültige PLZ {plz!r}: fünf Ziffern erwartet")
+        treffer = gemeinden_fuer_plz(kb, plz)
+        if len(treffer) > 1:
+            raise PlzMehrdeutig(plz, treffer)
+        if len(treffer) == 1:
+            return hierarchie(kb, treffer[0].id)
+    if land:
+        return hierarchie(kb, land_nach_kuerzel(kb, land).id)
+    if plz:
+        raise PlzUnbekannt(
+            f"PLZ {plz} ist (noch) nicht erfasst. Bitte das Bundesland angeben, "
+            "dann werden Landes- und Bundesdaten verwendet."
+        )
+    raise GebietFehler("Bitte PLZ, Gemeinde oder Bundesland angeben")

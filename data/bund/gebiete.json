@@ -1,0 +1,22 @@
+{
+  "_hinweis": "Bund und alle 16 Länder (Landesschlüssel = erste zwei Stellen des AGS). Nur Bayern ist Pilotland.",
+  "gebiete": [
+    {"id": "DE", "name": "Deutschland", "ebene": "bund", "parent_id": null, "kuerzel": "DE"},
+    {"id": "01", "name": "Schleswig-Holstein", "ebene": "land", "parent_id": "DE", "kuerzel": "SH"},
+    {"id": "02", "name": "Hamburg", "ebene": "land", "parent_id": "DE", "kuerzel": "HH"},
+    {"id": "03", "name": "Niedersachsen", "ebene": "land", "parent_id": "DE", "kuerzel": "NI"},
+    {"id": "04", "name": "Bremen", "ebene": "land", "parent_id": "DE", "kuerzel": "HB"},
+    {"id": "05", "name": "Nordrhein-Westfalen", "ebene": "land", "parent_id": "DE", "kuerzel": "NW"},
+    {"id": "06", "name": "Hessen", "ebene": "land", "parent_id": "DE", "kuerzel": "HE"},
+    {"id": "07", "name": "Rheinland-Pfalz", "ebene": "land", "parent_id": "DE", "kuerzel": "RP"},
+    {"id": "08", "name": "Baden-Württemberg", "ebene": "land", "parent_id": "DE", "kuerzel": "BW"},
+    {"id": "09", "name": "Bayern", "ebene": "land", "parent_id": "DE", "kuerzel": "BY", "pilot": true},
+    {"id": "10", "name": "Saarland", "ebene": "land", "parent_id": "DE", "kuerzel": "SL"},
+    {"id": "11", "name": "Berlin", "ebene": "land", "parent_id": "DE", "kuerzel": "BE"},
+    {"id": "12", "name": "Brandenburg", "ebene": "land", "parent_id": "DE", "kuerzel": "BB"},
+    {"id": "13", "name": "Mecklenburg-Vorpommern", "ebene": "land", "parent_id": "DE", "kuerzel": "MV"},
+    {"id": "14", "name": "Sachsen", "ebene": "land", "parent_id": "DE", "kuerzel": "SN"},
+    {"id": "15", "name": "Sachsen-Anhalt", "ebene": "land", "parent_id": "DE", "kuerzel": "ST"},
+    {"id": "16", "name": "Thüringen", "ebene": "land", "parent_id": "DE", "kuerzel": "TH"}
+  ]
+}

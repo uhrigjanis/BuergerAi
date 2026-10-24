@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# BürgerAI im Terminal starten – ohne Installation.
+#   ./bai                      geführter Dialog
+#   ./bai pruefen -s nur_plz   Szenario prüfen
+#   ./bai --help               alle Befehle
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="python3"
+[ -x "$DIR/.venv/bin/python" ] && PY="$DIR/.venv/bin/python"
+export PYTHONPATH="$DIR/src${PYTHONPATH:+:$PYTHONPATH}"
+exec "$PY" -m buergerai "$@"

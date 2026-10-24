@@ -1,0 +1,41 @@
+{
+  "name": "Freising: unverheiratet, Mutter privat versichert, Kind schon geboren",
+  "beschreibung": "Pilotkommune ohne eigene Kommunaldaten (Fallback auf Bayern). Partner arbeitet weiter Vollzeit.",
+  "plz": "85354",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-MU-02", "ANF-VA-01", "ANF-FRI-03", "ANF-BY-03"],
+  "fakten": {
+    "kind_geboren": "ja",
+    "geburtsdatum": "2026-10-10",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "nein",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 120000,
+    "brutto_haushalt_monat": 8000,
+    "mutter.staatsangehoerigkeit": "deutsch",
+    "mutter.krankenversicherung": "privat",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja",
+    "partner.staatsangehoerigkeit": "eu_ewr_ch",
+    "partner.krankenversicherung": "gesetzlich_mitglied",
+    "partner.beschaeftigt": "ja",
+    "partner.erwerbsstunden_nach_geburt": 40,
+    "partner.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "ja",
+    "kindergeld": "ja",
+    "kinderzuschlag": "unklar",
+    "mutterschaftsgeld_krankenkasse": "nein",
+    "mutterschaftsgeld_bas": "ja",
+    "arbeitgeberzuschuss_mutterschaftsgeld": "ja",
+    "elternzeit": "ja",
+    "familienversicherung_kind": "ja",
+    "vaterschaftsanerkennung": "ja",
+    "sorgeerklaerung": "ja",
+    "bayerisches_familiengeld": "nein"
+  },
+  "erwartet_fehlend": []
+}

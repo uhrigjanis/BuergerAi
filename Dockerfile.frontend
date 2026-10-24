@@ -1,0 +1,45 @@
+# Dockerfile for BuergerAI Frontend (Next.js)
+
+# Stage 1: Build the application
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY frontend/package.json ./package.json
+COPY frontend/package-lock.json ./package-lock.json 2>/dev/null || true
+COPY frontend/yarn.lock ./yarn.lock 2>/dev/null || true
+COPY frontend/pnpm-lock.yaml ./pnpm-lock.yaml 2>/dev/null || true
+
+# Install dependencies
+RUN npm ci
+
+# Copy all frontend files
+COPY frontend/ ./
+
+# Build the application
+RUN npm run build
+
+# Stage 2: Production image
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV production
+
+# Copy built files from builder
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy next.config.js and other config files
+COPY --from=builder /app/next.config.js ./next.config.js
+COPY --from=builder /app/tsconfig.json ./tsconfig.json 2>/dev/null || true
+
+# Expose port
+EXPOSE 3000
+
+# Run the application
+CMD ["npm", "start"]

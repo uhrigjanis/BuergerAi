@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Backend Service (FastAPI)
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: buergerai-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro
+      - ./src:/app/src:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app/src
+    restart: unless-stopped
+    command: uvicorn buergerai.api.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - buergerai-network
+
+  # Frontend Service (Next.js)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: buergerai-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    restart: unless-stopped
+    command: npm run dev
+    networks:
+      - buergerai-network
+
+  # Optional: Nginx Reverse Proxy for production
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.nginx
+  #   container_name: buergerai-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   depends_on:
+  #     - backend
+  #     - frontend
+  #   restart: unless-stopped
+  #   networks:
+  #     - buergerai-network
+
+networks:
+  buergerai-network:
+    driver: bridge

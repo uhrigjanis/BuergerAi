@@ -359,6 +359,11 @@ class LeistungRepository:
         
         return None
     
+    def get_all(self) -> List[Leistung]:
+        """Holt alle Leistungen"""
+        self._load_data()
+        return list(self._leistungen.values())
+    
     def get_varianten_for_leistung(self, leistung_id: str) -> List[Leistungsvariante]:
         """Holt alle Varianten für eine Leistung"""
         self._load_data()
@@ -440,13 +445,3 @@ class LeistungRepository:
         """Holt eine Quelle"""
         self._load_data()
         return self._quellen.get(quelle_id)
-    
-    def get_all_leistungen(self) -> List[Leistung]:
-        """Holt alle Leistungen"""
-        self._load_data()
-        return list(self._leistungen.values())
-    
-    def get_all_varianten(self) -> List[Leistungsvariante]:
-        """Holt alle Varianten"""
-        self._load_data()
-        return list(self._varianten.values())

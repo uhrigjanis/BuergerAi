@@ -37,17 +37,12 @@ class Bedingung:
         beschreibung: Menschlich lesbare Beschreibung
         reihenfolge: Reihenfolge der Prüfung
     """
-    id: str
     feld: str
     operator: Operator
     wert: Any
     beschreibung: Optional[str] = None
     reihenfolge: int = 0
-    
-    def __post_init__(self):
-        """Validierung nach Initialisierung"""
-        if self.id is None:
-            object.__setattr__(self, 'id', str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     
     def prüfe(self, profil_wert: Any) -> bool:
         """
@@ -107,17 +102,12 @@ class Anspruchsregel:
         gueltig_ab: Gültigkeitsbeginn
         gueltig_bis: Gültigkeitsende (None für aktuell gültig)
     """
-    id: str
     name: str
     beschreibung: Optional[str] = None
     bedingungen: List[Bedingung] = field(default_factory=list)
     gueltig_ab: date = field(default_factory=date.today)
     gueltig_bis: Optional[date] = None
-    
-    def __post_init__(self):
-        """Validierung nach Initialisierung"""
-        if self.id is None:
-            object.__setattr__(self, 'id', str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     
     def ist_gueltig(self, datum: Optional[date] = None) -> bool:
         """Prüft, ob die Regel zum gegebenen Datum gültig ist"""
@@ -134,29 +124,32 @@ class Anspruchsregel:
     
     def prüfe_alle_bedingungen(self, profil: Dict[str, Any]) -> tuple[bool, List[str]]:
         """
-        Prüft alle Bedingungen gegen ein Profil.
+        Prüft alle Bedingungen gegen das Profil.
         
         Args:
-            profil: Dictionary mit Profil-Daten
+            profil: Das Profil als Dictionary
             
         Returns:
-            Tuple aus (ergebnis, nicht_erfüllte_bedingungen)
-            - ergebnis: True, wenn alle Bedingungen erfüllt sind
-            - nicht_erfüllte_bedingungen: Liste der Beschreibungen nicht erfüllter Bedingungen
+            Tuple aus (erfüllt, Liste der nicht erfüllten Bedingungen)
         """
-        nicht_erfüllt = []
+        nicht_erfuellt = []
         
-        for bedingung in sorted(self.bedingungen, key=lambda b: b.reihenfolge):
+        for bedingung in self.bedingungen:
             profil_wert = profil.get(bedingung.feld)
-            
             if not bedingung.prüfe(profil_wert):
-                nicht_erfüllt.append(
-                    bedingung.beschreibung or 
-                    f"{bedingung.feld} {bedingung.operator.value} {bedingung.wert}"
-                )
+                nicht_erfuellt.append(bedingung.beschreibung or f"{bedingung.feld} {bedingung.operator.value} {bedingung.wert}")
         
-        return (len(nicht_erfüllt) == 0, nicht_erfüllt)
+        return len(nicht_erfuellt) == 0, nicht_erfuellt
     
-    def add_bedingung(self, bedingung: Bedingung):
-        """Fügt eine Bedingung hinzu"""
+    def prüfe_mit_leerem_profil(self) -> bool:
+        """Prüft, ob die Regel auch mit leerem Profil erfüllt ist"""
+        # Leeres Profil
+        leeres_profil: Dict[str, Any] = {}
+        erfüllt, _ = self.prüfe_alle_bedingungen(leeres_profil)
+        return erfüllt
+    
+    def add_bedingung(self, bedingung: Bedingung) -> None:
+        """Fügt eine Bedingung zur Regel hinzu"""
         self.bedingungen.append(bedingung)
+        # Sortieren nach Reihenfolge
+        self.bedingungen.sort(key=lambda b: b.reihenfolge)

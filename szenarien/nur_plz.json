@@ -1,0 +1,15 @@
+{
+  "name": "Nur Wohnort bekannt",
+  "beschreibung": "Startpunkt für den interaktiven Modus: alles außer der Geburtsanzeige ist noch unklar.",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-ENG-02"],
+  "fakten": {},
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "unklar",
+    "kindergeld": "unklar",
+    "mutterschaftsgeld_krankenkasse": "unklar",
+    "bayerisches_familiengeld": "unklar"
+  }
+}

@@ -4,66 +4,29 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "buergerai"
-version = "0.1.0"
-description = "Eine KI für die Identifikation von Ansprüchen auf öffentliche Leistungen in Deutschland"
+version = "0.2.0"
+description = "Regelbasierte Ermittlung öffentlicher Leistungen in Deutschland (Phase 1: Wissenskern ohne LLM)"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 requires-python = ">=3.10"
-authors = [
-    {name = "Janis Uhrig", email = "janis.uhrig@example.com"}
-]
+authors = [{name = "Janis Uhrig"}]
 keywords = ["buergerai", "sozialleistungen", "deutschland", "behoerden"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-dependencies = [
-    "networkx>=3.0",
-]
+# Bewusst keine Laufzeit-Abhängigkeiten (nur Standardbibliothek), siehe docs/adr/0002
+dependencies = []
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
-    "black>=23.0",
-    "flake8>=6.0",
-    "isort>=5.12",
-    "mypy>=1.0",
-]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+buergerai = "buergerai.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/uhrigjanis/BuergerAi"
-Documentation = "https://github.com/uhrigjanis/BuergerAi#readme"
-Repository = "https://github.com/uhrigjanis/BuergerAi.git"
-Issues = "https://github.com/uhrigjanis/BuergerAi/issues"
+Repository = "https://github.com/uhrigjanis/BuergerAi"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short"
-
-[project.scripts]
-buergerai = "buergerai.cli:main"
-
-[tool.black]
-line-length = 100
-target-version = ["py310", "py311", "py312"]
-
-[tool.isort]
-profile = "black"
-line_length = 100
-
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_configs = true
-ignore_missing_imports = true
+pythonpath = ["src", "tests"]
+addopts = "-q"

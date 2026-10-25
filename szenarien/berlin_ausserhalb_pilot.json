@@ -1,0 +1,32 @@
+{
+  "name": "Berlin: außerhalb der Pilotregion",
+  "beschreibung": "PLZ nicht erfasst; mit Bundesland BE werden nur Bundesdaten genutzt (mit Warnung).",
+  "plz": "10115",
+  "land": "BE",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-GEB-04", "ANF-DAT-04"],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-01-10",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "ja",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 80000,
+    "mutter.staatsangehoerigkeit": "deutsch",
+    "mutter.krankenversicherung": "gesetzlich_mitglied",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja",
+    "partner.staatsangehoerigkeit": "deutsch",
+    "partner.krankenversicherung": "gesetzlich_mitglied",
+    "partner.beschaeftigt": "ja",
+    "partner.erwerbsstunden_nach_geburt": 40,
+    "partner.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "ja",
+    "kindergeld": "ja",
+    "familienversicherung_kind": "ja"
+  }
+}

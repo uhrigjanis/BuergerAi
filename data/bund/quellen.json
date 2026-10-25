@@ -1,0 +1,174 @@
+{
+  "_hinweis": "Prüfstatus: 'verifiziert' darf nur ein Mensch nach Prüfung des Volltexts setzen (mit geprueft_am und geprueft_von). 'teilweise' = Kernaussagen über Websuche/Sekundärquellen abgeglichen.",
+  "quellen": [
+    {
+      "id": "beeg_1",
+      "titel": "§ 1 BEEG – Berechtigte (Elterngeld)",
+      "url": "https://www.gesetze-im-internet.de/beeg/__1.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Einkommensgrenze 175.000 € (Geburten ab 1.4.2025) bzw. 200.000 € (1.4.2024–31.3.2025) über mehrere Quellen bestätigt. 32-Stunden-Grenze (§ 1 Abs. 6) und Aufenthaltstitel-Regeln (§ 1 Abs. 7) noch im Volltext prüfen."
+    },
+    {
+      "id": "beeg_7",
+      "titel": "§ 7 BEEG – Antragstellung (rückwirkend höchstens drei Lebensmonate)",
+      "url": "https://www.gesetze-im-internet.de/beeg/__7.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Rückwirkende Zahlung nur für die letzten drei Lebensmonate vor dem Antragsmonat (Leistungsbeschreibung Bayern/Berlin im FIM-Portal)."
+    },
+    {
+      "id": "beeg_15_16",
+      "titel": "§§ 15, 16 BEEG – Elternzeit, Anmeldung",
+      "url": "https://www.gesetze-im-internet.de/beeg/__16.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Anmeldefrist 7 Wochen vor Beginn (bis zum 3. Geburtstag), schriftlich. Noch nicht gegen Volltext geprüft."
+    },
+    {
+      "id": "familienportal_elterngeld",
+      "titel": "Familienportal des Bundes – Elterngeld",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld",
+      "typ": "behoerde",
+      "herausgeber": "BMBFSFJ",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Betrag 65–67 %, mindestens 300 €, höchstens 1.800 € (Basiselterngeld) gegen Seite prüfen."
+    },
+    {
+      "id": "elterngeldrechner",
+      "titel": "Elterngeldrechner mit Planer (offizieller Rechner)",
+      "url": "https://familienportal.de/familienportal/rechner-antraege/elterngeldrechner",
+      "typ": "rechner",
+      "herausgeber": "BMBFSFJ",
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "estg_62",
+      "titel": "§§ 62, 63 EStG – Anspruchsberechtigte und Kinder (Kindergeld)",
+      "url": "https://www.gesetze-im-internet.de/estg/__62.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "§ 62 Abs. 2: Nicht freizügigkeitsberechtigte Ausländer nur mit bestimmten Aufenthaltstiteln."
+    },
+    {
+      "id": "estg_66",
+      "titel": "§ 66 EStG – Höhe des Kindergeldes, rückwirkende Zahlung (6 Monate)",
+      "url": "https://www.gesetze-im-internet.de/estg/__66.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "259 € je Kind ab 1.1.2026 (2025: 255 €) über mehrere Quellen bestätigt. Sechs-Monats-Frist für rückwirkende Zahlung noch im Volltext prüfen."
+    },
+    {
+      "id": "ba_kindergeld",
+      "titel": "Familienkasse der Bundesagentur für Arbeit – Kindergeld",
+      "url": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bkgg_6a",
+      "titel": "§ 6a BKGG – Kinderzuschlag",
+      "url": "https://www.gesetze-im-internet.de/bkgg_1996/__6a.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Höchstbetrag 297 € (2026), Mindesteinkommen 900 € (Paare) / 600 € (Alleinerziehende) brutto: Mehrheit der Quellen; eine Quelle nennt abweichende Werte. Gegen Volltext prüfen."
+    },
+    {
+      "id": "kiz_lotse",
+      "titel": "KiZ-Lotse der Familienkasse (offizieller Vorab-Check)",
+      "url": "https://www.arbeitsagentur.de/familie-und-kinder/kiz-lotse",
+      "typ": "rechner",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "muschg_19_20",
+      "titel": "§§ 19, 20 MuSchG – Mutterschaftsgeld, Arbeitgeberzuschuss",
+      "url": "https://www.gesetze-im-internet.de/muschg_2018/__19.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Privat oder familienversicherte Arbeitnehmerinnen: einmalig bis 210 € vom Bundesamt für Soziale Sicherung; Arbeitgeber zahlt Zuschuss. Schutzfrist i. d. R. 6 Wochen vor, 8 Wochen nach der Geburt."
+    },
+    {
+      "id": "sgb5_24i",
+      "titel": "§ 24i SGB V – Mutterschaftsgeld der Krankenkasse (bis 13 € je Kalendertag)",
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__24i.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)"
+    },
+    {
+      "id": "familienportal_mutterschaft",
+      "titel": "Familienportal des Bundes – Mutterschaftsleistungen",
+      "url": "https://www.familienportal.de/familienportal/familienleistungen/mutterschaftsleistungen",
+      "typ": "behoerde",
+      "herausgeber": "BMBFSFJ",
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bas_mutterschaftsgeld",
+      "titel": "Bundesamt für Soziale Sicherung – Mutterschaftsgeld",
+      "url": "https://www.bundesamtsozialesicherung.de/de/mutterschaftsgeld/",
+      "typ": "behoerde",
+      "herausgeber": "Bundesamt für Soziale Sicherung",
+      "pruefstatus": "ungeprueft",
+      "notiz": "URL noch nicht aufgerufen."
+    },
+    {
+      "id": "sgb5_10",
+      "titel": "§ 10 SGB V – Familienversicherung",
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__10.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "§ 10 Abs. 3: Ausschluss, wenn der privat versicherte Ehegatte mehr verdient und über der Jahresarbeitsentgeltgrenze liegt."
+    },
+    {
+      "id": "pstg_18",
+      "titel": "§ 18 PStG – Anzeige der Geburt (innerhalb einer Woche)",
+      "url": "https://www.gesetze-im-internet.de/pstg/__18.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-24",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Frist eine Woche, Geburtstag zählt nicht mit, Anzeige gebührenfrei (FIM-Stammtext). Paragraf selbst noch im Volltext prüfen."
+    },
+    {
+      "id": "bgb_1592_1594",
+      "titel": "§§ 1592 ff. BGB – Vaterschaft, Anerkennung",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1592.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bgb_1626a",
+      "titel": "§ 1626a BGB – Elterliche Sorge nicht verheirateter Eltern",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1626a.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

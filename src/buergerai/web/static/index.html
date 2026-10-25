@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BürgerAI – Geburt</title>
+  <link rel="stylesheet" href="style.css?v=0.3.1">
+  <script src="app.js?v=0.3.1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+  <header class="kopf">
+    <div class="kopf-innen">
+      <div>
+        <p class="marke">BürgerAI</p>
+        <h1>Lebensereignis Geburt</h1>
+      </div>
+      <p class="pilot">Pilot: Bund · Bayern · München · Freising</p>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <p class="hinweis-recht">Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle.
+      Ihre Angaben werden zur Berechnung an den Server geschickt, dort aber weder gespeichert noch protokolliert.
+      Damit Sie später weitermachen können, merkt sich nur dieser Browser Ihre Angaben; „Neu beginnen“ löscht sie.</p>
+
+    <div id="meldung" class="meldung" role="alert" hidden></div>
+
+    <!-- Schritt 1: Wohnort -->
+    <section id="start" class="karte start" aria-labelledby="start-titel">
+      <h2 id="start-titel">Wo wohnen Sie?</h2>
+      <p class="leise">Wir prüfen, welche Leistungen und Pflichten rund um die Geburt für Sie gelten, und erstellen eine Checkliste mit Fristen.</p>
+      <form id="ort-form" novalidate>
+        <label for="plz">Postleitzahl</label>
+        <div class="zeile">
+          <input id="plz" name="plz" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="z. B. 80331" required>
+          <button type="submit" class="primaer">Weiter</button>
+        </div>
+        <div id="gemeinde-wahl" hidden>
+          <label for="gemeinde">Die PLZ gehört zu mehreren Gemeinden. Welche ist es?</label>
+          <select id="gemeinde"></select>
+        </div>
+        <div id="land-wahl" hidden>
+          <p id="land-text" class="leise"></p>
+          <label for="land">Bundesland</label>
+          <select id="land"></select>
+        </div>
+      </form>
+      <details class="beispiele">
+        <summary>Zum Testen: Beispiel-Familie laden</summary>
+        <div class="zeile">
+          <select id="szenario" aria-label="Beispiel auswählen"></select>
+          <button type="button" id="szenario-laden">Laden</button>
+        </div>
+        <p id="szenario-text" class="leise"></p>
+        <label class="datei">Oder gespeicherte Angaben öffnen (.json)
+          <input type="file" id="datei-laden-start" accept=".json,application/json">
+        </label>
+      </details>
+    </section>
+
+    <!-- Schritt 2: Fragen und Ergebnis -->
+    <div id="arbeit" class="arbeit" hidden>
+      <div class="spalte-links">
+        <section class="karte ort-karte" aria-label="Wohnort">
+          <p><span class="leise">Wohnort:</span> <strong id="ort-text"></strong></p>
+          <p id="stichtag-zeile" class="leise"></p>
+          <button type="button" class="link" id="neu">Neu beginnen</button>
+        </section>
+
+        <section id="frage-karte" class="karte frage-karte" aria-live="polite" aria-labelledby="frage-titel"></section>
+
+        <section class="karte angaben-karte" aria-labelledby="angaben-titel">
+          <h2 id="angaben-titel" class="klein">Ihre Angaben</h2>
+          <ul id="angaben" class="angaben"></ul>
+          <details class="erweitert">
+            <summary>Datum simulieren</summary>
+            <label for="stichtag">Fristen und Rechtsstand berechnen zum</label>
+            <div class="zeile">
+              <input type="date" id="stichtag">
+              <button type="button" id="stichtag-heute">Heute</button>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <section class="spalte-rechts" aria-labelledby="ergebnis-titel">
+        <div class="ergebnis-kopf">
+          <h2 id="ergebnis-titel">Ihre Checkliste</h2>
+          <div class="werkzeuge">
+            <button type="button" id="kalender">Fristen in Kalender (.ics)</button>
+            <button type="button" id="drucken">Drucken</button>
+            <button type="button" id="speichern">Angaben speichern</button>
+            <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
+          </div>
+        </div>
+        <p id="kind-text" class="leise"></p>
+        <ul id="warnungen" class="warnungen"></ul>
+        <div id="zaehler" class="zaehler"></div>
+
+        <section id="zeitplan-box" class="karte zeitplan" aria-labelledby="zeitplan-titel">
+          <h3 id="zeitplan-titel">Fristen auf einen Blick</h3>
+          <ol id="zeitplan"></ol>
+        </section>
+
+        <div id="leistungen"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="fuss">
+    <p>BürgerAI · Phase 2 (ohne KI): Alle Ergebnisse kommen aus festen, nachprüfbaren Regeln. Quellen stehen bei jeder Leistung. <span id="version"></span></p>
+  </footer>
+</body>
+</html>

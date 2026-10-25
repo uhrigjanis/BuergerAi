@@ -2,9 +2,31 @@
 
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
-**Aktueller Stand: Phase 1 – Wissenskern ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Pilot: Lebensereignis **Geburt**, Bund + **Bayern**, Kommunen **München** und **Freising**.
+**Aktueller Stand: Phase 2 – nutzbarer Stand ohne LLM (Web-Oberfläche).** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Pilot: Lebensereignis **Geburt**, Bund + **Bayern**, Kommunen **München** und **Freising**.
 
 > Unverbindliche Orientierung, keine Rechtsberatung.
+
+## Schnellstart (Web-Oberfläche)
+
+```bash
+./bai web                   # dann im Browser http://localhost:8000 öffnen
+```
+
+Ablauf: Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
+
+| Funktion | Wo |
+|----------|-----|
+| Beispiel-Familie laden (alle Szenarien) | Startseite → „Zum Testen: Beispiel-Familie laden“ |
+| Angabe ändern | „Ihre Angaben“ → „ändern“ |
+| Fragen überspringen | „Fragen beenden, nur Ergebnis“ |
+| Checkliste abhaken | Kästchen je Leistung (bleibt im Browser gespeichert) |
+| Fristen auf einen Blick / in den Kalender | „Fristen auf einen Blick“, Knopf „Fristen in Kalender (.ics)“ |
+| Warum Ja/Nein/Unklar, Unterlagen, Anleitung, Quellen | aufklappbar je Leistung |
+| Anderes Datum simulieren | „Ihre Angaben“ → „Datum simulieren“ |
+| Angaben speichern/öffnen | Knöpfe über der Checkliste (gleiches Format wie `szenarien/`, also auch mit `./bai pruefen -s datei.json` nutzbar) |
+| Drucken | Knopf „Drucken“ (klappt alle Details auf) |
+
+Optionen: `./bai web --port 8001`, `--oeffnen` (Browser öffnen), `--host 0.0.0.0` (im Netzwerk erreichbar, nur bewusst nutzen).
 
 ## Schnellstart (Terminal)
 
@@ -23,7 +45,15 @@ source .venv/bin/activate   # danach ist auch der Befehl "buergerai" verfügbar
 
 ### In GitHub Codespaces
 
-Auf GitHub **Code → Codespaces → Create codespace** wählen. Die Umgebung richtet sich automatisch ein (Python 3.12, `.venv`, pytest, einmaliger Komplett-Check). Danach im Terminal `./bai` starten. Tests laufen auch über die Test-Ansicht von VS Code.
+Auf GitHub **Code → Codespaces → Create codespace** wählen. Die Umgebung richtet sich automatisch ein (Python 3.12, `.venv`, pytest, einmaliger Komplett-Check) und startet die Web-Oberfläche auf Port 8000. Der Browser-Tab öffnet sich automatisch; sonst unten im Reiter **Ports** bei „BürgerAI Web“ (8000) auf das Weltkugel-Symbol klicken.
+
+- Läuft die Oberfläche nicht (z. B. nach einem Neustart): `./scripts/web-start.sh` oder `./bai web` im Terminal.
+- Nach `git pull`: Server neu starten (`pkill -f "buergerai web"; ./scripts/web-start.sh`) und die Seite mit Strg+Umschalt+R bzw. Cmd+Umschalt+R neu laden. Unten auf der Seite steht die Version; passt sie nicht zum Server, zeigt die Seite eine Warnung.
+- Log: `/tmp/buergerai-web.log`. Beenden: `pkill -f "buergerai web"`.
+- Bestehender Codespace von Phase 1: einmal **Strg+Shift+P → „Codespaces: Rebuild Container“**, damit die Portfreigabe greift. Alternativ einfach `./bai web` starten und Port 8000 im Reiter Ports öffnen.
+- Der Port ist standardmäßig privat (nur mit Ihrem GitHub-Login erreichbar).
+
+Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von VS Code.
 
 ## Manuell testen
 
@@ -46,6 +76,7 @@ Auf GitHub **Code → Codespaces → Create codespace** wählen. Die Umgebung ri
 | Quellen und Prüfstatus | `./bai quellen --offen` |
 | Datenkonsistenz | `./bai daten` |
 | Testmatrix (Anforderung → Tests) | `./bai anforderungen --details` |
+| Web-Oberfläche | `./bai web` |
 | Automatische Tests | `python -m pytest` |
 
 Im Dialog: `?` oder Enter = „weiß nicht“, `q` = fertig und Ergebnis anzeigen.
@@ -87,6 +118,7 @@ Angaben (Fakten) ───────────────────► Re
 
 ```
 src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, ausgabe, cli
+  web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, JS)
 data/               Wissensbasis (getrennt vom Code)
   fakten.json         Faktenkatalog: Angaben mit Frage und Typ
   bund/               Bundesgebiete, Quellen, Leistungen und Bundesvarianten (Geburt)
@@ -112,7 +144,15 @@ docs/
 - ✅ Regeln für Bund und Bayern (12 Leistungen rund um die Geburt), Engine, Tests je Anforderung (51/51 abgedeckt)
 - ⏳ Validierung gegen Primärquellen: teilweise erfolgt, Volltextprüfung durch einen Menschen offen – siehe [docs/validierung.md](docs/validierung.md)
 
-Nächste Phase: formularbasierter Intake mit einfacher Web-UI (Phase 2). Der geführte Terminal-Dialog ist dafür bereits die Logik-Grundlage.
+## Stand Phase 2
+
+- ✅ Formularbasierter Intake (Buttons, Auswahl, Datum, Zahl, „Weiß nicht“), fragt nur, was das Ergebnis noch ändert
+- ✅ Einfache Web-UI ohne Framework und ohne Laufzeit-Abhängigkeiten ([ADR 0006](docs/adr/0006-web-oberflaeche-ohne-framework.md)), auch am Handy nutzbar
+- ✅ Checkliste mit Fristen (inkl. Kalenderdatei), Zuständigkeit, Unterlagen, Anleitung, Begründung und Quellen
+- ✅ Gleiche Ergebnisse wie im Terminal (Test über alle Szenarien), 60/60 Anforderungen mit Tests
+- ⏳ Abnahme: einmal manuell in Codespaces durchklicken (siehe oben)
+
+Nächste Phase: LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Anforderungen der Phase 1. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "_hinweis": "Anforderungen der Phasen 1 und 2. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
   "anforderungen": [
     {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ einer Pilotkommune wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
     {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
@@ -57,6 +57,16 @@
     {"id": "ANF-CLI-02", "bereich": "Terminal", "titel": "Interaktiver Modus fragt nur fehlende Angaben und akzeptiert 'weiß nicht'"},
     {"id": "ANF-CLI-03", "bereich": "Terminal", "titel": "Szenarien laden und gegen Erwartungen prüfen"},
     {"id": "ANF-CLI-04", "bereich": "Terminal", "titel": "Fehlerhafte Eingaben werden verständlich gemeldet"},
+
+    {"id": "ANF-WEB-01", "bereich": "Web-Oberfläche", "titel": "Server (nur Standardbibliothek) liefert Oberfläche und JSON-API, startbar mit 'buergerai web'"},
+    {"id": "ANF-WEB-02", "bereich": "Web-Oberfläche", "titel": "Wohnort: mehrdeutige PLZ → Gemeindeauswahl, nicht erfasste PLZ → Bundeslandauswahl, ungültige PLZ → Meldung"},
+    {"id": "ANF-WEB-03", "bereich": "Web-Oberfläche", "titel": "Formular fragt nur offene Angaben, passend zum Typ (Buttons, Auswahl, Datum, Zahl), mit 'Weiß nicht'"},
+    {"id": "ANF-WEB-04", "bereich": "Web-Oberfläche", "titel": "Angaben lassen sich ändern; nicht mehr relevante Angaben werden gekennzeichnet"},
+    {"id": "ANF-WEB-05", "bereich": "Web-Oberfläche", "titel": "Checkliste mit Ergebnis, Begründung, Fristen, Zuständigkeit, Unterlagen, Anleitung und Quellen"},
+    {"id": "ANF-WEB-06", "bereich": "Web-Oberfläche", "titel": "Fristen als Kalenderdatei (.ics)"},
+    {"id": "ANF-WEB-07", "bereich": "Web-Oberfläche", "titel": "Ungültige Anfragen werden abgelehnt (400/404/413/415); nur freigegebene Dateien werden ausgeliefert"},
+    {"id": "ANF-WEB-08", "bereich": "Web-Oberfläche", "titel": "Gleiche Ergebnisse wie im Terminal (gleiche Engine, alle Szenarien)"},
+    {"id": "ANF-WEB-09", "bereich": "Web-Oberfläche", "titel": "Angaben als Datei speichern und laden, im gleichen Format wie Szenarien"},
 
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}

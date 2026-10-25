@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Anforderungen der Phasen 1 und 2, der bundesweiten Abdeckung (#40) und der Fachmodule (#41, ADR 0008). Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "_hinweis": "Anforderungen der Phasen 1 und 2, der bundesweiten Abdeckung (#40) und der Fachmodule (#41, ADR 0008) mit den Lebenslagen Geburt und Umzug. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
   "anforderungen": [
     {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
     {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
@@ -72,6 +72,7 @@
     {"id": "ANF-CLI-02", "bereich": "Terminal", "titel": "Interaktiver Modus fragt nur fehlende Angaben und akzeptiert 'weiß nicht'"},
     {"id": "ANF-CLI-03", "bereich": "Terminal", "titel": "Szenarien laden und gegen Erwartungen prüfen"},
     {"id": "ANF-CLI-04", "bereich": "Terminal", "titel": "Fehlerhafte Eingaben werden verständlich gemeldet"},
+    {"id": "ANF-CLI-05", "bereich": "Terminal", "titel": "Der geführte Dialog fragt zuerst nach der Lebenslage (mehrere möglich)"},
 
     {"id": "ANF-WEB-01", "bereich": "Web-Oberfläche", "titel": "Server (nur Standardbibliothek) liefert Oberfläche und JSON-API, startbar mit 'buergerai web'"},
     {"id": "ANF-WEB-02", "bereich": "Web-Oberfläche", "titel": "Wohnort: mehrdeutige PLZ → Gemeindeauswahl, nicht erfasste PLZ → Bundeslandauswahl, ungültige PLZ → Meldung"},
@@ -82,6 +83,7 @@
     {"id": "ANF-WEB-07", "bereich": "Web-Oberfläche", "titel": "Ungültige Anfragen werden abgelehnt (400/404/413/415); nur freigegebene Dateien werden ausgeliefert"},
     {"id": "ANF-WEB-08", "bereich": "Web-Oberfläche", "titel": "Gleiche Ergebnisse wie im Terminal (gleiche Engine, alle Szenarien)"},
     {"id": "ANF-WEB-09", "bereich": "Web-Oberfläche", "titel": "Angaben als Datei speichern und laden, im gleichen Format wie Szenarien"},
+    {"id": "ANF-WEB-10", "bereich": "Web-Oberfläche", "titel": "Lebenslagen werden beim Start gewählt und lassen sich später ändern; Angaben bleiben erhalten"},
 
     {"id": "ANF-MOD-01", "bereich": "Fachmodule (ADR 0008)", "titel": "Fachmodule sind Datenpakete (Steckbrief, Lebenslagen, Rollen, Fakten); Regeln nutzen nur Kern-, eigene oder importierte Fakten"},
     {"id": "ANF-MOD-02", "bereich": "Fachmodule (ADR 0008)", "titel": "Mehrere Lebenslagen je Anfrage; jede Leistung erscheint einmal und nennt ihre Lebenslagen"},
@@ -92,6 +94,14 @@
     {"id": "ANF-MOD-07", "bereich": "Fachmodule (ADR 0008)", "titel": "Fragen: zuerst Einstiegsfragen der gewählten Lebenslagen, dann nach Entscheidungskraft; Einstiegsfragen anderer Lebenslagen entfallen"},
     {"id": "ANF-MOD-08", "bereich": "Fachmodule (ADR 0008)", "titel": "Fristen können sich auf einen beliebigen Datumsfakt beziehen (z. B. Kaufdatum)"},
     {"id": "ANF-MOD-09", "bereich": "Fachmodule (ADR 0008)", "titel": "Stichwortsuche findet Lebenslagen über Name, Synonyme und Beispielsätze (ohne LLM)"},
+    {"id": "ANF-MOD-10", "bereich": "Fachmodule (ADR 0008)", "titel": "Abgeleitete Ortsvergleiche (gleiche Gemeinde, gleicher Kreis, gleiches Land) aus einem Ortsfakt und dem Wohnort; fehlt der Ort, wird er erfragt"},
+    {"id": "ANF-MOD-11", "bereich": "Fachmodule (ADR 0008)", "titel": "Bewusst nicht erfasste Themen einer Lebenslage stehen mit Begründung im Bericht (Terminal und Web)"},
+    {"id": "ANF-UMZ-01", "bereich": "Umzug", "titel": "Neue Wohnung anmelden: Pflicht, Frist zwei Wochen nach dem Einzug; Stellen in München und Berlin erfasst, sonst Meldebehörde der Gemeinde"},
+    {"id": "ANF-UMZ-02", "bereich": "Umzug", "titel": "Fahrzeug nur für Halter, Rundfunkbeitrag immer, Wohngeld nur bei bisherigem Wohngeld; Mitteilung an Leistungsstellen bei Leistungsbezug"},
+    {"id": "ANF-UMZ-03", "bereich": "Umzug", "titel": "Hundesteuer am neuen Wohnort anmelden und am bisherigen abmelden, nicht bei Umzug innerhalb derselben Gemeinde"},
+    {"id": "ANF-UMZ-04", "bereich": "Umzug", "titel": "Umzugskosten vom Jobcenter höchstens Unklar; zuständig ist das bisherige Jobcenter; Frist vor dem Umzug"},
+    {"id": "ANF-UMZ-05", "bereich": "Umzug", "titel": "Umzugskosten von Jobcenter und Arbeitsagentur sind als Leistungen ohne Rechtsanspruch gekennzeichnet"},
+    {"id": "ANF-UMZ-06", "bereich": "Umzug", "titel": "Landesleistungen für Umzug sind je Land recherchiert (keine gefunden); nicht erfasste Themen sind mit Begründung genannt"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

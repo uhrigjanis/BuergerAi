@@ -265,6 +265,13 @@ def bericht_text(
             zeilen.append("")
             zeilen.extend(eintrag_text(e, nr, kb, f, details, len(a.lebenslagen) > 1))
 
+    if bericht.nicht_erfasst:
+        zeilen.append("")
+        zeilen.append(f.fett(f"== Noch nicht erfasst ({len(bericht.nicht_erfasst)}) =="))
+        for ll, name, grund in bericht.nicht_erfasst:
+            zusatz = f" ({lebenslagen_text(kb, [ll])})" if len(a.lebenslagen) > 1 else ""
+            zeilen.append(f"  - {name}{zusatz}: {f.grau(grund)}")
+
     if bericht.fehlend:
         zeilen.append("")
         zeilen.append(f.fett(f"== Offene Fragen ({len(bericht.fehlend)}) =="))
@@ -351,6 +358,9 @@ def bericht_json(bericht: Bericht) -> dict[str, Any]:
         "hierarchie": [{"id": g.id, "name": g.name, "ebene": g.ebene.value} for g in bericht.hierarchie],
         "warnungen": bericht.warnungen,
         "fehlende_angaben": bericht.fehlend,
+        "nicht_erfasst": [
+            {"lebenslage": ll, "name": n, "grund": g} for ll, n, g in bericht.nicht_erfasst
+        ],
         "nur_andere_laender": [
             {"id": n.leistung.id, "name": n.leistung.name, "laender": [g.kuerzel for g in n.laender]}
             for n in bericht.nur_andere_laender

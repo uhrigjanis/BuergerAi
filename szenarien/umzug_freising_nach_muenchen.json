@@ -1,0 +1,43 @@
+{
+  "name": "Umzug Freising → München mit Hund und Auto",
+  "beschreibung": "Alles erfasst: Anmeldung und Hundesteuer mit Münchner Stellen, Abmeldung des Hundes in Freising (alter Wohnort), Kfz am neuen Wohnort.",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-UMZ-01",
+    "ANF-UMZ-02",
+    "ANF-UMZ-03",
+    "ANF-MOD-10"
+  ],
+  "fakten": {
+    "umzug.einzugsdatum": "2026-10-15",
+    "umzug.ort_alt": "85354",
+    "umzug.hund": "ja",
+    "umzug.kfz_halter": "ja",
+    "bezieht_wohngeld": "nein",
+    "bezieht_buergergeld": "nein",
+    "umzug.wegen_arbeit": "nein",
+    "umzug.leistungsbezug": "nein"
+  },
+  "erwartet": {
+    "wohnsitz_anmelden": "ja",
+    "hundesteuer_anmelden": "ja",
+    "hundesteuer_abmelden": "ja",
+    "kfz_umzug": "ja",
+    "rundfunkbeitrag_umzug": "ja",
+    "wohngeld_umzug": "nein",
+    "umzugskosten_jobcenter": "nein",
+    "umzugskosten_arbeitsagentur": "nein",
+    "adresse_an_leistungstraeger": "nein"
+  },
+  "erwartet_stellen": {
+    "wohnsitz_anmelden": "Bürgerbüro der Landeshauptstadt München",
+    "hundesteuer_anmelden": "Landeshauptstadt München – Hundesteuer",
+    "hundesteuer_abmelden": "Steueramt der Gemeinde – Freising",
+    "kfz_umzug": "Kfz-Zulassungsbehörde – Kreisfreie Stadt München"
+  },
+  "erwartet_fehlend": []
+}

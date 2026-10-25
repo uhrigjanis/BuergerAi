@@ -1,0 +1,69 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Umzug (ADR 0008). Umzug innerhalb Deutschlands; der Wohnort der Anfrage ist die neue Wohnung.",
+  "fachmodul": {
+    "id": "umzug",
+    "name": "Umzug",
+    "beschreibung": "Umzug innerhalb Deutschlands: Pflichten am neuen und am bisherigen Wohnort und Leistungen rund um den Umzug.",
+    "abgrenzung": [
+      "Kauf einer Immobilie gehört zu Wohnen und Eigentum.",
+      "Umzug ins Ausland bzw. Zuzug aus dem Ausland ist nicht erfasst."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "umzug",
+      "name": "Umzug",
+      "typ": "ereignis",
+      "beschreibung": "Umzug in eine neue Wohnung innerhalb Deutschlands.",
+      "einstiegsfragen": [
+        "umzug.einzugsdatum",
+        "umzug.ort_alt"
+      ],
+      "synonyme": [
+        "Umzug",
+        "umziehen",
+        "ziehe um",
+        "ziehen um",
+        "neue Wohnung",
+        "Wohnsitz anmelden",
+        "ummelden",
+        "Ummeldung",
+        "Einzug",
+        "Wohnungswechsel"
+      ],
+      "beispiele": [
+        "Wir ziehen nächsten Monat nach Berlin.",
+        "Ich bin gerade umgezogen, was muss ich ummelden?",
+        "Muss ich mein Auto nach dem Umzug ummelden?",
+        "Ich ziehe für einen neuen Job in eine andere Stadt."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Abmeldung bei Umzug ins Ausland",
+          "grund": "Die Lebenslage umfasst nur Umzüge innerhalb Deutschlands."
+        },
+        {
+          "name": "Umzugskosten in der Steuererklärung",
+          "grund": "Steuern haben noch kein Fachmodul; die Pauschalen ändern sich regelmäßig."
+        },
+        {
+          "name": "Begrüßungsgeld für Studierende und Auszubildende",
+          "grund": "Je Stadt verschieden; die gefundenen Angaben (z. B. Kiel) sind veraltet oder widersprüchlich."
+        },
+        {
+          "name": "Zweitwohnungsteuer",
+          "grund": "Kommunale Steuer nur für Nebenwohnungen; Satzungen der Gemeinden sind nicht erfasst."
+        },
+        {
+          "name": "Kita und Schule am neuen Wohnort",
+          "grund": "Gehört zu den Fachmodulen Familie bzw. Schule und ist je Kommune verschieden."
+        },
+        {
+          "name": "Nachsendeauftrag, Strom, Internet",
+          "grund": "Keine staatlichen Leistungen."
+        }
+      ]
+    }
+  ]
+}

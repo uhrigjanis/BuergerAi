@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Optional
 
-from .fakten import TYPEN, FaktDefinition
+from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition
 from .modell import (
     Betrag,
     Ebene,
@@ -258,6 +258,7 @@ class Wissensbasis:
                     einstiegsfragen=tuple(l.get("einstiegsfragen", ())),
                     synonyme=tuple(l.get("synonyme", ())),
                     beispiele=tuple(l.get("beispiele", ())),
+                    nicht_erfasst=tuple((n["name"], n["grund"]) for n in l.get("nicht_erfasst", ())),
                 ),
                 datei,
                 fehler,
@@ -329,6 +330,7 @@ class Wissensbasis:
                     abgeleitet=f.get("abgeleitet", False),
                     nur_wenn=(f["nur_wenn"]["fakt"], f["nur_wenn"]["wert"]) if "nur_wenn" in f else None,
                     modul=modul,
+                    ableitung=(f["ableitung"]["art"], f["ableitung"]["ort"]) if "ableitung" in f else None,
                 ),
                 datei,
                 fehler,
@@ -573,6 +575,17 @@ class Wissensbasis:
                 fehler.append(f"Fakt {f.id}: nur_wenn verweist auf unbekannten Fakt {f.nur_wenn[0]}")
             if f.modul != KERN and f.modul not in self.fachmodule:
                 fehler.append(f"Fakt {f.id}: Fachmodul {f.modul} hat keinen Steckbrief")
+            if f.ableitung is not None:
+                art, ort = f.ableitung
+                quelle = self.fakten.get(ort)
+                if art not in ABLEITUNGEN:
+                    fehler.append(f"Fakt {f.id}: Ableitung {art!r} unbekannt (erlaubt: {', '.join(ABLEITUNGEN)})")
+                if not f.abgeleitet or f.typ != "ja_nein":
+                    fehler.append(f"Fakt {f.id}: Ableitung nur bei abgeleiteten Fakten vom Typ ja_nein")
+                if quelle is None or quelle.typ != "ort":
+                    fehler.append(f"Fakt {f.id}: Ableitung braucht einen Ortsfakt (war: {ort})")
+                elif quelle.modul not in (KERN, f.modul):
+                    fehler.append(f"Fakt {f.id}: Ortsfakt {ort} gehört zum Modul {quelle.modul}")
 
         # Zuständigkeiten / Quellen
         for z in self.zustaendigkeiten.values():
@@ -766,4 +779,7 @@ class Wissensbasis:
         for l in self.leistungen.values():
             if l.ortsbezug:
                 merken(l.ortsbezug)
+        for f in list(self.fakten.values()):
+            if f.ableitung and f.id in benutzt:
+                merken(f.ableitung[1])
         return sorted(f.id for f in self.fakten.values() if f.id not in benutzt and not f.abgeleitet)

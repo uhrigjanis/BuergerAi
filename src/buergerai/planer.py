@@ -13,7 +13,7 @@ from datetime import date
 from typing import Any, Optional
 
 from . import gebiete as gebiete_mod
-from .fakten import UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen
+from .fakten import ABLEITUNGEN, UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen
 from .fristen import BerechneteFrist, berechne
 from .modell import (
     Abdeckung,
@@ -95,6 +95,8 @@ class Bericht:
     fehlend: list[str]
     warnungen: list[str]
     nur_andere_laender: list[NurAndereLaender] = field(default_factory=list)
+    # Bewusst nicht erfasste Themen der gewählten Lebenslagen: (Lebenslage, Name, Begründung)
+    nicht_erfasst: list[tuple[str, str, str]] = field(default_factory=list)
 
     def eintrag(self, leistung_id: str) -> Eintrag:
         for e in self.eintraege:
@@ -258,9 +260,50 @@ def _ort_der_leistung(
         return [gebiete_mod.bund(kb)], leistung.ortsbezug
     if not isinstance(wert, str):  # "weiß nicht"
         return [gebiete_mod.bund(kb)], None
+    return _ort_hierarchie(kb, wert, cache), None
+
+
+def _ort_hierarchie(kb: Wissensbasis, wert: str, cache: dict[str, list[Gebiet]]) -> list[Gebiet]:
     if wert not in cache:
         cache[wert] = gebiete_mod.hierarchie_fuer_ort(kb, wert)
-    return cache[wert], None
+    return cache[wert]
+
+
+def _ortsvergleiche(
+    kb: Wissensbasis, fakten: dict[str, Any], wohnort: list[Gebiet], cache: dict[str, list[Gebiet]]
+) -> dict[str, Any]:
+    """Abgeleitete Fakten wie "Umzug innerhalb derselben Gemeinde?" (Ortsfakt im Vergleich zum Wohnort).
+
+    Ist der Ort "weiß nicht" oder lässt er sich auf der Ebene nicht eindeutig
+    bestimmen (z. B. PLZ mit mehreren Gemeinden), ist das Ergebnis "weiß nicht".
+    Fehlt der Ort, bleibt der Fakt offen; erfragt wird dann der Ort.
+    """
+    neu: dict[str, Any] = {}
+    for d in kb.fakten.values():
+        if d.ableitung is None or d.id in fakten:
+            continue
+        art, ort = d.ableitung
+        wert = fakten.get(ort)
+        if wert is None:
+            continue
+        if not isinstance(wert, str):
+            neu[d.id] = UNBEKANNT
+            continue
+        ebene = Ebene(ABLEITUNGEN[art])
+        dort = next((g for g in _ort_hierarchie(kb, wert, cache) if g.ebene is ebene), None)
+        hier = next((g for g in wohnort if g.ebene is ebene), None)
+        neu[d.id] = UNBEKANNT if dort is None or hier is None else dort.id == hier.id
+    return neu
+
+
+def _erfragbar(kb: Wissensbasis, fid: str, fakten: dict[str, Any]) -> Optional[str]:
+    """Welche Frage klärt den fehlenden Fakt? Abgeleitete Fakten über ihre Quelle, sonst keine."""
+    d = kb.fakt_definition(fid)
+    if d is None or not d.abgeleitet:
+        return fid
+    if d.ableitung is not None and d.ableitung[1] not in fakten:
+        return d.ableitung[1]
+    return None
 
 
 def _personen(
@@ -329,8 +372,9 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         fakten["wohnsitz_land"] = land.kuerzel
     fakten.update(abgeleitete_fakten(fakten))
 
-    vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
     orte: dict[str, list[Gebiet]] = {}
+    fakten.update(_ortsvergleiche(kb, fakten, hierarchie, orte))
+    vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
     platzhalter: dict[int, dict[str, str]] = {}  # je Hierarchie (Wohnort, Orte von Leistungen) einmal
     eintraege: list[Eintrag] = []
     nur_andere: list[NurAndereLaender] = []
@@ -356,10 +400,9 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         for (_, _, stumm), r in zip(personen, ergebnisse):
             if not stumm:
                 _anfuegen(eintrag_fehlend, r.schritt.fehlend)
-        # Abgeleitete Fakten werden nicht direkt erfragt, sondern über Grunddaten
-        eintrag_fehlend = [
-            f for f in eintrag_fehlend if not getattr(kb.fakt_definition(f), "abgeleitet", False)
-        ]
+        # Abgeleitete Fakten werden nicht direkt erfragt, sondern über ihre Quelle (z. B. den Ort)
+        erfragbar = [_erfragbar(kb, f, fakten) for f in eintrag_fehlend]
+        eintrag_fehlend = list(dict.fromkeys(f for f in erfragbar if f is not None))
 
         if id(ort) not in platzhalter:
             platzhalter[id(ort)] = ort_platzhalter(ort)
@@ -399,16 +442,20 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         fragen_priorisieren(vorab, eintraege, anfrage.stichtag),
         _warnungen(kb, anfrage, hierarchie, sortiert),
         nur_andere,
+        [(ll, name, grund) for ll in anfrage.lebenslagen for name, grund in kb.lebenslagen[ll].nicht_erfasst],
     )
 
 
 def _laender_mit_variante(kb: Wissensbasis, leistung: Leistung, stichtag: date) -> list[Gebiet]:
-    """Länder, in denen es eine gültige Variante der Leistung gibt (auf Landesebene oder darunter)."""
-    laender: dict[str, Gebiet] = {}
-    for v in kb.varianten_von(leistung.id):
-        if not v.zeitraum.enthaelt(stichtag):
-            continue
-        for g in gebiete_mod.hierarchie(kb, v.gebiet_id):
-            if g.ebene is Ebene.LAND:
-                laender[g.id] = g
+    """Länder mit einer gültigen Variante der Leistung auf Landesebene.
+
+    Kommunale Leistungen (nur Varianten einzelner Gemeinden oder Kreise) zählen
+    nicht: Sonst stünde z. B. die Leistung einer einzelnen Stadt für alle anderen
+    Gemeinden ihres Landes als "nur in anderen Ländern" im Bericht.
+    """
+    laender = {
+        v.gebiet_id: kb.gebiete[v.gebiet_id]
+        for v in kb.varianten_von(leistung.id)
+        if v.zeitraum.enthaelt(stichtag) and kb.gebiete[v.gebiet_id].ebene is Ebene.LAND
+    }
     return sorted(laender.values(), key=lambda g: g.name)

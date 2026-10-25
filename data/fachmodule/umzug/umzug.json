@@ -1,0 +1,708 @@
+{
+  "_hinweis": "Fachmodul Umzug: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Kommunale Varianten unter data/kommunen.",
+  "quellen": [
+    {
+      "id": "bmg_17",
+      "titel": "§ 17 BMG – Anmeldung, Abmeldung",
+      "url": "https://www.gesetze-im-internet.de/bmg/__17.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut mehreren Gesetzesportalen: Anmeldung innerhalb von zwei Wochen nach dem Einzug (Abs. 1); Abmeldung nur bei Auszug ohne neue Wohnung im Inland (Abs. 2); für Kinder unter 16 melden die Eltern (Abs. 3)."
+    },
+    {
+      "id": "bmg_19",
+      "titel": "§ 19 BMG – Mitwirkung des Wohnungsgebers",
+      "url": "https://www.gesetze-im-internet.de/bmg/__19.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Suchergebnissen: Wohnungsgeber bestätigt den Einzug innerhalb der Frist des § 17 Abs. 1; fehlt die Bestätigung, ist das der Meldebehörde unverzüglich mitzuteilen (Abs. 2)."
+    },
+    {
+      "id": "fzv_15",
+      "titel": "§ 15 FZV – Mitteilungspflichten bei Änderungen",
+      "url": "https://www.gesetze-im-internet.de/fzv_2023/__15.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Gesetzesportalen: Änderungen der Halterdaten unverzüglich der Zulassungsbehörde mitteilen; bei Kennzeichen einer anderen Zulassungsbehörde neues Kennzeichen beantragen oder Weiterführung mitteilen (Abs. 1 Satz 4 Nr. 4). Dass die Anschrift ein solches Halterdatum ist, steht nicht ausdrücklich in den Suchergebnissen."
+    },
+    {
+      "id": "rbstv_8",
+      "titel": "§ 8 Rundfunkbeitragsstaatsvertrag – Anzeigepflicht",
+      "url": null,
+      "typ": "gesetz",
+      "herausgeber": "Länder (Staatsvertrag)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Abdruck in einer Gerichtsentscheidung (justiz.sachsen.de): Innehaben einer Wohnung und jede Änderung der Daten unverzüglich schriftlich der Landesrundfunkanstalt anzeigen. Amtliche Fassung und Online-Formular auf rundfunkbeitrag.de noch prüfen."
+    },
+    {
+      "id": "wogg_25",
+      "titel": "§ 25 WoGG – Bewilligungszeitraum",
+      "url": "https://www.gesetze-im-internet.de/wogg/__25.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Gesetzesportalen und VG Bayreuth (B 8 E 24.35): Bewilligungszeitraum beginnt am Ersten des Monats, in dem der Antrag gestellt wird (Abs. 2)."
+    },
+    {
+      "id": "wogg_28",
+      "titel": "§ 28 WoGG – Unwirksamkeit des Bewilligungsbescheides",
+      "url": "https://www.gesetze-im-internet.de/wogg/__28.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Gesetzesportalen: Bescheid wird unwirksam ab dem Ersten des Monats nach Aufgabe der Wohnung (bei Auszug zum Monatsersten ab diesem Tag); Auszug der Wohngeldbehörde unverzüglich mitteilen."
+    },
+    {
+      "id": "sgb2_22",
+      "titel": "§ 22 SGB II – Bedarfe für Unterkunft und Heizung (Abs. 4 und 6)",
+      "url": "https://www.gesetze-im-internet.de/sgb_2/__22.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Rechtsprechung (SG Neuruppin, LSG Niedersachsen-Bremen) und Jobcenter Berlin Mitte: Umzugskosten nur nach vorheriger Zusicherung des bis zum Umzug zuständigen Trägers; Zusicherung soll erteilt werden, wenn der Umzug veranlasst oder notwendig ist; neue Wohnung muss angemessen sein (Abs. 4)."
+    },
+    {
+      "id": "jobcenter_berlin_umzug",
+      "titel": "Jobcenter Berlin Mitte – Informationsschreiben Umzug",
+      "url": "https://www.berlin.de/jobcenter-mitte/buergergeld/geldleistungen/wohnung-heizung/jcbm_informationsschreiben_umzug_2023.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Jobcenter Berlin Mitte",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anträge vor dem Umzug stellen, vorherige Zusicherung durch das bisher zuständige Jobcenter."
+    },
+    {
+      "id": "sgb3_44",
+      "titel": "§ 44 SGB III – Förderung aus dem Vermittlungsbudget",
+      "url": "https://www.gesetze-im-internet.de/sgb_3/__44.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut ermessenslenkenden Weisungen der BA (über FragDenStaat) und Richtlinien von Kreisen: Ermessensleistung zur Anbahnung oder Aufnahme einer versicherungspflichtigen Beschäftigung; Umzugskosten bei auswärtiger Arbeitsaufnahme."
+    },
+    {
+      "id": "sgb1_60",
+      "titel": "§ 60 SGB I – Angabe von Tatsachen (Mitwirkungspflicht)",
+      "url": "https://www.gesetze-im-internet.de/sgb_1/__60.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Merkblättern von Kreisen und Jobcentern: Änderungen in den Verhältnissen, die für die Leistung erheblich sind, unverzüglich mitteilen. Dass ein Umzug darunter fällt, ergibt sich aus der Leistung (z. B. Zuständigkeit), steht aber nicht ausdrücklich in den Quellen."
+    },
+    {
+      "id": "ewa_portal",
+      "titel": "Elektronische Wohnsitzanmeldung (eWA)",
+      "url": "https://wohnsitzanmeldung.gov.de",
+      "typ": "behoerde",
+      "herausgeber": "Bund und Länder (Einer-für-Alle, entwickelt von Hamburg)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Medienservice Sachsen, Kommunen in BW, RP, HE): Online-Anmeldung mit BundID und Online-Ausweis; nicht alle Meldebehörden sind angeschlossen, Prüfung auf dem Portal."
+    },
+    {
+      "id": "muenchen_wohnsitz",
+      "titel": "Landeshauptstadt München – Wohnsitzanmeldung",
+      "url": "https://stadt.muenchen.de/service/info/hauptabteilung-ii-buergerangelegenheiten/10224135/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung innerhalb von 14 Tagen, auch bei Ummeldung innerhalb der Stadt; online nur für Hauptwohnsitz; Einzug muss bereits erfolgt sein; Abmeldung am alten Wohnort nicht nötig; Ausweis und Wohnungsgeberbestätigung."
+    },
+    {
+      "id": "muenchen_hundesteuer",
+      "titel": "Landeshauptstadt München – Anmeldung eines Hundes",
+      "url": "https://stadt.muenchen.de/service/info/anmeldung-eines-hundes/1074313/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung zur Hundesteuer innerhalb von zwei Wochen nach Zuzug, Abmeldung innerhalb von zwei Wochen nach Wegzug; online, per E-Mail, Post oder persönlich. Satzung (risi.muenchen.de, Stand 2017) noch auf Aktualität prüfen."
+    },
+    {
+      "id": "berlin_wohnsitz",
+      "titel": "Service Berlin – Wohnsitz anmelden (Dienstleistung 120686)",
+      "url": "https://service.berlin.de/dienstleistung/120686/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Standortseiten der Bürgerämter): Anmeldung innerhalb von 14 Tagen nach Einzug; online mit BundID und Online-Ausweis für Volljährige mit deutscher oder EU-Staatsangehörigkeit nach Umzug innerhalb Deutschlands; sonst Termin im Bürgeramt (berlinweit online oder über 115)."
+    },
+    {
+      "id": "ratgeber_umzugspraemien",
+      "titel": "Geld für den Umzug aufs Land (Ratgeber)",
+      "url": "https://finanzielle-foerdermittel.de/geld-fuer-den-umzug-aufs-land/",
+      "typ": "sekundaer",
+      "herausgeber": "finanzielle-foerdermittel.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle, nur Hinweis: kein bundesweites Programm; allgemeine Umzugsprämien der Länder selten, eher zeitlich begrenzte kommunale Angebote."
+    },
+    {
+      "id": "bb_zuzug_initiativen",
+      "titel": "Landesvertretung Brandenburg – Zuzugs- und Rückkehrinitiativen",
+      "url": "https://landesvertretung-brandenburg.de/zuzugs-und-rueckkehrinitiativen-veranstalten-zweite-brandenburger-zuzugswochen/",
+      "typ": "behoerde",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Das Land fördert regionale Rückkehr- und Zuzugsinitiativen, keine Zahlungen an Umziehende."
+    },
+    {
+      "id": "mv_wohnsitzpraemie",
+      "titel": "Hochschule Neubrandenburg – Wohnsitzprämie Mecklenburg-Vorpommern",
+      "url": "https://www.hs-nb.de/storages/hs-neubrandenburg/Studium_Weiterbildung/Vor_dem_Studium/PDF/Wohnsitzpraemie.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Hochschule Neubrandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Das Land zahlt die Wohnsitzprämie an Hochschulen (und Städte), nicht an Studierende. Quellen 2016–2020, aktueller Stand offen."
+    },
+    {
+      "id": "fim_hundesteuer",
+      "titel": "Leistungsbeschreibungen Hundesteuer (FIM-Portal)",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/S100003/S1000030000021962/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse zu mehreren FIM-Beschreibungen: Hundesteuer nach kommunaler Satzung, zuständig ist die Wohnsitzgemeinde; Anmeldefrist meist 14 Tage (Hessen, nur Richtwert); in Bremen Finanzamt Bremen, in Hamburg Hunderegister. Volltext nicht gelesen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "meldebehoerde",
+      "name": "Meldebehörde – {gemeinde}",
+      "beschreibung": "Einwohnermeldeamt bzw. Bürgerbüro der Gemeinde, in die Sie ziehen."
+    },
+    {
+      "id": "zulassungsbehoerde",
+      "name": "Kfz-Zulassungsbehörde – {kreis}",
+      "beschreibung": "Zulassungsstelle des Landkreises bzw. der kreisfreien Stadt Ihres neuen Wohnorts."
+    },
+    {
+      "id": "steueramt_gemeinde",
+      "name": "Steueramt der Gemeinde – {gemeinde}",
+      "beschreibung": "Steuer- bzw. Kämmereiamt der Gemeinde (Hundesteuer ist eine Gemeindesteuer)."
+    },
+    {
+      "id": "beitragsservice",
+      "name": "ARD ZDF Deutschlandradio Beitragsservice",
+      "beschreibung": "Nimmt An-, Ab- und Ummeldungen zum Rundfunkbeitrag für alle Landesrundfunkanstalten entgegen."
+    },
+    {
+      "id": "wohngeldbehoerde",
+      "name": "Wohngeldbehörde – {kreis}",
+      "beschreibung": "Wohngeldstelle der Stadt bzw. des Landkreises (in manchen Ländern auch größerer Gemeinden) am neuen Wohnort."
+    },
+    {
+      "id": "jobcenter_bisher",
+      "name": "Jobcenter – {kreis}",
+      "beschreibung": "Das Jobcenter, das bis zum Umzug für Sie zuständig ist (bisheriger Wohnort)."
+    },
+    {
+      "id": "agentur_fuer_arbeit",
+      "name": "Agentur für Arbeit",
+      "url": "https://www.arbeitsagentur.de",
+      "beschreibung": "Ihre örtliche Agentur für Arbeit; bei Bürgergeld das Jobcenter."
+    },
+    {
+      "id": "leistungstraeger",
+      "name": "Alle Stellen, von denen Sie Leistungen bekommen",
+      "beschreibung": "Zum Beispiel Familienkasse, Elterngeldstelle, Rentenversicherung, Krankenkasse, Jobcenter, BAföG-Amt."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "wohnsitz_anmelden",
+      "name": "Neue Wohnung anmelden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht: Wer in eine Wohnung zieht, meldet sich bei der Meldebehörde an. Am alten Wohnort ist bei einem Umzug innerhalb Deutschlands keine Abmeldung nötig."
+    },
+    {
+      "id": "kfz_umzug",
+      "name": "Fahrzeug: neue Anschrift melden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht für Fahrzeughalter: Die neue Anschrift muss in die Zulassungsbescheinigung eingetragen werden."
+    },
+    {
+      "id": "hundesteuer_anmelden",
+      "name": "Hund zur Hundesteuer anmelden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht in Gemeinden mit Hundesteuer: Den Hund bei der neuen Gemeinde anmelden."
+    },
+    {
+      "id": "hundesteuer_abmelden",
+      "name": "Hund bei der bisherigen Gemeinde abmelden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "ortsbezug": "umzug.ort_alt",
+      "kurz": "Pflicht in Gemeinden mit Hundesteuer: Den Hund bei der bisherigen Gemeinde abmelden, damit dort keine Steuer mehr anfällt."
+    },
+    {
+      "id": "rundfunkbeitrag_umzug",
+      "name": "Rundfunkbeitrag: Umzug melden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht: Neue Anschrift bzw. neue Wohnung dem Beitragsservice melden. Wer zu jemandem zieht, der schon zahlt, meldet sich ab."
+    },
+    {
+      "id": "wohngeld_umzug",
+      "name": "Wohngeld für die neue Wohnung beantragen",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Das bisherige Wohngeld endet mit dem Auszug. Für die neue Wohnung ist ein neuer Antrag nötig."
+    },
+    {
+      "id": "umzugskosten_jobcenter",
+      "name": "Umzugskosten vom Jobcenter (Zusicherung vorher)",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "ortsbezug": "umzug.ort_alt",
+      "kurz": "Wer Bürgergeld bekommt, kann Umzugs- und Wohnungsbeschaffungskosten erstattet bekommen – aber nur mit Zusicherung vor dem Umzug."
+    },
+    {
+      "id": "umzugskosten_arbeitsagentur",
+      "name": "Umzugskosten bei Arbeitsaufnahme (Vermittlungsbudget)",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "kurz": "Wer arbeitsuchend gemeldet ist und für eine neue Stelle umzieht, kann Umzugskosten aus dem Vermittlungsbudget erhalten."
+    },
+    {
+      "id": "adresse_an_leistungstraeger",
+      "name": "Neue Anschrift an Leistungsstellen melden",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "information",
+      "kurz": "Wer Sozialleistungen bekommt, muss Änderungen mitteilen, die für die Leistung wichtig sind – ein Umzug gehört meist dazu."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "wohnsitz_anmelden_bund",
+      "leistung_id": "wohnsitz_anmelden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "meldebehoerde",
+      "quellen": [
+        "bmg_17",
+        "bmg_19"
+      ],
+      "regel": {
+        "alle": []
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis oder Reisepass aller Personen, die umziehen",
+          "Wohnungsgeberbestätigung (vom Vermieter bzw. Eigentümer)"
+        ],
+        "schritte": [
+          "Wohnungsgeberbestätigung beim Vermieter anfordern. Fehlt sie, das der Meldebehörde mitteilen.",
+          "Online anmelden (elektronische Wohnsitzanmeldung), wenn Ihre Gemeinde angeschlossen ist, sonst Termin bei der Meldebehörde.",
+          "Für Kinder unter 16 Jahren melden die Eltern bzw. die Personen, bei denen sie einziehen.",
+          "Die neue Anschrift wird dabei auch im Personalausweis eingetragen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von zwei Wochen nach dem Einzug anmelden",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "bmg_17"
+            ],
+            "tage": 14
+          }
+        ],
+        "kosten": "Anmeldung in der Regel gebührenfrei.",
+        "online_url": "https://wohnsitzanmeldung.gov.de",
+        "hinweise": [
+          "Ob Ihre Gemeinde die Online-Anmeldung anbietet, zeigt das Portal wohnsitzanmeldung.gov.de."
+        ]
+      },
+      "hinweise": [
+        "Bei einem Umzug ins Ausland gelten andere Regeln (Abmeldung). Das ist hier nicht erfasst."
+      ]
+    },
+    {
+      "id": "kfz_umzug_bund",
+      "leistung_id": "kfz_umzug",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "zulassungsbehoerde",
+      "quellen": [
+        "fzv_15"
+      ],
+      "regel": {
+        "fakt": "umzug.kfz_halter",
+        "op": "==",
+        "wert": true,
+        "text": "Auf Sie ist ein Fahrzeug zugelassen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Zulassungsbescheinigung Teil I (Fahrzeugschein)",
+          "Personalausweis mit neuer Anschrift bzw. Meldebestätigung"
+        ],
+        "schritte": [
+          "Nach der Anmeldung der Wohnung die Zulassungsbehörde am neuen Wohnort aufsuchen oder online ummelden, falls angeboten.",
+          "Ziehen Sie in einen anderen Zulassungsbezirk, können Sie ein neues Kennzeichen beantragen oder das bisherige weiterführen."
+        ],
+        "fristen": [
+          {
+            "text": "Unverzüglich nach dem Umzug melden",
+            "bezug": "keiner",
+            "quellen": [
+              "fzv_15"
+            ]
+          }
+        ],
+        "kosten": "Gebühren je nach Zulassungsbehörde und ob ein neues Kennzeichen nötig ist."
+      }
+    },
+    {
+      "id": "hundesteuer_anmelden_bund",
+      "leistung_id": "hundesteuer_anmelden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "steueramt_gemeinde",
+      "quellen": [
+        "fim_hundesteuer"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "umzug.hund",
+            "op": "==",
+            "wert": true,
+            "text": "Sie halten einen Hund"
+          },
+          {
+            "nicht": {
+              "fakt": "umzug.gleiche_gemeinde",
+              "op": "==",
+              "wert": true,
+              "text": "Umzug innerhalb derselben Gemeinde"
+            },
+            "text": "Umzug in eine andere Gemeinde"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Gemeinde fragen, ob und wie sie Hundesteuer erhebt, und den Hund anmelden."
+        ],
+        "fristen": [
+          {
+            "text": "Frist laut Hundesteuersatzung der Gemeinde",
+            "bezug": "keiner",
+            "quellen": []
+          }
+        ]
+      },
+      "hinweise": [
+        "Die Hundesteuer regelt jede Gemeinde in einer eigenen Satzung (Frist, Höhe, Befreiungen); oft gilt eine Anmeldefrist von 14 Tagen. Für Ihre Gemeinde ist die Satzung nicht erfasst.",
+        "In Bremen ist das Finanzamt zuständig, in Hamburg erfolgt die Anmeldung über das Hunderegister."
+      ]
+    },
+    {
+      "id": "hundesteuer_abmelden_bund",
+      "leistung_id": "hundesteuer_abmelden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "steueramt_gemeinde",
+      "quellen": [
+        "fim_hundesteuer"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "umzug.hund",
+            "op": "==",
+            "wert": true,
+            "text": "Sie halten einen Hund"
+          },
+          {
+            "nicht": {
+              "fakt": "umzug.gleiche_gemeinde",
+              "op": "==",
+              "wert": true,
+              "text": "Umzug innerhalb derselben Gemeinde"
+            },
+            "text": "Umzug in eine andere Gemeinde"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Den Hund bei der bisherigen Gemeinde abmelden und die neue Anschrift angeben."
+        ],
+        "fristen": [
+          {
+            "text": "Frist laut Hundesteuersatzung der bisherigen Gemeinde",
+            "bezug": "keiner",
+            "quellen": []
+          }
+        ]
+      },
+      "hinweise": [
+        "Für Ihre bisherige Gemeinde ist die Hundesteuersatzung nicht erfasst."
+      ]
+    },
+    {
+      "id": "rundfunkbeitrag_umzug_bund",
+      "leistung_id": "rundfunkbeitrag_umzug",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "beitragsservice",
+      "quellen": [
+        "rbstv_8"
+      ],
+      "regel": {
+        "alle": []
+      },
+      "verfahren": {
+        "schritte": [
+          "Zahlen Sie schon: Umzug mit neuer Anschrift beim Beitragsservice melden (Formular online).",
+          "Ziehen Sie in eine eigene Wohnung und zahlen bisher nicht: Wohnung anmelden.",
+          "Ziehen Sie zu jemandem, der für die Wohnung schon zahlt: eigenes Beitragskonto abmelden und die Beitragsnummer der anderen Person angeben."
+        ],
+        "fristen": [
+          {
+            "text": "Unverzüglich anzeigen",
+            "bezug": "keiner",
+            "quellen": [
+              "rbstv_8"
+            ]
+          }
+        ],
+        "online_url": "https://www.rundfunkbeitrag.de"
+      }
+    },
+    {
+      "id": "wohngeld_umzug_bund",
+      "leistung_id": "wohngeld_umzug",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "wohngeldbehoerde",
+      "quellen": [
+        "wogg_28",
+        "wogg_25"
+      ],
+      "regel": {
+        "fakt": "bezieht_wohngeld",
+        "op": "==",
+        "wert": true,
+        "text": "Sie bekommen bisher Wohngeld"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Mietvertrag der neuen Wohnung",
+          "Nachweise über Einkommen aller Haushaltsmitglieder"
+        ],
+        "schritte": [
+          "Der bisherigen Wohngeldbehörde den Auszug unverzüglich mitteilen.",
+          "Für die neue Wohnung einen neuen Wohngeldantrag stellen, möglichst im Monat des Einzugs."
+        ],
+        "fristen": [
+          {
+            "text": "Wohngeld gibt es ab dem Ersten des Monats, in dem der Antrag gestellt wird – also möglichst im Einzugsmonat beantragen",
+            "bezug": "keiner",
+            "quellen": [
+              "wogg_25"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Der bisherige Bescheid wird mit der Aufgabe der Wohnung unwirksam, ohne dass Sie ihn kündigen müssen."
+      ]
+    },
+    {
+      "id": "umzugskosten_jobcenter_bund",
+      "leistung_id": "umzugskosten_jobcenter",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "jobcenter_bisher",
+      "quellen": [
+        "sgb2_22",
+        "jobcenter_berlin_umzug"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Bürgergeld"
+          },
+          {
+            "pruefung_noetig": "Das Jobcenter prüft, ob der Umzug notwendig oder von ihm veranlasst ist und ob die neue Wohnung angemessen ist.",
+            "quellen": [
+              "sgb2_22"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Wohnungsangebot bzw. Mietvertragsentwurf der neuen Wohnung",
+          "Kostenvoranschläge für den Umzug"
+        ],
+        "schritte": [
+          "Vor der Unterschrift unter den Mietvertrag beim bisherigen Jobcenter die Zusicherung beantragen.",
+          "Zusicherung zu den Kosten der neuen Wohnung beim Jobcenter am neuen Wohnort einholen (§ 22 Abs. 4 SGB II).",
+          "Erst nach der Zusicherung umziehen."
+        ],
+        "fristen": [
+          {
+            "text": "Zusicherung vor dem Umzug einholen, am besten vor der Unterschrift unter den Mietvertrag",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "sgb2_22"
+            ],
+            "tage": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "umzugskosten_arbeitsagentur_bund",
+      "leistung_id": "umzugskosten_arbeitsagentur",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "agentur_fuer_arbeit",
+      "quellen": [
+        "sgb3_44"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "umzug.wegen_arbeit",
+            "op": "==",
+            "wert": true,
+            "text": "Sie ziehen für eine neue Arbeitsstelle um"
+          },
+          {
+            "fakt": "arbeitsuchend_gemeldet",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind arbeitsuchend oder arbeitslos gemeldet"
+          },
+          {
+            "pruefung_noetig": "Die Agentur entscheidet nach Ermessen, ob die Förderung für die Arbeitsaufnahme notwendig ist und ob der Arbeitgeber Kosten übernimmt.",
+            "quellen": [
+              "sgb3_44"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Vor dem Umzug und möglichst vor der Unterschrift unter den Arbeitsvertrag bei der Agentur für Arbeit (bei Bürgergeld: beim Jobcenter) nachfragen.",
+          "Kostenvoranschläge und den Arbeitsvertrag bzw. die Zusage einreichen."
+        ],
+        "fristen": [
+          {
+            "text": "Vor dem Umzug beantragen",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "sgb3_44"
+            ],
+            "tage": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "adresse_an_leistungstraeger_bund",
+      "leistung_id": "adresse_an_leistungstraeger",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "leistungstraeger",
+      "quellen": [
+        "sgb1_60"
+      ],
+      "regel": {
+        "fakt": "umzug.leistungsbezug",
+        "op": "==",
+        "wert": true,
+        "text": "Sie bekommen laufende Sozialleistungen"
+      },
+      "verfahren": {
+        "schritte": [
+          "Allen Stellen, von denen Sie Geld bekommen, die neue Anschrift mitteilen (z. B. Familienkasse, Elterngeldstelle, Rentenversicherung, Krankenkasse, BAföG-Amt)."
+        ],
+        "fristen": [
+          {
+            "text": "Unverzüglich mitteilen",
+            "bezug": "keiner",
+            "quellen": [
+              "sgb1_60"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -164,6 +164,24 @@ def _frage(kb: Wissensbasis, fid: str, f: Farbe) -> Any:
             print(f.rot(f"  {exc}"))
 
 
+def _lebenslagen_fragen(kb: Wissensbasis, f: Farbe) -> list[str]:
+    """Fragt, um welche Lebenslage(n) es geht. Mehrere mit Komma, z. B. "1,2"."""
+    lagen = sorted(kb.lebenslagen.values(), key=lambda x: (x.modul, x.id))
+    print()
+    print(f.fett("Worum geht es? (mehrere mit Komma, z. B. 1,2)"))
+    for i, ll in enumerate(lagen, 1):
+        print(f"  {i}) {ll.name}" + f.grau(f" – {ll.beschreibung}"))
+    while True:
+        try:
+            roh = input("  > ").strip()
+        except EOFError:
+            return []
+        teile = [t.strip() for t in roh.split(",") if t.strip()]
+        if teile and all(t.isdigit() and 1 <= int(t) <= len(lagen) for t in teile):
+            return list(dict.fromkeys(lagen[int(t) - 1].id for t in teile))
+        print(f.rot(f"  Bitte Nummern von 1 bis {len(lagen)} eingeben, mehrere mit Komma."))
+
+
 def cmd_interaktiv(args: argparse.Namespace) -> int:
     from .ausgabe import lebenslagen_text
 
@@ -175,6 +193,10 @@ def cmd_interaktiv(args: argparse.Namespace) -> int:
         anfrage = szenarien_mod.finden(kb, args.szenario).anfrage
     if args.lebenslage:
         anfrage.lebenslagen = list(dict.fromkeys(args.lebenslage))
+    elif not args.szenario and len(kb.lebenslagen) > 1:
+        anfrage.lebenslagen = _lebenslagen_fragen(kb, f)
+        if not anfrage.lebenslagen:
+            return 1
     unbekannt = [ll for ll in anfrage.lebenslagen if ll not in kb.lebenslagen]
     if unbekannt:
         raise EingabeFehler(f"Unbekannte Lebenslage {', '.join(unbekannt)} (siehe 'buergerai lebenslagen')")
@@ -187,7 +209,8 @@ def cmd_interaktiv(args: argparse.Namespace) -> int:
         while True:
             if not anfrage.plz:
                 try:
-                    anfrage.plz = input("\nPostleitzahl Ihres Wohnorts: ").strip()
+                    hinweis = " (bei Umzug: neue Wohnung)" if "umzug" in anfrage.lebenslagen else ""
+                    anfrage.plz = input(f"\nPostleitzahl Ihres Wohnorts{hinweis}: ").strip()
                 except EOFError:
                     return 1
             try:

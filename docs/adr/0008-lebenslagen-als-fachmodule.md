@@ -124,6 +124,15 @@ Gebaut wie oben beschrieben, mit diesen Abweichungen vom Plan:
 
 Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_performance.py`, 503 Leistungen, 5.046 Varianten, 601 Fakten, alle Gebiete): Laden 0,3 s; ein Bericht mit 3 Lebenslagen und 81 Leistungen etwa 7 ms. Der Bericht für Geburt allein sank von 1,0 auf 0,8 ms. Die Indizes entstehen beim Laden, die Quellen je Variante werden zwischengespeichert.
 
+### 8. Umsetzung von Schritt 1: Umzug (25.10.2026)
+
+- **Eigenes Fachmodul `umzug`** mit einer Lebenslage. Die PLZ der Anfrage ist die neue Wohnung; der bisherige Wohnort ist der Ortsfakt `umzug.ort_alt`. Leistungen am alten Ort (Hundesteuer abmelden, Umzugskosten vom bisherigen Jobcenter) nutzen ihn als `ortsbezug`.
+- **Abgeleitete Ortsvergleiche:** Ein abgeleiteter Fakt kann einen Ortsfakt mit dem Wohnort vergleichen (`ableitung`: `gleiche_gemeinde`, `gleicher_kreis`, `gleiches_land`). Fehlt der Ort, wird der Ort erfragt, nicht der abgeleitete Fakt. So braucht die Regel „nicht bei Umzug innerhalb derselben Gemeinde“ keine Sonderlogik.
+- **Haushaltsfakten im Kern:** `bezieht_wohngeld`, `bezieht_buergergeld` und `arbeitsuchend_gemeldet` liegen im Kern, weil auch geringes Einkommen und Arbeit sie brauchen.
+- **Nicht erfasst:** Jede Lebenslage kann bewusst nicht erfasste Themen mit Begründung nennen (`nicht_erfasst`). Der Bericht zeigt sie (Akzeptanzkriterium aus #41).
+- **Nur echte Landesleistungen als „nur in anderen Ländern“:** Kommunale Varianten (z. B. Münchner Hundesteuer) erscheinen dort nicht mehr. Sonst stünde die Leistung einer Stadt bei allen anderen Gemeinden.
+- **Abweichung vom Akzeptanzkriterium:** „Mindestens ein Land mit landeseigener Leistung“ ist für Umzug nicht erfüllbar, weil die Recherche keine gefunden hat. Erfasst sind stattdessen kommunale Varianten (München, Berlin) und für alle Länder der Nachweis `keine`.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

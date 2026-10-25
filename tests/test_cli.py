@@ -36,6 +36,7 @@ def test_pruefen_json(capsys):
 def test_interaktiv(capsys, monkeypatch, tmp_path):
     ziel = tmp_path / "ich.json"
     eingaben = [
+        "1",      # Lebenslage Geburt
         "80331",  # PLZ
         "nein",   # kind_geboren
         "15.12.2026",  # Termin
@@ -59,14 +60,14 @@ def test_interaktiv(capsys, monkeypatch, tmp_path):
 @pytest.mark.anforderung("ANF-CLI-02", "ANF-GEB-04")
 def test_interaktiv_unbekannte_plz(capsys, monkeypatch):
     # 80001 ist eine Postfach-PLZ in München: keiner Gemeinde zugeordnet
-    code, out, _ = lauf(capsys, "interaktiv", eingaben=["80001", "BY", "q"], monkeypatch=monkeypatch)
+    code, out, _ = lauf(capsys, "interaktiv", eingaben=["1", "80001", "BY", "q"], monkeypatch=monkeypatch)
     assert code == 0
     assert "keiner Gemeinde zugeordnet" in out and "nicht als Gemeinde erfasst" in out
 
 
 @pytest.mark.anforderung("ANF-CLI-02", "ANF-GEB-03")
 def test_interaktiv_mehrdeutige_plz_zeigt_kreis(capsys, monkeypatch):
-    code, out, _ = lauf(capsys, "interaktiv", eingaben=["85356", "0", "3", "q"], monkeypatch=monkeypatch)
+    code, out, _ = lauf(capsys, "interaktiv", eingaben=["1", "85356", "0", "3", "q"], monkeypatch=monkeypatch)
     assert code == 0
     assert "Oberding" in out and "(Landkreis Erding)" in out
     assert "Bitte eine Zahl von 1 bis 3" in out
@@ -75,7 +76,7 @@ def test_interaktiv_mehrdeutige_plz_zeigt_kreis(capsys, monkeypatch):
 
 @pytest.mark.anforderung("ANF-CLI-02")
 def test_interaktiv_falsche_eingabe_wird_wiederholt(capsys, monkeypatch):
-    code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", eingaben=["vielleicht", "ja", "q"], monkeypatch=monkeypatch)
+    code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", "-l", "geburt", eingaben=["vielleicht", "ja", "q"], monkeypatch=monkeypatch)
     assert code == 0 and "bitte 'ja' oder 'nein'" in out
 
 
@@ -115,7 +116,7 @@ def test_lebenslagen_befehl(capsys):
     assert code == 0 and "Fachmodul Familie und Kinder" in out and "geburt – Geburt (ereignis)" in out
     code, out, _ = lauf(capsys, "lebenslagen", "--suche", "Wir bekommen ein Baby")
     assert code == 0 and out.startswith("geburt")
-    code, out, _ = lauf(capsys, "lebenslagen", "--suche", "Auto abmelden")
+    code, out, _ = lauf(capsys, "lebenslagen", "--suche", "Steuern auf Kapitalerträge")
     assert code == 1
 
 
@@ -136,3 +137,16 @@ def test_fakten_nach_modul(capsys):
     assert out.index("== Kern (alle Fachmodule) ==") < out.index("brutto_haushalt_monat")
     assert out.index("== Fachmodul Familie und Kinder ==") < out.index("eltern_verheiratet")
     assert "Einstiegsfrage Geburt" in out
+
+
+@pytest.mark.anforderung("ANF-CLI-05")
+def test_interaktiv_fragt_lebenslage(capsys, monkeypatch):
+    eingaben = ["3", "2", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
+    code, out, _ = lauf(capsys, "interaktiv", "--stichtag", "2026-10-24", eingaben=eingaben, monkeypatch=monkeypatch)
+    assert code == 0
+    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 2" in out
+    assert "Wann ziehen Sie in die neue Wohnung ein" in out
+    assert "BürgerAI – Lebenslage Umzug" in out
+    code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", "--stichtag", "2026-10-24",
+                        eingaben=["1, 2", "q"], monkeypatch=monkeypatch)
+    assert code == 0 and "BürgerAI – Lebenslagen Geburt, Umzug" in out

@@ -2,7 +2,7 @@
 
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
-**Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslage **Geburt** (Fachmodul Familie) für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München und Freising. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
+**Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslagen **Geburt** (Fachmodul Familie) und **Umzug** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München, Freising und (bei Umzug) Berlin. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
 
 > Unverbindliche Orientierung, keine Rechtsberatung.
 
@@ -12,11 +12,12 @@ Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwan
 ./bai web                   # dann im Browser http://localhost:8000 öffnen
 ```
 
-Ablauf: Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
+Ablauf: Lebenslage wählen (Geburt, Umzug, auch beides) und Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
 
 | Funktion | Wo |
 |----------|-----|
-| Beispiel-Familie laden (alle Szenarien) | Startseite → „Zum Testen: Beispiel-Familie laden“ |
+| Beispiel laden (alle Szenarien) | Startseite → „Zum Testen: Beispiel laden“ |
+| Lebenslage ergänzen oder wechseln | über der Checkliste „Lebenslage: … (ändern)“ – Angaben bleiben erhalten |
 | Angabe ändern | „Ihre Angaben“ → „ändern“ |
 | Fragen überspringen | „Fragen beenden, nur Ergebnis“ |
 | Checkliste abhaken | Kästchen je Leistung (bleibt im Browser gespeichert) |
@@ -79,6 +80,7 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Fachmodule und Lebenslagen | `./bai lebenslagen` |
 | Lebenslage per Stichwort finden | `./bai lebenslagen --suche "Wir bekommen ein Baby"` |
 | Lebenslage(n) wählen | `./bai pruefen -s nur_plz --lebenslage geburt` (mehrfach möglich, Standard: `geburt`) |
+| Umzug prüfen | `./bai pruefen --plz 80331 -l umzug -f umzug.einzugsdatum=15.10.2026 -f umzug.ort_alt=85354 -f umzug.hund=ja` |
 | Leistungen und Varianten | `./bai leistungen` |
 | Quellen und Prüfstatus | `./bai quellen --offen` |
 | Datenkonsistenz | `./bai daten` |
@@ -103,6 +105,11 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 | `muenchen_postfach_plz` | PLZ ohne Gemeinde: Rückfrage nach dem Bundesland, Warnung |
 | je ein Szenario pro Land, z. B. `kiel_…`, `baunatal_…` (Hessen), `dresden_…` (Landeserziehungsgeld), `koeln_unverheiratet`, `bremerhaven_…` (mehrdeutige PLZ) | Elterngeldstelle des Landes, Jugendamt mit Kreisname; geprüft über `erwartet_stellen` |
 | `nur_plz` | Startpunkt: fast alles unklar, viele Rückfragen |
+| `umzug_freising_nach_muenchen` | Umzug mit Hund und Auto: Münchner Stellen, Hund in Freising abmelden (alter Wohnort) |
+| `umzug_koeln_nach_berlin_buergergeld` | Berliner Bürgeramt; Umzugskosten unklar, zuständig das bisherige Jobcenter Köln |
+| `umzug_innerhalb_muenchen` | gleiche Gemeinde: keine Hundesteuer-Ummeldung, Wohngeld neu beantragen |
+| `umzug_dresden_nach_baunatal_mit_baby` | Geburt und Umzug zusammen; Sächsisches Landeserziehungsgeld am neuen Ort nicht verfügbar |
+| `umzug_nur_plz` | Startpunkt Umzug: Anmeldung und Rundfunkbeitrag immer, sonst unklar |
 
 ## So funktioniert es
 
@@ -185,9 +192,17 @@ docs/
 - ✅ Mehrere Lebenslagen je Anfrage, Rollen aus den Daten, Ortsbezug je Leistung, Förderprogramme, „nur in anderen Ländern“, Fristen zu beliebigen Datumsfakten
 - ✅ Fragen nach Entscheidungskraft sortiert, Stichwortsuche nach Lebenslagen (`./bai lebenslagen --suche`)
 - ✅ Performance-Budget in Zielgröße als Test (500 Leistungen, 5.000 Varianten: Laden 0,3 s, Bericht mit 3 Lebenslagen etwa 7 ms), 83/83 Anforderungen mit Tests
-- ⏳ Auswahl mehrerer Lebenslagen in der Web-Oberfläche (sobald es eine zweite gibt; die API kann es schon)
 
-Nächste Schritte: Lebenslage Umzug (#41, Schritt 1), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Umzug (#41, Schritt 1)
+
+- ✅ Fachmodul Umzug (innerhalb Deutschlands) mit 9 Leistungen: Wohnung anmelden, Fahrzeug, Hundesteuer an- und abmelden, Rundfunkbeitrag, Wohngeld neu beantragen, Umzugskosten von Jobcenter und Arbeitsagentur, Anschrift an Leistungsstellen
+- ✅ Zwei Orte: Die PLZ der Anfrage ist die neue Wohnung, der bisherige Wohnort ist eine eigene Angabe (z. B. Hundesteuer abmelden, bisheriges Jobcenter); „innerhalb derselben Gemeinde“ wird daraus abgeleitet
+- ✅ Stellen vor Ort für München (Anmeldung, Hundesteuer) und Berlin (Anmeldung); sonst Meldebehörde, Zulassungsbehörde usw. mit Gemeinde- bzw. Kreisname
+- ✅ Landesleistungen für Umzug je Land recherchiert: keine gefunden (dokumentiert in `data/fachmodule/umzug/abdeckung.json`); bewusst nicht erfasste Themen stehen mit Begründung im Bericht
+- ✅ Lebenslagen in Web und Dialog wählbar und später änderbar; 5 Szenarien, 93/93 Anforderungen mit Tests
+- ⏳ Alle Quellen nur `teilweise` geprüft: Gesetzestexte waren aus der Entwicklungsumgebung nicht erreichbar ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Lebenslage Geringes Einkommen (#41, Schritt 2), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

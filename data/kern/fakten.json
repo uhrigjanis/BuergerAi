@@ -70,6 +70,21 @@
       "je_person": true,
       "typ": "ja_nein",
       "frage": "Ist {wer} angestellt (Arbeitsverhältnis, auch Minijob oder Ausbildung)?"
+    },
+    {
+      "id": "bezieht_wohngeld",
+      "typ": "ja_nein",
+      "frage": "Bekommt Ihr Haushalt derzeit Wohngeld?"
+    },
+    {
+      "id": "bezieht_buergergeld",
+      "typ": "ja_nein",
+      "frage": "Bekommt Ihr Haushalt derzeit Bürgergeld vom Jobcenter?"
+    },
+    {
+      "id": "arbeitsuchend_gemeldet",
+      "typ": "ja_nein",
+      "frage": "Sind Sie bei der Agentur für Arbeit oder beim Jobcenter arbeitsuchend oder arbeitslos gemeldet?"
     }
   ]
 }

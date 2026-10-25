@@ -1,0 +1,167 @@
+{
+  "_hinweis": "Abdeckung der Länder für die Lebenslage Umzug (ADR 0007). Bei neuen Landesleistungen hier auf 'erfasst' setzen.",
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "02",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "03",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "04",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "05",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "06",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "07",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "08",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "09",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "10",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "11",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "12",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien",
+        "bb_zuzug_initiativen"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft. Brandenburg fördert nur Zuzugsinitiativen, keine Zahlungen an Umziehende."
+    },
+    {
+      "gebiet_id": "13",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien",
+        "mv_wohnsitzpraemie"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft. Die Wohnsitzprämie geht an Hochschulen und Städte, nicht an Studierende."
+    },
+    {
+      "gebiet_id": "14",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "15",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    },
+    {
+      "gebiet_id": "16",
+      "lebenslage": "umzug",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ratgeber_umzugspraemien"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "_hinweis": "München (AGS 09162000): kommunale Varianten für die Lebenslage Umzug.",
+  "zustaendigkeiten": [
+    {
+      "id": "muenchen_buergerbuero",
+      "name": "Bürgerbüro der Landeshauptstadt München",
+      "url": "https://stadt.muenchen.de/service/info/hauptabteilung-ii-buergerangelegenheiten/10224135/",
+      "beschreibung": "Anmeldung online (nur Hauptwohnsitz) oder in einem Bürgerbüro."
+    },
+    {
+      "id": "muenchen_hundesteuer",
+      "name": "Landeshauptstadt München – Hundesteuer",
+      "url": "https://stadt.muenchen.de/service/info/anmeldung-eines-hundes/1074313/",
+      "beschreibung": "An- und Abmeldung online, per E-Mail, per Post oder persönlich."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "wohnsitz_anmelden_muenchen",
+      "leistung_id": "wohnsitz_anmelden",
+      "gebiet_id": "09162000",
+      "erbt_von": "wohnsitz_anmelden_bund",
+      "zustaendigkeit_id": "muenchen_buergerbuero",
+      "quellen": [
+        "bmg_17",
+        "bmg_19",
+        "muenchen_wohnsitz"
+      ],
+      "verfahren": {
+        "unterlagen": [
+          "Gültiger Ausweis jeder Person, die angemeldet wird",
+          "Wohnungsgeberbestätigung (oder Erklärung, warum sie fehlt)"
+        ],
+        "schritte": [
+          "Online anmelden (nur Hauptwohnsitz) oder Termin in einem Bürgerbüro.",
+          "Auch bei einem Umzug innerhalb Münchens ummelden.",
+          "Am bisherigen Wohnort ist keine Abmeldung nötig."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung erst nach dem Einzug möglich",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "muenchen_wohnsitz"
+            ],
+            "art": "fruehestens"
+          },
+          {
+            "text": "Innerhalb von 14 Tagen nach dem Einzug anmelden",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "bmg_17",
+              "muenchen_wohnsitz"
+            ],
+            "tage": 14
+          }
+        ],
+        "kosten": "Anmeldung gebührenfrei."
+      }
+    },
+    {
+      "id": "hundesteuer_anmelden_muenchen",
+      "leistung_id": "hundesteuer_anmelden",
+      "gebiet_id": "09162000",
+      "erbt_von": "hundesteuer_anmelden_bund",
+      "zustaendigkeit_id": "muenchen_hundesteuer",
+      "quellen": [
+        "muenchen_hundesteuer"
+      ],
+      "verfahren": {
+        "unterlagen": [
+          "Angaben zur Person und Kontaktdaten",
+          "Rasse, Geburtsjahr und Farbe des Hundes"
+        ],
+        "schritte": [
+          "Hund online, per E-Mail, per Post oder persönlich zur Hundesteuer anmelden."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von zwei Wochen nach dem Zuzug anmelden",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "muenchen_hundesteuer"
+            ],
+            "tage": 14
+          }
+        ]
+      },
+      "hinweise": []
+    },
+    {
+      "id": "hundesteuer_abmelden_muenchen",
+      "leistung_id": "hundesteuer_abmelden",
+      "gebiet_id": "09162000",
+      "erbt_von": "hundesteuer_abmelden_bund",
+      "zustaendigkeit_id": "muenchen_hundesteuer",
+      "quellen": [
+        "muenchen_hundesteuer"
+      ],
+      "verfahren": {
+        "schritte": [
+          "Hund bei der Landeshauptstadt München abmelden und die neue Anschrift angeben."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von zwei Wochen nach dem Wegzug abmelden",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "muenchen_hundesteuer"
+            ],
+            "tage": 14
+          }
+        ]
+      },
+      "hinweise": []
+    }
+  ]
+}

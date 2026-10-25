@@ -203,6 +203,8 @@ class Lebenslage:
     einstiegsfragen: tuple[str, ...] = ()  # werden vor allen anderen Fragen gestellt
     synonyme: tuple[str, ...] = ()
     beispiele: tuple[str, ...] = ()
+    # Bewusst nicht erfasste Leistungen: (Name, Begründung). Der Bericht nennt sie.
+    nicht_erfasst: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(frozen=True)

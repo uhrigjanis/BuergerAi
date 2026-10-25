@@ -1,0 +1,48 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Umzug.",
+  "fakten": [
+    {
+      "id": "umzug.einzugsdatum",
+      "typ": "datum",
+      "frage": "Wann ziehen Sie in die neue Wohnung ein bzw. wann sind Sie eingezogen? (TT.MM.JJJJ)",
+      "hilfe": "Ab diesem Tag laufen die Fristen, z. B. zwei Wochen für die Anmeldung."
+    },
+    {
+      "id": "umzug.ort_alt",
+      "typ": "ort",
+      "frage": "Wo haben Sie bisher gewohnt? (Postleitzahl)",
+      "hilfe": "Postleitzahl der bisherigen Wohnung. Die Postleitzahl oben ist die der neuen Wohnung."
+    },
+    {
+      "id": "umzug.gleiche_gemeinde",
+      "typ": "ja_nein",
+      "abgeleitet": true,
+      "frage": "Ziehen Sie innerhalb derselben Gemeinde um?",
+      "ableitung": {
+        "art": "gleiche_gemeinde",
+        "ort": "umzug.ort_alt"
+      },
+      "hilfe": "Wird aus bisherigem und neuem Wohnort abgeleitet."
+    },
+    {
+      "id": "umzug.kfz_halter",
+      "typ": "ja_nein",
+      "frage": "Ist auf Sie ein Auto, Motorrad oder anderes Fahrzeug zugelassen?"
+    },
+    {
+      "id": "umzug.hund",
+      "typ": "ja_nein",
+      "frage": "Halten Sie einen Hund?"
+    },
+    {
+      "id": "umzug.wegen_arbeit",
+      "typ": "ja_nein",
+      "frage": "Ziehen Sie um, weil Sie eine neue Arbeitsstelle antreten?"
+    },
+    {
+      "id": "umzug.leistungsbezug",
+      "typ": "ja_nein",
+      "frage": "Bekommen Sie laufende Leistungen wie Kindergeld, Elterngeld, Rente, Bürgergeld oder BAföG?"
+    }
+  ]
+}

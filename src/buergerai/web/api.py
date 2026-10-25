@@ -328,6 +328,9 @@ def bericht(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
     return {
         "stichtag": anfrage.stichtag.isoformat(),
         "lebenslagen": [{"id": ll, "name": kb.lebenslagen[ll].name} for ll in anfrage.lebenslagen],
+        "nicht_erfasst": [
+            {"lebenslage": kb.lebenslagen[ll].name, "name": n, "grund": g} for ll, n, g in b.nicht_erfasst
+        ],
         "nur_andere_laender": [
             {"name": n.leistung.name, "laender": [g.name for g in n.laender]} for n in b.nur_andere_laender
         ],

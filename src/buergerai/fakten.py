@@ -30,6 +30,8 @@ UNBEKANNT = _Unbekannt()
 
 # "ort": Postleitzahl (5 Ziffern) oder Gemeindeschlüssel (8 Ziffern), z. B. Lage einer Immobilie
 TYPEN = ("ja_nein", "zahl", "datum", "auswahl", "text", "ort")
+# Abgeleitete Vergleiche eines Ortsfakts mit dem Wohnort, z. B. "Umzug innerhalb derselben Gemeinde?"
+ABLEITUNGEN = {"gleiche_gemeinde": "gemeinde", "gleicher_kreis": "kreis", "gleiches_land": "land"}
 
 
 @dataclass(frozen=True)
@@ -43,6 +45,8 @@ class FaktDefinition:
     abgeleitet: bool = False
     nur_wenn: Optional[tuple[str, Any]] = None  # nur fragen, wenn Fakt == Wert
     modul: str = "kern"  # "kern" oder ID des Fachmoduls, aus dem Ablageort abgeleitet
+    # (Art, Ortsfakt): Vergleich des Ortsfakts mit dem Wohnort, siehe ABLEITUNGEN
+    ableitung: Optional[tuple[str, str]] = None
 
     def frage_fuer(self, wer: Optional[str]) -> str:
         """Frage mit eingesetzter Person (``wer`` im Satz, z. B. "die Mutter")."""

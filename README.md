@@ -48,6 +48,7 @@ source .venv/bin/activate   # danach ist auch der Befehl "buergerai" verfügbar
 Auf GitHub **Code → Codespaces → Create codespace** wählen. Die Umgebung richtet sich automatisch ein (Python 3.12, `.venv`, pytest, einmaliger Komplett-Check) und startet die Web-Oberfläche auf Port 8000. Der Browser-Tab öffnet sich automatisch; sonst unten im Reiter **Ports** bei „BürgerAI Web“ (8000) auf das Weltkugel-Symbol klicken.
 
 - Läuft die Oberfläche nicht (z. B. nach einem Neustart): `./scripts/web-start.sh` oder `./bai web` im Terminal.
+- Nach `git pull`: Server neu starten (`pkill -f "buergerai web"; ./scripts/web-start.sh`) und die Seite mit Strg+Umschalt+R bzw. Cmd+Umschalt+R neu laden. Unten auf der Seite steht die Version; passt sie nicht zum Server, zeigt die Seite eine Warnung.
 - Log: `/tmp/buergerai-web.log`. Beenden: `pkill -f "buergerai web"`.
 - Bestehender Codespace von Phase 1: einmal **Strg+Shift+P → „Codespaces: Rebuild Container“**, damit die Portfreigabe greift. Alternativ einfach `./bai web` starten und Port 8000 im Reiter Ports öffnen.
 - Der Port ist standardmäßig privat (nur mit Ihrem GitHub-Login erreichbar).

@@ -1,6 +1,8 @@
 // BürgerAI Web-Oberfläche (Phase 2, ohne LLM). Kein Framework, keine externen Dateien.
 "use strict";
 
+// Muss zu buergerai.__version__ passen (Test: tests/test_web.py); sonst warnt die Seite
+const VERSION = "0.3.1";
 const SPEICHER = "buergerai.v1";
 const ERGEBNIS_TEXT = { ja: "Ja", unklar: "Unklar", nein: "Nein" };
 const SYMBOL = { ja: "✓", unklar: "?", nein: "✗" };
@@ -39,6 +41,12 @@ function el(tag, attrs = {}, ...kinder) {
     e.append(k instanceof Node ? k : document.createTextNode(String(k)));
   }
   return e;
+}
+
+// Setzt den Inhalt eines Elements. Leere Teile (null, undefined, false) werden
+// entfernt, sonst würde replaceChildren sie als Text "null" anzeigen.
+function fuellen(ziel, ...kinder) {
+  ziel.replaceChildren(...kinder.flat(Infinity).filter((k) => k !== null && k !== undefined && k !== false));
 }
 
 function datumText(iso) {
@@ -132,13 +140,13 @@ async function ortAbsenden(ev) {
   } catch (e) {
     if (e.daten && e.daten.status === "mehrdeutig") {
       const s = $("#gemeinde");
-      s.replaceChildren(...e.daten.gemeinden.map((g) => el("option", { value: g.id }, g.name)));
+      fuellen(s, ...e.daten.gemeinden.map((g) => el("option", { value: g.id }, g.name)));
       $("#gemeinde-wahl").hidden = false;
       s.focus();
     } else if (e.daten && e.daten.status === "unbekannt") {
       $("#land-text").textContent = e.daten.fehler;
       const s = $("#land");
-      s.replaceChildren(
+      fuellen(s,
         el("option", { value: "" }, "Bitte wählen …"),
         ...e.daten.laender.map((l) => el("option", { value: l.kuerzel }, l.name + (l.pilot ? " (Pilot)" : ""))),
       );
@@ -265,12 +273,12 @@ function zeichneFrage() {
   const offen = bericht.fragen.length;
   if (!f) {
     if (offen && zustand.pausiert) {
-      karte.replaceChildren(
+      fuellen(karte,
         el("p", {}, `Noch ${offen} Frage${offen === 1 ? "" : "n"} offen. Mit diesen Angaben werden unklare Punkte genauer.`),
         el("button", { type: "button", class: "primaer", onclick: () => { zustand.pausiert = false; zeichnen(); } }, "Fragen fortsetzen"),
       );
     } else {
-      karte.replaceChildren(
+      fuellen(karte,
         el("p", { class: "fertig-box" }, "✓ Alle nötigen Angaben sind gemacht."),
         el("p", { class: "leise" }, "Was jetzt noch unklar ist, kann nur die zuständige Stelle entscheiden. Angaben lassen sich unten jederzeit ändern."),
       );
@@ -291,8 +299,7 @@ function zeichneFrage() {
       ? el("button", { type: "button", class: "link", onclick: () => { zustand.bearbeiten = null; zeichnen(); } }, "Abbrechen")
       : el("button", { type: "button", class: "link", onclick: () => { zustand.pausiert = true; zeichnen(); } }, "Fragen beenden, nur Ergebnis"),
   );
-  // replaceChildren würde null als Text "null" einfügen, daher leere Teile entfernen
-  karte.replaceChildren(...kopf.filter(Boolean), eingabe(f, aktuell), fuss);
+  fuellen(karte, kopf, eingabe(f, aktuell), fuss);
 }
 
 function eingabe(f, aktuell) {
@@ -343,10 +350,10 @@ function eingabe(f, aktuell) {
 function zeichneAngaben() {
   const liste = $("#angaben");
   if (!bericht.angaben.length) {
-    liste.replaceChildren(el("li", { class: "leise" }, "Noch keine Angaben."));
+    fuellen(liste, el("li", { class: "leise" }, "Noch keine Angaben."));
     return;
   }
-  liste.replaceChildren(...bericht.angaben.map((a) => el("li", { class: a.aktiv ? null : "inaktiv" },
+  fuellen(liste, ...bericht.angaben.map((a) => el("li", { class: a.aktiv ? null : "inaktiv" },
     el("span", {}, a.frage, a.aktiv ? null : el("span", { class: "leise" }, " (nicht mehr relevant)")),
     el("span", { class: "rechts" },
       el("span", { class: "wert" }, a.wert === "unbekannt" ? "weiß nicht" : a.anzeige),
@@ -359,13 +366,13 @@ function zeichneAngaben() {
 }
 
 function zeichneErgebnis() {
-  $("#warnungen").replaceChildren(...bericht.warnungen.map((w) => el("li", {}, "⚠ ", w)));
-  $("#zaehler").replaceChildren(...GRUPPEN.map(([w]) =>
+  fuellen($("#warnungen"), ...bericht.warnungen.map((w) => el("li", {}, "⚠ ", w)));
+  fuellen($("#zaehler"), ...GRUPPEN.map(([w]) =>
     el("span", { class: `chip ${w}` }, `${bericht.zaehler[w]} × ${ERGEBNIS_TEXT[w]}`)));
 
   const plan = bericht.zeitplan;
   $("#zeitplan-box").hidden = plan.length === 0;
-  $("#zeitplan").replaceChildren(...plan.map((t) => el("li", {
+  fuellen($("#zeitplan"), ...plan.map((t) => el("li", {
     class: [t.abgelaufen ? "abgelaufen" : "", t.bald ? "bald" : "", zustand.erledigt[t.leistung_id] ? "erledigt" : ""].join(" ").trim() || null,
   },
   el("span", { class: "datum" }, datumText(t.datum)),
@@ -375,7 +382,7 @@ function zeichneErgebnis() {
   )));
 
   const box = $("#leistungen");
-  box.replaceChildren();
+  fuellen(box);
   for (const [wert, titel] of GRUPPEN) {
     const eintraege = bericht.leistungen.filter((l) => l.ergebnis === wert);
     if (!eintraege.length) continue;
@@ -548,7 +555,11 @@ async function init() {
 
   try {
     meta = await api("/api/meta");
-    $("#szenario").replaceChildren(el("option", { value: "" }, "Beispiel wählen …"),
+    $("#version").textContent = `Version ${VERSION}`;
+    if (meta.version !== VERSION) {
+      meldung(`Diese Seite (Version ${VERSION}) passt nicht zum Server (Version ${meta.version}). Bitte neu laden: Strg+Umschalt+R bzw. Cmd+Umschalt+R.`);
+    }
+    fuellen($("#szenario"), el("option", { value: "" }, "Beispiel wählen …"),
       ...meta.szenarien.map((s) => el("option", { value: s.id }, s.name)));
   } catch (e) {
     meldung("Server nicht erreichbar. Läuft „./bai web“?");

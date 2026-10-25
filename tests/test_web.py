@@ -1,12 +1,14 @@
 """Tests der Web-Oberfläche: API-Logik direkt und der HTTP-Server über einen echten Port."""
 
 import json
+from pathlib import Path
 import threading
 import urllib.error
 import urllib.request
 
 import pytest
 
+from buergerai import __version__
 from buergerai import szenarien as szenarien_mod
 from buergerai.modell import Ebene, Gebiet
 from buergerai.planer import planen
@@ -248,3 +250,25 @@ def test_server_lehnt_ab(basis):
     assert http(basis + "/api/bericht", b"x" * (70 * 1024))[0] == 413
     status, _, inhalt = http(basis + "/api/bericht", {"plz": "80331", "fakten": {"x": 1}})
     assert status == 400 and "Unbekannter Fakt" in json.loads(inhalt)["fehler"]
+
+
+# ------------------------------------------------------------------ Oberfläche (statisch geprüft)
+STATIC = Path(__file__).resolve().parents[1] / "src" / "buergerai" / "web" / "static"
+
+
+@pytest.mark.anforderung("ANF-WEB-01")
+def test_oberflaeche_version_passt_zum_server():
+    """Veraltete Dateien im Browser fallen auf: Version in app.js und index.html = Paketversion."""
+    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    html = (STATIC / "index.html").read_text(encoding="utf-8")
+    assert f'const VERSION = "{__version__}";' in js
+    assert f'app.js?v={__version__}' in html and f'style.css?v={__version__}' in html
+
+
+@pytest.mark.anforderung("ANF-WEB-03")
+def test_inhalte_nur_ueber_null_sicheren_helfer():
+    """replaceChildren zeigt null als Text "null" an; nur der Helfer fuellen() darf es aufrufen."""
+    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    code = [z for z in js.splitlines() if not z.strip().startswith("//")]
+    aufrufe = [z.strip() for z in code if "replaceChildren(" in z]
+    assert aufrufe == ["ziel.replaceChildren(...kinder.flat(Infinity).filter((k) => k !== null && k !== undefined && k !== false));"]

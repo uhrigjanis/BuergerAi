@@ -1,6 +1,6 @@
 # ADR 0008: Lebenslagen als Fachmodule (Experten) auf einer gemeinsamen Engine
 
-**Status:** vorgeschlagen · **Datum:** 25.10.2026 · **Issue:** #41
+**Status:** angenommen · **Datum:** 25.10.2026 · **Issue:** #41
 
 ## Kontext
 
@@ -29,6 +29,8 @@ Es gibt **eine** Regel-Engine und **einen** Planer für alle Lebenslagen. Ein Fa
 | Synonyme, Beispielsätze, Abgrenzungen („Hauskauf gehört zu Wohnen, nicht zu Umzug“) | einfache Stichwortsuche als Einstieg | Router- und Extraktions-Prompt, Evaluationsdaten |
 | Szenarien und Anforderungen | Regressionstests | zusätzlich Freitext-Testfälle je Szenario |
 
+Ein Fachmodul kann mehrere auswählbare Lebenslagen enthalten. **Geburt gehört zum Fachmodul `familie`** und ist dort eine Lebenslage vom Typ `ereignis` (einschließlich Schwangerschaft). Weitere Familien-Lebenslagen (z. B. Kinderbetreuung, Unterhaltsvorschuss) kommen in dasselbe Modul. Der Experte ist das Modul, ausgewählt werden die Lebenslagen.
+
 Damit ist der Experte für Phase 3 vollständig beschrieben, ohne dass jetzt LLM-Code entsteht. Der LLM-Experte wird später aus diesen Daten erzeugt. Er schreibt nie Regeln, entscheidet nie über Ansprüche und nennt keine Leistung, die nicht in der Wissensbasis steht (ADR 0003, Akzeptanzkriterium in #41).
 
 **Verworfen: ein Experte als eigene Klasse oder eigene Engine je Lebenslage.** Gründe: doppelte Leistungen und Fakten (Beobachtung 1), mehrere Durchläufe statt einem, Ergebnisse aus mehreren Experten müssten nachträglich zusammengeführt und auf Widersprüche geprüft werden. Wenn ein Fachgebiet wirklich eigene Logik braucht (z. B. Berechnung von Wohngeld), wird sie als benannte Funktion in der gemeinsamen Engine ergänzt, die die Regel-JSON aufruft, nicht als Sonderweg im Modul.
@@ -45,7 +47,7 @@ data/
   generiert/                     wie heute
 ```
 
-- Die bisherigen Dateien `data/bund/geburt.json` und `data/fakten.json` werden das erste Fachmodul `geburt` (bzw. `familie`) und `kern`. Die Szenarien sichern ab, dass sich dabei kein Ergebnis ändert.
+- Die bisherigen Dateien `data/bund/geburt.json` und `data/fakten.json` werden das erste Fachmodul `familie` (mit der Lebenslage `geburt`) und `kern`. Die Lebenslagen-ID `geburt` bleibt, damit Szenarien und Abdeckungsnachweise der Länder gültig bleiben. Die Szenarien sichern ab, dass sich dabei kein Ergebnis ändert.
 - `Leistung.ereignisse` wird zu `Leistung.lebenslagen` (Liste). Die Datei, in der eine Leistung steht, ist ihr Heimatmodul. Andere Module verweisen nur darauf.
 - Konsistenzprüfung: Ein Modul darf nur `kern.*`, eigene Fakten und ausdrücklich importierte Fakten anderer Module verwenden. Das hält die Schemata für das LLM klein und verhindert Namenskollisionen.
 
@@ -97,7 +99,7 @@ Freitext ──► Router (Lebenslagen erkennen, mehrere möglich)
 
 | Schritt | Inhalt | Warum an dieser Stelle |
 |---|---|---|
-| 0 | Kernumbau (Abschnitt 3) mit Geburt als erstem Fachmodul | jede spätere Lebenslage baut darauf auf, die Geburt-Szenarien prüfen ihn |
+| 0 | Kernumbau (Abschnitt 3) mit Geburt im Fachmodul Familie als erstem Modul | jede spätere Lebenslage baut darauf auf, die Geburt-Szenarien prüfen ihn |
 | 1 | **Umzug** | wenige Fakten, vor allem Pflichten mit Fristen, prüft zwei Ortsbezüge (alt und neu) |
 | 2 | **Geringes Einkommen** | erste Situation quer zu Ereignissen, prüft Leistungen in mehreren Lebenslagen (Wohngeld, Kinderzuschlag, Bildung und Teilhabe) und die Fragenpriorisierung |
 | 3 | **Pflege** | große Reichweite, Landesleistungen mit unterschiedlicher Zuständigkeit (Landespflegegeld, Landesblindengeld) |
@@ -112,4 +114,5 @@ Die Reihenfolge weicht vom Vorschlag im Issue nur darin ab, dass geringes Einkom
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.
 - Der Kernumbau (Rollen, mehrere Lebenslagen, Ortsbezug) ändert Datenformat, CLI (`-f mutter.…`), Web-API und das Format gespeicherter Angaben. Gespeicherte Dateien und `szenarien/` brauchen eine einmalige Umstellung, alte Faktennamen werden beim Einlesen umbenannt.
 - Die Fachmodule enthalten schon jetzt Synonyme und Beispielsätze, die erst in Phase 3 voll genutzt werden. Das ist bewusster Vorlauf: Es ist günstiger, sie beim Erfassen einer Lebenslage mitzuschreiben als nachträglich.
-- Offene Punkte: genaue Rollenliste und Umgang mit mehreren Kindern; ob „Familie“ ein Modul mit Geburt als Unterfall ist oder Geburt ein eigenes Modul bleibt; Leistungsschlüssel aus FIM/LeiKa als stabile IDs (Katalog-Schritt in #41).
+- Entschieden am 25.10.2026: Geburt gehört zum Fachmodul Familie; die Reihenfolge in Abschnitt 6 gilt.
+- Offene Punkte: genaue Rollenliste und Umgang mit mehreren Kindern; Leistungsschlüssel aus FIM/LeiKa als stabile IDs (Katalog-Schritt in #41).

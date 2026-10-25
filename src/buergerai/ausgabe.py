@@ -46,8 +46,9 @@ class Farbe:
 SYMBOL = {Wert.JA: "✓", Wert.NEIN: "✗", Wert.UNKLAR: "?"}
 PERSON_NAME = {None: "Haushalt", "mutter": "Mutter", "partner": "Anderer Elternteil"}
 ABDECKUNG_TEXT = {
-    Abdeckung.VOLLSTAENDIG: "vollständig erfasst",
-    Abdeckung.ALLGEMEIN: "nur allgemeine Daten, Details vor Ort fehlen",
+    Abdeckung.ERFASST: "zuständige Stelle erfasst",
+    Abdeckung.ALLGEMEIN: "nur allgemeine Angaben, Stelle vor Ort nicht erfasst",
+    Abdeckung.FEHLT: "nicht erfasst",
 }
 PRUEF_TEXT = {
     Pruefstatus.VERIFIZIERT: "Quellen verifiziert",

@@ -1,0 +1,39 @@
+{
+  "name": "Postfach-PLZ München mit Bundesland",
+  "beschreibung": "80001 ist keiner Gemeinde zugeordnet; mit Bundesland BY gelten Landes- und Bundesdaten (mit Warnung).",
+  "plz": "80001",
+  "land": "BY",
+  "stichtag": "2026-10-24",
+  "anforderungen": [
+    "ANF-GEB-04",
+    "ANF-DAT-04"
+  ],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-01-10",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "ja",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 80000,
+    "mutter.staatsangehoerigkeit": "deutsch",
+    "mutter.krankenversicherung": "gesetzlich_mitglied",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja",
+    "partner.staatsangehoerigkeit": "deutsch",
+    "partner.krankenversicherung": "gesetzlich_mitglied",
+    "partner.beschaeftigt": "ja",
+    "partner.erwerbsstunden_nach_geburt": 40,
+    "partner.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "ja",
+    "kindergeld": "ja",
+    "bayerisches_familiengeld": "nein"
+  },
+  "erwartet_stellen": {
+    "elterngeld": "ZBFS",
+    "geburtsanzeige": "Standesamt des Geburtsorts"
+  }
+}

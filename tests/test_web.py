@@ -25,7 +25,7 @@ def anfrage(**fakten):
 
 # ------------------------------------------------------------------ API-Logik
 @pytest.mark.anforderung("ANF-WEB-02")
-def test_ort_pilotkommune(kb):
+def test_ort_gemeinde(kb):
     antwort = api.ort(kb, {"plz": "85354"})
     assert antwort["status"] == "ok"
     assert [g["name"] for g in antwort["hierarchie"]][0] == "Freising"
@@ -34,12 +34,12 @@ def test_ort_pilotkommune(kb):
 @pytest.mark.anforderung("ANF-WEB-02")
 def test_ort_unbekannt_bietet_laender(kb):
     with pytest.raises(api.ApiFehler) as info:
-        api.ort(kb, {"plz": "10115"})
+        api.ort(kb, {"plz": "80001"})  # Postfach-PLZ
     assert info.value.status == 409
     daten = info.value.json()
     assert daten["status"] == "unbekannt"
-    assert {"kuerzel": "BE", "name": "Berlin", "pilot": False} in daten["laender"]
-    assert api.ort(kb, {"plz": "10115", "land": "BE"})["text"] == "Berlin → Deutschland"
+    assert {"kuerzel": "BE", "name": "Berlin", "abdeckung": "erfasst"} in daten["laender"]
+    assert api.ort(kb, {"plz": "80001", "land": "BY"})["text"] == "Bayern → Deutschland"
 
 
 @pytest.mark.anforderung("ANF-WEB-02")
@@ -50,6 +50,7 @@ def test_ort_mehrdeutig_bietet_gemeinden(kb):
         api.ort(test_kb, {"plz": "85354"})
     assert info.value.json()["status"] == "mehrdeutig"
     assert {g["name"] for g in info.value.json()["gemeinden"]} == {"Freising", "Nachbarort"}
+    assert {g["kreis"] for g in info.value.json()["gemeinden"]} == {"Landkreis Freising"}
     assert api.ort(test_kb, {"plz": "85354", "gemeinde": "09999998"})["hierarchie"][0]["name"] == "Nachbarort"
 
 
@@ -236,7 +237,7 @@ def test_server_api(basis):
     assert status == 200 and json.loads(inhalt)["fragen"]
     status, kopf, inhalt = http(basis + "/api/kalender", api.szenario(Wissensbasis.laden(), "nur_plz"))
     assert status == 200 and kopf["Content-Type"].startswith("text/calendar")
-    status, _, inhalt = http(basis + "/api/ort", {"plz": "10115"})
+    status, _, inhalt = http(basis + "/api/ort", {"plz": "80001"})
     assert status == 409 and json.loads(inhalt)["status"] == "unbekannt"
 
 

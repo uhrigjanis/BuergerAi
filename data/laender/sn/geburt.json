@@ -1,0 +1,132 @@
+{
+  "_hinweis": "Sachsen: Elterngeld und Landeserziehungsgeld bei Landkreisen und kreisfreien Städten.",
+  "quellen": [
+    {
+      "id": "sachsen_landeserziehungsgeld",
+      "titel": "Familienportal Sachsen – Landeserziehungsgeld",
+      "url": "https://www.familie.sachsen.de/landeserziehungsgeld.html",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: 150 € (1. Kind), 200 € (2. Kind), 300 € (ab 3. Kind) monatlich; Bezug im Anschluss an Basiselterngeld; kein geförderter Kita- oder Tagespflegeplatz; Einkommensgrenzen für Geburten ab 2018: 24.600 € (Paare) bzw. 21.600 € (Alleinerziehende) pauschaliertes Jahresnetto zuzüglich 3.140 € je weiteres Kind, ab dem 3. Kind einkommensunabhängig."
+    },
+    {
+      "id": "saechslerzgg",
+      "titel": "Sächsisches Landeserziehungsgeldgesetz (SächsLErzGG)",
+      "url": "https://www.recht.sachsen.de/vorschrift/5132.1",
+      "typ": "gesetz",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Volltext nicht geprüft (aus der Entwicklungsumgebung nicht erreichbar)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_sn",
+      "name": "Elterngeldstelle – {kreis}",
+      "beschreibung": "In {land} bearbeiten die Landkreise und kreisfreien Städte das Elterngeld. Für Ihren Wohnort zuständig: {kreis}.",
+      "quellen": [
+        "bmfsfj_elterngeldstellen"
+      ]
+    },
+    {
+      "id": "landeserziehungsgeld_sn",
+      "name": "Landeserziehungsgeldstelle – {kreis}",
+      "beschreibung": "Das Landeserziehungsgeld beantragen Sie bei der Landkreis- bzw. Stadtverwaltung, meist bei derselben Stelle wie das Elterngeld.",
+      "quellen": [
+        "sachsen_landeserziehungsgeld"
+      ]
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "landeserziehungsgeld_sn",
+      "name": "Sächsisches Landeserziehungsgeld",
+      "kurz": "Landesleistung im 2. oder 3. Lebensjahr, wenn Sie Ihr Kind selbst betreuen und keinen geförderten Kita-Platz nutzen.",
+      "ereignisse": [
+        "geburt"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "voraussetzungen": [
+        "elterngeld"
+      ],
+      "betraege": [
+        {
+          "text": "150 € (1. Kind), 200 € (2. Kind), 300 € (ab dem 3. Kind) im Monat, je nach Beginn für 5 bis 12 Monate",
+          "quellen": [
+            "sachsen_landeserziehungsgeld"
+          ]
+        }
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_sn",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "14",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_sn",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "bmfsfj_elterngeldstellen"
+      ]
+    },
+    {
+      "id": "landeserziehungsgeld_sn",
+      "leistung_id": "landeserziehungsgeld_sn",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "landeserziehungsgeld_sn",
+      "quellen": [
+        "sachsen_landeserziehungsgeld",
+        "saechslerzgg"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "kind_lebt_im_haushalt",
+            "op": "==",
+            "wert": true,
+            "text": "Das Kind lebt bei Ihnen im Haushalt",
+            "quellen": [
+              "sachsen_landeserziehungsgeld"
+            ]
+          },
+          {
+            "pruefung_noetig": "Weitere Voraussetzungen bitte bei der Stelle prüfen lassen: Sie betreuen das Kind selbst und nutzen keinen staatlich geförderten Kita- oder Tagespflegeplatz, arbeiten höchstens 30 Stunden pro Woche, und beim 1. und 2. Kind liegt das Einkommen unter der Einkommensgrenze.",
+            "quellen": [
+              "sachsen_landeserziehungsgeld",
+              "saechslerzgg"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Landeserziehungsgeld gibt es erst im Anschluss an das Basiselterngeld (parallel zu ElterngeldPlus möglich)."
+      ],
+      "verfahren": {
+        "schritte": [
+          "Gegen Ende des Basiselterngelds bei der Landkreis- bzw. Stadtverwaltung beantragen."
+        ]
+      }
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "ereignis": "geburt",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld",
+        "sachsen_landeserziehungsgeld"
+      ],
+      "notiz": "Sachsen zahlt als einziges Land noch Landeserziehungsgeld."
+    }
+  ]
+}

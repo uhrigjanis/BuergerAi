@@ -1,0 +1,55 @@
+{
+  "_hinweis": "Mecklenburg-Vorpommern: Elterngeld beim LAGuS.",
+  "quellen": [
+    {
+      "id": "lagus_mv_elterngeld",
+      "titel": "LAGuS Mecklenburg-Vorpommern – Elterngeld",
+      "url": "https://www.lagus.mv-regierung.de/",
+      "typ": "behoerde",
+      "herausgeber": "Landesamt für Gesundheit und Soziales Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis (BMFSFJ-Liste, Stellenausschreibungen): LAGuS ist zuständige Behörde für das BEEG, Bearbeitung in regionalen Dezernaten (z. B. Rostock, Neubrandenburg)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lagus_mv",
+      "name": "Landesamt für Gesundheit und Soziales (LAGuS) – Elterngeld",
+      "beschreibung": "Zuständig für Elterngeld in ganz Mecklenburg-Vorpommern; bearbeitet wird in regionalen Dezernaten.",
+      "quellen": [
+        "lagus_mv_elterngeld",
+        "bmfsfj_elterngeldstellen"
+      ],
+      "url": "https://www.lagus.mv-regierung.de/"
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_mv",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "13",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "lagus_mv",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "lagus_mv_elterngeld",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "_hinweis": "Brandenburg: Elterngeld bei Landkreisen und kreisfreien Städten.",
+  "quellen": [
+    {
+      "id": "bb_zustv_beeg",
+      "titel": "Brandenburg – Verordnung über Zuständigkeiten nach dem BEEG",
+      "url": "https://bravors.brandenburg.de/de/verordnungen-212766",
+      "typ": "behoerde",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: zuständig sind die Landkreise und kreisfreien Städte sowie die Große kreisangehörige Stadt Schwedt/Oder (Stand der Verordnung nicht geprüft)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_bb",
+      "name": "Elterngeldstelle – {kreis}",
+      "beschreibung": "In {land} bearbeiten die Landkreise und kreisfreien Städte das Elterngeld. Für Ihren Wohnort zuständig: {kreis}.",
+      "quellen": [
+        "bb_zustv_beeg"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_bb",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "12",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_bb",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "bb_zustv_beeg"
+      ],
+      "hinweise": [
+        "Laut Zuständigkeitsverordnung hat auch die Stadt Schwedt/Oder eine eigene Elterngeldstelle."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

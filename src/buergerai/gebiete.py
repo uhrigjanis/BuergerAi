@@ -28,12 +28,23 @@ def plz_gueltig(plz: str) -> bool:
 
 
 def gemeinden_fuer_plz(kb: Wissensbasis, plz: str) -> list[Gebiet]:
-    """Exakte PLZ-Treffer haben Vorrang vor Präfix-Treffern."""
-    gemeinden = [g for g in kb.gebiete.values() if g.ebene is Ebene.GEMEINDE]
-    exakt = [g for g in gemeinden if plz in g.plz]
+    """Gemeinden zu einer PLZ. Exakte PLZ-Treffer haben Vorrang vor Präfix-Treffern.
+
+    Eine PLZ kann zu mehreren Gemeinden gehören (n:m), bundesweit über 1.400 Mal.
+    """
+    exakt = kb.plz_index().get(plz)
     if exakt:
-        return exakt
-    return [g for g in gemeinden if any(plz.startswith(p) for p in g.plz_praefixe)]
+        return [kb.gebiete[i] for i in exakt]
+    gemeinden = [g for g in kb.gebiete.values() if g.ebene is Ebene.GEMEINDE and g.plz_praefixe]
+    return sorted(
+        (g for g in gemeinden if any(plz.startswith(p) for p in g.plz_praefixe)), key=lambda g: (g.name, g.id)
+    )
+
+
+def kreis_von(kb: Wissensbasis, gemeinde: Gebiet) -> Optional[Gebiet]:
+    """Übergeordneter Kreis einer Gemeinde (zur Unterscheidung gleichnamiger Gemeinden)."""
+    parent = kb.gebiete.get(gemeinde.parent_id) if gemeinde.parent_id else None
+    return parent if parent is not None and parent.ebene is Ebene.KREIS else None
 
 
 def hierarchie(kb: Wissensbasis, gebiet_id: str) -> list[Gebiet]:
@@ -70,9 +81,10 @@ def aufloesen(
 ) -> list[Gebiet]:
     """Ermittelt die Gebietshierarchie.
 
-    Reihenfolge: explizite Gemeinde > PLZ > Bundesland. Ist die PLZ nicht
-    erfasst, wird mit dem angegebenen Bundesland weitergemacht (Fallback auf
-    Landes- und Bundesdaten). Ohne Bundesland: ``PlzUnbekannt``.
+    Reihenfolge: explizite Gemeinde > PLZ > Bundesland. Ist die PLZ keiner
+    Gemeinde zugeordnet (Postfach-PLZ), wird mit dem angegebenen Bundesland
+    weitergemacht (Fallback auf Landes- und Bundesdaten). Ohne Bundesland:
+    ``PlzUnbekannt``.
     """
     if gemeinde_id:
         gebiet = kb.gebiete.get(gemeinde_id)
@@ -91,7 +103,7 @@ def aufloesen(
         return hierarchie(kb, land_nach_kuerzel(kb, land).id)
     if plz:
         raise PlzUnbekannt(
-            f"PLZ {plz} ist (noch) nicht erfasst. Bitte das Bundesland angeben, "
-            "dann werden Landes- und Bundesdaten verwendet."
+            f"PLZ {plz} ist keiner Gemeinde zugeordnet (z. B. eine Postfach- oder Großkunden-PLZ). "
+            "Bitte die PLZ der Wohnadresse oder das Bundesland angeben."
         )
     raise GebietFehler("Bitte PLZ, Gemeinde oder Bundesland angeben")

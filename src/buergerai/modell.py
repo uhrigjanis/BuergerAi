@@ -26,19 +26,25 @@ class Ebene(Enum):
 
 
 class Abdeckung(Enum):
-    """Wie spezifisch sind die Daten einer Leistung für den Wohnort?
+    """Wie spezifisch sind die Daten für einen Ort? (ADR 0004, ADR 0007)
 
-    - VOLLSTAENDIG: Es gibt eine Variante auf der Ebene, auf der die Leistung
-      tatsächlich verwaltet wird (z. B. Standesamt der Gemeinde).
-    - ALLGEMEIN: Es gibt nur eine allgemeinere Variante (z. B. Landes- statt
-      Gemeindedaten). Die Aussage stimmt grundsätzlich, Details vor Ort fehlen.
+    Je Leistung (berechnet im Planer):
 
-    Ist eine Leistung für einen Ort gar nicht erfasst, erscheint sie nicht im
-    Bericht; stattdessen warnt der Bericht, dass das Gebiet nicht im Pilot liegt.
+    - ERFASST: Es gibt eine Variante auf der Ebene, auf der die Leistung
+      tatsächlich verwaltet wird (z. B. Standesamt der Gemeinde, Elterngeldstelle
+      des Landes).
+    - ALLGEMEIN: Es gibt nur eine allgemeinere Variante (z. B. Bundes- statt
+      Gemeindedaten). Die Aussage stimmt grundsätzlich, die Stelle vor Ort fehlt.
+
+    Je Land und Lebensereignis (aus ``abdeckung`` in den Daten):
+
+    - ERFASST: Landesleistungen sind recherchiert (oder ausdrücklich "keine").
+    - FEHLT: Für das Land ist noch nicht recherchiert, ob es eigene Leistungen gibt.
     """
 
-    VOLLSTAENDIG = "vollstaendig"
+    ERFASST = "erfasst"
     ALLGEMEIN = "allgemein"
+    FEHLT = "fehlt"
 
 
 class Pruefstatus(Enum):
@@ -87,8 +93,25 @@ class Gebiet:
     plz: tuple[str, ...] = ()
     plz_praefixe: tuple[str, ...] = ()
     kuerzel: Optional[str] = None  # z. B. "BY" für Länder
-    pilot: bool = False
     quellen: tuple[str, ...] = ()
+    art: Optional[str] = None  # bei Kreisen: Landkreis, Kreisfreie Stadt, ...
+    verband: Optional[tuple[str, str]] = None  # Gemeindeverband (Schlüssel, Name), falls bekannt
+
+
+@dataclass(frozen=True)
+class Landesabdeckung:
+    """Nachweis, dass die Landesleistungen eines Landes für ein Ereignis recherchiert sind.
+
+    ``landesleistungen``: ``erfasst`` (eigene Leistungen sind als Varianten
+    hinterlegt) oder ``keine`` (recherchiert: das Land hat keine eigenen).
+    """
+
+    gebiet_id: str
+    ereignis: str
+    landesleistungen: str
+    stand: date
+    quellen: tuple[str, ...]
+    notiz: Optional[str] = None
 
 
 @dataclass(frozen=True)

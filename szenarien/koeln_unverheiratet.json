@@ -1,0 +1,40 @@
+{
+  "name": "Köln: nicht verheiratet",
+  "beschreibung": "Nordrhein-Westfalen: Elterngeldstelle der Stadt Köln; Jugendamt nur allgemein erfasst.",
+  "plz": "50667",
+  "stichtag": "2026-10-24",
+  "anforderungen": [
+    "ANF-LAND-01",
+    "ANF-LAND-04",
+    "ANF-KRS-01"
+  ],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-01-10",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "nein",
+    "kind_lebt_im_haushalt": "ja",
+    "zve_eltern": 80000,
+    "mutter.staatsangehoerigkeit": "deutsch",
+    "mutter.krankenversicherung": "gesetzlich_mitglied",
+    "mutter.beschaeftigt": "ja",
+    "mutter.erwerbsstunden_nach_geburt": 0,
+    "mutter.betreut_kind_selbst": "ja",
+    "partner.staatsangehoerigkeit": "deutsch",
+    "partner.krankenversicherung": "gesetzlich_mitglied",
+    "partner.beschaeftigt": "ja",
+    "partner.erwerbsstunden_nach_geburt": 40,
+    "partner.betreut_kind_selbst": "ja"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "elterngeld": "ja",
+    "kindergeld": "ja",
+    "familienversicherung_kind": "ja",
+    "vaterschaftsanerkennung": "ja"
+  },
+  "erwartet_stellen": {
+    "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Köln",
+    "vaterschaftsanerkennung": "Jugendamt – Kreisfreie Stadt Köln"
+  }
+}

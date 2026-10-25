@@ -1,0 +1,52 @@
+{
+  "_hinweis": "Nordrhein-Westfalen: Elterngeld bei Kreisen und kreisfreien Städten.",
+  "quellen": [
+    {
+      "id": "nrw_elterngeld_beratung",
+      "titel": "Ministerium für Kinder, Jugend, Familie (NRW) – Beratung zu Elterngeld und Elternzeit",
+      "url": "https://www.mkjfgfi.nrw/beratung-zu-elterngeld-und-elternzeit-0",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: 'Wenden Sie sich an die Elterngeldstellen der Kreise und kreisfreien Städte.' Fachaufsicht: Bezirksregierung Münster, Dezernat 28."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_nw",
+      "name": "Elterngeldstelle – {kreis}",
+      "beschreibung": "In {land} bearbeiten die Landkreise und kreisfreien Städte das Elterngeld. Für Ihren Wohnort zuständig: {kreis}.",
+      "quellen": [
+        "nrw_elterngeld_beratung"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_nw",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "05",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_nw",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "nrw_elterngeld_beratung"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

@@ -1,4 +1,6 @@
-# Validierung gegen Primärquellen – Phase 1
+# Validierung gegen Primärquellen
+
+## Phase 1
 
 **Abnahmekriterium Phase 1:** „Alle Testfälle der Pilotregion grün und gegen Quellen geprüft.“
 
@@ -44,3 +46,79 @@ Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
 - Elternzeit: Anmeldung 7 Wochen vorher, schriftlich (§ 16 BEEG).
 - Familienversicherung: Ausschluss nach § 10 Abs. 3 SGB V.
 - Gebietsdaten: AGS München 09162000, Freising 09178124; PLZ 80xxx/81xxx = München, 85354/85356 = Freising.
+
+
+## Bundesweite Abdeckung (Issue #40)
+
+**Abnahmekriterium:** „Stichprobe von mindestens 3 Gemeinden je Land gegen die Behördenseiten geprüft.“
+
+| Teil | Stand 25.10.2026 |
+|------|------------------|
+| Gebiete und PLZ | ✅ automatisch importiert (400 Kreise, 10.712 Gemeinden, 8.159 PLZ), Prüfstatus `ungeprueft` – siehe [datenquellen.md](datenquellen.md) |
+| Elterngeldstelle je Land | ✅ erfasst für alle 16 Länder, recherchiert per Websuche (`teilweise` bzw. `ungeprueft`) |
+| Landesleistungen | ✅ Bayern (Familiengeld) und Sachsen (Landeserziehungsgeld) erfasst, übrige Länder als „keine“ dokumentiert |
+| Stichprobe gegen Behördenseiten | ⏳ **offen** – die Behördenseiten waren aus der Entwicklungsumgebung nicht erreichbar; Tabelle unten ist vorbereitet |
+
+Aktuellen Stand anzeigen: `./bai abdeckung` (je Land) und `./bai gebiet <PLZ>` bzw. `./bai pruefen --plz <PLZ> -d`.
+
+### Stichprobe: 3 Gemeinden je Land
+
+Je Land die Landeshauptstadt und zwei zufällig gewählte Gemeinden (Hamburg und Berlin haben nur eine). Zu prüfen:
+
+1. **Gebiet:** Gehört die PLZ zur Gemeinde, und liegt die Gemeinde im genannten Kreis? Abgleich mit der Seite der Gemeinde oder dem Gemeindeverzeichnis von Destatis.
+2. **Elterngeldstelle:** Stimmt die Stelle? Abgleich mit der Seite des Landes bzw. Kreises oder mit der Suche „Elterngeldstelle finden“ im Familienportal.
+3. **Jugendamt/Standesamt:** Ist der Fallback-Text richtig (z. B. keine kreisangehörige Stadt mit eigenem Jugendamt)?
+4. Ergebnis in die Spalte „geprüft“ (Datum, Kürzel; Abweichungen darunter notieren). Bei Abweichungen: Daten korrigieren, Szenario oder Test ergänzen.
+
+| Land | Gemeinde (AGS) | PLZ (Beispiel) | Kreis | Elterngeldstelle laut BürgerAI | geprüft |
+|---|---|---|---|---|---|
+| SH | Kiel (01002000) | 24103 | Kreisfreie Stadt Kiel | LASG Schleswig-Holstein, Elterngeldstelle Neumünster | offen |
+| SH | Auufer (01061005) | 25548 | Kreis Steinburg | LASG Schleswig-Holstein, Elterngeldstelle Heide | offen |
+| SH | Neritz (01062050) | 23843 | Kreis Stormarn | LASG Schleswig-Holstein, Elterngeldstelle Lübeck | offen |
+| HH | Hamburg (02000000) | 20095 | Kreisfreie Stadt Hamburg | Elterngeldstelle des Bezirksamts Ihres Wohnbezirks | offen |
+| NI | Hannover (03241001) | 30159 | Region Hannover | Elterngeldstelle – Region Hannover | offen |
+| NI | Polle (03255033) | 37647 | Landkreis Holzminden | Elterngeldstelle – Landkreis Holzminden | offen |
+| NI | Rosche (03360018) | 29571 | Landkreis Uelzen | Elterngeldstelle – Landkreis Uelzen | offen |
+| HB | Bremen (04011000) | 27568 | Kreisfreie Stadt Bremen | Elterngeldstelle – Kreisfreie Stadt Bremen | offen |
+| HB | Bremerhaven (04012000) | 27568 | Kreisfreie Stadt Bremerhaven | Elterngeldstelle – Kreisfreie Stadt Bremerhaven | offen |
+| NW | Köln (05315000) | 50667 | Kreisfreie Stadt Köln | Elterngeldstelle – Kreisfreie Stadt Köln | offen |
+| NW | Kamen (05978020) | 59174 | Kreis Unna | Elterngeldstelle – Kreis Unna | offen |
+| NW | Reken (05554044) | 48734 | Kreis Borken | Elterngeldstelle – Kreis Borken | offen |
+| HE | Wiesbaden (06414000) | 55246 | Kreisfreie Stadt Wiesbaden | Hessisches Amt für Versorgung und Soziales Wiesbaden – Elterngeldstelle | offen |
+| HE | Schrecksbach (06634021) | 34637 | Schwalm-Eder-Kreis | Hessisches Amt für Versorgung und Soziales Kassel – Elterngeldstelle | offen |
+| HE | Waldsolms (06532022) | 35647 | Lahn-Dill-Kreis | Hessisches Amt für Versorgung und Soziales Gießen – Elterngeldstelle | offen |
+| RP | Mainz (07315000) | 55116 | Kreisfreie Stadt Mainz | Elterngeldstelle – Kreisfreie Stadt Mainz | offen |
+| RP | Harbach (07132045) | 57572 | Landkreis Altenkirchen (Westerwald) | Elterngeldstelle – Landkreis Altenkirchen (Westerwald) | offen |
+| RP | Nierstein (07339043) | 55283 | Landkreis Mainz-Bingen | Elterngeldstelle – Landkreis Mainz-Bingen | offen |
+| BW | Stuttgart (08111000) | 70173 | Stadtkreis Stuttgart | L-Bank – Elterngeldstelle | offen |
+| BW | Großbottwar (08118021) | 71723 | Landkreis Ludwigsburg | L-Bank – Elterngeldstelle | offen |
+| BW | Mosbach (08225058) | 74821 | Neckar-Odenwald-Kreis | L-Bank – Elterngeldstelle | offen |
+| BY | München (09162000) | 80331 | Kreisfreie Stadt München | Zentrum Bayern Familie und Soziales (ZBFS) – Elterngeldstelle | offen |
+| BY | Krün (09180122) | 82493 | Landkreis Garmisch-Partenkirchen | Zentrum Bayern Familie und Soziales (ZBFS) – Elterngeldstelle | offen |
+| BY | Ascha (09278116) | 94347 | Landkreis Straubing-Bogen | Zentrum Bayern Familie und Soziales (ZBFS) – Elterngeldstelle | offen |
+| SL | Saarbrücken (10041100) | 66111 | Regionalverband Saarbrücken | Landesamt für Soziales Saarland – Elterngeldstelle | offen |
+| SL | Riegelsberg (10041517) | 66292 | Regionalverband Saarbrücken | Landesamt für Soziales Saarland – Elterngeldstelle | offen |
+| SL | Weiskirchen (10042117) | 66709 | Landkreis Merzig-Wadern | Landesamt für Soziales Saarland – Elterngeldstelle | offen |
+| BE | Berlin (11000000) | 10115 | Kreisfreie Stadt Berlin | Elterngeldstelle im Jugendamt Ihres Bezirks | offen |
+| BB | Potsdam (12054000) | 14467 | Kreisfreie Stadt Potsdam | Elterngeldstelle – Kreisfreie Stadt Potsdam | offen |
+| BB | Oberuckersee (12073430) | 17291 | Landkreis Uckermark | Elterngeldstelle – Landkreis Uckermark | offen |
+| BB | Rheinsberg (12068353) | 16818 | Landkreis Ostprignitz-Ruppin | Elterngeldstelle – Landkreis Ostprignitz-Ruppin | offen |
+| MV | Rostock (13003000) | 18055 | Kreisfreie Stadt Rostock | Landesamt für Gesundheit und Soziales (LAGuS) – Elterngeld | offen |
+| MV | Rollwitz (13075115) | 17309 | Landkreis Vorpommern-Greifswald | Landesamt für Gesundheit und Soziales (LAGuS) – Elterngeld | offen |
+| MV | Ritzerow (13071123) | 17153 | Landkreis Mecklenburgische Seenplatte | Landesamt für Gesundheit und Soziales (LAGuS) – Elterngeld | offen |
+| SN | Dresden (14612000) | 01067 | Kreisfreie Stadt Dresden | Elterngeldstelle – Kreisfreie Stadt Dresden | offen |
+| SN | Hohndorf (14521290) | 09394 | Erzgebirgskreis | Elterngeldstelle – Erzgebirgskreis | offen |
+| SN | Kirchberg (14524130) | 08107 | Landkreis Zwickau | Elterngeldstelle – Landkreis Zwickau | offen |
+| ST | Magdeburg (15003000) | 39104 | Kreisfreie Stadt Magdeburg | Elterngeldstelle – Kreisfreie Stadt Magdeburg | offen |
+| ST | Hohenberg-Krusemark (15090245) | 39596 | Landkreis Stendal | Elterngeldstelle – Landkreis Stendal | offen |
+| ST | Schnaudertal (15084442) | 06712 | Burgenlandkreis | Elterngeldstelle – Burgenlandkreis | offen |
+| TH | Erfurt (16051000) | 99084 | Kreisfreie Stadt Erfurt | Elterngeldstelle – Kreisfreie Stadt Erfurt | offen |
+| TH | Belrieth (16066005) | 98617 | Landkreis Schmalkalden-Meiningen | Elterngeldstelle – Landkreis Schmalkalden-Meiningen | offen |
+| TH | Hetschburg (16071031) | 99438 | Landkreis Weimarer Land | Elterngeldstelle – Landkreis Weimarer Land | offen |
+
+### Bekannte offene Punkte
+
+- **Kreisangehörige Städte mit eigener Stelle:** In mehreren Ländern (u. a. NRW, Niedersachsen, Rheinland-Pfalz) haben große kreisangehörige Städte ein eigenes Jugendamt und teils eine eigene Elterngeldstelle. Brandenburg: Schwedt/Oder laut Zuständigkeitsverordnung. Diese Ausnahmen sind noch nicht erfasst; die Texte weisen darauf hin.
+- **Bremen:** Die Namen der Elterngeldstellen in Bremen und Bremerhaven sind nicht recherchiert, nur die Aufteilung nach Stadt.
+- **Schleswig-Holstein, Hessen:** Zuordnung Kreis → Standort stammt aus je einer Quelle (Landesseite SH, Flyer RP Gießen 2024).
+- **Standesamt am Geburtsort:** BürgerAI zeigt bundesweit (außer München) nur „Standesamt des Geburtsorts“ ohne Kontaktdaten.

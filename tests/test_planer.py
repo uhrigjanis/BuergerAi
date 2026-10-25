@@ -40,19 +40,36 @@ def test_gueltigkeit_von_varianten(kb):
 
 @pytest.mark.anforderung("ANF-DAT-03", "ANF-BY-03")
 def test_abdeckung(plane):
-    assert plane(familie()).eintrag("geburtsanzeige").abdeckung is Abdeckung.VOLLSTAENDIG
+    assert plane(familie()).eintrag("geburtsanzeige").abdeckung is Abdeckung.ERFASST
     assert plane(familie(), plz="85354").eintrag("geburtsanzeige").abdeckung is Abdeckung.ALLGEMEIN
-    assert plane(familie(), plz=None, land="NW").eintrag("elterngeld").abdeckung is Abdeckung.ALLGEMEIN
-    assert plane(familie()).eintrag("elterngeld").abdeckung is Abdeckung.VOLLSTAENDIG
+    assert plane(familie(), plz=None, land="NW").eintrag("elterngeld").abdeckung is Abdeckung.ERFASST
+    assert plane(familie(), plz=None, land="NW").eintrag("vaterschaftsanerkennung").abdeckung is Abdeckung.ALLGEMEIN
+    assert plane(familie()).eintrag("elterngeld").abdeckung is Abdeckung.ERFASST
 
 
 @pytest.mark.anforderung("ANF-DAT-04")
-def test_warnungen_ausserhalb_pilot(plane):
+def test_warnungen_bei_allgemeinen_angaben(plane):
     assert plane(familie()).warnungen == []
-    warnungen = plane(familie(), plz="10115", land="BE").warnungen
-    assert any("kein Pilotland" in w for w in warnungen)
-    assert any("nicht als Gemeinde erfasst" in w for w in warnungen)
+    # Unverheiratet in Köln: Standesamt und Jugendamt nur allgemein erfasst
+    warnungen = plane(familie(eltern_verheiratet="nein"), plz="50667").warnungen
+    assert len(warnungen) == 1
+    assert "Köln" in warnungen[0] and "Vaterschaft anerkennen" in warnungen[0] and "Geburt anzeigen" in warnungen[0]
+    # Nicht zutreffende Leistungen (Nein) erzeugen keine Warnung
+    assert "Vaterschaft" not in plane(familie(), plz="50667").warnungen[0]
+    # Postfach-PLZ mit Bundesland: keine Gemeinde
+    assert any("nicht als Gemeinde erfasst" in w for w in plane(familie(), plz="80001", land="BY").warnungen)
     assert "bayerisches_familiengeld" not in plane(familie(), plz=None, land="BE").ergebnisse()
+
+
+@pytest.mark.anforderung("ANF-DAT-04", "ANF-DAT-11")
+def test_warnung_wenn_landesleistungen_nicht_recherchiert(kb, plane):
+    nachweis = kb.landesabdeckung.pop(("11", "geburt"))
+    try:
+        warnungen = plane(familie(), plz="10115").warnungen
+        assert any("Berlin ist noch nicht erfasst, ob es eigene Landesleistungen gibt" in w for w in warnungen)
+    finally:
+        kb.landesabdeckung[("11", "geburt")] = nachweis
+    assert not any("Landesleistungen" in w for w in plane(familie(), plz="10115").warnungen)
 
 
 @pytest.mark.anforderung("ANF-DAT-05")

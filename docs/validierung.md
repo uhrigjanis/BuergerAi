@@ -35,7 +35,7 @@ Für jede Quelle aus `./bai quellen --offen`:
 
 1. URL im Browser öffnen und Volltext lesen.
 2. Jede Bedingung, die auf die Quelle verweist, vergleichen: `./bai erklaeren <leistung> -s <szenario>` zeigt die Bedingungen mit Quellen-IDs.
-3. Beträge und Fristen vergleichen (`data/bund/geburt.json`, `data/laender/by/geburt.json`).
+3. Beträge und Fristen vergleichen (`data/fachmodule/familie/geburt.json`, `data/laender/by/geburt.json`).
 4. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
 5. Passt alles: in der Datei `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"` setzen. Passt etwas nicht: Regel/Daten korrigieren, Testfall ergänzen, dann verifizieren.
 6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen.

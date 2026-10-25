@@ -156,7 +156,5 @@ def test_partner_im_haushalt_unbekannt(plane):
 
 @pytest.mark.anforderung("ANF-DAT-04")
 def test_pilotwarnung_nur_wenn_landesdaten_existieren(kb):
-    from buergerai.planer import _hat_landesdaten
-
-    assert _hat_landesdaten(kb, "geburt")
-    assert not _hat_landesdaten(kb, "heirat")
+    assert kb.hat_landesdaten("geburt")
+    assert not kb.hat_landesdaten("heirat")

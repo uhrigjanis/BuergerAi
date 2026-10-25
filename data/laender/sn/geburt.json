@@ -45,7 +45,7 @@
       "id": "landeserziehungsgeld_sn",
       "name": "Sächsisches Landeserziehungsgeld",
       "kurz": "Landesleistung im 2. oder 3. Lebensjahr, wenn Sie Ihr Kind selbst betreuen und keinen geförderten Kita-Platz nutzen.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "land",
@@ -119,7 +119,7 @@
   "abdeckung": [
     {
       "gebiet_id": "14",
-      "ereignis": "geburt",
+      "lebenslage": "geburt",
       "landesleistungen": "erfasst",
       "stand": "2026-10-25",
       "quellen": [

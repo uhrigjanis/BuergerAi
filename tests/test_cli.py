@@ -48,7 +48,7 @@ def test_interaktiv(capsys, monkeypatch, tmp_path):
     assert code == 0
     assert "Ist das Kind schon geboren?" in out
     assert "Lebt der andere Elternteil" in out
-    assert "BürgerAI – Lebensereignis Geburt" in out
+    assert "BürgerAI – Lebenslage Geburt" in out
     gespeichert = json.loads(ziel.read_text())
     assert gespeichert["fakten"]["mutter.beschaeftigt"] == "unbekannt"
     assert gespeichert["fakten"]["errechneter_termin"] == "2026-12-15"
@@ -107,3 +107,32 @@ def test_hilfsbefehle(capsys):
         assert out.strip(), argv
     assert lauf(capsys, "szenarien", "--pruefen")[0] == 0
     assert lauf(capsys, "erklaeren", "gibtsnicht", "--plz", "80331")[0] == 1
+
+
+@pytest.mark.anforderung("ANF-MOD-02", "ANF-MOD-09")
+def test_lebenslagen_befehl(capsys):
+    code, out, _ = lauf(capsys, "lebenslagen")
+    assert code == 0 and "Fachmodul Familie und Kinder" in out and "geburt – Geburt (ereignis)" in out
+    code, out, _ = lauf(capsys, "lebenslagen", "--suche", "Wir bekommen ein Baby")
+    assert code == 0 and out.startswith("geburt")
+    code, out, _ = lauf(capsys, "lebenslagen", "--suche", "Auto abmelden")
+    assert code == 1
+
+
+@pytest.mark.anforderung("ANF-MOD-02")
+def test_lebenslage_option(capsys):
+    code, out, _ = lauf(capsys, "pruefen", "-s", "nur_plz", "--lebenslage", "geburt")
+    assert code == 0 and "BürgerAI – Lebenslage Geburt" in out
+    code, _, err = lauf(capsys, "pruefen", "-s", "nur_plz", "-l", "heirat")
+    assert code == 2 and "Unbekannte Lebenslage heirat" in err
+    code, out, _ = lauf(capsys, "pruefen", "-s", "nur_plz", "--json")
+    assert json.loads(out)["anfrage"]["lebenslagen"] == ["geburt"]
+
+
+@pytest.mark.anforderung("ANF-MOD-01")
+def test_fakten_nach_modul(capsys):
+    code, out, _ = lauf(capsys, "fakten")
+    assert code == 0
+    assert out.index("== Kern (alle Fachmodule) ==") < out.index("brutto_haushalt_monat")
+    assert out.index("== Fachmodul Familie und Kinder ==") < out.index("eltern_verheiratet")
+    assert "Einstiegsfrage Geburt" in out

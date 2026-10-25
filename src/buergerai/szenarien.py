@@ -51,7 +51,7 @@ def laden(kb: Wissensbasis, pfad: Path) -> Szenario:
         plz=roh.get("plz"),
         gemeinde=roh.get("gemeinde"),
         land=roh.get("land"),
-        ereignis=roh.get("ereignis", "geburt"),
+        lebenslagen=list(roh.get("lebenslagen") or [roh.get("ereignis", "geburt")]),
         stichtag=date.fromisoformat(roh["stichtag"]) if roh.get("stichtag") else date.today(),
     )
     return Szenario(
@@ -111,5 +111,6 @@ def speichern(pfad: Path, anfrage: Anfrage, name: str, beschreibung: str = "") -
         if getattr(anfrage, k):
             daten[k] = getattr(anfrage, k)
     daten["stichtag"] = anfrage.stichtag.isoformat()
+    daten["lebenslagen"] = list(anfrage.lebenslagen)
     daten["fakten"] = {k: wert(v) for k, v in anfrage.fakten.items()}
     pfad.write_text(json.dumps(daten, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

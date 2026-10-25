@@ -2,7 +2,7 @@
 
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
-**Aktueller Stand: Phase 2 + bundesweite Abdeckung, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebensereignis **Geburt** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München und Freising.
+**Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslage **Geburt** (Fachmodul Familie) für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München und Freising. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
 
 > Unverbindliche Orientierung, keine Rechtsberatung.
 
@@ -75,7 +75,10 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
-| Namen aller Angaben (für `-f`) | `./bai fakten` |
+| Namen aller Angaben (für `-f`), nach Fachmodul | `./bai fakten` |
+| Fachmodule und Lebenslagen | `./bai lebenslagen` |
+| Lebenslage per Stichwort finden | `./bai lebenslagen --suche "Wir bekommen ein Baby"` |
+| Lebenslage(n) wählen | `./bai pruefen -s nur_plz --lebenslage geburt` (mehrfach möglich, Standard: `geburt`) |
 | Leistungen und Varianten | `./bai leistungen` |
 | Quellen und Prüfstatus | `./bai quellen --offen` |
 | Datenkonsistenz | `./bai daten` |
@@ -106,7 +109,7 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 ```
 PLZ/Land ──► Gebietshierarchie (Gemeinde → Kreis → Land → Bund)
                  │
-Lebensereignis ──► Leistungen ──► spezifischste gültige Variante je Leistung
+Lebenslage(n) ──► Leistungen ──► spezifischste gültige Variante je Leistung (am Wohnort oder Ortsbezug)
                                       │
 Angaben (Fakten) ───────────────────► Regel-Engine: Ja / Nein / Unklar + Begründung + Rückfragen
                                       │
@@ -117,16 +120,19 @@ Angaben (Fakten) ───────────────────► Re
 
 - **Dreiwertige Logik:** Fehlende Angaben ergeben „Unklar“, nie „Nein“. Rückfragen kommen nur, wenn sie das Ergebnis noch ändern können ([ADR 0003](docs/adr/0003-dreiwertige-logik.md)).
 - **Abdeckung und Prüfstatus:** Jeder Eintrag zeigt, ob die zuständige Stelle vor Ort erfasst ist oder nur allgemeine Angaben vorliegen, und wie gut die Quellen geprüft sind ([ADR 0004](docs/adr/0004-abdeckung-und-pruefstatus.md), [ADR 0007](docs/adr/0007-bundesweit-vor-phase-3.md)).
-- **Je Elternteil:** Elterngeld und Elternzeit werden für beide Elternteile einzeln geprüft.
+- **Je Person:** Leistungen können je Rolle geprüft werden (z. B. Elterngeld für Mutter und anderen Elternteil). Rollen stehen in den Daten.
+- **Fachmodule:** Jede Lebenslage gehört zu einem Fachmodul (dem späteren Experten). Ein Modul ist ein Datenpaket, alle Module laufen auf derselben Engine ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md)).
 
 ## Projektstruktur
 
 ```
-src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, ausgabe, cli
+src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, suche, ausgabe, cli
   web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, JS)
 data/               Wissensbasis (getrennt vom Code)
-  fakten.json         Faktenkatalog: Angaben mit Frage und Typ
-  bund/               Bund und Länder (Gebiete), Quellen, Leistungen und Bundesvarianten (Geburt)
+  kern/               Fakten, die alle Fachmodule nutzen (Wohnort, Haushalt, Einkommen, Personen)
+  fachmodule/<id>/    je Fachmodul: modul.json (Steckbrief, Lebenslagen, Rollen), fakten.json, Leistungen und Bundesvarianten
+    familie/            Familie und Kinder mit der Lebenslage Geburt
+  bund/               Bund und Länder (Gebiete), Quellen
   generiert/          automatisch importiert: alle Kreise, Gemeinden und PLZ (nicht von Hand ändern, ODbL)
   laender/<kürzel>/   je Land: Elterngeldstelle, Landesleistungen, Abdeckungsnachweis
   kreise/<AGS>/       Kreise mit erfasstem Jugendamt (München, Landkreis Freising)
@@ -143,7 +149,10 @@ docs/
 ### Daten pflegen
 
 - Zuständigkeiten dürfen `{kreis}`, `{gemeinde}` und `{land}` enthalten; sie werden durch den Wohnort ersetzt (z. B. „Jugendamt – {kreis}“).
-- Neues Land bzw. neues Lebensereignis: Unter `abdeckung` festhalten, ob es Landesleistungen gibt (`erfasst` oder `keine`); sonst warnt der Bericht.
+- Neues Land bzw. neue Lebenslage: Unter `abdeckung` (mit `lebenslage`) festhalten, ob es Landesleistungen gibt (`erfasst` oder `keine`); sonst warnt der Bericht.
+- Neues Fachmodul: Ordner `data/fachmodule/<id>/` mit `modul.json` (`fachmodul`, `lebenslagen` mit Einstiegsfragen, Synonymen und Beispielen, ggf. `rollen`) und `fakten.json`. Eigene Fakten mit Präfix `<id>.`. Regeln dürfen nur Kern-Fakten, eigene Fakten und unter `importiert_fakten` genannte Fakten anderer Module nutzen.
+- Leistung: `lebenslagen` (eine oder mehrere), `fuer` (`"haushalt"` oder Liste von Rollen), `art` (`pflicht`, `antrag`, `geldleistung`, `foerderprogramm`, `information`), optional `rechtsanspruch`, `beantragt_von` (`selbst`, `arbeitgeber`, `angehoerige`, `von_amts_wegen`) und `ortsbezug` (Fakt vom Typ `ort`, z. B. Lage der Immobilie).
+- Fristen: `bezug` ist `geburt`, `termin`, `keiner` oder ein Datumsfakt (z. B. Kaufdatum).
 - Neue Kommune: `data/kommunen/<AGS>/geburt.json` mit Varianten; per `"erbt_von": "<varianten-id>"` übernimmt man Regel, Verfahren und Quellen und überschreibt nur, was vor Ort anders ist.
 - Regelknoten: `alle`, `eine`, `nicht` (mit `text`), `fakt` (mit `op`, `wert`, `text`, `quellen`) und `pruefung_noetig`. Operatoren: `== != < <= > >= in nicht_in`.
 - Nach jeder Änderung: `./bai daten && ./bai szenarien --pruefen && python -m pytest`.
@@ -170,7 +179,15 @@ docs/
 - ✅ `pilot` ersetzt durch Abdeckungsstatus je Leistung und Land (`./bai abdeckung`), je Land ein Szenario, 73/73 Anforderungen mit Tests
 - ⏳ Stichprobe von 3 Gemeinden je Land gegen Behördenseiten ([docs/validierung.md](docs/validierung.md)), Standesämter/Jugendämter je Gemeinde automatisch importieren (Folge-Issue)
 
-Nächste Phase: LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Fachmodule (#41, Schritt 0)
+
+- ✅ Geburt als Lebenslage im Fachmodul Familie; Kern-Fakten getrennt von Modul-Fakten, Modulgrenzen werden geprüft
+- ✅ Mehrere Lebenslagen je Anfrage, Rollen aus den Daten, Ortsbezug je Leistung, Förderprogramme, „nur in anderen Ländern“, Fristen zu beliebigen Datumsfakten
+- ✅ Fragen nach Entscheidungskraft sortiert, Stichwortsuche nach Lebenslagen (`./bai lebenslagen --suche`)
+- ✅ Performance-Budget in Zielgröße als Test (500 Leistungen, 5.000 Varianten: Laden 0,3 s, Bericht mit 3 Lebenslagen etwa 7 ms), 83/83 Anforderungen mit Tests
+- ⏳ Auswahl mehrerer Lebenslagen in der Web-Oberfläche (sobald es eine zweite gibt; die API kann es schon)
+
+Nächste Schritte: Lebenslage Umzug (#41, Schritt 1), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

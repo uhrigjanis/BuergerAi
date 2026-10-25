@@ -1,4 +1,4 @@
-"""Fristberechnung relativ zu Geburt bzw. errechnetem Termin."""
+"""Fristberechnung relativ zu Geburt, errechnetem Termin oder einem Datumsfakt."""
 
 from __future__ import annotations
 
@@ -42,6 +42,8 @@ def berechne(frist: Frist, fakten: dict[str, Any], stichtag: date) -> Berechnete
     elif frist.bezug == "termin":
         if isinstance(fakten.get("errechneter_termin"), date):
             basis = fakten["errechneter_termin"]
+    elif frist.bezug != "keiner" and isinstance(fakten.get(frist.bezug), date):
+        basis = fakten[frist.bezug]  # beliebiger Datumsfakt, z. B. Einzugsdatum
     if basis is None:
         return BerechneteFrist(frist, None, False, None)
     datum = plus_monate(basis, frist.monate) + timedelta(weeks=frist.wochen, days=frist.tage)

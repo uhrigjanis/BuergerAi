@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Anforderungen der Phasen 1 und 2 sowie der bundesweiten Abdeckung (#40). Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "_hinweis": "Anforderungen der Phasen 1 und 2, der bundesweiten Abdeckung (#40) und der Fachmodule (#41, ADR 0008). Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
   "anforderungen": [
     {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
     {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
@@ -22,6 +22,7 @@
     {"id": "ANF-DAT-11", "bereich": "Datenmodell", "titel": "Abdeckung je Land: Landesleistungen erfasst oder ausdrücklich keine, sonst fehlt; Konsistenzprüfung"},
     {"id": "ANF-DAT-12", "bereich": "Datenmodell", "titel": "Zuständigkeiten nennen Kreis, Gemeinde bzw. Land des Wohnorts (Platzhalter)"},
     {"id": "ANF-DAT-13", "bereich": "Datenmodell", "titel": "Wissensbasis mit allen Gemeinden lädt in unter 2 Sekunden"},
+    {"id": "ANF-DAT-14", "bereich": "Datenmodell", "titel": "Wissensbasis in Zielgröße (500 Leistungen, 5.000 Varianten, 600 Fakten): Laden unter 2 s, Bericht mit 3 Lebenslagen unter 20 ms"},
 
     {"id": "ANF-ENG-01", "bereich": "Regel-Engine", "titel": "Dreiwertige Logik (Ja/Nein/Unklar) für alle, eine, nicht"},
     {"id": "ANF-ENG-02", "bereich": "Regel-Engine", "titel": "Fehlende Angaben ergeben Unklar, nie Nein"},
@@ -82,6 +83,15 @@
     {"id": "ANF-WEB-08", "bereich": "Web-Oberfläche", "titel": "Gleiche Ergebnisse wie im Terminal (gleiche Engine, alle Szenarien)"},
     {"id": "ANF-WEB-09", "bereich": "Web-Oberfläche", "titel": "Angaben als Datei speichern und laden, im gleichen Format wie Szenarien"},
 
+    {"id": "ANF-MOD-01", "bereich": "Fachmodule (ADR 0008)", "titel": "Fachmodule sind Datenpakete (Steckbrief, Lebenslagen, Rollen, Fakten); Regeln nutzen nur Kern-, eigene oder importierte Fakten"},
+    {"id": "ANF-MOD-02", "bereich": "Fachmodule (ADR 0008)", "titel": "Mehrere Lebenslagen je Anfrage; jede Leistung erscheint einmal und nennt ihre Lebenslagen"},
+    {"id": "ANF-MOD-03", "bereich": "Fachmodule (ADR 0008)", "titel": "Personen werden je Rolle aus den Daten geprüft; die Vorbedingung der Rolle entscheidet, ob es die Person gibt"},
+    {"id": "ANF-MOD-04", "bereich": "Fachmodule (ADR 0008)", "titel": "Ortsbezug je Leistung: Varianten können nach einem anderen Ort als dem Wohnort gewählt werden (z. B. Lage der Immobilie)"},
+    {"id": "ANF-MOD-05", "bereich": "Fachmodule (ADR 0008)", "titel": "Förderprogramme und Leistungen ohne Rechtsanspruch sind gekennzeichnet; angezeigt wird, wer den Antrag stellt"},
+    {"id": "ANF-MOD-06", "bereich": "Fachmodule (ADR 0008)", "titel": "Landesleistungen ohne Gegenstück am maßgeblichen Ort werden als „nur in anderen Ländern“ genannt, nicht geprüft"},
+    {"id": "ANF-MOD-07", "bereich": "Fachmodule (ADR 0008)", "titel": "Fragen: zuerst Einstiegsfragen der gewählten Lebenslagen, dann nach Entscheidungskraft; Einstiegsfragen anderer Lebenslagen entfallen"},
+    {"id": "ANF-MOD-08", "bereich": "Fachmodule (ADR 0008)", "titel": "Fristen können sich auf einen beliebigen Datumsfakt beziehen (z. B. Kaufdatum)"},
+    {"id": "ANF-MOD-09", "bereich": "Fachmodule (ADR 0008)", "titel": "Stichwortsuche findet Lebenslagen über Name, Synonyme und Beispielsätze (ohne LLM)"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

@@ -161,6 +161,9 @@ def test_kalender(kb):
     ({"plz": "80331", "stichtag": "2026-W43-3"}, "Stichtag"),
     ({"plz": "80331", "stichtag": "2026-02-30"}, "Stichtag"),
     ({"plz": 80331}, "Ungültiger Wert"),
+    ({"plz": "80331", "lebenslagen": ["heirat"]}, "Unbekannte Lebenslage"),
+    ({"plz": "80331", "lebenslagen": "geburt"}, "Liste"),
+    ({"plz": "80331", "lebenslagen": [1]}, "Liste"),
 ])
 def test_ungueltige_eingaben(kb, daten, teil):
     with pytest.raises(api.ApiFehler) as info:
@@ -187,6 +190,25 @@ def test_szenario_format_rundreise(kb, tmp_path):
     assert planen(kb, geladen.anfrage).ergebnisse() == {
         l["id"]: l["ergebnis"] for l in api.bericht(kb, daten)["leistungen"]
     }
+
+
+@pytest.mark.anforderung("ANF-MOD-02", "ANF-WEB-09")
+def test_lebenslagen_in_der_api(kb):
+    meta = api.meta(kb)
+    assert [l["id"] for l in meta["lebenslagen"]] == ["geburt"]
+    assert meta["lebenslagen"][0]["modul"] == "Familie und Kinder"
+    # ohne Angabe: Geburt; mit Angabe: dasselbe Ergebnis
+    ohne = api.bericht(kb, anfrage())
+    mit = api.bericht(kb, {**anfrage(), "lebenslagen": ["geburt", "geburt"]})
+    assert ohne["lebenslagen"] == mit["lebenslagen"] == [{"id": "geburt", "name": "Geburt"}]
+    assert [l["id"] for l in ohne["leistungen"]] == [l["id"] for l in mit["leistungen"]]
+    assert all(l["lebenslagen"] == ["geburt"] for l in ohne["leistungen"])
+    assert {f["gruppe"] for f in ohne["fragen"]} <= {"Allgemein", "Familie und Kinder"}
+    # Berlin: Landesleistungen anderer Länder werden genannt
+    berlin = api.bericht(kb, {"plz": "10115", "stichtag": STICHTAG, "fakten": {}})
+    assert {"name": "Sächsisches Landeserziehungsgeld", "laender": ["Sachsen"]} in berlin["nur_andere_laender"]
+    # Szenarien und gespeicherte Angaben tragen die Lebenslagen
+    assert api.szenario(kb, "nur_plz")["lebenslagen"] == ["geburt"]
 
 
 @pytest.mark.anforderung("ANF-WEB-09", "ANF-WEB-07")

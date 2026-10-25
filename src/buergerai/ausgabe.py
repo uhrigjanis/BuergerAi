@@ -7,9 +7,9 @@ import sys
 from datetime import date
 from typing import Any, Optional
 
-from .fakten import PERSONEN, UNBEKANNT, wert_als_text
+from .fakten import UNBEKANNT, wert_als_text
 from .fristen import BerechneteFrist
-from .modell import Abdeckung, Ebene, Pruefstatus
+from .modell import Abdeckung, Ebene, Leistung, Pruefstatus
 from .planer import Bericht, Eintrag
 from .regeln import Schritt, Wert, begruendung
 from .wissensbasis import Wissensbasis
@@ -44,7 +44,12 @@ class Farbe:
 
 
 SYMBOL = {Wert.JA: "✓", Wert.NEIN: "✗", Wert.UNKLAR: "?"}
-PERSON_NAME = {None: "Haushalt", "mutter": "Mutter", "partner": "Anderer Elternteil"}
+BEANTRAGT_TEXT = {
+    "selbst": None,
+    "arbeitgeber": "Den Antrag stellt der Arbeitgeber, nicht Sie selbst.",
+    "angehoerige": "Den Antrag stellen Angehörige bzw. Hinterbliebene.",
+    "von_amts_wegen": "Kein Antrag nötig: Die Stelle wird von sich aus tätig.",
+}
 ABDECKUNG_TEXT = {
     Abdeckung.ERFASST: "zuständige Stelle erfasst",
     Abdeckung.ALLGEMEIN: "nur allgemeine Angaben, Stelle vor Ort nicht erfasst",
@@ -57,6 +62,27 @@ PRUEF_TEXT = {
     Pruefstatus.WIDERSPRUECHLICH: "Quellen widersprüchlich",
 }
 EBENE_TEXT = {Ebene.BUND: "Bund", Ebene.LAND: "Land", Ebene.KREIS: "Kreis", Ebene.GEMEINDE: "Gemeinde"}
+
+
+def person_name(kb: Wissensbasis, person: Optional[str]) -> str:
+    """Kurzname einer Rolle (z. B. "Mutter"); ``None`` steht für den ganzen Haushalt."""
+    if person is None:
+        return "Haushalt"
+    rolle = kb.rollen.get(person)
+    return rolle.name if rolle else person
+
+
+def anspruch_text(l: Leistung) -> Optional[str]:
+    """Hinweis bei Leistungen ohne Rechtsanspruch (Förderprogramme, Ermessen)."""
+    if l.art == "foerderprogramm":
+        return "Förderprogramm ohne Rechtsanspruch: Förderung nur, solange Mittel vorhanden sind. Programme können enden."
+    if not l.rechtsanspruch:
+        return "Kein Rechtsanspruch: Die zuständige Stelle entscheidet nach Ermessen."
+    return None
+
+
+def lebenslagen_text(kb: Wissensbasis, ids: list[str]) -> str:
+    return ", ".join(kb.lebenslagen[i].name if i in kb.lebenslagen else i for i in ids)
 
 
 def datum(d: date) -> str:
@@ -96,17 +122,13 @@ def schritt_text(s: Schritt, kb: Wissensbasis, f: Farbe) -> str:
     text = s.text or (s.fakt or "")
     if s.art == "fakt":
         if s.fakt and s.fakt in s.fehlend:
-            definition = kb.fakt_definition(s.fakt)
-            person = s.fakt.split(".")[0] if s.fakt.split(".")[0] in PERSONEN else None
-            frage = definition.frage_fuer(person) if definition else s.fakt
-            text += f.grau(f"  [Angabe fehlt: {frage}]")
+            text += f.grau(f"  [Angabe fehlt: {frage_zu(kb, s.fakt)}]")
         elif s.ist is UNBEKANNT:
             text += f.grau("  [Angabe: unbekannt]")
         elif s.ist is not None:
             definition = kb.fakt_definition(s.fakt) if s.fakt else None
-            if definition is not None and definition.typ == "ja_nein":
-                person = s.fakt.split(".")[0] if s.fakt.split(".")[0] in PERSONEN else None
-                text += f.grau(f"  [{definition.frage_fuer(person)} → {wert_als_text(s.ist)}]")
+            if definition is not None and definition.typ == "ja_nein" and s.fakt:
+                text += f.grau(f"  [{frage_zu(kb, s.fakt)} → {wert_als_text(s.ist)}]")
             else:
                 text += f.grau(f"  [Angabe: {wert_als_text(s.ist)}]")
     farbe = {Wert.JA: f.gruen, Wert.NEIN: f.rot, Wert.UNKLAR: f.gelb}[s.wert]
@@ -125,17 +147,25 @@ def _quellen_zeilen(e: Eintrag, f: Farbe) -> list[str]:
     return zeilen
 
 
-def eintrag_text(e: Eintrag, nr: int, kb: Wissensbasis, f: Farbe, details: bool) -> list[str]:
+def eintrag_text(
+    e: Eintrag, nr: int, kb: Wissensbasis, f: Farbe, details: bool, mehrere_lebenslagen: bool = False
+) -> list[str]:
     l = e.leistung
     meta = [f"Daten: {EBENE_TEXT[e.gebiet.ebene]}", ABDECKUNG_TEXT[e.abdeckung], PRUEF_TEXT[e.pruefstatus]]
     zeilen = [f"{f.fett(f'{nr}. {l.name}')}  {f.grau('[' + ' · '.join(meta) + ']')}"]
     zeilen.append(f"   {l.kurz}")
+    if mehrere_lebenslagen and e.lebenslagen:
+        zeilen.append(f"   {f.grau('Lebenslage: ' + lebenslagen_text(kb, e.lebenslagen))}")
     if len(e.personen) > 1 or e.personen[0].person is not None:
         teile = []
         for p in e.personen:
             farbe = {Wert.JA: f.gruen, Wert.NEIN: f.rot, Wert.UNKLAR: f.gelb}[p.schritt.wert]
-            teile.append(f"{PERSON_NAME[p.person]}: {farbe(p.schritt.wert.value)}")
+            teile.append(f"{person_name(kb, p.person)}: {farbe(p.schritt.wert.value)}")
         zeilen.append("   Für: " + ", ".join(teile))
+    if anspruch_text(l):
+        zeilen.append(f"   {f.gelb('Hinweis:')} {anspruch_text(l)}")
+    if BEANTRAGT_TEXT.get(l.beantragt_von):
+        zeilen.append(f"   Wer beantragt: {BEANTRAGT_TEXT[l.beantragt_von]}")
     zeilen.append(f"   Zuständig: {e.zustaendigkeit.name}")
     if e.zustaendigkeit.beschreibung and details:
         zeilen.append(f"              {f.grau(e.zustaendigkeit.beschreibung)}")
@@ -156,7 +186,7 @@ def eintrag_text(e: Eintrag, nr: int, kb: Wissensbasis, f: Farbe, details: bool)
     zeilen.append(f"   {titel}:")
     for p in e.personen:
         if len(e.personen) > 1:
-            zeilen.append(f"     {PERSON_NAME[p.person]}:")
+            zeilen.append(f"     {person_name(kb, p.person)}:")
         einrueck = "       " if len(e.personen) > 1 else "     "
         gruende = begruendung(p.schritt)
         if not gruende:
@@ -203,14 +233,20 @@ def bericht_text(
 ) -> str:
     f = farbe or Farbe()
     a = bericht.anfrage
+    titel = "Lebenslage" if len(a.lebenslagen) == 1 else "Lebenslagen"
     zeilen = [
-        f.fett(f"BürgerAI – Lebensereignis {a.ereignis.capitalize()}") + f.grau(f"   (Stichtag {datum(a.stichtag)})"),
+        f.fett(f"BürgerAI – {titel} {lebenslagen_text(kb, a.lebenslagen)}") + f.grau(f"   (Stichtag {datum(a.stichtag)})"),
         f"Wohnort: {ort_text(bericht)}",
-        f"Kind:    {geburt_text(a.fakten)}",
-        f.grau("Hinweis: Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle."),
     ]
+    if "geburt" in a.lebenslagen:
+        zeilen.append(f"Kind:    {geburt_text(a.fakten)}")
+    zeilen.append(
+        f.grau("Hinweis: Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle.")
+    )
     for w in bericht.warnungen:
         zeilen.append(f.gelb(f"⚠ {w}"))
+    if bericht.nur_andere_laender:
+        zeilen.append(f.grau("Nur in anderen Ländern (hier nicht verfügbar): " + nur_andere_laender_text(bericht)))
 
     gruppen = [
         (Wert.JA, "Das steht Ihnen voraussichtlich zu / ist zu erledigen", f.gruen),
@@ -227,7 +263,7 @@ def bericht_text(
         for e in eintraege:
             nr += 1
             zeilen.append("")
-            zeilen.extend(eintrag_text(e, nr, kb, f, details))
+            zeilen.extend(eintrag_text(e, nr, kb, f, details, len(a.lebenslagen) > 1))
 
     if bericht.fehlend:
         zeilen.append("")
@@ -242,12 +278,18 @@ def bericht_text(
     return "\n".join(zeilen)
 
 
+def nur_andere_laender_text(bericht: Bericht) -> str:
+    return "; ".join(
+        f"{n.leistung.name} ({', '.join(g.name for g in n.laender)})" for n in bericht.nur_andere_laender
+    )
+
+
 def frage_zu(kb: Wissensbasis, fid: str) -> str:
     definition = kb.fakt_definition(fid)
     if definition is None:
         return fid
-    person = fid.split(".")[0] if fid.split(".")[0] in PERSONEN else None
-    return definition.frage_fuer(person)
+    rolle = kb.rolle_von_fakt(fid)
+    return definition.frage_fuer(rolle.wer if rolle else None)
 
 
 def baum_text(s: Schritt, kb: Wissensbasis, f: Farbe, tiefe: int = 0) -> list[str]:
@@ -302,18 +344,26 @@ def bericht_json(bericht: Bericht) -> dict[str, Any]:
             "plz": a.plz,
             "gemeinde": a.gemeinde,
             "land": a.land,
-            "ereignis": a.ereignis,
+            "lebenslagen": list(a.lebenslagen),
             "stichtag": a.stichtag.isoformat(),
             "fakten": {k: _wert_json(v) for k, v in a.fakten.items()},
         },
         "hierarchie": [{"id": g.id, "name": g.name, "ebene": g.ebene.value} for g in bericht.hierarchie],
         "warnungen": bericht.warnungen,
         "fehlende_angaben": bericht.fehlend,
+        "nur_andere_laender": [
+            {"id": n.leistung.id, "name": n.leistung.name, "laender": [g.kuerzel for g in n.laender]}
+            for n in bericht.nur_andere_laender
+        ],
         "leistungen": [
             {
                 "id": e.leistung.id,
                 "name": e.leistung.name,
                 "ergebnis": e.ergebnis.value,
+                "lebenslagen": e.lebenslagen,
+                "art": e.leistung.art,
+                "rechtsanspruch": e.leistung.rechtsanspruch,
+                "beantragt_von": e.leistung.beantragt_von,
                 "variante": e.variante.id,
                 "gebiet": e.gebiet.id,
                 "abdeckung": e.abdeckung.value,

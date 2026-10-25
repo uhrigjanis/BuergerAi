@@ -2,7 +2,7 @@
 "use strict";
 
 // Muss zu buergerai.__version__ passen (Test: tests/test_web.py); sonst warnt die Seite
-const VERSION = "0.4.0";
+const VERSION = "0.5.0";
 const SPEICHER = "buergerai.v1";
 const ERGEBNIS_TEXT = { ja: "Ja", unklar: "Unklar", nein: "Nein" };
 const SYMBOL = { ja: "✓", unklar: "?", nein: "✗" };
@@ -15,6 +15,7 @@ const GRUPPEN = [
 const zustand = {
   ort: null,            // {plz, gemeinde, land}
   stichtag: null,       // "JJJJ-MM-TT" oder null = heute
+  lebenslagen: null,    // Liste von IDs oder null = Standard des Servers (Geburt)
   fakten: {},           // id -> Wert (true/false, Zahl, "JJJJ-MM-TT", Auswahlwert, "unbekannt")
   erledigt: {},         // leistung_id -> true
   bearbeiten: null,     // Fakt-ID, die gerade geändert wird
@@ -64,7 +65,8 @@ function sicherLink(url, text) {
 function speichern() {
   try {
     localStorage.setItem(SPEICHER, JSON.stringify({
-      ort: zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten, erledigt: zustand.erledigt,
+      ort: zustand.ort, stichtag: zustand.stichtag, lebenslagen: zustand.lebenslagen,
+      fakten: zustand.fakten, erledigt: zustand.erledigt,
     }));
   } catch (_) { /* privater Modus: dann eben ohne Speichern */ }
 }
@@ -104,7 +106,9 @@ async function api(pfad, daten) {
 }
 
 function anfrage() {
-  return { ...zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten };
+  const daten = { ...zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten };
+  if (zustand.lebenslagen && zustand.lebenslagen.length) daten.lebenslagen = zustand.lebenslagen;
+  return daten;
 }
 
 function download(name, inhalt, typ) {
@@ -185,6 +189,7 @@ function angabenUebernehmen(s) {
   }
   zustand.ort = { plz: s.plz || null, gemeinde: s.gemeinde || null, land: s.land || null };
   zustand.stichtag = s.stichtag || null;
+  zustand.lebenslagen = Array.isArray(s.lebenslagen) && s.lebenslagen.length ? s.lebenslagen : null;
   zustand.fakten = (s.fakten && typeof s.fakten === "object") ? s.fakten : {};
   zustand.erledigt = {};
   zustand.bearbeiten = null;
@@ -254,7 +259,9 @@ function zeichnen() {
     ? `Simuliertes Datum: ${datumText(zustand.stichtag)}`
     : `Stand: heute, ${datumText(bericht.stichtag)}`;
   $("#stichtag").value = bericht.stichtag;
-  $("#kind-text").textContent = `Kind: ${bericht.kind}`;
+  $("#lebenslage-text").textContent = bericht.lebenslagen.map((l) => l.name).join(", ");
+  $("#kind-text").textContent = bericht.kind ? `Kind: ${bericht.kind}` : "";
+  $("#kind-text").hidden = !bericht.kind;
   zeichneFrage();
   zeichneAngaben();
   zeichneErgebnis();
@@ -370,6 +377,11 @@ function zeichneAngaben() {
 
 function zeichneErgebnis() {
   fuellen($("#warnungen"), ...bericht.warnungen.map((w) => el("li", {}, "⚠ ", w)));
+  const andere = bericht.nur_andere_laender;
+  $("#andere-laender").hidden = andere.length === 0;
+  $("#andere-laender").textContent = andere.length
+    ? "Nur in anderen Ländern (hier nicht verfügbar): " + andere.map((a) => `${a.name} (${a.laender.join(", ")})`).join("; ")
+    : "";
   fuellen($("#zaehler"), ...GRUPPEN.map(([w]) =>
     el("span", { class: `chip ${w}` }, `${bericht.zaehler[w]} × ${ERGEBNIS_TEXT[w]}`)));
 
@@ -430,9 +442,13 @@ function leistungKarte(l) {
   const fakten = [];
   const zeile = (dt, ...dd) => fakten.push(el("dt", {}, dt), el("dd", {}, ...dd));
   const mehrPersonen = l.personen.length > 1 || l.personen[0].person !== null;
+  if (bericht.lebenslagen.length > 1 && l.lebenslagen.length) {
+    zeile("Lebenslage", l.lebenslagen.map((id) => (bericht.lebenslagen.find((x) => x.id === id) || { name: id }).name).join(", "));
+  }
   if (mehrPersonen) {
     zeile("Für", l.personen.map((p, i) => [i ? ", " : "", `${p.name}: `, el("span", { class: `badge ${p.ergebnis}` }, ERGEBNIS_TEXT[p.ergebnis])]));
   }
+  if (l.beantragt_hinweis) zeile("Wer beantragt", l.beantragt_hinweis);
   zeile("Zuständig", l.zustaendigkeit.url ? sicherLink(l.zustaendigkeit.url, l.zustaendigkeit.name) : l.zustaendigkeit.name,
     l.zustaendigkeit.beschreibung ? el("div", { class: "leise" }, l.zustaendigkeit.beschreibung) : null);
   if (l.betrag && relevant) zeile("Betrag", l.betrag);
@@ -477,6 +493,7 @@ function leistungKarte(l) {
       el("span", { class: `badge ${l.ergebnis}` }, ERGEBNIS_TEXT[l.ergebnis]),
     ),
     el("p", { class: "kurz" }, l.kurz),
+    l.anspruch_hinweis ? el("p", { class: "hinweis" }, el("strong", {}, "Hinweis: "), l.anspruch_hinweis) : null,
     el("dl", { class: "fakten-liste" }, fakten),
     l.hinweise.map((h) => el("p", { class: "hinweis" }, el("strong", {}, "Hinweis: "), h)),
     warum,
@@ -505,6 +522,7 @@ function angabenSpeichern() {
   const daten = { name: "Eigene Angaben", beschreibung: `Gespeichert am ${datumText(new Date().toISOString().slice(0, 10))}` };
   for (const k of ["plz", "gemeinde", "land"]) if (zustand.ort[k]) daten[k] = zustand.ort[k];
   daten.stichtag = bericht.stichtag;
+  daten.lebenslagen = bericht.lebenslagen.map((l) => l.id);
   daten.fakten = zustand.fakten;
   download("buergerai-angaben.json", JSON.stringify(daten, null, 2) + "\n", "application/json");
 }
@@ -522,6 +540,7 @@ function neuBeginnen() {
   zustand.fakten = {};
   zustand.erledigt = {};
   zustand.stichtag = null;
+  zustand.lebenslagen = null;
   zustand.bearbeiten = null;
   zustand.pausiert = false;
   bericht = null;

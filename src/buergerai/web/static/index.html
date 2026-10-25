@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BürgerAI – Geburt</title>
-  <link rel="stylesheet" href="style.css?v=0.4.0">
-  <script src="app.js?v=0.4.0" defer></script>
+  <link rel="stylesheet" href="style.css?v=0.5.0">
+  <script src="app.js?v=0.5.0" defer></script>
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
@@ -13,7 +13,7 @@
     <div class="kopf-innen">
       <div>
         <p class="marke">BürgerAI</p>
-        <h1>Lebensereignis Geburt</h1>
+        <h1>Lebenslage Geburt</h1>
       </div>
       <p class="pilot">Ganz Deutschland · Bund, Länder, Kreise, Gemeinden</p>
     </div>
@@ -94,8 +94,10 @@
             <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
           </div>
         </div>
+        <p class="leise">Lebenslage: <span id="lebenslage-text"></span></p>
         <p id="kind-text" class="leise"></p>
         <ul id="warnungen" class="warnungen"></ul>
+        <p id="andere-laender" class="leise" hidden></p>
         <div id="zaehler" class="zaehler"></div>
 
         <section id="zeitplan-box" class="karte zeitplan" aria-labelledby="zeitplan-titel">

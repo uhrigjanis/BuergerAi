@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Landesvarianten Bayern für das Lebensereignis Geburt.",
+  "_hinweis": "Landesvarianten Bayern für das Lebenslage Geburt.",
   "quellen": [
     {
       "id": "fim_by_elterngeld",
@@ -68,7 +68,7 @@
       "id": "bayerisches_familiengeld",
       "name": "Bayerisches Familiengeld",
       "kurz": "Landesleistung für Kinder im 2. und 3. Lebensjahr – wird für neue Geburtsjahrgänge abgeschafft.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "land",
@@ -163,7 +163,7 @@
   "abdeckung": [
     {
       "gebiet_id": "09",
-      "ereignis": "geburt",
+      "lebenslage": "geburt",
       "landesleistungen": "erfasst",
       "stand": "2026-10-25",
       "quellen": [

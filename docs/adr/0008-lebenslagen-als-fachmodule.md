@@ -40,16 +40,17 @@ Damit ist der Experte für Phase 3 vollständig beschrieben, ohne dass jetzt LLM
 ```
 data/
   kern/fakten.json               Fakten, die alle brauchen: Haushalt, Personen, Einkommen, Wohnort
-  lebenslagen.json               Katalog der Fachmodule (Steckbriefe)
-  lebenslagen/<id>/              je Fachmodul: fakten.json, leistungen.json, Bundesvarianten
-  laender/<kürzel>/<id>.json     Landesvarianten und Abdeckungsnachweis je Lebenslage (wie heute)
-  kreise/…, kommunen/…           wie heute
-  generiert/                     wie heute
+  fachmodule/<id>/modul.json     Steckbrief: fachmodul, lebenslagen, rollen
+  fachmodule/<id>/fakten.json    Fakten des Moduls
+  fachmodule/<id>/<lage>.json    Leistungen und Bundesvarianten (z. B. familie/geburt.json)
+  laender/<kürzel>/<lage>.json   Landesvarianten und Abdeckungsnachweis je Lebenslage (wie bisher)
+  kreise/…, kommunen/…           wie bisher
+  generiert/                     wie bisher
 ```
 
 - Die bisherigen Dateien `data/bund/geburt.json` und `data/fakten.json` werden das erste Fachmodul `familie` (mit der Lebenslage `geburt`) und `kern`. Die Lebenslagen-ID `geburt` bleibt, damit Szenarien und Abdeckungsnachweise der Länder gültig bleiben. Die Szenarien sichern ab, dass sich dabei kein Ergebnis ändert.
 - `Leistung.ereignisse` wird zu `Leistung.lebenslagen` (Liste). Die Datei, in der eine Leistung steht, ist ihr Heimatmodul. Andere Module verweisen nur darauf.
-- Konsistenzprüfung: Ein Modul darf nur `kern.*`, eigene Fakten und ausdrücklich importierte Fakten anderer Module verwenden. Das hält die Schemata für das LLM klein und verhindert Namenskollisionen.
+- Konsistenzprüfung: Ein Modul darf nur Kern-Fakten, eigene Fakten und ausdrücklich importierte Fakten anderer Module verwenden. Das hält die Schemata für das LLM klein und verhindert Namenskollisionen. Zu welchem Modul ein Fakt gehört, ergibt sich aus seinem Ablageort.
 
 ### 3. Änderungen am Kern, bevor die zweite Lebenslage kommt
 
@@ -109,10 +110,24 @@ Freitext ──► Router (Lebenslagen erkennen, mehrere möglich)
 
 Die Reihenfolge weicht vom Vorschlag im Issue nur darin ab, dass geringes Einkommen vor Pflege und Wohnen kommt: Es testet die Mehrfachzuordnung früh, solange der Umbau noch billig ist.
 
+### 7. Umsetzung von Schritt 0 (25.10.2026)
+
+Gebaut wie oben beschrieben, mit diesen Abweichungen vom Plan:
+
+- **Ablage:** `data/fachmodule/<id>/` statt `data/lebenslagen/`. Ein gesonderter Katalog `lebenslagen.json` entfällt, die Steckbriefe liegen in `modul.json` je Modul.
+- **Rollen ohne Umbenennung:** Rollen sind Daten (`rollen` mit `id`, `name`, `wer` und optionaler `vorbedingung` als Regelknoten). Das Familien-Modul definiert `mutter` und `partner` (Vorbedingung: lebt im Haushalt). Neue Module bringen eigene Rollen mit (z. B. `pflegebeduerftig`). Deshalb müssen keine Faktennamen, Szenarien oder gespeicherten Angaben umgestellt werden. `fuer` ist `"haushalt"` oder eine Liste von Rollen.
+- **Faktennamen:** Die Geburt-Fakten behalten ihre Namen. Neue Module verwenden ihr Präfix (`pflege.pflegegrad`). Erlaubt sind als Präfix nur Rollen und das eigene Modul.
+- **Grunddaten werden Einstiegsfragen:** Das Feld `grunddaten` am Fakt entfällt. Jede Lebenslage nennt ihre `einstiegsfragen`. So fragt eine Anfrage nur zu Umzug nicht nach der Geburt.
+- **Ortsbezug als Fakt:** `ortsbezug` nennt einen Fakt vom neuen Typ `ort` (PLZ oder Gemeindeschlüssel), statt fester Werte wie `immobilie`. Ist der Ort unbekannt, gilt nur der Bund. Gehört eine PLZ zu mehreren Gemeinden, gilt der gemeinsame Teil der Hierarchien, ohne Rückfrage.
+- **Zusätzlich:** Fristen können sich auf jeden Datumsfakt beziehen (Einzugsdatum, Kaufdatum). `./bai lebenslagen --suche` ist die Stichwortsuche über Synonyme und Beispielsätze. Landesleistungen anderer Länder erscheinen als „Nur in anderen Ländern“.
+- **Noch offen:** In der Web-Oberfläche lassen sich Lebenslagen erst wählen, wenn es eine zweite gibt (Schritt 1). Die API nimmt `lebenslagen` schon an.
+
+Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_performance.py`, 503 Leistungen, 5.046 Varianten, 601 Fakten, alle Gebiete): Laden 0,3 s; ein Bericht mit 3 Lebenslagen und 81 Leistungen etwa 7 ms. Der Bericht für Geburt allein sank von 1,0 auf 0,8 ms. Die Indizes entstehen beim Laden, die Quellen je Variante werden zwischengespeichert.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.
-- Der Kernumbau (Rollen, mehrere Lebenslagen, Ortsbezug) ändert Datenformat, CLI (`-f mutter.…`), Web-API und das Format gespeicherter Angaben. Gespeicherte Dateien und `szenarien/` brauchen eine einmalige Umstellung, alte Faktennamen werden beim Einlesen umbenannt.
+- Der Kernumbau ändert das Datenformat (`lebenslagen` statt `ereignisse`, `fuer` als Rollenliste, Einstiegsfragen statt `grunddaten`). Faktennamen, CLI (`-f mutter.…`) und gespeicherte Angaben bleiben gültig (siehe Abschnitt 7). Alte Datenfelder lehnt der Loader mit einem Hinweis auf den neuen Namen ab.
 - Die Fachmodule enthalten schon jetzt Synonyme und Beispielsätze, die erst in Phase 3 voll genutzt werden. Das ist bewusster Vorlauf: Es ist günstiger, sie beim Erfassen einer Lebenslage mitzuschreiben als nachträglich.
 - Entschieden am 25.10.2026: Geburt gehört zum Fachmodul Familie; die Reihenfolge in Abschnitt 6 gilt.
 - Offene Punkte: genaue Rollenliste und Umgang mit mehreren Kindern; Leistungsschlüssel aus FIM/LeiKa als stabile IDs (Katalog-Schritt in #41).

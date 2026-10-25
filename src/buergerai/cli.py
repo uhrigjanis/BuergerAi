@@ -1,4 +1,4 @@
-"""Terminal-Oberfläche für manuelles Testen von BürgerAI (Phase 1, ohne LLM).
+"""Terminal-Oberfläche für manuelles Testen von BürgerAI (ohne LLM).
 
 Beispiele::
 
@@ -7,6 +7,7 @@ Beispiele::
     buergerai pruefen --plz 85354 --fakt kind_geboren=nein --fakt errechneter_termin=15.01.2027
     buergerai erklaeren elterngeld --szenario freising_unverheiratet
     buergerai szenarien --pruefen
+    buergerai web                               # Web-Oberfläche auf http://localhost:8000
 """
 
 from __future__ import annotations
@@ -310,6 +311,12 @@ def cmd_szenarien(args: argparse.Namespace) -> int:
     return 1 if fehler else 0
 
 
+def cmd_web(args: argparse.Namespace) -> int:
+    from .web.server import starten
+
+    return starten(_kb(args), host=args.host, port=args.port, oeffnen=args.oeffnen)
+
+
 def cmd_anforderungen(args: argparse.Namespace) -> int:
     f = Farbe(None if not args.keine_farbe else False)
     matrix = anforderungen_mod.testmatrix()
@@ -331,7 +338,7 @@ def cmd_anforderungen(args: argparse.Namespace) -> int:
 
 # ---------------------------------------------------------------------- Main
 def parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="buergerai", description="BürgerAI – regelbasierte Prüfung von Leistungen (Phase 1, ohne LLM)")
+    p = argparse.ArgumentParser(prog="buergerai", description="BürgerAI – regelbasierte Prüfung von Leistungen (ohne LLM)")
     p.add_argument("--version", action="version", version=f"buergerai {__version__}")
     p.add_argument("--daten", help="Alternatives Datenverzeichnis (Standard: data/)")
     p.add_argument("--keine-farbe", action="store_true", help="Ausgabe ohne Farben")
@@ -384,6 +391,12 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("szenarien", help="Gespeicherte Testprofile auflisten oder prüfen")
     s.add_argument("--pruefen", action="store_true", help="Alle Szenarien gegen ihre Erwartungen prüfen")
     s.set_defaults(func=cmd_szenarien)
+
+    s = sub.add_parser("web", help="Web-Oberfläche starten (Formular, Checkliste, Fristen)")
+    s.add_argument("--port", type=int, default=8000, help="Port (Standard: 8000)")
+    s.add_argument("--host", default="127.0.0.1", help="Adresse (Standard: 127.0.0.1, nur lokal erreichbar)")
+    s.add_argument("--oeffnen", action="store_true", help="Browser automatisch öffnen")
+    s.set_defaults(func=cmd_web)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")
     s.add_argument("--details", "-d", action="store_true")

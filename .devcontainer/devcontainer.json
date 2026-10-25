@@ -3,7 +3,14 @@
   "name": "BürgerAI",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
   "postCreateCommand": "./scripts/setup.sh",
-  "postAttachCommand": "echo 'BürgerAI bereit. Starten mit: ./bai   (alle Befehle: ./bai --help)'",
+  "postAttachCommand": "./scripts/web-start.sh; echo 'BürgerAI bereit. Web-Oberfläche: Reiter Ports → Port 8000 öffnen. Terminal: ./bai   (alle Befehle: ./bai --help)'",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "BürgerAI Web",
+      "onAutoForward": "openBrowser"
+    }
+  },
   "containerEnv": {
     "PYTHONPATH": "${containerWorkspaceFolder}/src"
   },

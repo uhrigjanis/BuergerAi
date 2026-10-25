@@ -11,4 +11,4 @@ echo "== Datenprüfung";      .venv/bin/buergerai daten
 echo "== Tests";             .venv/bin/python -m pytest
 echo "== Szenarien";         .venv/bin/buergerai szenarien --pruefen
 echo
-echo "Fertig. Starten mit:  ./bai   (oder: source .venv/bin/activate && buergerai)"
+echo "Fertig. Web-Oberfläche: ./bai web   ·   Terminal-Dialog: ./bai   (oder: source .venv/bin/activate && buergerai)"

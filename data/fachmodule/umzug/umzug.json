@@ -346,6 +346,18 @@
       "fuer": "haushalt",
       "art": "information",
       "kurz": "Wer Sozialleistungen bekommt, muss Änderungen mitteilen, die für die Leistung wichtig sind – ein Umzug gehört meist dazu."
+    },
+    {
+      "id": "begruessungsgeld_studium",
+      "name": "Begrüßungsgeld bei Umzug für Studium oder Ausbildung",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "kurz": "Einmalige Zahlung, wenn Sie für Studium oder Ausbildung zuziehen und dort Ihren Hauptwohnsitz anmelden."
     }
   ],
   "varianten": [

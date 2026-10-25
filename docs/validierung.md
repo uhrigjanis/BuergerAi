@@ -141,9 +141,28 @@ Alle Quellen haben den Status `teilweise`. Die Gesetzestexte (gesetze-im-interne
 | `muenchen_wohnsitz`, `muenchen_hundesteuer`, `berlin_wohnsitz` | Fristen und Online-Wege auf den Behördenseiten; Münchner Hundesteuersatzung (risi.muenchen.de, Stand 2017) auf Aktualität |
 | `fim_hundesteuer` | Volltext der FIM-Beschreibung (bisher nur Suchergebnis) |
 
-### Landesleistungen
+### Landesleistungen (alle 16 Länder, je Land gesucht am 25.10.2026)
 
-Für alle 16 Länder ist `landesleistungen: keine` eingetragen. Grundlage ist eine Websuche nach Umzugs-, Zuzugs- und Rückkehrprämien für Privatpersonen. Gefunden wurden nur Programme, die nicht an Umziehende zahlen (Brandenburg: Zuzugsinitiativen; Mecklenburg-Vorpommern: Wohnsitzprämie an Hochschulen). Die Lebenslage „Umzug“ der Landesportale ist noch nicht je Land geprüft. Findet sich dort eine Leistung, wird sie erfasst und der Eintrag auf `erfasst` gesetzt.
+| Land | Ergebnis | Was gefunden wurde |
+|------|----------|--------------------|
+| Bremen | **erfasst: Begrüßungsgeld** (150 €, Studium oder Ausbildung) | Radio Bremen, Hochschule Bremen; Antragsweg und Frist widersprüchlich |
+| Baden-Württemberg | keine | nur Förderung der freiwilligen Ausreise |
+| Bayern | keine | „Bayerisches Rückkehrprogramm“ betrifft die Ausreise |
+| Berlin | keine | Umzugsprämie nur für Mieter landeseigener Wohnungsunternehmen (Sekundärquelle) |
+| Brandenburg | keine | Förderung von Zuzugsinitiativen, keine Zahlungen an Personen |
+| Hamburg | keine | Prämie nur für die Freigabe rollstuhlgerechter Wohnungen |
+| Hessen | keine | Umzugszuschuss nur für Ärztinnen und Ärzte (KV Hessen) |
+| Mecklenburg-Vorpommern | keine | Wohnsitzprämie an Hochschulen; Fachkräfteförderung für Unternehmen |
+| Niedersachsen | keine | nur kommunale Prämien (nur Sekundärquelle) |
+| Nordrhein-Westfalen | keine | Landesumzugskostengesetz nur für Landesbedienstete |
+| Rheinland-Pfalz | keine | Landesinitiative Rückkehr betrifft die Ausreise |
+| Saarland | keine | nur Programme für Unternehmen (nur Sekundärquelle) |
+| Sachsen | keine | Rückkehrförderung betrifft die Ausreise |
+| Sachsen-Anhalt | keine | Rückkehrförderung betrifft die Ausreise; Beratung ohne Geldleistung |
+| Schleswig-Holstein | keine | Umzugskostenregeln nur für Landesbedienstete |
+| Thüringen | keine | Rückkehrprämie 2019 nur vorgeschlagen, nicht eingeführt |
+
+„Keine“ heißt: Die Websuche je Land hat keine Landesleistung für Umziehende gefunden. Die Landesportale sind nicht vollständig durchgesehen.
 
 ### Nicht erfasst
 

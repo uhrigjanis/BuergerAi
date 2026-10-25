@@ -147,13 +147,17 @@ def test_abdeckung_und_nicht_erfasst(kb, plane_umzug):
 
     for land in gebiete.laender(kb):
         nachweis = kb.landesabdeckung[(land.id, "umzug")]
-        assert nachweis.landesleistungen == "keine" and nachweis.quellen
+        assert nachweis.landesleistungen == ("erfasst" if land.id == "04" else "keine"), land.name
+        assert nachweis.quellen and "25.10.2026" in (nachweis.notiz or "")
+        # Je Land ein eigener Beleg, nicht nur der allgemeine Ratgeber (außer NI und SL)
+        if land.id not in ("03", "10"):
+            assert set(nachweis.quellen) != {"ratgeber_umzugspraemien"}, land.name
     b = plane_umzug(umzug())
     assert not any("Landesleistungen" in w for w in b.warnungen)
     namen = [n for _, n, _ in b.nicht_erfasst]
     assert "Abmeldung bei Umzug ins Ausland" in namen and all(g for _, _, g in b.nicht_erfasst)
     text = bericht_text(b, kb, Farbe(False))
-    assert "== Noch nicht erfasst (6) ==" in text and "Zweitwohnungsteuer" in text
+    assert "== Noch nicht erfasst (7) ==" in text and "Zweitwohnungsteuer" in text
     assert bericht_json(b)["nicht_erfasst"][0]["lebenslage"] == "umzug"
     web = api.bericht(kb, {"plz": "80331", "lebenslagen": ["umzug"], "fakten": {}})
     assert {n["lebenslage"] for n in web["nicht_erfasst"]} == {"Umzug"}
@@ -165,7 +169,7 @@ def test_abdeckung_und_nicht_erfasst(kb, plane_umzug):
 def test_kommunale_leistung_nicht_als_andere_laender(kb, plane_umzug):
     """München-Varianten (Gemeinde) erscheinen in Köln nicht als 'nur in anderen Ländern'."""
     b = plane_umzug(umzug(), plz="50667")
-    assert b.nur_andere_laender == []
+    assert [n.leistung.id for n in b.nur_andere_laender] == ["begruessungsgeld_studium"]  # Landesleistung Bremen
 
 
 # ------------------------------------------------------------------ Szenarien und Terminal = Web
@@ -176,3 +180,22 @@ def test_szenarien_umzug(kb):
     assert any("unklar" in s.erwartet.values() for s in umzug_szenarien)
     for s in umzug_szenarien:
         assert szenarien_mod.abweichungen(s, planen(kb, s.anfrage)) == [], s.id
+
+
+@pytest.mark.anforderung("ANF-UMZ-07")
+def test_begruessungsgeld_bremen(plane_umzug):
+    studium = umzug(umzug__ort_alt="30159", umzug__fuer_studium_ausbildung="ja")
+    b = plane_umzug(studium, plz="28195")
+    e = b.eintrag("begruessungsgeld_studium")
+    assert e.ergebnis is Wert.UNKLAR  # Hochschule, 12 Monate, Frist prüft das Service-Center
+    assert e.gebiet.id == "04" and "Universität Bremen" in e.zustaendigkeit.name
+    assert not e.leistung.rechtsanspruch
+    # Umzug innerhalb des Landes Bremen (Bremerhaven -> Bremen) zählt nicht als Zuzug
+    innen = plane_umzug(umzug(umzug__ort_alt="27576", umzug__fuer_studium_ausbildung="ja"), plz="28195")
+    assert innen.ergebnisse()["begruessungsgeld_studium"] == "nein"
+    assert plane_umzug(umzug(umzug__ort_alt="30159", umzug__fuer_studium_ausbildung="nein"), plz="28195").ergebnisse()[
+        "begruessungsgeld_studium"] == "nein"
+    # Außerhalb Bremens: nur in anderen Ländern
+    muenchen = plane_umzug(umzug(umzug__fuer_studium_ausbildung="ja"))
+    assert "begruessungsgeld_studium" not in muenchen.ergebnisse()
+    assert [g.kuerzel for n in muenchen.nur_andere_laender if n.leistung.id == "begruessungsgeld_studium" for g in n.laender] == ["HB"]

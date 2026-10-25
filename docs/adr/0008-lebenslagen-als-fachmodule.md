@@ -131,7 +131,7 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Haushaltsfakten im Kern:** `bezieht_wohngeld`, `bezieht_buergergeld` und `arbeitsuchend_gemeldet` liegen im Kern, weil auch geringes Einkommen und Arbeit sie brauchen.
 - **Nicht erfasst:** Jede Lebenslage kann bewusst nicht erfasste Themen mit Begründung nennen (`nicht_erfasst`). Der Bericht zeigt sie (Akzeptanzkriterium aus #41).
 - **Nur echte Landesleistungen als „nur in anderen Ländern“:** Kommunale Varianten (z. B. Münchner Hundesteuer) erscheinen dort nicht mehr. Sonst stünde die Leistung einer Stadt bei allen anderen Gemeinden.
-- **Abweichung vom Akzeptanzkriterium:** „Mindestens ein Land mit landeseigener Leistung“ ist für Umzug nicht erfüllbar, weil die Recherche keine gefunden hat. Erfasst sind stattdessen kommunale Varianten (München, Berlin) und für alle Länder der Nachweis `keine`.
+- **Akzeptanzkriterium Landesleistung (nachgeholt):** Die erste, allgemeine Suche fand keine Landesleistung, und zunächst stand für alle Länder `keine` mit einer gemeinsamen Sekundärquelle. Die Nachrecherche je Land fand das Begrüßungsgeld des Landes Bremen (150 € bei Zuzug für Studium oder Ausbildung). Es nutzt den abgeleiteten Fakt `umzug.gleiches_land`. Die übrigen 15 Länder haben `keine` mit je einer eigenen Quelle.
 
 ### 9. Umsetzung von Schritt 2: Geringes Einkommen (25.10.2026)
 

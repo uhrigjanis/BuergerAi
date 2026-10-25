@@ -43,6 +43,22 @@
       "id": "umzug.leistungsbezug",
       "typ": "ja_nein",
       "frage": "Bekommen Sie laufende Leistungen wie Kindergeld, Elterngeld, Rente, Grundsicherungsgeld oder BAföG?"
+    },
+    {
+      "id": "umzug.fuer_studium_ausbildung",
+      "typ": "ja_nein",
+      "frage": "Ziehen Sie für ein Studium oder eine Ausbildung um?"
+    },
+    {
+      "id": "umzug.gleiches_land",
+      "typ": "ja_nein",
+      "abgeleitet": true,
+      "frage": "Ziehen Sie innerhalb desselben Bundeslandes um?",
+      "ableitung": {
+        "art": "gleiches_land",
+        "ort": "umzug.ort_alt"
+      },
+      "hilfe": "Wird aus bisherigem und neuem Wohnort abgeleitet."
     }
   ]
 }

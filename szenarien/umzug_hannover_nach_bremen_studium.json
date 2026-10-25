@@ -1,0 +1,35 @@
+{
+  "name": "Umzug Hannover → Bremen für das Studium",
+  "beschreibung": "Landesleistung Begrüßungsgeld (Bremen) unklar bis zur Prüfung durch das Service-Center; Anmeldung bei der Meldebehörde Bremen.",
+  "plz": "28195",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-UMZ-07",
+    "ANF-UMZ-06"
+  ],
+  "fakten": {
+    "umzug.einzugsdatum": "2026-10-01",
+    "umzug.ort_alt": "30159",
+    "umzug.fuer_studium_ausbildung": "ja",
+    "umzug.hund": "nein",
+    "umzug.kfz_halter": "nein",
+    "bezieht_wohngeld": "nein",
+    "bezieht_buergergeld": "nein",
+    "umzug.wegen_arbeit": "nein",
+    "umzug.leistungsbezug": "nein"
+  },
+  "erwartet": {
+    "begruessungsgeld_studium": "unklar",
+    "wohnsitz_anmelden": "ja",
+    "rundfunkbeitrag_umzug": "ja",
+    "hundesteuer_anmelden": "nein"
+  },
+  "erwartet_stellen": {
+    "begruessungsgeld_studium": "Universität Bremen",
+    "wohnsitz_anmelden": "Meldebehörde – Bremen"
+  },
+  "erwartet_fehlend": []
+}

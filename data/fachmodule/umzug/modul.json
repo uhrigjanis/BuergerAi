@@ -30,7 +30,10 @@
         "ummelden",
         "Ummeldung",
         "Einzug",
-        "Wohnungswechsel"
+        "Wohnungswechsel",
+        "Studium beginnen",
+        "Ausbildung beginnen",
+        "Begrüßungsgeld"
       ],
       "beispiele": [
         "Wir ziehen nächsten Monat nach Berlin.",
@@ -48,8 +51,8 @@
           "grund": "Steuern haben noch kein Fachmodul; die Pauschalen ändern sich regelmäßig."
         },
         {
-          "name": "Begrüßungsgeld für Studierende und Auszubildende",
-          "grund": "Je Stadt verschieden; die gefundenen Angaben (z. B. Kiel) sind veraltet oder widersprüchlich."
+          "name": "Kommunale Begrüßungsgelder für Studierende und Auszubildende",
+          "grund": "Je Stadt verschieden; die gefundenen Angaben (z. B. Kiel) sind veraltet oder widersprüchlich. Erfasst ist das Begrüßungsgeld des Landes Bremen."
         },
         {
           "name": "Zweitwohnungsteuer",
@@ -62,6 +65,10 @@
         {
           "name": "Nachsendeauftrag, Strom, Internet",
           "grund": "Keine staatlichen Leistungen."
+        },
+        {
+          "name": "Umzugsprämien landeseigener Wohnungsunternehmen",
+          "grund": "Z. B. in Berlin nur für deren Mieter beim Wechsel in eine kleinere Wohnung; keine Leistung für alle."
         }
       ]
     }

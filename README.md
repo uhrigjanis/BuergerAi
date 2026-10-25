@@ -110,6 +110,7 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 | `umzug_innerhalb_muenchen` | gleiche Gemeinde: keine Hundesteuer-Ummeldung, Wohngeld neu beantragen |
 | `umzug_dresden_nach_baunatal_mit_baby` | Geburt und Umzug zusammen; Sächsisches Landeserziehungsgeld am neuen Ort nicht verfügbar |
 | `umzug_nur_plz` | Startpunkt Umzug: Anmeldung und Rundfunkbeitrag immer, sonst unklar |
+| `umzug_hannover_nach_bremen_studium` | Begrüßungsgeld des Landes Bremen (Landesleistung) beim Zuzug für das Studium |
 | `einkommen_berlin_wohngeld_zwei_kinder` | Berlin-Ticket S (Landesleistung) mit Wohngeld, Bildung und Teilhabe; keine Rundfunkbefreiung |
 | `einkommen_hamburg_grundsicherungsgeld` | hvv-Sozialrabatt, Rundfunkbefreiung; Wohngeld ausgeschlossen |
 | `einkommen_muenchen_rentnerin` | Grundsicherung im Alter unklar, München-Pass; kein Landes-Sozialticket in Bayern |
@@ -202,7 +203,7 @@ docs/
 - ✅ Fachmodul Umzug (innerhalb Deutschlands) mit 9 Leistungen: Wohnung anmelden, Fahrzeug, Hundesteuer an- und abmelden, Rundfunkbeitrag, Wohngeld neu beantragen, Umzugskosten von Jobcenter und Arbeitsagentur, Anschrift an Leistungsstellen
 - ✅ Zwei Orte: Die PLZ der Anfrage ist die neue Wohnung, der bisherige Wohnort ist eine eigene Angabe (z. B. Hundesteuer abmelden, bisheriges Jobcenter); „innerhalb derselben Gemeinde“ wird daraus abgeleitet
 - ✅ Stellen vor Ort für München (Anmeldung, Hundesteuer) und Berlin (Anmeldung); sonst Meldebehörde, Zulassungsbehörde usw. mit Gemeinde- bzw. Kreisname
-- ✅ Landesleistungen für Umzug je Land recherchiert: keine gefunden (dokumentiert in `data/fachmodule/umzug/abdeckung.json`); bewusst nicht erfasste Themen stehen mit Begründung im Bericht
+- ✅ Landesleistungen für Umzug je Land recherchiert und belegt: Begrüßungsgeld des Landes Bremen bei Zuzug für Studium oder Ausbildung, in den übrigen 15 Ländern keine (Übersicht in [docs/validierung.md](docs/validierung.md)); bewusst nicht erfasste Themen stehen mit Begründung im Bericht
 - ✅ Lebenslagen in Web und Dialog wählbar und später änderbar; 5 Szenarien, 93/93 Anforderungen mit Tests
 - ⏳ Alle Quellen nur `teilweise` geprüft: Gesetzestexte waren aus der Entwicklungsumgebung nicht erreichbar ([docs/validierung.md](docs/validierung.md))
 
@@ -213,7 +214,7 @@ docs/
 - ✅ Kommunal: München-Pass, StadtTicket und Bremer Pass (Stadt Bremen), SOZIALCARD Saarbrücken
 - ✅ Ausschlüsse und Abhängigkeiten als Regeln: kein Wohngeld bei Grundsicherung, Bildung und Teilhabe nur mit berechtigender Leistung, Rundfunkbefreiung nicht bei Wohngeld
 - ✅ Neuer Regelknoten `lebenslage`: Ein Zweig gilt nur, wenn die Lebenslage gewählt ist (Kinderzuschlag fragt bei Geburt nach dem Neugeborenen, sonst nach der Zahl der Kinder)
-- ✅ 4 Szenarien, 102/102 Anforderungen mit Tests
+- ✅ 4 Szenarien, 103/103 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft, die Belege für „keine“ stammen aus Websuchen, nicht aus jedem Landesportal ([docs/validierung.md](docs/validierung.md))
 
 Nächste Schritte: Lebenslage Pflege (#41, Schritt 3), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.

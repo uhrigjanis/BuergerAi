@@ -1,0 +1,142 @@
+{
+  "_hinweis": "Landesvariante Baden-Württemberg für die Lebenslage Geringes Einkommen (Landesfamilienpass).",
+  "quellen": [
+    {
+      "id": "bw_landesfamilienpass",
+      "titel": "Landesfamilienpass Baden-Württemberg (service-bw, Stadt Heidelberg)",
+      "url": "https://www.heidelberg.de/-/Verfahrensbeschreibung/landesfamilienpass-beantragen/vbid173",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg / service-bw",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (service-bw-Verfahrensbeschreibung, Stand 18.5.2026; Gerlingen, Haiterbach): berechtigt sind Familien mit Kinderzuschlag, Wohngeld oder Grundsicherung und mindestens einem kindergeldberechtigten Kind mit Erstwohnsitz, außerdem Familien mit mindestens drei kindergeldberechtigten Kindern, Alleinerziehende mit einem Kind und Familien mit einem schwerbehinderten Kind (GdB ab 50); Antrag bei der Wohnortgemeinde; mit dem Pass gibt es eine Gutscheinkarte für das Jahr; kostenlos; freiwillige Leistung des Landes."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bw_landesfamilienpass_gemeinde",
+      "name": "Bürgerbüro der Gemeinde – {gemeinde} (Landesfamilienpass)",
+      "url": "https://www.heidelberg.de/-/Verfahrensbeschreibung/landesfamilienpass-beantragen/vbid173",
+      "beschreibung": "Antrag bei der Gemeinde des Wohnorts; der Pass kommt mit einer Gutscheinkarte für das laufende Jahr."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesfamilienpass_bw",
+      "leistung_id": "landesfamilienpass",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "bw_landesfamilienpass_gemeinde",
+      "quellen": [
+        "bw_landesfamilienpass"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "kinder_im_haushalt",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind im Haushalt"
+              },
+              {
+                "eine": [
+                  {
+                    "fakt": "bezieht_buergergeld",
+                    "op": "==",
+                    "wert": true,
+                    "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+                  },
+                  {
+                    "fakt": "bezieht_sozialhilfe",
+                    "op": "==",
+                    "wert": true,
+                    "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+                  },
+                  {
+                    "fakt": "bezieht_wohngeld",
+                    "op": "==",
+                    "wert": true,
+                    "text": "Sie bekommen Wohngeld"
+                  },
+                  {
+                    "fakt": "bezieht_kinderzuschlag",
+                    "op": "==",
+                    "wert": true,
+                    "text": "Sie bekommen Kinderzuschlag"
+                  }
+                ],
+                "text": "Bezug von Grundsicherung, Wohngeld oder Kinderzuschlag"
+              }
+            ]
+          },
+          {
+            "fakt": "kinder_im_haushalt",
+            "op": ">=",
+            "wert": 3,
+            "text": "Mindestens drei Kinder im Haushalt"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "kinder_im_haushalt",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind im Haushalt"
+              },
+              {
+                "fakt": "partner_im_haushalt",
+                "op": "==",
+                "wert": false,
+                "text": "Alleinerziehend"
+              }
+            ]
+          },
+          {
+            "alle": [
+              {
+                "fakt": "kinder_im_haushalt",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind im Haushalt"
+              },
+              {
+                "fakt": "einkommen.kind_schwerbehindert",
+                "op": "==",
+                "wert": true,
+                "text": "Ein Kind mit Schwerbehinderung (GdB ab 50) lebt im Haushalt"
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "Nachweis über Kinderzuschlag, Wohngeld oder Grundsicherung bzw. Kindergeldnachweis"
+        ],
+        "schritte": [
+          "Landesfamilienpass bei der Gemeinde beantragen.",
+          "Mit Pass und Gutscheinkarte kostenlos oder ermäßigt in staatliche Schlösser, Gärten und Museen."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Freiwillige Leistung des Landes Baden-Württemberg."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "bw_landesfamilienpass"
+      ],
+      "notiz": "Landesleistung erfasst: Landesfamilienpass. Kein landesweites Sozialticket gefunden (Websuche 25.10.2026)."
+    }
+  ]
+}

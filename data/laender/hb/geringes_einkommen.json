@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "bremen_stadtticket",
+      "titel": "Service Bremen – StadtTicket Bremen",
+      "url": "https://www.service.bremen.de/dienstleistungen/ermaessigtes-nahverkehrsticket-stadtticket-bremen-beantragen-10191",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: StadtTicket für Leistungsberechtigte nach SGB II, SGB XII und AsylbLG mit Hauptwohnsitz in der Stadtgemeinde Bremen; Antrag bei den Sozialzentren (Jobcenter-Kunden mit Nachweis). Preis 2026 nicht gefunden (39,90 € Stand 2022). Bremer Pass mit denselben Voraussetzungen. Bremerhaven nicht erfasst."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "bremen_stadtticket"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. StadtTicket und Bremer Pass gelten nur für die Stadtgemeinde Bremen und sind dort als kommunale Varianten erfasst; Bremerhaven nicht recherchiert."
+    }
+  ]
+}

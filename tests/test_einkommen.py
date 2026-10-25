@@ -128,15 +128,50 @@ def test_sozialticket_der_laender(kb, plane_ek):
     muenchen = plane_ek(haushalt(bezieht_buergergeld="ja"))
     assert "sozialticket" not in muenchen.ergebnisse()
     andere = {n.leistung.id: [g.kuerzel for g in n.laender] for n in muenchen.nur_andere_laender}
-    assert andere["sozialticket"] == ["BE", "BB", "HH", "HE"]
+    assert andere["sozialticket"] == ["BE", "BB", "HH", "HE", "NW"]
+    assert andere["landesfamilienpass"] == ["BW"]
     assert muenchen.ergebnisse()["sozialpass"] == "ja"
     # Andere Gemeinden in Bayern: kein München-Pass und kein Eintrag "nur in anderen Ländern" dafür
     freising = plane_ek(haushalt(bezieht_buergergeld="ja"), plz="85354")
     assert "sozialpass" not in freising.ergebnisse() and "sozialpass" not in andere
-    for kz in ("11", "02", "06", "12"):
-        assert kb.landesabdeckung[(kz, "geringes_einkommen")].landesleistungen == "erfasst"
-    assert any("Bayern ist noch nicht erfasst" in w for w in muenchen.warnungen)
-    assert not any("Landesleistungen" in w for w in berlin.warnungen)
+    assert not any("Landesleistungen" in w for w in muenchen.warnungen + berlin.warnungen)
+
+
+@pytest.mark.anforderung("ANF-EINK-08")
+def test_alle_laender_recherchiert(kb, plane_ek):
+    from buergerai import gebiete
+
+    erfasst = {"08", "11", "02", "06", "12", "05"}
+    for land in gebiete.laender(kb):
+        nachweis = kb.landesabdeckung[(land.id, "geringes_einkommen")]
+        assert nachweis.landesleistungen == ("erfasst" if land.id in erfasst else "keine"), land.name
+        assert nachweis.quellen and nachweis.notiz
+    # Keine Warnung "nicht erfasst, ob es Landesleistungen gibt" in irgendeinem Land
+    for plz in ("70173", "80331", "10115", "14467", "28195", "20095", "34225", "19053", "30159", "40213",
+                "55116", "66111", "01067", "39104", "24103", "99084"):
+        assert not any("Landesleistungen" in w for w in plane_ek(haushalt(), plz=plz).warnungen), plz
+
+
+@pytest.mark.anforderung("ANF-EINK-08")
+def test_neue_landes_und_kommunalleistungen(plane_ek):
+    # NRW: DeutschlandTicket Sozial auch mit Wohngeld
+    assert plane_ek(haushalt(bezieht_wohngeld="ja"), plz="40213").ergebnisse()["sozialticket"] == "ja"
+    # Baden-Württemberg: Landesfamilienpass mit Kind und Wohngeld, mit drei Kindern, alleinerziehend
+    bw = lambda **f: plane_ek(haushalt(**f), plz="70173").ergebnisse()["landesfamilienpass"]
+    assert bw(kinder_im_haushalt=1, bezieht_wohngeld="ja") == "ja"
+    assert bw(kinder_im_haushalt=3, partner_im_haushalt="ja", einkommen__kind_schwerbehindert="nein") == "ja"
+    assert bw(kinder_im_haushalt=1, partner_im_haushalt="nein") == "ja"
+    assert bw(kinder_im_haushalt=1, partner_im_haushalt="ja", einkommen__kind_schwerbehindert="nein") == "nein"
+    assert bw(kinder_im_haushalt=1) == "unklar"  # alleinerziehend bzw. Schwerbehinderung offen
+    assert bw(kinder_im_haushalt=0) == "nein"
+    # Stadt Bremen: StadtTicket und Bremer Pass (kommunal); Saarbrücken: SOZIALCARD
+    bremen = plane_ek(haushalt(bezieht_buergergeld="ja"), plz="28195")
+    assert bremen.ergebnisse()["sozialticket"] == "ja" and bremen.ergebnisse()["sozialpass"] == "ja"
+    assert bremen.eintrag("sozialticket").gebiet.ebene.value == "gemeinde"
+    assert plane_ek(haushalt(bezieht_wohngeld="ja"), plz="66111").ergebnisse()["sozialpass"] == "ja"
+    # Kommunale Leistungen erscheinen nicht als "nur in anderen Ländern"
+    koeln = plane_ek(haushalt(bezieht_buergergeld="ja"), plz="50667")
+    assert "sozialpass" not in {n.leistung.id for n in koeln.nur_andere_laender}
 
 
 # ------------------------------------------------------------------ Kinderzuschlag in zwei Lebenslagen

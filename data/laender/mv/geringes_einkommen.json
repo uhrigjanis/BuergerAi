@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "vmv_landestarife",
+      "titel": "VMV – Landesweite Tarifangebote Mecklenburg-Vorpommern",
+      "url": "https://vmv-mbh.de/en/?p=42",
+      "typ": "behoerde",
+      "herausgeber": "Verkehrsgesellschaft Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Landesweit vergünstigt sind Seniorenticket (ab 65) und Azubi-Ticket, beide nicht einkommensabhängig; das Land fördert sonst die Verkehrsunternehmen."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "vmv_landestarife"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Nur einkommensunabhängige Landestickets (Senioren, Azubis)."
+    }
+  ]
+}

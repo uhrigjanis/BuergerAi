@@ -40,6 +40,11 @@
       "id": "einkommen.gesetzlich_versichert",
       "typ": "ja_nein",
       "frage": "Sind Sie gesetzlich krankenversichert?"
+    },
+    {
+      "id": "einkommen.kind_schwerbehindert",
+      "typ": "ja_nein",
+      "frage": "Lebt in Ihrem Haushalt ein Kind mit Schwerbehinderung (Grad der Behinderung mindestens 50)?"
     }
   ]
 }

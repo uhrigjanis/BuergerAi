@@ -275,6 +275,17 @@
       "fuer": "haushalt",
       "art": "antrag",
       "kurz": "Wer im Jahr mehr Zuzahlungen (z. B. für Medikamente) leistet als die Belastungsgrenze, wird für den Rest des Jahres befreit."
+    },
+    {
+      "id": "landesfamilienpass",
+      "name": "Familienpass des Landes",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Freier oder ermäßigter Eintritt in Einrichtungen des Landes für Familien mit geringem Einkommen, vielen Kindern oder Alleinerziehende."
     }
   ],
   "varianten": [

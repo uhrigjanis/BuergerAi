@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "sh_deutschlandticket_foerderung",
+      "titel": "Förderdatenbank – Billigkeitsleistung Deutschlandticket Schleswig-Holstein",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Schleswig-Holstein/billigkeitsleistung-deutschlandticket-oepnv-sh.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Das Land fördert 2026 die Verkehrsunternehmen; ein Landes-Sozialticket wurde 2023 im Landtag gefordert (SSW), eine Einführung ist nicht belegt."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "sh_deutschlandticket_foerderung"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Kein Landes-Sozialticket belegt (Forderung im Landtag 2023)."
+    }
+  ]
+}

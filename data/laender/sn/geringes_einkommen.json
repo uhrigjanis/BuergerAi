@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "sn_deutschlandticket_finanzierung",
+      "titel": "Kabinettsbeschluss zur Finanzierung des Deutschlandtickets 2026 (Bericht)",
+      "url": "https://www.l-iz.de/wirtschaft/mobilitaet/2025/12/kabinettsbeschluss-zum-deutschlandticket-sachsenweite-finanzierung-ticket-2026-gesichert-641400",
+      "typ": "sekundaer",
+      "herausgeber": "Leipziger Internet Zeitung",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Das Land gleicht den Aufgabenträgern die Mindereinnahmen aus; landesweit gefördert ist das Bildungsticket, kein einkommensabhängiges Sozialticket."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "sn_deutschlandticket_finanzierung"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Landesförderung nur für Deutschlandticket allgemein und Bildungsticket."
+    }
+  ]
+}

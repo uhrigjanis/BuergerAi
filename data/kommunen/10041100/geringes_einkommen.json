@@ -1,0 +1,60 @@
+{
+  "_hinweis": "Saarbrücken (AGS 10041100): kommunale Varianten für die Lebenslage Geringes Einkommen.",
+  "zustaendigkeiten": [
+    {
+      "id": "saarbruecken_sozialcard",
+      "name": "Jobcenter Saarbrücken bzw. Sozialamt des Regionalverbands (SOZIALCARD)",
+      "url": "https://saarbruecken.de/en/information_for_refugees/socialcard",
+      "beschreibung": "Ausgabe bei der Stelle, die die Sozialleistung zahlt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialpass_saarbruecken",
+      "leistung_id": "sozialpass",
+      "gebiet_id": "10041100",
+      "zustaendigkeit_id": "saarbruecken_sozialcard",
+      "quellen": [
+        "saarbruecken_sozialcard"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          },
+          {
+            "fakt": "bezieht_wohngeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Wohngeld"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung"
+      },
+      "verfahren": {
+        "schritte": [
+          "SOZIALCARD bei der leistenden Stelle beantragen.",
+          "Vergünstigungen u. a. bei Bus, Saarbahn und Zug nutzen."
+        ]
+      },
+      "hinweise": [
+        "Gilt für den Bewilligungszeitraum der Sozialleistung, höchstens ein Jahr; danach neu beantragen."
+      ]
+    }
+  ]
+}

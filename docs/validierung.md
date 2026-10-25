@@ -170,6 +170,29 @@ Wie bei Umzug: Alle Quellen sind `teilweise` geprüft, weil Gesetzestexte und Be
 | `muenchen_pass` | Einkommensgrenzen (Tabelle auf der Seite nicht erfasst) |
 | `sgb5_62` | Belastungsgrenze und Chroniker-Regel |
 
-### Landesleistungen
+| `nrw_deutschlandticket_sozial` | Preis je Kreis und Verbund, ob alle Kreise teilnehmen, Anteil der Landesförderung |
+| `bw_landesfamilienpass` | Berechtigte Gruppen, ob „Grundsicherung“ auch das Grundsicherungsgeld umfasst |
+| `bremen_stadtticket`, `saarbruecken_sozialcard` | Preise 2026, Aktualität der Faltblätter |
 
-Erfasst sind die Sozialtickets von Berlin, Hamburg, Hessen und Brandenburg. Für die übrigen 12 Länder ist nicht recherchiert, ob es Landesleistungen bei geringem Einkommen gibt (z. B. Landessozialtickets, Landesfamilienpässe); der Bericht weist darauf hin.
+### Landesleistungen (alle 16 Länder)
+
+| Land | Ergebnis | Grundlage |
+|------|----------|-----------|
+| Baden-Württemberg | erfasst: Landesfamilienpass | service-bw |
+| Berlin | erfasst: Berlin-Ticket S | service.berlin.de |
+| Brandenburg | erfasst: Mobilitätsticket | VBB |
+| Hamburg | erfasst: hvv-Sozialrabatt | Sozialbehörde |
+| Hessen | erfasst: Hessenpass mobil (widersprüchlich) | Berichte |
+| Nordrhein-Westfalen | erfasst: DeutschlandTicket Sozial | Verkehrsverbünde |
+| Bayern | keine (Sozialpässe kommunal, München-Pass erfasst) | BayernPortal |
+| Bremen | keine (StadtTicket und Bremer Pass der Stadt Bremen erfasst, Bremerhaven offen) | service.bremen.de |
+| Mecklenburg-Vorpommern | keine (nur Senioren- und Azubi-Ticket) | VMV |
+| Niedersachsen | keine (nur regional) | Bericht (sekundär) |
+| Rheinland-Pfalz | keine (nur kommunal) | FIM |
+| Saarland | keine (SOZIALCARD gilt nur in Saarbrücken, erfasst) | Stadt Saarbrücken |
+| Sachsen | keine (nur Bildungsticket gefördert) | Bericht (sekundär) |
+| Sachsen-Anhalt | keine (Pässe kommunal; FamilienPass nicht einkommensabhängig) | FIM, Landtag 2013 |
+| Schleswig-Holstein | keine (Landes-Sozialticket nur gefordert) | Förderdatenbank |
+| Thüringen | keine (Familienkarte nicht einkommensabhängig) | Aufbaubank |
+
+„Keine“ heißt: Die Websuche am 25.10.2026 hat keine landeseigene Leistung gefunden. Die Landesportale sind nicht vollständig durchgesehen. Für Niedersachsen und Sachsen gibt es nur Sekundärquellen.

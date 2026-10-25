@@ -8,7 +8,9 @@
       "Leistungen, die nur bei der Geburt eines Kindes entstehen, gehören zu Familie.",
       "Arbeitslosengeld (Versicherungsleistung) gehört zu Arbeit."
     ],
-    "importiert_fakten": []
+    "importiert_fakten": [
+      "partner_im_haushalt"
+    ]
   },
   "lebenslagen": [
     {
@@ -59,12 +61,12 @@
           "grund": "Folgt mit Familie bzw. Trennung."
         },
         {
-          "name": "Sozialtickets in anderen Ländern und Verkehrsverbünden",
-          "grund": "Erfasst sind Berlin, Brandenburg, Hamburg und Hessen; andere Angebote sind regional verschieden."
+          "name": "Regionale Sozialtickets von Städten, Kreisen und Verkehrsverbünden",
+          "grund": "Erfasst sind die Landesangebote in Berlin, Brandenburg, Hamburg, Hessen und Nordrhein-Westfalen sowie das StadtTicket Bremen; andere Angebote (z. B. Region Hannover) sind regional verschieden."
         },
         {
           "name": "Sozialpässe anderer Städte",
-          "grund": "Erfasst ist nur der München-Pass; viele Städte haben eigene Pässe mit eigenen Regeln."
+          "grund": "Erfasst sind München-Pass, Bremer Pass und SOZIALCARD Saarbrücken; viele Städte haben eigene Pässe mit eigenen Regeln."
         },
         {
           "name": "Schuldner- und Sozialberatung",

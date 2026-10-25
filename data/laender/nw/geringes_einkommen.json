@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Landesvariante NRW für die Lebenslage Geringes Einkommen (Sozialticket).",
+  "quellen": [
+    {
+      "id": "nrw_deutschlandticket_sozial",
+      "titel": "DeutschlandTicket Sozial in NRW (bus-und-bahn.de)",
+      "url": "https://www.bus-und-bahn.de/deutschlandticket-sozial",
+      "typ": "behoerde",
+      "herausgeber": "Verkehrsverbünde in NRW",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (bus-und-bahn.de, VRS, owlverkehr, WestfalenTarif): seit Dezember 2023 in NRW; 2026 meist 53 € im Monat, einzelne Kreise günstiger (z. B. Kreis Soest 42 €); berechtigt u. a. Grundsicherung (SGB II), Sozialhilfe (SGB XII), Wohngeld, AsylbLG, SGB VIII und BVG; Nachweis (Trägerkarte) vom Jobcenter oder Sozialamt; Einführung entscheiden Kommunen bzw. Kreise. Anteil der Landesfinanzierung 2026 nicht belegt (Förderrichtlinie Sozialticket 2011)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nrw_sozialticket",
+      "name": "Jobcenter bzw. Sozialamt – {kreis} (Nachweis für das Deutschlandticket Sozial)",
+      "url": "https://www.bus-und-bahn.de/deutschlandticket-sozial",
+      "beschreibung": "Den Berechtigungsnachweis gibt es beim Jobcenter oder Sozialamt; das Ticket beim örtlichen Verkehrsunternehmen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_nw",
+      "leistung_id": "sozialticket",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nrw_sozialticket",
+      "quellen": [
+        "nrw_deutschlandticket_sozial"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_wohngeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Wohngeld"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Berechtigungsnachweis (Trägerkarte) vom Jobcenter oder Sozialamt"
+        ],
+        "schritte": [
+          "Nachweis beim Jobcenter bzw. Sozialamt holen.",
+          "DeutschlandTicket Sozial beim örtlichen Verkehrsunternehmen bestellen (meist nur per SEPA-Lastschrift)."
+        ]
+      },
+      "hinweise": [
+        "Preis 2026 meist 53 € im Monat, in einzelnen Kreisen günstiger (z. B. Kreis Soest 42 €).",
+        "Ob und zu welchem Preis Ihr Kreis das Ticket anbietet, entscheiden Kommunen und Kreise."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "nrw_deutschlandticket_sozial"
+      ],
+      "notiz": "Landesleistung erfasst: DeutschlandTicket Sozial in NRW. Weitere Landesleistungen bei geringem Einkommen nicht gefunden (Websuche 25.10.2026)."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "th_rl_deutschlandticket",
+      "titel": "Richtlinie Deutschlandticket ÖPNV Thüringen 2026",
+      "url": "https://dokumente.aufbaubank.de/700740-RL-Deutschlandticket-OEPNV-Thueringen-2026.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Thüringer Aufbaubank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: pauschaler Ausgleich an Verkehrsunternehmen; die Thüringer Familienkarte (seit 2021) ist nicht einkommensabhängig."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "th_rl_deutschlandticket"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Thüringer Familienkarte ist nicht einkommensabhängig."
+    }
+  ]
+}

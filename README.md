@@ -209,11 +209,12 @@ docs/
 ## Stand Lebenslage Geringes Einkommen (#41, Schritt 2)
 
 - ✅ Fachmodul Geringes Einkommen (Situation) mit 9 Leistungen: Grundsicherungsgeld (seit 1.7.2026, früher Bürgergeld), Grundsicherung im Alter und bei Erwerbsminderung, Wohngeld, Kinderzuschlag (geteilt mit Geburt), Bildung und Teilhabe, Befreiung vom Rundfunkbeitrag, Sozialticket, Sozialpass, Befreiung von Zuzahlungen
-- ✅ Landesleistung: Sozialticket in Berlin (Berlin-Ticket S), Hamburg (hvv-Sozialrabatt), Hessen (Hessenpass mobil, Quellen widersprüchlich) und Brandenburg (Mobilitätsticket); kommunal: München-Pass
+- ✅ Alle 16 Länder recherchiert: Sozialticket in Berlin (Berlin-Ticket S), Brandenburg (Mobilitätsticket), Hamburg (hvv-Sozialrabatt), Hessen (Hessenpass mobil, Quellen widersprüchlich) und NRW (DeutschlandTicket Sozial); Landesfamilienpass in Baden-Württemberg; in den übrigen 10 Ländern keine Landesleistung gefunden (belegt)
+- ✅ Kommunal: München-Pass, StadtTicket und Bremer Pass (Stadt Bremen), SOZIALCARD Saarbrücken
 - ✅ Ausschlüsse und Abhängigkeiten als Regeln: kein Wohngeld bei Grundsicherung, Bildung und Teilhabe nur mit berechtigender Leistung, Rundfunkbefreiung nicht bei Wohngeld
 - ✅ Neuer Regelknoten `lebenslage`: Ein Zweig gilt nur, wenn die Lebenslage gewählt ist (Kinderzuschlag fragt bei Geburt nach dem Neugeborenen, sonst nach der Zahl der Kinder)
-- ✅ 4 Szenarien, 101/101 Anforderungen mit Tests
-- ⏳ Landesleistungen der übrigen 12 Länder für geringes Einkommen nicht recherchiert (der Bericht warnt); Quellen nur `teilweise` geprüft ([docs/validierung.md](docs/validierung.md))
+- ✅ 4 Szenarien, 102/102 Anforderungen mit Tests
+- ⏳ Quellen nur `teilweise` geprüft, die Belege für „keine“ stammen aus Websuchen, nicht aus jedem Landesportal ([docs/validierung.md](docs/validierung.md))
 
 Nächste Schritte: Lebenslage Pflege (#41, Schritt 3), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 

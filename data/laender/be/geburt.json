@@ -1,0 +1,54 @@
+{
+  "_hinweis": "Berlin: Elterngeld bei den Bezirksämtern.",
+  "quellen": [
+    {
+      "id": "berlin_elterngeld_jugendamt",
+      "titel": "Bezirksamt Tempelhof-Schöneberg – Elterngeld (Jugendamt)",
+      "url": "https://www.berlin.de/ba-tempelhof-schoeneberg/politik-und-verwaltung/aemter/jugendamt/unsere-finanziellen-leistungen/elterngeld-364933.php",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: Elterngeldstellen sind bei den Jugendämtern der Bezirke; zuständig ist der Bezirk, in dem der Erstantragsteller wohnt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_berlin",
+      "name": "Elterngeldstelle im Jugendamt Ihres Bezirks",
+      "beschreibung": "In Berlin bearbeiten die Jugendämter der Bezirksämter das Elterngeld. Zuständig ist der Bezirk, in dem der antragstellende Elternteil wohnt.",
+      "quellen": [
+        "berlin_elterngeld_jugendamt",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_be",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "11",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_berlin",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "berlin_elterngeld_jugendamt",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

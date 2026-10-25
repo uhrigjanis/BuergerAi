@@ -1,19 +1,27 @@
 {
-  "_hinweis": "Anforderungen der Phasen 1 und 2. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "_hinweis": "Anforderungen der Phasen 1 und 2 sowie der bundesweiten Abdeckung (#40). Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
   "anforderungen": [
-    {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ einer Pilotkommune wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
+    {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
     {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
     {"id": "ANF-GEB-03", "bereich": "Gebiete", "titel": "Mehrdeutige PLZ führt zur Rückfrage nach der Gemeinde"},
-    {"id": "ANF-GEB-04", "bereich": "Gebiete", "titel": "Nicht erfasste PLZ: Bitte um Bundesland, dann Fallback auf Landes- und Bundesdaten"},
+    {"id": "ANF-GEB-04", "bereich": "Gebiete", "titel": "PLZ ohne Gemeinde (z. B. Postfach-PLZ): Bitte um Bundesland, dann Fallback auf Landes- und Bundesdaten"},
     {"id": "ANF-GEB-05", "bereich": "Gebiete", "titel": "Ungültige PLZ wird mit verständlicher Meldung abgelehnt"},
+    {"id": "ANF-GEB-06", "bereich": "Gebiete", "titel": "Bundesweit: jede PLZ aus den Importdaten führt ohne Rückfrage nach dem Bundesland zu einer Gemeinde oder Gemeindeauswahl"},
+    {"id": "ANF-GEB-07", "bereich": "Gebiete", "titel": "Gemeindeauswahl bei mehrdeutiger PLZ ist sortiert und nennt den Kreis"},
 
     {"id": "ANF-DAT-01", "bereich": "Datenmodell", "titel": "Spezifischste gültige Variante wird gewählt (Gemeinde > Kreis > Land > Bund)"},
     {"id": "ANF-DAT-02", "bereich": "Datenmodell", "titel": "Gültigkeitszeiträume von Varianten und Beträgen gelten zum Stichtag"},
-    {"id": "ANF-DAT-03", "bereich": "Datenmodell", "titel": "Abdeckungsstatus: vollständig bzw. allgemein (Fallback auf höhere Ebene)"},
-    {"id": "ANF-DAT-04", "bereich": "Datenmodell", "titel": "Nicht-Pilotgebiete erzeugen eine Warnung statt stiller Lücken"},
+    {"id": "ANF-DAT-03", "bereich": "Datenmodell", "titel": "Abdeckungsstatus je Leistung: erfasst bzw. allgemein (Fallback auf höhere Ebene)"},
+    {"id": "ANF-DAT-04", "bereich": "Datenmodell", "titel": "Lücken vor Ort (nur allgemeine Stelle, keine Gemeinde, Landesleistungen nicht recherchiert) erzeugen eine Warnung"},
     {"id": "ANF-DAT-05", "bereich": "Datenmodell", "titel": "Jede Variante hat Quellen; je Eintrag wird der schlechteste Prüfstatus angezeigt"},
     {"id": "ANF-DAT-06", "bereich": "Datenmodell", "titel": "Konsistenzprüfung erkennt kaputte Verweise, unbekannte Fakten/Operatoren und Bedingungen ohne Text"},
     {"id": "ANF-DAT-07", "bereich": "Datenmodell", "titel": "Varianten können Regel, Verfahren und Quellen erben (erbt_von)"},
+    {"id": "ANF-DAT-08", "bereich": "Datenmodell", "titel": "Import von Kreisen, Gemeinden und PLZ nach data/generiert/ mit Quellversion, Importdatum und Lizenz; Einträge starten ungeprüft"},
+    {"id": "ANF-DAT-09", "bereich": "Datenmodell", "titel": "Import ist wiederholbar und zeigt Änderungen als Diff"},
+    {"id": "ANF-DAT-10", "bereich": "Datenmodell", "titel": "Amtliches Gemeindeverzeichnis (GV100AD) inkl. Gemeindeverbände kann importiert werden"},
+    {"id": "ANF-DAT-11", "bereich": "Datenmodell", "titel": "Abdeckung je Land: Landesleistungen erfasst oder ausdrücklich keine, sonst fehlt; Konsistenzprüfung"},
+    {"id": "ANF-DAT-12", "bereich": "Datenmodell", "titel": "Zuständigkeiten nennen Kreis, Gemeinde bzw. Land des Wohnorts (Platzhalter)"},
+    {"id": "ANF-DAT-13", "bereich": "Datenmodell", "titel": "Wissensbasis mit allen Gemeinden lädt in unter 2 Sekunden"},
 
     {"id": "ANF-ENG-01", "bereich": "Regel-Engine", "titel": "Dreiwertige Logik (Ja/Nein/Unklar) für alle, eine, nicht"},
     {"id": "ANF-ENG-02", "bereich": "Regel-Engine", "titel": "Fehlende Angaben ergeben Unklar, nie Nein"},
@@ -51,7 +59,13 @@
 
     {"id": "ANF-BY-01", "bereich": "Pilotland Bayern", "titel": "Elterngeld in Bayern: Zuständigkeit ZBFS"},
     {"id": "ANF-BY-02", "bereich": "Pilotland Bayern", "titel": "Familiengeld: Unklar für Geburten 1.1.2025–31.8.2026 (widersprüchliche Quellen), Nein ab 1.9.2026"},
-    {"id": "ANF-BY-03", "bereich": "Pilotland Bayern", "titel": "München: Standesamt München vollständig erfasst; Freising: Fallback auf Landesdaten"},
+    {"id": "ANF-BY-03", "bereich": "Pilotland Bayern", "titel": "München: Standesamt München erfasst; Freising: Fallback auf Landesdaten"},
+
+    {"id": "ANF-LAND-01", "bereich": "Länder", "titel": "Elterngeld zeigt in jedem Land die zuständige Stelle (Land, Bezirk oder Kreis)"},
+    {"id": "ANF-LAND-02", "bereich": "Länder", "titel": "Hessen und Schleswig-Holstein: Elterngeldstelle je Kreis"},
+    {"id": "ANF-LAND-03", "bereich": "Länder", "titel": "Landesleistungen je Land erfasst oder als keine dokumentiert; Sachsen: Landeserziehungsgeld"},
+    {"id": "ANF-LAND-04", "bereich": "Länder", "titel": "Je Land mindestens ein Szenario mit Erwartungen, auch zur zuständigen Stelle"},
+    {"id": "ANF-KRS-01", "bereich": "Kreise", "titel": "Jugendamt nennt den Kreis; München und Landkreis Freising mit erfasstem Jugendamt"},
 
     {"id": "ANF-CLI-01", "bereich": "Terminal", "titel": "Bericht über 'pruefen', auch als JSON"},
     {"id": "ANF-CLI-02", "bereich": "Terminal", "titel": "Interaktiver Modus fragt nur fehlende Angaben und akzeptiert 'weiß nicht'"},

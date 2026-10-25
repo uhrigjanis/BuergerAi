@@ -1,0 +1,282 @@
+{
+  "_hinweis": "Hessen: Elterngeld bei den Ämtern für Versorgung und Soziales, Amt je Kreis.",
+  "quellen": [
+    {
+      "id": "rp_giessen_elterngeld_2024",
+      "titel": "Regierungspräsidium Gießen – Flyer Elterngeld (Stand 2024)",
+      "url": "https://rp-giessen.hessen.de/sites/rp-giessen.hessen.de/files/2024-02/flyer_elterngeld_stand_2024.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Regierungspräsidium Gießen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: sechs Hessische Ämter für Versorgung und Soziales (Darmstadt, Frankfurt, Fulda, Gießen, Kassel, Wiesbaden) mit Zuordnung nach Kreis. In Frankfurt zusätzlich Aufteilung nach Nachname (A–K, L–Z)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "havs",
+      "name": "Hessisches Amt für Versorgung und Soziales (HAVS) – Elterngeldstelle",
+      "beschreibung": "Elterngeld wird in Hessen von sechs Ämtern für Versorgung und Soziales bearbeitet; zuständig ist das Amt für Ihren Kreis bzw. Ihre kreisfreie Stadt.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_darmstadt",
+      "name": "Hessisches Amt für Versorgung und Soziales Darmstadt – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_frankfurt",
+      "name": "Hessisches Amt für Versorgung und Soziales Frankfurt am Main – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}. Innerhalb des Amts wird nach dem Nachnamen aufgeteilt (A–K, L–Z).",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_fulda",
+      "name": "Hessisches Amt für Versorgung und Soziales Fulda – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_giessen",
+      "name": "Hessisches Amt für Versorgung und Soziales Gießen – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_kassel",
+      "name": "Hessisches Amt für Versorgung und Soziales Kassel – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "havs_wiesbaden",
+      "name": "Hessisches Amt für Versorgung und Soziales Wiesbaden – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "quellen": [
+        "rp_giessen_elterngeld_2024"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_he",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "havs",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "rp_giessen_elterngeld_2024"
+      ]
+    },
+    {
+      "id": "elterngeld_06411",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06411",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_darmstadt"
+    },
+    {
+      "id": "elterngeld_06431",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06431",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_darmstadt"
+    },
+    {
+      "id": "elterngeld_06432",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06432",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_darmstadt"
+    },
+    {
+      "id": "elterngeld_06433",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06433",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_darmstadt"
+    },
+    {
+      "id": "elterngeld_06437",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06437",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_darmstadt"
+    },
+    {
+      "id": "elterngeld_06412",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06412",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_frankfurt"
+    },
+    {
+      "id": "elterngeld_06413",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06413",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_frankfurt"
+    },
+    {
+      "id": "elterngeld_06434",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06434",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_frankfurt"
+    },
+    {
+      "id": "elterngeld_06438",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06438",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_frankfurt"
+    },
+    {
+      "id": "elterngeld_06435",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06435",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_fulda"
+    },
+    {
+      "id": "elterngeld_06631",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06631",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_fulda"
+    },
+    {
+      "id": "elterngeld_06632",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06632",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_fulda"
+    },
+    {
+      "id": "elterngeld_06440",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06440",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_giessen"
+    },
+    {
+      "id": "elterngeld_06531",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06531",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_giessen"
+    },
+    {
+      "id": "elterngeld_06532",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06532",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_giessen"
+    },
+    {
+      "id": "elterngeld_06534",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06534",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_giessen"
+    },
+    {
+      "id": "elterngeld_06535",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06535",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_giessen"
+    },
+    {
+      "id": "elterngeld_06611",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06611",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_kassel"
+    },
+    {
+      "id": "elterngeld_06633",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06633",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_kassel"
+    },
+    {
+      "id": "elterngeld_06634",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06634",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_kassel"
+    },
+    {
+      "id": "elterngeld_06635",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06635",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_kassel"
+    },
+    {
+      "id": "elterngeld_06636",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06636",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_kassel"
+    },
+    {
+      "id": "elterngeld_06414",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06414",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_wiesbaden"
+    },
+    {
+      "id": "elterngeld_06436",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06436",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_wiesbaden"
+    },
+    {
+      "id": "elterngeld_06439",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06439",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_wiesbaden"
+    },
+    {
+      "id": "elterngeld_06533",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "06533",
+      "erbt_von": "elterngeld_he",
+      "zustaendigkeit_id": "havs_wiesbaden"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

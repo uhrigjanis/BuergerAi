@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import heapq
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date
 from typing import Any, Optional
 
@@ -161,13 +161,70 @@ def _sortieren(eintraege: list[Eintrag]) -> list[Eintrag]:
 def _hat_landesdaten(kb: Wissensbasis, ereignis: str) -> bool:
     """Gibt es für das Ereignis irgendwo Varianten unterhalb der Bundesebene?
 
-    Nur dann fehlt in einem Nicht-Pilotland tatsächlich etwas.
+    Nur dann kann in einem Land ohne Recherche tatsächlich etwas fehlen.
     """
     return any(
         ereignis in kb.leistungen[v.leistung_id].ereignisse
         and kb.gebiete[v.gebiet_id].ebene is not Ebene.BUND
         for v in kb.varianten.values()
     )
+
+
+def landesabdeckung(kb: Wissensbasis, land: Gebiet, ereignis: str) -> Abdeckung:
+    """ERFASST, wenn für das Land recherchiert ist, ob es eigene Leistungen gibt, sonst FEHLT."""
+    return Abdeckung.ERFASST if (land.id, ereignis) in kb.landesabdeckung else Abdeckung.FEHLT
+
+
+def ort_platzhalter(hierarchie: list[Gebiet]) -> dict[str, str]:
+    """Werte für Platzhalter in Zuständigkeiten, z. B. "Elterngeldstelle – {kreis}"."""
+    nach_ebene = {g.ebene: g for g in hierarchie}
+    return {
+        "gemeinde": nach_ebene[Ebene.GEMEINDE].name if Ebene.GEMEINDE in nach_ebene else "Ihre Gemeinde",
+        "kreis": nach_ebene[Ebene.KREIS].name if Ebene.KREIS in nach_ebene else "Ihr Landkreis bzw. Ihre kreisfreie Stadt",
+        "land": nach_ebene[Ebene.LAND].name if Ebene.LAND in nach_ebene else "Ihr Bundesland",
+    }
+
+
+def zustaendigkeit_fuer_ort(z: Zustaendigkeit, hierarchie: list[Gebiet]) -> Zustaendigkeit:
+    werte = ort_platzhalter(hierarchie)
+    return replace(
+        z,
+        name=z.name.format_map(werte),
+        beschreibung=z.beschreibung.format_map(werte) if z.beschreibung else None,
+    )
+
+
+def abdeckung_eintrag(leistung: Leistung, gebiet: Gebiet) -> Abdeckung:
+    """ERFASST, wenn die Variante auf der Verwaltungsebene der Leistung (oder darunter) liegt."""
+    return Abdeckung.ERFASST if gebiet.ebene.rang >= leistung.verwaltungsebene.rang else Abdeckung.ALLGEMEIN
+
+
+def _warnungen(kb: Wissensbasis, anfrage: Anfrage, hierarchie: list[Gebiet], eintraege: list[Eintrag]) -> list[str]:
+    warnungen: list[str] = []
+    land = next((g for g in hierarchie if g.ebene is Ebene.LAND), None)
+    gemeinde = next((g for g in hierarchie if g.ebene is Ebene.GEMEINDE), None)
+    if (
+        land is not None
+        and landesabdeckung(kb, land, anfrage.ereignis) is Abdeckung.FEHLT
+        and _hat_landesdaten(kb, anfrage.ereignis)
+    ):
+        warnungen.append(
+            f"Für {land.name} ist noch nicht erfasst, ob es eigene Landesleistungen gibt. "
+            "Angezeigt werden Bundesleistungen und allgemeine Zuständigkeiten."
+        )
+    if gemeinde is None:
+        warnungen.append(
+            "Der Wohnort ist nicht als Gemeinde erfasst: Angaben zu Stellen vor Ort "
+            "(z. B. Standesamt, Jugendamt) sind allgemein gehalten."
+        )
+    allgemein = [e.leistung.name for e in eintraege if e.abdeckung is Abdeckung.ALLGEMEIN and e.ergebnis is not Wert.NEIN]
+    if gemeinde is not None and allgemein:
+        warnungen.append(
+            f"Für {gemeinde.name} ist die zuständige Stelle vor Ort noch nicht erfasst bei: "
+            + ", ".join(allgemein)
+            + ". Angezeigt wird, welche Art von Stelle zuständig ist – Adresse und Termine bitte dort erfragen."
+        )
+    return warnungen
 
 
 def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
@@ -178,21 +235,6 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     if land is not None:
         fakten["wohnsitz_land"] = land.kuerzel
     fakten.update(abgeleitete_fakten(fakten))
-
-    warnungen: list[str] = []
-    gemeinde = next((g for g in hierarchie if g.ebene is Ebene.GEMEINDE), None)
-    if land is not None and not land.pilot and _hat_landesdaten(kb, anfrage.ereignis):
-        warnungen.append(
-            f"{land.name} ist kein Pilotland: Landesleistungen und landesspezifische "
-            "Zuständigkeiten sind nicht erfasst. Angezeigt werden nur Bundesdaten."
-        )
-    if gemeinde is None:
-        warnungen.append(
-            "Der Wohnort ist nicht als Gemeinde erfasst: kommunale Angaben "
-            "(z. B. Standesamt vor Ort) fehlen."
-        )
-    elif not gemeinde.pilot:
-        warnungen.append(f"{gemeinde.name} ist keine Pilotkommune: kommunale Angaben fehlen.")
 
     fehlend: list[str] = grund_rueckfragen(list(kb.fakten.values()), fakten)
     # Der andere Elternteil wird geprüft, wenn er im Haushalt lebt oder das unklar ist.
@@ -237,11 +279,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         ]
         _anfuegen(fehlend, eintrag_fehlend)
 
-        abdeckung = (
-            Abdeckung.VOLLSTAENDIG
-            if gebiet.ebene.rang >= leistung.verwaltungsebene.rang
-            else Abdeckung.ALLGEMEIN
-        )
+        abdeckung = abdeckung_eintrag(leistung, gebiet)
         quellen = [kb.quellen[q] for q in kb.quellen_von_variante(variante)]
         pruefstatus = max((q.pruefstatus for q in quellen), key=PRUEF_RANG.__getitem__)
         eintraege.append(
@@ -250,7 +288,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 variante=variante,
                 gebiet=gebiet,
                 abdeckung=abdeckung,
-                zustaendigkeit=kb.zustaendigkeiten[variante.zustaendigkeit_id],
+                zustaendigkeit=zustaendigkeit_fuer_ort(kb.zustaendigkeiten[variante.zustaendigkeit_id], hierarchie),
                 ergebnis=gesamt,
                 personen=ergebnisse,
                 fristen=[
@@ -265,4 +303,5 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 fehlend=eintrag_fehlend,
             )
         )
-    return Bericht(anfrage, hierarchie, _sortieren(eintraege), fehlend, warnungen)
+    sortiert = _sortieren(eintraege)
+    return Bericht(anfrage, hierarchie, sortiert, fehlend, _warnungen(kb, anfrage, hierarchie, sortiert))

@@ -2,7 +2,7 @@
 
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
-**Aktueller Stand: Phase 2 – nutzbarer Stand ohne LLM (Web-Oberfläche).** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Pilot: Lebensereignis **Geburt**, Bund + **Bayern**, Kommunen **München** und **Freising**.
+**Aktueller Stand: Phase 2 + bundesweite Abdeckung, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebensereignis **Geburt** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München und Freising.
 
 > Unverbindliche Orientierung, keine Rechtsberatung.
 
@@ -67,7 +67,11 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Szenario abwandeln | `./bai pruefen -s muenchen_hohes_einkommen -f zve_eltern=170000` |
 | Anderes Datum simulieren | `./bai pruefen -s nur_plz --stichtag 2027-01-15` |
 | Warum Ja/Nein/Unklar? | `./bai erklaeren elterngeld -s muenchen_hohes_einkommen` |
-| Ort außerhalb des Pilots | `./bai pruefen --plz 10115 --land BE` oder `-s berlin_ausserhalb_pilot` |
+| Beliebiger Ort in Deutschland | `./bai pruefen --plz 50667 -d` oder `-s koeln_unverheiratet` |
+| PLZ mit mehreren Gemeinden | `./bai interaktiv --plz 85356` (Gemeinde wählen) bzw. `./bai pruefen --plz 85356 --gemeinde 09177133` |
+| Postfach-PLZ (keine Gemeinde) | `./bai pruefen --plz 80001 --land BY` |
+| Abdeckung je Land | `./bai abdeckung` |
+| Gebiete und PLZ neu importieren | `./bai gebiete-import …` (siehe [docs/datenquellen.md](docs/datenquellen.md)) |
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
@@ -93,7 +97,8 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 | `muenchen_alleinerziehend_drittstaat` | ehrliches „Unklar“ bei Aufenthaltstitel |
 | `muenchen_hohes_einkommen` | Elterngeld-Einkommensgrenze, Familienversicherung unklar |
 | `muenchen_familiengeld_uebergang` | widersprüchliche Rechtslage (Bayerisches Familiengeld) |
-| `berlin_ausserhalb_pilot` | Nicht-Pilotland, nur Bundesdaten mit Warnung |
+| `muenchen_postfach_plz` | PLZ ohne Gemeinde: Rückfrage nach dem Bundesland, Warnung |
+| je ein Szenario pro Land, z. B. `kiel_…`, `baunatal_…` (Hessen), `dresden_…` (Landeserziehungsgeld), `koeln_unverheiratet`, `bremerhaven_…` (mehrdeutige PLZ) | Elterngeldstelle des Landes, Jugendamt mit Kreisname; geprüft über `erwartet_stellen` |
 | `nur_plz` | Startpunkt: fast alles unklar, viele Rückfragen |
 
 ## So funktioniert es
@@ -111,7 +116,7 @@ Angaben (Fakten) ───────────────────► Re
 ```
 
 - **Dreiwertige Logik:** Fehlende Angaben ergeben „Unklar“, nie „Nein“. Rückfragen kommen nur, wenn sie das Ergebnis noch ändern können ([ADR 0003](docs/adr/0003-dreiwertige-logik.md)).
-- **Abdeckung und Prüfstatus:** Jeder Eintrag zeigt, ob Daten für den Ort vorliegen oder nur allgemeine Daten, und wie gut die Quellen geprüft sind ([ADR 0004](docs/adr/0004-abdeckung-und-pruefstatus.md)).
+- **Abdeckung und Prüfstatus:** Jeder Eintrag zeigt, ob die zuständige Stelle vor Ort erfasst ist oder nur allgemeine Angaben vorliegen, und wie gut die Quellen geprüft sind ([ADR 0004](docs/adr/0004-abdeckung-und-pruefstatus.md), [ADR 0007](docs/adr/0007-bundesweit-vor-phase-3.md)).
 - **Je Elternteil:** Elterngeld und Elternzeit werden für beide Elternteile einzeln geprüft.
 
 ## Projektstruktur
@@ -121,19 +126,24 @@ src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen
   web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, JS)
 data/               Wissensbasis (getrennt vom Code)
   fakten.json         Faktenkatalog: Angaben mit Frage und Typ
-  bund/               Bundesgebiete, Quellen, Leistungen und Bundesvarianten (Geburt)
-  laender/by/         Bayern: Kreise, Gemeinden, Landesvarianten
+  bund/               Bund und Länder (Gebiete), Quellen, Leistungen und Bundesvarianten (Geburt)
+  generiert/          automatisch importiert: alle Kreise, Gemeinden und PLZ (nicht von Hand ändern, ODbL)
+  laender/<kürzel>/   je Land: Elterngeldstelle, Landesleistungen, Abdeckungsnachweis
+  kreise/<AGS>/       Kreise mit erfasstem Jugendamt (München, Landkreis Freising)
   kommunen/09162000/  München: kommunale Varianten
 szenarien/          Testprofile für manuelles Testen und Regression
 tests/              pytest, jeweils mit @pytest.mark.anforderung("ANF-…")
 docs/
   anforderungen.json  Anforderungen mit IDs (Quelle der Testmatrix)
-  validierung.md      Stand der Prüfung gegen Primärquellen
+  validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)
+  datenquellen.md     Quellen und Lizenzen der importierten Daten, Import-Anleitung
   adr/                Architekturentscheidungen
 ```
 
 ### Daten pflegen
 
+- Zuständigkeiten dürfen `{kreis}`, `{gemeinde}` und `{land}` enthalten; sie werden durch den Wohnort ersetzt (z. B. „Jugendamt – {kreis}“).
+- Neues Land bzw. neues Lebensereignis: Unter `abdeckung` festhalten, ob es Landesleistungen gibt (`erfasst` oder `keine`); sonst warnt der Bericht.
 - Neue Kommune: `data/kommunen/<AGS>/geburt.json` mit Varianten; per `"erbt_von": "<varianten-id>"` übernimmt man Regel, Verfahren und Quellen und überschreibt nur, was vor Ort anders ist.
 - Regelknoten: `alle`, `eine`, `nicht` (mit `text`), `fakt` (mit `op`, `wert`, `text`, `quellen`) und `pruefung_noetig`. Operatoren: `== != < <= > >= in nicht_in`.
 - Nach jeder Änderung: `./bai daten && ./bai szenarien --pruefen && python -m pytest`.
@@ -151,6 +161,14 @@ docs/
 - ✅ Checkliste mit Fristen (inkl. Kalenderdatei), Zuständigkeit, Unterlagen, Anleitung, Begründung und Quellen
 - ✅ Gleiche Ergebnisse wie im Terminal (Test über alle Szenarien), 60/60 Anforderungen mit Tests
 - ⏳ Abnahme: einmal manuell in Codespaces durchklicken (siehe oben)
+
+## Stand bundesweite Abdeckung (#40)
+
+- ✅ Alle Kreise, Gemeinden und PLZ automatisch importiert, wiederholbar mit Diff ([docs/datenquellen.md](docs/datenquellen.md))
+- ✅ Elterngeld: zuständige Stelle in allen 16 Ländern (Hessen und Schleswig-Holstein je Kreis); Landesleistungen erfasst bzw. als „keine“ dokumentiert
+- ✅ Jugendamt und Standesamt bundesweit als Fallback mit ehrlichem Abdeckungsstatus; Jugendamt nennt den Kreis
+- ✅ `pilot` ersetzt durch Abdeckungsstatus je Leistung und Land (`./bai abdeckung`), je Land ein Szenario, 73/73 Anforderungen mit Tests
+- ⏳ Stichprobe von 3 Gemeinden je Land gegen Behördenseiten ([docs/validierung.md](docs/validierung.md)), Standesämter/Jugendämter je Gemeinde automatisch importieren (Folge-Issue)
 
 Nächste Phase: LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 

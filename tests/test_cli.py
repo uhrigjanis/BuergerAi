@@ -58,9 +58,19 @@ def test_interaktiv(capsys, monkeypatch, tmp_path):
 
 @pytest.mark.anforderung("ANF-CLI-02", "ANF-GEB-04")
 def test_interaktiv_unbekannte_plz(capsys, monkeypatch):
-    code, out, _ = lauf(capsys, "interaktiv", eingaben=["10115", "BE", "q"], monkeypatch=monkeypatch)
+    # 80001 ist eine Postfach-PLZ in München: keiner Gemeinde zugeordnet
+    code, out, _ = lauf(capsys, "interaktiv", eingaben=["80001", "BY", "q"], monkeypatch=monkeypatch)
     assert code == 0
-    assert "nicht erfasst" in out and "kein Pilotland" in out
+    assert "keiner Gemeinde zugeordnet" in out and "nicht als Gemeinde erfasst" in out
+
+
+@pytest.mark.anforderung("ANF-CLI-02", "ANF-GEB-03")
+def test_interaktiv_mehrdeutige_plz_zeigt_kreis(capsys, monkeypatch):
+    code, out, _ = lauf(capsys, "interaktiv", eingaben=["85356", "0", "3", "q"], monkeypatch=monkeypatch)
+    assert code == 0
+    assert "Oberding" in out and "(Landkreis Erding)" in out
+    assert "Bitte eine Zahl von 1 bis 3" in out
+    assert "Wohnort: Oberding → Landkreis Erding" in out
 
 
 @pytest.mark.anforderung("ANF-CLI-02")
@@ -75,7 +85,7 @@ def test_interaktiv_falsche_eingabe_wird_wiederholt(capsys, monkeypatch):
     [
         (["pruefen"], "Bitte --plz"),
         (["pruefen", "--plz", "123"], "Ungültige PLZ"),
-        (["pruefen", "--plz", "10115"], "Bundesland"),
+        (["pruefen", "--plz", "80001"], "Bundesland"),
         (["pruefen", "--plz", "80331", "-f", "gibtsnicht=1"], "Unbekannter Fakt"),
         (["pruefen", "--plz", "80331", "-f", "zve_eltern=viel"], "Zahl erwartet"),
         (["pruefen", "--plz", "80331", "-f", "mutter.krankenversicherung=gkv"], "erlaubt sind"),
@@ -90,7 +100,7 @@ def test_fehlermeldungen(capsys, argv, meldung):
 
 
 def test_hilfsbefehle(capsys):
-    for argv in (["gebiet", "80331"], ["leistungen"], ["fakten"], ["quellen", "--offen"], ["daten"],
+    for argv in (["gebiet", "80331"], ["abdeckung"], ["leistungen"], ["fakten"], ["quellen", "--offen"], ["daten"],
                  ["szenarien"], ["erklaeren", "elterngeld", "-s", "muenchen_hohes_einkommen"]):
         code, out, _ = lauf(capsys, *argv)
         assert code == 0, argv

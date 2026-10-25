@@ -11,12 +11,18 @@ ALLE = sorted(p.stem for p in szenarien.SZENARIO_VERZEICHNIS.glob("*.json"))
 def test_szenario_erwartungen(kb, name):
     s = szenarien.finden(kb, name)
     assert s.erwartet, "Szenario braucht Erwartungen"
-    bericht = planen(kb, s.anfrage)
-    ist = bericht.ergebnisse()
-    abweichungen = {l: (w, ist.get(l)) for l, w in s.erwartet.items() if ist.get(l) != w}
-    assert not abweichungen
-    if s.erwartet_fehlend is not None:
-        assert bericht.fehlend == s.erwartet_fehlend
+    assert szenarien.abweichungen(s, planen(kb, s.anfrage)) == []
+
+
+@pytest.mark.anforderung("ANF-CLI-03", "ANF-LAND-04")
+def test_abweichende_stelle_wird_gemeldet(kb):
+    from dataclasses import replace
+
+    s = szenarien.finden(kb, "muenchen_verheiratet_angestellt")
+    falsch = replace(s, erwartet_stellen={"elterngeld": "L-Bank"}, erwartet={"elterngeld": "nein"})
+    meldungen = szenarien.abweichungen(falsch, planen(kb, s.anfrage))
+    assert any("elterngeld: erwartet nein" in m for m in meldungen)
+    assert any("'L-Bank'" in m and "ZBFS" in m for m in meldungen)
 
 
 @pytest.mark.anforderung("ANF-CLI-03")

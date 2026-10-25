@@ -169,6 +169,37 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bmfsfj_elterngeldstellen",
+      "titel": "BMBFSFJ – Elterngeldstellen und Aufsichtsbehörden in Elterngeldangelegenheiten",
+      "url": "https://www.bmbfsfj.bund.de/bmbfsfj/themen/familie/familienleistungen/elterngeldstellen-und-aufsichtsbehoerden-in-elterngeldangelegenheiten-73716",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Übersicht der Länder. Laut Suchergebnissen: zentral beim Land in BW (L-Bank), BY (ZBFS), HE (Ämter für Versorgung und Soziales), MV (LAGuS), SH (LASG), SL (Landesamt für Soziales); bei Bezirksämtern in BE und HH; bei Landkreisen und kreisfreien Städten in BB, HB, NI, NW, RP, SN, ST, TH. Seite selbst aus der Entwicklungsumgebung nicht erreichbar."
+    },
+    {
+      "id": "betanet_landeserziehungsgeld",
+      "titel": "betanet – Landeserziehungsgeld (Stand 08/2026)",
+      "url": "https://www.betanet.de/landeserziehungsgeld.html",
+      "typ": "sekundaer",
+      "herausgeber": "beta Institut gemeinnützige GmbH",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis gibt es Landeserziehungsgeld nur noch in Sachsen; in Baden-Württemberg und Thüringen ausgelaufen (Thüringen zuletzt für Geburten bis 30.06.2015); Bayern: Familiengeld (eingestellt)."
+    },
+    {
+      "id": "familienportal_elterngeldstelle_finden",
+      "titel": "Familienportal – Elterngeldstelle finden",
+      "url": "https://familienportal.de/familienportal/meta/egr",
+      "typ": "behoerde",
+      "herausgeber": "Bundesfamilienministerium",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Offizielle Suche nach der zuständigen Elterngeldstelle per PLZ. URL nicht geprüft."
     }
   ]
 }

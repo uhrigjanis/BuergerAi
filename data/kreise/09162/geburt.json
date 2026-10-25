@@ -1,0 +1,54 @@
+{
+  "_hinweis": "Kreisfreie Stadt München (09162): Jugendamt für Vaterschaftsanerkennung und Sorgeerklärung.",
+  "quellen": [
+    {
+      "id": "muenchen_sorgeerklaerung",
+      "titel": "Stadt München – Beurkundung einer Sorgeerklärung",
+      "url": "https://stadt.muenchen.de/service/info/beurkundungen/1075155/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München, Sozialreferat – Stadtjugendamt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: Beurkundung nur mit Termin und persönlich, vor oder nach der Geburt, gebührenfrei; Zuständigkeit nach Familienname des Kindes bzw. der Mutter; Adresse Werner-Schlierf-Straße 9, 81539 München. Vaterschaftsanerkennung mit Sorgeerklärung beim Stadtjugendamt; das Standesamt nimmt keine Sorgeerklärungen auf."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "stadtjugendamt_muenchen",
+      "name": "Stadtjugendamt München – Urkundsangelegenheiten",
+      "beschreibung": "Beurkundung von Vaterschaftsanerkennung und Sorgeerklärung, kostenlos, nur mit Termin (Kontaktformular). Werner-Schlierf-Straße 9, 81539 München.",
+      "url": "https://stadt.muenchen.de/service/info/beurkundungen/1075155/",
+      "quellen": [
+        "muenchen_sorgeerklaerung"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "vaterschaftsanerkennung_muenchen",
+      "leistung_id": "vaterschaftsanerkennung",
+      "gebiet_id": "09162",
+      "erbt_von": "vaterschaftsanerkennung_bund",
+      "zustaendigkeit_id": "stadtjugendamt_muenchen",
+      "quellen": [
+        "bgb_1592_1594",
+        "muenchen_sorgeerklaerung"
+      ],
+      "hinweise": [
+        "Soll zugleich eine Sorgeerklärung abgegeben werden, die Vaterschaft beim Stadtjugendamt beurkunden lassen. Beim Standesamt München gibt es Termine frühestens vier Wochen vor der Geburt."
+      ]
+    },
+    {
+      "id": "sorgeerklaerung_muenchen",
+      "leistung_id": "sorgeerklaerung",
+      "gebiet_id": "09162",
+      "erbt_von": "sorgeerklaerung_bund",
+      "zustaendigkeit_id": "stadtjugendamt_muenchen",
+      "quellen": [
+        "bgb_1626a",
+        "muenchen_sorgeerklaerung"
+      ]
+    }
+  ]
+}

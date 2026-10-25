@@ -1,0 +1,52 @@
+{
+  "_hinweis": "Saarland: Elterngeld beim Landesamt für Soziales.",
+  "quellen": [
+    {
+      "id": "sl_las_elterngeld",
+      "titel": "Landesamt für Soziales Saarland – Elterngeld",
+      "url": "https://www.saarland.de/las/DE/themen/familie/elterngeld",
+      "typ": "behoerde",
+      "herausgeber": "Landesamt für Soziales Saarland",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Laut Suchergebnis ist die Elterngeldstelle im Saarland beim Landesamt für Soziales angesiedelt; Online-Antrag möglich. URL nicht geprüft."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "las_saarland",
+      "name": "Landesamt für Soziales Saarland – Elterngeldstelle",
+      "beschreibung": "Zuständig für Elterngeld im ganzen Saarland.",
+      "quellen": [
+        "sl_las_elterngeld",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_sl",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "10",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "las_saarland",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "sl_las_elterngeld",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "_hinweis": "Baden-Württemberg: Elterngeld bei der L-Bank.",
+  "quellen": [
+    {
+      "id": "servicebw_elterngeld",
+      "titel": "service-bw – Elterngeld beantragen (Leistungsbeschreibung 1224)",
+      "url": "https://www.service-bw.de/zufi/leistungen/1224",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis (Verfahrensbeschreibung auf Seiten der Kommunen): zuständig ist die L-Bank; Antrag online oder auf Papier, beide Elternteile unterschreiben."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lbank_elterngeld",
+      "name": "L-Bank – Elterngeldstelle",
+      "beschreibung": "Die L-Bank (Landeskreditbank Baden-Württemberg) ist für Elterngeld in ganz Baden-Württemberg zuständig. Antrag online oder per Post.",
+      "quellen": [
+        "servicebw_elterngeld"
+      ],
+      "url": "https://www.l-bank.de/elterngeld"
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_bw",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "08",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "lbank_elterngeld",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "servicebw_elterngeld"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

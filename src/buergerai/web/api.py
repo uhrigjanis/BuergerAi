@@ -19,7 +19,7 @@ from ..ausgabe import ABDECKUNG_TEXT, EBENE_TEXT, PERSON_NAME, PRUEF_TEXT, frage
 from ..fakten import PERSONEN, UNBEKANNT, EingabeFehler, wert_als_text
 from ..fristen import BerechneteFrist
 from ..modell import Gebiet
-from ..planer import Anfrage, Bericht, Eintrag, planen
+from ..planer import Anfrage, Bericht, Eintrag, landesabdeckung, planen
 from ..regeln import Schritt, Wert, begruendung
 from ..wissensbasis import Wissensbasis
 
@@ -70,7 +70,12 @@ def _wert_json(w: Any) -> Any:
 
 
 def _gebiet_json(g: Gebiet) -> dict[str, Any]:
-    return {"id": g.id, "name": g.name, "ebene": g.ebene.value, "ebene_text": EBENE_TEXT[g.ebene], "pilot": g.pilot}
+    return {"id": g.id, "name": g.name, "ebene": g.ebene.value, "ebene_text": EBENE_TEXT[g.ebene]}
+
+
+def _gemeinde_wahl_json(kb: Wissensbasis, g: Gebiet) -> dict[str, Any]:
+    kreis = gebiete_mod.kreis_von(kb, g)
+    return {"id": g.id, "name": g.name, "kreis": kreis.name if kreis else None}
 
 
 def _person(fid: str) -> Optional[str]:
@@ -132,7 +137,7 @@ def _hierarchie(kb: Wissensbasis, anfrage: Anfrage) -> list[Gebiet]:
         return gebiete_mod.aufloesen(kb, anfrage.plz, anfrage.gemeinde, anfrage.land)
     except gebiete_mod.PlzMehrdeutig as exc:
         raise ApiFehler(
-            409, str(exc), status="mehrdeutig", gemeinden=[{"id": g.id, "name": g.name} for g in exc.gemeinden]
+            409, str(exc), status="mehrdeutig", gemeinden=[_gemeinde_wahl_json(kb, g) for g in exc.gemeinden]
         ) from exc
     except gebiete_mod.PlzUnbekannt as exc:
         raise ApiFehler(409, str(exc), status="unbekannt", laender=laender_json(kb)) from exc
@@ -141,7 +146,10 @@ def _hierarchie(kb: Wissensbasis, anfrage: Anfrage) -> list[Gebiet]:
 
 
 def laender_json(kb: Wissensbasis) -> list[dict[str, Any]]:
-    return [{"kuerzel": g.kuerzel, "name": g.name, "pilot": g.pilot} for g in gebiete_mod.laender(kb)]
+    return [
+        {"kuerzel": g.kuerzel, "name": g.name, "abdeckung": landesabdeckung(kb, g, "geburt").value}
+        for g in gebiete_mod.laender(kb)
+    ]
 
 
 # ------------------------------------------------------------------ Endpunkte

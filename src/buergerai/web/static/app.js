@@ -2,7 +2,7 @@
 "use strict";
 
 // Muss zu buergerai.__version__ passen (Test: tests/test_web.py); sonst warnt die Seite
-const VERSION = "0.3.1";
+const VERSION = "0.4.0";
 const SPEICHER = "buergerai.v1";
 const ERGEBNIS_TEXT = { ja: "Ja", unklar: "Unklar", nein: "Nein" };
 const SYMBOL = { ja: "✓", unklar: "?", nein: "✗" };
@@ -140,7 +140,10 @@ async function ortAbsenden(ev) {
   } catch (e) {
     if (e.daten && e.daten.status === "mehrdeutig") {
       const s = $("#gemeinde");
-      fuellen(s, ...e.daten.gemeinden.map((g) => el("option", { value: g.id }, g.name)));
+      fuellen(s,
+        el("option", { value: "" }, `Bitte wählen (${e.daten.gemeinden.length} Gemeinden) …`),
+        ...e.daten.gemeinden.map((g) => el("option", { value: g.id }, g.kreis ? `${g.name} – ${g.kreis}` : g.name)),
+      );
       $("#gemeinde-wahl").hidden = false;
       s.focus();
     } else if (e.daten && e.daten.status === "unbekannt") {
@@ -148,7 +151,7 @@ async function ortAbsenden(ev) {
       const s = $("#land");
       fuellen(s,
         el("option", { value: "" }, "Bitte wählen …"),
-        ...e.daten.laender.map((l) => el("option", { value: l.kuerzel }, l.name + (l.pilot ? " (Pilot)" : ""))),
+        ...e.daten.laender.map((l) => el("option", { value: l.kuerzel }, l.name)),
       );
       $("#land-wahl").hidden = false;
       s.focus();
@@ -533,7 +536,7 @@ function neuBeginnen() {
 async function init() {
   $("#ort-form").addEventListener("submit", ortAbsenden);
   $("#plz").addEventListener("input", startZuruecksetzen);
-  $("#gemeinde").addEventListener("change", ortAbsenden);
+  $("#gemeinde").addEventListener("change", () => { if ($("#gemeinde").value) ortAbsenden(); });
   $("#land").addEventListener("change", () => { if ($("#land").value) ortAbsenden(); });
   $("#szenario-laden").addEventListener("click", szenarioLaden);
   $("#szenario").addEventListener("change", () => {

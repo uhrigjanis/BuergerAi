@@ -1,0 +1,54 @@
+{
+  "_hinweis": "Hamburg: Elterngeld bei den Bezirksämtern.",
+  "quellen": [
+    {
+      "id": "hamburg_elterngeld_merkblatt",
+      "titel": "Hamburg – Merkblatt Elternzeit und Elterngeld",
+      "url": "https://www.hamburg.de/resource/blob/1114254/956d3a54008247b78f2ffee660de1291/elternzeit-und-elterngeld-fuer-tarifbeschaeftigte-data.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: 'Zuständig für die Bewilligung von Elterngeld sind in Hamburg die Elterngeldstellen der Bezirksämter.'"
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_hamburg",
+      "name": "Elterngeldstelle des Bezirksamts Ihres Wohnbezirks",
+      "beschreibung": "In Hamburg bewilligen die Elterngeldstellen der Bezirksämter das Elterngeld.",
+      "quellen": [
+        "hamburg_elterngeld_merkblatt",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_hh",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "02",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_hamburg",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "hamburg_elterngeld_merkblatt",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

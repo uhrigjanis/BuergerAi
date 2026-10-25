@@ -27,6 +27,7 @@ class Szenario:
     anfrage: Anfrage
     erwartet: dict[str, str] = field(default_factory=dict)
     erwartet_fehlend: Optional[list[str]] = None
+    erwartet_stellen: dict[str, str] = field(default_factory=dict)  # Leistung -> Teil des Namens der Stelle
     anforderungen: list[str] = field(default_factory=list)
     pfad: Optional[Path] = None
 
@@ -60,9 +61,25 @@ def laden(kb: Wissensbasis, pfad: Path) -> Szenario:
         anfrage=anfrage,
         erwartet=roh.get("erwartet", {}),
         erwartet_fehlend=roh.get("erwartet_fehlend"),
+        erwartet_stellen=roh.get("erwartet_stellen", {}),
         anforderungen=roh.get("anforderungen", []),
         pfad=pfad,
     )
+
+
+def abweichungen(s: Szenario, bericht: Any) -> list[str]:
+    """Unterschiede zwischen Erwartungen eines Szenarios und dem Bericht (leer = alles wie erwartet)."""
+    ist = bericht.ergebnisse()
+    fehler = [f"{l}: erwartet {w}, ist {ist.get(l, 'nicht gelistet')}" for l, w in s.erwartet.items() if ist.get(l) != w]
+    stellen = {e.leistung.id: e.zustaendigkeit.name for e in bericht.eintraege}
+    fehler += [
+        f"{l}: zuständige Stelle soll {teil!r} enthalten, ist {stellen.get(l, 'nicht gelistet')!r}"
+        for l, teil in s.erwartet_stellen.items()
+        if teil not in stellen.get(l, "")
+    ]
+    if s.erwartet_fehlend is not None and bericht.fehlend != s.erwartet_fehlend:
+        fehler.append(f"offene Angaben: erwartet {s.erwartet_fehlend}, ist {bericht.fehlend}")
+    return fehler
 
 
 def alle(kb: Wissensbasis, verzeichnis: Optional[Path] = None) -> list[Szenario]:

@@ -154,7 +154,7 @@ def cmd_interaktiv(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
     print(f.fett("BürgerAI – geführte Prüfung für das Lebensereignis Geburt"))
-    print(f.grau("Pilot: Bundesleistungen, Bayern, München und Freising. Kein LLM – alle Ergebnisse sind regelbasiert."))
+    print(f.grau("Alle Bundesländer, Kreise und Gemeinden. Kein LLM – alle Ergebnisse sind regelbasiert."))
     stichtag = _stichtag(args.stichtag)
     anfrage = Anfrage(fakten={}, stichtag=stichtag)
     if args.szenario:
@@ -174,8 +174,13 @@ def cmd_interaktiv(args: argparse.Namespace) -> int:
                 break
             except gebiete_mod.PlzMehrdeutig as exc:
                 for i, g in enumerate(exc.gemeinden, 1):
-                    print(f"  {i}) {g.name}")
-                wahl = input("Welche Gemeinde? ").strip()
+                    kreis = gebiete_mod.kreis_von(kb, g)
+                    print(f"  {i}) {g.name}" + (f.grau(f" ({kreis.name})") if kreis else ""))
+                while True:
+                    wahl = input("Welche Gemeinde? (Nummer) ").strip()
+                    if wahl.isdigit() and 1 <= int(wahl) <= len(exc.gemeinden):
+                        break
+                    print(f.rot(f"  Bitte eine Zahl von 1 bis {len(exc.gemeinden)} eingeben."))
                 anfrage.gemeinde = exc.gemeinden[int(wahl) - 1].id
                 hierarchie = gebiete_mod.aufloesen(kb, gemeinde_id=anfrage.gemeinde)
                 break
@@ -218,8 +223,63 @@ def cmd_gebiet(args: argparse.Namespace) -> int:
         print(str(exc))
         return 1
     for g in hierarchie:
-        pilot = " (Pilot)" if g.pilot else ""
-        print(f"{EBENE_TEXT[g.ebene]:9} {g.id:9} {g.name}{pilot}")
+        zusatz = f" – {g.verband[1]}" if g.verband else ""
+        print(f"{EBENE_TEXT[g.ebene]:9} {g.id:9} {g.name}{zusatz}")
+    return 0
+
+
+def cmd_abdeckung(args: argparse.Namespace) -> int:
+    """Übersicht je Land: Wie viel ist für ein Lebensereignis vor Ort erfasst?"""
+    from .ausgabe import ABDECKUNG_TEXT
+    from .modell import Abdeckung, Ebene
+    from .planer import abdeckung_eintrag, beste_variante, landesabdeckung
+
+    kb = _kb(args)
+    f = Farbe(None if not args.keine_farbe else False)
+    stichtag = _stichtag(args.stichtag)
+    leistungen = sorted(
+        (l for l in kb.leistungen.values() if args.ereignis in l.ereignisse and l.verwaltungsebene is not Ebene.BUND),
+        key=lambda l: (l.verwaltungsebene.rang, l.id),
+    )
+    kreise_je_land: dict[str, list[Any]] = {}
+    gemeinden_je_kreis: dict[str, list[Any]] = {}
+    for g in kb.gebiete.values():
+        if g.ebene is Ebene.KREIS:
+            kreise_je_land.setdefault(g.parent_id, []).append(g)
+        elif g.ebene is Ebene.GEMEINDE:
+            gemeinden_je_kreis.setdefault(g.parent_id, []).append(g)
+    print(f.fett(f"Abdeckung für das Lebensereignis '{args.ereignis}' (Stichtag {datum(stichtag)})"))
+    print(f.grau("Je Leistung (nur Leistungen, die nicht auf Bundesebene verwaltet werden): "
+                 "Anzahl der Gemeinden, für die die zuständige Stelle erfasst ist.\n"))
+    for land in gebiete_mod.laender(kb):
+        nachweis = kb.landesabdeckung.get((land.id, args.ereignis))
+        if landesabdeckung(kb, land, args.ereignis) is Abdeckung.FEHLT:
+            ll = f.rot("nicht recherchiert")
+        elif nachweis and nachweis.landesleistungen == "keine":
+            ll = "keine"
+        else:
+            ll = ", ".join(kb.leistungen[i].name for i in kb.landesleistungen(land.id, args.ereignis))
+        gemeinden = [g for k in kreise_je_land.get(land.id, []) for g in gemeinden_je_kreis.get(k.id, [])]
+        print(f.fett(f"{land.kuerzel} {land.name}") + f.grau(f"  ({len(kreise_je_land.get(land.id, []))} Kreise, {len(gemeinden)} Gemeinden)"))
+        print(f"    Landesleistungen: {ll}")
+        for l in leistungen:
+            gebiete_der_varianten = [gebiete_mod.hierarchie(kb, v.gebiet_id) for v in kb.varianten_von(l.id)]
+            if not any(land in kette or len(kette) == 1 for kette in gebiete_der_varianten):
+                continue  # Landesleistung eines anderen Landes
+            erfasst = 0
+            for g in gemeinden:
+                treffer = beste_variante(kb, l, gebiete_mod.hierarchie(kb, g.id), stichtag)
+                if treffer and abdeckung_eintrag(l, treffer[1]) is Abdeckung.ERFASST:
+                    erfasst += 1
+            voll = bool(gemeinden) and erfasst == len(gemeinden)
+            farbe = f.gruen if voll else (f.gelb if erfasst else f.grau)
+            if voll:
+                text = ABDECKUNG_TEXT[Abdeckung.ERFASST]
+            elif erfasst:
+                text = "teilweise erfasst, sonst " + ABDECKUNG_TEXT[Abdeckung.ALLGEMEIN]
+            else:
+                text = ABDECKUNG_TEXT[Abdeckung.ALLGEMEIN]
+            print(f"    {l.name[:45]:45} {farbe(f'{erfasst:>5}/{len(gemeinden):<5}')}  {f.grau(text)}")
     return 0
 
 
@@ -297,18 +357,62 @@ def cmd_szenarien(args: argparse.Namespace) -> int:
         if not args.pruefen:
             print(f"{f.fett(s.id)}\n    {s.name}" + (f" – {s.beschreibung}" if s.beschreibung else ""))
             continue
-        ist = planen(kb, s.anfrage).ergebnisse()
-        abweichungen = [f"{l}: erwartet {w}, ist {ist.get(l, 'nicht gelistet')}" for l, w in s.erwartet.items() if ist.get(l) != w]
+        abweichungen = szenarien_mod.abweichungen(s, planen(kb, s.anfrage))
         if abweichungen:
             fehler += 1
             print(f.rot(f"✗ {s.id}"))
             for a in abweichungen:
                 print(f"    {a}")
         else:
-            print(f.gruen(f"✓ {s.id}") + f.grau(f"  ({len(s.erwartet)} Erwartungen)"))
+            print(f.gruen(f"✓ {s.id}") + f.grau(f"  ({len(s.erwartet) + len(s.erwartet_stellen)} Erwartungen)"))
     if not args.pruefen:
         print(f.grau("\nAusführen mit: buergerai pruefen --szenario NAME [--details]   |   Erwartungen prüfen: buergerai szenarien --pruefen"))
     return 1 if fehler else 0
+
+
+def cmd_gebiete_import(args: argparse.Namespace) -> int:
+    from . import gebietsimport as gi
+
+    f = Farbe(None if not args.keine_farbe else False)
+    try:
+        plz_gemeinden = gi.plz_lesen(Path(args.plz))
+        if args.gv100ad:
+            stand, kreise, amtlich = gi.gv100ad_lesen(Path(args.gv100ad))
+            kreisquelle, kreis_version = gi.QUELLE_GV100, args.kreise_stand or stand
+        else:
+            kreise, amtlich = gi.kreisliste_lesen(Path(args.kreise)), None
+            kreisquelle, kreis_version = gi.QUELLE_KREISE, args.kreise_stand or "unbekannt"
+        daten = gi.zusammenfuehren(plz_gemeinden, kreise, amtlich)
+    except (gi.ImportFehler, OSError) as exc:
+        print(f.rot(f"Import abgebrochen: {exc}"))
+        return 1
+    inhalt = gi.datei_erzeugen(daten, kreisquelle, args.plz_stand or "unbekannt", kreis_version)
+    ziel = Path(args.ziel) if args.ziel else gi.ZIEL_STANDARD
+    anzahl = inhalt["_import"]["anzahl"]
+    print(f.fett(f"Import: {anzahl['kreise']} Kreise, {anzahl['gemeinden']} Gemeinden, {anzahl['plz']} PLZ"))
+    for h in daten.hinweise:
+        print(f.gelb(f"  Hinweis: {h}"))
+    mehrdeutig = sum(1 for n in _plz_zaehler(inhalt).values() if n > 1)
+    print(f"  PLZ mit mehreren Gemeinden: {mehrdeutig}")
+    print(f.fett(f"\nÄnderungen gegenüber {ziel}:"))
+    for zeile in gi.vergleichen(gi.vorhandene_gebiete(ziel), inhalt["gebiete"]).zeilen():
+        print("  " + zeile)
+    if args.nur_diff:
+        print(f.grau("\n(--nur-diff: nichts geschrieben)"))
+        return 0
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    ziel.write_text(gi.als_text(inhalt), encoding="utf-8")
+    print(f.gruen(f"\nGeschrieben: {ziel}"))
+    print(f.grau("Danach prüfen: buergerai daten && python -m pytest"))
+    return 0
+
+
+def _plz_zaehler(inhalt: dict[str, Any]) -> dict[str, int]:
+    zaehler: dict[str, int] = {}
+    for g in inhalt["gebiete"]:
+        for p in g.get("plz", ()):
+            zaehler[p] = zaehler.get(p, 0) + 1
+    return zaehler
 
 
 def cmd_web(args: argparse.Namespace) -> int:
@@ -379,6 +483,11 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--land")
     s.set_defaults(func=cmd_gebiet)
 
+    s = sub.add_parser("abdeckung", help="Je Land: Landesleistungen und erfasste Stellen vor Ort")
+    s.add_argument("--ereignis", default="geburt")
+    s.add_argument("--stichtag")
+    s.set_defaults(func=cmd_abdeckung)
+
     sub.add_parser("leistungen", help="Alle Leistungen und ihre Varianten").set_defaults(func=cmd_leistungen)
     sub.add_parser("fakten", help="Faktenkatalog (Namen für --fakt)").set_defaults(func=cmd_fakten)
 
@@ -391,6 +500,17 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("szenarien", help="Gespeicherte Testprofile auflisten oder prüfen")
     s.add_argument("--pruefen", action="store_true", help="Alle Szenarien gegen ihre Erwartungen prüfen")
     s.set_defaults(func=cmd_szenarien)
+
+    s = sub.add_parser("gebiete-import", help="Kreise, Gemeinden und PLZ bundesweit neu importieren (data/generiert)")
+    s.add_argument("--plz", required=True, metavar="STREETS.CSV", help="OpenPLZ-Straßenverzeichnis (streets.csv)")
+    quelle = s.add_mutually_exclusive_group(required=True)
+    quelle.add_argument("--kreise", metavar="KREISE.CSV", help="Kreisliste (AGS;type;name) von Destatis")
+    quelle.add_argument("--gv100ad", metavar="GV100AD.TXT", help="Amtliches Gemeindeverzeichnis GV100AD von Destatis")
+    s.add_argument("--plz-stand", help="Version der PLZ-Daten, z. B. Git-Commit oder Datum")
+    s.add_argument("--kreise-stand", help="Stand der Kreisliste (beim GV100AD: aus der Datei)")
+    s.add_argument("--ziel", help="Zieldatei (Standard: data/generiert/gebiete.json)")
+    s.add_argument("--nur-diff", action="store_true", help="Nur Änderungen anzeigen, nichts schreiben")
+    s.set_defaults(func=cmd_gebiete_import)
 
     s = sub.add_parser("web", help="Web-Oberfläche starten (Formular, Checkliste, Fristen)")
     s.add_argument("--port", type=int, default=8000, help="Port (Standard: 8000)")

@@ -1,0 +1,194 @@
+{
+  "_hinweis": "Schleswig-Holstein: Elterngeld beim LASG, Standort je Kreis.",
+  "quellen": [
+    {
+      "id": "lasg_sh_elterngeld",
+      "titel": "LASG Schleswig-Holstein – Elterngeld: Ansprechpartner und Zuständigkeit",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node",
+      "typ": "behoerde",
+      "herausgeber": "Landesamt für Arbeitsschutz, Soziales und Gesundheit Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis (Seite Stand 14.07.2025): Standorte Heide, Lübeck, Neumünster, Schleswig mit Zuordnung nach Kreis. Früherer Name: Landesamt für soziale Dienste (LAsD). Antrag nicht rein digital möglich."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lasg_sh",
+      "name": "Landesamt für Arbeitsschutz, Soziales und Gesundheit (LASG) – Elterngeld",
+      "beschreibung": "Zuständig für Elterngeld in ganz Schleswig-Holstein. Welcher Standort (Heide, Lübeck, Neumünster, Schleswig) zuständig ist, richtet sich nach dem Kreis.",
+      "quellen": [
+        "lasg_sh_elterngeld"
+      ],
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node"
+    },
+    {
+      "id": "lasg_sh_heide",
+      "name": "LASG Schleswig-Holstein, Elterngeldstelle Heide",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node",
+      "quellen": [
+        "lasg_sh_elterngeld"
+      ]
+    },
+    {
+      "id": "lasg_sh_luebeck",
+      "name": "LASG Schleswig-Holstein, Elterngeldstelle Lübeck",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node",
+      "quellen": [
+        "lasg_sh_elterngeld"
+      ]
+    },
+    {
+      "id": "lasg_sh_neumuenster",
+      "name": "LASG Schleswig-Holstein, Elterngeldstelle Neumünster",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node",
+      "quellen": [
+        "lasg_sh_elterngeld"
+      ]
+    },
+    {
+      "id": "lasg_sh_schleswig",
+      "name": "LASG Schleswig-Holstein, Elterngeldstelle Schleswig",
+      "beschreibung": "Zuständig für Elterngeld in {kreis}.",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LASG/Aufgaben/KinderUndEltern/kinderElternAnsprechpartner_node",
+      "quellen": [
+        "lasg_sh_elterngeld"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_sh",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "lasg_sh",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "lasg_sh_elterngeld"
+      ]
+    },
+    {
+      "id": "elterngeld_01051",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01051",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_heide"
+    },
+    {
+      "id": "elterngeld_01054",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01054",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_heide"
+    },
+    {
+      "id": "elterngeld_01056",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01056",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_heide"
+    },
+    {
+      "id": "elterngeld_01061",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01061",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_heide"
+    },
+    {
+      "id": "elterngeld_01003",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01003",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_luebeck"
+    },
+    {
+      "id": "elterngeld_01053",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01053",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_luebeck"
+    },
+    {
+      "id": "elterngeld_01055",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01055",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_luebeck"
+    },
+    {
+      "id": "elterngeld_01060",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01060",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_luebeck"
+    },
+    {
+      "id": "elterngeld_01062",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01062",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_luebeck"
+    },
+    {
+      "id": "elterngeld_01002",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01002",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_neumuenster"
+    },
+    {
+      "id": "elterngeld_01004",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01004",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_neumuenster"
+    },
+    {
+      "id": "elterngeld_01057",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01057",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_neumuenster"
+    },
+    {
+      "id": "elterngeld_01001",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01001",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_schleswig"
+    },
+    {
+      "id": "elterngeld_01058",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01058",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_schleswig"
+    },
+    {
+      "id": "elterngeld_01059",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "01059",
+      "erbt_von": "elterngeld_sh",
+      "zustaendigkeit_id": "lasg_sh_schleswig"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

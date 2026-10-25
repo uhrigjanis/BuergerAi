@@ -1,0 +1,51 @@
+{
+  "_hinweis": "Landkreis Freising (09178): Jugendamt für Vaterschaftsanerkennung und Sorgeerklärung (Spike Stufe 0, Issue #40).",
+  "quellen": [
+    {
+      "id": "freising_belehrung_vaterschaft",
+      "titel": "Landratsamt Freising, Amt für Jugend und Familie – Belehrung Vaterschaft",
+      "url": "https://www.kreis-freising.de/fileadmin/user_upload/Aemter/Amt_fuer_Jugend_und_Familie/Amtsvormundschaften__Beistandschaften/Belehrung_Vaterschaft.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Landratsamt Freising",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Laut Suchergebnis: Merkblatt des Amts für Jugend und Familie, das vor der Beurkundung einer Vaterschaftsanerkennung ausgehändigt wird. Termine, Öffnungszeiten und Adresse nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "jugendamt_lk_freising",
+      "name": "Landratsamt Freising – Amt für Jugend und Familie",
+      "beschreibung": "Beurkundet Vaterschaftsanerkennung und Sorgeerklärung kostenlos. Termin bitte vorher erfragen.",
+      "url": "https://www.kreis-freising.de/",
+      "quellen": [
+        "freising_belehrung_vaterschaft"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "vaterschaftsanerkennung_lk_freising",
+      "leistung_id": "vaterschaftsanerkennung",
+      "gebiet_id": "09178",
+      "erbt_von": "vaterschaftsanerkennung_bund",
+      "zustaendigkeit_id": "jugendamt_lk_freising",
+      "quellen": [
+        "bgb_1592_1594",
+        "freising_belehrung_vaterschaft"
+      ]
+    },
+    {
+      "id": "sorgeerklaerung_lk_freising",
+      "leistung_id": "sorgeerklaerung",
+      "gebiet_id": "09178",
+      "erbt_von": "sorgeerklaerung_bund",
+      "zustaendigkeit_id": "jugendamt_lk_freising",
+      "quellen": [
+        "bgb_1626a",
+        "freising_belehrung_vaterschaft"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # ADR 0001: Vertikaler Pilot – Geburt in Bayern (München, Freising)
 
-**Status:** angenommen · **Datum:** 24.10.2026
+**Status:** angenommen, erweitert durch [ADR 0007](0007-bundesweit-vor-phase-3.md) (bundesweit) · **Datum:** 24.10.2026
 
 ## Kontext
 Der Plan sieht vor, erst ein Lebensereignis in einer Pilotregion komplett und getestet umzusetzen.

@@ -2,12 +2,15 @@
 
 Jede JSON-Datei unter ``data/`` darf beliebige dieser Schlüssel enthalten:
 ``gebiete``, ``leistungen``, ``varianten``, ``quellen``, ``zustaendigkeiten``,
-``fakten``. So können Bund, Länder und Kommunen getrennt gepflegt werden.
+``fakten``, ``abdeckung``. So können Bund, Länder und Kommunen getrennt
+gepflegt werden. Automatisch erzeugte Daten (Kreise, Gemeinden, PLZ) liegen
+unter ``data/generiert/`` (siehe ``gebietsimport.py``).
 """
 
 from __future__ import annotations
 
 import json
+import string
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional
@@ -18,6 +21,7 @@ from .modell import (
     Ebene,
     Frist,
     Gebiet,
+    Landesabdeckung,
     Leistung,
     Leistungsvariante,
     Pruefstatus,
@@ -35,6 +39,9 @@ FUER_WERTE = ("haushalt", "mutter", "jeder_elternteil")
 LEISTUNG_ARTEN = ("pflicht", "antrag", "geldleistung", "information")
 FRIST_BEZUEGE = ("geburt", "termin", "keiner")
 FRIST_ARTEN = ("spaetestens", "fruehestens", "empfohlen")
+LANDESLEISTUNGEN_WERTE = ("erfasst", "keine")
+# Platzhalter in Namen und Beschreibungen von Zuständigkeiten, z. B. "Elterngeldstelle: {kreis}"
+PLATZHALTER = ("gemeinde", "kreis", "land")
 
 
 class DatenFehler(ValueError):
@@ -78,8 +85,10 @@ class Wissensbasis:
     quellen: dict[str, Quelle] = field(default_factory=dict)
     zustaendigkeiten: dict[str, Zustaendigkeit] = field(default_factory=dict)
     fakten: dict[str, FaktDefinition] = field(default_factory=dict)
+    landesabdeckung: dict[tuple[str, str], Landesabdeckung] = field(default_factory=dict)
     dateien: list[Path] = field(default_factory=list)
     _roh_varianten: list[tuple[dict[str, Any], Path]] = field(default_factory=list, repr=False)
+    _plz_index: Optional[tuple[int, dict[str, tuple[str, ...]]]] = field(default=None, repr=False)
 
     # ------------------------------------------------------------------ Laden
     @classmethod
@@ -114,7 +123,8 @@ class Wissensbasis:
         ziel[objekt.id] = objekt
 
     def _einlesen(self, inhalt: dict[str, Any], datei: Path, fehler: list[str]) -> None:
-        bekannt = {"gebiete", "leistungen", "varianten", "quellen", "zustaendigkeiten", "fakten", "_hinweis"}
+        bekannt = {"gebiete", "leistungen", "varianten", "quellen", "zustaendigkeiten", "fakten", "abdeckung",
+                   "_hinweis", "_import"}
         for schluessel in inhalt:
             if schluessel not in bekannt:
                 fehler.append(f"{datei}: unbekannter Schlüssel {schluessel}")
@@ -129,8 +139,9 @@ class Wissensbasis:
                     plz=tuple(g.get("plz", ())),
                     plz_praefixe=tuple(g.get("plz_praefixe", ())),
                     kuerzel=g.get("kuerzel"),
-                    pilot=g.get("pilot", False),
                     quellen=tuple(g.get("quellen", ())),
+                    art=g.get("art"),
+                    verband=(g["verband"]["id"], g["verband"]["name"]) if "verband" in g else None,
                 ),
                 datei,
                 fehler,
@@ -187,6 +198,19 @@ class Wissensbasis:
             )
         for v in inhalt.get("varianten", []):
             self._roh_varianten.append((v, datei))
+        for a in inhalt.get("abdeckung", []):
+            nachweis = Landesabdeckung(
+                gebiet_id=a["gebiet_id"],
+                ereignis=a["ereignis"],
+                landesleistungen=a["landesleistungen"],
+                stand=parse_datum(a["stand"]),
+                quellen=tuple(a.get("quellen", ())),
+                notiz=a.get("notiz"),
+            )
+            schluessel = (nachweis.gebiet_id, nachweis.ereignis)
+            if schluessel in self.landesabdeckung:
+                fehler.append(f"{datei}: doppelte Abdeckung für {nachweis.gebiet_id}/{nachweis.ereignis}")
+            self.landesabdeckung[schluessel] = nachweis
         for f in inhalt.get("fakten", []):
             self._neu(
                 self.fakten,
@@ -252,6 +276,20 @@ class Wissensbasis:
         self._roh_varianten.clear()
 
     # ------------------------------------------------------------- Zugriffe
+    def plz_index(self) -> dict[str, tuple[str, ...]]:
+        """PLZ -> IDs der Gemeinden (nach Name sortiert). Wird bei Bedarf neu aufgebaut."""
+        if self._plz_index is None or self._plz_index[0] != len(self.gebiete):
+            index: dict[str, list[Gebiet]] = {}
+            for g in self.gebiete.values():
+                if g.ebene is Ebene.GEMEINDE:
+                    for p in g.plz:
+                        index.setdefault(p, []).append(g)
+            self._plz_index = (
+                len(self.gebiete),
+                {p: tuple(g.id for g in sorted(gs, key=lambda g: (g.name, g.id))) for p, gs in index.items()},
+            )
+        return self._plz_index[1]
+
     def fakt_definition(self, fakt_id: str) -> Optional[FaktDefinition]:
         """Definition zu einer (ggf. personenbezogenen) Fakt-ID wie ``mutter.beschaeftigt``."""
         if fakt_id in self.fakten:
@@ -317,6 +355,14 @@ class Wissensbasis:
         # Zuständigkeiten / Quellen
         for z in self.zustaendigkeiten.values():
             quellen_ok(z.quellen, f"Zuständigkeit {z.id}")
+            for text in (z.name, z.beschreibung or ""):
+                try:
+                    namen = {n for _, n, _, _ in string.Formatter().parse(text) if n is not None}
+                except ValueError as exc:
+                    fehler.append(f"Zuständigkeit {z.id}: ungültiger Platzhalter ({exc})")
+                    continue
+                for n in sorted(namen - set(PLATZHALTER)):
+                    fehler.append(f"Zuständigkeit {z.id}: unbekannter Platzhalter {{{n}}} (erlaubt: {PLATZHALTER})")
         for q in self.quellen.values():
             if q.pruefstatus is Pruefstatus.VERIFIZIERT and not (q.geprueft_am and q.geprueft_von):
                 fehler.append(f"Quelle {q.id}: 'verifiziert' braucht geprueft_am und geprueft_von")
@@ -356,7 +402,39 @@ class Wissensbasis:
                 quellen_ok(fr.quellen, f"{wo} (Frist)")
             leistung = self.leistungen[v.leistung_id]
             fehler.extend(self._regel_pruefen(v.regel, wo, leistung.fuer))
+
+        # Abdeckung der Länder: "erfasst" nur mit eigener Landesleistung, "keine" nur ohne
+        for (gid, ereignis), a in self.landesabdeckung.items():
+            wo = f"Abdeckung {gid}/{ereignis}"
+            gebiet = self.gebiete.get(gid)
+            if gebiet is None or gebiet.ebene is not Ebene.LAND:
+                fehler.append(f"{wo}: Gebiet muss ein Land sein")
+                continue
+            if a.landesleistungen not in LANDESLEISTUNGEN_WERTE:
+                fehler.append(f"{wo}: 'landesleistungen' muss eines von {LANDESLEISTUNGEN_WERTE} sein")
+            if not a.quellen:
+                fehler.append(f"{wo}: braucht mindestens eine Quelle")
+            quellen_ok(a.quellen, wo)
+            eigene = self.landesleistungen(gid, ereignis)
+            if a.landesleistungen == "erfasst" and not eigene:
+                fehler.append(f"{wo}: 'erfasst', aber keine Landesleistung mit Variante für {gebiet.name}")
+            if a.landesleistungen == "keine" and eigene:
+                fehler.append(f"{wo}: 'keine', aber Landesleistungen vorhanden: {', '.join(eigene)}")
         return fehler
+
+    def landesleistungen(self, land_id: str, ereignis: str) -> list[str]:
+        """Leistungen, die es nur auf Landesebene gibt (keine Bundesvariante), mit Variante in diesem Land."""
+        bund_ids = {g.id for g in self.gebiete.values() if g.ebene is Ebene.BUND}
+        ergebnis = []
+        for l in self.leistungen.values():
+            if ereignis not in l.ereignisse:
+                continue
+            varianten = self.varianten_von(l.id)
+            if any(v.gebiet_id in bund_ids for v in varianten):
+                continue
+            if any(v.gebiet_id == land_id for v in varianten):
+                ergebnis.append(l.id)
+        return sorted(ergebnis)
 
     def _regel_pruefen(self, knoten: Any, wo: str, fuer: str) -> list[str]:
         fehler: list[str] = []

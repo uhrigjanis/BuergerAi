@@ -1,0 +1,39 @@
+{
+  "_hinweis": "Bremen: Elterngeld bei den Städten Bremen und Bremerhaven.",
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_hb",
+      "name": "Elterngeldstelle – {kreis}",
+      "beschreibung": "Im Land Bremen sind für die Städte Bremen und Bremerhaven unterschiedliche kommunale Elterngeldstellen zuständig – hier: {kreis}.",
+      "quellen": [
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_hb",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "04",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_hb",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

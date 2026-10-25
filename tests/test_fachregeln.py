@@ -174,7 +174,7 @@ def test_kinderzuschlag(plane, brutto, partner, erwartet):
 @pytest.mark.anforderung("ANF-BY-01")
 def test_elterngeld_bayern_zbfs(plane):
     assert "ZBFS" in plane(familie()).eintrag("elterngeld").zustaendigkeit.name
-    assert "Bundeslandes" in plane(familie(), plz=None, land="HE").eintrag("elterngeld").zustaendigkeit.name
+    assert plane(familie(), plz="85354").eintrag("elterngeld").variante.id == "elterngeld_by"
 
 
 @pytest.mark.anforderung("ANF-BY-02")
@@ -190,6 +190,6 @@ def test_familiengeld(plane, geburt, erwartet):
 @pytest.mark.anforderung("ANF-BY-03")
 def test_standesamt_muenchen_und_freising(plane):
     assert plane(familie()).eintrag("geburtsanzeige").zustaendigkeit.id == "standesamt_muenchen"
-    freising = plane(familie(), plz="85356").eintrag("geburtsanzeige")
+    freising = plane(familie(), plz="85354").eintrag("geburtsanzeige")
     assert freising.zustaendigkeit.id == "standesamt_geburtsort"
     assert freising.variante.hinweise

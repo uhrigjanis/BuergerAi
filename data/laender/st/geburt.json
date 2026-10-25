@@ -1,0 +1,42 @@
+{
+  "_hinweis": "Sachsen-Anhalt: Elterngeld bei Landkreisen und kreisfreien Städten (seit 2010).",
+  "zustaendigkeiten": [
+    {
+      "id": "elterngeldstelle_st",
+      "name": "Elterngeldstelle – {kreis}",
+      "beschreibung": "In {land} bearbeiten die Landkreise und kreisfreien Städte das Elterngeld. Für Ihren Wohnort zuständig: {kreis}.",
+      "quellen": [
+        "bmfsfj_elterngeldstellen"
+      ]
+    }
+  ],
+  "varianten": [
+    {
+      "id": "elterngeld_st",
+      "leistung_id": "elterngeld",
+      "gebiet_id": "15",
+      "erbt_von": "elterngeld_bund",
+      "zustaendigkeit_id": "elterngeldstelle_st",
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "bmfsfj_elterngeldstellen"
+      ],
+      "hinweise": [
+        "Das Landesverwaltungsamt ist nur Aufsichtsbehörde, nicht Elterngeldstelle."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "ereignis": "geburt",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "betanet_landeserziehungsgeld"
+      ],
+      "notiz": "Recherchiert wurden Landeserziehungsgeld und vergleichbare Geldleistungen der Länder rund um die Geburt. Nicht erfasst: Stiftungshilfen in Notlagen, Familienpässe und kommunale Angebote."
+    }
+  ]
+}

@@ -8,6 +8,7 @@ Ergebnisse kommen aus derselben Engine wie im Terminal (``planer.planen``).
 from __future__ import annotations
 
 import hashlib
+import re
 from datetime import date, datetime, timezone
 from typing import Any, Optional
 
@@ -51,6 +52,9 @@ def _stichtag(daten: dict[str, Any]) -> date:
     roh = _text(daten, "stichtag")
     if roh is None:
         return date.today()
+    # fromisoformat akzeptiert ab Python 3.11 auch 20261024 oder 2026-W43; erlaubt ist nur JJJJ-MM-TT
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", roh):
+        raise ApiFehler(400, "Stichtag als JJJJ-MM-TT erwartet")
     try:
         return date.fromisoformat(roh)
     except ValueError as exc:
@@ -164,7 +168,7 @@ def ort(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
 
 def szenario(kb: Wissensbasis, name: str) -> dict[str, Any]:
     """Liefert ein gespeichertes Szenario im Format, das ``bericht`` erwartet."""
-    if not name.replace("_", "").isalnum():
+    if not re.fullmatch(r"[a-z0-9_]+", name):
         raise ApiFehler(404, "Szenario nicht gefunden")
     try:
         s = szenarien_mod.finden(kb, name)

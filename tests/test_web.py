@@ -153,6 +153,10 @@ def test_kalender(kb):
     ({"plz": "80331", "fakten": {"wohnsitz_land": "BY"}}, "automatisch"),
     ({"plz": "80331", "fakten": {"kind_geboren": {"x": 1}}}, "Angaben"),
     ({"plz": "80331", "stichtag": "24.10.2026"}, "Stichtag"),
+    ({"plz": "80331", "stichtag": "20261024"}, "Stichtag"),
+    ({"plz": "80331", "stichtag": "2026-W43"}, "Stichtag"),
+    ({"plz": "80331", "stichtag": "2026-W43-3"}, "Stichtag"),
+    ({"plz": "80331", "stichtag": "2026-02-30"}, "Stichtag"),
     ({"plz": 80331}, "Ungültiger Wert"),
 ])
 def test_ungueltige_eingaben(kb, daten, teil):
@@ -184,7 +188,7 @@ def test_szenario_format_rundreise(kb, tmp_path):
 
 @pytest.mark.anforderung("ANF-WEB-09", "ANF-WEB-07")
 def test_szenario_unbekannt(kb):
-    for name in ("gibtsnicht", "../pyproject", "a/b"):
+    for name in ("gibtsnicht", "../pyproject", "a/b", "nur_plä", "nur_plz\u0430", "NUR_PLZ"):
         with pytest.raises(api.ApiFehler) as info:
             api.szenario(kb, name)
         assert info.value.status == 404

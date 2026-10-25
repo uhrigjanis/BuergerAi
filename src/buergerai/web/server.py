@@ -141,12 +141,17 @@ def starten(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, oeffnen
     print("In Codespaces: unten im Reiter 'Ports' auf die Weltkugel bei Port "
           f"{server.server_address[1]} klicken. Beenden mit Strg+C.")
     sys.stdout.flush()
+    browser: Optional[threading.Timer] = None
     if oeffnen:
-        threading.Timer(0.5, lambda: webbrowser.open(adresse)).start()
+        browser = threading.Timer(0.5, lambda: webbrowser.open(adresse))
+        browser.daemon = True
+        browser.start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nServer beendet.")
     finally:
+        if browser is not None:
+            browser.cancel()  # nach Strg+C keinen Browser mehr öffnen
         server.server_close()
     return 0

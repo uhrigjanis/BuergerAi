@@ -20,6 +20,7 @@ const zustand = {
 };
 let bericht = null;
 let meta = null;
+let anfrageNr = 0;  // nur die Antwort auf die jüngste Anfrage wird angezeigt
 
 // ------------------------------------------------------------------ Helfer
 const $ = (sel) => document.querySelector(sel);
@@ -58,6 +59,10 @@ function speichern() {
       ort: zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten, erledigt: zustand.erledigt,
     }));
   } catch (_) { /* privater Modus: dann eben ohne Speichern */ }
+}
+
+function speicherLoeschen() {
+  try { localStorage.removeItem(SPEICHER); } catch (_) { /* ignorieren */ }
 }
 
 function ladenAusSpeicher() {
@@ -196,20 +201,25 @@ async function aktualisieren() {
     $("#arbeit").hidden = true;
     return;
   }
+  const nr = ++anfrageNr;
+  let neu;
   try {
-    bericht = await api("/api/bericht", anfrage());
-    meldung("");
+    neu = await api("/api/bericht", anfrage());
   } catch (e) {
+    if (nr !== anfrageNr) return;  // veraltete Antwort verwerfen
     meldung(e.message);
     if (!bericht) {
       // Ungültiger gespeicherter Zustand: zurück zum Start
       zustand.ort = null;
-      speichern();
+      speicherLoeschen();
       $("#start").hidden = false;
       $("#arbeit").hidden = true;
     }
     return;
   }
+  if (nr !== anfrageNr) return;  // inzwischen wurde neu gefragt: veraltete Antwort verwerfen
+  bericht = neu;
+  meldung("");
   speichern();
   $("#start").hidden = true;
   $("#arbeit").hidden = false;
@@ -470,7 +480,10 @@ async function kalender() {
     const antwort = await fetch("/api/kalender", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(anfrage()),
     });
-    if (!antwort.ok) throw new Error((await antwort.json()).fehler);
+    if (!antwort.ok) {
+      const istJson = (antwort.headers.get("Content-Type") || "").includes("json");
+      throw new Error((istJson && (await antwort.json()).fehler) || `Fehler ${antwort.status}`);
+    }
     download("buergerai-fristen.ics", await antwort.text(), "text/calendar");
   } catch (e) {
     meldung(e.message);
@@ -502,7 +515,7 @@ function neuBeginnen() {
   zustand.bearbeiten = null;
   zustand.pausiert = false;
   bericht = null;
-  speichern();
+  speicherLoeschen();
   startZuruecksetzen();
   $("#plz").value = "";
   aktualisieren();

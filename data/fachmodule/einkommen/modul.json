@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Geringes Einkommen (ADR 0008). Situation quer zu anderen Lebenslagen.",
+  "fachmodul": {
+    "id": "einkommen",
+    "name": "Geringes Einkommen",
+    "beschreibung": "Leistungen für Menschen und Familien, deren Einkommen nicht oder knapp nicht reicht.",
+    "abgrenzung": [
+      "Leistungen, die nur bei der Geburt eines Kindes entstehen, gehören zu Familie.",
+      "Arbeitslosengeld (Versicherungsleistung) gehört zu Arbeit."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "geringes_einkommen",
+      "name": "Geringes Einkommen",
+      "typ": "situation",
+      "beschreibung": "Das Einkommen reicht nicht oder knapp nicht für Miete, Lebensunterhalt oder Kinder.",
+      "einstiegsfragen": [
+        "bezieht_buergergeld",
+        "bezieht_sozialhilfe",
+        "kinder_im_haushalt"
+      ],
+      "synonyme": [
+        "wenig Geld",
+        "geringes Einkommen",
+        "niedriges Einkommen",
+        "knapp bei Kasse",
+        "Geld reicht nicht",
+        "Grundsicherung",
+        "Bürgergeld",
+        "Grundsicherungsgeld",
+        "Sozialhilfe",
+        "Wohngeld",
+        "Kinderzuschlag",
+        "Sozialticket",
+        "Sozialpass",
+        "arm",
+        "Armut",
+        "Miete zu hoch"
+      ],
+      "beispiele": [
+        "Unser Geld reicht nicht für die Miete.",
+        "Ich bekomme Bürgergeld, welche Vergünstigungen gibt es?",
+        "Wir sind Geringverdiener mit zwei Kindern.",
+        "Meine Rente ist sehr klein."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Wohnberechtigungsschein",
+          "grund": "Einkommensgrenzen sind je Land verschieden; folgt mit Wohnen und Eigentum."
+        },
+        {
+          "name": "Beratungshilfe und Prozesskostenhilfe",
+          "grund": "Folgt mit der Lebenslage Heirat, Trennung und Scheidung."
+        },
+        {
+          "name": "Unterhaltsvorschuss",
+          "grund": "Folgt mit Familie bzw. Trennung."
+        },
+        {
+          "name": "Sozialtickets in anderen Ländern und Verkehrsverbünden",
+          "grund": "Erfasst sind Berlin, Brandenburg, Hamburg und Hessen; andere Angebote sind regional verschieden."
+        },
+        {
+          "name": "Sozialpässe anderer Städte",
+          "grund": "Erfasst ist nur der München-Pass; viele Städte haben eigene Pässe mit eigenen Regeln."
+        },
+        {
+          "name": "Schuldner- und Sozialberatung",
+          "grund": "Beratungsangebote von Kommunen und Wohlfahrtsverbänden, keine Antragsleistung."
+        },
+        {
+          "name": "Tafeln und Sozialkaufhäuser",
+          "grund": "Keine staatlichen Leistungen."
+        }
+      ]
+    }
+  ]
+}

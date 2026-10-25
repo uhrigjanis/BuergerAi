@@ -1,0 +1,34 @@
+{
+  "name": "Köln: Baby unterwegs, knappes Einkommen",
+  "beschreibung": "Geburt und geringes Einkommen zusammen: Kinderzuschlag gehört zu beiden Lebenslagen und erscheint einmal; Bedarfsrechnung offen.",
+  "plz": "50667",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "geburt",
+    "geringes_einkommen"
+  ],
+  "anforderungen": [
+    "ANF-EINK-07",
+    "ANF-MOD-12"
+  ],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-02-01",
+    "partner_im_haushalt": "ja",
+    "kind_lebt_im_haushalt": "ja",
+    "brutto_haushalt_monat": 2500,
+    "kinder_im_haushalt": 0,
+    "bezieht_buergergeld": "nein",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_wohngeld": "nein",
+    "bezieht_kinderzuschlag": "nein",
+    "bezieht_asylbewerberleistungen": "nein"
+  },
+  "erwartet": {
+    "kinderzuschlag": "unklar",
+    "kindergeld": "unklar",
+    "geburtsanzeige": "ja",
+    "bildung_und_teilhabe": "nein",
+    "wohngeld": "unklar"
+  }
+}

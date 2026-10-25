@@ -11,6 +11,11 @@ Regeln sind verschachtelte JSON-Objekte. Knotentypen:
 ``{"fakt": "id", "op": "<=", "wert": 32, "text": "...", "quellen": [...]}``
     Vergleich eines Fakts aus dem Profil. Fehlt der Fakt, ist das Ergebnis
     Unklar und der Fakt wird als Rückfrage gemeldet.
+``{"lebenslage": "geburt", "regel": {...}, "text": "..."}``
+    Der Zweig gilt nur, wenn die Lebenslage gewählt ist; sonst Nein. So kann
+    eine Leistung, die zu mehreren Lebenslagen gehört, je Lebenslage passende
+    Fragen stellen (z. B. Kinderzuschlag: bei Geburt das Neugeborene, sonst die
+    Zahl der Kinder im Haushalt).
 ``{"pruefung_noetig": "...", "quellen": [...]}``
     Ist immer Unklar. Für Voraussetzungen, die sich nicht sicher regelbasiert
     entscheiden lassen (z. B. Aufenthaltstitel). Die Engine erfindet nie ein Ja.
@@ -25,7 +30,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
-from typing import Any, Iterable, Optional
+from typing import Any, Collection, Iterable, Optional
 
 from .fakten import UNBEKANNT
 
@@ -37,7 +42,7 @@ class Wert(Enum):
 
 
 OPERATOREN = ("==", "!=", "<", "<=", ">", ">=", "in", "nicht_in")
-KNOTENTYPEN = ("alle", "eine", "nicht", "fakt", "pruefung_noetig")
+KNOTENTYPEN = ("alle", "eine", "nicht", "fakt", "pruefung_noetig", "lebenslage")
 
 
 @dataclass
@@ -107,7 +112,13 @@ def _eindeutig(werte: Iterable[str]) -> list[str]:
     return gesehen
 
 
-def auswerten(knoten: dict[str, Any], fakten: dict[str, Any], person: Optional[str] = None) -> Schritt:
+def auswerten(
+    knoten: dict[str, Any],
+    fakten: dict[str, Any],
+    person: Optional[str] = None,
+    lebenslagen: Optional[Collection[str]] = None,
+) -> Schritt:
+    """Wertet einen Regelknoten aus. ``lebenslagen``: gewählte Lebenslagen (None = alle gelten)."""
     typ = knotentyp(knoten)
     text = knoten.get("text")
     quellen = tuple(knoten.get("quellen", ()))
@@ -128,12 +139,18 @@ def auswerten(knoten: dict[str, Any], fakten: dict[str, Any], person: Optional[s
     if typ == "pruefung_noetig":
         return Schritt("pruefung_noetig", Wert.UNKLAR, knoten["pruefung_noetig"], quellen=quellen)
 
+    if typ == "lebenslage":
+        if lebenslagen is not None and knoten["lebenslage"] not in lebenslagen:
+            return Schritt("lebenslage", Wert.NEIN, f"{text} (gilt nur, wenn diese Lebenslage gewählt ist)", quellen=quellen)
+        kind = auswerten(knoten["regel"], fakten, person, lebenslagen)
+        return Schritt("lebenslage", kind.wert, text, quellen=quellen, kinder=[kind], fehlend=list(kind.fehlend))
+
     if typ == "nicht":
-        kind = auswerten(knoten["nicht"], fakten, person)
+        kind = auswerten(knoten["nicht"], fakten, person, lebenslagen)
         wert = {Wert.JA: Wert.NEIN, Wert.NEIN: Wert.JA, Wert.UNKLAR: Wert.UNKLAR}[kind.wert]
         return Schritt("nicht", wert, text, quellen=quellen, kinder=[kind], fehlend=list(kind.fehlend))
 
-    kinder = [auswerten(k, fakten, person) for k in knoten[typ]]
+    kinder = [auswerten(k, fakten, person, lebenslagen) for k in knoten[typ]]
     werte = {k.wert for k in kinder}
     if typ == "alle":
         if Wert.NEIN in werte:
@@ -173,6 +190,8 @@ def _begruendung(schritt: Schritt) -> list[Schritt]:
         return [schritt]
     if schritt.art == "nicht":
         return _begruendung(schritt.kinder[0])
+    if schritt.art == "lebenslage":
+        return _begruendung(schritt.kinder[0]) if schritt.kinder else [schritt]
     relevante: list[Schritt]
     if schritt.wert is Wert.JA:
         if schritt.art == "alle":
@@ -198,6 +217,8 @@ def fakten_in_regel(knoten: dict[str, Any]) -> list[str]:
         return []
     if typ == "nicht":
         return fakten_in_regel(knoten["nicht"])
+    if typ == "lebenslage":
+        return fakten_in_regel(knoten["regel"])
     return _eindeutig(f for k in knoten[typ] for f in fakten_in_regel(k))
 
 
@@ -206,6 +227,6 @@ def quellen_in_regel(knoten: dict[str, Any]) -> list[str]:
     eigene = list(knoten.get("quellen", ()))
     if typ in ("fakt", "pruefung_noetig"):
         return eigene
-    if typ == "nicht":
-        return _eindeutig(eigene + quellen_in_regel(knoten["nicht"]))
+    if typ in ("nicht", "lebenslage"):
+        return _eindeutig(eigene + quellen_in_regel(knoten["nicht" if typ == "nicht" else "regel"]))
     return _eindeutig(eigene + [q for k in knoten[typ] for q in quellen_in_regel(k)])

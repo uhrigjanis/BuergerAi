@@ -1,0 +1,45 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Geringes Einkommen.",
+  "fakten": [
+    {
+      "id": "einkommen.erwerbsfaehig",
+      "typ": "ja_nein",
+      "frage": "Können Sie gesundheitlich mindestens drei Stunden am Tag arbeiten?",
+      "hilfe": "Auch wenn Sie gerade keine Arbeit haben oder Kinder betreuen: Es geht nur um die Gesundheit."
+    },
+    {
+      "id": "einkommen.voll_erwerbsgemindert",
+      "typ": "ja_nein",
+      "frage": "Hat die Rentenversicherung festgestellt, dass Sie dauerhaft voll erwerbsgemindert sind?"
+    },
+    {
+      "id": "einkommen.wohnkosten",
+      "typ": "auswahl",
+      "frage": "Wie wohnen Sie?",
+      "optionen": [
+        {
+          "wert": "miete",
+          "text": "zur Miete (auch Untermiete)"
+        },
+        {
+          "wert": "eigentum",
+          "text": "im eigenen Haus oder in der eigenen Wohnung"
+        },
+        {
+          "wert": "keine",
+          "text": "ohne eigene Wohnkosten (z. B. bei Eltern, kostenlos)"
+        }
+      ]
+    },
+    {
+      "id": "einkommen.ausbildungsfoerderung_ohne_eltern",
+      "typ": "ja_nein",
+      "frage": "Bekommen Sie BAföG, Berufsausbildungsbeihilfe oder Ausbildungsgeld und wohnen nicht bei Ihren Eltern?"
+    },
+    {
+      "id": "einkommen.gesetzlich_versichert",
+      "typ": "ja_nein",
+      "frage": "Sind Sie gesetzlich krankenversichert?"
+    }
+  ]
+}

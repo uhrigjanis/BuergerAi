@@ -1,0 +1,94 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Geringes Einkommen (Sozialticket).",
+  "quellen": [
+    {
+      "id": "hessenpass_mobil",
+      "titel": "Hessenpass mobil (Berichte, RMV/VGF)",
+      "url": "https://www.journal-frankfurt.de/journal_news/Wohnen-Verkehr-153/Auch-in-Frankfurt-Preise-fuer-Schueler-und-Seniorentickets-steigen-44745.html",
+      "typ": "sekundaer",
+      "herausgeber": "Journal Frankfurt",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquellen: Landesticket für Menschen mit Sozialleistungen, Differenz trägt das Land; Preis 2026 laut RMV und VGF 44 €, laut Landesregierung 39 € (widersprüchlich); Nachweis beim örtlichen Sozialamt; berechtigt laut Ratgeber Bürgergeld, Wohngeld, Sozialhilfe und Asylbewerberleistungen. Amtliche Seite des Landes nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hessenpass_sozialamt",
+      "name": "Sozialamt – {kreis} (Nachweis für den Hessenpass mobil)",
+      "beschreibung": "Das örtliche Sozialamt stellt den Nachweis aus; das Ticket gibt es beim RMV bzw. NVV."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_he",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "hessenpass_sozialamt",
+      "quellen": [
+        "hessenpass_mobil"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "eine": [
+              {
+                "fakt": "bezieht_buergergeld",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+              },
+              {
+                "fakt": "bezieht_wohngeld",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Wohngeld"
+              },
+              {
+                "fakt": "bezieht_sozialhilfe",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+              },
+              {
+                "fakt": "bezieht_asylbewerberleistungen",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+              }
+            ],
+            "text": "Bezug einer berechtigenden Leistung"
+          },
+          {
+            "pruefung_noetig": "Welche Leistungen berechtigen und was das Ticket kostet, ist nicht amtlich bestätigt – bitte beim Sozialamt bzw. RMV oder NVV nachfragen.",
+            "quellen": [
+              "hessenpass_mobil"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Nachweis beim Sozialamt holen.",
+          "Hessenpass mobil beim Verkehrsverbund (RMV bzw. NVV) kaufen."
+        ]
+      },
+      "hinweise": [
+        "Preis 2026 laut RMV 44 € im Monat; andere Angaben nennen 39 €."
+      ],
+      "leistung_id": "sozialticket"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "hessenpass_mobil"
+      ],
+      "notiz": "Landesleistung erfasst: Hessenpass mobil (Quellen widersprüchlich). Weitere Landesleistungen für geringes Einkommen nicht recherchiert."
+    }
+  ]
+}

@@ -178,7 +178,7 @@ def meta(kb: Wissensbasis) -> dict[str, Any]:
         szenarien.append({"id": s.id, "name": s.name, "beschreibung": s.beschreibung})
     lebenslagen = [
         {"id": ll.id, "name": ll.name, "typ": ll.typ, "beschreibung": ll.beschreibung, "modul": kb.fachmodule[ll.modul].name}
-        for ll in sorted(kb.lebenslagen.values(), key=lambda x: (x.modul, x.id))
+        for ll in sorted(kb.lebenslagen.values(), key=lambda x: (x.name, x.id))
     ]
     return {
         "version": __version__,

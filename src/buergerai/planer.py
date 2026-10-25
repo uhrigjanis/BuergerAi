@@ -307,7 +307,11 @@ def _erfragbar(kb: Wissensbasis, fid: str, fakten: dict[str, Any]) -> Optional[s
 
 
 def _personen(
-    kb: Wissensbasis, leistung: Leistung, regel: dict[str, Any], fakten: dict[str, Any]
+    kb: Wissensbasis,
+    leistung: Leistung,
+    regel: dict[str, Any],
+    fakten: dict[str, Any],
+    lebenslagen: Optional[set[str]] = None,
 ) -> tuple[list[tuple[Optional[str], dict[str, Any], bool]], list[str]]:
     """Wer wird geprüft? Liefert (Rolle, Regel, stumm) je Person und fehlende Vorbedingungen.
 
@@ -323,7 +327,7 @@ def _personen(
         if rolle.vorbedingung is None:
             personen.append((rid, regel, False))
             continue
-        vor = auswerten(rolle.vorbedingung, fakten)
+        vor = auswerten(rolle.vorbedingung, fakten, lebenslagen=lebenslagen)
         mit_vorbedingung = {"alle": [rolle.vorbedingung, regel]}
         if vor.wert is Wert.JA:
             personen.append((rid, mit_vorbedingung, False))
@@ -372,6 +376,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         fakten["wohnsitz_land"] = land.kuerzel
     fakten.update(abgeleitete_fakten(fakten))
 
+    gewaehlt = set(anfrage.lebenslagen)
     orte: dict[str, list[Gebiet]] = {}
     fakten.update(_ortsvergleiche(kb, fakten, hierarchie, orte))
     vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
@@ -389,11 +394,11 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 nur_andere.append(NurAndereLaender(leistung, laender))
             continue
         variante, gebiet = treffer
-        personen, vorbedingungen_fehlen = _personen(kb, leistung, variante.regel, fakten)
+        personen, vorbedingungen_fehlen = _personen(kb, leistung, variante.regel, fakten, gewaehlt)
         _anfuegen(vorab, vorbedingungen_fehlen)
         if not personen:
             continue  # z. B. Leistung nur für den anderen Elternteil, der nicht im Haushalt lebt
-        ergebnisse = [PersonErgebnis(rid, auswerten(regel, fakten, rid)) for rid, regel, _ in personen]
+        ergebnisse = [PersonErgebnis(rid, auswerten(regel, fakten, rid, gewaehlt)) for rid, regel, _ in personen]
         gesamt = _gesamt([r.schritt.wert for r in ergebnisse])
         # Rückfragen je Person; zu "stummen" Personen (gibt es sie? weiß nicht) wird nicht weiter gefragt
         eintrag_fehlend: list[str] = []

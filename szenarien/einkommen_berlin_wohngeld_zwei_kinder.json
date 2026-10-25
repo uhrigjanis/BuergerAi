@@ -1,0 +1,45 @@
+{
+  "name": "Berlin: Familie mit Wohngeld und zwei Kindern",
+  "beschreibung": "Landesleistung Berlin-Ticket S mit Wohngeld-Bescheid; Bildung und Teilhabe ja; keine Rundfunkbefreiung, weil Wohngeld nicht reicht.",
+  "plz": "10115",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "geringes_einkommen"
+  ],
+  "anforderungen": [
+    "ANF-EINK-03",
+    "ANF-EINK-04",
+    "ANF-EINK-05",
+    "ANF-EINK-06"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_asylbewerberleistungen": "nein",
+    "kinder_im_haushalt": 2,
+    "bezieht_wohngeld": "ja",
+    "bezieht_kinderzuschlag": "nein",
+    "alter": 38,
+    "einkommen.erwerbsfaehig": "ja",
+    "einkommen.wohnkosten": "miete",
+    "einkommen.ausbildungsfoerderung_ohne_eltern": "nein",
+    "einkommen.gesetzlich_versichert": "ja",
+    "partner_im_haushalt": "ja",
+    "brutto_haushalt_monat": 2800
+  },
+  "erwartet": {
+    "wohngeld": "ja",
+    "bildung_und_teilhabe": "ja",
+    "sozialticket": "ja",
+    "rundfunkbeitrag_befreiung": "nein",
+    "grundsicherungsgeld": "unklar",
+    "grundsicherung_alter_em": "nein",
+    "kinderzuschlag": "unklar",
+    "zuzahlungsbefreiung": "unklar"
+  },
+  "erwartet_stellen": {
+    "sozialticket": "Berlin-Ticket S",
+    "bildung_und_teilhabe": "Stelle für Bildung und Teilhabe"
+  },
+  "erwartet_fehlend": []
+}

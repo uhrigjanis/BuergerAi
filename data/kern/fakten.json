@@ -79,12 +79,38 @@
     {
       "id": "bezieht_buergergeld",
       "typ": "ja_nein",
-      "frage": "Bekommt Ihr Haushalt derzeit Bürgergeld vom Jobcenter?"
+      "frage": "Bekommt Ihr Haushalt derzeit Grundsicherungsgeld (früher Bürgergeld) vom Jobcenter?"
     },
     {
       "id": "arbeitsuchend_gemeldet",
       "typ": "ja_nein",
       "frage": "Sind Sie bei der Agentur für Arbeit oder beim Jobcenter arbeitsuchend oder arbeitslos gemeldet?"
+    },
+    {
+      "id": "kinder_im_haushalt",
+      "typ": "zahl",
+      "frage": "Wie viele Kinder unter 25 Jahren leben in Ihrem Haushalt?",
+      "hilfe": "0, wenn keine. Ein Kind, das bald geboren wird, noch nicht mitzählen."
+    },
+    {
+      "id": "bezieht_sozialhilfe",
+      "typ": "ja_nein",
+      "frage": "Bekommt Ihr Haushalt Sozialhilfe oder Grundsicherung im Alter bzw. bei Erwerbsminderung (Sozialamt)?"
+    },
+    {
+      "id": "bezieht_asylbewerberleistungen",
+      "typ": "ja_nein",
+      "frage": "Bekommt Ihr Haushalt Leistungen nach dem Asylbewerberleistungsgesetz?"
+    },
+    {
+      "id": "bezieht_kinderzuschlag",
+      "typ": "ja_nein",
+      "frage": "Bekommt Ihr Haushalt Kinderzuschlag von der Familienkasse?"
+    },
+    {
+      "id": "alter",
+      "typ": "zahl",
+      "frage": "Wie alt sind Sie?"
     }
   ]
 }

@@ -235,7 +235,7 @@
       "id": "agentur_fuer_arbeit",
       "name": "Agentur für Arbeit",
       "url": "https://www.arbeitsagentur.de",
-      "beschreibung": "Ihre örtliche Agentur für Arbeit; bei Bürgergeld das Jobcenter."
+      "beschreibung": "Ihre örtliche Agentur für Arbeit; bei Grundsicherungsgeld (früher Bürgergeld) das Jobcenter."
     },
     {
       "id": "leistungstraeger",
@@ -322,7 +322,7 @@
       "art": "geldleistung",
       "rechtsanspruch": false,
       "ortsbezug": "umzug.ort_alt",
-      "kurz": "Wer Bürgergeld bekommt, kann Umzugs- und Wohnungsbeschaffungskosten erstattet bekommen – aber nur mit Zusicherung vor dem Umzug."
+      "kurz": "Wer Grundsicherungsgeld (früher Bürgergeld) bekommt, kann Umzugs- und Wohnungsbeschaffungskosten erstattet bekommen – aber nur mit Zusicherung vor dem Umzug."
     },
     {
       "id": "umzugskosten_arbeitsagentur",
@@ -596,7 +596,7 @@
             "fakt": "bezieht_buergergeld",
             "op": "==",
             "wert": true,
-            "text": "Sie bekommen Bürgergeld"
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
           },
           {
             "pruefung_noetig": "Das Jobcenter prüft, ob der Umzug notwendig oder von ihm veranlasst ist und ob die neue Wohnung angemessen ist.",
@@ -660,7 +660,7 @@
       },
       "verfahren": {
         "schritte": [
-          "Vor dem Umzug und möglichst vor der Unterschrift unter den Arbeitsvertrag bei der Agentur für Arbeit (bei Bürgergeld: beim Jobcenter) nachfragen.",
+          "Vor dem Umzug und möglichst vor der Unterschrift unter den Arbeitsvertrag bei der Agentur für Arbeit (bei Grundsicherungsgeld: beim Jobcenter) nachfragen.",
           "Kostenvoranschläge und den Arbeitsvertrag bzw. die Zusage einreichen."
         ],
         "fristen": [

@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Anforderungen der Phasen 1 und 2, der bundesweiten Abdeckung (#40) und der Fachmodule (#41, ADR 0008) mit den Lebenslagen Geburt und Umzug. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
+  "_hinweis": "Anforderungen der Phasen 1 und 2, der bundesweiten Abdeckung (#40) und der Fachmodule (#41, ADR 0008) mit den Lebenslagen Geburt, Umzug und Geringes Einkommen. Jede ID muss von mindestens einem Test (@pytest.mark.anforderung) oder Szenario abgedeckt sein. Übersicht: 'buergerai anforderungen'.",
   "anforderungen": [
     {"id": "ANF-GEB-01", "bereich": "Gebiete", "titel": "PLZ wird zu Gemeinde → Kreis → Land → Bund aufgelöst"},
     {"id": "ANF-GEB-02", "bereich": "Gebiete", "titel": "Exakte PLZ hat Vorrang vor PLZ-Präfix"},
@@ -102,6 +102,14 @@
     {"id": "ANF-UMZ-04", "bereich": "Umzug", "titel": "Umzugskosten vom Jobcenter höchstens Unklar; zuständig ist das bisherige Jobcenter; Frist vor dem Umzug"},
     {"id": "ANF-UMZ-05", "bereich": "Umzug", "titel": "Umzugskosten von Jobcenter und Arbeitsagentur sind als Leistungen ohne Rechtsanspruch gekennzeichnet"},
     {"id": "ANF-UMZ-06", "bereich": "Umzug", "titel": "Landesleistungen für Umzug sind je Land recherchiert (keine gefunden); nicht erfasste Themen sind mit Begründung genannt"},
+    {"id": "ANF-MOD-12", "bereich": "Fachmodule (ADR 0008)", "titel": "Regelzweige können auf eine Lebenslage beschränkt werden; ist sie nicht gewählt, gilt der Zweig als nicht erfüllt"},
+    {"id": "ANF-EINK-01", "bereich": "Geringes Einkommen", "titel": "Grundsicherungsgeld (früher Bürgergeld): Ja bei laufendem Bezug, sonst höchstens Unklar; nur erwerbsfähig, ab 15 und unter der Regelaltersgrenze"},
+    {"id": "ANF-EINK-02", "bereich": "Geringes Einkommen", "titel": "Grundsicherung im Alter und bei Erwerbsminderung ab der Regelaltersgrenze oder bei dauerhaft voller Erwerbsminderung; höchstens Unklar ohne Bezug"},
+    {"id": "ANF-EINK-03", "bereich": "Geringes Einkommen", "titel": "Wohngeld nur mit eigenen Wohnkosten und nicht bei Grundsicherungsgeld, Sozialhilfe oder Asylbewerberleistungen"},
+    {"id": "ANF-EINK-04", "bereich": "Geringes Einkommen", "titel": "Bildung und Teilhabe nur mit Kindern und einer berechtigenden Leistung; zuständig Jobcenter bzw. Stadt oder Kreis"},
+    {"id": "ANF-EINK-05", "bereich": "Geringes Einkommen", "titel": "Befreiung vom Rundfunkbeitrag bei Grundsicherungsgeld, Sozialhilfe, Asylbewerberleistungen oder Ausbildungsförderung ohne Eltern, nicht bei Wohngeld"},
+    {"id": "ANF-EINK-06", "bereich": "Geringes Einkommen", "titel": "Sozialticket als Landesleistung in Berlin, Hamburg, Hessen und Brandenburg, anderswo „nur in anderen Ländern“; München-Pass als kommunale Leistung"},
+    {"id": "ANF-EINK-07", "bereich": "Geringes Einkommen", "titel": "Kinderzuschlag gehört zu Geburt und geringem Einkommen, erscheint einmal und fragt je Lebenslage passend nach Kindern"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

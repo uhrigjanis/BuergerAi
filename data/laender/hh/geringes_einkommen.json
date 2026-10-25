@@ -1,0 +1,86 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Geringes Einkommen (Sozialticket).",
+  "quellen": [
+    {
+      "id": "hamburg_sozialrabatt",
+      "titel": "Sozialbehörde Hamburg – Sozialrabatt für den hvv",
+      "url": "https://www.hamburg.de/politik-und-verwaltung/behoerden/sozialbehoerde/themen/soziales/sozialrabatt-48396",
+      "typ": "behoerde",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: freiwillige Leistung; Wohnsitz in Hamburg und Bezug von Grundsicherung (SGB II), Hilfe zum Lebensunterhalt bzw. Grundsicherung (SGB XII) oder AsylbLG von einem Hamburger Träger; Rabatt 35,50 € je Person auf das hvv-Deutschlandticket (Chipkarte); Antrag am hvv-Servicepunkt oder im Kundenkonto."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hvv_sozialrabatt",
+      "name": "hvv (Servicestellen oder Kundenkonto)",
+      "url": "https://www.hamburg.de/politik-und-verwaltung/behoerden/sozialbehoerde/themen/soziales/sozialrabatt-48396",
+      "beschreibung": "Antrag auf den Sozialrabatt mit Formular und Ausweis am hvv-Servicepunkt oder online im Kundenkonto."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_hh",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "hvv_sozialrabatt",
+      "quellen": [
+        "hamburg_sozialrabatt"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung von einem Hamburger Träger"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Aktueller Leistungsbescheid",
+          "Lichtbildausweis",
+          "Antragsformular"
+        ],
+        "schritte": [
+          "Sozialrabatt am hvv-Servicepunkt oder im hvv-Kundenkonto beantragen.",
+          "Der Rabatt gilt für das Deutschlandticket auf der hvv-Chipkarte, nicht in der App.",
+          "Endet die Leistung, den hvv umgehend informieren."
+        ]
+      },
+      "hinweise": [
+        "Rabatt 35,50 € im Monat auf das Deutschlandticket (laut Sozialbehörde). Freiwillige Leistung der Stadt.",
+        "Wohngeld allein berechtigt in Hamburg nicht."
+      ],
+      "leistung_id": "sozialticket"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "hamburg_sozialrabatt"
+      ],
+      "notiz": "Landesleistung erfasst: hvv-Sozialrabatt. Weitere Landesleistungen für geringes Einkommen nicht recherchiert."
+    }
+  ]
+}

@@ -148,3 +148,28 @@ Für alle 16 Länder ist `landesleistungen: keine` eingetragen. Grundlage ist ei
 ### Nicht erfasst
 
 Bewusst nicht erfasst und im Bericht mit Begründung genannt: Abmeldung bei Umzug ins Ausland, Umzugskosten in der Steuererklärung, Begrüßungsgeld für Studierende (Quellen veraltet oder widersprüchlich, z. B. Kiel 100 € oder 150 €), Zweitwohnungsteuer, Kita und Schule, Nachsendeauftrag und Versorger.
+
+## Lebenslage Geringes Einkommen (Issue #41, Schritt 2)
+
+Wie bei Umzug: Alle Quellen sind `teilweise` geprüft, weil Gesetzestexte und Behördenseiten nur über Suchergebnisse erreichbar waren. Die Notiz jeder Quelle sagt, was bestätigt ist.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmas_neue_grundsicherung`, `sgb2_7` | Inkrafttreten 1.7.2026, Name „Grundsicherungsgeld“, Altersgrenzen, Drei-Stunden-Grenze der Erwerbsfähigkeit (§ 8 SGB II, nicht über die Suche bestätigt) |
+| `regelbedarf_2026` | Regelbedarf 563 € bzw. 506 € (nur Sekundärquelle) |
+| `sgb12_41` | Voraussetzungen der Grundsicherung im Alter und bei Erwerbsminderung |
+| `wogg_7`, `fim_wohngeld` | Ausschlüsse vom Wohngeld und ihre Ausnahmen |
+| `sgb2_28`, `bkgg_6b`, `betanet_but` | Berechtigte, Antragsweg, Antragsfrist von 12 Monaten (nur eine Quelle) |
+| `rbstv_4` | Befreiungsgründe; ob Asylbewerberleistungen genannt sind (nicht über die Suche bestätigt); amtliche Fassung und URL |
+| `berlin_ticket_s`, `berlinecho_ticket_s` | Preis 2026 (27,50 € nur laut Bericht), Übergangsregel |
+| `hamburg_sozialrabatt` | Rabatt 35,50 €, berechtigte Leistungen |
+| `hessenpass_mobil` | **Widersprüchlich:** Preis 39 € oder 44 €, Berechtigte nur aus Ratgebern; amtliche Seite des Landes suchen |
+| `vbb_mobilitaetsticket` | Berechtigte außer Grundsicherungsgeld, Preis 2026 |
+| `muenchen_pass` | Einkommensgrenzen (Tabelle auf der Seite nicht erfasst) |
+| `sgb5_62` | Belastungsgrenze und Chroniker-Regel |
+
+### Landesleistungen
+
+Erfasst sind die Sozialtickets von Berlin, Hamburg, Hessen und Brandenburg. Für die übrigen 12 Länder ist nicht recherchiert, ob es Landesleistungen bei geringem Einkommen gibt (z. B. Landessozialtickets, Landesfamilienpässe); der Bericht weist darauf hin.

@@ -1,0 +1,36 @@
+{
+  "name": "München: Rentnerin mit kleiner Rente",
+  "beschreibung": "Grundsicherung im Alter und Wohngeld unklar (Bedarfsrechnung); München-Pass kommunal; kein Sozialticket des Landes (nur in anderen Ländern).",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "geringes_einkommen"
+  ],
+  "anforderungen": [
+    "ANF-EINK-02",
+    "ANF-EINK-06"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_asylbewerberleistungen": "nein",
+    "kinder_im_haushalt": 0,
+    "bezieht_wohngeld": "nein",
+    "alter": 70,
+    "einkommen.wohnkosten": "miete",
+    "einkommen.ausbildungsfoerderung_ohne_eltern": "nein",
+    "einkommen.gesetzlich_versichert": "ja"
+  },
+  "erwartet": {
+    "grundsicherung_alter_em": "unklar",
+    "wohngeld": "unklar",
+    "sozialpass": "unklar",
+    "grundsicherungsgeld": "nein",
+    "rundfunkbeitrag_befreiung": "nein",
+    "bildung_und_teilhabe": "nein"
+  },
+  "erwartet_stellen": {
+    "sozialpass": "München-Pass",
+    "grundsicherung_alter_em": "Sozialamt – Kreisfreie Stadt München"
+  }
+}

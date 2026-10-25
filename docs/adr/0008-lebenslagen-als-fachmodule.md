@@ -133,6 +133,14 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Nur echte Landesleistungen als „nur in anderen Ländern“:** Kommunale Varianten (z. B. Münchner Hundesteuer) erscheinen dort nicht mehr. Sonst stünde die Leistung einer Stadt bei allen anderen Gemeinden.
 - **Abweichung vom Akzeptanzkriterium:** „Mindestens ein Land mit landeseigener Leistung“ ist für Umzug nicht erfüllbar, weil die Recherche keine gefunden hat. Erfasst sind stattdessen kommunale Varianten (München, Berlin) und für alle Länder der Nachweis `keine`.
 
+### 9. Umsetzung von Schritt 2: Geringes Einkommen (25.10.2026)
+
+- **Fachmodul `einkommen`** mit der Lebenslage `geringes_einkommen` (Typ `situation`). Viele Regeln hängen am Bezug anderer Leistungen (Grundsicherungsgeld, Sozialhilfe, Wohngeld, Kinderzuschlag, Asylbewerberleistungen). Diese Angaben liegen im Kern, weil weitere Lebenslagen sie brauchen.
+- **Geteilte Leistung:** Der Kinderzuschlag bleibt im Modul Familie und gehört zusätzlich zu `geringes_einkommen`. Damit er je Lebenslage passend fragt, gibt es den Regelknoten `{"lebenslage": …, "regel": …}`: Der Zweig gilt nur, wenn die Lebenslage gewählt ist, sonst als nicht erfüllt. Bei Geburt zählt das Neugeborene, sonst die Zahl der Kinder im Haushalt (`kinder_im_haushalt`). Die Prüfung stellt sicher, dass ein solcher Knoten nur Lebenslagen der eigenen Leistung nennt.
+- **Grundsicherungsgeld:** Seit dem 1.7.2026 heißt das Bürgergeld Grundsicherungsgeld. Die ID des Fakts `bezieht_buergergeld` bleibt, damit gespeicherte Angaben gültig bleiben; Texte nennen beide Namen.
+- **Akzeptanzkriterium Landesleistung erfüllt:** Das Sozialticket ist eine Leistung ohne Bundesvariante mit Varianten in Berlin, Hamburg, Hessen und Brandenburg. In den übrigen Ländern erscheint es unter „nur in anderen Ländern“. Für diese 12 Länder ist die Abdeckung nicht recherchiert; der Bericht warnt dort ehrlich.
+- **Bedarfsrechnungen bleiben Prüfpunkte:** Ob Einkommen und Vermögen reichen, rechnen Jobcenter, Sozialamt, Wohngeldbehörde und Familienkasse. Die Engine liefert dafür höchstens „Unklar“ mit Hinweis auf den zuständigen Rechner oder die Stelle (ADR 0003).
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

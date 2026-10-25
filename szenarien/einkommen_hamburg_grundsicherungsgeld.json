@@ -1,0 +1,39 @@
+{
+  "name": "Hamburg: alleinstehend mit Grundsicherungsgeld",
+  "beschreibung": "hvv-Sozialrabatt als Landesleistung, Rundfunkbefreiung; Wohngeld ausgeschlossen, weil die Miete schon im Grundsicherungsgeld steckt.",
+  "plz": "20095",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "geringes_einkommen"
+  ],
+  "anforderungen": [
+    "ANF-EINK-01",
+    "ANF-EINK-03",
+    "ANF-EINK-05",
+    "ANF-EINK-06"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "ja",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_asylbewerberleistungen": "nein",
+    "kinder_im_haushalt": 0,
+    "bezieht_wohngeld": "nein",
+    "alter": 45,
+    "einkommen.erwerbsfaehig": "ja",
+    "einkommen.wohnkosten": "miete",
+    "einkommen.gesetzlich_versichert": "ja"
+  },
+  "erwartet": {
+    "grundsicherungsgeld": "ja",
+    "sozialticket": "ja",
+    "rundfunkbeitrag_befreiung": "ja",
+    "wohngeld": "nein",
+    "bildung_und_teilhabe": "nein",
+    "kinderzuschlag": "nein",
+    "grundsicherung_alter_em": "nein"
+  },
+  "erwartet_stellen": {
+    "sozialticket": "hvv",
+    "grundsicherungsgeld": "Jobcenter"
+  }
+}

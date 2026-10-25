@@ -141,12 +141,12 @@ def test_fakten_nach_modul(capsys):
 
 @pytest.mark.anforderung("ANF-CLI-05")
 def test_interaktiv_fragt_lebenslage(capsys, monkeypatch):
-    eingaben = ["3", "2", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
+    eingaben = ["4", "3", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
     code, out, _ = lauf(capsys, "interaktiv", "--stichtag", "2026-10-24", eingaben=eingaben, monkeypatch=monkeypatch)
     assert code == 0
-    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 2" in out
+    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 3" in out
     assert "Wann ziehen Sie in die neue Wohnung ein" in out
     assert "BürgerAI – Lebenslage Umzug" in out
     code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", "--stichtag", "2026-10-24",
-                        eingaben=["1, 2", "q"], monkeypatch=monkeypatch)
+                        eingaben=["1, 3", "q"], monkeypatch=monkeypatch)
     assert code == 0 and "BürgerAI – Lebenslagen Geburt, Umzug" in out

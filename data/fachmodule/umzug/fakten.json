@@ -42,7 +42,7 @@
     {
       "id": "umzug.leistungsbezug",
       "typ": "ja_nein",
-      "frage": "Bekommen Sie laufende Leistungen wie Kindergeld, Elterngeld, Rente, Bürgergeld oder BAföG?"
+      "frage": "Bekommen Sie laufende Leistungen wie Kindergeld, Elterngeld, Rente, Grundsicherungsgeld oder BAföG?"
     }
   ]
 }

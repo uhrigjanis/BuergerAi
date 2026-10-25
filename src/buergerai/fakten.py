@@ -1,7 +1,8 @@
 """Faktenkatalog: welche Angaben die Regeln brauchen und wie man danach fragt.
 
-Der Katalog liegt in ``data/fakten.json``. Fakten mit ``je_person: true`` gibt es
-einmal je Elternteil (``mutter.*`` und ``partner.*``).
+Gemeinsame Fakten liegen in ``data/kern/fakten.json``, die Fakten eines
+Fachmoduls in ``data/fachmodule/<id>/fakten.json``. Fakten mit
+``je_person: true`` gibt es einmal je Rolle (z. B. ``mutter.*`` und ``partner.*``).
 """
 
 from __future__ import annotations
@@ -27,12 +28,10 @@ class _Unbekannt:
 
 UNBEKANNT = _Unbekannt()
 
-PERSONEN = {
-    "mutter": ("die Mutter (gebärende Person)", "Die Mutter (gebärende Person)"),
-    "partner": ("der andere Elternteil", "Der andere Elternteil"),
-}
-
-TYPEN = ("ja_nein", "zahl", "datum", "auswahl", "text")
+# "ort": Postleitzahl (5 Ziffern) oder Gemeindeschlüssel (8 Ziffern), z. B. Lage einer Immobilie
+TYPEN = ("ja_nein", "zahl", "datum", "auswahl", "text", "ort")
+# Abgeleitete Vergleiche eines Ortsfakts mit dem Wohnort, z. B. "Umzug innerhalb derselben Gemeinde?"
+ABLEITUNGEN = {"gleiche_gemeinde": "gemeinde", "gleicher_kreis": "kreis", "gleiches_land": "land"}
 
 
 @dataclass(frozen=True)
@@ -44,14 +43,16 @@ class FaktDefinition:
     optionen: tuple[tuple[str, str], ...] = ()  # (wert, beschriftung)
     je_person: bool = False
     abgeleitet: bool = False
-    grunddaten: bool = False  # wird immer zuerst erfragt
     nur_wenn: Optional[tuple[str, Any]] = None  # nur fragen, wenn Fakt == Wert
+    modul: str = "kern"  # "kern" oder ID des Fachmoduls, aus dem Ablageort abgeleitet
+    # (Art, Ortsfakt): Vergleich des Ortsfakts mit dem Wohnort, siehe ABLEITUNGEN
+    ableitung: Optional[tuple[str, str]] = None
 
-    def frage_fuer(self, person: Optional[str]) -> str:
-        if person is None:
+    def frage_fuer(self, wer: Optional[str]) -> str:
+        """Frage mit eingesetzter Person (``wer`` im Satz, z. B. "die Mutter")."""
+        if wer is None:
             return self.frage
-        klein, gross = PERSONEN[person]
-        return self.frage.replace("{wer}", klein).replace("{Wer}", gross)
+        return self.frage.replace("{wer}", wer).replace("{Wer}", wer[:1].upper() + wer[1:])
 
 
 class EingabeFehler(ValueError):
@@ -111,6 +112,13 @@ def parse_wert(definition: FaktDefinition, roh: Any) -> Any:
         if text.isdigit() and 1 <= int(text) <= len(werte):
             return werte[int(text) - 1]
         raise EingabeFehler(f"{definition.id}: erlaubt sind {', '.join(werte)} (war: {roh!r})")
+    if typ == "ort":
+        text = str(roh).strip()
+        if not (text.isdigit() and len(text) in (5, 8)):
+            raise EingabeFehler(
+                f"{definition.id}: Postleitzahl (5 Ziffern) oder Gemeindeschlüssel (8 Ziffern) erwartet (war: {roh!r})"
+            )
+        return text
     return str(roh)
 
 
@@ -126,11 +134,11 @@ def wert_als_text(wert: Any) -> str:
     return str(wert)
 
 
-def grund_rueckfragen(definitionen: list[FaktDefinition], fakten: dict[str, Any]) -> list[str]:
-    """Grunddaten, die noch fehlen (unter Beachtung von ``nur_wenn``)."""
+def einstiegs_rueckfragen(definitionen: list[FaktDefinition], fakten: dict[str, Any]) -> list[str]:
+    """Einstiegsfragen (in dieser Reihenfolge), die noch fehlen, unter Beachtung von ``nur_wenn``."""
     offen: list[str] = []
     for d in definitionen:
-        if not d.grunddaten or d.id in fakten:
+        if d.id in fakten or d.id in offen:
             continue
         if d.nur_wenn is not None and fakten.get(d.nur_wenn[0]) != d.nur_wenn[1]:
             continue

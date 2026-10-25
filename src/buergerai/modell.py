@@ -1,4 +1,4 @@
-"""Datenmodell v2: Gebietshierarchie, Leistungen, Leistungsvarianten, Quellen.
+"""Datenmodell v3: Fachmodule, Lebenslagen, Gebietshierarchie, Leistungen, Varianten, Quellen.
 
 Alle Objekte sind unveränderlich (frozen) und werden aus den JSON-Dateien unter
 ``data/`` geladen (siehe ``wissensbasis.py``).
@@ -36,7 +36,7 @@ class Abdeckung(Enum):
     - ALLGEMEIN: Es gibt nur eine allgemeinere Variante (z. B. Bundes- statt
       Gemeindedaten). Die Aussage stimmt grundsätzlich, die Stelle vor Ort fehlt.
 
-    Je Land und Lebensereignis (aus ``abdeckung`` in den Daten):
+    Je Land und Lebenslage (aus ``abdeckung`` in den Daten):
 
     - ERFASST: Landesleistungen sind recherchiert (oder ausdrücklich "keine").
     - FEHLT: Für das Land ist noch nicht recherchiert, ob es eigene Leistungen gibt.
@@ -100,14 +100,14 @@ class Gebiet:
 
 @dataclass(frozen=True)
 class Landesabdeckung:
-    """Nachweis, dass die Landesleistungen eines Landes für ein Ereignis recherchiert sind.
+    """Nachweis, dass die Landesleistungen eines Landes für eine Lebenslage recherchiert sind.
 
     ``landesleistungen``: ``erfasst`` (eigene Leistungen sind als Varianten
     hinterlegt) oder ``keine`` (recherchiert: das Land hat keine eigenen).
     """
 
     gebiet_id: str
-    ereignis: str
+    lebenslage: str
     landesleistungen: str
     stand: date
     quellen: tuple[str, ...]
@@ -140,8 +140,9 @@ class Zustaendigkeit:
 class Frist:
     """Frist relativ zu einem Ereignis.
 
-    ``bezug``: ``geburt`` (Geburtsdatum, sonst errechneter Termin) oder
-    ``termin`` (errechneter Entbindungstermin) oder ``keiner`` (nur Text).
+    ``bezug``: ``geburt`` (Geburtsdatum, sonst errechneter Termin),
+    ``termin`` (errechneter Entbindungstermin), ``keiner`` (nur Text) oder die
+    ID eines Fakts vom Typ ``datum`` (z. B. ein Einzugsdatum).
     ``art``: ``spaetestens`` | ``fruehestens`` | ``empfohlen``.
     """
 
@@ -172,19 +173,77 @@ class Verfahren:
 
 
 @dataclass(frozen=True)
+class Fachmodul:
+    """Fachlicher Experte für ein Gebiet (ADR 0008), z. B. Familie.
+
+    Ein Fachmodul ist ein Datenpaket unter ``data/fachmodule/<id>/``: Lebenslagen,
+    Rollen, Fakten und Leistungen. Alle Module laufen auf derselben Engine.
+    """
+
+    id: str
+    name: str
+    beschreibung: str
+    abgrenzung: tuple[str, ...] = ()
+    importiert_fakten: tuple[str, ...] = ()  # Fakten anderer Module, die Regeln hier verwenden dürfen
+
+
+@dataclass(frozen=True)
+class Lebenslage:
+    """Auswählbare Lebenslage eines Fachmoduls, z. B. Geburt (Modul Familie).
+
+    ``typ``: ``ereignis`` (mit Datum und Fristen, z. B. Geburt, Umzug) oder
+    ``situation`` (dauert an, z. B. Pflege, geringes Einkommen).
+    """
+
+    id: str
+    name: str
+    typ: str
+    modul: str
+    beschreibung: str
+    einstiegsfragen: tuple[str, ...] = ()  # werden vor allen anderen Fragen gestellt
+    synonyme: tuple[str, ...] = ()
+    beispiele: tuple[str, ...] = ()
+    # Bewusst nicht erfasste Leistungen: (Name, Begründung). Der Bericht nennt sie.
+    nicht_erfasst: tuple[tuple[str, str], ...] = ()
+
+
+@dataclass(frozen=True)
+class Rolle:
+    """Person im Haushalt, für die Leistungen einzeln geprüft werden (z. B. Mutter).
+
+    Fakten mit dem Präfix ``person.`` werden je Rolle aufgelöst
+    (``person.beschaeftigt`` -> ``mutter.beschaeftigt``). Die ``vorbedingung``
+    (Regelknoten) entscheidet, ob es die Person im Haushalt gibt.
+    """
+
+    id: str
+    name: str  # kurz, z. B. "Mutter"
+    wer: str  # im Satz, z. B. "die Mutter (gebärende Person)"
+    modul: str
+    vorbedingung: Optional[dict[str, Any]] = None
+
+    @property
+    def wer_gross(self) -> str:
+        return self.wer[:1].upper() + self.wer[1:]
+
+
+@dataclass(frozen=True)
 class Leistung:
     """Abstrakte Leistung, unabhängig vom Ort (z. B. "Elterngeld")."""
 
     id: str
     name: str
     kurz: str
-    ereignisse: tuple[str, ...]  # z. B. ("geburt",)
+    lebenslagen: tuple[str, ...]  # z. B. ("geburt",); eine Leistung kann zu mehreren gehören
     verwaltungsebene: Ebene  # Ebene, auf der die Leistung konkret verwaltet wird
-    fuer: str  # haushalt | mutter | jeder_elternteil
+    fuer: tuple[str, ...]  # leer = Haushalt, sonst Rollen, die einzeln geprüft werden
     voraussetzungen: tuple[str, ...] = ()  # IDs von Leistungen, die vorher erledigt sein sollten
     betraege: tuple[Betrag, ...] = ()
-    # pflicht (gesetzliche Pflicht, z. B. Geburtsanzeige) | antrag | geldleistung | information
+    # pflicht (z. B. Geburtsanzeige) | antrag | geldleistung | foerderprogramm | information
     art: str = "antrag"
+    rechtsanspruch: bool = True  # False: Ermessen bzw. Förderung, solange Mittel reichen
+    beantragt_von: str = "selbst"  # selbst | arbeitgeber | angehoerige | von_amts_wegen
+    ortsbezug: Optional[str] = None  # None = Wohnort, sonst ID eines Fakts vom Typ "ort"
 
 
 @dataclass(frozen=True)

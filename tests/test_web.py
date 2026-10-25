@@ -161,6 +161,9 @@ def test_kalender(kb):
     ({"plz": "80331", "stichtag": "2026-W43-3"}, "Stichtag"),
     ({"plz": "80331", "stichtag": "2026-02-30"}, "Stichtag"),
     ({"plz": 80331}, "Ungültiger Wert"),
+    ({"plz": "80331", "lebenslagen": ["heirat"]}, "Unbekannte Lebenslage"),
+    ({"plz": "80331", "lebenslagen": "geburt"}, "Liste"),
+    ({"plz": "80331", "lebenslagen": [1]}, "Liste"),
 ])
 def test_ungueltige_eingaben(kb, daten, teil):
     with pytest.raises(api.ApiFehler) as info:
@@ -187,6 +190,25 @@ def test_szenario_format_rundreise(kb, tmp_path):
     assert planen(kb, geladen.anfrage).ergebnisse() == {
         l["id"]: l["ergebnis"] for l in api.bericht(kb, daten)["leistungen"]
     }
+
+
+@pytest.mark.anforderung("ANF-MOD-02", "ANF-WEB-09")
+def test_lebenslagen_in_der_api(kb):
+    meta = api.meta(kb)
+    assert [l["id"] for l in meta["lebenslagen"]] == ["geburt", "umzug"]
+    assert meta["lebenslagen"][0]["modul"] == "Familie und Kinder"
+    # ohne Angabe: Geburt; mit Angabe: dasselbe Ergebnis
+    ohne = api.bericht(kb, anfrage())
+    mit = api.bericht(kb, {**anfrage(), "lebenslagen": ["geburt", "geburt"]})
+    assert ohne["lebenslagen"] == mit["lebenslagen"] == [{"id": "geburt", "name": "Geburt"}]
+    assert [l["id"] for l in ohne["leistungen"]] == [l["id"] for l in mit["leistungen"]]
+    assert all(l["lebenslagen"] == ["geburt"] for l in ohne["leistungen"])
+    assert {f["gruppe"] for f in ohne["fragen"]} <= {"Allgemein", "Familie und Kinder"}
+    # Berlin: Landesleistungen anderer Länder werden genannt
+    berlin = api.bericht(kb, {"plz": "10115", "stichtag": STICHTAG, "fakten": {}})
+    assert {"name": "Sächsisches Landeserziehungsgeld", "laender": ["Sachsen"]} in berlin["nur_andere_laender"]
+    # Szenarien und gespeicherte Angaben tragen die Lebenslagen
+    assert api.szenario(kb, "nur_plz")["lebenslagen"] == ["geburt"]
 
 
 @pytest.mark.anforderung("ANF-WEB-09", "ANF-WEB-07")
@@ -273,3 +295,21 @@ def test_inhalte_nur_ueber_null_sicheren_helfer():
     code = [z for z in js.splitlines() if not z.strip().startswith("//")]
     aufrufe = [z.strip() for z in code if "replaceChildren(" in z]
     assert aufrufe == ["ziel.replaceChildren(...kinder.flat(Infinity).filter((k) => k !== null && k !== undefined && k !== false));"]
+
+
+@pytest.mark.anforderung("ANF-WEB-10")
+def test_lebenslagen_waehlen_und_aendern(kb):
+    """Die Oberfläche schickt die gewählten Lebenslagen mit; beim Wechsel bleiben alle Angaben erhalten."""
+    html = (STATIC / "index.html").read_text(encoding="utf-8")
+    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    assert 'id="lebenslagen-wahl"' in html and 'id="lebenslagen-wahl-arbeit"' in html
+    assert "daten.lebenslagen = zustand.lebenslagen" in js and "Bitte mindestens eine Lebenslage wählen." in js
+    fakten = {"kind_geboren": False, "errechneter_termin": "2026-12-15", "umzug.hund": True}
+    nur_geburt = api.bericht(kb, {"plz": "80331", "stichtag": STICHTAG, "fakten": fakten})
+    beide = api.bericht(kb, {"plz": "80331", "stichtag": STICHTAG, "fakten": fakten, "lebenslagen": ["geburt", "umzug"]})
+    assert {a["id"] for a in nur_geburt["angaben"]} == {a["id"] for a in beide["angaben"]} == set(fakten)
+    assert "hundesteuer_anmelden" not in {l["id"] for l in nur_geburt["leistungen"]}
+    assert "hundesteuer_anmelden" in {l["id"] for l in beide["leistungen"]}
+    assert beide["fragen"][0]["id"] == "partner_im_haushalt"  # Einstiegsfragen beider Lebenslagen zuerst
+    assert [f["id"] for f in beide["fragen"]][1:3] == ["umzug.einzugsdatum", "umzug.ort_alt"]
+    assert next(f for f in beide["fragen"] if f["id"] == "umzug.ort_alt")["typ"] == "ort"

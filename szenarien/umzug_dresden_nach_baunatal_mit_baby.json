@@ -1,0 +1,33 @@
+{
+  "name": "Umzug Dresden → Baunatal (Hessen), Baby unterwegs",
+  "beschreibung": "Zwei Lebenslagen: Geburt und Umzug. Das Sächsische Landeserziehungsgeld gibt es am neuen Wohnort nicht (nur in anderen Ländern); keine Stellen vor Ort erfasst.",
+  "plz": "34225",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "geburt",
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-MOD-02",
+    "ANF-MOD-06",
+    "ANF-UMZ-01"
+  ],
+  "fakten": {
+    "kind_geboren": "nein",
+    "errechneter_termin": "2027-01-20",
+    "partner_im_haushalt": "ja",
+    "umzug.einzugsdatum": "2026-11-01",
+    "umzug.ort_alt": "01067"
+  },
+  "erwartet": {
+    "geburtsanzeige": "ja",
+    "wohnsitz_anmelden": "ja",
+    "rundfunkbeitrag_umzug": "ja",
+    "elterngeld": "unklar",
+    "kfz_umzug": "unklar"
+  },
+  "erwartet_stellen": {
+    "wohnsitz_anmelden": "Meldebehörde – Baunatal",
+    "elterngeld": "Kassel"
+  }
+}

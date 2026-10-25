@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BürgerAI – Geburt</title>
-  <link rel="stylesheet" href="style.css?v=0.4.0">
-  <script src="app.js?v=0.4.0" defer></script>
+  <title>BürgerAI – Lebenslagen</title>
+  <link rel="stylesheet" href="style.css?v=0.6.0">
+  <script src="app.js?v=0.6.0" defer></script>
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
@@ -13,7 +13,7 @@
     <div class="kopf-innen">
       <div>
         <p class="marke">BürgerAI</p>
-        <h1>Lebensereignis Geburt</h1>
+        <h1 id="titel">Lebenslagen</h1>
       </div>
       <p class="pilot">Ganz Deutschland · Bund, Länder, Kreise, Gemeinden</p>
     </div>
@@ -28,10 +28,14 @@
 
     <!-- Schritt 1: Wohnort -->
     <section id="start" class="karte start" aria-labelledby="start-titel">
-      <h2 id="start-titel">Wo wohnen Sie?</h2>
-      <p class="leise">Wir prüfen, welche Leistungen und Pflichten rund um die Geburt für Sie gelten, und erstellen eine Checkliste mit Fristen.</p>
+      <h2 id="start-titel">Worum geht es, und wo wohnen Sie?</h2>
+      <p class="leise">Wir prüfen, welche Leistungen und Pflichten in Ihrer Lebenslage gelten, und erstellen eine Checkliste mit Fristen.</p>
       <form id="ort-form" novalidate>
+        <fieldset id="lebenslagen-wahl" class="lebenslagen-wahl">
+          <legend>Lebenslage (mehrere möglich)</legend>
+        </fieldset>
         <label for="plz">Postleitzahl</label>
+        <p class="leise klein">Bei einem Umzug: Postleitzahl der neuen Wohnung.</p>
         <div class="zeile">
           <input id="plz" name="plz" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="z. B. 80331" required>
           <button type="submit" class="primaer">Weiter</button>
@@ -47,7 +51,7 @@
         </div>
       </form>
       <details class="beispiele">
-        <summary>Zum Testen: Beispiel-Familie laden</summary>
+        <summary>Zum Testen: Beispiel laden</summary>
         <div class="zeile">
           <select id="szenario" aria-label="Beispiel auswählen"></select>
           <button type="button" id="szenario-laden">Laden</button>
@@ -94,8 +98,13 @@
             <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
           </div>
         </div>
+        <details id="lebenslagen-aendern" class="lebenslagen-aendern">
+          <summary>Lebenslage: <span id="lebenslage-text"></span> <span class="leise">(ändern)</span></summary>
+          <fieldset id="lebenslagen-wahl-arbeit" class="lebenslagen-wahl"><legend class="leise">Ihre Angaben bleiben erhalten.</legend></fieldset>
+        </details>
         <p id="kind-text" class="leise"></p>
         <ul id="warnungen" class="warnungen"></ul>
+        <p id="andere-laender" class="leise" hidden></p>
         <div id="zaehler" class="zaehler"></div>
 
         <section id="zeitplan-box" class="karte zeitplan" aria-labelledby="zeitplan-titel">
@@ -104,12 +113,17 @@
         </section>
 
         <div id="leistungen"></div>
+        <details id="nicht-erfasst-box" class="nicht-erfasst" hidden>
+          <summary>Noch nicht erfasst</summary>
+          <p class="leise">Diese Themen gehören zur Lebenslage, sind aber bewusst (noch) nicht in der Checkliste:</p>
+          <ul id="nicht-erfasst"></ul>
+        </details>
       </section>
     </div>
   </main>
 
   <footer class="fuss">
-    <p>BürgerAI · Phase 2 (ohne KI): Alle Ergebnisse kommen aus festen, nachprüfbaren Regeln. Quellen stehen bei jeder Leistung. <span id="version"></span></p>
+    <p>BürgerAI · ohne KI: Alle Ergebnisse kommen aus festen, nachprüfbaren Regeln. Quellen stehen bei jeder Leistung. <span id="version"></span></p>
   </footer>
 </body>
 </html>

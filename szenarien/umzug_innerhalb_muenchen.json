@@ -1,0 +1,33 @@
+{
+  "name": "Umzug innerhalb Münchens mit Hund",
+  "beschreibung": "Gleiche Gemeinde: ummelden ja, Hundesteuer weder an- noch abmelden.",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-MOD-10",
+    "ANF-UMZ-03"
+  ],
+  "fakten": {
+    "umzug.einzugsdatum": "2026-10-20",
+    "umzug.ort_alt": "80469",
+    "umzug.hund": "ja",
+    "umzug.kfz_halter": "nein",
+    "bezieht_wohngeld": "ja",
+    "bezieht_buergergeld": "nein",
+    "umzug.wegen_arbeit": "nein",
+    "umzug.leistungsbezug": "nein"
+  },
+  "erwartet": {
+    "wohnsitz_anmelden": "ja",
+    "hundesteuer_anmelden": "nein",
+    "hundesteuer_abmelden": "nein",
+    "wohngeld_umzug": "ja"
+  },
+  "erwartet_stellen": {
+    "wohnsitz_anmelden": "Bürgerbüro der Landeshauptstadt München"
+  },
+  "erwartet_fehlend": []
+}

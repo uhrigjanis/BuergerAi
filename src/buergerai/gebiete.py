@@ -107,3 +107,24 @@ def aufloesen(
             "Bitte die PLZ der Wohnadresse oder das Bundesland angeben."
         )
     raise GebietFehler("Bitte PLZ, Gemeinde oder Bundesland angeben")
+
+
+def bund(kb: Wissensbasis) -> Gebiet:
+    return kb.bund()
+
+
+def hierarchie_fuer_ort(kb: Wissensbasis, wert: str) -> list[Gebiet]:
+    """Hierarchie für einen Fakt vom Typ ``ort`` (PLZ oder Gemeindeschlüssel), z. B. Lage einer Immobilie.
+
+    Anders als beim Wohnort wird nicht nachgefragt: Gehört eine PLZ zu mehreren
+    Gemeinden, gilt der gemeinsame Teil der Hierarchien (meist Kreis oder Land).
+    Unbekannte Orte ergeben nur den Bund.
+    """
+    if len(wert) == 8 and wert in kb.gebiete and kb.gebiete[wert].ebene is Ebene.GEMEINDE:
+        return hierarchie(kb, wert)
+    treffer = gemeinden_fuer_plz(kb, wert) if plz_gueltig(wert) else []
+    if not treffer:
+        return [bund(kb)]
+    ketten = [hierarchie(kb, g.id) for g in treffer]
+    gemeinsam = [g for g in ketten[0] if all(g in k for k in ketten[1:])]
+    return gemeinsam

@@ -35,7 +35,7 @@ Für jede Quelle aus `./bai quellen --offen`:
 
 1. URL im Browser öffnen und Volltext lesen.
 2. Jede Bedingung, die auf die Quelle verweist, vergleichen: `./bai erklaeren <leistung> -s <szenario>` zeigt die Bedingungen mit Quellen-IDs.
-3. Beträge und Fristen vergleichen (`data/bund/geburt.json`, `data/laender/by/geburt.json`).
+3. Beträge und Fristen vergleichen (`data/fachmodule/familie/geburt.json`, `data/laender/by/geburt.json`).
 4. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
 5. Passt alles: in der Datei `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"` setzen. Passt etwas nicht: Regel/Daten korrigieren, Testfall ergänzen, dann verifizieren.
 6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen.
@@ -122,3 +122,29 @@ Je Land die Landeshauptstadt und zwei zufällig gewählte Gemeinden (Hamburg und
 - **Bremen:** Die Namen der Elterngeldstellen in Bremen und Bremerhaven sind nicht recherchiert, nur die Aufteilung nach Stadt.
 - **Schleswig-Holstein, Hessen:** Zuordnung Kreis → Standort stammt aus je einer Quelle (Landesseite SH, Flyer RP Gießen 2024).
 - **Standesamt am Geburtsort:** BürgerAI zeigt bundesweit (außer München) nur „Standesamt des Geburtsorts“ ohne Kontaktdaten.
+
+## Lebenslage Umzug (Issue #41, Schritt 1)
+
+Alle Quellen haben den Status `teilweise`. Die Gesetzestexte (gesetze-im-internet.de, auch Spiegel wie dejure.org) und die Behördenseiten waren aus der Entwicklungsumgebung nicht abrufbar. Die Inhalte stammen aus Suchergebnissen, die mehrere Gesetzesportale bzw. die Behördenseite selbst wiedergeben. Die Notiz jeder Quelle sagt, was bestätigt ist.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmg_17`, `bmg_19` | Anmeldefrist zwei Wochen nach Einzug; Abmeldung nur bei Wegzug ins Ausland; Wohnungsgeberbestätigung |
+| `fzv_15` | Ob die neue Anschrift ausdrücklich zu den unverzüglich mitzuteilenden Halterdaten gehört; Kennzeichen weiterführen |
+| `rbstv_8` | Amtliche Fassung des § 8 RBStV (nur über einen Abdruck in einer Gerichtsentscheidung gefunden), URL ergänzen |
+| `wogg_25`, `wogg_28` | Beginn des Bewilligungszeitraums; Unwirksamkeit des Bescheids bei Auszug |
+| `sgb2_22` | Zuständigkeit des bisherigen Jobcenters für Umzugskosten (Abs. 6), Zusicherung zur neuen Miete (Abs. 4), aktuelle Fassung |
+| `sgb3_44` | Umzugskosten als Teil des Vermittlungsbudgets; ob der Antrag vor Vertragsschluss nötig ist |
+| `sgb1_60` | Mitwirkungspflicht; ob ein Umzug ausdrücklich genannt ist |
+| `muenchen_wohnsitz`, `muenchen_hundesteuer`, `berlin_wohnsitz` | Fristen und Online-Wege auf den Behördenseiten; Münchner Hundesteuersatzung (risi.muenchen.de, Stand 2017) auf Aktualität |
+| `fim_hundesteuer` | Volltext der FIM-Beschreibung (bisher nur Suchergebnis) |
+
+### Landesleistungen
+
+Für alle 16 Länder ist `landesleistungen: keine` eingetragen. Grundlage ist eine Websuche nach Umzugs-, Zuzugs- und Rückkehrprämien für Privatpersonen. Gefunden wurden nur Programme, die nicht an Umziehende zahlen (Brandenburg: Zuzugsinitiativen; Mecklenburg-Vorpommern: Wohnsitzprämie an Hochschulen). Die Lebenslage „Umzug“ der Landesportale ist noch nicht je Land geprüft. Findet sich dort eine Leistung, wird sie erfasst und der Eintrag auf `erfasst` gesetzt.
+
+### Nicht erfasst
+
+Bewusst nicht erfasst und im Bericht mit Begründung genannt: Abmeldung bei Umzug ins Ausland, Umzugskosten in der Steuererklärung, Begrüßungsgeld für Studierende (Quellen veraltet oder widersprüchlich, z. B. Kiel 100 € oder 150 €), Zweitwohnungsteuer, Kita und Schule, Nachsendeauftrag und Versorger.

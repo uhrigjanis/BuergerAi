@@ -42,7 +42,7 @@ def test_echte_daten_sind_konsistent(kb):
 )
 def test_fehler_werden_erkannt(tmp_path, aendern, meldung):
     daten = kopie(tmp_path)
-    bearbeite(daten / "bund" / "geburt.json", aendern)
+    bearbeite(daten / "fachmodule" / "familie" / "geburt.json", aendern)
     with pytest.raises(DatenFehler) as info:
         Wissensbasis.laden(daten)
     assert any(meldung in f for f in info.value.fehler), info.value.fehler
@@ -56,7 +56,7 @@ def test_auswahlwert_muss_option_sein(tmp_path):
         v = next(v for v in d["varianten"] if v["id"] == "mutterschaftsgeld_bas_bund")
         v["regel"]["alle"][1]["wert"] = ["privat", "tippfehler"]
 
-    bearbeite(daten / "bund" / "geburt.json", aendern)
+    bearbeite(daten / "fachmodule" / "familie" / "geburt.json", aendern)
     with pytest.raises(DatenFehler, match="tippfehler"):
         Wissensbasis.laden(daten)
 

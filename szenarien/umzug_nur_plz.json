@@ -1,0 +1,22 @@
+{
+  "name": "Umzug: nur neuer Wohnort bekannt",
+  "beschreibung": "Startpunkt: Anmeldung und Rundfunkbeitrag sind immer zu erledigen, alles andere ist noch unklar.",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-UMZ-01",
+    "ANF-MOD-07"
+  ],
+  "fakten": {},
+  "erwartet": {
+    "wohnsitz_anmelden": "ja",
+    "rundfunkbeitrag_umzug": "ja",
+    "kfz_umzug": "unklar",
+    "hundesteuer_anmelden": "unklar",
+    "hundesteuer_abmelden": "unklar",
+    "wohngeld_umzug": "unklar"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Umzug Köln → Berlin mit Bürgergeld",
+  "beschreibung": "Umzugskosten bleiben unklar: Das bisherige Jobcenter in Köln muss vorher prüfen und zusichern. Anmeldung beim Berliner Bürgeramt.",
+  "plz": "10115",
+  "stichtag": "2026-10-24",
+  "lebenslagen": [
+    "umzug"
+  ],
+  "anforderungen": [
+    "ANF-UMZ-02",
+    "ANF-UMZ-04",
+    "ANF-UMZ-05"
+  ],
+  "fakten": {
+    "umzug.einzugsdatum": "2026-11-15",
+    "umzug.ort_alt": "50667",
+    "umzug.hund": "nein",
+    "umzug.kfz_halter": "nein",
+    "bezieht_wohngeld": "nein",
+    "bezieht_buergergeld": "ja",
+    "umzug.wegen_arbeit": "nein",
+    "umzug.leistungsbezug": "ja"
+  },
+  "erwartet": {
+    "wohnsitz_anmelden": "ja",
+    "umzugskosten_jobcenter": "unklar",
+    "adresse_an_leistungstraeger": "ja",
+    "rundfunkbeitrag_umzug": "ja",
+    "hundesteuer_anmelden": "nein",
+    "kfz_umzug": "nein",
+    "wohngeld_umzug": "nein"
+  },
+  "erwartet_stellen": {
+    "wohnsitz_anmelden": "Bürgeramt (Berlin)",
+    "umzugskosten_jobcenter": "Jobcenter – Kreisfreie Stadt Köln"
+  },
+  "erwartet_fehlend": []
+}

@@ -1,0 +1,47 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Familie (ADR 0008). Ein Fachmodul ist der fachliche Experte: Lebenslagen, Rollen, Fakten und Leistungen als Daten. Synonyme und Beispiele dienen der Stichwortsuche und später dem LLM-Router (Phase 3).",
+  "fachmodul": {
+    "id": "familie",
+    "name": "Familie und Kinder",
+    "beschreibung": "Schwangerschaft, Geburt, Kinder und Erziehung: Geldleistungen, Anträge und Pflichten für Eltern.",
+    "abgrenzung": [
+      "Hauskauf oder Baukindergeld gehört zu Wohnen und Eigentum, auch wenn Kinder im Haushalt leben.",
+      "Kinderzuschlag und Bildung und Teilhabe gehören auch zu geringem Einkommen."
+    ],
+    "importiert_fakten": []
+  },
+  "rollen": [
+    {
+      "id": "mutter",
+      "name": "Mutter",
+      "wer": "die Mutter (gebärende Person)"
+    },
+    {
+      "id": "partner",
+      "name": "Anderer Elternteil",
+      "wer": "der andere Elternteil",
+      "vorbedingung": {
+        "fakt": "partner_im_haushalt",
+        "op": "==",
+        "wert": true,
+        "text": "Der andere Elternteil lebt im Haushalt"
+      }
+    }
+  ],
+  "lebenslagen": [
+    {
+      "id": "geburt",
+      "name": "Geburt",
+      "typ": "ereignis",
+      "beschreibung": "Schwangerschaft, Geburt eines Kindes und die ersten Monate danach.",
+      "einstiegsfragen": ["kind_geboren", "geburtsdatum", "errechneter_termin", "partner_im_haushalt"],
+      "synonyme": ["schwanger", "Schwangerschaft", "Baby", "Kind bekommen", "Entbindung", "Nachwuchs", "Elternzeit", "Elterngeld", "Mutterschutz", "Geburtsurkunde"],
+      "beispiele": [
+        "Ich bin schwanger, was muss ich beantragen?",
+        "Unser Kind kommt im Dezember zur Welt.",
+        "Wir haben letzte Woche ein Baby bekommen.",
+        "Welche Leistungen gibt es nach der Geburt für Alleinerziehende?"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,9 @@
-"""Orchestrator: aus Anfrage (Ort, Ereignis, Fakten) wird ein priorisierter Bericht."""
+"""Orchestrator: aus Anfrage (Ort, Lebenslagen, Fakten) wird ein priorisierter Bericht.
+
+Alle Fachmodule laufen durch denselben Planer (ADR 0008). Ausgewertet werden nur
+die Leistungen der gewählten Lebenslagen; jede Leistung erscheint einmal, auch
+wenn sie zu mehreren gewählten Lebenslagen gehört.
+"""
 
 from __future__ import annotations
 
@@ -8,7 +13,7 @@ from datetime import date
 from typing import Any, Optional
 
 from . import gebiete as gebiete_mod
-from .fakten import UNBEKANNT, abgeleitete_fakten, grund_rueckfragen
+from .fakten import ABLEITUNGEN, UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen
 from .fristen import BerechneteFrist, berechne
 from .modell import (
     Abdeckung,
@@ -24,6 +29,7 @@ from .modell import (
 from .regeln import Schritt, Wert, auswerten
 from .wissensbasis import Wissensbasis
 
+STANDARD_LEBENSLAGEN = ("geburt",)
 WERT_RANG = {Wert.JA: 0, Wert.UNKLAR: 1, Wert.NEIN: 2}
 PRUEF_RANG = {
     Pruefstatus.VERIFIZIERT: 0,
@@ -31,15 +37,8 @@ PRUEF_RANG = {
     Pruefstatus.UNGEPRUEFT: 2,
     Pruefstatus.WIDERSPRUECHLICH: 3,
 }
-
-
-# Vorbedingung für alle Prüfungen des anderen Elternteils
-PARTNER_IM_HAUSHALT: dict[str, Any] = {
-    "fakt": "partner_im_haushalt",
-    "op": "==",
-    "wert": True,
-    "text": "Der andere Elternteil lebt im Haushalt",
-}
+# Eine Frist gilt für die Reihenfolge der Fragen als nah, wenn sie in so vielen Tagen abläuft
+NAHE_FRIST_TAGE = 30
 
 
 @dataclass
@@ -48,13 +47,13 @@ class Anfrage:
     plz: Optional[str] = None
     gemeinde: Optional[str] = None
     land: Optional[str] = None
-    ereignis: str = "geburt"
+    lebenslagen: list[str] = field(default_factory=lambda: list(STANDARD_LEBENSLAGEN))
     stichtag: date = field(default_factory=date.today)
 
 
 @dataclass
 class PersonErgebnis:
-    person: Optional[str]  # None = Haushalt, sonst "mutter"/"partner"
+    person: Optional[str]  # None = Haushalt, sonst ID der Rolle (z. B. "mutter")
     schritt: Schritt
 
 
@@ -72,11 +71,20 @@ class Eintrag:
     quellen: list[Quelle]
     pruefstatus: Pruefstatus
     fehlend: list[str]
+    lebenslagen: list[str] = field(default_factory=list)  # gewählte Lebenslagen, zu denen die Leistung gehört
 
     @property
     def naechste_frist(self) -> Optional[date]:
         daten = [f.datum for f in self.fristen if f.datum and f.frist.art != "fruehestens"]
         return min(daten) if daten else None
+
+
+@dataclass
+class NurAndereLaender:
+    """Landesleistung ohne Gegenstück am maßgeblichen Ort (z. B. Hessengeld für Bayern)."""
+
+    leistung: Leistung
+    laender: list[Gebiet]
 
 
 @dataclass
@@ -86,6 +94,9 @@ class Bericht:
     eintraege: list[Eintrag]
     fehlend: list[str]
     warnungen: list[str]
+    nur_andere_laender: list[NurAndereLaender] = field(default_factory=list)
+    # Bewusst nicht erfasste Themen der gewählten Lebenslagen: (Lebenslage, Name, Begründung)
+    nicht_erfasst: list[tuple[str, str, str]] = field(default_factory=list)
 
     def eintrag(self, leistung_id: str) -> Eintrag:
         for e in self.eintraege:
@@ -158,21 +169,9 @@ def _sortieren(eintraege: list[Eintrag]) -> list[Eintrag]:
     return ergebnis
 
 
-def _hat_landesdaten(kb: Wissensbasis, ereignis: str) -> bool:
-    """Gibt es für das Ereignis irgendwo Varianten unterhalb der Bundesebene?
-
-    Nur dann kann in einem Land ohne Recherche tatsächlich etwas fehlen.
-    """
-    return any(
-        ereignis in kb.leistungen[v.leistung_id].ereignisse
-        and kb.gebiete[v.gebiet_id].ebene is not Ebene.BUND
-        for v in kb.varianten.values()
-    )
-
-
-def landesabdeckung(kb: Wissensbasis, land: Gebiet, ereignis: str) -> Abdeckung:
+def landesabdeckung(kb: Wissensbasis, land: Gebiet, lebenslage: str) -> Abdeckung:
     """ERFASST, wenn für das Land recherchiert ist, ob es eigene Leistungen gibt, sonst FEHLT."""
-    return Abdeckung.ERFASST if (land.id, ereignis) in kb.landesabdeckung else Abdeckung.FEHLT
+    return Abdeckung.ERFASST if (land.id, lebenslage) in kb.landesabdeckung else Abdeckung.FEHLT
 
 
 def ort_platzhalter(hierarchie: list[Gebiet]) -> dict[str, str]:
@@ -185,8 +184,12 @@ def ort_platzhalter(hierarchie: list[Gebiet]) -> dict[str, str]:
     }
 
 
-def zustaendigkeit_fuer_ort(z: Zustaendigkeit, hierarchie: list[Gebiet]) -> Zustaendigkeit:
-    werte = ort_platzhalter(hierarchie)
+def zustaendigkeit_fuer_ort(
+    z: Zustaendigkeit, hierarchie: list[Gebiet], werte: Optional[dict[str, str]] = None
+) -> Zustaendigkeit:
+    if "{" not in z.name and "{" not in (z.beschreibung or ""):
+        return z
+    werte = werte or ort_platzhalter(hierarchie)
     return replace(
         z,
         name=z.name.format_map(werte),
@@ -203,21 +206,26 @@ def _warnungen(kb: Wissensbasis, anfrage: Anfrage, hierarchie: list[Gebiet], ein
     warnungen: list[str] = []
     land = next((g for g in hierarchie if g.ebene is Ebene.LAND), None)
     gemeinde = next((g for g in hierarchie if g.ebene is Ebene.GEMEINDE), None)
-    if (
-        land is not None
-        and landesabdeckung(kb, land, anfrage.ereignis) is Abdeckung.FEHLT
-        and _hat_landesdaten(kb, anfrage.ereignis)
-    ):
-        warnungen.append(
-            f"Für {land.name} ist noch nicht erfasst, ob es eigene Landesleistungen gibt. "
-            "Angezeigt werden Bundesleistungen und allgemeine Zuständigkeiten."
-        )
+    if land is not None:
+        offen = [
+            ll for ll in anfrage.lebenslagen
+            if landesabdeckung(kb, land, ll) is Abdeckung.FEHLT and kb.hat_landesdaten(ll)
+        ]
+        if offen:
+            welche = f" (Lebenslage {', '.join(kb.lebenslagen[ll].name for ll in offen)})" if len(anfrage.lebenslagen) > 1 else ""
+            warnungen.append(
+                f"Für {land.name} ist noch nicht erfasst, ob es eigene Landesleistungen gibt{welche}. "
+                "Angezeigt werden Bundesleistungen und allgemeine Zuständigkeiten."
+            )
     if gemeinde is None:
         warnungen.append(
             "Der Wohnort ist nicht als Gemeinde erfasst: Angaben zu Stellen vor Ort "
             "(z. B. Standesamt, Jugendamt) sind allgemein gehalten."
         )
-    allgemein = [e.leistung.name for e in eintraege if e.abdeckung is Abdeckung.ALLGEMEIN and e.ergebnis is not Wert.NEIN]
+    allgemein = [
+        e.leistung.name for e in eintraege
+        if e.abdeckung is Abdeckung.ALLGEMEIN and e.ergebnis is not Wert.NEIN and e.leistung.ortsbezug is None
+    ]
     if gemeinde is not None and allgemein:
         warnungen.append(
             f"Für {gemeinde.name} ist die zuständige Stelle vor Ort noch nicht erfasst bei: "
@@ -227,7 +235,135 @@ def _warnungen(kb: Wissensbasis, anfrage: Anfrage, hierarchie: list[Gebiet], ein
     return warnungen
 
 
+def _lebenslagen_pruefen(kb: Wissensbasis, lebenslagen: list[str]) -> None:
+    if not lebenslagen:
+        raise EingabeFehler("Bitte mindestens eine Lebenslage angeben")
+    unbekannt = [ll for ll in lebenslagen if ll not in kb.lebenslagen]
+    if unbekannt:
+        raise EingabeFehler(
+            f"Unbekannte Lebenslage {', '.join(unbekannt)} (verfügbar: {', '.join(sorted(kb.lebenslagen))})"
+        )
+
+
+def _ort_der_leistung(
+    kb: Wissensbasis, leistung: Leistung, fakten: dict[str, Any], wohnort: list[Gebiet], cache: dict[str, list[Gebiet]]
+) -> tuple[list[Gebiet], Optional[str]]:
+    """Maßgebliche Gebietshierarchie und ggf. der fehlende Ortsfakt.
+
+    Ist der Ort (z. B. der Immobilie) nicht bekannt, gilt nur der Bund: Landes-
+    und Kommunalvarianten können dann nicht ausgewählt werden.
+    """
+    if leistung.ortsbezug is None:
+        return wohnort, None
+    wert = fakten.get(leistung.ortsbezug)
+    if wert is None:
+        return [gebiete_mod.bund(kb)], leistung.ortsbezug
+    if not isinstance(wert, str):  # "weiß nicht"
+        return [gebiete_mod.bund(kb)], None
+    return _ort_hierarchie(kb, wert, cache), None
+
+
+def _ort_hierarchie(kb: Wissensbasis, wert: str, cache: dict[str, list[Gebiet]]) -> list[Gebiet]:
+    if wert not in cache:
+        cache[wert] = gebiete_mod.hierarchie_fuer_ort(kb, wert)
+    return cache[wert]
+
+
+def _ortsvergleiche(
+    kb: Wissensbasis, fakten: dict[str, Any], wohnort: list[Gebiet], cache: dict[str, list[Gebiet]]
+) -> dict[str, Any]:
+    """Abgeleitete Fakten wie "Umzug innerhalb derselben Gemeinde?" (Ortsfakt im Vergleich zum Wohnort).
+
+    Ist der Ort "weiß nicht" oder lässt er sich auf der Ebene nicht eindeutig
+    bestimmen (z. B. PLZ mit mehreren Gemeinden), ist das Ergebnis "weiß nicht".
+    Fehlt der Ort, bleibt der Fakt offen; erfragt wird dann der Ort.
+    """
+    neu: dict[str, Any] = {}
+    for d in kb.fakten.values():
+        if d.ableitung is None or d.id in fakten:
+            continue
+        art, ort = d.ableitung
+        wert = fakten.get(ort)
+        if wert is None:
+            continue
+        if not isinstance(wert, str):
+            neu[d.id] = UNBEKANNT
+            continue
+        ebene = Ebene(ABLEITUNGEN[art])
+        dort = next((g for g in _ort_hierarchie(kb, wert, cache) if g.ebene is ebene), None)
+        hier = next((g for g in wohnort if g.ebene is ebene), None)
+        neu[d.id] = UNBEKANNT if dort is None or hier is None else dort.id == hier.id
+    return neu
+
+
+def _erfragbar(kb: Wissensbasis, fid: str, fakten: dict[str, Any]) -> Optional[str]:
+    """Welche Frage klärt den fehlenden Fakt? Abgeleitete Fakten über ihre Quelle, sonst keine."""
+    d = kb.fakt_definition(fid)
+    if d is None or not d.abgeleitet:
+        return fid
+    if d.ableitung is not None and d.ableitung[1] not in fakten:
+        return d.ableitung[1]
+    return None
+
+
+def _personen(
+    kb: Wissensbasis, leistung: Leistung, regel: dict[str, Any], fakten: dict[str, Any]
+) -> tuple[list[tuple[Optional[str], dict[str, Any], bool]], list[str]]:
+    """Wer wird geprüft? Liefert (Rolle, Regel, stumm) je Person und fehlende Vorbedingungen.
+
+    ``stumm``: Ob es die Person gibt, ist "weiß nicht". Sie wird geprüft, das
+    Ergebnis ist höchstens Unklar, und es gibt keine Rückfragen zu ihr.
+    """
+    if not leistung.fuer:
+        return [(None, regel, False)], []
+    personen: list[tuple[Optional[str], dict[str, Any], bool]] = []
+    fehlend: list[str] = []
+    for rid in leistung.fuer:
+        rolle = kb.rollen[rid]
+        if rolle.vorbedingung is None:
+            personen.append((rid, regel, False))
+            continue
+        vor = auswerten(rolle.vorbedingung, fakten)
+        mit_vorbedingung = {"alle": [rolle.vorbedingung, regel]}
+        if vor.wert is Wert.JA:
+            personen.append((rid, mit_vorbedingung, False))
+        elif vor.wert is Wert.UNKLAR and vor.fehlend:
+            _anfuegen(fehlend, vor.fehlend)
+        elif vor.wert is Wert.UNKLAR:
+            personen.append((rid, mit_vorbedingung, True))
+    return personen, fehlend
+
+
+def _gewicht(e: Eintrag, stichtag: date) -> int:
+    """Wie wichtig ist es, die offenen Fragen dieses Eintrags zu klären?"""
+    gewicht = 2 if e.ergebnis is Wert.UNKLAR else 1
+    if e.leistung.art == "pflicht":
+        gewicht += 1
+    frist = e.naechste_frist
+    if frist is not None and 0 <= (frist - stichtag).days <= NAHE_FRIST_TAGE:
+        gewicht += 1
+    return gewicht
+
+
+def fragen_priorisieren(vorab: list[str], eintraege: list[Eintrag], stichtag: date) -> list[str]:
+    """Reihenfolge der offenen Fragen.
+
+    Zuerst ``vorab`` (Einstiegsfragen, Vorbedingungen von Rollen, Orte), dann die
+    übrigen nach Entscheidungskraft: Summe der Gewichte aller Einträge, die eine
+    Antwort entscheiden kann. Bei Gleichstand bleibt die Reihenfolge des Auftretens.
+    """
+    punkte: dict[str, int] = {}
+    for e in eintraege:
+        gewicht = _gewicht(e, stichtag)
+        for f in e.fehlend:
+            punkte[f] = punkte.get(f, 0) + gewicht
+    reihenfolge = {f: i for i, f in enumerate(punkte)}
+    rest = sorted((f for f in punkte if f not in vorab), key=lambda f: (-punkte[f], reihenfolge[f]))
+    return list(vorab) + rest
+
+
 def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
+    _lebenslagen_pruefen(kb, anfrage.lebenslagen)
     hierarchie = gebiete_mod.aufloesen(kb, anfrage.plz, anfrage.gemeinde, anfrage.land)
     fakten = dict(anfrage.fakten)
     fakten["wohnsitz_in_deutschland"] = True  # Ort wurde in Deutschland aufgelöst
@@ -236,50 +372,40 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         fakten["wohnsitz_land"] = land.kuerzel
     fakten.update(abgeleitete_fakten(fakten))
 
-    fehlend: list[str] = grund_rueckfragen(list(kb.fakten.values()), fakten)
-    # Der andere Elternteil wird geprüft, wenn er im Haushalt lebt oder das unklar ist.
-    # Bei "weiß nicht" kann sein Ergebnis höchstens Unklar sein (siehe PARTNER_IM_HAUSHALT).
-    partner_unklar = fakten.get("partner_im_haushalt") is UNBEKANNT
-    personen_haushalt: list[str] = ["mutter"]
-    if fakten.get("partner_im_haushalt") is True or partner_unklar:
-        personen_haushalt.append("partner")
-
+    orte: dict[str, list[Gebiet]] = {}
+    fakten.update(_ortsvergleiche(kb, fakten, hierarchie, orte))
+    vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
+    platzhalter: dict[int, dict[str, str]] = {}  # je Hierarchie (Wohnort, Orte von Leistungen) einmal
     eintraege: list[Eintrag] = []
-    for leistung in sorted(kb.leistungen.values(), key=lambda l: l.id):
-        if anfrage.ereignis not in leistung.ereignisse:
-            continue
-        treffer = beste_variante(kb, leistung, hierarchie, anfrage.stichtag)
+    nur_andere: list[NurAndereLaender] = []
+    for leistung in kb.leistungen_fuer(anfrage.lebenslagen):
+        ort, ort_fehlt = _ort_der_leistung(kb, leistung, fakten, hierarchie, orte)
+        if ort_fehlt and not getattr(kb.fakt_definition(ort_fehlt), "abgeleitet", False):
+            _anfuegen(vorab, [ort_fehlt])
+        treffer = beste_variante(kb, leistung, ort, anfrage.stichtag)
         if treffer is None:
+            laender = _laender_mit_variante(kb, leistung, anfrage.stichtag)
+            if laender:
+                nur_andere.append(NurAndereLaender(leistung, laender))
             continue
         variante, gebiet = treffer
-        if leistung.fuer == "jeder_elternteil":
-            if "partner_im_haushalt" not in fakten:
-                _anfuegen(fehlend, ["partner_im_haushalt"])
-            personen: list[Optional[str]] = list(personen_haushalt)
-        else:
-            personen = [None]
-        ergebnisse = [
-            PersonErgebnis(
-                p,
-                auswerten({"alle": [PARTNER_IM_HAUSHALT, variante.regel]} if p == "partner" else variante.regel, fakten, p),
-            )
-            for p in personen
-        ]
+        personen, vorbedingungen_fehlen = _personen(kb, leistung, variante.regel, fakten)
+        _anfuegen(vorab, vorbedingungen_fehlen)
+        if not personen:
+            continue  # z. B. Leistung nur für den anderen Elternteil, der nicht im Haushalt lebt
+        ergebnisse = [PersonErgebnis(rid, auswerten(regel, fakten, rid)) for rid, regel, _ in personen]
         gesamt = _gesamt([r.schritt.wert for r in ergebnisse])
-        # Rückfragen je Person: Bei "jeder_elternteil" zählt jede Person einzeln.
-        # Ist offen, ob der andere Elternteil im Haushalt lebt, wird er nicht weiter befragt.
+        # Rückfragen je Person; zu "stummen" Personen (gibt es sie? weiß nicht) wird nicht weiter gefragt
         eintrag_fehlend: list[str] = []
-        for r in ergebnisse:
-            if r.person == "partner" and partner_unklar:
-                continue
-            _anfuegen(eintrag_fehlend, r.schritt.fehlend)
-        # Abgeleitete Fakten werden nicht direkt erfragt, sondern über Grunddaten
-        eintrag_fehlend = [
-            f for f in eintrag_fehlend if not getattr(kb.fakt_definition(f), "abgeleitet", False)
-        ]
-        _anfuegen(fehlend, eintrag_fehlend)
+        for (_, _, stumm), r in zip(personen, ergebnisse):
+            if not stumm:
+                _anfuegen(eintrag_fehlend, r.schritt.fehlend)
+        # Abgeleitete Fakten werden nicht direkt erfragt, sondern über ihre Quelle (z. B. den Ort)
+        erfragbar = [_erfragbar(kb, f, fakten) for f in eintrag_fehlend]
+        eintrag_fehlend = list(dict.fromkeys(f for f in erfragbar if f is not None))
 
-        abdeckung = abdeckung_eintrag(leistung, gebiet)
+        if id(ort) not in platzhalter:
+            platzhalter[id(ort)] = ort_platzhalter(ort)
         quellen = [kb.quellen[q] for q in kb.quellen_von_variante(variante)]
         pruefstatus = max((q.pruefstatus for q in quellen), key=PRUEF_RANG.__getitem__)
         eintraege.append(
@@ -287,8 +413,12 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 leistung=leistung,
                 variante=variante,
                 gebiet=gebiet,
-                abdeckung=abdeckung,
-                zustaendigkeit=zustaendigkeit_fuer_ort(kb.zustaendigkeiten[variante.zustaendigkeit_id], hierarchie),
+                abdeckung=abdeckung_eintrag(leistung, gebiet),
+                zustaendigkeit=zustaendigkeit_fuer_ort(
+                    kb.zustaendigkeiten[variante.zustaendigkeit_id],
+                    ort,
+                    platzhalter[id(ort)],
+                ),
                 ergebnis=gesamt,
                 personen=ergebnisse,
                 fristen=[
@@ -301,7 +431,31 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 quellen=quellen,
                 pruefstatus=pruefstatus,
                 fehlend=eintrag_fehlend,
+                lebenslagen=[ll for ll in anfrage.lebenslagen if ll in leistung.lebenslagen],
             )
         )
     sortiert = _sortieren(eintraege)
-    return Bericht(anfrage, hierarchie, sortiert, fehlend, _warnungen(kb, anfrage, hierarchie, sortiert))
+    return Bericht(
+        anfrage,
+        hierarchie,
+        sortiert,
+        fragen_priorisieren(vorab, eintraege, anfrage.stichtag),
+        _warnungen(kb, anfrage, hierarchie, sortiert),
+        nur_andere,
+        [(ll, name, grund) for ll in anfrage.lebenslagen for name, grund in kb.lebenslagen[ll].nicht_erfasst],
+    )
+
+
+def _laender_mit_variante(kb: Wissensbasis, leistung: Leistung, stichtag: date) -> list[Gebiet]:
+    """Länder mit einer gültigen Variante der Leistung auf Landesebene.
+
+    Kommunale Leistungen (nur Varianten einzelner Gemeinden oder Kreise) zählen
+    nicht: Sonst stünde z. B. die Leistung einer einzelnen Stadt für alle anderen
+    Gemeinden ihres Landes als "nur in anderen Ländern" im Bericht.
+    """
+    laender = {
+        v.gebiet_id: kb.gebiete[v.gebiet_id]
+        for v in kb.varianten_von(leistung.id)
+        if v.zeitraum.enthaelt(stichtag) and kb.gebiete[v.gebiet_id].ebene is Ebene.LAND
+    }
+    return sorted(laender.values(), key=lambda g: g.name)

@@ -1,0 +1,49 @@
+{
+  "_hinweis": "Berlin (AGS 11000000): Varianten für die Lebenslage Umzug.",
+  "zustaendigkeiten": [
+    {
+      "id": "berlin_buergeramt",
+      "name": "Bürgeramt (Berlin)",
+      "url": "https://service.berlin.de/dienstleistung/120686/",
+      "beschreibung": "Termin berlinweit online oder über die Servicenummer 115; online anmelden ist für viele Fälle möglich."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "wohnsitz_anmelden_berlin",
+      "leistung_id": "wohnsitz_anmelden",
+      "gebiet_id": "11000000",
+      "erbt_von": "wohnsitz_anmelden_bund",
+      "zustaendigkeit_id": "berlin_buergeramt",
+      "quellen": [
+        "bmg_17",
+        "bmg_19",
+        "berlin_wohnsitz"
+      ],
+      "verfahren": {
+        "unterlagen": [
+          "Ausgefülltes Anmeldeformular",
+          "Personalausweis oder Reisepass",
+          "Wohnungsgeberbestätigung"
+        ],
+        "schritte": [
+          "Online anmelden mit BundID und Online-Ausweis (Volljährige mit deutscher oder EU-Staatsangehörigkeit nach Umzug innerhalb Deutschlands).",
+          "Sonst Termin im Bürgeramt buchen (online berlinweit oder über 115) und mit den Unterlagen hingehen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von 14 Tagen nach dem Einzug anmelden",
+            "bezug": "umzug.einzugsdatum",
+            "quellen": [
+              "bmg_17",
+              "berlin_wohnsitz"
+            ],
+            "tage": 14
+          }
+        ],
+        "kosten": "Anmeldung gebührenfrei.",
+        "online_url": "https://service.berlin.de/dienstleistung/120686/"
+      }
+    }
+  ]
+}

@@ -41,7 +41,7 @@
   "abdeckung": [
     {
       "gebiet_id": "08",
-      "ereignis": "geburt",
+      "lebenslage": "geburt",
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [

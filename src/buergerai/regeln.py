@@ -15,8 +15,9 @@ Regeln sind verschachtelte JSON-Objekte. Knotentypen:
     Ist immer Unklar. Für Voraussetzungen, die sich nicht sicher regelbasiert
     entscheiden lassen (z. B. Aufenthaltstitel). Die Engine erfindet nie ein Ja.
 
-Fakten mit dem Präfix ``person.`` werden je Elternteil aufgelöst
+Fakten mit dem Präfix ``person.`` werden je Rolle aufgelöst
 (``person.beschaeftigt`` -> ``mutter.beschaeftigt`` bzw. ``partner.beschaeftigt``).
+Die Rollen stehen in den Daten (``rollen``, siehe ``modell.Rolle``).
 """
 
 from __future__ import annotations
@@ -68,7 +69,7 @@ def knotentyp(knoten: dict[str, Any]) -> str:
 def fakt_id(roh: str, person: Optional[str]) -> str:
     if roh.startswith("person."):
         if person is None:
-            raise RegelFehler(f"Fakt {roh} braucht eine Person (Leistung 'jeder_elternteil')")
+            raise RegelFehler(f"Fakt {roh} braucht eine Rolle (Leistung mit 'fuer')")
         return person + "." + roh[len("person.") :]
     return roh
 

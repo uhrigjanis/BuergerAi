@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Lebensereignis Geburt: Leistungen und Bundesvarianten. Landes- und Kommunalvarianten liegen unter data/laender bzw. data/kommunen.",
+  "_hinweis": "Fachmodul Familie, Lebenslage Geburt: Leistungen und Bundesvarianten. Landes- und Kommunalvarianten liegen unter data/laender bzw. data/kommunen, Quellen unter data/bund/quellen.json.",
   "zustaendigkeiten": [
     {
       "id": "standesamt_geburtsort",
@@ -54,7 +54,7 @@
       "id": "geburtsanzeige",
       "name": "Geburt anzeigen und Geburtsurkunde erhalten",
       "kurz": "Pflicht: Die Geburt muss beim Standesamt angezeigt werden. Die Geburtsurkunde brauchen Sie für fast alle weiteren Anträge.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "gemeinde",
@@ -65,7 +65,7 @@
       "id": "vaterschaftsanerkennung",
       "name": "Vaterschaft anerkennen",
       "kurz": "Bei nicht verheirateten Eltern ist der Vater erst nach Anerkennung rechtlich Vater (z. B. Eintrag in der Geburtsurkunde, Unterhalt, Erbrecht).",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "kreis",
@@ -75,7 +75,7 @@
       "id": "sorgeerklaerung",
       "name": "Gemeinsame Sorgeerklärung",
       "kurz": "Nicht verheiratete Eltern haben das gemeinsame Sorgerecht nur mit einer Sorgeerklärung; sonst hat es die Mutter allein.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "kreis",
@@ -85,11 +85,11 @@
       "id": "mutterschaftsgeld_krankenkasse",
       "name": "Mutterschaftsgeld der Krankenkasse",
       "kurz": "Ersatz für das Einkommen während der Mutterschutzfristen für gesetzlich versicherte Mitglieder.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
-      "fuer": "mutter",
+      "fuer": ["mutter"],
       "art": "geldleistung",
       "betraege": [
         {
@@ -104,11 +104,11 @@
       "id": "mutterschaftsgeld_bas",
       "name": "Mutterschaftsgeld vom Bundesamt für Soziale Sicherung",
       "kurz": "Für angestellte Mütter, die privat oder familienversichert sind.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
-      "fuer": "mutter",
+      "fuer": ["mutter"],
       "art": "geldleistung",
       "betraege": [
         {
@@ -123,11 +123,11 @@
       "id": "arbeitgeberzuschuss_mutterschaftsgeld",
       "name": "Arbeitgeberzuschuss zum Mutterschaftsgeld",
       "kurz": "Der Arbeitgeber stockt das Mutterschaftsgeld während der Schutzfristen auf das bisherige Nettogehalt auf.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
-      "fuer": "mutter",
+      "fuer": ["mutter"],
       "art": "geldleistung",
       "betraege": [
         {
@@ -142,21 +142,21 @@
       "id": "elternzeit",
       "name": "Elternzeit beim Arbeitgeber anmelden",
       "kurz": "Unbezahlte Freistellung mit Kündigungsschutz, bis zu 3 Jahre je Elternteil.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
-      "fuer": "jeder_elternteil"
+      "fuer": ["mutter", "partner"]
     },
     {
       "id": "elterngeld",
       "name": "Elterngeld",
       "kurz": "Ersetzt einen Teil des wegfallenden Einkommens, wenn Sie nach der Geburt weniger oder gar nicht arbeiten.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "land",
-      "fuer": "jeder_elternteil",
+      "fuer": ["mutter", "partner"],
       "art": "geldleistung",
       "voraussetzungen": [
         "geburtsanzeige"
@@ -175,7 +175,7 @@
       "id": "kindergeld",
       "name": "Kindergeld",
       "kurz": "Monatliche Zahlung für jedes Kind, unabhängig vom Einkommen.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
@@ -206,7 +206,7 @@
       "id": "kinderzuschlag",
       "name": "Kinderzuschlag",
       "kurz": "Zusätzlich zum Kindergeld für Familien, deren Einkommen knapp nicht für alle reicht.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",
@@ -230,7 +230,7 @@
       "id": "familienversicherung_kind",
       "name": "Kind in der Krankenkasse versichern",
       "kurz": "Kinder sind in der Regel kostenlos über einen gesetzlich versicherten Elternteil familienversichert.",
-      "ereignisse": [
+      "lebenslagen": [
         "geburt"
       ],
       "verwaltungsebene": "bund",

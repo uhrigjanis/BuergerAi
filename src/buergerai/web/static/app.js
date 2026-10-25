@@ -2,7 +2,7 @@
 "use strict";
 
 // Muss zu buergerai.__version__ passen (Test: tests/test_web.py); sonst warnt die Seite
-const VERSION = "0.4.0";
+const VERSION = "0.6.0";
 const SPEICHER = "buergerai.v1";
 const ERGEBNIS_TEXT = { ja: "Ja", unklar: "Unklar", nein: "Nein" };
 const SYMBOL = { ja: "✓", unklar: "?", nein: "✗" };
@@ -15,6 +15,7 @@ const GRUPPEN = [
 const zustand = {
   ort: null,            // {plz, gemeinde, land}
   stichtag: null,       // "JJJJ-MM-TT" oder null = heute
+  lebenslagen: null,    // Liste von IDs oder null = Standard des Servers (Geburt)
   fakten: {},           // id -> Wert (true/false, Zahl, "JJJJ-MM-TT", Auswahlwert, "unbekannt")
   erledigt: {},         // leistung_id -> true
   bearbeiten: null,     // Fakt-ID, die gerade geändert wird
@@ -64,7 +65,8 @@ function sicherLink(url, text) {
 function speichern() {
   try {
     localStorage.setItem(SPEICHER, JSON.stringify({
-      ort: zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten, erledigt: zustand.erledigt,
+      ort: zustand.ort, stichtag: zustand.stichtag, lebenslagen: zustand.lebenslagen,
+      fakten: zustand.fakten, erledigt: zustand.erledigt,
     }));
   } catch (_) { /* privater Modus: dann eben ohne Speichern */ }
 }
@@ -103,8 +105,26 @@ async function api(pfad, daten) {
   return inhalt;
 }
 
+// ------------------------------------------------------------------ Lebenslagen
+function lebenslagenAuswahl(ziel, gewaehlt, beiAenderung) {
+  const legende = ziel.querySelector("legend");
+  fuellen(ziel, legende, ...meta.lebenslagen.map((l) => el("label", {},
+    el("input", {
+      type: "checkbox", name: "lebenslage", value: l.id, checked: gewaehlt.includes(l.id),
+      onchange: beiAenderung || null,
+    }),
+    el("span", {}, el("strong", {}, l.name), el("br"), el("span", { class: "leise" }, l.beschreibung)),
+  )));
+}
+
+function gewaehlteLebenslagen(ziel) {
+  return [...ziel.querySelectorAll("input[name=lebenslage]:checked")].map((e) => e.value);
+}
+
 function anfrage() {
-  return { ...zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten };
+  const daten = { ...zustand.ort, stichtag: zustand.stichtag, fakten: zustand.fakten };
+  if (zustand.lebenslagen && zustand.lebenslagen.length) daten.lebenslagen = zustand.lebenslagen;
+  return daten;
 }
 
 function download(name, inhalt, typ) {
@@ -124,6 +144,11 @@ async function ortAbsenden(ev) {
   const daten = { plz };
   if (!$("#gemeinde-wahl").hidden && $("#gemeinde").value) daten.gemeinde = $("#gemeinde").value;
   if (!$("#land-wahl").hidden && $("#land").value) daten.land = $("#land").value;
+  const lagen = gewaehlteLebenslagen($("#lebenslagen-wahl"));
+  if (!lagen.length) {
+    meldung("Bitte mindestens eine Lebenslage wählen.");
+    return;
+  }
   if (!/^\d{5}$/.test(plz)) {
     meldung("Bitte eine fünfstellige Postleitzahl eingeben.");
     $("#plz").focus();
@@ -132,6 +157,7 @@ async function ortAbsenden(ev) {
   try {
     await api("/api/ort", daten);
     zustand.ort = { plz, gemeinde: daten.gemeinde || null, land: daten.land || null };
+    zustand.lebenslagen = lagen;
     zustand.fakten = {};
     zustand.erledigt = {};
     zustand.bearbeiten = null;
@@ -185,6 +211,7 @@ function angabenUebernehmen(s) {
   }
   zustand.ort = { plz: s.plz || null, gemeinde: s.gemeinde || null, land: s.land || null };
   zustand.stichtag = s.stichtag || null;
+  zustand.lebenslagen = Array.isArray(s.lebenslagen) && s.lebenslagen.length ? s.lebenslagen : null;
   zustand.fakten = (s.fakten && typeof s.fakten === "object") ? s.fakten : {};
   zustand.erledigt = {};
   zustand.bearbeiten = null;
@@ -254,7 +281,20 @@ function zeichnen() {
     ? `Simuliertes Datum: ${datumText(zustand.stichtag)}`
     : `Stand: heute, ${datumText(bericht.stichtag)}`;
   $("#stichtag").value = bericht.stichtag;
-  $("#kind-text").textContent = `Kind: ${bericht.kind}`;
+  const namen = bericht.lebenslagen.map((l) => l.name).join(", ");
+  $("#lebenslage-text").textContent = namen;
+  $("#titel").textContent = (bericht.lebenslagen.length > 1 ? "Lebenslagen " : "Lebenslage ") + namen;
+  lebenslagenAuswahl($("#lebenslagen-wahl-arbeit"), bericht.lebenslagen.map((l) => l.id), () => {
+    const lagen = gewaehlteLebenslagen($("#lebenslagen-wahl-arbeit"));
+    if (!lagen.length) {
+      meldung("Bitte mindestens eine Lebenslage wählen.");
+      return;
+    }
+    zustand.lebenslagen = lagen;
+    aktualisieren();
+  });
+  $("#kind-text").textContent = bericht.kind ? `Kind: ${bericht.kind}` : "";
+  $("#kind-text").hidden = !bericht.kind;
   zeichneFrage();
   zeichneAngaben();
   zeichneErgebnis();
@@ -323,7 +363,9 @@ function eingabe(f, aktuell) {
   const feld = el("input", {
     id: "frage-eingabe",
     type: istDatum ? "date" : (f.typ === "zahl" ? "number" : "text"),
-    inputmode: f.typ === "zahl" ? "decimal" : null,
+    inputmode: f.typ === "zahl" ? "decimal" : (f.typ === "ort" ? "numeric" : null),
+    maxlength: f.typ === "ort" ? "8" : null,
+    placeholder: f.typ === "ort" ? "z. B. 80331" : null,
     min: f.typ === "zahl" ? "0" : null,
     step: f.typ === "zahl" ? "any" : null,
     "aria-labelledby": "frage-titel",
@@ -340,6 +382,9 @@ function eingabe(f, aktuell) {
       const zahl = Number(roh);
       if (!Number.isFinite(zahl) || zahl < 0) { meldung("Bitte eine Zahl ab 0 eingeben."); feld.focus(); return; }
       antworten(f.id, zahl);
+    } else if (f.typ === "ort") {
+      if (!/^(\d{5}|\d{8})$/.test(roh)) { meldung("Bitte eine fünfstellige Postleitzahl eingeben."); feld.focus(); return; }
+      antworten(f.id, roh);
     } else if (istDatum) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(roh)) { meldung("Bitte ein gültiges Datum wählen."); feld.focus(); return; }
       antworten(f.id, roh);
@@ -370,6 +415,15 @@ function zeichneAngaben() {
 
 function zeichneErgebnis() {
   fuellen($("#warnungen"), ...bericht.warnungen.map((w) => el("li", {}, "⚠ ", w)));
+  const fehlt = bericht.nicht_erfasst;
+  $("#nicht-erfasst-box").hidden = fehlt.length === 0;
+  fuellen($("#nicht-erfasst"), ...fehlt.map((n) => el("li", {}, el("strong", {}, n.name),
+    bericht.lebenslagen.length > 1 ? ` (${n.lebenslage})` : "", " – ", n.grund)));
+  const andere = bericht.nur_andere_laender;
+  $("#andere-laender").hidden = andere.length === 0;
+  $("#andere-laender").textContent = andere.length
+    ? "Nur in anderen Ländern (hier nicht verfügbar): " + andere.map((a) => `${a.name} (${a.laender.join(", ")})`).join("; ")
+    : "";
   fuellen($("#zaehler"), ...GRUPPEN.map(([w]) =>
     el("span", { class: `chip ${w}` }, `${bericht.zaehler[w]} × ${ERGEBNIS_TEXT[w]}`)));
 
@@ -430,9 +484,13 @@ function leistungKarte(l) {
   const fakten = [];
   const zeile = (dt, ...dd) => fakten.push(el("dt", {}, dt), el("dd", {}, ...dd));
   const mehrPersonen = l.personen.length > 1 || l.personen[0].person !== null;
+  if (bericht.lebenslagen.length > 1 && l.lebenslagen.length) {
+    zeile("Lebenslage", l.lebenslagen.map((id) => (bericht.lebenslagen.find((x) => x.id === id) || { name: id }).name).join(", "));
+  }
   if (mehrPersonen) {
     zeile("Für", l.personen.map((p, i) => [i ? ", " : "", `${p.name}: `, el("span", { class: `badge ${p.ergebnis}` }, ERGEBNIS_TEXT[p.ergebnis])]));
   }
+  if (l.beantragt_hinweis) zeile("Wer beantragt", l.beantragt_hinweis);
   zeile("Zuständig", l.zustaendigkeit.url ? sicherLink(l.zustaendigkeit.url, l.zustaendigkeit.name) : l.zustaendigkeit.name,
     l.zustaendigkeit.beschreibung ? el("div", { class: "leise" }, l.zustaendigkeit.beschreibung) : null);
   if (l.betrag && relevant) zeile("Betrag", l.betrag);
@@ -477,6 +535,7 @@ function leistungKarte(l) {
       el("span", { class: `badge ${l.ergebnis}` }, ERGEBNIS_TEXT[l.ergebnis]),
     ),
     el("p", { class: "kurz" }, l.kurz),
+    l.anspruch_hinweis ? el("p", { class: "hinweis" }, el("strong", {}, "Hinweis: "), l.anspruch_hinweis) : null,
     el("dl", { class: "fakten-liste" }, fakten),
     l.hinweise.map((h) => el("p", { class: "hinweis" }, el("strong", {}, "Hinweis: "), h)),
     warum,
@@ -505,6 +564,7 @@ function angabenSpeichern() {
   const daten = { name: "Eigene Angaben", beschreibung: `Gespeichert am ${datumText(new Date().toISOString().slice(0, 10))}` };
   for (const k of ["plz", "gemeinde", "land"]) if (zustand.ort[k]) daten[k] = zustand.ort[k];
   daten.stichtag = bericht.stichtag;
+  daten.lebenslagen = bericht.lebenslagen.map((l) => l.id);
   daten.fakten = zustand.fakten;
   download("buergerai-angaben.json", JSON.stringify(daten, null, 2) + "\n", "application/json");
 }
@@ -522,6 +582,7 @@ function neuBeginnen() {
   zustand.fakten = {};
   zustand.erledigt = {};
   zustand.stichtag = null;
+  zustand.lebenslagen = null;
   zustand.bearbeiten = null;
   zustand.pausiert = false;
   bericht = null;
@@ -562,6 +623,7 @@ async function init() {
     if (meta.version !== VERSION) {
       meldung(`Diese Seite (Version ${VERSION}) passt nicht zum Server (Version ${meta.version}). Bitte neu laden: Strg+Umschalt+R bzw. Cmd+Umschalt+R.`);
     }
+    lebenslagenAuswahl($("#lebenslagen-wahl"), []);
     fuellen($("#szenario"), el("option", { value: "" }, "Beispiel wählen …"),
       ...meta.szenarien.map((s) => el("option", { value: s.id }, s.name)));
   } catch (e) {

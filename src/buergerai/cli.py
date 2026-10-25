@@ -6,6 +6,7 @@ Beispiele::
     buergerai pruefen --szenario muenchen_verheiratet_angestellt --details
     buergerai pruefen --plz 85354 --fakt kind_geboren=nein --fakt errechneter_termin=15.01.2027
     buergerai erklaeren elterngeld --szenario freising_unverheiratet
+    buergerai lebenslagen --suche "Wir bekommen ein Baby"
     buergerai szenarien --pruefen
     buergerai web                               # Web-Oberfläche auf http://localhost:8000
 """
@@ -31,6 +32,7 @@ from .ausgabe import (
     bericht_text,
     datum,
     frage_zu,
+    person_name,
 )
 from .fakten import UNBEKANNT, EingabeFehler, parse_wert
 from .modell import Pruefstatus
@@ -62,6 +64,8 @@ def _anfrage(kb: Wissensbasis, args: argparse.Namespace) -> Anfrage:
             setattr(anfrage, k, getattr(args, k))
     if args.stichtag:
         anfrage.stichtag = _stichtag(args.stichtag)
+    if getattr(args, "lebenslage", None):
+        anfrage.lebenslagen = list(dict.fromkeys(args.lebenslage))
     for eintrag in args.fakt or []:
         if "=" not in eintrag:
             raise EingabeFehler(f"--fakt erwartet NAME=WERT (war: {eintrag!r})")
@@ -78,9 +82,17 @@ def _anfrage_optionen(p: argparse.ArgumentParser) -> None:
     p.add_argument("--gemeinde", help="Amtlicher Gemeindeschlüssel (bei mehrdeutiger PLZ)")
     p.add_argument("--land", help="Bundesland-Kürzel (z. B. BY), falls die PLZ nicht erfasst ist")
     p.add_argument("--stichtag", help="Bezugsdatum für Fristen und Gültigkeit (Standard: heute)")
+    _lebenslage_option(p)
     p.add_argument(
         "--fakt", "-f", action="append", metavar="NAME=WERT",
         help="Angabe setzen, z. B. -f eltern_verheiratet=ja -f mutter.beschaeftigt=ja (mehrfach möglich)",
+    )
+
+
+def _lebenslage_option(p: argparse.ArgumentParser) -> None:
+    p.add_argument(
+        "--lebenslage", "-l", action="append", metavar="ID",
+        help="Lebenslage, mehrfach möglich (Standard: geburt; siehe 'buergerai lebenslagen')",
     )
 
 
@@ -110,7 +122,7 @@ def cmd_erklaeren(args: argparse.Namespace) -> int:
     for p in e.personen:
         print()
         if p.person:
-            print(f.fett(f"Prüfung für: {p.person}"))
+            print(f.fett(f"Prüfung für: {person_name(kb, p.person)}"))
         print("\n".join(baum_text(p.schritt, kb, f)))
     print()
     print(f.fett("Quellen:"))
@@ -134,7 +146,9 @@ def _frage(kb: Wissensbasis, fid: str, f: Farbe) -> Any:
     if definition.typ == "auswahl":
         for i, (_, text) in enumerate(definition.optionen, 1):
             print(f"  {i}) {text}")
-    hinweis = {"ja_nein": "ja/nein", "zahl": "Zahl", "datum": "TT.MM.JJJJ", "auswahl": "Nummer"}.get(definition.typ, "")
+    hinweis = {"ja_nein": "ja/nein", "zahl": "Zahl", "datum": "TT.MM.JJJJ", "auswahl": "Nummer", "ort": "PLZ"}.get(
+        definition.typ, ""
+    )
     while True:
         try:
             roh = input(f"  > ({hinweis}, ? = weiß nicht, q = fertig) ").strip()
@@ -150,22 +164,53 @@ def _frage(kb: Wissensbasis, fid: str, f: Farbe) -> Any:
             print(f.rot(f"  {exc}"))
 
 
+def _lebenslagen_fragen(kb: Wissensbasis, f: Farbe) -> list[str]:
+    """Fragt, um welche Lebenslage(n) es geht. Mehrere mit Komma, z. B. "1,2"."""
+    lagen = sorted(kb.lebenslagen.values(), key=lambda x: (x.modul, x.id))
+    print()
+    print(f.fett("Worum geht es? (mehrere mit Komma, z. B. 1,2)"))
+    for i, ll in enumerate(lagen, 1):
+        print(f"  {i}) {ll.name}" + f.grau(f" – {ll.beschreibung}"))
+    while True:
+        try:
+            roh = input("  > ").strip()
+        except EOFError:
+            return []
+        teile = [t.strip() for t in roh.split(",") if t.strip()]
+        if teile and all(t.isdigit() and 1 <= int(t) <= len(lagen) for t in teile):
+            return list(dict.fromkeys(lagen[int(t) - 1].id for t in teile))
+        print(f.rot(f"  Bitte Nummern von 1 bis {len(lagen)} eingeben, mehrere mit Komma."))
+
+
 def cmd_interaktiv(args: argparse.Namespace) -> int:
+    from .ausgabe import lebenslagen_text
+
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
-    print(f.fett("BürgerAI – geführte Prüfung für das Lebensereignis Geburt"))
-    print(f.grau("Alle Bundesländer, Kreise und Gemeinden. Kein LLM – alle Ergebnisse sind regelbasiert."))
     stichtag = _stichtag(args.stichtag)
     anfrage = Anfrage(fakten={}, stichtag=stichtag)
     if args.szenario:
         anfrage = szenarien_mod.finden(kb, args.szenario).anfrage
+    if args.lebenslage:
+        anfrage.lebenslagen = list(dict.fromkeys(args.lebenslage))
+    elif not args.szenario and len(kb.lebenslagen) > 1:
+        anfrage.lebenslagen = _lebenslagen_fragen(kb, f)
+        if not anfrage.lebenslagen:
+            return 1
+    unbekannt = [ll for ll in anfrage.lebenslagen if ll not in kb.lebenslagen]
+    if unbekannt:
+        raise EingabeFehler(f"Unbekannte Lebenslage {', '.join(unbekannt)} (siehe 'buergerai lebenslagen')")
+    print(f.fett(f"BürgerAI – geführte Prüfung: {lebenslagen_text(kb, anfrage.lebenslagen)}"))
+    print(f.grau("Alle Bundesländer, Kreise und Gemeinden. Kein LLM – alle Ergebnisse sind regelbasiert."))
+    if args.szenario:
         print(f"Szenario geladen. Wohnort: PLZ {anfrage.plz or '-'} / Land {anfrage.land or '-'}")
     else:
         anfrage.plz = args.plz
         while True:
             if not anfrage.plz:
                 try:
-                    anfrage.plz = input("\nPostleitzahl Ihres Wohnorts: ").strip()
+                    hinweis = " (bei Umzug: neue Wohnung)" if "umzug" in anfrage.lebenslagen else ""
+                    anfrage.plz = input(f"\nPostleitzahl Ihres Wohnorts{hinweis}: ").strip()
                 except EOFError:
                     return 1
             try:
@@ -229,7 +274,7 @@ def cmd_gebiet(args: argparse.Namespace) -> int:
 
 
 def cmd_abdeckung(args: argparse.Namespace) -> int:
-    """Übersicht je Land: Wie viel ist für ein Lebensereignis vor Ort erfasst?"""
+    """Übersicht je Land: Wie viel ist für eine Lebenslage vor Ort erfasst?"""
     from .ausgabe import ABDECKUNG_TEXT
     from .modell import Abdeckung, Ebene
     from .planer import abdeckung_eintrag, beste_variante, landesabdeckung
@@ -237,8 +282,10 @@ def cmd_abdeckung(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
     stichtag = _stichtag(args.stichtag)
+    if args.lebenslage not in kb.lebenslagen:
+        raise EingabeFehler(f"Unbekannte Lebenslage {args.lebenslage} (siehe 'buergerai lebenslagen')")
     leistungen = sorted(
-        (l for l in kb.leistungen.values() if args.ereignis in l.ereignisse and l.verwaltungsebene is not Ebene.BUND),
+        (l for l in kb.leistungen_fuer([args.lebenslage]) if l.verwaltungsebene is not Ebene.BUND),
         key=lambda l: (l.verwaltungsebene.rang, l.id),
     )
     kreise_je_land: dict[str, list[Any]] = {}
@@ -248,17 +295,17 @@ def cmd_abdeckung(args: argparse.Namespace) -> int:
             kreise_je_land.setdefault(g.parent_id, []).append(g)
         elif g.ebene is Ebene.GEMEINDE:
             gemeinden_je_kreis.setdefault(g.parent_id, []).append(g)
-    print(f.fett(f"Abdeckung für das Lebensereignis '{args.ereignis}' (Stichtag {datum(stichtag)})"))
+    print(f.fett(f"Abdeckung für die Lebenslage '{args.lebenslage}' (Stichtag {datum(stichtag)})"))
     print(f.grau("Je Leistung (nur Leistungen, die nicht auf Bundesebene verwaltet werden): "
                  "Anzahl der Gemeinden, für die die zuständige Stelle erfasst ist.\n"))
     for land in gebiete_mod.laender(kb):
-        nachweis = kb.landesabdeckung.get((land.id, args.ereignis))
-        if landesabdeckung(kb, land, args.ereignis) is Abdeckung.FEHLT:
+        nachweis = kb.landesabdeckung.get((land.id, args.lebenslage))
+        if landesabdeckung(kb, land, args.lebenslage) is Abdeckung.FEHLT:
             ll = f.rot("nicht recherchiert")
         elif nachweis and nachweis.landesleistungen == "keine":
             ll = "keine"
         else:
-            ll = ", ".join(kb.leistungen[i].name for i in kb.landesleistungen(land.id, args.ereignis))
+            ll = ", ".join(kb.leistungen[i].name for i in kb.landesleistungen(land.id, args.lebenslage))
         gemeinden = [g for k in kreise_je_land.get(land.id, []) for g in gemeinden_je_kreis.get(k.id, [])]
         print(f.fett(f"{land.kuerzel} {land.name}") + f.grau(f"  ({len(kreise_je_land.get(land.id, []))} Kreise, {len(gemeinden)} Gemeinden)"))
         print(f"    Landesleistungen: {ll}")
@@ -286,7 +333,8 @@ def cmd_abdeckung(args: argparse.Namespace) -> int:
 def cmd_leistungen(args: argparse.Namespace) -> int:
     kb = _kb(args)
     for l in sorted(kb.leistungen.values(), key=lambda x: x.id):
-        print(f"{l.id}  –  {l.name}  [{', '.join(l.ereignisse)}; verwaltet auf Ebene {l.verwaltungsebene.value}; für {l.fuer}]")
+        fuer = ", ".join(l.fuer) if l.fuer else "Haushalt"
+        print(f"{l.id}  –  {l.name}  [{', '.join(l.lebenslagen)}; verwaltet auf Ebene {l.verwaltungsebene.value}; für {fuer}]")
         for v in sorted(kb.varianten_von(l.id), key=lambda v: kb.gebiete[v.gebiet_id].ebene.rang):
             g = kb.gebiete[v.gebiet_id]
             print(f"    Variante {v.id:45} {EBENE_TEXT[g.ebene]:9} {g.name}")
@@ -295,18 +343,57 @@ def cmd_leistungen(args: argparse.Namespace) -> int:
 
 def cmd_fakten(args: argparse.Namespace) -> int:
     kb = _kb(args)
-    for d in kb.fakten.values():
-        merkmale = [d.typ]
-        if d.je_person:
-            merkmale.append("je Elternteil: mutter./partner.")
-        if d.abgeleitet:
-            merkmale.append("abgeleitet")
-        if d.grunddaten:
-            merkmale.append("Grunddaten")
-        print(f"{d.id:38} ({', '.join(merkmale)})")
-        print(f"    {d.frage_fuer('mutter') if d.je_person else d.frage}")
-        if d.optionen:
-            print("    Werte: " + ", ".join(w for w, _ in d.optionen))
+    f = Farbe(None if not args.keine_farbe else False)
+    einstieg = {fid: ll.name for ll in kb.lebenslagen.values() for fid in ll.einstiegsfragen}
+    rollen = ", ".join(f"{r.id}." for r in kb.rollen.values())
+    module = ["kern"] + sorted(kb.fachmodule)
+    for modul in module:
+        definitionen = [d for d in kb.fakten.values() if d.modul == modul]
+        if not definitionen:
+            continue
+        titel = "Kern (alle Fachmodule)" if modul == "kern" else f"Fachmodul {kb.fachmodule[modul].name}"
+        print(f.fett(f"== {titel} =="))
+        for d in definitionen:
+            merkmale = [d.typ]
+            if d.je_person:
+                merkmale.append(f"je Rolle: {rollen}")
+            if d.abgeleitet:
+                merkmale.append("abgeleitet")
+            if d.id in einstieg:
+                merkmale.append(f"Einstiegsfrage {einstieg[d.id]}")
+            print(f"{d.id:38} ({', '.join(merkmale)})")
+            beispiel = next(iter(kb.rollen.values()), None)
+            print(f"    {d.frage_fuer(beispiel.wer) if d.je_person and beispiel else d.frage}")
+            if d.optionen:
+                print("    Werte: " + ", ".join(w for w, _ in d.optionen))
+        print()
+    return 0
+
+
+def cmd_lebenslagen(args: argparse.Namespace) -> int:
+    from .suche import lebenslagen_suchen
+
+    kb = _kb(args)
+    f = Farbe(None if not args.keine_farbe else False)
+    if args.suche:
+        treffer = lebenslagen_suchen(kb, args.suche)
+        if not treffer:
+            print("Keine passende Lebenslage gefunden. Alle Lebenslagen: buergerai lebenslagen")
+            return 1
+        for ll, punkte in treffer:
+            print(f"{ll.id:20} {ll.name}  {f.grau(f'({punkte} Punkte, Fachmodul {kb.fachmodule[ll.modul].name})')}")
+        return 0
+    for m in sorted(kb.fachmodule.values(), key=lambda m: m.id):
+        print(f.fett(f"Fachmodul {m.name}") + f.grau(f"  ({m.id})"))
+        print(f"    {m.beschreibung}")
+        rollen = [r.name for r in kb.rollen.values() if r.modul == m.id]
+        fakten = [d for d in kb.fakten.values() if d.modul == m.id]
+        print(f.grau(f"    Rollen: {', '.join(rollen) or '-'} · Fakten: {len(fakten)}"))
+        for ll in sorted((x for x in kb.lebenslagen.values() if x.modul == m.id), key=lambda x: x.id):
+            leistungen = kb.leistungen_fuer([ll.id])
+            print(f"  {f.fett(ll.id)} – {ll.name} ({ll.typ}): {ll.beschreibung}")
+            print(f.grau(f"      {len(leistungen)} Leistungen · Einstiegsfragen: {', '.join(ll.einstiegsfragen) or '-'}"))
+    print(f.grau("\nPrüfen mit: buergerai pruefen --lebenslage ID …   |   Suche: buergerai lebenslagen --suche \"Text\""))
     return 0
 
 
@@ -341,6 +428,7 @@ def cmd_daten(args: argparse.Namespace) -> int:
         print(str(exc))
         return 1
     print(f"Wissensbasis OK ({len(kb.dateien)} Dateien)")
+    print(f"  Fachmodule: {len(kb.fachmodule)}, Lebenslagen: {len(kb.lebenslagen)}, Rollen: {len(kb.rollen)}")
     print(f"  Gebiete: {len(kb.gebiete)}, Leistungen: {len(kb.leistungen)}, Varianten: {len(kb.varianten)}, "
           f"Quellen: {len(kb.quellen)}, Zuständigkeiten: {len(kb.zustaendigkeiten)}, Fakten: {len(kb.fakten)}")
     unbenutzt = kb.unbenutzte_fakten()
@@ -462,6 +550,7 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--land")
     s.add_argument("--szenario", "-s", help="Mit gespeicherten Angaben starten und fehlende nachfragen")
     s.add_argument("--stichtag")
+    _lebenslage_option(s)
     s.add_argument("--details", action="store_true")
     s.add_argument("--speichern", metavar="DATEI.json", help="Angaben am Ende als Szenario speichern")
     s.set_defaults(func=cmd_interaktiv)
@@ -484,12 +573,16 @@ def parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_gebiet)
 
     s = sub.add_parser("abdeckung", help="Je Land: Landesleistungen und erfasste Stellen vor Ort")
-    s.add_argument("--ereignis", default="geburt")
+    s.add_argument("--lebenslage", "--ereignis", dest="lebenslage", default="geburt")
     s.add_argument("--stichtag")
     s.set_defaults(func=cmd_abdeckung)
 
     sub.add_parser("leistungen", help="Alle Leistungen und ihre Varianten").set_defaults(func=cmd_leistungen)
-    sub.add_parser("fakten", help="Faktenkatalog (Namen für --fakt)").set_defaults(func=cmd_fakten)
+    sub.add_parser("fakten", help="Faktenkatalog nach Fachmodul (Namen für --fakt)").set_defaults(func=cmd_fakten)
+
+    s = sub.add_parser("lebenslagen", help="Fachmodule und Lebenslagen, Stichwortsuche")
+    s.add_argument("--suche", metavar="TEXT", help="Passende Lebenslagen zu einem Satz finden")
+    s.set_defaults(func=cmd_lebenslagen)
 
     s = sub.add_parser("quellen", help="Quellen und ihr Prüfstatus")
     s.add_argument("--offen", action="store_true", help="Nur noch nicht verifizierte Quellen")

@@ -281,7 +281,8 @@ function zeichneFrage() {
       ? el("button", { type: "button", class: "link", onclick: () => { zustand.bearbeiten = null; zeichnen(); } }, "Abbrechen")
       : el("button", { type: "button", class: "link", onclick: () => { zustand.pausiert = true; zeichnen(); } }, "Fragen beenden, nur Ergebnis"),
   );
-  karte.replaceChildren(...kopf, eingabe(f, aktuell), fuss);
+  // replaceChildren würde null als Text "null" einfügen, daher leere Teile entfernen
+  karte.replaceChildren(...kopf.filter(Boolean), eingabe(f, aktuell), fuss);
 }
 
 function eingabe(f, aktuell) {

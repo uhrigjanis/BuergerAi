@@ -160,7 +160,8 @@ class Leistung:
     fuer: str  # haushalt | mutter | jeder_elternteil
     voraussetzungen: tuple[str, ...] = ()  # IDs von Leistungen, die vorher erledigt sein sollten
     betraege: tuple[Betrag, ...] = ()
-    art: str = "antrag"  # antrag | geldleistung | information
+    # pflicht (gesetzliche Pflicht, z. B. Geburtsanzeige) | antrag | geldleistung | information
+    art: str = "antrag"
 
 
 @dataclass(frozen=True)

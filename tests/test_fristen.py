@@ -46,3 +46,12 @@ def test_abgelaufen():
     # "frühestens ab"-Fristen laufen nicht ab
     f2 = berechne(Frist("t", bezug="geburt", art="fruehestens"), {"kind_geboren": True, "geburtsdatum": date(2026, 10, 1)}, STICHTAG)
     assert not f2.abgelaufen
+
+
+@pytest.mark.anforderung("ANF-FRI-01", "ANF-ENG-04")
+def test_keine_annahme_bei_unbekannter_geburt():
+    from buergerai.fakten import UNBEKANNT
+
+    frist = Frist("eine Woche", bezug="geburt", tage=7)
+    f = berechne(frist, {"kind_geboren": UNBEKANNT, "errechneter_termin": date(2026, 12, 1)}, STICHTAG)
+    assert f.datum is None

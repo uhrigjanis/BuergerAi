@@ -32,6 +32,7 @@ from .regeln import OPERATOREN, RegelFehler, fakten_in_regel, knotentyp, quellen
 STANDARD_DATENVERZEICHNIS = Path(__file__).resolve().parents[2] / "data"
 
 FUER_WERTE = ("haushalt", "mutter", "jeder_elternteil")
+LEISTUNG_ARTEN = ("pflicht", "antrag", "geldleistung", "information")
 FRIST_BEZUEGE = ("geburt", "termin", "keiner")
 FRIST_ARTEN = ("spaetestens", "fruehestens", "empfohlen")
 
@@ -324,6 +325,8 @@ class Wissensbasis:
         for l in self.leistungen.values():
             if l.fuer not in FUER_WERTE:
                 fehler.append(f"Leistung {l.id}: 'fuer' muss eines von {FUER_WERTE} sein")
+            if l.art not in LEISTUNG_ARTEN:
+                fehler.append(f"Leistung {l.id}: 'art' muss eines von {LEISTUNG_ARTEN} sein")
             for v in l.voraussetzungen:
                 if v not in self.leistungen:
                     fehler.append(f"Leistung {l.id}: unbekannte Voraussetzung {v}")

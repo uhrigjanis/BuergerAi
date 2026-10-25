@@ -8,7 +8,7 @@ from datetime import date
 from typing import Any, Optional
 
 from . import gebiete as gebiete_mod
-from .fakten import abgeleitete_fakten, grund_rueckfragen
+from .fakten import UNBEKANNT, abgeleitete_fakten, grund_rueckfragen
 from .fristen import BerechneteFrist, berechne
 from .modell import (
     Abdeckung,
@@ -30,6 +30,15 @@ PRUEF_RANG = {
     Pruefstatus.TEILWEISE: 1,
     Pruefstatus.UNGEPRUEFT: 2,
     Pruefstatus.WIDERSPRUECHLICH: 3,
+}
+
+
+# Vorbedingung für alle Prüfungen des anderen Elternteils
+PARTNER_IM_HAUSHALT: dict[str, Any] = {
+    "fakt": "partner_im_haushalt",
+    "op": "==",
+    "wert": True,
+    "text": "Der andere Elternteil lebt im Haushalt",
 }
 
 
@@ -149,6 +158,18 @@ def _sortieren(eintraege: list[Eintrag]) -> list[Eintrag]:
     return ergebnis
 
 
+def _hat_landesdaten(kb: Wissensbasis, ereignis: str) -> bool:
+    """Gibt es für das Ereignis irgendwo Varianten unterhalb der Bundesebene?
+
+    Nur dann fehlt in einem Nicht-Pilotland tatsächlich etwas.
+    """
+    return any(
+        ereignis in kb.leistungen[v.leistung_id].ereignisse
+        and kb.gebiete[v.gebiet_id].ebene is not Ebene.BUND
+        for v in kb.varianten.values()
+    )
+
+
 def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     hierarchie = gebiete_mod.aufloesen(kb, anfrage.plz, anfrage.gemeinde, anfrage.land)
     fakten = dict(anfrage.fakten)
@@ -160,7 +181,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
 
     warnungen: list[str] = []
     gemeinde = next((g for g in hierarchie if g.ebene is Ebene.GEMEINDE), None)
-    if land is not None and not land.pilot:
+    if land is not None and not land.pilot and _hat_landesdaten(kb, anfrage.ereignis):
         warnungen.append(
             f"{land.name} ist kein Pilotland: Landesleistungen und landesspezifische "
             "Zuständigkeiten sind nicht erfasst. Angezeigt werden nur Bundesdaten."
@@ -173,9 +194,12 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     elif not gemeinde.pilot:
         warnungen.append(f"{gemeinde.name} ist keine Pilotkommune: kommunale Angaben fehlen.")
 
-    personen_haushalt: list[str] = ["mutter"]
     fehlend: list[str] = grund_rueckfragen(list(kb.fakten.values()), fakten)
-    if fakten.get("partner_im_haushalt") is True:
+    # Der andere Elternteil wird geprüft, wenn er im Haushalt lebt oder das unklar ist.
+    # Bei "weiß nicht" kann sein Ergebnis höchstens Unklar sein (siehe PARTNER_IM_HAUSHALT).
+    partner_unklar = fakten.get("partner_im_haushalt") is UNBEKANNT
+    personen_haushalt: list[str] = ["mutter"]
+    if fakten.get("partner_im_haushalt") is True or partner_unklar:
         personen_haushalt.append("partner")
 
     eintraege: list[Eintrag] = []
@@ -192,11 +216,20 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
             personen: list[Optional[str]] = list(personen_haushalt)
         else:
             personen = [None]
-        ergebnisse = [PersonErgebnis(p, auswerten(variante.regel, fakten, p)) for p in personen]
+        ergebnisse = [
+            PersonErgebnis(
+                p,
+                auswerten({"alle": [PARTNER_IM_HAUSHALT, variante.regel]} if p == "partner" else variante.regel, fakten, p),
+            )
+            for p in personen
+        ]
         gesamt = _gesamt([r.schritt.wert for r in ergebnisse])
-        # Rückfragen je Person: Bei "jeder_elternteil" zählt jede Person einzeln
+        # Rückfragen je Person: Bei "jeder_elternteil" zählt jede Person einzeln.
+        # Ist offen, ob der andere Elternteil im Haushalt lebt, wird er nicht weiter befragt.
         eintrag_fehlend: list[str] = []
         for r in ergebnisse:
+            if r.person == "partner" and partner_unklar:
+                continue
             _anfuegen(eintrag_fehlend, r.schritt.fehlend)
         # Abgeleitete Fakten werden nicht direkt erfragt, sondern über Grunddaten
         eintrag_fehlend = [

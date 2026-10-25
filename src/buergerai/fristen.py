@@ -36,7 +36,7 @@ def berechne(frist: Frist, fakten: dict[str, Any], stichtag: date) -> Berechnete
     if frist.bezug == "geburt":
         if fakten.get("kind_geboren") is True and isinstance(fakten.get("geburtsdatum"), date):
             basis = fakten["geburtsdatum"]
-        elif isinstance(fakten.get("errechneter_termin"), date) and fakten.get("kind_geboren") is not True:
+        elif fakten.get("kind_geboren") is False and isinstance(fakten.get("errechneter_termin"), date):
             basis = fakten["errechneter_termin"]
             voraussichtlich = True
     elif frist.bezug == "termin":

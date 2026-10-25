@@ -4,7 +4,7 @@
 
 | Teil | Stand 24.10.2026 |
 |------|------------------|
-| Testfälle grün | ✅ 139 Tests, 7 Szenarien, 51/51 Anforderungen abgedeckt |
+| Testfälle grün | ✅ 143 Tests, 7 Szenarien, 51/51 Anforderungen abgedeckt |
 | Gegen Quellen geprüft | ⏳ **offen** – keine Quelle ist `verifiziert`; 9 `teilweise`, 13 `ungeprueft`, 2 `widerspruechlich` |
 
 Aktuellen Stand anzeigen: `./bai quellen --offen`

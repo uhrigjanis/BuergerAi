@@ -190,8 +190,10 @@ def ort_text(bericht: Bericht) -> str:
 def geburt_text(fakten: dict[str, Any]) -> str:
     if fakten.get("kind_geboren") is True and isinstance(fakten.get("geburtsdatum"), date):
         return f"geboren am {datum(fakten['geburtsdatum'])}"
-    if isinstance(fakten.get("errechneter_termin"), date):
+    if fakten.get("kind_geboren") is False and isinstance(fakten.get("errechneter_termin"), date):
         return f"errechneter Termin {datum(fakten['errechneter_termin'])}"
+    if fakten.get("kind_geboren") is UNBEKANNT:
+        return "unbekannt, ob schon geboren – Fristen können nicht berechnet werden"
     return "Datum noch nicht angegeben"
 
 

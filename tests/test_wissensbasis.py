@@ -37,6 +37,7 @@ def test_echte_daten_sind_konsistent(kb):
         (lambda d: d["varianten"][0].update(quellen=[]), "mindestens eine Quelle"),
         (lambda d: d["leistungen"][0].update(voraussetzungen=["gibt_es_nicht"]), "unbekannte Voraussetzung"),
         (lambda d: d["varianten"][1]["regel"].update(fakt="person.beschaeftigt"), "'person.'-Fakten nur"),
+        (lambda d: d["leistungen"][0].update(art="pflichtt"), "'art' muss eines von"),
     ],
 )
 def test_fehler_werden_erkannt(tmp_path, aendern, meldung):

@@ -120,3 +120,26 @@ def test_jede_entscheidung_hat_begruendung(plane):
         for p in e.personen:
             for s in begruendung(p.schritt):
                 assert s.text, (e.leistung.id, s)
+
+
+@pytest.mark.anforderung("ANF-ENG-04", "ANF-EG-05")
+def test_partner_im_haushalt_unbekannt(plane):
+    """'Weiß nicht' beim Haushalt: Partner wird geprüft, aber höchstens Unklar und ohne Rückfragen."""
+    b = plane(familie(partner_im_haushalt="unbekannt"))
+    eg = b.eintrag("elterngeld")
+    assert [p.person for p in eg.personen] == ["mutter", "partner"]
+    assert [p.schritt.wert for p in eg.personen] == [Wert.JA, Wert.UNKLAR]
+    assert "partner_im_haushalt" not in b.fehlend
+    # Ohne Partnerangaben: keine Elterngeld-/Elternzeit-Rückfragen zum Partner, solange der Haushalt unklar ist
+    leer = plane({"kind_geboren": "ja", "geburtsdatum": "2026-10-01", "partner_im_haushalt": "unbekannt"})
+    assert [p.person for p in leer.eintrag("elterngeld").personen] == ["mutter", "partner"]
+    nur_je_elternteil = {"partner.beschaeftigt", "partner.betreut_kind_selbst", "partner.erwerbsstunden_nach_geburt"}
+    assert not nur_je_elternteil & set(leer.fehlend)
+
+
+@pytest.mark.anforderung("ANF-DAT-04")
+def test_pilotwarnung_nur_wenn_landesdaten_existieren(kb):
+    from buergerai.planer import _hat_landesdaten
+
+    assert _hat_landesdaten(kb, "geburt")
+    assert not _hat_landesdaten(kb, "heirat")

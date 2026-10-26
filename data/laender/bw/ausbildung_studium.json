@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bw_meisterpraemie",
+      "titel": "Stadt Heidelberg – Handwerkskammer: Meisterprämie für gelungene Weiterbildung (28.1.2026)",
+      "url": "https://www.heidelberg.de/HD/Arbeiten+in+Heidelberg/28_01_2026+handwerkskammer_+meisterpraemie+fuer+gelungene+weiterbildung.html",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Heidelberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Stadt Heidelberg, Landesregierung): Meisterprämie 1.500 € für Meisterprüfungen im Handwerk (Anlage A oder B1); Hauptwohnsitz oder Beschäftigungsort in Baden-Württemberg; Abwicklung über die acht Handwerkskammern; Anträge werden zum 31. Mai und 30. November gesammelt; online."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hwk_bw",
+      "name": "Ihre Handwerkskammer in Baden-Württemberg",
+      "beschreibung": "Die acht Handwerkskammern wickeln die Meisterprämie ab."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_bw",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "hwk_bw",
+      "quellen": [
+        "bw_meisterpraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "fakt": "bildung.handwerk",
+            "op": "==",
+            "wert": true,
+            "text": "Es ist eine Meisterprüfung im Handwerk (Handwerkskammer)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "Heißt hier: Meisterprämie.",
+        "1.500 € einmalig.",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land.",
+        "Anträge werden zum 31. Mai und 30. November gesammelt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bw_meisterpraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterprämie (nur Handwerk)."
+    }
+  ]
+}

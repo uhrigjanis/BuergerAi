@@ -226,7 +226,25 @@ docs/
 - ✅ 5 Szenarien, 111/111 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; die Höhe des Blindengelds ist in mehreren Ländern nicht amtlich bestätigt und steht dann nur als Hinweis ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Lebenslage Wohnen und Eigentum (#41, Schritt 4), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Wohneigentum (#41, Schritt 4)
+
+- ✅ Fachmodul Wohnen mit der Lebenslage „Haus oder Wohnung kaufen oder bauen“: Grunderwerbsteuer, KfW-Kredite (Wohneigentum für Familien, Jung kauft Alt, Wohneigentumsprogramm, Klimafreundlicher Neubau), Heizungsförderung und BAFA-Zuschuss für Dämmung und Fenster
+- ✅ Ort der Immobilie als eigene Angabe: Steuersatz und Landesförderung richten sich danach, nicht nach dem Wohnort
+- ✅ Grunderwerbsteuersatz für alle 16 Länder (3,5 % bis 6,5 %)
+- ✅ Landesförderung je Land recherchiert: Hessengeld; Förderprogramme in 12 weiteren Ländern; keine in Berlin, Mecklenburg-Vorpommern und Bremen (Eigenheimzuschuss nur in der Stadt Bremen, kommunal erfasst)
+- ✅ KfW-Regeln: Antrag vor dem Kauf- bzw. Bauvertrag, Einkommensgrenze 90.000 € plus 10.000 € je weiterem Kind
+- ✅ 4 Szenarien, 118/118 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Steuersätze aus einer Übersicht, Konditionen mehrerer Landesprogramme 2026 nicht bestätigt ([docs/validierung.md](docs/validierung.md))
+
+## Stand Lebenslage Ausbildung, Studium oder Meister (#41, Schritt 5)
+
+- ✅ Fachmodul Bildung mit der Lebenslage „Ausbildung, Studium oder Meister“: BAföG im Studium, Berufsausbildungsbeihilfe, Kindergeld bis 25, Aufstiegs-BAföG
+- ✅ Meisterbonus bzw. Aufstiegsprämie je Land recherchiert: 14 Länder zahlen eine Prämie (1.000 € bis 4.000 €, je Land eigene Stelle), Brandenburg und Schleswig-Holstein nicht (nur Gründungsprämien)
+- ✅ Antragsfristen der Prämien rechnen ab dem Datum des Prüfungsergebnisses (z. B. drei Monate in NRW und Hessen)
+- ✅ 4 Szenarien, 125/125 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Höhe der Prämie in Hamburg widersprüchlich, in Berlin und Sachsen-Anhalt nicht amtlich bestätigt ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Schule als eigene Lebenslage sowie Behinderung, Arbeit, Heirat, Ruhestand und Todesfall (#41, Schritt 6), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

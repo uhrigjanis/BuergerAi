@@ -1,0 +1,88 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_meister_extra",
+      "titel": "Landesregierung MV – Meister-Extra",
+      "url": "https://www.regierung-mv.de/Landesregierung/wm/Handwerk/Meister%E2%80%93Extra/",
+      "typ": "behoerde",
+      "herausgeber": "Land Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: 2.000 € für die bestandene Meisterprüfung in Handwerk oder Industrie (die 50 Besten 3.000 €); Hauptwohnsitz und Arbeitsort seit mindestens drei Monaten in MV; Antrag über die Kammer spätestens sechs Monate nach dem Bescheid; Richtlinie bis Ende 2028; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "kammer_mv",
+      "name": "Ihre Kammer in Mecklenburg-Vorpommern (Handwerkskammer oder IHK)",
+      "beschreibung": "Leitet das Meister-Extra weiter."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_mv",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "kammer_mv",
+      "quellen": [
+        "mv_meister_extra"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert wird die Meisterprüfung in Handwerk oder Industrie.",
+            "quellen": [
+              "mv_meister_extra"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens sechs Monate nach dem Bescheid über die bestandene Prüfung beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "mv_meister_extra"
+            ],
+            "tage": 182
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Meister-Extra.",
+        "2.000 € einmalig.",
+        "Hauptwohnsitz und Arbeitsort seit mindestens drei Monaten in Mecklenburg-Vorpommern."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_meister_extra"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meister-Extra."
+    }
+  ]
+}

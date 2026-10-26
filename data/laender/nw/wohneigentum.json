@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "muenster_eigenheim_2026",
+      "titel": "Stadt Münster – Merkblatt Eigenheimförderung 2026",
+      "url": "https://www.stadt-muenster.de/fileadmin/user_upload/stadt-muenster/64_wohnungsamt/pdf/Wohnraumfoerderung/Merkblatt_Eigenheimfoerderung_2026.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Münster",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Münster, Kreis Coesfeld 4/2026, Bochum 2026): Landesförderung selbst genutzten Wohneigentums (Neubau oder Kauf) über NRW.BANK und die Bewilligungsbehörde der Stadt bzw. des Kreises; Einkommensgruppen A und B (Einpersonenhaushalt 43.130 € bzw. 60.382 € anrechenbares Einkommen); Grunddarlehen je nach Kostenkategorie der Gemeinde plus Familienbonus je Kind; Antrag vor Vertragsabschluss."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nw_bewilligung",
+      "name": "Wohnraumförderung – {kreis} (Bewilligungsbehörde, NRW.BANK)",
+      "beschreibung": "Die Bewilligungsbehörde der Stadt bzw. des Kreises; Darlehensgeber ist die NRW.BANK."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_nw",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_nw",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nw_bewilligung",
+      "quellen": [
+        "muenster_eigenheim_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen in Gruppe A oder B fällt (z. B. 43.130 € bzw. 60.382 € für eine Person), rechnet die Bewilligungsbehörde aus.",
+            "quellen": [
+              "muenster_eigenheim_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Bewilligungsbehörde Ihrer Stadt bzw. Ihres Kreises beraten lassen und vor dem Vertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Darlehenshöhe je nach Gemeinde, dazu ein Familienbonus je Kind."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "muenster_eigenheim_2026"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Eigentumsförderung NRW. Das frühere Zuschussprogramm Wohneigentum (Grunderwerbsteuer) wurde für 2026 nicht bestätigt."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_wofoerl_2026",
+      "titel": "Schleswig-Holstein – Wohnraumförderungsrichtlinien (WoFöRL), Stand Februar 2026",
+      "url": "https://transparenz.schleswig-holstein.de/dataset/240450c4-e1ca-46cd-98ee-6e3d6bdb33f2/resource/6797d210-50e0-4b57-b139-8e5029d5545b/download/_wofrl-februar-2026.pdf",
+      "typ": "gesetz",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: soziale Wohnraumförderung für Eigentumsmaßnahmen (Neubau, Ersterwerb, Anpassung) für Haushalte mit Kindern, schwerbehinderten Menschen und Alleinerziehende; Einkommensgrenzen in Anlage 2; Darlehen über die IB.SH. Konditionen nur aus älteren Ratgebern (0 % Zins über 20 Jahre)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ibsh",
+      "name": "Investitionsbank Schleswig-Holstein (IB.SH)",
+      "url": "https://www.ib-sh.de",
+      "beschreibung": "Darlehen der sozialen Wohnraumförderung."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_sh",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_sh",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "ibsh",
+      "quellen": [
+        "sh_wofoerl_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "wohnen.kinder_minderjaehrig",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+              },
+              {
+                "pruefung_noetig": "Gefördert werden auch Haushalte mit schwerbehinderten Menschen und Alleinerziehende.",
+                "quellen": [
+                  "sh_wofoerl_2026"
+                ]
+              }
+            ],
+            "text": "Kind im Haushalt oder andere Fördergruppe"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen unter der Grenze der Wohnraumförderung liegt, prüft die IB.SH.",
+            "quellen": [
+              "sh_wofoerl_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der IB.SH beraten lassen und vor dem Vertrag beantragen."
+        ]
+      },
+      "hinweise": []
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_wofoerl_2026"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: soziale Wohnraumförderung für Eigentumsmaßnahmen (IB.SH)."
+    }
+  ]
+}

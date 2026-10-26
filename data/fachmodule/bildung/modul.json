@@ -1,0 +1,81 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Bildung (ADR 0008). Erste Lebenslage: Ausbildung, Studium oder Aufstiegsfortbildung beginnen.",
+  "fachmodul": {
+    "id": "bildung",
+    "name": "Schule, Ausbildung und Studium",
+    "beschreibung": "Förderung für Auszubildende, Studierende und berufliche Aufstiegsfortbildungen; Schule folgt.",
+    "abgrenzung": [
+      "Begrüßungsgeld bei Umzug für Studium oder Ausbildung gehört zu Umzug.",
+      "Rundfunkbefreiung mit BAföG oder BAB gehört zu geringem Einkommen.",
+      "Gründungsprämien für Meister gehören zu Arbeit und Selbstständigkeit."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "ausbildung_studium",
+      "name": "Ausbildung, Studium oder Meister",
+      "typ": "ereignis",
+      "beschreibung": "Sie beginnen eine Ausbildung, ein Studium oder eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt).",
+      "einstiegsfragen": [
+        "bildung.vorhaben",
+        "alter",
+        "bildung.pruefung_bestanden",
+        "bildung.pruefung_datum"
+      ],
+      "synonyme": [
+        "Ausbildung",
+        "Azubi",
+        "Lehre",
+        "Studium",
+        "studieren",
+        "Uni",
+        "Hochschule",
+        "BAföG",
+        "Berufsausbildungsbeihilfe",
+        "BAB",
+        "Meister",
+        "Meisterschule",
+        "Techniker",
+        "Fachwirt",
+        "Aufstiegs-BAföG",
+        "Meister-BAföG",
+        "Meisterbonus",
+        "Meisterprämie",
+        "Weiterbildung"
+      ],
+      "beispiele": [
+        "Ich fange im Herbst ein Studium an, bekomme ich BAföG?",
+        "Mein Sohn beginnt eine Ausbildung und zieht aus.",
+        "Ich mache meinen Meister im Handwerk.",
+        "Gibt es Geld für die Technikerschule?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Schule (Schülerbeförderung, Lernmittel, Schüler-BAföG)",
+          "grund": "Folgt mit einer eigenen Lebenslage Schule."
+        },
+        {
+          "name": "Studienkredit, Bildungskredit und Deutschlandstipendium",
+          "grund": "Kredite und Stipendien ohne festen Anspruch; folgen."
+        },
+        {
+          "name": "Azubi- und Semestertickets",
+          "grund": "Je Land und Verkehrsverbund verschieden; folgt."
+        },
+        {
+          "name": "Meistergründungsprämien der Länder",
+          "grund": "Gehören zur Selbstständigkeit; folgen mit Arbeit."
+        },
+        {
+          "name": "Wohngeld für Auszubildende und Studierende",
+          "grund": "Nur in Sonderfällen; folgt mit geringem Einkommen."
+        },
+        {
+          "name": "Weiterbildungsförderung der Länder (z. B. Bildungsschecks)",
+          "grund": "Je Land verschieden; folgt."
+        }
+      ]
+    }
+  ]
+}

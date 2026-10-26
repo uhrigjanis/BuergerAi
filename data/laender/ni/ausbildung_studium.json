@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ni_meisterpraemie",
+      "titel": "NBank – Richtlinie Meisterprämie im Handwerk",
+      "url": "https://NBank.de/medien/nb-media/Downloads/Rechtliche-Grundlagen/Richtlinien/Richtlinie-Meisterpr%C3%A4mie-im-Handwerk.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Investitions- und Förderbank Niedersachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: 4.000 € einmalig für die Meisterprüfung im Handwerk; Hauptwohnsitz oder Beschäftigungsort seit mindestens sechs Monaten in Niedersachsen; Antrag online im NBank-Kundenportal; laut Handwerksblatt bis Ende 2026 verlängert; Antragsfrist auf der NBank-Seite (nicht erfasst)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nbank_meister",
+      "name": "NBank (Kundenportal)",
+      "url": "https://www.nbank.de",
+      "beschreibung": "Antrag online."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_ni",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "nbank_meister",
+      "quellen": [
+        "ni_meisterpraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "fakt": "bildung.handwerk",
+            "op": "==",
+            "wert": true,
+            "text": "Es ist eine Meisterprüfung im Handwerk (Handwerkskammer)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "Heißt hier: Meisterprämie im Handwerk.",
+        "4.000 € einmalig.",
+        "Hauptwohnsitz oder Arbeitsort seit mindestens sechs Monaten in Niedersachsen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_meisterpraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterprämie im Handwerk."
+    }
+  ]
+}

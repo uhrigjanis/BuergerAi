@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_nur_gruendungspraemie",
+      "titel": "Leistungsbeschreibung Meistergründungsprämie (FIM, Schleswig-Holstein)",
+      "url": "https://fimportal.de/api/v0/xzufi-services/L100012/303917127/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Schleswig-Holstein zahlt eine Meistergründungsprämie (bis 7.500 € plus 2.500 € je Arbeitsplatz), aber keinen Bonus für die bestandene Prüfung (Deutsche Handwerks Zeitung, Januar 2026); der Weiterbildungsbonus SH fördert Seminarkosten, keine Prämie."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_nur_gruendungspraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Websuche am 26.10.2026: kein Meisterbonus für die bestandene Prüfung; nur Meistergründungsprämie (nicht erfasst)."
+    }
+  ]
+}

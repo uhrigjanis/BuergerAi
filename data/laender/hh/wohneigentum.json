@@ -1,0 +1,150 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ifb_eigenheim_neubau",
+      "titel": "IFB Hamburg – Förderrichtlinie IFB-Eigenheimdarlehen Neubau (ab 1.1.2026)",
+      "url": "https://www.ifbhh.de/resource/blob/1922/74124d13d9c51e244c51b1baf039c101/foerderrichtlinie-ifb-eigenheimdarlehen-neubau-data.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Hamburgische Investitions- und Förderbank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Bau oder Ersterwerb (bis zwei Jahre nach Fertigstellung) selbst genutzter Eigenheime; Einkommensgrenze (zu versteuerndes Einkommen Vorjahr) 75.000 € (eine Person), 100.000 € (zwei), plus 20.000 € je Kind unter 18; befristet bis 31.12.2026. Für Gebrauchtimmobilien mit Sanierung ein eigenes Darlehen (mindestens ein minderjähriges Kind)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ifb_hamburg",
+      "name": "IFB Hamburg",
+      "url": "https://www.ifbhh.de",
+      "beschreibung": "Hamburgische Investitions- und Förderbank."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_hh",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_hh",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "ifb_hamburg",
+      "quellen": [
+        "ifb_eigenheim_neubau"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "in",
+                "wert": [
+                  "bauen",
+                  "kauf_neubau"
+                ],
+                "text": "Sie bauen neu oder kaufen einen Neubau"
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.vorhaben",
+                    "op": "==",
+                    "wert": "kauf_bestand",
+                    "text": "Sie kaufen eine gebrauchte (bestehende) Immobilie"
+                  },
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": ">=",
+                    "wert": 1,
+                    "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+                  }
+                ]
+              }
+            ],
+            "text": "Neubau bzw. Ersterwerb, oder Gebrauchtimmobilie mit Kind (eigenes Darlehen)"
+          },
+          {
+            "pruefung_noetig": "Einkommensgrenze: 75.000 € (eine Person) bzw. 100.000 € (zwei Personen), plus 20.000 € je Kind – zu versteuerndes Einkommen des Vorjahres.",
+            "quellen": [
+              "ifb_eigenheim_neubau"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der IFB Hamburg beraten lassen und vor dem Vertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: IFB-Eigenheimdarlehen.",
+        "Die Neubau-Richtlinie gilt bis 31. Dezember 2026."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ifb_eigenheim_neubau"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: IFB-Eigenheimdarlehen (Neubau und Gebrauchtimmobilie)."
+    }
+  ]
+}

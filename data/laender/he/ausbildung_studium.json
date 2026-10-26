@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "he_aufstiegspraemie",
+      "titel": "Hessisches Wirtschaftsministerium – Merkblatt kostenfreie Meisterausbildung und Aufstiegsprämie",
+      "url": "https://wirtschaft.hessen.de/sites/wirtschaft.hessen.de/files/2024-07/2024-06-13_merkblatt_kostenfreie_meisterausbildung_hessen.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Merkblatt, IHK Hanau, HWK Rhein-Main Antrag 4/2026): 3.500 € je Person und Abschluss auf DQR-Niveau 6 oder 7; Prüfung vor einer Kammer in Hessen; Hauptwohnsitz oder Beschäftigungsort in Hessen; Antrag innerhalb von drei Monaten nach dem Prüfungsergebnis (ein Ratgeber nennt zwölf Monate); Umsetzung über Begleitstellen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "he_begleitstelle",
+      "name": "Begleitstelle Aufstiegsprämie (über Ihre Kammer in Hessen)",
+      "url": "https://wirtschaft.hessen.de",
+      "beschreibung": "Die vom Land benannten Begleitstellen; Formulare bei IHK und Handwerkskammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_he",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "he_begleitstelle",
+      "quellen": [
+        "he_aufstiegspraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "he_aufstiegspraemie"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von drei Monaten nach dem Prüfungsergebnis beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "he_aufstiegspraemie"
+            ],
+            "tage": 90
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Aufstiegsprämie.",
+        "3.500 € einmalig.",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_aufstiegspraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Hessische Aufstiegsprämie."
+    }
+  ]
+}

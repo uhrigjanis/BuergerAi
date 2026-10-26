@@ -1,0 +1,79 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "be_keine_eigentumsfoerderung",
+      "titel": "Bund der Steuerzahler Berlin – Grunderwerbsteuer (Forderung nach Entlastung)",
+      "url": "https://steuerzahler.de/aktuelles/detail/grunderwerbsteuer-2/",
+      "typ": "sekundaer",
+      "herausgeber": "Bund der Steuerzahler",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026 nach Landesförderung für selbst genutztes Wohneigentum in Berlin: kein Landesprogramm gefunden; Entlastungen bei der Grunderwerbsteuer nur gefordert; IBB-Programme betreffen Modernisierung und Gemeinschaftseigentum."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_be",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "be_keine_eigentumsfoerderung"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Websuche am 26.10.2026: keine Landesförderung für den Erwerb selbst genutzten Wohneigentums gefunden."
+    }
+  ]
+}

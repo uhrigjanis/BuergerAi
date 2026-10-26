@@ -1,0 +1,31 @@
+{
+  "name": "Wohneigentum: Wohnungskauf in Berlin, Einkommen unbekannt",
+  "beschreibung": "Ohne Angabe zum Einkommen bleibt Jung kauft Alt unklar; Berlin hat keine Landesförderung (belegt), Grunderwerbsteuer 6,0 %.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "wohneigentum"
+  ],
+  "anforderungen": [
+    "ANF-WOH-05",
+    "ANF-WOH-06"
+  ],
+  "fakten": {
+    "wohnen.vorhaben": "kauf_bestand",
+    "wohnen.selbst_genutzt": "ja",
+    "wohnen.vertrag_unterschrieben": "nein",
+    "wohnen.schon_eigentum": "nein",
+    "wohnen.kinder_minderjaehrig": 1,
+    "wohnen.einkommen_zve": "unbekannt",
+    "wohnen.energieklasse_fgh": "ja",
+    "wohnen.heizung_tauschen": "nein",
+    "wohnen.daemmen_fenster": "nein",
+    "wohnen.ort_immobilie": "10115"
+  },
+  "erwartet": {
+    "kfw_jung_kauft_alt": "unklar",
+    "grunderwerbsteuer": "ja"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

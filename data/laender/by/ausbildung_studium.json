@@ -1,0 +1,87 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "by_meisterbonus",
+      "titel": "Richtlinien zur Vergabe des Meisterbonus und des Meisterpreises der Bayerischen Staatsregierung",
+      "url": "https://www.gesetze-bayern.de/Content/Document/BayVwV274719/True",
+      "typ": "gesetz",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: 3.000 € für Prüfungen mit Ergebnis nach dem 31.12.2022; Hauptwohnsitz oder Beschäftigungsort in Bayern bei Anmeldung oder Ergebnis; Prüfung vor einer zuständigen Stelle in Bayern; Ergebnis höchstens zwei Jahre zurück; freiwillige Leistung; Richtlinie gilt bis 31.12.2027."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "kammer_by",
+      "name": "Ihre Kammer (Handwerkskammer, IHK oder andere zuständige Stelle) in Bayern",
+      "beschreibung": "Die Stelle, bei der Sie die Prüfung abgelegt haben."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_by",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "09",
+      "zustaendigkeit_id": "kammer_by",
+      "quellen": [
+        "by_meisterbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "by_meisterbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Prüfungsergebnis darf höchstens zwei Jahre zurückliegen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "by_meisterbonus"
+            ],
+            "tage": 730
+          }
+        ]
+      },
+      "hinweise": [
+        "3.000 € einmalig.",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "by_meisterbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterbonus der Bayerischen Staatsregierung."
+    }
+  ]
+}

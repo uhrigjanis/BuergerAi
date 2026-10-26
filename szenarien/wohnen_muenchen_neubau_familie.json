@@ -1,0 +1,33 @@
+{
+  "name": "Wohneigentum: Familie baut in Bayern (Freising)",
+  "beschreibung": "Außerhalb Hessens kein Hessengeld (nur in anderen Ländern); Bayerisches Zinsverbilligungsprogramm und KfW-Neubauförderung unklar bis zur Prüfung.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "wohneigentum"
+  ],
+  "anforderungen": [
+    "ANF-WOH-02",
+    "ANF-WOH-03"
+  ],
+  "fakten": {
+    "wohnen.vorhaben": "bauen",
+    "wohnen.ort_immobilie": "85354",
+    "wohnen.selbst_genutzt": "ja",
+    "wohnen.vertrag_unterschrieben": "nein",
+    "wohnen.schon_eigentum": "nein",
+    "wohnen.kinder_minderjaehrig": 1,
+    "wohnen.einkommen_zve": 70000
+  },
+  "erwartet": {
+    "kfw_wohneigentum_familien": "unklar",
+    "kfw_klimafreundlicher_neubau": "unklar",
+    "landesfoerderung_wohneigentum": "unklar",
+    "grunderwerbsteuer": "unklar",
+    "kfw_jung_kauft_alt": "nein"
+  },
+  "erwartet_stellen": {
+    "landesfoerderung_wohneigentum": "BayernLabo"
+  },
+  "erwartet_fehlend": []
+}

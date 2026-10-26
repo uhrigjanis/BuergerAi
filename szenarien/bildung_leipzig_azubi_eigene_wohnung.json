@@ -1,0 +1,28 @@
+{
+  "name": "Bildung: Azubi (19) in Leipzig mit eigener Wohnung",
+  "beschreibung": "BAB unklar bis zur Einkommensrechnung der Arbeitsagentur; Kindergeld läuft weiter.",
+  "plz": "04109",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ausbildung_studium"
+  ],
+  "anforderungen": [
+    "ANF-BIL-02",
+    "ANF-BIL-03"
+  ],
+  "fakten": {
+    "bildung.vorhaben": "betriebliche_ausbildung",
+    "alter": 19,
+    "bildung.wohnt_bei_eltern": "nein"
+  },
+  "erwartet": {
+    "berufsausbildungsbeihilfe": "unklar",
+    "kindergeld_ausbildung": "ja",
+    "bafoeg_studium": "nein"
+  },
+  "erwartet_stellen": {
+    "berufsausbildungsbeihilfe": "Agentur für Arbeit – Kreisfreie Stadt Leipzig",
+    "kindergeld_ausbildung": "Familienkasse"
+  },
+  "erwartet_fehlend": []
+}

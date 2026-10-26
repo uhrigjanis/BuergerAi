@@ -1,0 +1,412 @@
+{
+  "_hinweis": "Fachmodul Bildung: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Meisterboni der Länder unter data/laender/*/ausbildung_studium.json.",
+  "quellen": [
+    {
+      "id": "bmftr_bafoeg",
+      "titel": "BMFTR – BAföG",
+      "url": "https://www.bmftr.bund.de/DE/Forschung/AkademischeLaufbahn/Studium/Finanzierung/Bafoeg/bafoeg_node.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Forschung, Technologie und Raumfahrt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (BMFTR, Deutsches Studierendenwerk, bafög.de): seit Wintersemester 2024/25 Grundbedarf 475 €, Wohnpauschale 380 € (bei den Eltern 59 €), Zuschläge für Kranken- und Pflegeversicherung; Altersgrenze 45 Jahre bei Beginn; geplante Erhöhungen (Wohnpauschale 440 € ab 1.4.2027, Grundbedarf 503 € zum Wintersemester 2027/28) sind Regierungsentwurf, nicht in Kraft. Höchstsatz 992 € mit Versicherungszuschlägen laut Ratgebern."
+    },
+    {
+      "id": "dsw_bafoeg_saetze",
+      "titel": "Deutsches Studierendenwerk – BAföG-Bedarfssätze für Studierende",
+      "url": "https://www.studierendenwerke.de/fileadmin/user_upload/BAfoeG_Bedarfssaetze.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Deutsches Studierendenwerk",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Bedarfssätze nach der 29. BAföG-Novelle; Antrag beim Amt für Ausbildungsförderung (an Hochschulen beim Studierendenwerk)."
+    },
+    {
+      "id": "ba_bab_2026",
+      "titel": "Agentur für Arbeit – Berufsausbildungsbeihilfe (BAB) beantragen (Presseinfo 2026)",
+      "url": "https://www.arbeitsagentur.de/vor-ort/annaberg-buchholz/presse/2026-36-unterstutzung-wahrend-der-ausbildung-berufsausbildungsbeihilfe-bab-beantragen",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Arbeitsagentur, FIM-Leistungsbeschreibung, IHK Karlsruhe): betriebliche oder außerbetriebliche Ausbildung (schulische nicht – dafür BAföG); Wohnen außerhalb des Elternhaushalts, wenn der Betrieb von dort nicht in angemessener Zeit erreichbar ist; ohne diese Bedingung bei Volljährigen, Verheirateten, mit Kind oder aus schwerwiegenden sozialen Gründen; Einkommen von Azubi, Eltern und ggf. Partner zählt; Zuschuss; frühestens ab dem Antragsmonat; Antrag bei der Agentur für Arbeit am Wohnort. Höchstsatz 2026 laut Ratgeber 822 € (nicht amtlich bestätigt)."
+    },
+    {
+      "id": "ba_kindergeld_2026",
+      "titel": "Bundesagentur für Arbeit – Kindergelderhöhung 2026 (Presseinfo)",
+      "url": "https://www.arbeitsagentur.de/vor-ort/datei/2025-42-kindergelderhoehung_ba258916.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit (Familienkasse)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: 259 € je Kind und Monat ab Januar 2026; ab 18 Jahren mit Nachweis über Schule, Ausbildung oder Studium weiter bis zum 25. Geburtstag; zuständig die Familienkasse."
+    },
+    {
+      "id": "aufstiegs_bafoeg_drv",
+      "titel": "Mit Aufstiegs-BAföG beruflich vorankommen (Portal ihre-vorsorge.de)",
+      "url": "https://www.ihre-vorsorge.de/soziales/nachrichten/mit-aufstiegs-bafoeg-beruflich-vorankommen",
+      "typ": "sekundaer",
+      "herausgeber": "Deutsche Rentenversicherung (ihre-vorsorge.de)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle unter Berufung auf das Bundesbildungsministerium: Lehrgangs- und Prüfungsgebühren bis 15.000 €, davon 50 % Zuschuss, Rest als KfW-Darlehen; bei bestandener Prüfung 50 % Erlass des Restdarlehens; Unterhaltsbeitrag nur bei Vollzeit, einkommensabhängig; nicht rückwirkend. Eine Reform (18.000 €, 60 % Erlass) hat das Kabinett am 15.7.2026 beschlossen, sie ist laut DATEV-Bericht noch nicht verabschiedet."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bafoeg_amt",
+      "name": "Amt für Ausbildungsförderung (Studierendenwerk Ihrer Hochschule)",
+      "beschreibung": "Für Studierende ist meist das Studierendenwerk der Hochschule zuständig; Antrag auch online über BAföG Digital."
+    },
+    {
+      "id": "arbeitsagentur",
+      "name": "Agentur für Arbeit – {kreis}",
+      "beschreibung": "Die Agentur für Arbeit an Ihrem Wohnort; Antrag auch online."
+    },
+    {
+      "id": "aufstiegs_bafoeg_stelle",
+      "name": "Amt für Aufstiegs-BAföG Ihres Landes (bzw. Ihrer Stadt oder Ihres Kreises)",
+      "url": "https://www.aufstiegs-bafoeg.de",
+      "beschreibung": "Zuständige Stellen und Anträge unter aufstiegs-bafoeg.de."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "bafoeg_studium",
+      "name": "BAföG für Studierende",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Monatliche Förderung im Studium, zur Hälfte Zuschuss und zur Hälfte zinsloses Darlehen. Die Höhe hängt vom Einkommen der Eltern ab.",
+      "betraege": [
+        {
+          "text": "Grundbedarf 475 € plus Wohnpauschale 380 € (bei den Eltern 59 €) im Monat, dazu Zuschläge für Kranken- und Pflegeversicherung",
+          "gueltig_ab": "2024-08-01",
+          "gueltig_bis": "2027-03-31",
+          "quellen": [
+            "bmftr_bafoeg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "berufsausbildungsbeihilfe",
+      "name": "Berufsausbildungsbeihilfe (BAB)",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Zuschuss der Arbeitsagentur für Auszubildende, die nicht bei den Eltern wohnen und deren Geld nicht reicht."
+    },
+    {
+      "id": "kindergeld_ausbildung",
+      "name": "Kindergeld während Ausbildung oder Studium",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "angehoerige",
+      "kurz": "Ihre Eltern bekommen für Sie weiter Kindergeld bis zum 25. Geburtstag, wenn Sie in Ausbildung oder Studium sind – mit Nachweis.",
+      "betraege": [
+        {
+          "text": "259 € im Monat",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "ba_kindergeld_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aufstiegs_bafoeg",
+      "name": "Aufstiegs-BAföG",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Förderung für Meister, Techniker, Fachwirte und ähnliche Fortbildungen: Zuschuss und günstiges Darlehen für Lehrgang und Prüfung, bei Vollzeit auch für den Lebensunterhalt."
+    },
+    {
+      "id": "meisterbonus",
+      "name": "Meisterbonus bzw. Aufstiegsprämie des Landes",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "kurz": "Viele Länder zahlen nach bestandener Meister- oder Fortbildungsprüfung eine einmalige Prämie. Maßgeblich ist meist Wohnsitz oder Arbeitsort – geprüft wird hier Ihr Wohnort."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "bafoeg_studium_bund",
+      "leistung_id": "bafoeg_studium",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "bafoeg_amt",
+      "quellen": [
+        "bmftr_bafoeg",
+        "dsw_bafoeg_saetze"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "studium",
+            "text": "Sie studieren"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "alter",
+                "op": "<",
+                "wert": 45,
+                "text": "Jünger als 45 Jahre",
+                "quellen": [
+                  "bmftr_bafoeg"
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "alter",
+                    "op": ">=",
+                    "wert": 45,
+                    "text": "45 Jahre oder älter"
+                  },
+                  {
+                    "pruefung_noetig": "Ab 45 Jahren nur in Ausnahmefällen (z. B. wegen Kindererziehung).",
+                    "quellen": [
+                      "bmftr_bafoeg"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "pruefung_noetig": "Ob und wie viel BAföG Sie bekommen, hängt vom Einkommen Ihrer Eltern (bzw. Ihres Partners) und Ihrem eigenen Einkommen und Vermögen ab.",
+            "quellen": [
+              "bmftr_bafoeg"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Immatrikulationsbescheinigung",
+          "Einkommensnachweise der Eltern (Steuerbescheid vom vorletzten Jahr)",
+          "Mietvertrag, wenn Sie nicht bei den Eltern wohnen"
+        ],
+        "schritte": [
+          "BAföG online über BAföG Digital oder beim Studierendenwerk beantragen – am besten vor Studienbeginn.",
+          "Fehlende Unterlagen nachreichen; der Antrag gilt ab dem Monat, in dem er gestellt wurde."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens im ersten Monat des Studiums beantragen – rückwirkend gibt es kein BAföG",
+            "bezug": "keiner",
+            "quellen": [
+              "bmftr_bafoeg"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Die Hälfte ist ein zinsloses Staatsdarlehen, die Rückzahlung ist gedeckelt.",
+        "Geplante Erhöhungen ab 2027 sind noch nicht beschlossen."
+      ]
+    },
+    {
+      "id": "berufsausbildungsbeihilfe_bund",
+      "leistung_id": "berufsausbildungsbeihilfe",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "ba_bab_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "betriebliche_ausbildung",
+            "text": "Sie machen eine betriebliche Ausbildung"
+          },
+          {
+            "nicht": {
+              "fakt": "bildung.wohnt_bei_eltern",
+              "op": "==",
+              "wert": true,
+              "text": "Sie wohnen bei Ihren Eltern"
+            },
+            "text": "Sie wohnen nicht bei Ihren Eltern"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "bildung.betrieb_weit_von_eltern",
+                "op": "==",
+                "wert": true,
+                "text": "Der Ausbildungsbetrieb ist von der Wohnung der Eltern aus nicht in angemessener Zeit erreichbar",
+                "quellen": [
+                  "ba_bab_2026"
+                ]
+              },
+              {
+                "fakt": "alter",
+                "op": ">=",
+                "wert": 18,
+                "text": "Sie sind mindestens 18 Jahre alt",
+                "quellen": [
+                  "ba_bab_2026"
+                ]
+              },
+              {
+                "pruefung_noetig": "Auch möglich, wenn Sie verheiratet sind (oder waren), mit einem Kind zusammenleben oder aus schwerwiegenden sozialen Gründen nicht bei den Eltern wohnen können.",
+                "quellen": [
+                  "ba_bab_2026"
+                ]
+              }
+            ],
+            "text": "Eigene Wohnung ist anerkannt"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen (und das Ihrer Eltern) den Bedarf nicht deckt, rechnet die Arbeitsagentur aus (BAB-Rechner).",
+            "quellen": [
+              "ba_bab_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Ausbildungsvertrag",
+          "Mietvertrag",
+          "Einkommensnachweise der Eltern"
+        ],
+        "schritte": [
+          "BAB online oder bei der Agentur für Arbeit beantragen – sobald der Ausbildungsvertrag unterschrieben ist."
+        ],
+        "fristen": [
+          {
+            "text": "Frühestens ab dem Monat des Antrags – also rechtzeitig beantragen",
+            "bezug": "keiner",
+            "quellen": [
+              "ba_bab_2026"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "BAB ist ein Zuschuss und muss nicht zurückgezahlt werden.",
+        "Für schulische Ausbildungen gibt es keine BAB, sondern unter Umständen BAföG."
+      ]
+    },
+    {
+      "id": "kindergeld_ausbildung_bund",
+      "leistung_id": "kindergeld_ausbildung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "familienkasse",
+      "quellen": [
+        "ba_kindergeld_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "in",
+            "wert": [
+              "betriebliche_ausbildung",
+              "schulische_ausbildung",
+              "studium"
+            ],
+            "text": "Sie machen eine Ausbildung oder studieren"
+          },
+          {
+            "fakt": "alter",
+            "op": "<",
+            "wert": 25,
+            "text": "Jünger als 25 Jahre",
+            "quellen": [
+              "ba_kindergeld_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Ausbildungsvertrag bzw. Immatrikulationsbescheinigung"
+        ],
+        "schritte": [
+          "Ihre Eltern reichen den Nachweis über Ausbildung oder Studium bei der Familienkasse ein (spätestens, wenn Sie 18 werden).",
+          "Ende oder Abbruch der Ausbildung der Familienkasse mitteilen."
+        ]
+      },
+      "hinweise": [
+        "Das Kindergeld bekommen grundsätzlich die Eltern; es kann in bestimmten Fällen an Sie abgezweigt werden."
+      ]
+    },
+    {
+      "id": "aufstiegs_bafoeg_bund",
+      "leistung_id": "aufstiegs_bafoeg",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "aufstiegs_bafoeg_stelle",
+      "quellen": [
+        "aufstiegs_bafoeg_drv"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden anerkannte Fortbildungen mit Mindestumfang; ob Ihr Lehrgang dazu gehört, sagt der Anbieter bzw. das Amt.",
+            "quellen": [
+              "aufstiegs_bafoeg_drv"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Aufstiegs-BAföG beim zuständigen Amt beantragen, am besten vor Lehrgangsbeginn.",
+          "Nach bestandener Prüfung den Erlass eines Teils des Darlehens beantragen."
+        ],
+        "fristen": [
+          {
+            "text": "Vor oder zu Beginn des Lehrgangs beantragen – Leistungen für den Lebensunterhalt gibt es nicht rückwirkend",
+            "bezug": "keiner",
+            "quellen": [
+              "aufstiegs_bafoeg_drv"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Lehrgangs- und Prüfungsgebühren bis 15.000 €: 50 % Zuschuss, der Rest als günstiges Darlehen; bei bestandener Prüfung werden 50 % des Restdarlehens erlassen.",
+        "Eine Reform mit höheren Beträgen ist im Gesetzgebungsverfahren (Stand Juli 2026)."
+      ]
+    }
+  ]
+}

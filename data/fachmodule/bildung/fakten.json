@@ -1,0 +1,67 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Bildung.",
+  "fakten": [
+    {
+      "id": "bildung.vorhaben",
+      "typ": "auswahl",
+      "frage": "Was beginnen bzw. machen Sie?",
+      "optionen": [
+        {
+          "wert": "betriebliche_ausbildung",
+          "text": "eine Ausbildung in einem Betrieb (duale Ausbildung)"
+        },
+        {
+          "wert": "schulische_ausbildung",
+          "text": "eine schulische Ausbildung (z. B. Berufsfachschule)"
+        },
+        {
+          "wert": "studium",
+          "text": "ein Studium"
+        },
+        {
+          "wert": "aufstieg",
+          "text": "eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+        }
+      ]
+    },
+    {
+      "id": "bildung.wohnt_bei_eltern",
+      "typ": "ja_nein",
+      "frage": "Wohnen Sie während der Ausbildung bzw. des Studiums bei Ihren Eltern?"
+    },
+    {
+      "id": "bildung.betrieb_weit_von_eltern",
+      "typ": "ja_nein",
+      "frage": "Wäre der Ausbildungsbetrieb von der Wohnung Ihrer Eltern aus nur mit sehr langem Weg erreichbar?",
+      "hilfe": "Die Arbeitsagentur prüft, ob der Weg in angemessener Zeit möglich ist."
+    },
+    {
+      "id": "bildung.pruefung_bestanden",
+      "typ": "ja_nein",
+      "frage": "Haben Sie die Meister- bzw. Fortbildungsprüfung schon bestanden?",
+      "nur_wenn": {
+        "fakt": "bildung.vorhaben",
+        "wert": "aufstieg"
+      }
+    },
+    {
+      "id": "bildung.pruefung_datum",
+      "typ": "datum",
+      "frage": "Wann wurde das Prüfungsergebnis festgestellt? (TT.MM.JJJJ)",
+      "hilfe": "Das Datum steht auf dem Prüfungszeugnis. Davon hängen die Antragsfristen für Prämien ab.",
+      "nur_wenn": {
+        "fakt": "bildung.pruefung_bestanden",
+        "wert": true
+      }
+    },
+    {
+      "id": "bildung.handwerk",
+      "typ": "ja_nein",
+      "frage": "Ist es eine Meisterprüfung im Handwerk (bei der Handwerkskammer)?",
+      "nur_wenn": {
+        "fakt": "bildung.vorhaben",
+        "wert": "aufstieg"
+      }
+    }
+  ]
+}

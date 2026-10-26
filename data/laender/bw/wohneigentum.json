@@ -1,0 +1,135 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "lbank_z15",
+      "titel": "L-Bank – Z15 Zinsverbilligtes Darlehen (Merkblatt 01/2025)",
+      "url": "https://l-bank.de/download/gueltig/4f76711c-f809-4ecc-8dfa-4eaab8511b5b/20250205_z15_01-01-2025.pdf",
+      "typ": "behoerde",
+      "herausgeber": "L-Bank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (L-Bank, Stadt Heilbronn 12/2025, Ministerium 3/2026): Kern der Eigentumsfinanzierung BW; mindestens ein minderjähriges Kind; Einkommensgrenze; noch kein angemessenes Wohneigentum; mindestens 15 % Eigenkapital; Darlehen je nach Familiengröße (z. B. bis 333.000 € für vier Personen beim Neubau, Stand 1/2025); kein Rechtsanspruch. Einkommenstabelle 2026 nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lbank",
+      "name": "L-Bank (über Ihre Bank bzw. die Wohnraumförderungsstelle)",
+      "url": "https://www.l-bank.de",
+      "beschreibung": "Beratung auch bei der Wohnraumförderungsstelle des Landratsamts bzw. Bürgermeisteramts."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_bw",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_bw",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "lbank",
+      "quellen": [
+        "lbank_z15"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.kinder_minderjaehrig",
+            "op": ">=",
+            "wert": 1,
+            "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.schon_eigentum",
+              "op": "==",
+              "wert": true,
+              "text": "Sie besitzen schon Wohneigentum"
+            },
+            "text": "Sie besitzen noch kein Wohneigentum"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen unter der Grenze der L-Bank liegt und mindestens 15 % Eigenkapital vorhanden sind, prüft die Bank.",
+            "quellen": [
+              "lbank_z15"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Über Ihre Bank oder die örtliche Wohnraumförderungsstelle beraten lassen und das Darlehen vor dem Kauf- bzw. Bauvertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Z15 Zinsverbilligtes Darlehen (Eigentumsfinanzierung BW).",
+        "Für Familien über der Einkommensgrenze gibt es andere L-Bank-Programme (z. B. Familienzuwachsdarlehen)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "lbank_z15"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Z15-Darlehen der L-Bank."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_nur_gruendungspraemie",
+      "titel": "Förderdatenbank – Meistergründungsprämie Brandenburg",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Brandenburg/meistergruendungspraemie-brandenburg.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Brandenburg zahlt eine Meistergründungsprämie (Gründung, Übernahme), aber keinen Bonus für die bestandene Prüfung (Deutsche Handwerks Zeitung, Stand Januar 2026)."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_nur_gruendungspraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Websuche am 26.10.2026: kein Meisterbonus für die bestandene Prüfung; nur Meistergründungsprämie (nicht erfasst)."
+    }
+  ]
+}

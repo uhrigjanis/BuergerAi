@@ -1,0 +1,818 @@
+{
+  "_hinweis": "Fachmodul Wohnen: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen der Lebenslage Wohneigentum. Grunderwerbsteuersätze und Landesförderung unter data/laender/*/wohneigentum.json.",
+  "quellen": [
+    {
+      "id": "kfw_300",
+      "titel": "KfW – Wohneigentum für Familien – Neubau (300)",
+      "url": "https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/F%C3%B6rderprodukte/Wohneigentum-f%C3%BCr-Familien-(300)/",
+      "typ": "behoerde",
+      "herausgeber": "KfW Bankengruppe",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Produktseite, Merkblatt Stand 12/2025): Familien und Alleinerziehende mit mindestens einem Kind unter 18; zu versteuerndes Haushaltseinkommen höchstens 90.000 € bei einem Kind plus 10.000 € je weiterem Kind; Kredit 170.000–270.000 € je nach Kinderzahl und Förderstufe; Neubau bzw. Ersterwerb eines klimafreundlichen Wohngebäudes; ausgeschlossen u. a., wer schon Wohneigentum in Deutschland hat; Antrag vor Vorhabenbeginn über die Hausbank; kein Rechtsanspruch."
+    },
+    {
+      "id": "kfw_308",
+      "titel": "KfW – Jung kauft Alt (Wohneigentum für Familien – Bestandserwerb, 308)",
+      "url": "https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Wohneigentum-f%C3%BCr-Familien-Bestandserwerb-(308)/",
+      "typ": "behoerde",
+      "herausgeber": "KfW Bankengruppe",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Produktseite, Merkblatt Stand 08/2026, Pressemitteilung 30.07.2026): Familien mit mindestens einem Kind unter 18; Einkommensgrenze wie bei 300; Energieausweis Klasse F, G oder H; Sanierung innerhalb von 54 Monaten auf Effizienzhaus 85 EE (seit 3.8.2026 auch Einzelmaßnahmen); Kredit seit 3.8.2026 140.000/160.000/180.000 € (1/2/ab 3 Kinder); mindestens 50 % Eigentumsanteil und fünf Jahre Selbstnutzung; Antrag vor Unterzeichnung des Kaufvertrags (Produktinfo 2024)."
+    },
+    {
+      "id": "kfw_124",
+      "titel": "KfW – Wohneigentumsprogramm (124)",
+      "url": "https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/F%C3%B6rderprodukte/Wohneigentumsprogramm-(124)/",
+      "typ": "behoerde",
+      "herausgeber": "KfW Bankengruppe",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Kredit bis 100.000 € für Kauf oder Bau selbst genutzter Häuser und Wohnungen, auch Nebenkosten; keine Einkommensgrenze; Antrag über die Bank vor Vorhabensbeginn; Absicherung im Grundbuch; Zinsen tagesaktuell (Ratgeber 2026: rund 4 % effektiv)."
+    },
+    {
+      "id": "kfw_297",
+      "titel": "KfW – Klimafreundlicher Neubau Wohngebäude (297/298)",
+      "url": "https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/F%C3%B6rderprodukte/Klimafreundlicher-Neubau-Wohngeb%C3%A4ude-(297-298)/",
+      "typ": "behoerde",
+      "herausgeber": "KfW Bankengruppe",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Bayerische Förderfibel, KfW-Information für Multiplikatoren 22.06.2026): Richtlinie gilt bis 31.12.2030; befristete Förderstufe Effizienzhaus 55 bis 31.12.2026 verlängert; keine fossilen Heizungen; nicht mit 296 kombinierbar; Mittel unter Haushaltsvorbehalt."
+    },
+    {
+      "id": "heizung_2026_juli",
+      "titel": "Heizungsförderung seit 21.7.2026 (Bericht test.de)",
+      "url": "https://www.test.de/Foerderung-fuer-Hausbau-Hauskauf-Heizung-und-Sanierung-5561989-5711047/",
+      "typ": "sekundaer",
+      "herausgeber": "Stiftung Warentest",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquellen (test.de, utopia.de): KfW-Zuschuss Heizungstausch (458) für selbst genutzte Bestandsgebäude: Grundförderung 30 %, Einkommensbonus nach zu versteuerndem Haushaltseinkommen (bis 30.000 € 40 %, bis 40.000 € 30 %, bis 50.000 € 10 %; mit Kindern Grenze +10.000 €), Klimageschwindigkeitsbonus 16 % bis 1.2.2027; förderfähige Kosten bis 28.000 € für die erste Wohneinheit; höchstens 70 % bzw. 80 % (Angaben uneinheitlich). Amtliche KfW-Seite nicht über die Suche gelesen."
+    },
+    {
+      "id": "bafa_em_2026",
+      "titel": "BAFA-Förderung Einzelmaßnahmen 2026 (Bausparkasse Schwäbisch Hall)",
+      "url": "https://www.schwaebisch-hall.de/foerderungen/bafa-foerderung.html",
+      "typ": "sekundaer",
+      "herausgeber": "Bausparkasse Schwäbisch Hall",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Gebäudehülle (Dämmung, Fenster) 15 % Zuschuss, mit individuellem Sanierungsfahrplan (iSFP) 20 % – seit 21.7.2026 erst ab 30.000 € Investition; förderfähige Kosten bis 30.000 € (mit iSFP 60.000 €) je Wohneinheit und Jahr; Antrag vor Auftragsvergabe. Primärquelle des BAFA nicht gefunden."
+    },
+    {
+      "id": "grest_saetze",
+      "titel": "Grunderwerbsteuer: Steuersätze der Länder 2026 (Übersicht)",
+      "url": "https://www.finanz-tools.de/grunderwerbsteuer/bundeslaender-tabelle",
+      "typ": "sekundaer",
+      "herausgeber": "finanz-tools.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle, abgeglichen mit weiteren Übersichten (mehrwertsteuerrechner.de, rechner-hub.de): 3,5 % (Bayern) bis 6,5 % (Brandenburg, NRW, Saarland, Schleswig-Holstein); Bremen 5,5 % seit 1.7.2025; Thüringen 5,0 % seit 1.1.2024 (eine Übersicht nennt 6,5 %, Bericht der Volksstimme vom Juli 2026 bestätigt 5,0 %). Amtliche Landesgesetze nicht gelesen."
+    },
+    {
+      "id": "grestg",
+      "titel": "Grunderwerbsteuergesetz (GrEStG)",
+      "url": "https://www.gesetze-im-internet.de/grestg_1983/",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; Grundsätze nach Kenntnis des Gesetzes, nicht über die Suche bestätigt: Steuer auf den Kauf eines Grundstücks (auch mit Haus); Notar zeigt den Vertrag dem Finanzamt an; den Steuersatz bestimmen die Länder."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hausbank",
+      "name": "Ihre Bank bzw. Ihr Finanzierungspartner (Antrag für die KfW)",
+      "beschreibung": "KfW-Kredite werden nicht direkt bei der KfW, sondern über eine Bank oder einen Finanzierungsvermittler beantragt."
+    },
+    {
+      "id": "kfw_zuschussportal",
+      "name": "KfW – Kundenportal „Meine KfW“",
+      "url": "https://www.kfw.de",
+      "beschreibung": "Zuschüsse wie die Heizungsförderung beantragen Privatpersonen selbst online bei der KfW."
+    },
+    {
+      "id": "bafa",
+      "name": "Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA)",
+      "url": "https://www.bafa.de",
+      "beschreibung": "Zuschüsse für Einzelmaßnahmen an der Gebäudehülle; Antrag online."
+    },
+    {
+      "id": "finanzamt_grest",
+      "name": "Finanzamt (Grunderwerbsteuer) für den Ort der Immobilie",
+      "beschreibung": "Das Finanzamt, in dessen Bezirk die Immobilie liegt, setzt die Grunderwerbsteuer fest."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "grunderwerbsteuer",
+      "name": "Grunderwerbsteuer zahlen",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "beantragt_von": "von_amts_wegen",
+      "ortsbezug": "wohnen.ort_immobilie",
+      "kurz": "Wer ein Grundstück, Haus oder eine Wohnung kauft, zahlt Grunderwerbsteuer. Den Steuersatz bestimmt das Land, in dem die Immobilie liegt."
+    },
+    {
+      "id": "kfw_wohneigentum_familien",
+      "name": "KfW-Kredit Wohneigentum für Familien (Neubau, 300)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Zinsgünstiger Kredit für Familien mit kleinem und mittlerem Einkommen, die klimafreundlich neu bauen oder einen Neubau erstmals kaufen."
+    },
+    {
+      "id": "kfw_jung_kauft_alt",
+      "name": "KfW-Kredit Jung kauft Alt (308)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Zinsgünstiger Kredit für Familien, die ein sanierungsbedürftiges Haus oder eine Wohnung kaufen und energetisch sanieren."
+    },
+    {
+      "id": "kfw_wohneigentumsprogramm",
+      "name": "KfW-Wohneigentumsprogramm (124)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Ergänzender Kredit bis 100.000 € für Kauf oder Bau einer selbst genutzten Immobilie – ohne Einkommensgrenze."
+    },
+    {
+      "id": "kfw_klimafreundlicher_neubau",
+      "name": "KfW-Kredit Klimafreundlicher Neubau (297)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Kredit für den Bau oder Erstkauf eines besonders energieeffizienten Neubaus ohne fossile Heizung."
+    },
+    {
+      "id": "heizungsfoerderung",
+      "name": "Zuschuss für eine neue klimafreundliche Heizung (KfW 458)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Zuschuss, wenn Sie in einem bestehenden Haus die alte Heizung z. B. durch eine Wärmepumpe ersetzen."
+    },
+    {
+      "id": "bafa_sanierung",
+      "name": "Zuschuss für Dämmung und Fenster (BAFA)",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Zuschuss für einzelne Sanierungsmaßnahmen an der Gebäudehülle, z. B. Dämmung von Dach und Fassade oder neue Fenster."
+    },
+    {
+      "id": "landesfoerderung_wohneigentum",
+      "name": "Wohneigentumsförderung des Landes",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "ortsbezug": "wohnen.ort_immobilie",
+      "kurz": "Viele Länder fördern selbst genutztes Wohneigentum mit günstigen Darlehen oder Zuschüssen, oft für Familien und mit Einkommensgrenzen."
+    },
+    {
+      "id": "hessengeld",
+      "name": "Hessengeld",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "ortsbezug": "wohnen.ort_immobilie",
+      "kurz": "Hessen erstattet beim ersten Kauf einer selbst genutzten Immobilie bis zu 10.000 € je Käufer und 5.000 € je Kind – höchstens die gezahlte Grunderwerbsteuer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_bund",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grestg",
+        "grest_saetze"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Der Steuersatz liegt je nach Land zwischen 3,5 % und 6,5 % des Kaufpreises. Ohne Ort der Immobilie ist der Satz hier nicht bekannt."
+      ]
+    },
+    {
+      "id": "kfw_wohneigentum_familien_bund",
+      "leistung_id": "kfw_wohneigentum_familien",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hausbank",
+      "quellen": [
+        "kfw_300"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "bauen",
+              "kauf_neubau"
+            ],
+            "text": "Sie bauen neu oder kaufen einen Neubau"
+          },
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.kinder_minderjaehrig",
+            "op": ">=",
+            "wert": 1,
+            "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+          },
+          {
+            "eine": [
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 1,
+                    "text": "1 Kind unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 90000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 90.000 €",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 2,
+                    "text": "2 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 100000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 100.000 €",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 3,
+                    "text": "3 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 110000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 110.000 €",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 4,
+                    "text": "4 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 120000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 120.000 €",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 5,
+                    "text": "5 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 130000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 130.000 €",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": ">",
+                    "wert": 5,
+                    "text": "Mehr als 5 Kinder unter 18"
+                  },
+                  {
+                    "pruefung_noetig": "Einkommensgrenze: 90.000 € plus 10.000 € je weiterem Kind.",
+                    "quellen": [
+                      "kfw_300"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "text": "Einkommen unter der Grenze der KfW (90.000 € bei einem Kind, plus 10.000 € je weiterem Kind)"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.schon_eigentum",
+              "op": "==",
+              "wert": true,
+              "text": "Sie besitzen schon Wohneigentum"
+            },
+            "text": "Sie besitzen noch kein Wohneigentum"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.vertrag_unterschrieben",
+              "op": "==",
+              "wert": true,
+              "text": "Kauf- bzw. Bauvertrag schon unterschrieben"
+            },
+            "text": "Kauf- bzw. Bauvertrag noch nicht unterschrieben (der Antrag muss vorher gestellt werden)"
+          },
+          {
+            "pruefung_noetig": "Das Gebäude muss als „Klimafreundliches Wohngebäude“ gelten (Effizienzhaus 40 mit Nachhaltigkeitsanforderungen) – das bestätigt ein Energieeffizienz-Experte.",
+            "quellen": [
+              "kfw_300"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Energieeffizienz-Experten einbinden.",
+          "Kredit über Ihre Bank bei der KfW beantragen – vor Abschluss von Bau- bzw. Kaufverträgen."
+        ]
+      },
+      "hinweise": [
+        "Kredithöchstbetrag 170.000 € bis 270.000 € je nach Kinderzahl und Förderstufe (laut KfW).",
+        "Kein Rechtsanspruch: Die KfW fördert im Rahmen der verfügbaren Mittel."
+      ]
+    },
+    {
+      "id": "kfw_jung_kauft_alt_bund",
+      "leistung_id": "kfw_jung_kauft_alt",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hausbank",
+      "quellen": [
+        "kfw_308"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "==",
+            "wert": "kauf_bestand",
+            "text": "Sie kaufen eine gebrauchte (bestehende) Immobilie"
+          },
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.kinder_minderjaehrig",
+            "op": ">=",
+            "wert": 1,
+            "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+          },
+          {
+            "eine": [
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 1,
+                    "text": "1 Kind unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 90000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 90.000 €",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 2,
+                    "text": "2 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 100000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 100.000 €",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 3,
+                    "text": "3 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 110000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 110.000 €",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 4,
+                    "text": "4 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 120000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 120.000 €",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": "==",
+                    "wert": 5,
+                    "text": "5 Kinder unter 18"
+                  },
+                  {
+                    "fakt": "wohnen.einkommen_zve",
+                    "op": "<=",
+                    "wert": 130000,
+                    "text": "Zu versteuerndes Haushaltseinkommen höchstens 130.000 €",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.kinder_minderjaehrig",
+                    "op": ">",
+                    "wert": 5,
+                    "text": "Mehr als 5 Kinder unter 18"
+                  },
+                  {
+                    "pruefung_noetig": "Einkommensgrenze: 90.000 € plus 10.000 € je weiterem Kind.",
+                    "quellen": [
+                      "kfw_308"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "text": "Einkommen unter der Grenze der KfW (90.000 € bei einem Kind, plus 10.000 € je weiterem Kind)"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.schon_eigentum",
+              "op": "==",
+              "wert": true,
+              "text": "Sie besitzen schon Wohneigentum"
+            },
+            "text": "Sie besitzen noch kein Wohneigentum"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.vertrag_unterschrieben",
+              "op": "==",
+              "wert": true,
+              "text": "Kauf- bzw. Bauvertrag schon unterschrieben"
+            },
+            "text": "Kauf- bzw. Bauvertrag noch nicht unterschrieben (der Antrag muss vorher gestellt werden)"
+          },
+          {
+            "fakt": "wohnen.energieklasse_fgh",
+            "op": "==",
+            "wert": true,
+            "text": "Die Immobilie hat laut Energieausweis die Klasse F, G oder H",
+            "quellen": [
+              "kfw_308"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Energieausweis der Immobilie",
+          "Einkommensteuerbescheide (zweites und drittes Jahr vor dem Antrag)"
+        ],
+        "schritte": [
+          "Kredit über Ihre Bank bei der KfW beantragen, bevor Sie den Kaufvertrag unterschreiben.",
+          "Innerhalb von 54 Monaten nach der Zusage sanieren (Effizienzhaus 85 EE oder die vorgeschriebenen Einzelmaßnahmen)."
+        ]
+      },
+      "hinweise": [
+        "Kredit bis 140.000 € (ein Kind), 160.000 € (zwei) bzw. 180.000 € (ab drei Kindern) seit 3. August 2026.",
+        "Die Sanierungskosten selbst fördert dieses Programm nicht; dafür gibt es eigene Programme (z. B. Heizungsförderung)."
+      ]
+    },
+    {
+      "id": "kfw_wohneigentumsprogramm_bund",
+      "leistung_id": "kfw_wohneigentumsprogramm",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hausbank",
+      "quellen": [
+        "kfw_124"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.vertrag_unterschrieben",
+              "op": "==",
+              "wert": true,
+              "text": "Kauf- bzw. Bauvertrag schon unterschrieben"
+            },
+            "text": "Kauf- bzw. Bauvertrag noch nicht unterschrieben (der Antrag muss vorher gestellt werden)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Kredit über Ihre Bank beantragen, bevor das Vorhaben beginnt (Kauf- bzw. Bauvertrag)."
+        ]
+      },
+      "hinweise": [
+        "Bis 100.000 € je Vorhaben; die Zinsen sind nicht immer günstiger als bei einer Bank – vergleichen lohnt sich."
+      ]
+    },
+    {
+      "id": "kfw_klimafreundlicher_neubau_bund",
+      "leistung_id": "kfw_klimafreundlicher_neubau",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hausbank",
+      "quellen": [
+        "kfw_297"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "bauen",
+              "kauf_neubau"
+            ],
+            "text": "Sie bauen neu oder kaufen einen Neubau"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.vertrag_unterschrieben",
+              "op": "==",
+              "wert": true,
+              "text": "Kauf- bzw. Bauvertrag schon unterschrieben"
+            },
+            "text": "Kauf- bzw. Bauvertrag noch nicht unterschrieben (der Antrag muss vorher gestellt werden)"
+          },
+          {
+            "pruefung_noetig": "Der Neubau muss den geforderten Effizienzhaus-Standard ohne fossile Heizung erreichen (Energieeffizienz-Experte).",
+            "quellen": [
+              "kfw_297"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Energieeffizienz-Experten einbinden.",
+          "Kredit über Ihre Bank beantragen, bevor Bau- bzw. Kaufverträge geschlossen werden."
+        ]
+      },
+      "hinweise": [
+        "Die befristete Förderstufe Effizienzhaus 55 gilt bis 31. Dezember 2026.",
+        "Nicht mit dem Programm 296 für dieselbe Wohnung kombinierbar."
+      ]
+    },
+    {
+      "id": "heizungsfoerderung_bund",
+      "leistung_id": "heizungsfoerderung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "kfw_zuschussportal",
+      "quellen": [
+        "heizung_2026_juli"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "==",
+            "wert": "kauf_bestand",
+            "text": "Sie kaufen eine gebrauchte (bestehende) Immobilie"
+          },
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.heizung_tauschen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen die Heizung durch eine klimafreundliche ersetzen (z. B. Wärmepumpe)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Angebot eines Fachbetriebs einholen; der Vertrag braucht eine Bedingung, dass er nur bei Förderzusage gilt.",
+          "Zuschuss im Kundenportal der KfW beantragen, bevor die Arbeiten beginnen."
+        ]
+      },
+      "hinweise": [
+        "Seit 21. Juli 2026: 30 % Grundförderung, dazu Einkommensbonus (bis 40 %) und Klimageschwindigkeitsbonus (16 % bis 1. Februar 2027); Angaben aus Berichten, bitte bei der KfW prüfen."
+      ]
+    },
+    {
+      "id": "bafa_sanierung_bund",
+      "leistung_id": "bafa_sanierung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "bafa",
+      "quellen": [
+        "bafa_em_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "==",
+            "wert": "kauf_bestand",
+            "text": "Sie kaufen eine gebrauchte (bestehende) Immobilie"
+          },
+          {
+            "fakt": "wohnen.daemmen_fenster",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen dämmen oder Fenster erneuern"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Antrag beim BAFA stellen, bevor Sie Handwerker beauftragen.",
+          "Mit individuellem Sanierungsfahrplan (iSFP) gibt es bei größeren Vorhaben 5 Prozentpunkte mehr."
+        ],
+        "fristen": [
+          {
+            "text": "Vor der Beauftragung beantragen",
+            "bezug": "keiner",
+            "quellen": [
+              "bafa_em_2026"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "15 % Zuschuss, mit Sanierungsfahrplan 20 % (Bonus seit 21. Juli 2026 erst ab 30.000 € Investition) – laut Bericht, bitte beim BAFA prüfen."
+      ]
+    }
+  ]
+}

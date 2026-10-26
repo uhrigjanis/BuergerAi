@@ -1,0 +1,34 @@
+{
+  "name": "Wohneigentum: Kaufvertrag in Dresden schon unterschrieben",
+  "beschreibung": "Nach dem Kaufvertrag sind die KfW-Kredite nicht mehr möglich; die Grunderwerbsteuer (5,5 %) bleibt Pflicht.",
+  "plz": "01067",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "wohneigentum"
+  ],
+  "anforderungen": [
+    "ANF-WOH-03"
+  ],
+  "fakten": {
+    "wohnen.vorhaben": "kauf_bestand",
+    "wohnen.selbst_genutzt": "ja",
+    "wohnen.vertrag_unterschrieben": "ja",
+    "wohnen.schon_eigentum": "nein",
+    "wohnen.kinder_minderjaehrig": 2,
+    "wohnen.einkommen_zve": 85000,
+    "wohnen.energieklasse_fgh": "ja",
+    "wohnen.heizung_tauschen": "nein",
+    "wohnen.daemmen_fenster": "nein",
+    "wohnen.ort_immobilie": "01067"
+  },
+  "erwartet": {
+    "kfw_jung_kauft_alt": "nein",
+    "kfw_wohneigentumsprogramm": "nein",
+    "grunderwerbsteuer": "ja",
+    "landesfoerderung_wohneigentum": "unklar"
+  },
+  "erwartet_stellen": {
+    "landesfoerderung_wohneigentum": "Sächsische Aufbaubank"
+  },
+  "erwartet_fehlend": []
+}

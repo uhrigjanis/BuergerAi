@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nw_meisterpraemie",
+      "titel": "Landesregierung NRW – Meisterprämie NRW",
+      "url": "https://www.land.nrw/pressemitteilung/meisterpraemie-nrw-anstieg-bei-neuen-handwerksmeisterinnen-und-meistern",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Landesregierung, Förderdatenbank): 2.500 € für die Meisterprüfung im Handwerk (Anlage A oder B1); Hauptwohnsitz in NRW; Antrag online über das ESF-Portal innerhalb von drei Monaten nach dem Meisterbrief; Programm 1.7.2023 bis 31.12.2027; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nw_esf",
+      "name": "ESF-Online-Portal des Landes NRW (Meisterprämie)",
+      "url": "https://www.mags.nrw/online-antrag",
+      "beschreibung": "Antrag online."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_nw",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nw_esf",
+      "quellen": [
+        "nw_meisterpraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "fakt": "bildung.handwerk",
+            "op": "==",
+            "wert": true,
+            "text": "Es ist eine Meisterprüfung im Handwerk (Handwerkskammer)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von drei Monaten nach der Meisterprüfung beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "nw_meisterpraemie"
+            ],
+            "tage": 90
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Meisterprämie NRW.",
+        "2.500 € einmalig.",
+        "Hauptwohnsitz in Nordrhein-Westfalen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nw_meisterpraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterprämie NRW (nur Handwerk)."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "st_wohneigentum_2026",
+      "titel": "Staatskanzlei Sachsen-Anhalt – Neues Förderprogramm unterstützt Familien beim Erwerb von Wohneigentum (20.1.2026)",
+      "url": "https://presse.sachsen-anhalt.de/wp-content/uploads/pdf/staatskanzlei_20_01_2026_Pressemitteilung_neues-foerderprogramm-unterstuetzt-familien-beim-erwerb-von-wohneigentum.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Sachsen-Anhalt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Pressemitteilung, Richtlinie vom 22.12.2025): Förderung selbst genutzten Wohneigentums vor allem junger Familien im ländlichen Raum; Neubau, Ersterwerb, Bestandskauf, Um- und Ausbau; 2026 zunächst 5,5 Mio. €; Antrag bei der Investitionsbank Sachsen-Anhalt vor Beginn bzw. direkt nach dem Kaufvertrag. Einkommensgrenzen und Konditionen nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ib_lsa",
+      "name": "Investitionsbank Sachsen-Anhalt",
+      "url": "https://www.ib-sachsen-anhalt.de",
+      "beschreibung": "Antrag bei der IB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_st",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "15",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_st",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "15",
+      "zustaendigkeit_id": "ib_lsa",
+      "quellen": [
+        "st_wohneigentum_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "pruefung_noetig": "Einkommensgrenzen und Konditionen sind hier nicht erfasst – bitte bei der Investitionsbank erfragen.",
+            "quellen": [
+              "st_wohneigentum_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Investitionsbank beantragen, vor Beginn des Vorhabens oder direkt nach dem Kaufvertrag."
+        ]
+      },
+      "hinweise": [
+        "Für 2026 stehen zunächst 5,5 Mio. € bereit."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "st_wohneigentum_2026"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: neues Wohneigentumsprogramm 2026 (Konditionen nicht erfasst)."
+    }
+  ]
+}

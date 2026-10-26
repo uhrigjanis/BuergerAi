@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "st_meisterbonus_plus",
+      "titel": "IHK Magdeburg – „Meisterbonus PLUS“",
+      "url": "https://www.ihk.de/magdeburg/bildung/weiterbildungen-1/foerderungen/beruflicher-aufstieg-macht-sich-bezahlt-6225830",
+      "typ": "behoerde",
+      "herausgeber": "IHK Magdeburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Aufstiegsfortbildung auf DQR-Niveau 6, Prüfung bei Handwerkskammer oder IHK; Ergebnis nach dem 1.1.2024 und höchstens ein Jahr vor dem Antrag; Hauptwohnsitz oder Beschäftigung in Sachsen-Anhalt; Antrag online bei der Investitionsbank; Mittel bis 31.12.2026. Höhe nur laut Deutscher Handwerks Zeitung: 1.000 €."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ib_lsa_meister",
+      "name": "Investitionsbank Sachsen-Anhalt",
+      "url": "https://www.ib-sachsen-anhalt.de",
+      "beschreibung": "Antrag online."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_st",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "15",
+      "zustaendigkeit_id": "ib_lsa_meister",
+      "quellen": [
+        "st_meisterbonus_plus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "st_meisterbonus_plus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Prüfungsergebnis darf beim Antrag höchstens ein Jahr zurückliegen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "st_meisterbonus_plus"
+            ],
+            "tage": 365
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Meisterbonus PLUS.",
+        "Höhe laut Bericht 1.000 € (nicht amtlich bestätigt).",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "st_meisterbonus_plus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterbonus PLUS."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hb_aufstiegspraemie",
+      "titel": "Land Bremen – Richtlinie Aufstiegsfortbildungsprämie ab 1.3.2025",
+      "url": "https://soziales.bremen.de/sixcms/media.php/13/Richtlinie%20Aufstiegsfortbildungspr%C3%A4mie%20ab%2001.03.25.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: 1.300 € für Anträge ab 1.3.2025 (vorher 4.000 €); Hauptwohnsitz oder Arbeitsort seit mindestens sechs Monaten im Land Bremen; nicht, wenn für denselben Abschluss die niedersächsische Meisterprämie beantragt wurde. Ein Förderportal nennt noch 4.000 € (veraltet)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hb_aufstieg",
+      "name": "Bewilligungsstelle Aufstiegsfortbildungsprämie (Senatorin für Arbeit, Bremen)",
+      "url": "https://soziales.bremen.de",
+      "beschreibung": "Beratung auch bei der Handwerkskammer Bremen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_hb",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "04",
+      "zustaendigkeit_id": "hb_aufstieg",
+      "quellen": [
+        "hb_aufstiegspraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "hb_aufstiegspraemie"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "Heißt hier: Aufstiegsfortbildungsprämie.",
+        "1.300 € einmalig (seit 1. März 2025).",
+        "Hauptwohnsitz oder Arbeitsort seit mindestens sechs Monaten im Land Bremen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hb_aufstiegspraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Aufstiegsfortbildungsprämie."
+    }
+  ]
+}

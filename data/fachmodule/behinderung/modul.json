@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Behinderung (ADR 0008).",
+  "fachmodul": {
+    "id": "behinderung",
+    "name": "Behinderung",
+    "beschreibung": "Feststellung der Behinderung und Nachteilsausgleiche für Menschen mit Behinderung.",
+    "abgrenzung": [
+      "Leistungen der Pflegeversicherung gehören zu Pflege.",
+      "Das Blindengeld der Länder steht in Pflege und gehört auch zu dieser Lebenslage."
+    ],
+    "importiert_fakten": [
+      "pflege.blind"
+    ]
+  },
+  "lebenslagen": [
+    {
+      "id": "behinderung",
+      "name": "Behinderung",
+      "typ": "situation",
+      "beschreibung": "Sie haben eine Behinderung oder chronische Krankheit, oder ein Grad der Behinderung soll festgestellt werden.",
+      "einstiegsfragen": [
+        "behinderung.gdb"
+      ],
+      "synonyme": [
+        "Behinderung",
+        "behindert",
+        "Schwerbehinderung",
+        "Schwerbehindertenausweis",
+        "GdB",
+        "Grad der Behinderung",
+        "Merkzeichen",
+        "Versorgungsamt",
+        "chronisch krank",
+        "Rollstuhl",
+        "gehbehindert",
+        "blind",
+        "gehörlos",
+        "Wertmarke",
+        "Behindertenparkplatz",
+        "Nachteilsausgleich"
+      ],
+      "beispiele": [
+        "Ich habe einen GdB von 50 bekommen, was steht mir zu?",
+        "Wie beantrage ich einen Schwerbehindertenausweis?",
+        "Mein Vater sitzt im Rollstuhl, bekommt er einen Parkausweis?",
+        "Ich bin seit einem Unfall gehbehindert."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Behinderten-Pauschbetrag und weitere Steuervorteile",
+          "grund": "Steuerliche Vergünstigungen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Eingliederungshilfe und Persönliches Budget",
+          "grund": "Bedarfsermittlung im Einzelfall; folgt."
+        },
+        {
+          "name": "Gehörlosen- und Taubblindengeld der Länder",
+          "grund": "Je Land verschieden; folgt."
+        },
+        {
+          "name": "Orangefarbener Parkausweis",
+          "grund": "Für bestimmte Fallgruppen; folgt."
+        },
+        {
+          "name": "Ermäßigungen bei Bahn, Eintritt und Begleitperson (Merkzeichen B)",
+          "grund": "Je Anbieter verschieden."
+        },
+        {
+          "name": "Hilfen im Arbeitsleben (Integrationsamt, Arbeitsassistenz)",
+          "grund": "Folgt mit Arbeit."
+        },
+        {
+          "name": "Vorgezogene Altersrente für schwerbehinderte Menschen",
+          "grund": "Folgt mit Ruhestand."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hh_keine_erwerbslosenberatung",
+      "titel": "Linksfraktion Hamburg – Unabhängige Beratung für Erwerbslose (2019)",
+      "url": "https://archiv2016.linksfraktion-hamburg.de/blog/2019/09/22/unabhaengige-beratung-fuer-erwerbslose-staerken-nicht-kaputtsparen/",
+      "typ": "sekundaer",
+      "herausgeber": "Linksfraktion Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: keine aktuelle Landesförderung für Erwerbslosenberatung gefunden; der Senat setzte laut Bericht auf Beratung über das Jobcenter (§ 16a SGB II)."
+    },
+    {
+      "id": "hh_gruendung_handwerk",
+      "titel": "Förderdatenbank – Hamburg-Kredit Gründung und Nachfolge",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Hamburg/hamburg-kredit-gruendung-und-nachfolge.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Kredit der IFB Hamburg für Gründung und Nachfolge; bei der ersten Gründung eines Handwerksbetriebs gibt es einen Zuschuss zur Verringerung des Kredits, wenn der erste Ausbildungsplatz geschaffen und besetzt wird. Höhe nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ifb_gruendung",
+      "name": "IFB Hamburg (über Ihre Hausbank)",
+      "url": "https://www.ifbhh.de",
+      "beschreibung": "Zusammen mit dem Hamburg-Kredit."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_hh",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "ifb_gruendung",
+      "quellen": [
+        "hh_gruendung_handwerk"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert wird nur, wenn Sie einen Arbeits- oder Ausbildungsplatz schaffen.",
+            "quellen": [
+              "hh_gruendung_handwerk"
+            ]
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "hh_gruendung_handwerk"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Zuschuss zum Hamburg-Kredit bei der ersten Handwerksgründung, wenn ein Ausbildungsplatz besetzt wird; Höhe nicht erfasst."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "02",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_gruendung_handwerk"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Zuschuss zum Hamburg-Kredit bei Handwerksgründung mit Ausbildungsplatz."
+    }
+  ]
+}

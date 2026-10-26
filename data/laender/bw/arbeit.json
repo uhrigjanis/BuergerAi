@@ -1,0 +1,139 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bw_arbeitslosenberatung",
+      "titel": "Wirtschaftsministerium BW – Broschüre Arbeitslosenberatungszentren",
+      "url": "https://wm.baden-wuerttemberg.de/fileadmin/redaktion/m-wm/intern/Publikationen/Arbeit/Broschuere_Arbeitslosenberatungszentren_bf.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Broschüre, service-bw 12/2025): Das Land fördert aus Landesmitteln zwölf unabhängige Arbeitslosenberatungszentren (Programm „Neue Chancen auf dem Arbeitsmarkt“); kostenlos für Arbeitslose und von Arbeitslosigkeit Bedrohte. Förderung 2026 nicht bestätigt."
+    },
+    {
+      "id": "bw_meistergruendung",
+      "titel": "Gründerplattform (BMWK/KfW) – Meistergründungsprämie in den Ländern",
+      "url": "https://gruenderplattform.de/unternehmen-gruenden/meistergruendungspraemie",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft und KfW",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: in Baden-Württemberg als Tilgungszuschuss auf L-Bank-Darlehen (Startfinanzierung 80 bzw. Gründungsfinanzierung), 10 % des Darlehens, höchstens 10.000 €; bei Teamgründung je Meister. Stand 2026 nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bw_alz",
+      "name": "Arbeitslosenberatungszentrum (vom Land gefördert)",
+      "beschreibung": "Zwölf Zentren im Land; Adressen in der Broschüre des Landes."
+    },
+    {
+      "id": "lbank_gruendung",
+      "name": "L-Bank (über Ihre Hausbank)",
+      "url": "https://www.l-bank.de",
+      "beschreibung": "Antrag über die Hausbank zusammen mit dem Gründungsdarlehen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "erwerbslosenberatung_bw",
+      "leistung_id": "erwerbslosenberatung",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "bw_alz",
+      "quellen": [
+        "bw_arbeitslosenberatung"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Beratungsstelle in Ihrer Nähe suchen und einen Termin vereinbaren."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Zwölf vom Land geförderte Zentren; ob eines in Ihrer Nähe ist, steht in der Broschüre."
+      ]
+    },
+    {
+      "id": "meistergruendungspraemie_bw",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "lbank_gruendung",
+      "quellen": [
+        "bw_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Die Prämie gibt es nur zusammen mit einem Gründungsdarlehen der L-Bank.",
+            "quellen": [
+              "bw_meistergruendung"
+            ]
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "bw_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Tilgungszuschuss von 10 % des L-Bank-Darlehens, höchstens 10.000 €."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bw_arbeitslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Landesleistung erfasst: Arbeitslosenberatungszentren."
+    },
+    {
+      "gebiet_id": "08",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bw_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie (Tilgungszuschuss)."
+    }
+  ]
+}

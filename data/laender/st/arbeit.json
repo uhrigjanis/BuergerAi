@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "st_keine_erwerbslosenberatung",
+      "titel": "Förderdatenbank – REGIO AKTIV (Sachsen-Anhalt)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Sachsen-Anhalt/regio-aktiv.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Arbeitsmarktprogramm REGIO AKTIV (ESF+) über die Kommunen, aber keine eigene Erwerbslosenberatung gefunden."
+    },
+    {
+      "id": "st_meistergruendung",
+      "titel": "Handwerksblatt – Zuschuss für Existenzgründer (Sachsen-Anhalt, Juni 2026)",
+      "url": "https://www.handwerksblatt.de/unternehmensfuhrung/zuschuss-fuer-existenzgruender",
+      "typ": "sekundaer",
+      "herausgeber": "Handwerksblatt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle (Förderdatenbank ergänzend): Meistergründungsprämie von 10.000 € für die erste Gründung oder Übernahme eines Handwerksbetriebs nach der Meisterprüfung; Antrag ab 24.7.2026 über die Investitionsbank; Betrieb mindestens drei Jahre in Sachsen-Anhalt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ib_lsa_gruendung",
+      "name": "Investitionsbank Sachsen-Anhalt",
+      "url": "https://www.ib-sachsen-anhalt.de",
+      "beschreibung": "Antrag bei der IB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_st",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "15",
+      "zustaendigkeit_id": "ib_lsa_gruendung",
+      "quellen": [
+        "st_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "st_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "10.000 € (seit Juli 2026, laut Bericht)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "st_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "15",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "st_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie (neu 2026)."
+    }
+  ]
+}

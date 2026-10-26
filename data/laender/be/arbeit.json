@@ -1,0 +1,134 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "be_balz",
+      "titel": "Berliner Arbeitslosenzentrum (BALZ) – Geschäftsbericht 2025",
+      "url": "https://www.berliner-arbeitslosenzentrum.de/images/PDF-Dateien/2025/Anlage_2_-_Gesch%C3%A4ftsbericht_2025.pdf",
+      "typ": "sekundaer",
+      "herausgeber": "Berliner Arbeitslosenzentrum",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (BALZ, Abgeordnetenhaus S19/10355): Unabhängige Erwerbslosenberatung, seit 2016 von der Senatsverwaltung für Arbeit gefördert; 2025 über 9.000 Beratungen; Förderung 2026 nicht bestätigt."
+    },
+    {
+      "id": "be_meistergruendung",
+      "titel": "Förderportal – Meistergründungsprämie Berlin (EFRE)",
+      "url": "https://www.grantbite.com/de/funding/meistergruendungspraemie-berlin-handwerk",
+      "typ": "sekundaer",
+      "herausgeber": "grantbite.com",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle (Stand 5/2026): bis 25.000 €, kofinanziert aus EFRE, offen bis 31.12.2027; für Meister, die sich innerhalb von vier Jahren nach der Prüfung erstmals im Handwerk selbstständig machen. Amtliche Seite nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "be_balz",
+      "name": "Berliner Arbeitslosenzentrum (BALZ)",
+      "url": "https://www.berliner-arbeitslosenzentrum.de",
+      "beschreibung": "Beratung vor Ort, telefonisch und mobil."
+    },
+    {
+      "id": "ibb_meistergruendung",
+      "name": "Investitionsbank Berlin bzw. Handwerkskammer Berlin",
+      "url": "https://www.hwk-berlin.de",
+      "beschreibung": "Beratung bei der Handwerkskammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "erwerbslosenberatung_be",
+      "leistung_id": "erwerbslosenberatung",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "be_balz",
+      "quellen": [
+        "be_balz"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Beratungsstelle in Ihrer Nähe suchen und einen Termin vereinbaren."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Vom Senat gefördert; Beratung auch mobil in den Bezirken."
+      ]
+    },
+    {
+      "id": "meistergruendungspraemie_be",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "ibb_meistergruendung",
+      "quellen": [
+        "be_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "be_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Bis 25.000 € (laut Förderportal); innerhalb von vier Jahren nach der Meisterprüfung."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "be_balz"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Landesleistung erfasst: Erwerbslosenberatung des BALZ."
+    },
+    {
+      "gebiet_id": "11",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "be_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Job verloren: Aufhebungsvertrag in München",
+  "beschreibung": "Arbeitslosengeld unklar wegen möglicher Sperrzeit; keine Kündigungsschutzklage; in Bayern keine vom Land geförderte Erwerbslosenberatung (nur in anderen Ländern).",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "jobverlust"
+  ],
+  "anforderungen": [
+    "ANF-ARB-02",
+    "ANF-ARB-05"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "einkommen.erwerbsfaehig": "ja",
+    "alter": 40,
+    "arbeit.grund": "aufhebungsvertrag",
+    "arbeit.ende_datum": "2027-03-31",
+    "arbeit.versichert_12_monate": "ja"
+  },
+  "erwartet": {
+    "arbeitslosengeld": "unklar",
+    "kuendigungsschutzklage": "nein",
+    "arbeitsuchend_melden": "ja"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

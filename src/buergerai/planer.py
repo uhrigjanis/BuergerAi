@@ -246,7 +246,8 @@ def _lebenslagen_pruefen(kb: Wissensbasis, lebenslagen: list[str]) -> None:
 
 
 def _ort_der_leistung(
-    kb: Wissensbasis, leistung: Leistung, fakten: dict[str, Any], wohnort: list[Gebiet], cache: dict[str, list[Gebiet]]
+    kb: Wissensbasis, leistung: Leistung, fakten: dict[str, Any], wohnort: list[Gebiet], cache: dict[str, list[Gebiet]],
+    einstieg: frozenset[str] = frozenset(),
 ) -> tuple[list[Gebiet], Optional[str]]:
     """Maßgebliche Gebietshierarchie und ggf. der fehlende Ortsfakt.
 
@@ -256,7 +257,9 @@ def _ort_der_leistung(
     Hat der Ortsfakt ein ``nur_wenn`` (z. B. Pflege: Ort der pflegebedürftigen
     Person nur, wenn ein Angehöriger gepflegt wird), dann gilt:
 
-    - Bedingung offen: zuerst die Bedingung erfragen, nur der Bund gilt.
+    - Bedingung offen: zuerst die Bedingung erfragen, nur der Bund gilt. Gehört
+      die Bedingung nicht zu den Einstiegsfragen der gewählten Lebenslagen (z. B.
+      Blindengeld bei Behinderung ohne Pflege), gilt der Wohnort.
     - Bedingung nicht erfüllt: Es gilt der Wohnort der Anfrage.
     - Bedingung "weiß nicht": nur der Bund, ohne Rückfrage. Der Ort wird nicht
       erfragt (die Frage passt dann womöglich nicht), und der Wohnort wird nicht
@@ -272,6 +275,8 @@ def _ort_der_leistung(
         if bedingung is not None:
             vorher = fakten.get(bedingung[0])
             if vorher is None:
+                if bedingung[0] not in einstieg:
+                    return wohnort, None
                 return [gebiete_mod.bund(kb)], bedingung[0]
             if vorher is UNBEKANNT:
                 return [gebiete_mod.bund(kb)], None
@@ -399,13 +404,15 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     gewaehlt = set(anfrage.lebenslagen)
     orte: dict[str, list[Gebiet]] = {}
     fakten.update(_ortsvergleiche(kb, fakten, hierarchie, orte))
-    vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
+    einstiegsfragen = kb.einstiegsfragen(anfrage.lebenslagen)
+    einstieg = frozenset(d.id for d in einstiegsfragen)
+    vorab: list[str] = einstiegs_rueckfragen(einstiegsfragen, fakten)
     platzhalter: dict[int, dict[str, str]] = {}  # je Hierarchie (Wohnort, Orte von Leistungen) einmal
     eintraege: list[Eintrag] = []
     nur_andere: list[NurAndereLaender] = []
     ohne_ort: dict[str, list[str]] = {}  # Ortsfakt -> Landesleistungen, die ohne den Ort nicht prüfbar sind
     for leistung in kb.leistungen_fuer(anfrage.lebenslagen):
-        ort, ort_fehlt = _ort_der_leistung(kb, leistung, fakten, hierarchie, orte)
+        ort, ort_fehlt = _ort_der_leistung(kb, leistung, fakten, hierarchie, orte, einstieg)
         if ort_fehlt and not getattr(kb.fakt_definition(ort_fehlt), "abgeleitet", False):
             _anfuegen(vorab, [ort_fehlt])
         treffer = beste_variante(kb, leistung, ort, anfrage.stichtag)

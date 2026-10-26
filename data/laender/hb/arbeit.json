@@ -1,0 +1,51 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hb_keine_erwerbslosenberatung",
+      "titel": "Senat Bremen – Fortführung von Landes-ESF-Projekten 2026",
+      "url": "https://www.rathaus.bremen.de/sixcms/media.php/13/20251028_top_21_Fortfuehrung_Landes_ESF_Projekte.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Arbeitsmarktprojekte werden 2026 aus Landes- und ESF-Mitteln fortgeführt; eine eigene Erwerbslosenberatung wurde nicht gefunden. Die Arbeitnehmerkammer Bremen berät Beschäftigte (nicht erfasst)."
+    },
+    {
+      "id": "hb_keine_meistergruendung",
+      "titel": "Gründerplattform (BMWK/KfW) – Meistergründungsprämie in den Ländern",
+      "url": "https://gruenderplattform.de/unternehmen-gruenden/meistergruendungspraemie?ppid=16151",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft und KfW",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: für Bremen keine Gründungsprämie, nur die Aufstiegsfortbildungsprämie für die bestandene Prüfung (erfasst unter Ausbildung, Studium oder Meister)."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hb_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "04",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hb_keine_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Websuche am 26.10.2026: keine Meistergründungsprämie gefunden."
+    }
+  ]
+}

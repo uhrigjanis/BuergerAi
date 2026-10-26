@@ -1,0 +1,140 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ni_erwerbslosenberatung",
+      "titel": "Förderdatenbank – Unabhängige Erwerbslosenberatungsstellen (Niedersachsen)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Niedersachsen/unabhaengige-erwerbslosenberatungsstellen.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Richtlinie vom 26.11.2025; das Land fördert unabhängige Beratungsstellen, die kostenlos zu Grundsicherung und Bescheiden beraten; etwa 600.000 € im Jahr."
+    },
+    {
+      "id": "ni_gruendungspraemie_handwerk",
+      "titel": "NBank – Produktinformation Gründungsprämie im niedersächsischen Handwerk",
+      "url": "https://www.nbank.de/medien/nb-media/Downloads/Programminformation/Produktinformationen/Produktinformation-Gr%C3%BCndungspr%C3%A4mie-im-nieders%C3%A4chsischen-Handwerk-2.pdf",
+      "typ": "behoerde",
+      "herausgeber": "NBank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Stand 3/2025): 10.000 € Zuschuss für die Schaffung eines neuen unbefristeten Vollzeitarbeitsplatzes nach einer Gründung im Handwerk; Antrag vor Abschluss des Arbeitsvertrags bei der NBank."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ni_ebs",
+      "name": "Unabhängige Erwerbslosenberatungsstelle (vom Land gefördert)",
+      "beschreibung": "Beratungsstellen freier Träger in vielen Städten."
+    },
+    {
+      "id": "nbank_gruendung",
+      "name": "NBank (Kundenportal)",
+      "url": "https://www.nbank.de",
+      "beschreibung": "Antrag online."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "erwerbslosenberatung_ni",
+      "leistung_id": "erwerbslosenberatung",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "ni_ebs",
+      "quellen": [
+        "ni_erwerbslosenberatung"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Beratungsstelle in Ihrer Nähe suchen und einen Termin vereinbaren."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Beratung vor allem zu Grundsicherungsgeld und Bescheiden des Jobcenters."
+      ]
+    },
+    {
+      "id": "meistergruendungspraemie_ni",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "nbank_gruendung",
+      "quellen": [
+        "ni_gruendungspraemie_handwerk"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert wird nur, wenn Sie einen Arbeits- oder Ausbildungsplatz schaffen.",
+            "quellen": [
+              "ni_gruendungspraemie_handwerk"
+            ]
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "ni_gruendungspraemie_handwerk"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Gründungsprämie im niedersächsischen Handwerk.",
+        "10.000 €, wenn ein unbefristeter Vollzeitarbeitsplatz geschaffen wird."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Landesleistung erfasst: unabhängige Erwerbslosenberatungsstellen."
+    },
+    {
+      "gebiet_id": "03",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_gruendungspraemie_handwerk"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Gründungsprämie im Handwerk."
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     "beschreibung": "Leistungen für pflegebedürftige Menschen und ihre pflegenden Angehörigen.",
     "abgrenzung": [
       "Schwerbehindertenausweis und Nachteilsausgleiche gehören zu Behinderung.",
-      "Das Blindengeld der Länder steht vorerst hier und wechselt später auch zu Behinderung (zweite Lebenslage)."
+      "Das Blindengeld der Länder gehört auch zu Behinderung (zweite Lebenslage)."
     ],
     "importiert_fakten": []
   },
@@ -72,10 +72,6 @@
         },
         {
           "name": "Gehörlosen- und Taubblindengeld der Länder",
-          "grund": "Folgt mit der Lebenslage Behinderung."
-        },
-        {
-          "name": "Schwerbehindertenausweis und Merkzeichen",
           "grund": "Folgt mit der Lebenslage Behinderung."
         },
         {

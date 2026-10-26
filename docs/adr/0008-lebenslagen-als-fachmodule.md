@@ -165,6 +165,21 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Fristen ab einem Datumsfakt:** Die Antragsfristen der Prämien rechnen ab `bildung.pruefung_datum` (Abschnitt 7: Fristen können sich auf jeden Datumsfakt beziehen). Weil eine fehlende Bezugsgröße einer Frist keine Rückfrage auslöst, stehen Prüfung und Datum als bedingte Einstiegsfragen in der Lebenslage (`nur_wenn`: nur bei Aufstiegsfortbildung bzw. bestandener Prüfung).
 - **Wohnort statt Arbeitsort:** Viele Prämien gelten bei Wohnsitz *oder* Arbeitsort im Land. Geprüft wird der Wohnort; der Hinweis der Variante nennt den Arbeitsort. Ein eigener Ortsfakt für den Arbeitsort folgt mit dem Modul Arbeit.
 
+### 13. Umsetzung von Schritt 6, Teil 1: Behinderung (26.10.2026)
+
+- **Fachmodul `behinderung`** mit der Lebenslage `behinderung` (Typ `situation`). Schritt 6 wird in einzelne PRs je Lebenslage geteilt (Behinderung, dann Arbeit, Heirat, Ruhestand, Todesfall, Schule).
+- **Zuständigkeit je Land als Variante:** Feststellung und Wertmarke sind Bundesrecht, aber jedes Land bestimmt die Behörde. Statt einer Landesleistung gibt es je Land eine Variante, die sich nur in der Zuständigkeit und Quelle unterscheidet. So nennt der Bericht z. B. das ZBFS in Bayern und die kreisfreie Stadt in NRW.
+- **Geteilter Fakt statt Doppelung:** Das Merkzeichen Bl ist der Fakt `pflege.blind` aus dem Modul Pflege; Behinderung importiert ihn (`importiert_fakten`). Die Frage ist neutral formuliert. Das Blindengeld der Länder gehört zu beiden Lebenslagen.
+- **Ortsbezug mit Bedingung außerhalb der Lebenslage (Engine):** Das Blindengeld hat den Ortsbezug `pflege.ort` mit `nur_wenn` auf `pflege.rolle`. Gehört diese Bedingung nicht zu den Einstiegsfragen der gewählten Lebenslagen, gilt jetzt der Wohnort, statt nach der Pflege zu fragen. Wer Pflege mitwählt, wird wie bisher gefragt.
+
+### 14. Umsetzung von Schritt 6, Teil 2: Arbeit (26.10.2026)
+
+- **Fachmodul `arbeit`** mit zwei Lebenslagen: `jobverlust` und `selbststaendig` (beide `ereignis`). Ein Modul, weil Arbeitsagentur, Jobcenter und Kammern in beiden vorkommen; die Lebenslagen bleiben getrennt wählbar.
+- **Frist mit „nicht vor“ (Engine):** § 38 SGB III verlangt die Meldung drei Monate vor dem Ende, bei kürzerem Vorlauf drei Tage nach Kenntnis. Eine Frist kann jetzt `nicht_vor: {bezug, tage}` haben; es gilt das spätere Datum. Ohne Kündigungsdatum bleibt die Drei-Monats-Frist. Die Prüfung verlangt einen erlaubten Datumsfakt.
+- **Bedingte Datumsfragen:** Zugang der Kündigung und Datum der Insolvenz sind Einstiegsfragen mit `nur_wenn` auf den Grund; gefragt wird nur, was zum Grund passt.
+- **Geteilte Leistung:** Das Grundsicherungsgeld (Modul Einkommen) gehört auch zu `jobverlust`.
+- **Landesleistungen:** Bei Jobverlust nur Beratung (Art `information`), weil Geldleistungen Bundesrecht sind; bei Gründung die Meistergründungsprämien. Gründerkredite der Landesförderbanken stehen unter „nicht erfasst“.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

@@ -464,7 +464,8 @@
       "id": "landesblindengeld",
       "name": "Blindengeld des Landes",
       "lebenslagen": [
-        "pflege"
+        "pflege",
+        "behinderung"
       ],
       "verwaltungsebene": "land",
       "fuer": "haushalt",

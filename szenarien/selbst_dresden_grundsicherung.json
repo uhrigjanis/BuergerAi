@@ -1,0 +1,31 @@
+{
+  "name": "Selbstständig: Gründung aus dem Grundsicherungsgeld in Dresden, Kredit nötig",
+  "beschreibung": "Einstiegsgeld und KfW-StartGeld unklar (Ermessen bzw. Bankentscheidung); Gewerbe anmelden.",
+  "plz": "01067",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "selbststaendig"
+  ],
+  "anforderungen": [
+    "ANF-ARB-07",
+    "ANF-ARB-09"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "ja",
+    "arbeit.bezieht_alg": "nein",
+    "arbeit.kredit_benoetigt": "ja",
+    "arbeit.taetigkeit": "gewerbe",
+    "arbeit.gruendungsdatum": "2027-01-02",
+    "arbeit.hauptberuflich": "ja"
+  },
+  "erwartet": {
+    "einstiegsgeld": "unklar",
+    "kfw_startgeld": "unklar",
+    "gewerbe_anmelden": "ja",
+    "handwerksrolle": "nein"
+  },
+  "erwartet_stellen": {
+    "einstiegsgeld": "Jobcenter – Kreisfreie Stadt Dresden"
+  },
+  "erwartet_fehlend": []
+}

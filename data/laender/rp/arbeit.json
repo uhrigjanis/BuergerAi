@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "rp_keine_erwerbslosenberatung",
+      "titel": "Land Rheinland-Pfalz – Förderaufruf Anerkennungs- und Qualifizierungsberatung",
+      "url": "https://mwvlw.rlp.de/fileadmin/08/Abteilung_4/8403/Foerderaufruf_AQB.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Rheinland-Pfalz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Das Land fördert spezielle Beratung (z. B. Anerkennung ausländischer Abschlüsse), aber keine allgemeine Erwerbslosenberatung."
+    },
+    {
+      "id": "rp_aufstiegsbonus_2",
+      "titel": "Förderdatenbank – Aufstiegsbonus I und II (Rheinland-Pfalz)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Rheinland-Pfalz/aufstiegsbonus-i-und-ii.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Aufstiegsbonus II 2.500 € für die Existenzgründung nach einer Aufstiegsfortbildung; Antrag spätestens 12 Monate nach der Gründung bei der Kammer."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "kammer_rp_gruendung",
+      "name": "Ihre Kammer in Rheinland-Pfalz",
+      "beschreibung": "Antrag kostenlos bei der Kammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_rp",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "kammer_rp_gruendung",
+      "quellen": [
+        "rp_aufstiegsbonus_2"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "rp_aufstiegsbonus_2"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Aufstiegsbonus II.",
+        "2.500 €; Antrag bis 12 Monate nach der Gründung (also auch danach möglich)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "07",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_aufstiegsbonus_2"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Aufstiegsbonus II."
+    }
+  ]
+}

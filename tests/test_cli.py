@@ -36,7 +36,7 @@ def test_pruefen_json(capsys):
 def test_interaktiv(capsys, monkeypatch, tmp_path):
     ziel = tmp_path / "ich.json"
     eingaben = [
-        "2",      # Lebenslage Geburt
+        "3",      # Lebenslage Geburt
         "80331",  # PLZ
         "nein",   # kind_geboren
         "15.12.2026",  # Termin
@@ -141,12 +141,12 @@ def test_fakten_nach_modul(capsys):
 
 @pytest.mark.anforderung("ANF-CLI-05")
 def test_interaktiv_fragt_lebenslage(capsys, monkeypatch):
-    eingaben = ["7", "6", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
+    eingaben = ["10", "9", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
     code, out, _ = lauf(capsys, "interaktiv", "--stichtag", "2026-10-24", eingaben=eingaben, monkeypatch=monkeypatch)
     assert code == 0
-    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 6" in out
+    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 9" in out
     assert "Wann ziehen Sie in die neue Wohnung ein" in out
     assert "BürgerAI – Lebenslage Umzug" in out
     code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", "--stichtag", "2026-10-24",
-                        eingaben=["2, 6", "q"], monkeypatch=monkeypatch)
+                        eingaben=["3, 9", "q"], monkeypatch=monkeypatch)
     assert code == 0 and "BürgerAI – Lebenslagen Geburt, Umzug" in out

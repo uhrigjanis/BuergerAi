@@ -1,0 +1,30 @@
+{
+  "name": "Selbstständig: Freiberufliche Grafikerin aus der Arbeitslosigkeit, München",
+  "beschreibung": "Kein Gewerbe, aber steuerliche Erfassung; Gründungszuschuss unklar (Ermessen, Tragfähigkeit); keine Meistergründungsprämie.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "selbststaendig"
+  ],
+  "anforderungen": [
+    "ANF-ARB-06",
+    "ANF-ARB-07"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "arbeit.bezieht_alg": "ja",
+    "arbeit.kredit_benoetigt": "nein",
+    "arbeit.taetigkeit": "freiberuflich",
+    "arbeit.gruendungsdatum": "2026-11-15",
+    "arbeit.hauptberuflich": "ja",
+    "arbeit.alg_resttage": 200
+  },
+  "erwartet": {
+    "gewerbe_anmelden": "nein",
+    "steuerliche_erfassung": "ja",
+    "gruendungszuschuss": "unklar",
+    "einstiegsgeld": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

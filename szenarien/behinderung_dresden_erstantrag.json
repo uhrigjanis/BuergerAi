@@ -1,0 +1,33 @@
+{
+  "name": "Behinderung: Erstantrag in Dresden",
+  "beschreibung": "Noch kein GdB: Feststellung bei der kreisfreien Stadt Dresden beantragen; Nachteilsausgleiche erst danach.",
+  "plz": "01067",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "behinderung"
+  ],
+  "anforderungen": [
+    "ANF-BEH-01"
+  ],
+  "fakten": {
+    "behinderung.merkzeichen_g": "nein",
+    "behinderung.merkzeichen_ag": "nein",
+    "behinderung.merkzeichen_h": "nein",
+    "pflege.blind": "nein",
+    "behinderung.merkzeichen_gl": "nein",
+    "behinderung.merkzeichen_rf": "nein",
+    "behinderung.gdb": 0,
+    "behinderung.beschaeftigt": "ja",
+    "behinderung.kfz_halter": "nein"
+  },
+  "erwartet": {
+    "behinderung_feststellen": "ja",
+    "wertmarke_freifahrt": "nein",
+    "zusatzurlaub": "nein",
+    "gleichstellung": "nein"
+  },
+  "erwartet_stellen": {
+    "behinderung_feststellen": "Kreisfreie Stadt Dresden"
+  },
+  "erwartet_fehlend": []
+}

@@ -1,0 +1,136 @@
+{
+  "_hinweis": "Lebenslage Behinderung: zuständige Stelle für Feststellung und Wertmarke. Landesleistung ist das Blindengeld (siehe pflege.json).",
+  "quellen": [
+    {
+      "id": "bw_feststellung",
+      "titel": "service-bw – Schwerbehindertenausweis beantragen (Leistung 281)",
+      "url": "https://www.heidelberg.de/-/Verfahrensbeschreibung/schwerbehindertenausweis-beantragen/vbid281",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Versorgungsämter bei den Landratsämtern stellen GdB und Merkzeichen fest; Antrag schriftlich, persönlich oder online über service-bw."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "feststellung_bw",
+      "name": "Versorgungsamt beim Landratsamt bzw. Stadtkreis – {kreis}",
+      "beschreibung": "Das Versorgungsamt des Landratsamts bzw. des Stadtkreises an Ihrem Hauptwohnsitz."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "behinderung_feststellen_bw",
+      "leistung_id": "behinderung_feststellen",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "feststellung_bw",
+      "quellen": [
+        "bw_feststellung",
+        "sgb9_152"
+      ],
+      "regel": {
+        "fakt": "behinderung.gdb",
+        "op": "==",
+        "wert": 0,
+        "text": "Noch kein Grad der Behinderung festgestellt",
+        "quellen": [
+          "sgb9_152"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Arztberichte und Befunde (oder Namen der behandelnden Ärzte)",
+          "Passfoto (für den Ausweis)"
+        ],
+        "schritte": [
+          "Antrag auf Feststellung einer Behinderung stellen (online, schriftlich oder formlos); den Ausweis gleich mit beantragen.",
+          "Die Behörde holt Befunde bei Ihren Ärzten ein und schickt einen Bescheid mit GdB und Merkzeichen."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Ist schon ein GdB festgestellt und hat sich die Gesundheit verschlechtert, können Sie eine Neufeststellung (Erhöhung) beantragen.",
+        "Die Bearbeitung dauert oft mehrere Monate."
+      ]
+    },
+    {
+      "id": "wertmarke_freifahrt_bw",
+      "leistung_id": "wertmarke_freifahrt",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "feststellung_bw",
+      "quellen": [
+        "bw_feststellung",
+        "wertmarke_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.merkzeichen_g",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen G (erheblich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_ag",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_h",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen H (hilflos)"
+              },
+              {
+                "fakt": "pflege.blind",
+                "op": "==",
+                "wert": true,
+                "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_gl",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen Gl (gehörlos)"
+              }
+            ],
+            "text": "Merkzeichen G, aG, H, Bl oder Gl"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Wertmarke bei der Stelle beantragen, die Ihren Ausweis ausgestellt hat (Beiblatt mit Wertmarke)."
+        ]
+      },
+      "hinweise": [
+        "Die Wertmarke kostet 104 € im Jahr (53 € im Halbjahr); kostenlos mit Merkzeichen H oder Bl und bei Grundsicherung bzw. Sozialhilfe (laut Bericht).",
+        "Gilt im Nahverkehr und in Regionalzügen, nicht im Fernverkehr."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "behinderung",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "service_bw_blindenhilfe",
+        "bw_feststellung"
+      ],
+      "notiz": "Landesleistung erfasst: Blindengeld des Landes (siehe Pflege). Zuständige Stelle für die Feststellung je Land recherchiert am 26.10.2026; Gehörlosen- und Taubblindengeld der Länder sind nicht erfasst."
+    }
+  ]
+}

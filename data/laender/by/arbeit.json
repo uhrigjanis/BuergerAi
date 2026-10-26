@@ -1,0 +1,51 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "by_keine_erwerbslosenberatung",
+      "titel": "Bayerischer Landtag – Antrag zu Erwerbslosenberatungszentren (Drucksache 18/18283)",
+      "url": "https://www.bayern.landtag.de/www/ElanTextAblage_WP18/Drucksachen/Basisdrucksachen/0000018000/0000018283.pdf",
+      "typ": "parlament",
+      "herausgeber": "Bayerischer Landtag",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: keine landesweite Förderung von Erwerbslosenberatung gefunden; der Antrag stellt fest, dass es nur einzelne Projekte ohne Gesamtkonzept gibt und schlägt Zentren nach dem Vorbild BW und NRW vor."
+    },
+    {
+      "id": "by_keine_meistergruendung",
+      "titel": "Gründerplattform (BMWK/KfW) – Meistergründungsprämie: Bayern",
+      "url": "https://gruenderplattform.de/unternehmen-gruenden/meistergruendungspraemie?ppid=15811",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft und KfW",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Bayern zahlt keine Meistergründungsprämie, sondern den Meisterbonus für die bestandene Prüfung (erfasst unter Ausbildung, Studium oder Meister); Gründungen fördert die LfA mit Krediten (nicht erfasst)."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "by_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "09",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "by_keine_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Websuche am 26.10.2026: keine Meistergründungsprämie (nur Meisterbonus und LfA-Kredite)."
+    }
+  ]
+}

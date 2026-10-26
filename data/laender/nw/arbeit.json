@@ -1,0 +1,133 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nw_beratungsstellen_arbeit",
+      "titel": "Landesregierung NRW – Förderung der Beratungsstellen Arbeit verlängert",
+      "url": "https://www.land.nrw/pressemitteilung/landesregierung-verlaengert-foerderung-der-beratungsstellen-arbeit",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Pressemitteilung 12/2025, G.I.B.-Bericht 2026): 53 Beratungsstellen Arbeit in allen Kreisen und kreisfreien Städten für Arbeitslose und von Arbeitslosigkeit Bedrohte; neue Förderphase ab 2026 mit rund 25 Mio. € aus Landesmitteln und ESF+."
+    },
+    {
+      "id": "nw_meistergruendung",
+      "titel": "Landesregierung NRW – Meistergründungsprämie erweitert",
+      "url": "https://www.land.nrw/pressemitteilung/meistergruendungspraemie-nrw-land-erweitert-foerderung-fuer-existenzgruendungen",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: bis 11.500 € für Gründung oder Übernahme im Handwerk, bei Übernahme eines bestehenden Betriebs 2.000 € zusätzlich."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nw_beratungsstelle_arbeit",
+      "name": "Beratungsstelle Arbeit – {kreis}",
+      "beschreibung": "In jedem Kreis bzw. jeder kreisfreien Stadt gibt es eine Beratungsstelle Arbeit."
+    },
+    {
+      "id": "nrwbank_meistergruendung",
+      "name": "NRW.BANK (über die Handwerkskammer)",
+      "url": "https://www.nrwbank.de",
+      "beschreibung": "Beratung und Antrag über die Handwerkskammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "erwerbslosenberatung_nw",
+      "leistung_id": "erwerbslosenberatung",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nw_beratungsstelle_arbeit",
+      "quellen": [
+        "nw_beratungsstellen_arbeit"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Beratungsstelle in Ihrer Nähe suchen und einen Termin vereinbaren."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Beratung zu Sozial- und Arbeitsrecht, auch bei Ausbeutung am Arbeitsplatz."
+      ]
+    },
+    {
+      "id": "meistergruendungspraemie_nw",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nrwbank_meistergruendung",
+      "quellen": [
+        "nw_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "nw_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Bis 11.500 €, bei Übernahme eines Betriebs 2.000 € mehr."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nw_beratungsstellen_arbeit"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Landesleistung erfasst: Beratungsstellen Arbeit."
+    },
+    {
+      "gebiet_id": "05",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nw_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie NRW."
+    }
+  ]
+}

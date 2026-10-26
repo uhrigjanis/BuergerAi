@@ -1,0 +1,137 @@
+{
+  "_hinweis": "Lebenslage Behinderung: zuständige Stelle für Feststellung und Wertmarke. Landesleistung ist das Blindengeld (siehe pflege.json).",
+  "quellen": [
+    {
+      "id": "rp_feststellung",
+      "titel": "Landtag Rheinland-Pfalz – Vorlage 18/8247 (Feststellungsverfahren SGB IX)",
+      "url": "https://dokumente.landtag.rlp.de/landtag/vorlagen/8247-V-18.pdf",
+      "typ": "parlament",
+      "herausgeber": "Landtag Rheinland-Pfalz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: LSJV führt die Feststellungsverfahren an vier Standorten (Mainz, Koblenz, Trier, Landau)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "feststellung_rp",
+      "name": "Landesamt für Soziales, Jugend und Versorgung (LSJV)",
+      "beschreibung": "Standorte Mainz, Koblenz, Trier und Landau.",
+      "url": "https://lsjv.rlp.de"
+    }
+  ],
+  "varianten": [
+    {
+      "id": "behinderung_feststellen_rp",
+      "leistung_id": "behinderung_feststellen",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "feststellung_rp",
+      "quellen": [
+        "rp_feststellung",
+        "sgb9_152"
+      ],
+      "regel": {
+        "fakt": "behinderung.gdb",
+        "op": "==",
+        "wert": 0,
+        "text": "Noch kein Grad der Behinderung festgestellt",
+        "quellen": [
+          "sgb9_152"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Arztberichte und Befunde (oder Namen der behandelnden Ärzte)",
+          "Passfoto (für den Ausweis)"
+        ],
+        "schritte": [
+          "Antrag auf Feststellung einer Behinderung stellen (online, schriftlich oder formlos); den Ausweis gleich mit beantragen.",
+          "Die Behörde holt Befunde bei Ihren Ärzten ein und schickt einen Bescheid mit GdB und Merkzeichen."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Ist schon ein GdB festgestellt und hat sich die Gesundheit verschlechtert, können Sie eine Neufeststellung (Erhöhung) beantragen.",
+        "Die Bearbeitung dauert oft mehrere Monate."
+      ]
+    },
+    {
+      "id": "wertmarke_freifahrt_rp",
+      "leistung_id": "wertmarke_freifahrt",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "feststellung_rp",
+      "quellen": [
+        "rp_feststellung",
+        "wertmarke_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.merkzeichen_g",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen G (erheblich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_ag",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_h",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen H (hilflos)"
+              },
+              {
+                "fakt": "pflege.blind",
+                "op": "==",
+                "wert": true,
+                "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_gl",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen Gl (gehörlos)"
+              }
+            ],
+            "text": "Merkzeichen G, aG, H, Bl oder Gl"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Wertmarke bei der Stelle beantragen, die Ihren Ausweis ausgestellt hat (Beiblatt mit Wertmarke)."
+        ]
+      },
+      "hinweise": [
+        "Die Wertmarke kostet 104 € im Jahr (53 € im Halbjahr); kostenlos mit Merkzeichen H oder Bl und bei Grundsicherung bzw. Sozialhilfe (laut Bericht).",
+        "Gilt im Nahverkehr und in Regionalzügen, nicht im Fernverkehr."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "behinderung",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mainz_bingen_landesblindengeld",
+        "rp_feststellung"
+      ],
+      "notiz": "Landesleistung erfasst: Blindengeld des Landes (siehe Pflege). Zuständige Stelle für die Feststellung je Land recherchiert am 26.10.2026; Gehörlosen- und Taubblindengeld der Länder sind nicht erfasst."
+    }
+  ]
+}

@@ -336,3 +336,81 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Schleswig-Holstein | keine (nur Gründungsprämie) | – | – | FIM |
 | Thüringen | Meisterbonus 2.000 € | DQR 6/7 | – | IHK Gera |
 
+## Lebenslage Behinderung (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `sgb9_152` | Feststellung, Ausweis ab GdB 50 (Gesetzestext nicht erreichbar) |
+| `wertmarke_2026` | Preis 104 € bzw. 53 €, kostenlose Wertmarke (nur Sekundärquelle) |
+| `berlin_lageso_kfz` | Kfz-Steuer: Befreiung und Ermäßigung, Verhältnis zur Freifahrt (ein Ratgeber widerspricht bei H, Bl, aG) |
+| `berlin_rundfunk_rf` | Ermäßigung auf 6,12 €, rückwirkend drei Jahre |
+| `sachsen_zusatzurlaub`, `ihk_schwerbehinderung` | Zusatzurlaub, Voraussetzungen der Gleichstellung |
+| `th_feststellung` | **Widersprüchlich:** Landkreise und Städte (seit 2008) oder Landesamt TLVLV |
+| `nw_feststellung` | nur Sekundärquelle; amtliche Seite einer Stadt bzw. eines Kreises ergänzen |
+
+### Zuständige Stelle für Feststellung und Wertmarke (alle 16 Länder)
+
+| Land | Stelle |
+|------|--------|
+| Baden-Württemberg | Versorgungsamt beim Landratsamt bzw. Stadtkreis |
+| Bayern | Zentrum Bayern Familie und Soziales (ZBFS), Regionalstelle |
+| Berlin | LAGeSo – Versorgungsamt |
+| Brandenburg | Landesamt für Soziales und Versorgung (LASV), Cottbus |
+| Bremen | Amt für Versorgung und Inklusion (AVIB) |
+| Hamburg | Versorgungsamt Hamburg |
+| Hessen | Hessisches Amt für Versorgung und Soziales (HAVS) am Wohnort |
+| Mecklenburg-Vorpommern | Landesamt für Gesundheit und Soziales (LAGuS) |
+| Niedersachsen | Landesamt für Soziales, Jugend und Familie, Außenstelle |
+| Nordrhein-Westfalen | Kreis bzw. kreisfreie Stadt |
+| Rheinland-Pfalz | Landesamt für Soziales, Jugend und Versorgung (LSJV) |
+| Saarland | Landesamt für Soziales, Abteilung Schwerbehinderung |
+| Sachsen | Landratsamt bzw. kreisfreie Stadt |
+| Sachsen-Anhalt | Landesverwaltungsamt, Halle |
+| Schleswig-Holstein | Landesamt für Arbeitsschutz, Soziales und Gesundheit (LASG), Außenstelle |
+| Thüringen | Landratsamt bzw. kreisfreie Stadt (widersprüchlich) |
+
+Landesleistung der Lebenslage ist das Blindengeld (Tabelle unter Pflege). Gehörlosen- und Taubblindengeld sind nicht erfasst.
+
+## Lebenslagen Job verloren und Selbstständig machen (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `ba_arbeitsuchend_2026`, `ba_alg`, `ba_sperrzeit` | Fristen § 38 SGB III (Änderung durch Gesetz vom 24.7.2026?), Anwartschaft, Sperrzeit 12 Wochen |
+| `kschg_4`, `insolvenzgeld_fim` | Drei Wochen ab Zugang; zwei Monate ab Insolvenzereignis |
+| `ihk_gruendungszuschuss` | 150 Tage Restanspruch (eine Ratgeberseite widerspricht) |
+| `sgb2_16b` | Einstiegsgeld: Hauptberuf, Höhe |
+| `steuerliche_erfassung`, `gewerbeanmeldung`, `handwerksrolle` | Fristen und Ausnahmen |
+| `be_meistergruendung`, `st_meistergruendung` | nur Sekundärquellen |
+| `bb_meistergruendung` | **Widersprüchlich:** Höhe und Antragsstatus |
+| `th_meistergruendung`, `hh_gruendung_handwerk` | Höhe nicht amtlich |
+| alle `*_keine_erwerbslosenberatung` | „keine“ beruht auf Websuchen; Landeshaushalte prüfen |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Job verloren: Beratung | Selbstständig: Meistergründungsprämie |
+|------|------------------------|----------------------------------------|
+| Baden-Württemberg | Arbeitslosenberatungszentren | Tilgungszuschuss L-Bank (10 %, max. 10.000 €) |
+| Bayern | keine | keine (Meisterbonus, LfA-Kredite) |
+| Berlin | BALZ (Senat) | bis 25.000 € |
+| Brandenburg | keine | Meistergründungsprämie (widersprüchlich) |
+| Bremen | keine | keine |
+| Hamburg | keine | Zuschuss zum Hamburg-Kredit bei Ausbildungsplatz |
+| Hessen | keine | keine (Beratung, Mikrodarlehen) |
+| Mecklenburg-Vorpommern | keine | 7.500 € + 2.500 € je Arbeitsplatz |
+| Niedersachsen | unabhängige Erwerbslosenberatungsstellen | 10.000 € bei neuem Arbeitsplatz |
+| Nordrhein-Westfalen | Beratungsstellen Arbeit | bis 11.500 € (+2.000 € bei Übernahme) |
+| Rheinland-Pfalz | keine | Aufstiegsbonus II 2.500 € |
+| Saarland | Arbeitskammer (Landesrecht) | Gründer- und Nachfolgebonus 2.500 € |
+| Sachsen | keine | keine (InnoStartBonus u. a.) |
+| Sachsen-Anhalt | keine | 10.000 € (seit 7/2026) |
+| Schleswig-Holstein | keine | bis 7.500 € + 2.500 € |
+| Thüringen | keine | Meistergründungsprämie (Höhe offen) |
+

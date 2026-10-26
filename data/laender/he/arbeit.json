@@ -1,0 +1,51 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "he_keine_erwerbslosenberatung",
+      "titel": "Hessischer Landtag – Änderungsantrag Unabhängige Erwerbslosenberatung (Drucksache 19/4189)",
+      "url": "https://starweb.hessen.de/cache/DRS/19/9/04189.pdf",
+      "typ": "parlament",
+      "herausgeber": "Hessischer Landtag",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden; 2016 nur als Haushaltsantrag der Opposition belegt."
+    },
+    {
+      "id": "he_keine_meistergruendung",
+      "titel": "Förderdatenbank – Gründungs- und Mittelstandsförderung Hessen (GuM)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Hessen/gum-gruendungs-und-mittelstandsfoerderung-existenz.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Hessen fördert Gründungen mit Beratung, Beteiligungen und Mikrodarlehen (nicht erfasst), aber ohne Meistergründungsprämie."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "06",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_keine_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Websuche am 26.10.2026: keine Meistergründungsprämie gefunden (nur Beratung, Mikrodarlehen)."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Behinderung: GdB 40 in Kiel, Beschäftigung unbekannt",
+  "beschreibung": "Gleichstellung bleibt unklar, wenn offen ist, ob die Person arbeitet; kein Zusatzurlaub unter GdB 50.",
+  "plz": "24103",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "behinderung"
+  ],
+  "anforderungen": [
+    "ANF-BEH-04",
+    "ANF-BEH-06"
+  ],
+  "fakten": {
+    "behinderung.merkzeichen_g": "nein",
+    "behinderung.merkzeichen_ag": "nein",
+    "behinderung.merkzeichen_h": "nein",
+    "pflege.blind": "nein",
+    "behinderung.merkzeichen_gl": "nein",
+    "behinderung.merkzeichen_rf": "nein",
+    "behinderung.gdb": 40,
+    "behinderung.beschaeftigt": "unbekannt",
+    "arbeitsuchend_gemeldet": "nein",
+    "behinderung.kfz_halter": "nein"
+  },
+  "erwartet": {
+    "gleichstellung": "unklar",
+    "zusatzurlaub": "nein",
+    "wertmarke_freifahrt": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

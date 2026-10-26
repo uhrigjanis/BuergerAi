@@ -1,0 +1,31 @@
+{
+  "name": "Job verloren: Insolvenz des Arbeitgebers in Hannover",
+  "beschreibung": "Insolvenzgeld mit Ausschlussfrist zwei Monate nach dem Insolvenzereignis; Erwerbslosenberatung des Landes Niedersachsen.",
+  "plz": "30159",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "jobverlust"
+  ],
+  "anforderungen": [
+    "ANF-ARB-03",
+    "ANF-ARB-05"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "einkommen.erwerbsfaehig": "ja",
+    "alter": 40,
+    "arbeit.grund": "insolvenz",
+    "arbeit.ende_datum": "2026-11-30",
+    "arbeit.insolvenz_datum": "2026-10-01",
+    "arbeit.versichert_12_monate": "ja"
+  },
+  "erwartet": {
+    "insolvenzgeld": "ja",
+    "arbeitslosengeld": "ja",
+    "erwerbslosenberatung": "ja"
+  },
+  "erwartet_stellen": {
+    "erwerbslosenberatung": "Unabhängige Erwerbslosenberatungsstelle"
+  },
+  "erwartet_fehlend": []
+}

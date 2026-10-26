@@ -47,4 +47,6 @@ def berechne(frist: Frist, fakten: dict[str, Any], stichtag: date) -> Berechnete
     if basis is None:
         return BerechneteFrist(frist, None, False, None)
     datum = plus_monate(basis, frist.monate) + timedelta(weeks=frist.wochen, days=frist.tage)
+    if frist.nicht_vor is not None and isinstance(fakten.get(frist.nicht_vor[0]), date):
+        datum = max(datum, fakten[frist.nicht_vor[0]] + timedelta(days=frist.nicht_vor[1]))
     return BerechneteFrist(frist, datum, voraussichtlich, (datum - stichtag).days)

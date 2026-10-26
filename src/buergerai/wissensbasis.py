@@ -75,6 +75,7 @@ def _frist(roh: dict[str, Any]) -> Frist:
         wochen=roh.get("wochen", 0),
         monate=roh.get("monate", 0),
         quellen=tuple(roh.get("quellen", ())),
+        nicht_vor=(roh["nicht_vor"]["bezug"], roh["nicht_vor"].get("tage", 0)) if "nicht_vor" in roh else None,
     )
 
 
@@ -654,6 +655,10 @@ class Wissensbasis:
                         fehler.append(f"{wo}: Frist-Bezug {fr.bezug} ist weder {FRIST_BEZUEGE} noch ein Datumsfakt")
                     elif not self._fakt_erlaubt(d, leistung):
                         fehler.append(f"{wo}: Frist-Bezug {d.id} gehört zum Modul {d.modul}")
+                if fr.nicht_vor is not None:
+                    d = self.fakten.get(fr.nicht_vor[0])
+                    if d is None or d.typ != "datum" or not self._fakt_erlaubt(d, leistung):
+                        fehler.append(f"{wo}: 'nicht_vor' braucht einen erlaubten Datumsfakt (war: {fr.nicht_vor[0]})")
                 if fr.art not in FRIST_ARTEN:
                     fehler.append(f"{wo}: Frist-Art {fr.art} unbekannt")
                 quellen_ok(fr.quellen, f"{wo} (Frist)")
@@ -781,6 +786,8 @@ class Wissensbasis:
                 merken(fid)
             for fr in v.verfahren.fristen:
                 merken(fr.bezug)
+                if fr.nicht_vor is not None:
+                    merken(fr.nicht_vor[0])
         for ll in self.lebenslagen.values():
             for fid in ll.einstiegsfragen:
                 merken(fid)

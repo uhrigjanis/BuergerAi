@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_keine_erwerbslosenberatung",
+      "titel": "Landesregierung MV – Regionale Arbeitsmarkt- und Strukturentwicklung",
+      "url": "https://www.regierung-mv.de/Landesregierung/wm/Arbeit/Regionale-Arbeitsmarkt-und-Strukturentwicklung/Beispiele-f%C3%BCr-Kleinprojekte/",
+      "typ": "behoerde",
+      "herausgeber": "Land Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: regionale Arbeitsmarktprojekte, aber keine landesweite Erwerbslosenberatung gefunden."
+    },
+    {
+      "id": "mv_meisterpraemie_gruendung",
+      "titel": "LFI MV – Merkblatt Meisterprämie Stufe 1 (Basisförderung)",
+      "url": "https://www.lfi-mv.de/export/sites/lfi/.galleries/meisterpraemie/merkblatt-meisterpraemie-stufe-1-basisfoerderung.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Landesförderinstitut MV",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (LFI, Handwerksblatt): 7.500 € Basisförderung für Gründung, Nachfolge oder tätige Beteiligung im Handwerk, 2.500 € je neuem Arbeitsplatz; Antrag vor Beginn der gewerblichen Tätigkeit; bis 2028."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lfi_mv",
+      "name": "Landesförderinstitut Mecklenburg-Vorpommern (LFI)",
+      "url": "https://www.lfi-mv.de",
+      "beschreibung": "Antrag schriftlich vor Beginn."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_mv",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "lfi_mv",
+      "quellen": [
+        "mv_meisterpraemie_gruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "mv_meisterpraemie_gruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "7.500 € Basisförderung, dazu 2.500 € für einen neuen Arbeitsplatz."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "13",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_meisterpraemie_gruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meisterprämie für Gründungen."
+    }
+  ]
+}

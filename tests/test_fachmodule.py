@@ -112,7 +112,7 @@ def fehler_beim_laden(tmp_path: Path, aendern: Callable[[dict[str, dict[str, Any
 # ------------------------------------------------------------------ Struktur und Modulgrenzen
 @pytest.mark.anforderung("ANF-MOD-01")
 def test_echte_daten_haben_fachmodul_familie(kb):
-    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen", "pflege", "wohnen", "bildung"}
+    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen", "pflege", "wohnen", "bildung", "behinderung", "arbeit"}
     geburt = kb.lebenslagen["geburt"]
     assert geburt.modul == "familie" and geburt.typ == "ereignis"
     assert geburt.einstiegsfragen[0] == "kind_geboren"

@@ -17,6 +17,7 @@ Automatisch erzeugte Daten (Kreise, Gemeinden, PLZ) liegen unter
 from __future__ import annotations
 
 import json
+from datetime import date
 import string
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -41,7 +42,7 @@ from .modell import (
     Zustaendigkeit,
     parse_datum,
 )
-from .regeln import OPERATOREN, RegelFehler, fakten_in_regel, knotentyp, quellen_in_regel
+from .regeln import OPERATOREN, RegelFehler, fakten_in_regel, knotentyp, quellen_in_regel, tag_im_jahr
 
 STANDARD_DATENVERZEICHNIS = Path(__file__).resolve().parents[2] / "data"
 
@@ -740,6 +741,13 @@ class Wissensbasis:
                 fehler.append(f"{wo}: unbekannter Operator {knoten.get('op')!r}")
             if not knoten.get("text"):
                 fehler.append(f"{wo}: Fakt-Bedingung {fid} braucht einen 'text'")
+            if definition and definition.typ == "datum":
+                soll = knoten.get("wert")
+                for w in soll if isinstance(soll, list) else [soll]:
+                    try:
+                        tag_im_jahr(w) if isinstance(w, str) and w.startswith("--") else date.fromisoformat(w)
+                    except (TypeError, ValueError):
+                        fehler.append(f"{wo}: Wert {w!r} für {fid} ist kein Datum (JJJJ-MM-TT) und kein Tag im Jahr (--MM-TT)")
             if definition and definition.typ == "auswahl":
                 erlaubt = {w for w, _ in definition.optionen}
                 soll = knoten.get("wert")

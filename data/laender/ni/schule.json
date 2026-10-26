@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Niedersachsen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ni_einschulung",
+      "titel": "Niedersächsisches Kultusministerium – Informationsblatt zum Einschulungstermin",
+      "url": "https://www.mk.niedersachsen.de/download/128260/Informationsblatt_zum_Einschulungstermin.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Niedersachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Schulpflicht in dem Schuljahr, in dem das Kind bis zum 30. September sechs wird; Flexibilisierung 1.7.–30.9. per Erklärung bis 1. Mai; Kann-Kinder bleiben möglich."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_ni",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "ni_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--09-30",
+                "text": "Geburtstag bis einschließlich 30. September (Stichtag in Niedersachsen)",
+                "quellen": [
+                  "ni_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--09-30",
+                "text": "Geburtstag nach dem 30. September"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Niedersachsen erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "ni_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Niedersachsen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung nach Aufforderung durch die Schule bzw. den Schulträger",
+            "bezug": "keiner",
+            "quellen": [
+              "ni_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Niedersachsen ist schulpflichtig, wer bis zum 30. September sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Wird Ihr Kind zwischen dem 1. Juli und dem 30. September sechs, können Sie die Einschulung um ein Jahr verschieben – formlose Erklärung bis zum 1. Mai an die Schule.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Niedersachsen (30. September). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

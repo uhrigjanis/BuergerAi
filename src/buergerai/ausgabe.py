@@ -130,7 +130,8 @@ def schritt_text(s: Schritt, kb: Wissensbasis, f: Farbe) -> str:
             if definition is not None and definition.typ == "ja_nein" and s.fakt:
                 text += f.grau(f"  [{frage_zu(kb, s.fakt)} → {wert_als_text(s.ist)}]")
             else:
-                text += f.grau(f"  [Angabe: {wert_als_text(s.ist)}]")
+                # Fakten, deren ID auf "jahr" endet, sind Jahreszahlen (z. B. bildung.einschulungsjahr)
+                text += f.grau(f"  [Angabe: {wert_als_text(s.ist, jahreszahl=bool(s.fakt and s.fakt.endswith('jahr')))}]")
     farbe = {Wert.JA: f.gruen, Wert.NEIN: f.rot, Wert.UNKLAR: f.gelb}[s.wert]
     return f"{farbe(sym)} {text}"
 

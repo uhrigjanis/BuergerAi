@@ -158,6 +158,12 @@
     {"id": "ANF-TOD-05", "bereich": "Todesfall", "titel": "Erbe ausschlagen: sechs Wochen ab Kenntnis; Datum der Kenntnis nur gefragt, wenn Ausschlagen erwogen wird"},
     {"id": "ANF-TOD-06", "bereich": "Todesfall", "titel": "Unbekannte Beziehung ergibt Unklar; ohne Sterbeort Hinweis statt Liste aller Länder"},
     {"id": "ANF-TOD-07", "bereich": "Todesfall", "titel": "Mindestens drei Szenarien, darunter Unklar und Sterbeort in anderem Land; Terminal und Web gleich"},
+    {"id": "ANF-SCH-01", "bereich": "Schule", "titel": "Schulpflicht nach dem Stichtag des Landes für alle 16 Länder belegt; nach dem Stichtag Unklar (Kann-Kind), zu jung Nein"},
+    {"id": "ANF-SCH-02", "bereich": "Schule", "titel": "Regeln vergleichen Datumsfakten mit einem Tag im Jahr (--MM-TT); ungültige Werte meldet die Datenprüfung"},
+    {"id": "ANF-SCH-03", "bereich": "Schule", "titel": "Alter im Einschulungsjahr wird aus Geburtsdatum und Jahr abgeleitet; fehlt eine Angabe, Unklar; Jahreszahlen ohne Tausenderpunkt"},
+    {"id": "ANF-SCH-04", "bereich": "Schule", "titel": "Ganztagsbetreuung: Rechtsanspruch ab Einschulung 2026/27, wenn Betreuung gewünscht"},
+    {"id": "ANF-SCH-05", "bereich": "Schule", "titel": "Bildung und Teilhabe gehört auch zum Schulstart"},
+    {"id": "ANF-SCH-06", "bereich": "Schule", "titel": "Mindestens drei Szenarien, darunter Unklar und gleiches Kind in Ländern mit verschiedenem Stichtag; Terminal und Web gleich"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

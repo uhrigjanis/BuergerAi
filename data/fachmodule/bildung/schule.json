@@ -1,0 +1,113 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Stichtag der Schulpflicht je Land unter data/laender/*/schule.json.",
+  "quellen": [
+    {
+      "id": "bildungsserver_stichtage",
+      "titel": "Deutscher Bildungsserver – Einschulung und Stichtagsregelungen in den Ländern (2026)",
+      "url": "https://www.bildungsserver.de/elementarbildung/wann-kommt-mein-kind-in-die-schule-einschulung-und-stichtagsregelungen-12554-de.html",
+      "typ": "behoerde",
+      "herausgeber": "DIPF – Deutscher Bildungsserver (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Übersicht je Land; die Länder legen den Stichtag seit 1997 selbst fest (zwischen 30. Juni und 30. September); Kann-Kinder auf Antrag; Zurückstellung nur im Ausnahmefall."
+    },
+    {
+      "id": "bmbfsfj_ganztag",
+      "titel": "BMBFSFJ – Vor Inkrafttreten des Rechtsanspruchs: Ganztagsausbau geht voran",
+      "url": "https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/pressemitteilungen/vor-inkrafttreten-des-rechtsanspruchs-ganztagsausbau-geht-kontinuierlich-voran-276946",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (BMBFSFJ, Stadt Wiesbaden, GEW): Rechtsanspruch auf Ganztagsbetreuung im Grundschulalter (§ 24 Abs. 4 SGB VIII, Ganztagsförderungsgesetz) ab 1.8.2026 zunächst für Kinder der ersten Klasse, jährlich eine Klasse mehr, ab 2029/30 Klassen 1–4; acht Stunden an fünf Tagen einschließlich Unterricht, auch in den Ferien (höchstens vier Wochen Schließzeit); Elternbeiträge möglich."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "grundschule_schulbezirk",
+      "name": "Grundschule im Schulbezirk bzw. Schulamt – {gemeinde}",
+      "beschreibung": "Angemeldet wird an der für Ihre Wohnung zuständigen Grundschule; die Gemeinde bzw. das Schulamt schreibt die Eltern meist an."
+    },
+    {
+      "id": "ganztag_stelle",
+      "name": "Grundschule bzw. Jugendamt – {kreis}",
+      "beschreibung": "Ganztagsangebote der Schule oder Hort der Jugendhilfe; die Anmeldung regelt die Gemeinde bzw. der Kreis."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "schulanmeldung",
+      "name": "Kind zur Schule anmelden (Schulpflicht)",
+      "lebenslagen": [
+        "schule"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht: Schulpflichtige Kinder müssen Sie an der Grundschule anmelden. Wann ein Kind schulpflichtig wird, legt jedes Land mit einem Stichtag fest."
+    },
+    {
+      "id": "ganztag_grundschule",
+      "name": "Ganztagsbetreuung in der Grundschule (Rechtsanspruch)",
+      "lebenslagen": [
+        "schule"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "rechtsanspruch": true,
+      "kurz": "Kinder, die ab dem Schuljahr 2026/27 eingeschult werden, haben Anspruch auf Betreuung an fünf Tagen bis zu acht Stunden – auch in den Ferien."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "ganztag_grundschule_bund",
+      "leistung_id": "ganztag_grundschule",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "ganztag_stelle",
+      "quellen": [
+        "bmbfsfj_ganztag"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.einschulungsjahr",
+            "op": ">=",
+            "wert": 2026,
+            "text": "Einschulung ab dem Schuljahr 2026/27",
+            "quellen": [
+              "bmbfsfj_ganztag"
+            ]
+          },
+          {
+            "fakt": "bildung.ganztag_gewuenscht",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wünschen eine Betreuung über den Unterricht hinaus"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Schulanmeldung nach dem Ganztagsangebot fragen und Ihr Kind dafür anmelden.",
+          "Gibt es keinen Platz, beim Jugendamt den Anspruch geltend machen."
+        ],
+        "fristen": [
+          {
+            "text": "Früh anmelden – Fristen setzen Schule bzw. Gemeinde",
+            "bezug": "keiner",
+            "quellen": [
+              "bmbfsfj_ganztag"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Der Anspruch wächst jedes Jahr um eine Klassenstufe; ab 2029/30 gilt er für die Klassen 1 bis 4.",
+        "Die Länder regeln die Ausgestaltung; für die Betreuung können Elternbeiträge anfallen."
+      ]
+    }
+  ]
+}

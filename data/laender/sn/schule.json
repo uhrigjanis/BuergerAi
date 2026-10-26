@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Sachsen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sn_einschulung",
+      "titel": "Landeshauptstadt Dresden – Informationsblatt Schulpflicht",
+      "url": "https://www.dresden.de/media/pdf/schulen/HZ-Schulpflicht_DE.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt Dresden",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Dresden, Grundschulordnung bei REVOSax): schulpflichtig, wer bis zum 30. Juni sechs ist; Kann-Kinder bis 30. September mit Anmeldung schulpflichtig; Anmeldung 1.8.–15.9.; Verstoß ist Ordnungswidrigkeit."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_sn",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "sn_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--06-30",
+                "text": "Geburtstag bis einschließlich 30. Juni (Stichtag in Sachsen)",
+                "quellen": [
+                  "sn_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--06-30",
+                "text": "Geburtstag nach dem 30. Juni"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Sachsen erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "sn_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Sachsen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung vom 1. August bis 15. September des Vorjahres an der Grundschule im Schulbezirk",
+            "bezug": "keiner",
+            "quellen": [
+              "sn_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Sachsen ist schulpflichtig, wer bis zum 30. Juni sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Kinder, die bis zum 30. September sechs werden, sind ebenfalls schulpflichtig, wenn Sie sie anmelden (Kann-Kinder).",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sn_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Sachsen (30. Juni). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

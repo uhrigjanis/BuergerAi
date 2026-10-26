@@ -122,13 +122,16 @@ def parse_wert(definition: FaktDefinition, roh: Any) -> Any:
     return str(roh)
 
 
-def wert_als_text(wert: Any) -> str:
+def wert_als_text(wert: Any, jahreszahl: bool = False) -> str:
+    """Wert für die Anzeige; ``jahreszahl``: Zahl ohne Tausenderpunkt (2027 statt 2.027)."""
     if wert is UNBEKANNT:
         return "unbekannt"
     if isinstance(wert, bool):
         return "ja" if wert else "nein"
     if isinstance(wert, date):
         return wert.strftime("%d.%m.%Y")
+    if isinstance(wert, int) and jahreszahl:
+        return str(wert)
     if isinstance(wert, (int, float)):
         return f"{wert:,}".replace(",", ".")
     return str(wert)
@@ -154,4 +157,10 @@ def abgeleitete_fakten(fakten: dict[str, Any]) -> dict[str, Any]:
         neu["geburtsdatum_oder_termin"] = fakten["geburtsdatum"]
     elif geboren is False and isinstance(fakten.get("errechneter_termin"), date):
         neu["geburtsdatum_oder_termin"] = fakten["errechneter_termin"]
+    # Schule: Alter im Jahr der Einschulung (Geburtstag wird mit dem Stichtag des Landes verglichen)
+    geburt, jahr = fakten.get("bildung.kind_geburtsdatum"), fakten.get("bildung.einschulungsjahr")
+    if isinstance(geburt, date) and isinstance(jahr, int) and not isinstance(jahr, bool):
+        neu["bildung.alter_im_einschulungsjahr"] = jahr - geburt.year
+    elif UNBEKANNT in (geburt, jahr):
+        neu["bildung.alter_im_einschulungsjahr"] = UNBEKANNT
     return neu

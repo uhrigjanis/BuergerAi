@@ -1,0 +1,31 @@
+{
+  "name": "Schulstart: Familie mit Wohngeld in Berlin, Kind im März geboren",
+  "beschreibung": "Schulpflichtig nach dem Berliner Stichtag 30. September; mit Wohngeld gibt es Bildung und Teilhabe (Schulbedarf).",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "schule"
+  ],
+  "anforderungen": [
+    "ANF-SCH-01",
+    "ANF-SCH-05"
+  ],
+  "fakten": {
+    "kinder_im_haushalt": 1,
+    "bezieht_buergergeld": "nein",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_wohngeld": "ja",
+    "bezieht_kinderzuschlag": "nein",
+    "bezieht_asylbewerberleistungen": "nein",
+    "bildung.kind_geburtsdatum": "2021-03-10",
+    "bildung.einschulungsjahr": 2027,
+    "bildung.ganztag_gewuenscht": "nein"
+  },
+  "erwartet": {
+    "schulanmeldung": "ja",
+    "bildung_und_teilhabe": "ja",
+    "ganztag_grundschule": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

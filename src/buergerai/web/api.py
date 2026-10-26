@@ -125,7 +125,7 @@ def anzeige(kb: Wissensbasis, fid: str, wert: Any) -> str:
         for w, text in d.optionen:
             if w == wert:
                 return text
-    return wert_als_text(wert)
+    return wert_als_text(wert, jahreszahl=fid.endswith("jahr"))
 
 
 def _anfrage(kb: Wissensbasis, daten: Any) -> Anfrage:

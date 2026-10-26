@@ -452,3 +452,40 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Sachsen-Anhalt | 10 Tage (soll) | ja |
 | Schleswig-Holstein | 9 Tage | ja |
 | Thüringen | 10 Tage | ja |
+
+## Lebenslage Schulstart (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`. Viele Ratgeberseiten nennen veraltete Stichtage.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bildungsserver_stichtage` | Übersicht aller Länder (DIPF); als Zweitquelle je Land genutzt |
+| `bmbfsfj_ganztag` | Rechtsanspruch § 24 Abs. 4 SGB VIII ab 1.8.2026, aufwachsend |
+| `bw_einschulung`, `mv_einschulung`, `rp_einschulung`, `sl_einschulung` | nur Bildungsserver; Seiten der Kultusministerien prüfen |
+| `by_einschulung` | nur Sekundärquelle (Korridor 1.7.–30.9.) |
+| `hh_einschulung` | **Widersprüchlich:** 1. Juli (Bildungsserver) gegen 30. Juni bzw. 30. September (Ratgeber) |
+| `bb_einschulung` | Wechsel auf 30. Juni nur in einer Ratgeberseite erwähnt |
+| alle | Zählung des Stichtags (Geburtstag am Stichtag bzw. am Tag danach) |
+
+### Stichtag der Schulpflicht (alle 16 Länder)
+
+| Land | Schulpflichtig, wer sechs wird bis | Besonderheit |
+|------|------------------------------------|--------------|
+| Baden-Württemberg | 30. Juni | früher 30. September |
+| Bayern | 30. September | Korridor 1.7.–30.9.: Eltern entscheiden |
+| Berlin | 30. September | Anmeldung im Oktober des Vorjahres |
+| Brandenburg | 30. September | Anmeldung 2027/28 ab 2.11.2026 |
+| Bremen | 30. Juni | 1.7.–30.9. auf Antrag |
+| Hamburg | 1. Juli (widersprüchlich) | Vorstellung der Viereinhalbjährigen |
+| Hessen | 1. Juli (geboren) bzw. 30. Juni (sechstes Lebensjahr vollendet) | Anmeldung März/April des Vorjahres |
+| Mecklenburg-Vorpommern | 30. Juni | |
+| Niedersachsen | 30. September | 1.7.–30.9.: Aufschub per Erklärung bis 1. Mai |
+| Nordrhein-Westfalen | 30. September | Anmeldung bis 15. November des Vorjahres |
+| Rheinland-Pfalz | 31. August | |
+| Saarland | 30. Juni | |
+| Sachsen | 30. Juni | bis 30.9. mit Anmeldung schulpflichtig; Anmeldung 1.8.–15.9. |
+| Sachsen-Anhalt | 30. Juni | |
+| Schleswig-Holstein | 30. Juni | |
+| Thüringen | 1. August (am 1. August sechs) | |

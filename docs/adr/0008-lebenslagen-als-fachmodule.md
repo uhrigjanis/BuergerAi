@@ -188,6 +188,15 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Kein falsches Datum:** Wo die Frist Werktage zählt (Bayern, Sachsen) oder es keine feste Frist für alle Fälle gibt, steht die Frist nur als Text. Die Anzeigefrist beim Standesamt (dritter Werktag) wird vorsichtig als dritter Kalendertag berechnet; der Text sagt das.
 - **Bedingte Fragen:** Das Datum der Kenntnis vom Erbe wird nur gefragt, wenn das Ausschlagen erwogen wird; der Rentenbezug nur bei Ehepartnern.
 
+### 16. Umsetzung von Schritt 6, Teil 4: Schulstart (26.10.2026)
+
+- **Lebenslage `schule`** (Schulstart, `ereignis`) im bestehenden Fachmodul `bildung`; der Wechsel auf weiterführende Schulen steht unter „nicht erfasst“.
+- **Stichtag als Landesleistung:** „Kind zur Schule anmelden“ (Art `pflicht`) hat nur Landesvarianten; jede vergleicht den Geburtstag mit dem Stichtag ihres Landes.
+- **Tag im Jahr (Engine):** Ein Regelwert `--MM-TT` (ISO 8601) vergleicht bei Datumsfakten nur Monat und Tag. So braucht der Stichtag kein Jahr und veraltet nicht. Die Datenprüfung meldet ungültige Werte.
+- **Abgeleitetes Alter:** `bildung.alter_im_einschulungsjahr` = Einschulungsjahr − Geburtsjahr (in `fakten.abgeleitete_fakten`). Ist eine Angabe „weiß nicht“, ist auch das Alter unbekannt und das Ergebnis Unklar.
+- **Grenzfall Stichtag:** Ob „bis zum 30. Juni sechs“ den Geburtstag am 1. Juli einschließt, formulieren die Länder verschieden. Wir übernehmen die amtliche Formulierung (Hessen: geboren bis einschließlich 1. Juli) und weisen bei Geburtstagen am Stichtag auf Nachfrage bei der Schule hin.
+- **Jahreszahlen:** Fakten, deren ID auf `jahr` endet, werden ohne Tausenderpunkt angezeigt.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

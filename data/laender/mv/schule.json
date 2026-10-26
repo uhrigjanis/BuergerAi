@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Mecklenburg-Vorpommern. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_einschulung",
+      "titel": "Deutscher Bildungsserver – Übergang Kita–Grundschule in Mecklenburg-Vorpommern",
+      "url": "https://www.bildungsserver.de/wann-kommt-mein-kind-in-die-schule-einschulung-und-stichtagsregelungen-12554-de.html",
+      "typ": "behoerde",
+      "herausgeber": "DIPF – Deutscher Bildungsserver",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Schulpflicht ab 1. August für Kinder, die bis zum 30. Juni sechs werden; die Angaben zum Fenster für vorzeitige Einschulung widersprechen sich (31. Dezember bzw. 30. Juni des Folgejahres). Landesseite nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_mv",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "mv_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--06-30",
+                "text": "Geburtstag bis einschließlich 30. Juni (Stichtag in Mecklenburg-Vorpommern)",
+                "quellen": [
+                  "mv_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--06-30",
+                "text": "Geburtstag nach dem 30. Juni"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Mecklenburg-Vorpommern erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "mv_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Mecklenburg-Vorpommern"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Termin gibt die Grundschule bzw. das Schulamt bekannt",
+            "bezug": "keiner",
+            "quellen": [
+              "mv_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Mecklenburg-Vorpommern ist schulpflichtig, wer bis zum 30. Juni sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Jüngere Kinder können auf Antrag eingeschult werden, wenn sie schulfähig sind.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Mecklenburg-Vorpommern (30. Juni). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

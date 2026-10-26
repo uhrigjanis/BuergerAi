@@ -270,7 +270,15 @@ docs/
 - ✅ 3 Szenarien, 149/149 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft, für Hessen, Mecklenburg-Vorpommern, Rheinland-Pfalz und Schleswig-Holstein nur Sekundärquellen; Rheinland-Pfalz und Saarland widersprüchlich ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Schule, Heirat und Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Schulstart (#41, Schritt 6)
+
+- ✅ Lebenslage Schulstart (Einschulung) im Fachmodul Bildung: Kind zur Schule anmelden (Schulpflicht), Rechtsanspruch auf Ganztagsbetreuung ab Einschulung 2026/27, Bildung und Teilhabe (Schulbedarf)
+- ✅ Stichtag der Schulpflicht für alle 16 Länder recherchiert (30. Juni, 1. Juli, 1. August, 31. August oder 30. September). Dasselbe Kind kann in München schulpflichtig sein und in Kiel nicht; nach dem Stichtag ist das Ergebnis Unklar (Kann-Kind auf Antrag)
+- ✅ Engine: Regeln vergleichen Datumsfakten jetzt auch mit einem Tag im Jahr (`--06-30`); das Alter im Einschulungsjahr wird aus Geburtsdatum und Jahr abgeleitet
+- ✅ 3 Szenarien, 155/155 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; für Baden-Württemberg, Mecklenburg-Vorpommern, Rheinland-Pfalz und Saarland nur der Deutsche Bildungsserver bzw. Sekundärquellen; Hamburg widersprüchlich ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Heirat und Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

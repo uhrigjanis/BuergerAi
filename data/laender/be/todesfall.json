@@ -1,0 +1,97 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Berlin. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "be_bestattung",
+      "titel": "Senatsverwaltung – Leichen- und Bestattungswesen in Berlin",
+      "url": "https://www.berlin.de/sen/gesundheit/gesundheitswesen/leichen-und-bestattungswesen-1365289.php",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Senat, service.berlin.de 326077, Aeternitas, Tagesspiegel): vor der Bestattung Leichenschau, Anzeige beim Standesamt und Bestattungsschein; Wartefrist von 48 Stunden 2024 gestrichen; Urnenbeisetzung binnen sechs Monaten; Höchstfrist für Erdbestattung nur in der Friedhofsordnung (etwa vier Tage nach Einlieferung, laut Aeternitas). Gesetzestext selbst nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_be",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "be_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Im Berliner Bestattungsgesetz keine feste Höchstfrist gefunden – Termin mit Bestatter und Friedhof abstimmen",
+            "bezug": "keiner",
+            "quellen": [
+              "be_bestattung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Berlin, weil die Person dort gestorben ist.",
+        "Laut Friedhofsordnung soll eine Erdbestattung in der Regel spätestens vier Tage nach Einlieferung in die Leichenhalle stattfinden; die Urne ist spätestens sechs Monate nach der Einäscherung beizusetzen. Sorgt niemand für die Bestattung, veranlasst sie das Gesundheitsamt.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "be_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Berlin (ohne berechnetes Datum, siehe Hinweis). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

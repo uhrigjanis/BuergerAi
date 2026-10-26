@@ -180,6 +180,14 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Geteilte Leistung:** Das Grundsicherungsgeld (Modul Einkommen) gehört auch zu `jobverlust`.
 - **Landesleistungen:** Bei Jobverlust nur Beratung (Art `information`), weil Geldleistungen Bundesrecht sind; bei Gründung die Meistergründungsprämien. Gründerkredite der Landesförderbanken stehen unter „nicht erfasst“.
 
+### 15. Umsetzung von Schritt 6, Teil 3: Todesfall (26.10.2026)
+
+- **Fachmodul `todesfall`** mit der Lebenslage `todesfall` (`ereignis`).
+- **Landesrecht als Landesleistung:** „Bestattung veranlassen“ (Art `pflicht`) hat keine Bundesvariante, sondern je Land eine Variante mit der Frist aus dem Bestattungsgesetz. Damit greift die bestehende Abdeckungsprüfung (`erfasst` braucht eine Landesleistung). Geldleistungen der Länder gibt es im Todesfall nach der Recherche nicht.
+- **Ort ist der Sterbeort:** Die Leistung hat den Ortsbezug `todesfall.sterbeort` (Einstiegsfrage). Wer in Köln wohnt und dessen Vater in München gestorben ist, bekommt die bayerische Frist.
+- **Kein falsches Datum:** Wo die Frist Werktage zählt (Bayern, Sachsen) oder es keine feste Frist für alle Fälle gibt, steht die Frist nur als Text. Die Anzeigefrist beim Standesamt (dritter Werktag) wird vorsichtig als dritter Kalendertag berechnet; der Text sagt das.
+- **Bedingte Fragen:** Das Datum der Kenntnis vom Erbe wird nur gefragt, wenn das Ausschlagen erwogen wird; der Rentenbezug nur bei Ehepartnern.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

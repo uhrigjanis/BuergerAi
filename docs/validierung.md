@@ -414,3 +414,41 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Schleswig-Holstein | keine | bis 7.500 € + 2.500 € |
 | Thüringen | keine | Meistergründungsprämie (Höhe offen) |
 
+## Lebenslage Todesfall (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`. Die Bestattungsfristen ändern sich derzeit in mehreren Ländern (Reformen 2024–2026); Übersichtsseiten im Netz sind oft veraltet.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `fim_sterbefall`, `stuttgart_sterbefall` | Dritter Werktag, Samstag zählt nicht (§§ 28, 29 PStG) |
+| `drv_vorschuss` | 30 Tage, Renten Service der Deutschen Post |
+| `drv_renten_wegen_todes`, `rente_antragsfrist` | Mindestehedauer ein Jahr (nur Sekundärquelle); zwölf Monate rückwirkend |
+| `bgb_1944`, `ag_achim_ausschlagung` | Sechs Wochen ab Kenntnis, Gebühr |
+| `berlin_bestattungskosten`, `koeln_bestattungskosten` | § 74 SGB XII |
+| `he_bestattung`, `mv_bestattung`, `rp_bestattung`, `sh_bestattung` | nur Sekundärquellen; Gesetzestext prüfen |
+| `rp_bestattung` | **Widersprüchlich:** 14 Tage (Gesetz 2025) gegen 10 Tage (ältere Texte) |
+| `sl_bestattung` | **Widersprüchlich:** 10 Tage (Fassung 2021) gegen 7 Tage (2009) |
+| `be_bestattung`, `hb_bestattung`, `hh_bestattung` | keine feste Höchstfrist im Gesetz gefunden |
+
+### Bestattungsfrist (alle 16 Länder)
+
+| Land | Frist | Datum berechnet |
+|------|-------|-----------------|
+| Baden-Württemberg | 96 Stunden, wenn nicht in einer Leichenhalle aufgebahrt | nein |
+| Bayern | 8 Tage, ohne Samstage, Sonn- und Feiertage | nein |
+| Berlin | keine feste Höchstfrist im Gesetz gefunden (Friedhofsordnung) | nein |
+| Brandenburg | 10 Tage | ja |
+| Bremen | keine feste Höchstfrist gefunden; Behörde handelt nach 10 Tagen | nein |
+| Hamburg | Bestattung binnen 10 Tagen veranlassen (sonst Meldung) | nein |
+| Hessen | 10 Tage (seit 2025) | ja |
+| Mecklenburg-Vorpommern | 10 Tage (soll) | ja |
+| Niedersachsen | 8 Tage (soll) | ja |
+| Nordrhein-Westfalen | 10 Tage | ja |
+| Rheinland-Pfalz | 14 Tage (seit 2025, widersprüchlich) | ja |
+| Saarland | 10 Tage (Erdbestattung, widersprüchlich) | ja |
+| Sachsen | 8 Tage, ohne Samstage, Sonn- und Feiertage | nein |
+| Sachsen-Anhalt | 10 Tage (soll) | ja |
+| Schleswig-Holstein | 9 Tage | ja |
+| Thüringen | 10 Tage | ja |

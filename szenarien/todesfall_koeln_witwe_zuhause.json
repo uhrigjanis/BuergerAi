@@ -1,0 +1,36 @@
+{
+  "name": "Todesfall: Ehemann zu Hause in Köln gestorben, bezog Rente",
+  "beschreibung": "Witwe muss den Tod beim Standesamt anzeigen und die Bestattung binnen zehn Tagen (NRW) veranlassen; Rentenvorschuss binnen 30 Tagen; Witwenrente prüft die Rentenversicherung.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "todesfall"
+  ],
+  "anforderungen": [
+    "ANF-TOD-01",
+    "ANF-TOD-02",
+    "ANF-TOD-04"
+  ],
+  "fakten": {
+    "todesfall.datum": "2026-10-24",
+    "todesfall.beziehung": "ehepartner",
+    "todesfall.sterbeort": "50667",
+    "todesfall.sterbeort_art": "zuhause",
+    "todesfall.ausschlagen_erwaegen": "nein",
+    "todesfall.bezog_rente": "ja",
+    "todesfall.kosten_tragbar": "ja"
+  },
+  "erwartet": {
+    "sterbefall_anzeigen": "ja",
+    "bestattung_veranlassen": "ja",
+    "rentenvorschuss_witwe": "ja",
+    "hinterbliebenenrente": "unklar",
+    "erbe_ausschlagen": "nein",
+    "bestattungskosten_sozialamt": "nein"
+  },
+  "erwartet_stellen": {
+    "sterbefall_anzeigen": "Standesamt",
+    "rentenvorschuss_witwe": "Renten Service"
+  },
+  "erwartet_fehlend": []
+}

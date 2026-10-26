@@ -262,7 +262,15 @@ docs/
 - ✅ 7 Szenarien, 142/142 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; mehrere „keine“ für Erwerbslosenberatung beruhen auf Websuchen ohne amtliche Negativaussage ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Heirat, Ruhestand, Todesfall und Schule (#41, Schritt 6) – je ein eigener PR; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Todesfall (#41, Schritt 6)
+
+- ✅ Fachmodul Todesfall: Sterbefall anzeigen (drei Werktage), Bestattung veranlassen, Vorschuss auf die Witwen-/Witwerrente (30 Tage), Hinterbliebenenrente, Erbe ausschlagen (sechs Wochen), Übernahme der Bestattungskosten durch das Sozialamt
+- ✅ Bestattungsfrist und Bestattungspflicht für alle 16 Länder recherchiert; maßgeblich ist der Sterbeort, nicht der Wohnort. Ein Datum wird nur berechnet, wenn die Frist in Kalendertagen gilt (nicht in Bayern und Sachsen mit Werktagen, nicht in Baden-Württemberg, Berlin, Bremen und Hamburg ohne feste Frist für alle Fälle)
+- ✅ Eigene Geldleistungen der Länder im Todesfall wurden nicht gefunden (dokumentiert unter „nicht erfasst“)
+- ✅ 3 Szenarien, 149/149 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft, für Hessen, Mecklenburg-Vorpommern, Rheinland-Pfalz und Schleswig-Holstein nur Sekundärquellen; Rheinland-Pfalz und Saarland widersprüchlich ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Schule, Heirat und Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

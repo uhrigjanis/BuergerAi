@@ -1,0 +1,97 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Hamburg. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hh_bestattung",
+      "titel": "Landesrecht Hamburg – Bestattungsgesetz § 10",
+      "url": "http://www.landesrecht-hamburg.de/jportal/portal/page/bshaprod.psml?doc.id=jlr-BestattGHApP10&showdoccase=1&st=lr",
+      "typ": "gesetz",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Landesrecht Hamburg, Ratgeber): Wird nicht innerhalb von zehn Tagen nach Feststellung des Todes die Bestattung veranlasst, zeigt die verwahrende Stelle dies an (§ 10 Abs. 1); keine starre Höchstfrist für die Bestattung selbst. Wortlaut nicht vollständig eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_hh",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "hh_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Keine starre Höchstfrist – die Bestattung muss aber innerhalb von zehn Tagen nach Feststellung des Todes veranlasst sein",
+            "bezug": "keiner",
+            "quellen": [
+              "hh_bestattung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Hamburg, weil die Person dort gestorben ist.",
+        "Ist nach zehn Tagen keine Bestattung veranlasst, muss die verwahrende Stelle das der Behörde melden.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Hamburg (ohne berechnetes Datum, siehe Hinweis). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

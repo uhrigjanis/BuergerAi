@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Rheinland-Pfalz. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "rp_bestattung",
+      "titel": "Handwerksblatt – Flexible Regelungen für Bestattungen in Rheinland-Pfalz",
+      "url": "https://www.handwerksblatt.de/betriebsfuehrung/flexible-regelungen-fuer-bestattungen-in-rheinland-pfalz",
+      "typ": "sekundaer",
+      "herausgeber": "Handwerksblatt",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquellen (Handwerksblatt, Bestatter): Bestattungsgesetz vom September 2025 (in Kraft 27.9.2025) verlängert die Frist von zehn auf 14 Tage (§ 23 Abs. 1 BestG); ältere Texte nennen noch zehn Tage. Gesetz- und Verordnungsblatt nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_rp",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "rp_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Bestattung innerhalb von 14 Tagen nach dem Tod (neues Bestattungsgesetz 2025; vorher zehn Tage)",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "rp_bestattung"
+            ],
+            "tage": 14
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Rheinland-Pfalz, weil die Person dort gestorben ist.",
+        "Bei Beschlagnahme durch die Rechtsmedizin läuft die Frist erst ab der Freigabe.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Rheinland-Pfalz (14 Tage, als Datum berechnet). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

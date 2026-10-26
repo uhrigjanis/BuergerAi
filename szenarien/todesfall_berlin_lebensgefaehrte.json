@@ -1,0 +1,31 @@
+{
+  "name": "Todesfall: Lebensgefährte ohne Trauschein in Berlin",
+  "beschreibung": "Ohne Ehe keine Witwenrente und keine Bestattungspflicht; der Tod zu Hause muss trotzdem beim Standesamt angezeigt werden.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "todesfall"
+  ],
+  "anforderungen": [
+    "ANF-TOD-01",
+    "ANF-TOD-03",
+    "ANF-TOD-04"
+  ],
+  "fakten": {
+    "todesfall.datum": "2026-10-25",
+    "todesfall.beziehung": "andere",
+    "todesfall.sterbeort": "10115",
+    "todesfall.sterbeort_art": "zuhause",
+    "todesfall.ausschlagen_erwaegen": "nein",
+    "todesfall.kosten_tragbar": "ja"
+  },
+  "erwartet": {
+    "sterbefall_anzeigen": "ja",
+    "bestattung_veranlassen": "nein",
+    "hinterbliebenenrente": "nein",
+    "rentenvorschuss_witwe": "nein",
+    "bestattungskosten_sozialamt": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

@@ -1,0 +1,97 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Bremen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hb_bestattung",
+      "titel": "Transparenzportal Bremen – Gesetz über das Leichenwesen",
+      "url": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-das-leichenwesen-in-der-fassung-der-bekanntmachung-vom-1-maerz-2011-68580?asl=bremen203_tpgesetz.c.55340.de&template=20_gp_ifg_meta_detail_d",
+      "typ": "gesetz",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Gesetz 2011 und Entwurf 2017, Senatspressestelle 2021): Bestattung frühestens 48 Stunden nach dem Tod; Verantwortliche in der Reihenfolge Ehe-/Lebenspartner, Lebensgefährte, Kinder, Eltern, Geschwister; ohne Antrag Bestattung durch die Behörde spätestens zehn Tage nach Einlieferung. Allgemeine Höchstfrist nicht gefunden; geltende Fassung (2017) nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_hb",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "04",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "hb_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Im Bremer Gesetz über das Leichenwesen keine feste Höchstfrist gefunden – Termin mit Bestatter und Friedhof abstimmen",
+            "bezug": "keiner",
+            "quellen": [
+              "hb_bestattung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Bremen, weil die Person dort gestorben ist.",
+        "Bestattung frühestens 48 Stunden nach dem Tod (Ausnahmen möglich). Wird für eine Leiche kein Antrag auf Bestattung gestellt, veranlasst die Behörde sie spätestens zehn Tage nach der Einlieferung – auf Kosten der Pflichtigen.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hb_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Bremen (ohne berechnetes Datum, siehe Hinweis). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

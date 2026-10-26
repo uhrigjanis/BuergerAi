@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Lebenslage Ruhestand: Seniorenticket Hessen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "he_seniorenticket",
+      "titel": "RMV – Seniorenticket Hessen",
+      "url": "https://www.rmv.de/c/en/tickets/your-ticket/tickets-overview/hesse-senior-citizen-ticket",
+      "typ": "behoerde",
+      "herausgeber": "Rhein-Main-Verkehrsverbund (Land Hessen)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (RMV, ESWE, Landtag): ab 65; 2026: 398 € im Jahr bzw. Komfort 681,50 €; landesgefördert laut Stellungnahme des Wirtschaftsministeriums an den Landtag (Finanzierungsumfang nicht belegt)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "he_seniorenticket_stelle",
+      "name": "RMV, NVV oder VRN (Abo-Bestellung)",
+      "beschreibung": "Bestellung im Abo."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "seniorenticket_land_he",
+      "leistung_id": "seniorenticket_land",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "he_seniorenticket_stelle",
+      "quellen": [
+        "he_seniorenticket",
+        "seniorenticket_uebersicht"
+      ],
+      "regel": {
+        "fakt": "ruhestand.alter_bei_rentenbeginn",
+        "op": ">=",
+        "wert": 65,
+        "text": "Bei Rentenbeginn mindestens 65 Jahre alt",
+        "quellen": [
+          "he_seniorenticket"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis (Alter und Wohnsitz)",
+          "Bankverbindung für das Abo"
+        ],
+        "schritte": [
+          "Seniorenticket Hessen im Abo bestellen."
+        ]
+      },
+      "hinweise": [
+        "Ab 65: Jahreskarte für Bus und Bahn in ganz Hessen (RMV, NVV, VRN), 2026: 398 € im Jahr; mit „Komfort“ ganztags und 1. Klasse.",
+        "Die Basis-Version gilt werktags ab 9 Uhr und am Wochenende ganztags; bestellen bis zum 10. des Vormonats. Gilt nicht bundesweit.",
+        "Sind Sie bei Rentenbeginn jünger als 65, gilt das Ticket ab Ihrem 65. Geburtstag."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_seniorenticket"
+      ],
+      "notiz": "Landesleistung erfasst: Seniorenticket Hessen. Weitere Landesleistungen zum Ruhestand nicht gefunden; Renten sind Bundesrecht."
+    }
+  ]
+}

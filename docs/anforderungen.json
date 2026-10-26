@@ -170,6 +170,12 @@
     {"id": "ANF-HEI-04", "bereich": "Heirat", "titel": "Familienversicherung nur bei geringem Einkommen und gesetzlich versichertem Partner; Versicherung des Partners nur bei geringem Einkommen gefragt"},
     {"id": "ANF-HEI-05", "bereich": "Heirat", "titel": "Für alle 16 Länder belegt: keine Landesleistung zur Heirat (Bundesrecht), mit eigener Quelle je Land"},
     {"id": "ANF-HEI-06", "bereich": "Heirat", "titel": "Mindestens drei Szenarien, darunter Unklar; Terminal und Web gleich"},
+    {"id": "ANF-RUH-01", "bereich": "Ruhestand", "titel": "Regelaltersgrenze je Jahrgang (65 bis 67) wird aus Geburtsdatum und Rentenbeginn abgeleitet (am Ersten Geborene einen Monat früher); Altersrente Ja mit fünf Jahren Wartezeit; Antrag empfohlen drei Monate vorher"},
+    {"id": "ANF-RUH-02", "bereich": "Ruhestand", "titel": "Rente vor der Regelaltersgrenze nur mit 35 Versicherungsjahren und als Prüfung (Unklar); fehlende Wartezeit oder zu jung Nein"},
+    {"id": "ANF-RUH-03", "bereich": "Ruhestand", "titel": "Krankenversicherung der Rentner nur für gesetzlich Versicherte und als Prüfung der 9/10-Regel"},
+    {"id": "ANF-RUH-04", "bereich": "Ruhestand", "titel": "Seniorenticket des Landes in Mecklenburg-Vorpommern, Hamburg und Hessen mit Altersgrenze; übrige 13 Länder als keine mit eigener Quelle belegt"},
+    {"id": "ANF-RUH-05", "bereich": "Ruhestand", "titel": "Das Alter wird aus dem Geburtsdatum abgeleitet und nicht doppelt gefragt; widersprüchliche Altersangaben werden angemerkt; Grundsicherung im Alter und Wohngeld gehören auch zum Ruhestand"},
+    {"id": "ANF-RUH-06", "bereich": "Ruhestand", "titel": "Mindestens drei Szenarien, darunter Unklar und ein Land ohne Landesleistung; Terminal und Web gleich"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

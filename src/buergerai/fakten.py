@@ -157,7 +157,7 @@ def einstiegs_rueckfragen(definitionen: list[FaktDefinition], fakten: dict[str, 
     return offen
 
 
-def abgeleitete_fakten(fakten: dict[str, Any]) -> dict[str, Any]:
+def abgeleitete_fakten(fakten: dict[str, Any], stichtag: Optional[date] = None) -> dict[str, Any]:
     """Berechnet Fakten, die sich aus anderen Angaben ergeben."""
     neu: dict[str, Any] = {}
     geboren = fakten.get("kind_geboren")
@@ -171,4 +171,68 @@ def abgeleitete_fakten(fakten: dict[str, Any]) -> dict[str, Any]:
         neu["bildung.alter_im_einschulungsjahr"] = jahr - geburt.year
     elif UNBEKANNT in (geburt, jahr):
         neu["bildung.alter_im_einschulungsjahr"] = UNBEKANNT
+    # Ruhestand: Alter bei Rentenbeginn und ob die Regelaltersgrenze dann erreicht ist
+    geburt, beginn = fakten.get("ruhestand.geburtsdatum"), fakten.get("ruhestand.rentenbeginn")
+    if isinstance(geburt, date) and isinstance(beginn, date):
+        neu["ruhestand.alter_bei_rentenbeginn"] = alter_am(geburt, beginn)
+        neu["ruhestand.regelaltersgrenze_erreicht"] = beginn >= regelaltersrente_ab(geburt)
+    elif UNBEKANNT in (geburt, beginn):
+        neu["ruhestand.alter_bei_rentenbeginn"] = UNBEKANNT
+        neu["ruhestand.regelaltersgrenze_erreicht"] = UNBEKANNT
+    # Das Alter heute nicht noch einmal fragen, wenn das Geburtsdatum schon bekannt ist
+    if "alter" not in fakten and isinstance(geburt, date) and stichtag is not None:
+        neu["alter"] = alter_am(geburt, stichtag)
     return neu
+
+
+def alter_am(geburt: date, tag: date) -> int:
+    """Alter in vollen Jahren an einem Tag (am Geburtstag zählt das neue Lebensjahr)."""
+    return tag.year - geburt.year - ((tag.month, tag.day) < (geburt.month, geburt.day))
+
+
+def widersprueche(fakten: dict[str, Any], stichtag: date) -> list[str]:
+    """Hinweise auf Angaben, die nicht zueinander passen. Es wird nichts überschrieben."""
+    hinweise: list[str] = []
+    geburt, alter = fakten.get("ruhestand.geburtsdatum"), fakten.get("alter")
+    if isinstance(geburt, date) and isinstance(alter, int) and not isinstance(alter, bool):
+        berechnet = alter_am(geburt, stichtag)
+        if berechnet != alter:
+            hinweise.append(
+                f"Ihre Angabe zum Alter ({alter}) passt nicht zum Geburtsdatum {geburt.strftime('%d.%m.%Y')} "
+                f"(das wären {berechnet} Jahre). Die Rente wird mit dem Geburtsdatum geprüft, andere Leistungen mit der "
+                "Altersangabe – bitte prüfen Sie Ihre Angaben."
+            )
+    return hinweise
+
+
+def regelaltersgrenze(geburtsjahr: int) -> tuple[int, int]:
+    """Regelaltersgrenze (Jahre, Monate) nach § 35 und § 235 SGB VI.
+
+    Bis Jahrgang 1946: 65; 1947–1958: je Jahrgang einen Monat mehr; 1959–1963: je zwei Monate mehr; ab 1964: 67.
+    """
+    if geburtsjahr <= 1946:
+        monate = 0
+    elif geburtsjahr <= 1958:
+        monate = geburtsjahr - 1946
+    elif geburtsjahr <= 1963:
+        monate = 12 + (geburtsjahr - 1958) * 2
+    else:
+        monate = 24
+    return 65 + monate // 12, monate % 12
+
+
+def regelaltersrente_ab(geburt: date) -> date:
+    """Erster möglicher Beginn der Regelaltersrente.
+
+    Ein Lebensalter ist mit Ablauf des Tages vor dem Geburtstag vollendet. Die Rente beginnt am Ersten des Monats,
+    zu dessen Beginn die Altersgrenze erreicht ist (§ 99 SGB VI). Wer am Ersten eines Monats geboren ist, vollendet
+    das Alter also am Monatsletzten davor und bekommt die Rente schon ab dem Monat seines (rechnerischen) Geburtstags;
+    alle anderen ab dem Folgemonat.
+    """
+    jahre, monate = regelaltersgrenze(geburt.year)
+    monat = geburt.month + monate
+    jahr = geburt.year + jahre + (monat - 1) // 12
+    monat = (monat - 1) % 12 + 1
+    if geburt.day == 1:
+        return date(jahr, monat, 1)
+    return date(jahr + (monat == 12), monat % 12 + 1, 1)

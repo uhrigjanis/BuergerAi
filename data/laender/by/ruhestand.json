@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ruhestand in Bayern: keine Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "by_kein_seniorenticket",
+      "titel": "Bürger & Geld – Deutschlandticket 2026: Rentner (Länderübersicht)",
+      "url": "https://www.buerger-geld.org/news/rente/deutschlandticket-2026-rentner-fahren-deutlich-guenstiger-wie-den-rabatt-sichern/",
+      "typ": "sekundaer",
+      "herausgeber": "buerger-geld.org",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle nennt Bayern ausdrücklich ohne Seniorentarif 2026; ein SPD-Antrag im Landtag für ein vergünstigtes Abo wurde zurückgezogen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "by_kein_seniorenticket"
+      ],
+      "notiz": "Kein vom Land gefördertes Seniorenticket und keine andere Landesleistung zum Ruhestand in Bayern gefunden; Renten und Krankenversicherung sind Bundesrecht. Regionale Angebote von Verkehrsverbünden oder Städten sind nicht erfasst."
+    }
+  ]
+}

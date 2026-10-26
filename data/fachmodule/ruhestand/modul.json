@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Ruhestand (ADR 0008).",
+  "fachmodul": {
+    "id": "ruhestand",
+    "name": "Ruhestand",
+    "beschreibung": "In Rente gehen: Rentenantrag, Krankenversicherung der Rentner und Hilfen im Alter.",
+    "abgrenzung": [
+      "Grundsicherung im Alter und Wohngeld stehen im Modul geringes Einkommen und gehören auch zum Ruhestand.",
+      "Hinterbliebenenrente gehört zu Todesfall."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "ruhestand",
+      "name": "Ruhestand (in Rente gehen)",
+      "typ": "ereignis",
+      "beschreibung": "Sie gehen bald in Rente oder sind gerade in Rente gegangen.",
+      "einstiegsfragen": [
+        "ruhestand.geburtsdatum",
+        "ruhestand.rentenbeginn",
+        "ruhestand.versicherungsjahre"
+      ],
+      "synonyme": [
+        "Rente",
+        "Rentner",
+        "Rentnerin",
+        "Ruhestand",
+        "Pension",
+        "Altersrente",
+        "Rentenantrag",
+        "Rentenbeginn",
+        "in Rente gehen",
+        "Regelaltersgrenze",
+        "Rente mit 63",
+        "Frührente",
+        "Seniorenticket",
+        "Senioren",
+        "Renteneintritt"
+      ],
+      "beispiele": [
+        "Ich werde nächstes Jahr 67, wie beantrage ich meine Rente?",
+        "Kann ich mit 63 in Rente gehen?",
+        "Wie bin ich als Rentner krankenversichert?",
+        "Gibt es ein günstiges Ticket für Rentner?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Betriebsrente und private Rente",
+          "grund": "Keine staatliche Leistung; Auskunft beim Arbeitgeber bzw. Anbieter."
+        },
+        {
+          "name": "Steuererklärung für Rentner",
+          "grund": "Steuerfragen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Erwerbsminderungsrente",
+          "grund": "Medizinische Prüfung im Einzelfall; folgt."
+        },
+        {
+          "name": "Beamtenpension und Versorgungswerke",
+          "grund": "Je Dienstherr bzw. Berufsstand verschieden."
+        },
+        {
+          "name": "Seniorenrabatte von Verkehrsverbünden und Städten",
+          "grund": "Erfasst sind nur Tickets, die ein Land fördert."
+        }
+      ]
+    }
+  ]
+}

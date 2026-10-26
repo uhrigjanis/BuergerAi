@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Lebenslage Ruhestand: Deutschland-Ticket für Senioren MV. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_seniorenticket",
+      "titel": "Landesregierung MV – Startschuss für das Seniorenticket in MV",
+      "url": "https://www.regierung-mv.de/Landesregierung/stk/Seniorenticket/",
+      "typ": "behoerde",
+      "herausgeber": "Land Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Landesregierung, Verkehrsverbund Warnow, gegen-hartz): seit 1.8.2023 für Menschen ab 65 mit Hauptwohnsitz in MV; das Land übernimmt 20 € der Differenz zum regulären Preis; Preis 2026 laut Sekundärquellen 43 €."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "mv_seniorenticket_stelle",
+      "name": "Verkehrsunternehmen bzw. Verkehrsverbund in Mecklenburg-Vorpommern (Abo)",
+      "beschreibung": "Bestellung im Abo."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "seniorenticket_land_mv",
+      "leistung_id": "seniorenticket_land",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "mv_seniorenticket_stelle",
+      "quellen": [
+        "mv_seniorenticket",
+        "seniorenticket_uebersicht"
+      ],
+      "regel": {
+        "fakt": "ruhestand.alter_bei_rentenbeginn",
+        "op": ">=",
+        "wert": 65,
+        "text": "Bei Rentenbeginn mindestens 65 Jahre alt",
+        "quellen": [
+          "mv_seniorenticket"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis (Alter und Wohnsitz)",
+          "Bankverbindung für das Abo"
+        ],
+        "schritte": [
+          "Deutschland-Ticket für Senioren MV im Abo bestellen."
+        ]
+      },
+      "hinweise": [
+        "Ab 65 mit Hauptwohnsitz in Mecklenburg-Vorpommern: Deutschlandticket mit 20 € Landeszuschuss im Monat (2026: 43 € statt 63 €).",
+        "Nur im Abo; monatlich kündbar; gilt bundesweit im Nahverkehr.",
+        "Sind Sie bei Rentenbeginn jünger als 65, gilt das Ticket ab Ihrem 65. Geburtstag."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_seniorenticket"
+      ],
+      "notiz": "Landesleistung erfasst: Deutschland-Ticket für Senioren MV. Weitere Landesleistungen zum Ruhestand nicht gefunden; Renten sind Bundesrecht."
+    }
+  ]
+}

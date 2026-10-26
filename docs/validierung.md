@@ -298,3 +298,41 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Schleswig-Holstein | 6,5 % | soziale Wohnraumförderung (IB.SH) | WoFöRL 2026 |
 | Thüringen | 5,0 % | Erwerbszuschuss für Familien (Mittel 2026 gebunden) | TAB |
 
+## Lebenslage Ausbildung, Studium oder Meister (Issue #41, Schritt 5)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmftr_bafoeg`, `dsw_bafoeg_saetze` | Bedarfssätze (475 €, 380 €, 59 €), Altersgrenze 45 und Ausnahmen, Zeitpunkt des Antrags |
+| `ba_bab_2026` | Voraussetzungen der eigenen Wohnung, Höchstsatz 2026 (822 € nur laut Ratgeber) |
+| `ba_kindergeld_2026` | 259 €, Altersgrenze 25 |
+| `aufstiegs_bafoeg_drv` | Zuschuss 50 %, Erlass 50 %, Höchstbetrag 15.000 € (Sekundärquelle); Stand der Reform (Kabinett 15.7.2026) |
+| `hh_meisterpraemie` | **Widersprüchlich:** 1.000 € oder 1.300 € |
+| `be_meisterbonus`, `st_meisterbonus_plus` | Höhe 2026 |
+| `ni_meisterpraemie` | Antragsfrist, Laufzeit über 2026 hinaus |
+| `th_meisterbonus` | gilt der Weg auch für Handwerksmeister? |
+
+### Meisterbonus bzw. Aufstiegsprämie (alle 16 Länder)
+
+| Land | Prämie | Wer | Frist | Grundlage |
+|------|--------|-----|-------|-----------|
+| Baden-Württemberg | Meisterprämie 1.500 € | nur Handwerk | Stichtage 31.5. und 30.11. | Stadt Heidelberg (HWK) |
+| Bayern | Meisterbonus 3.000 € | DQR 6/7 | Ergebnis höchstens 2 Jahre alt | Richtlinie |
+| Berlin | Meister- und MeisterinnenBONUS, Höhe 2026 offen | nur Handwerk | – | Richtlinie 2026/27 |
+| Brandenburg | keine (nur Gründungsprämie) | – | – | Förderdatenbank |
+| Bremen | Aufstiegsfortbildungsprämie 1.300 € | DQR 6/7 | – | Richtlinie ab 1.3.2025 |
+| Hamburg | Meisterprämie 1.000 € bzw. 1.300 € | DQR 6/7 | 3 Monate | Förderdatenbank |
+| Hessen | Aufstiegsprämie 3.500 € | DQR 6/7 | 3 Monate | Merkblatt Ministerium |
+| Mecklenburg-Vorpommern | Meister-Extra 2.000 € | Handwerk und Industrie | 6 Monate | Landesregierung |
+| Niedersachsen | Meisterprämie 4.000 € | nur Handwerk | laut NBank | NBank-Richtlinie |
+| Nordrhein-Westfalen | Meisterprämie 2.500 € | nur Handwerk | 3 Monate | Landesregierung |
+| Rheinland-Pfalz | Aufstiegsbonus I 2.000 € | DQR 6/7 | 4 Monate | Förderdatenbank |
+| Saarland | Aufstiegsbonus 2.000 € | DQR 6/7 | 3 Monate | Richtlinie 1.1.2026 |
+| Sachsen | Meisterbonus 3.000 € | DQR 6 | – | Medienservice Sachsen |
+| Sachsen-Anhalt | Meisterbonus PLUS, 1.000 € laut Bericht | DQR 6 | Ergebnis höchstens 1 Jahr alt | IHK Magdeburg |
+| Schleswig-Holstein | keine (nur Gründungsprämie) | – | – | FIM |
+| Thüringen | Meisterbonus 2.000 € | DQR 6/7 | – | IHK Gera |
+

@@ -1,0 +1,79 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sn_meisterbonus",
+      "titel": "Medienservice Sachsen – Meisterbonus steigt auf 3.000 Euro (2026)",
+      "url": "https://medienservice.sachsen.de/medien/news/1098439/download_pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Pressemitteilung, Änderungsrichtlinie Berufliche Bildung 3.7.2026): 3.000 € rückwirkend ab 1.1.2026 für Meister- und gleichwertige Abschlüsse (DQR 6); bereits bewilligte 2.000 € werden auf Antrag aufgestockt; Antrag bei der SAB; Frist ein Jahr laut Ratgeber."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sab_meister",
+      "name": "Sächsische Aufbaubank (SAB)",
+      "url": "https://www.sab.sachsen.de",
+      "beschreibung": "Antrag online."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_sn",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "sab_meister",
+      "quellen": [
+        "sn_meisterbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "sn_meisterbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "3.000 € einmalig für Abschlüsse ab 2026.",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sn_meisterbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterbonus."
+    }
+  ]
+}

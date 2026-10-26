@@ -236,7 +236,15 @@ docs/
 - ✅ 4 Szenarien, 118/118 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Steuersätze aus einer Übersicht, Konditionen mehrerer Landesprogramme 2026 nicht bestätigt ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Schule, Ausbildung und Studium (#41, Schritt 5), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Ausbildung, Studium oder Meister (#41, Schritt 5)
+
+- ✅ Fachmodul Bildung mit der Lebenslage „Ausbildung, Studium oder Meister“: BAföG im Studium, Berufsausbildungsbeihilfe, Kindergeld bis 25, Aufstiegs-BAföG
+- ✅ Meisterbonus bzw. Aufstiegsprämie je Land recherchiert: 14 Länder zahlen eine Prämie (1.000 € bis 4.000 €, je Land eigene Stelle), Brandenburg und Schleswig-Holstein nicht (nur Gründungsprämien)
+- ✅ Antragsfristen der Prämien rechnen ab dem Datum des Prüfungsergebnisses (z. B. drei Monate in NRW und Hessen)
+- ✅ 4 Szenarien, 125/125 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Höhe der Prämie in Hamburg widersprüchlich, in Berlin und Sachsen-Anhalt nicht amtlich bestätigt ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Schule als eigene Lebenslage sowie Behinderung, Arbeit, Heirat, Ruhestand und Todesfall (#41, Schritt 6), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

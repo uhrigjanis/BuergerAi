@@ -1,0 +1,88 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sl_aufstiegsbonus",
+      "titel": "HWK Saarland – Richtlinie Aufstiegsbonus (Stand 1.1.2026)",
+      "url": "https://www.hwk-saarland.de/wp-content/uploads/Richtlinie-Aufstiegsbonus-Gruender-und-Nachfolgebonus_01012026.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Saarland",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Richtlinie, Handwerksblatt): seit 2026 2.000 € (vorher 1.000 €), verlängert bis Ende 2028; Fortbildungen auf DQR-Niveau 6 oder 7 (gewerblich-technisch, kaufmännisch, landwirtschaftlich); Antrag innerhalb von drei Monaten nach dem Prüfungsergebnis (laut Ratgeber)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sl_wirtschaftsministerium",
+      "name": "Ministerium für Wirtschaft des Saarlandes (über die Kammer)",
+      "url": "https://www.hwk-saarland.de",
+      "beschreibung": "Kontakt: meisterbonus@hwk-saarland.de."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_sl",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "sl_wirtschaftsministerium",
+      "quellen": [
+        "sl_aufstiegsbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "sl_aufstiegsbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von drei Monaten nach dem Prüfungsergebnis beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "sl_aufstiegsbonus"
+            ],
+            "tage": 90
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Aufstiegsbonus.",
+        "2.000 € einmalig (seit 2026)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sl_aufstiegsbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Aufstiegsbonus."
+    }
+  ]
+}

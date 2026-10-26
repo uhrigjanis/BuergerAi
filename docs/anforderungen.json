@@ -127,6 +127,13 @@
     {"id": "ANF-WOH-05", "bereich": "Wohneigentum", "titel": "Unbekannte Angaben ergeben Unklar; Vorhaben, Ort der Immobilie, Selbstnutzung und Vertragsstand werden zuerst gefragt"},
     {"id": "ANF-WOH-06", "bereich": "Wohneigentum", "titel": "Landesförderung für Wohneigentum in allen 16 Ländern recherchiert und belegt (erfasst oder keine), je Land eigene Stelle; Eigenheimzuschuss nur in der Stadt Bremen"},
     {"id": "ANF-WOH-07", "bereich": "Wohneigentum", "titel": "Mindestens drei Szenarien, darunter Unklar und eine Immobilie außerhalb Hessens; Terminal und Web gleich"},
+    {"id": "ANF-BIL-01", "bereich": "Ausbildung und Studium", "titel": "BAföG nur im Studium, ab 45 Jahren nur mit Ausnahme; Bedarfssätze 2026; Höhe bleibt Prüfpunkt (Einkommen der Eltern)"},
+    {"id": "ANF-BIL-02", "bereich": "Ausbildung und Studium", "titel": "Berufsausbildungsbeihilfe nur bei betrieblicher Ausbildung und Wohnen außerhalb des Elternhauses, mit anerkanntem Grund; frühestens ab Antragsmonat"},
+    {"id": "ANF-BIL-03", "bereich": "Ausbildung und Studium", "titel": "Kindergeld während Ausbildung oder Studium bis zum 25. Geburtstag; beantragen die Eltern"},
+    {"id": "ANF-BIL-04", "bereich": "Ausbildung und Studium", "titel": "Meisterbonus bzw. Aufstiegsprämie als Landesleistung in 14 Ländern, je Land eigene Stelle; keine in Brandenburg und Schleswig-Holstein; Länder mit reiner Handwerksförderung fragen danach"},
+    {"id": "ANF-BIL-05", "bereich": "Ausbildung und Studium", "titel": "Antragsfristen der Prämien rechnen ab dem Datum des Prüfungsergebnisses; das Datum wird nur nach bestandener Prüfung gefragt"},
+    {"id": "ANF-BIL-06", "bereich": "Ausbildung und Studium", "titel": "Unbekannte Angaben ergeben Unklar; Vorhaben und Alter werden zuerst gefragt"},
+    {"id": "ANF-BIL-07", "bereich": "Ausbildung und Studium", "titel": "Mindestens drei Szenarien, darunter Unklar und ein Land ohne Meisterbonus; Terminal und Web gleich"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

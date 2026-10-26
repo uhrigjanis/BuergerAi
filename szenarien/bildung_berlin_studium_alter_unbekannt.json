@@ -1,0 +1,26 @@
+{
+  "name": "Bildung: Studium in Berlin, Alter unbekannt",
+  "beschreibung": "Mit „weiß nicht“ beim Alter bleiben BAföG und Kindergeld unklar statt erfunden.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ausbildung_studium"
+  ],
+  "anforderungen": [
+    "ANF-BIL-01",
+    "ANF-BIL-06"
+  ],
+  "fakten": {
+    "bildung.vorhaben": "studium",
+    "alter": "unbekannt"
+  },
+  "erwartet": {
+    "bafoeg_studium": "unklar",
+    "kindergeld_ausbildung": "unklar",
+    "berufsausbildungsbeihilfe": "nein"
+  },
+  "erwartet_stellen": {
+    "bafoeg_studium": "Studierendenwerk"
+  },
+  "erwartet_fehlend": []
+}

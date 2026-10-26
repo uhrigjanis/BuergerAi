@@ -158,6 +158,13 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Einkommensgrenze je Kinderzahl:** Die KfW-Grenze (90.000 € plus 10.000 € je weiterem Kind) steht als Fallunterscheidung im Regelbaum, nicht als Rechenoperation. Bei mehr als fünf Kindern bleibt sie ein Prüfpunkt.
 - **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Das Hessengeld ist eine Landesleistung ohne Gegenstück. Die Wohneigentumsförderung des Landes hat Varianten in 12 weiteren Ländern; Berlin und Mecklenburg-Vorpommern haben keine, Bremen nur in der Stadt Bremen (Gemeindevariante).
 
+### 12. Umsetzung von Schritt 5: Ausbildung, Studium oder Meister (26.10.2026)
+
+- **Fachmodul `bildung`** mit der Lebenslage `ausbildung_studium` (Typ `ereignis`). Schule folgt als eigene Lebenslage im selben Modul; ihre Leistungen (Schülerbeförderung, Lernmittel) sind je Land und Kreis verschieden und hätten den PR verdoppelt.
+- **„Gibt es nur in manchen Ländern“:** Der Meisterbonus hat keine Bundesvariante. 14 Länder haben eine Variante mit eigener Stelle und Frist; Brandenburg und Schleswig-Holstein haben `keine` mit Quelle. Länder, die nur Handwerksmeister fördern, fragen danach; die anderen prüfen das DQR-Niveau als Prüfpunkt.
+- **Fristen ab einem Datumsfakt:** Die Antragsfristen der Prämien rechnen ab `bildung.pruefung_datum` (Abschnitt 7: Fristen können sich auf jeden Datumsfakt beziehen). Weil eine fehlende Bezugsgröße einer Frist keine Rückfrage auslöst, stehen Prüfung und Datum als bedingte Einstiegsfragen in der Lebenslage (`nur_wenn`: nur bei Aufstiegsfortbildung bzw. bestandener Prüfung).
+- **Wohnort statt Arbeitsort:** Viele Prämien gelten bei Wohnsitz *oder* Arbeitsort im Land. Geprüft wird der Wohnort; der Hinweis der Variante nennt den Arbeitsort. Ein eigener Ortsfakt für den Arbeitsort folgt mit dem Modul Arbeit.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

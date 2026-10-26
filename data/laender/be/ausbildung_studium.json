@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "be_meisterbonus",
+      "titel": "Senatsverwaltung für Wirtschaft – Richtlinie Meister- und MeisterinnenBONUS 2026/2027",
+      "url": "https://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/gruendungs-und-startup-foerderung/finanzielle-foerderung/billigkeitsleistungen/meister--und-meisterinnenbonus_richtlinie-2026-2027.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Richtlinie vom 12.12.2025 für 2026 und 2027; Meisterprüfung im Handwerk; Antrag über die Handwerkskammer Berlin; kein Rechtsanspruch. Höhe 2026 nicht bestätigt (2024/25: 5.000 €, plus 1.000 € für Frauen in männlich geprägten Gewerken)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hwk_berlin",
+      "name": "Handwerkskammer Berlin",
+      "url": "https://www.hwk-berlin.de",
+      "beschreibung": "Nimmt die Anträge entgegen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_be",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "hwk_berlin",
+      "quellen": [
+        "be_meisterbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "fakt": "bildung.handwerk",
+            "op": "==",
+            "wert": true,
+            "text": "Es ist eine Meisterprüfung im Handwerk (Handwerkskammer)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "Heißt hier: Meister- und MeisterinnenBONUS.",
+        "Höhe 2026 nicht bestätigt (2024/25: 5.000 €).",
+        "Kein Rechtsanspruch."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "be_meisterbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meister- und MeisterinnenBONUS (Höhe 2026 offen)."
+    }
+  ]
+}

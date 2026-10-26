@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hh_meisterpraemie",
+      "titel": "Förderdatenbank – Meisterprämie Hamburg",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Hamburg/meisterpraemie.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Meisterprämie für Aufstiegsfortbildungen auf DQR-Niveau 6 oder 7; Hauptwohnsitz oder Beschäftigungsort in Hamburg; Prüfung in Hamburg; Antrag spätestens drei Monate nach der Prüfung bei der Handwerkskammer Hamburg. Höhe widersprüchlich: 1.000 € (Förderdatenbank) bzw. 1.300 € seit 1/2025 (Ratgeber)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hwk_hamburg",
+      "name": "Handwerkskammer Hamburg – Geschäftsstelle Meisterprämie",
+      "url": "https://www.hwk-hamburg.de",
+      "beschreibung": "Nimmt die Anträge für alle Abschlüsse entgegen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_hh",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "hwk_hamburg",
+      "quellen": [
+        "hh_meisterpraemie"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "hh_meisterpraemie"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens drei Monate nach der Prüfung beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "hh_meisterpraemie"
+            ],
+            "tage": 90
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Meisterprämie.",
+        "Höhe laut Quellen 1.000 € bzw. 1.300 € (widersprüchlich).",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_meisterpraemie"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterprämie (Höhe widersprüchlich)."
+    }
+  ]
+}

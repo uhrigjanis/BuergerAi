@@ -1,0 +1,77 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "th_meisterbonus",
+      "titel": "IHK Gera – Meisterbonus für IHK-Fortbildungsabschlüsse",
+      "url": "https://www.ihk.de/gera/meisterbonus",
+      "typ": "behoerde",
+      "herausgeber": "IHK Ostthüringen zu Gera",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (IHK Gera, IHK Erfurt, Richtlinie der TAB): 2.000 € für Prüfungsergebnisse ab 1.1.2026 (vorher 1.000 €); Fortbildungsprüfungen auf DQR-Niveau 6 oder 7 vor einer Kammer in Thüringen; kein Rechtsanspruch. Ob Handwerksmeister denselben Weg nutzen, nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "kammer_th",
+      "name": "Ihre Kammer in Thüringen (IHK bzw. Handwerkskammer)",
+      "beschreibung": "Antrag online über die Kammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_th",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "16",
+      "zustaendigkeit_id": "kammer_th",
+      "quellen": [
+        "th_meisterbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "th_meisterbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": []
+      },
+      "hinweise": [
+        "2.000 € einmalig für Prüfungsergebnisse ab 1. Januar 2026."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_meisterbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Meisterbonus."
+    }
+  ]
+}

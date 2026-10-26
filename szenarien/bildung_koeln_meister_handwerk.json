@@ -1,0 +1,30 @@
+{
+  "name": "Bildung: Handwerksmeister aus Köln, Prüfung bestanden",
+  "beschreibung": "Meisterprämie NRW (2.500 €) mit Frist drei Monate nach der Prüfung; Aufstiegs-BAföG unklar bis zur Prüfung des Lehrgangs.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ausbildung_studium"
+  ],
+  "anforderungen": [
+    "ANF-BIL-04",
+    "ANF-BIL-05"
+  ],
+  "fakten": {
+    "bildung.vorhaben": "aufstieg",
+    "alter": 29,
+    "bildung.pruefung_bestanden": "ja",
+    "bildung.pruefung_datum": "2026-09-15",
+    "bildung.handwerk": "ja"
+  },
+  "erwartet": {
+    "meisterbonus": "ja",
+    "aufstiegs_bafoeg": "unklar",
+    "bafoeg_studium": "nein",
+    "kindergeld_ausbildung": "nein"
+  },
+  "erwartet_stellen": {
+    "meisterbonus": "ESF-Online-Portal"
+  },
+  "erwartet_fehlend": []
+}

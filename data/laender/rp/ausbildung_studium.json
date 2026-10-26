@@ -1,0 +1,88 @@
+{
+  "_hinweis": "Lebenslage Ausbildung, Studium oder Meister: Meisterbonus bzw. Aufstiegsprämie des Landes. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "rp_aufstiegsbonus",
+      "titel": "Förderdatenbank – Aufstiegsbonus I und II (Rheinland-Pfalz)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Rheinland-Pfalz/aufstiegsbonus-i-und-ii.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Land, IHK Rheinhessen): Aufstiegsbonus I 2.000 € je anerkanntem Abschluss auf DQR-Niveau 6 oder 7 vor einer Kammer in Rheinland-Pfalz; Wohnsitz oder Beschäftigungsort in RLP; Antrag innerhalb von vier Monaten bei der Kammer; Aufstiegsbonus II (2.500 €) für Gründungen nicht erfasst."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "kammer_rp",
+      "name": "Ihre Kammer in Rheinland-Pfalz (HWK, IHK oder Landwirtschaftskammer)",
+      "beschreibung": "Antrag kostenlos bei der Kammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meisterbonus_rp",
+      "leistung_id": "meisterbonus",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "kammer_rp",
+      "quellen": [
+        "rp_aufstiegsbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bildung.vorhaben",
+            "op": "==",
+            "wert": "aufstieg",
+            "text": "Sie machen eine Aufstiegsfortbildung (z. B. Meister, Techniker, Fachwirt)"
+          },
+          {
+            "fakt": "bildung.pruefung_bestanden",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Prüfung bestanden"
+          },
+          {
+            "pruefung_noetig": "Gefördert werden Fortbildungsabschlüsse auf DQR-Niveau 6 oder 7 (z. B. Meister, Fachwirt, Techniker); die Prüfung muss in der Regel im Land abgelegt sein.",
+            "quellen": [
+              "rp_aufstiegsbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Prämie nach bestandener Prüfung beantragen; das Prüfungszeugnis beilegen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von vier Monaten nach der Prüfung beantragen",
+            "bezug": "bildung.pruefung_datum",
+            "quellen": [
+              "rp_aufstiegsbonus"
+            ],
+            "tage": 120
+          }
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Aufstiegsbonus I.",
+        "2.000 € einmalig.",
+        "Maßgeblich ist der Hauptwohnsitz oder der Arbeitsort im Land."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "ausbildung_studium",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_aufstiegsbonus"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Meisterbonus bzw. Aufstiegsprämie. Landesleistung erfasst: Aufstiegsbonus I."
+    }
+  ]
+}

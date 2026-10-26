@@ -1,0 +1,24 @@
+{
+  "name": "Bildung: Meister in Kiel – kein Landesbonus",
+  "beschreibung": "Schleswig-Holstein zahlt keinen Meisterbonus (belegt); er erscheint nur unter „nur in anderen Ländern“.",
+  "plz": "24103",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ausbildung_studium"
+  ],
+  "anforderungen": [
+    "ANF-BIL-04"
+  ],
+  "fakten": {
+    "bildung.vorhaben": "aufstieg",
+    "alter": 29,
+    "bildung.pruefung_bestanden": "ja",
+    "bildung.pruefung_datum": "2026-09-15",
+    "bildung.handwerk": "ja"
+  },
+  "erwartet": {
+    "aufstiegs_bafoeg": "unklar"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

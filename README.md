@@ -244,7 +244,15 @@ docs/
 - ✅ 4 Szenarien, 125/125 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Höhe der Prämie in Hamburg widersprüchlich, in Berlin und Sachsen-Anhalt nicht amtlich bestätigt ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Schule als eigene Lebenslage sowie Behinderung, Arbeit, Heirat, Ruhestand und Todesfall (#41, Schritt 6), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Behinderung (#41, Schritt 6)
+
+- ✅ Fachmodul Behinderung: Grad der Behinderung feststellen lassen (Schwerbehindertenausweis), Wertmarke für die Freifahrt, Kfz-Steuer, blauer Parkausweis, Rundfunkermäßigung, Zusatzurlaub, Gleichstellung
+- ✅ Zuständige Stelle für Feststellung und Wertmarke je Land recherchiert (16 verschiedene: Landesämter, ZBFS, Versorgungsämter, in NRW, Sachsen und Thüringen Kreise und Städte)
+- ✅ Das Blindengeld der Länder gehört jetzt auch zu Behinderung; wer nur Behinderung wählt, wird nicht nach Pflege gefragt
+- ✅ 4 Szenarien, 132/132 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Preis der Wertmarke nur aus einer Sekundärquelle; Zuständigkeit in Thüringen widersprüchlich ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Arbeit, Heirat, Ruhestand, Todesfall und Schule (#41, Schritt 6) – je ein eigener PR; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

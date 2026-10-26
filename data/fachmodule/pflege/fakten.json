@@ -55,7 +55,7 @@
     {
       "id": "pflege.blind",
       "typ": "ja_nein",
-      "frage": "Ist die pflegebedürftige Person blind oder hochgradig sehbehindert (Merkzeichen Bl im Schwerbehindertenausweis oder beantragt)?"
+      "frage": "Ist die betroffene Person (Sie selbst bzw. die Person, die Sie pflegen) blind oder hochgradig sehbehindert (Merkzeichen Bl im Ausweis oder beantragt)?"
     },
     {
       "id": "pflege.beschaeftigt",

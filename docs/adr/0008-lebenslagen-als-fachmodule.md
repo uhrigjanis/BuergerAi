@@ -165,6 +165,13 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Fristen ab einem Datumsfakt:** Die Antragsfristen der Prämien rechnen ab `bildung.pruefung_datum` (Abschnitt 7: Fristen können sich auf jeden Datumsfakt beziehen). Weil eine fehlende Bezugsgröße einer Frist keine Rückfrage auslöst, stehen Prüfung und Datum als bedingte Einstiegsfragen in der Lebenslage (`nur_wenn`: nur bei Aufstiegsfortbildung bzw. bestandener Prüfung).
 - **Wohnort statt Arbeitsort:** Viele Prämien gelten bei Wohnsitz *oder* Arbeitsort im Land. Geprüft wird der Wohnort; der Hinweis der Variante nennt den Arbeitsort. Ein eigener Ortsfakt für den Arbeitsort folgt mit dem Modul Arbeit.
 
+### 13. Umsetzung von Schritt 6, Teil 1: Behinderung (26.10.2026)
+
+- **Fachmodul `behinderung`** mit der Lebenslage `behinderung` (Typ `situation`). Schritt 6 wird in einzelne PRs je Lebenslage geteilt (Behinderung, dann Arbeit, Heirat, Ruhestand, Todesfall, Schule).
+- **Zuständigkeit je Land als Variante:** Feststellung und Wertmarke sind Bundesrecht, aber jedes Land bestimmt die Behörde. Statt einer Landesleistung gibt es je Land eine Variante, die sich nur in der Zuständigkeit und Quelle unterscheidet. So nennt der Bericht z. B. das ZBFS in Bayern und die kreisfreie Stadt in NRW.
+- **Geteilter Fakt statt Doppelung:** Das Merkzeichen Bl ist der Fakt `pflege.blind` aus dem Modul Pflege; Behinderung importiert ihn (`importiert_fakten`). Die Frage ist neutral formuliert. Das Blindengeld der Länder gehört zu beiden Lebenslagen.
+- **Ortsbezug mit Bedingung außerhalb der Lebenslage (Engine):** Das Blindengeld hat den Ortsbezug `pflege.ort` mit `nur_wenn` auf `pflege.rolle`. Gehört diese Bedingung nicht zu den Einstiegsfragen der gewählten Lebenslagen, gilt jetzt der Wohnort, statt nach der Pflege zu fragen. Wer Pflege mitwählt, wird wie bisher gefragt.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

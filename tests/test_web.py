@@ -195,8 +195,8 @@ def test_szenario_format_rundreise(kb, tmp_path):
 @pytest.mark.anforderung("ANF-MOD-02", "ANF-WEB-09")
 def test_lebenslagen_in_der_api(kb):
     meta = api.meta(kb)
-    assert [l["id"] for l in meta["lebenslagen"]] == ["ausbildung_studium", "geburt", "geringes_einkommen", "wohneigentum", "pflege", "umzug"]
-    assert meta["lebenslagen"][1]["modul"] == "Familie und Kinder"
+    assert [l["id"] for l in meta["lebenslagen"]] == ["ausbildung_studium", "behinderung", "geburt", "geringes_einkommen", "wohneigentum", "pflege", "umzug"]
+    assert meta["lebenslagen"][2]["modul"] == "Familie und Kinder"
     # ohne Angabe: Geburt; mit Angabe: dasselbe Ergebnis
     ohne = api.bericht(kb, anfrage())
     mit = api.bericht(kb, {**anfrage(), "lebenslagen": ["geburt", "geburt"]})

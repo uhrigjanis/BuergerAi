@@ -1,0 +1,37 @@
+{
+  "name": "Behinderung: blinde Frau in Köln (GdB 100, Bl)",
+  "beschreibung": "Blindengeld NRW als Landesleistung (ohne Frage nach Pflege), blauer Parkausweis, kostenlose Wertmarke, Kfz-Steuer-Befreiung.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "behinderung"
+  ],
+  "anforderungen": [
+    "ANF-BEH-05",
+    "ANF-BEH-03"
+  ],
+  "fakten": {
+    "behinderung.merkzeichen_g": "nein",
+    "behinderung.merkzeichen_ag": "nein",
+    "behinderung.merkzeichen_h": "nein",
+    "pflege.blind": "ja",
+    "behinderung.merkzeichen_gl": "nein",
+    "behinderung.merkzeichen_rf": "nein",
+    "behinderung.gdb": 100,
+    "behinderung.beschaeftigt": "nein",
+    "behinderung.kfz_halter": "ja",
+    "arbeitsuchend_gemeldet": "nein"
+  },
+  "erwartet": {
+    "landesblindengeld": "ja",
+    "parkausweis_blau": "ja",
+    "wertmarke_freifahrt": "ja",
+    "kfz_steuer_behinderung": "ja",
+    "zusatzurlaub": "nein"
+  },
+  "erwartet_stellen": {
+    "landesblindengeld": "Landschaftsverband",
+    "wertmarke_freifahrt": "Kreisfreie Stadt Köln"
+  },
+  "erwartet_fehlend": []
+}

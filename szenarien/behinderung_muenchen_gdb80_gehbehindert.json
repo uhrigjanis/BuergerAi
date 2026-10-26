@@ -1,0 +1,37 @@
+{
+  "name": "Behinderung: GdB 80 mit Merkzeichen G, angestellt, München",
+  "beschreibung": "Wertmarke beim ZBFS, Zusatzurlaub; Kfz-Steuer-Ermäßigung unklar, weil sie die Freifahrt ausschließt.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "behinderung"
+  ],
+  "anforderungen": [
+    "ANF-BEH-02",
+    "ANF-BEH-03",
+    "ANF-BEH-04"
+  ],
+  "fakten": {
+    "behinderung.merkzeichen_g": "ja",
+    "behinderung.merkzeichen_ag": "nein",
+    "behinderung.merkzeichen_h": "nein",
+    "pflege.blind": "nein",
+    "behinderung.merkzeichen_gl": "nein",
+    "behinderung.merkzeichen_rf": "nein",
+    "behinderung.gdb": 80,
+    "behinderung.beschaeftigt": "ja",
+    "behinderung.kfz_halter": "ja"
+  },
+  "erwartet": {
+    "wertmarke_freifahrt": "ja",
+    "zusatzurlaub": "ja",
+    "kfz_steuer_behinderung": "unklar",
+    "parkausweis_blau": "nein",
+    "landesblindengeld": "nein",
+    "behinderung_feststellen": "nein"
+  },
+  "erwartet_stellen": {
+    "wertmarke_freifahrt": "Zentrum Bayern Familie und Soziales"
+  },
+  "erwartet_fehlend": []
+}

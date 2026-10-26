@@ -1,0 +1,137 @@
+{
+  "_hinweis": "Lebenslage Behinderung: zuständige Stelle für Feststellung und Wertmarke. Landesleistung ist das Blindengeld (siehe pflege.json).",
+  "quellen": [
+    {
+      "id": "he_feststellung",
+      "titel": "RP Gießen – Flyer Schwerbehindertenrecht (2025)",
+      "url": "https://rp-giessen.hessen.de/sites/rp-giessen.hessen.de/files/2025-12/flyer-schwerbehindertenrecht-2025-bf.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Antrag an das HAVS am Wohnort, nicht an das Regierungspräsidium; online möglich; unterschrieben."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "feststellung_he",
+      "name": "Hessisches Amt für Versorgung und Soziales (HAVS) an Ihrem Wohnort",
+      "beschreibung": "Sechs Ämter; Zuständigkeit nach Wohnort (Übersicht beim RP Gießen).",
+      "url": "https://rp-giessen.hessen.de"
+    }
+  ],
+  "varianten": [
+    {
+      "id": "behinderung_feststellen_he",
+      "leistung_id": "behinderung_feststellen",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "feststellung_he",
+      "quellen": [
+        "he_feststellung",
+        "sgb9_152"
+      ],
+      "regel": {
+        "fakt": "behinderung.gdb",
+        "op": "==",
+        "wert": 0,
+        "text": "Noch kein Grad der Behinderung festgestellt",
+        "quellen": [
+          "sgb9_152"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Arztberichte und Befunde (oder Namen der behandelnden Ärzte)",
+          "Passfoto (für den Ausweis)"
+        ],
+        "schritte": [
+          "Antrag auf Feststellung einer Behinderung stellen (online, schriftlich oder formlos); den Ausweis gleich mit beantragen.",
+          "Die Behörde holt Befunde bei Ihren Ärzten ein und schickt einen Bescheid mit GdB und Merkzeichen."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Ist schon ein GdB festgestellt und hat sich die Gesundheit verschlechtert, können Sie eine Neufeststellung (Erhöhung) beantragen.",
+        "Die Bearbeitung dauert oft mehrere Monate."
+      ]
+    },
+    {
+      "id": "wertmarke_freifahrt_he",
+      "leistung_id": "wertmarke_freifahrt",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "feststellung_he",
+      "quellen": [
+        "he_feststellung",
+        "wertmarke_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.merkzeichen_g",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen G (erheblich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_ag",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_h",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen H (hilflos)"
+              },
+              {
+                "fakt": "pflege.blind",
+                "op": "==",
+                "wert": true,
+                "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_gl",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen Gl (gehörlos)"
+              }
+            ],
+            "text": "Merkzeichen G, aG, H, Bl oder Gl"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Wertmarke bei der Stelle beantragen, die Ihren Ausweis ausgestellt hat (Beiblatt mit Wertmarke)."
+        ]
+      },
+      "hinweise": [
+        "Die Wertmarke kostet 104 € im Jahr (53 € im Halbjahr); kostenlos mit Merkzeichen H oder Bl und bei Grundsicherung bzw. Sozialhilfe (laut Bericht).",
+        "Gilt im Nahverkehr und in Regionalzügen, nicht im Fernverkehr."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "behinderung",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "lwv_hessen_blindengeld",
+        "he_feststellung"
+      ],
+      "notiz": "Landesleistung erfasst: Blindengeld des Landes (siehe Pflege). Zuständige Stelle für die Feststellung je Land recherchiert am 26.10.2026; Gehörlosen- und Taubblindengeld der Länder sind nicht erfasst."
+    }
+  ]
+}

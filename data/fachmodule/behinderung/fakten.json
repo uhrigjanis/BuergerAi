@@ -1,0 +1,46 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Behinderung. Das Merkzeichen Bl kommt aus dem Modul Pflege (pflege.blind).",
+  "fakten": [
+    {
+      "id": "behinderung.gdb",
+      "typ": "zahl",
+      "frage": "Welcher Grad der Behinderung (GdB) ist festgestellt? (0, wenn noch keiner)",
+      "hilfe": "Der GdB steht im Bescheid des Versorgungsamts bzw. im Schwerbehindertenausweis (20 bis 100)."
+    },
+    {
+      "id": "behinderung.merkzeichen_g",
+      "typ": "ja_nein",
+      "frage": "Steht im Bescheid bzw. Ausweis das Merkzeichen G (erheblich gehbehindert)?"
+    },
+    {
+      "id": "behinderung.merkzeichen_ag",
+      "typ": "ja_nein",
+      "frage": "Steht im Bescheid bzw. Ausweis das Merkzeichen aG (außergewöhnlich gehbehindert)?"
+    },
+    {
+      "id": "behinderung.merkzeichen_h",
+      "typ": "ja_nein",
+      "frage": "Steht im Bescheid bzw. Ausweis das Merkzeichen H (hilflos)?"
+    },
+    {
+      "id": "behinderung.merkzeichen_gl",
+      "typ": "ja_nein",
+      "frage": "Steht im Bescheid bzw. Ausweis das Merkzeichen Gl (gehörlos)?"
+    },
+    {
+      "id": "behinderung.merkzeichen_rf",
+      "typ": "ja_nein",
+      "frage": "Steht im Bescheid bzw. Ausweis das Merkzeichen RF (Rundfunkbeitrag)?"
+    },
+    {
+      "id": "behinderung.beschaeftigt",
+      "typ": "ja_nein",
+      "frage": "Sind Sie angestellt (Arbeitsverhältnis, auch Ausbildung)?"
+    },
+    {
+      "id": "behinderung.kfz_halter",
+      "typ": "ja_nein",
+      "frage": "Ist ein Auto auf Sie zugelassen?"
+    }
+  ]
+}

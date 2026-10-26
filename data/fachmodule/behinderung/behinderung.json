@@ -1,0 +1,522 @@
+{
+  "_hinweis": "Fachmodul Behinderung: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Feststellungsbehörden je Land unter data/laender/*/behinderung.json.",
+  "quellen": [
+    {
+      "id": "sgb9_152",
+      "titel": "§ 152 SGB IX – Feststellung der Behinderung, Ausweise",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__152.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Behördenseiten (Hamburg, Bayern, Saarland): Antrag auf Feststellung des Grades der Behinderung (GdB) und der Merkzeichen bei der nach Landesrecht zuständigen Behörde; Ausweis ab GdB 50; Behinderung ab GdB 20; kostenlos; Zuständigkeit regelt jedes Land."
+    },
+    {
+      "id": "wertmarke_2026",
+      "titel": "Wertmarke für die Freifahrt 2026 (Bericht gegen-hartz.de)",
+      "url": "https://www.gegen-hartz.de/news/ab-gdb-50-diese-befreiungen-gibt-es-bei-schwerbehinderung-2026",
+      "typ": "sekundaer",
+      "herausgeber": "gegen-hartz.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Freifahrt im Nahverkehr (§ 228 SGB IX) mit Wertmarke bei Merkzeichen G, aG, H, Bl, Gl (TBl); Wertmarke 104 € im Jahr bzw. 53 € im Halbjahr (seit 2025 unverändert); kostenlos bei H, Bl oder TBl und bei Bezug bestimmter Sozialleistungen (SGB II/XII); nicht im Fernverkehr. Amtlich noch prüfen."
+    },
+    {
+      "id": "berlin_lageso_kfz",
+      "titel": "LAGeSo Berlin – Nachteilsausgleiche: Kraftfahrzeug",
+      "url": "https://www.berlin.de/lageso/behinderung/schwerbehinderung-versorgungsamt/nachteilsausgleiche/kraftfahrzeug/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Befreiung von der Kfz-Steuer mit Merkzeichen aG, H oder Bl für ein auf die Person zugelassenes Fahrzeug, auf Antrag beim Hauptzollamt; mit G oder Gl 50 % Ermäßigung, aber nur anstelle der Wertmarke für die Freifahrt."
+    },
+    {
+      "id": "berlin_rundfunk_rf",
+      "titel": "Service Berlin – Rundfunkbeitrag: Befreiung oder Ermäßigung beantragen",
+      "url": "https://service.berlin.de/dienstleistung/324531/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Service Berlin, betanet): Merkzeichen RF ergibt auf Antrag eine Ermäßigung auf ein Drittel (6,12 € im Monat); nicht automatisch; taubblinde Menschen können ganz befreit werden; rückwirkend bis drei Jahre (§ 4 Abs. 4 RBStV)."
+    },
+    {
+      "id": "berlin_parkausweis",
+      "titel": "Bezirksamt Pankow – Straßenverkehrsbehörde: Parkausweis für Menschen mit Behinderung",
+      "url": "https://www.berlin.de/ba-pankow/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/strassenverkehrsbehoerde/artikel.1641431.php",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: blauer EU-Parkausweis bei Merkzeichen aG oder Bl (§ 46 StVO); Antrag bei der Straßenverkehrsbehörde mit Ausweis, Bescheid und Lichtbild; orangefarbener Ausweis für weitere Fallgruppen (nicht erfasst)."
+    },
+    {
+      "id": "sachsen_zusatzurlaub",
+      "titel": "Merkblatt Zusatzurlaub für schwerbehinderte Menschen (Sachsen)",
+      "url": "https://www.hsbvl.sachsen.de/download/hsbvl/Merkblatt_Zusatzurlaub_2021.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Merkblatt, Arbeitskammer Saarland, gegen-hartz.de): fünf Arbeitstage zusätzlicher Urlaub im Jahr bei Fünftagewoche (§ 208 SGB IX), ab GdB 50; nicht für Gleichgestellte; anteilig im ersten Jahr."
+    },
+    {
+      "id": "ihk_schwerbehinderung",
+      "titel": "IHK Arnsberg – Menschen mit Schwerbehinderung (Merkblatt)",
+      "url": "https://ihk-arnsberg.de/upload/Menschen_mit_Schwerbehinderung_47164.pdf",
+      "typ": "behoerde",
+      "herausgeber": "IHK Arnsberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Gleichstellung mit schwerbehinderten Menschen bei GdB 30 oder 40 auf Antrag bei der Agentur für Arbeit, wenn ohne sie ein geeigneter Arbeitsplatz nicht erlangt oder behalten werden kann; Gleichgestellte haben Kündigungsschutz, aber keinen Zusatzurlaub."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "feststellungsbehoerde",
+      "name": "Versorgungsamt bzw. nach Landesrecht zuständige Stelle",
+      "beschreibung": "Jedes Land regelt selbst, welche Behörde den Grad der Behinderung feststellt."
+    },
+    {
+      "id": "hauptzollamt",
+      "name": "Hauptzollamt (Kraftfahrzeugsteuer)",
+      "url": "https://www.zoll.de",
+      "beschreibung": "Antrag schriftlich mit Ausweis."
+    },
+    {
+      "id": "strassenverkehrsbehoerde",
+      "name": "Straßenverkehrsbehörde – {kreis}",
+      "beschreibung": "Straßenverkehrsbehörde der Stadt bzw. des Kreises (in Berlin: des Bezirks)."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "behinderung_feststellen",
+      "name": "Grad der Behinderung feststellen lassen (Schwerbehindertenausweis)",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Der Grad der Behinderung (GdB) und die Merkzeichen sind die Grundlage für fast alle Nachteilsausgleiche. Ab GdB 50 gibt es den Schwerbehindertenausweis."
+    },
+    {
+      "id": "wertmarke_freifahrt",
+      "name": "Freifahrt im Nahverkehr (Wertmarke)",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Mit bestimmten Merkzeichen fahren Sie mit Bus, Straßenbahn und Regionalzug kostenlos – mit einer Wertmarke zum Ausweis."
+    },
+    {
+      "id": "kfz_steuer_behinderung",
+      "name": "Kfz-Steuer: Befreiung oder Ermäßigung",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Mit den Merkzeichen H, Bl oder aG entfällt die Kfz-Steuer; mit G oder Gl halbiert sie sich, wenn Sie auf die Freifahrt verzichten."
+    },
+    {
+      "id": "parkausweis_blau",
+      "name": "Blauer Parkausweis (Behindertenparkplätze)",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Mit Merkzeichen aG oder Bl dürfen Sie auf Behindertenparkplätzen parken."
+    },
+    {
+      "id": "rundfunk_ermaessigung",
+      "name": "Ermäßigung des Rundfunkbeitrags (Merkzeichen RF)",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Mit Merkzeichen RF zahlen Sie nur ein Drittel des Rundfunkbeitrags – aber nur auf Antrag."
+    },
+    {
+      "id": "zusatzurlaub",
+      "name": "Fünf Tage Zusatzurlaub",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "selbst",
+      "kurz": "Schwerbehinderte Beschäftigte haben jedes Jahr fünf Arbeitstage mehr Urlaub (bei Fünftagewoche)."
+    },
+    {
+      "id": "gleichstellung",
+      "name": "Gleichstellung mit schwerbehinderten Menschen",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Bei GdB 30 oder 40 kann die Arbeitsagentur Sie gleichstellen – das bringt vor allem besonderen Kündigungsschutz."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "behinderung_feststellen_bund",
+      "leistung_id": "behinderung_feststellen",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "feststellungsbehoerde",
+      "quellen": [
+        "sgb9_152"
+      ],
+      "regel": {
+        "fakt": "behinderung.gdb",
+        "op": "==",
+        "wert": 0,
+        "text": "Noch kein Grad der Behinderung festgestellt",
+        "quellen": [
+          "sgb9_152"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Arztberichte und Befunde (oder Namen der behandelnden Ärzte)",
+          "Passfoto (für den Ausweis)"
+        ],
+        "schritte": [
+          "Antrag auf Feststellung einer Behinderung stellen (online, schriftlich oder formlos); den Ausweis gleich mit beantragen.",
+          "Die Behörde holt Befunde bei Ihren Ärzten ein und schickt einen Bescheid mit GdB und Merkzeichen."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Ist schon ein GdB festgestellt und hat sich die Gesundheit verschlechtert, können Sie eine Neufeststellung (Erhöhung) beantragen.",
+        "Die Bearbeitung dauert oft mehrere Monate."
+      ]
+    },
+    {
+      "id": "wertmarke_freifahrt_bund",
+      "leistung_id": "wertmarke_freifahrt",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "feststellungsbehoerde",
+      "quellen": [
+        "wertmarke_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.merkzeichen_g",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen G (erheblich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_ag",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_h",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen H (hilflos)"
+              },
+              {
+                "fakt": "pflege.blind",
+                "op": "==",
+                "wert": true,
+                "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_gl",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen Gl (gehörlos)"
+              }
+            ],
+            "text": "Merkzeichen G, aG, H, Bl oder Gl"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Wertmarke bei der Stelle beantragen, die Ihren Ausweis ausgestellt hat (Beiblatt mit Wertmarke)."
+        ]
+      },
+      "hinweise": [
+        "Die Wertmarke kostet 104 € im Jahr (53 € im Halbjahr); kostenlos mit Merkzeichen H oder Bl und bei Grundsicherung bzw. Sozialhilfe (laut Bericht).",
+        "Gilt im Nahverkehr und in Regionalzügen, nicht im Fernverkehr."
+      ]
+    },
+    {
+      "id": "kfz_steuer_behinderung_bund",
+      "leistung_id": "kfz_steuer_behinderung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hauptzollamt",
+      "quellen": [
+        "berlin_lageso_kfz"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "fakt": "behinderung.kfz_halter",
+            "op": "==",
+            "wert": true,
+            "text": "Ein Auto ist auf Sie zugelassen"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.merkzeichen_h",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen H (hilflos)"
+              },
+              {
+                "fakt": "pflege.blind",
+                "op": "==",
+                "wert": true,
+                "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+              },
+              {
+                "fakt": "behinderung.merkzeichen_ag",
+                "op": "==",
+                "wert": true,
+                "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+              },
+              {
+                "alle": [
+                  {
+                    "eine": [
+                      {
+                        "fakt": "behinderung.merkzeichen_g",
+                        "op": "==",
+                        "wert": true,
+                        "text": "Merkzeichen G (erheblich gehbehindert)"
+                      },
+                      {
+                        "fakt": "behinderung.merkzeichen_gl",
+                        "op": "==",
+                        "wert": true,
+                        "text": "Merkzeichen Gl (gehörlos)"
+                      }
+                    ],
+                    "text": "Merkzeichen G oder Gl"
+                  },
+                  {
+                    "pruefung_noetig": "Die Ermäßigung um 50 % gibt es nur, wenn Sie auf die Freifahrt (Wertmarke) verzichten.",
+                    "quellen": [
+                      "berlin_lageso_kfz"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "text": "Merkzeichen H, Bl oder aG (Befreiung) bzw. G oder Gl (Ermäßigung)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Antrag beim Hauptzollamt mit dem Schwerbehindertenausweis stellen; gilt für ein Fahrzeug."
+        ]
+      },
+      "hinweise": [
+        "Die Befreiung gilt nicht automatisch."
+      ]
+    },
+    {
+      "id": "parkausweis_blau_bund",
+      "leistung_id": "parkausweis_blau",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "strassenverkehrsbehoerde",
+      "quellen": [
+        "berlin_parkausweis"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "behinderung.merkzeichen_ag",
+            "op": "==",
+            "wert": true,
+            "text": "Merkzeichen aG (außergewöhnlich gehbehindert)"
+          },
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ],
+        "text": "Merkzeichen aG oder Bl"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis (Kopie)",
+          "Bescheid mit Merkzeichen",
+          "Personalausweis",
+          "Lichtbild"
+        ],
+        "schritte": [
+          "Parkausweis bei der Straßenverkehrsbehörde beantragen.",
+          "Im Auto sichtbar auslegen."
+        ]
+      },
+      "hinweise": [
+        "Für weitere Fallgruppen gibt es einen orangefarbenen Parkausweis (hier nicht erfasst)."
+      ]
+    },
+    {
+      "id": "rundfunk_ermaessigung_bund",
+      "leistung_id": "rundfunk_ermaessigung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "beitragsservice",
+      "quellen": [
+        "berlin_rundfunk_rf"
+      ],
+      "regel": {
+        "fakt": "behinderung.merkzeichen_rf",
+        "op": "==",
+        "wert": true,
+        "text": "Merkzeichen RF (Rundfunkbeitrag)"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis (Vorder- und Rückseite) oder Bescheid"
+        ],
+        "schritte": [
+          "Ermäßigung beim Beitragsservice beantragen – auch wenn RF schon im Ausweis steht, geschieht das nicht automatisch."
+        ]
+      },
+      "hinweise": [
+        "Ermäßigung auf ein Drittel (6,12 € im Monat); taubblinde Menschen können ganz befreit werden.",
+        "Rückwirkend bis zu drei Jahre möglich."
+      ]
+    },
+    {
+      "id": "zusatzurlaub_bund",
+      "leistung_id": "zusatzurlaub",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitgeber_pflege",
+      "quellen": [
+        "sachsen_zusatzurlaub"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 50,
+            "text": "Grad der Behinderung mindestens 50 (schwerbehindert)"
+          },
+          {
+            "fakt": "behinderung.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Dem Arbeitgeber die Schwerbehinderung (Ausweis oder Bescheid) mitteilen und den Zusatzurlaub verlangen."
+        ]
+      },
+      "hinweise": [
+        "Fünf Arbeitstage bei Fünftagewoche; im Jahr der Feststellung anteilig.",
+        "Gleichgestellte (GdB 30 oder 40) haben keinen Zusatzurlaub."
+      ]
+    },
+    {
+      "id": "gleichstellung_bund",
+      "leistung_id": "gleichstellung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "ihk_schwerbehinderung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "behinderung.gdb",
+            "op": ">=",
+            "wert": 30,
+            "text": "Grad der Behinderung mindestens 30"
+          },
+          {
+            "fakt": "behinderung.gdb",
+            "op": "<",
+            "wert": 50,
+            "text": "Grad der Behinderung unter 50"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "behinderung.beschaeftigt",
+                "op": "==",
+                "wert": true,
+                "text": "Sie sind angestellt"
+              },
+              {
+                "fakt": "arbeitsuchend_gemeldet",
+                "op": "==",
+                "wert": true,
+                "text": "Sie sind arbeitsuchend gemeldet"
+              }
+            ],
+            "text": "Beschäftigt oder auf Arbeitssuche"
+          },
+          {
+            "pruefung_noetig": "Gleichgestellt wird, wer ohne die Gleichstellung einen geeigneten Arbeitsplatz nicht bekommen oder behalten kann – das prüft die Arbeitsagentur.",
+            "quellen": [
+              "ihk_schwerbehinderung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Bescheid über den GdB"
+        ],
+        "schritte": [
+          "Gleichstellung bei der Agentur für Arbeit beantragen (auch online)."
+        ]
+      },
+      "hinweise": [
+        "Bringt besonderen Kündigungsschutz, aber keinen Zusatzurlaub."
+      ]
+    }
+  ]
+}

@@ -134,6 +134,13 @@
     {"id": "ANF-BIL-05", "bereich": "Ausbildung und Studium", "titel": "Antragsfristen der Prämien rechnen ab dem Datum des Prüfungsergebnisses; das Datum wird nur nach bestandener Prüfung gefragt"},
     {"id": "ANF-BIL-06", "bereich": "Ausbildung und Studium", "titel": "Unbekannte Angaben ergeben Unklar; Vorhaben und Alter werden zuerst gefragt"},
     {"id": "ANF-BIL-07", "bereich": "Ausbildung und Studium", "titel": "Mindestens drei Szenarien, darunter Unklar und ein Land ohne Meisterbonus; Terminal und Web gleich"},
+    {"id": "ANF-BEH-01", "bereich": "Behinderung", "titel": "Feststellung des Grades der Behinderung nur ohne festgestellten GdB; zuständige Stelle je Land (16 verschiedene, teils Kreis oder Stadt)"},
+    {"id": "ANF-BEH-02", "bereich": "Behinderung", "titel": "Wertmarke für die Freifahrt ab GdB 50 mit Merkzeichen G, aG, H, Bl oder Gl; ausgegeben von der Feststellungsstelle des Landes"},
+    {"id": "ANF-BEH-03", "bereich": "Behinderung", "titel": "Kfz-Steuer befreit bei H, Bl oder aG, Ermäßigung bei G oder Gl nur statt Freifahrt; blauer Parkausweis bei aG oder Bl; Rundfunkermäßigung bei RF"},
+    {"id": "ANF-BEH-04", "bereich": "Behinderung", "titel": "Zusatzurlaub ab GdB 50 für Beschäftigte; Gleichstellung bei GdB 30 oder 40 für Beschäftigte oder Arbeitsuchende"},
+    {"id": "ANF-BEH-05", "bereich": "Behinderung", "titel": "Blindengeld der Länder gehört auch zu Behinderung; ohne Lebenslage Pflege keine Pflegefragen, es gilt der Wohnort"},
+    {"id": "ANF-BEH-06", "bereich": "Behinderung", "titel": "Unbekannte Angaben ergeben Unklar; widersprüchliche Angaben zur zuständigen Stelle sind gekennzeichnet"},
+    {"id": "ANF-BEH-07", "bereich": "Behinderung", "titel": "Mindestens drei Szenarien, darunter Unklar; Terminal und Web gleich"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

@@ -336,3 +336,42 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Schleswig-Holstein | keine (nur Gründungsprämie) | – | – | FIM |
 | Thüringen | Meisterbonus 2.000 € | DQR 6/7 | – | IHK Gera |
 
+## Lebenslage Behinderung (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `sgb9_152` | Feststellung, Ausweis ab GdB 50 (Gesetzestext nicht erreichbar) |
+| `wertmarke_2026` | Preis 104 € bzw. 53 €, kostenlose Wertmarke (nur Sekundärquelle) |
+| `berlin_lageso_kfz` | Kfz-Steuer: Befreiung und Ermäßigung, Verhältnis zur Freifahrt (ein Ratgeber widerspricht bei H, Bl, aG) |
+| `berlin_rundfunk_rf` | Ermäßigung auf 6,12 €, rückwirkend drei Jahre |
+| `sachsen_zusatzurlaub`, `ihk_schwerbehinderung` | Zusatzurlaub, Voraussetzungen der Gleichstellung |
+| `th_feststellung` | **Widersprüchlich:** Landkreise und Städte (seit 2008) oder Landesamt TLVLV |
+| `nw_feststellung` | nur Sekundärquelle; amtliche Seite einer Stadt bzw. eines Kreises ergänzen |
+
+### Zuständige Stelle für Feststellung und Wertmarke (alle 16 Länder)
+
+| Land | Stelle |
+|------|--------|
+| Baden-Württemberg | Versorgungsamt beim Landratsamt bzw. Stadtkreis |
+| Bayern | Zentrum Bayern Familie und Soziales (ZBFS), Regionalstelle |
+| Berlin | LAGeSo – Versorgungsamt |
+| Brandenburg | Landesamt für Soziales und Versorgung (LASV), Cottbus |
+| Bremen | Amt für Versorgung und Inklusion (AVIB) |
+| Hamburg | Versorgungsamt Hamburg |
+| Hessen | Hessisches Amt für Versorgung und Soziales (HAVS) am Wohnort |
+| Mecklenburg-Vorpommern | Landesamt für Gesundheit und Soziales (LAGuS) |
+| Niedersachsen | Landesamt für Soziales, Jugend und Familie, Außenstelle |
+| Nordrhein-Westfalen | Kreis bzw. kreisfreie Stadt |
+| Rheinland-Pfalz | Landesamt für Soziales, Jugend und Versorgung (LSJV) |
+| Saarland | Landesamt für Soziales, Abteilung Schwerbehinderung |
+| Sachsen | Landratsamt bzw. kreisfreie Stadt |
+| Sachsen-Anhalt | Landesverwaltungsamt, Halle |
+| Schleswig-Holstein | Landesamt für Arbeitsschutz, Soziales und Gesundheit (LASG), Außenstelle |
+| Thüringen | Landratsamt bzw. kreisfreie Stadt (widersprüchlich) |
+
+Landesleistung der Lebenslage ist das Blindengeld (Tabelle unter Pflege). Gehörlosen- und Taubblindengeld sind nicht erfasst.
+

@@ -285,7 +285,15 @@ docs/
 - ✅ 3 Szenarien, 161/161 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Familienversicherung nur über den vdek (Sekundärquelle); Abschaffung von Steuerklasse III/V laut Ratgebern nicht beschlossen ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Ruhestand (#41, Schritt 6)
+
+- ✅ Neues Fachmodul Ruhestand: Altersrente beantragen (Regelaltersgrenze je Jahrgang wird aus Geburtsdatum und Rentenbeginn berechnet; vorher nur mit 35 Jahren und als Prüfung), Krankenversicherung der Rentner (9/10-Regel), dazu Grundsicherung im Alter und Wohngeld
+- ✅ Alle 16 Länder recherchiert: Seniorenticket des Landes in Mecklenburg-Vorpommern (ab 65), Hamburg (ab 67) und Hessen (ab 65); die übrigen 13 Länder als `keine` belegt
+- ✅ Das Alter wird aus dem Geburtsdatum abgeleitet und nicht doppelt gefragt
+- ✅ 3 Szenarien, 167/167 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Regelaltersgrenze und vorzeitige Renten nur über Sekundärquellen und das DRV-Expertenforum; „keine“ für viele Länder nur aus Übersichtsartikeln ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Alle Lebenslagen aus #41 sind erfasst; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

@@ -194,7 +194,8 @@
       "id": "grundsicherung_alter_em",
       "name": "Grundsicherung im Alter und bei Erwerbsminderung",
       "lebenslagen": [
-        "geringes_einkommen"
+        "geringes_einkommen",
+        "ruhestand"
       ],
       "verwaltungsebene": "kreis",
       "fuer": "haushalt",
@@ -215,7 +216,8 @@
       "id": "wohngeld",
       "name": "Wohngeld",
       "lebenslagen": [
-        "geringes_einkommen"
+        "geringes_einkommen",
+        "ruhestand"
       ],
       "verwaltungsebene": "kreis",
       "fuer": "haushalt",

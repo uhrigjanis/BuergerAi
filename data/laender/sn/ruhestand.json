@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ruhestand in Sachsen: keine Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sn_kein_seniorenticket",
+      "titel": "gegen-hartz – Vergünstigungen für Rentner 2026 (mit Tabelle)",
+      "url": "https://www.gegen-hartz.de/news/rente-verguenstigungen-fuer-rentner-2026-was-sich-aendert-und-wie-man-profitiert-mit-tabelle",
+      "typ": "sekundaer",
+      "herausgeber": "gegen-hartz.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: in Sachsen nur regionale Seniorenrabatte einzelner Städte bzw. Verbünde, kein Landesticket."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sn_kein_seniorenticket"
+      ],
+      "notiz": "Kein vom Land gefördertes Seniorenticket und keine andere Landesleistung zum Ruhestand in Sachsen gefunden; Renten und Krankenversicherung sind Bundesrecht. Regionale Angebote von Verkehrsverbünden oder Städten sind nicht erfasst."
+    }
+  ]
+}

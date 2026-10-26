@@ -508,3 +508,29 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`.
 ### Landesleistungen (alle 16 Länder)
 
 Keine. In allen Ländern wird die Eheschließung beim Standesamt nach Bundesrecht (PStG, BGB) angemeldet; die Länder regeln nur die Gebühren. Je Land ist eine eigene Quelle hinterlegt (`*_eheschliessung` in `data/laender/*/heirat.json`).
+
+## Lebenslage Ruhestand (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `drv_regelaltersgrenze`, `betanet_regelaltersgrenze` | Tabelle der Regelaltersgrenze; Rentenbeginn im Folgemonat (Geburtstag am Ersten) |
+| `drv_vorzeitige_rente` | nur Sekundärquelle: 35/45 Jahre, Abschläge, schwerbehinderte Menschen |
+| `kvdr_9_10` | 9/10-Regel, drei Jahre je Kind |
+| `mv_seniorenticket` | Preis 2026 (43 €) nur aus Sekundärquellen |
+| `hh_seniorenticket` | Start 1.5.2026 umgesetzt? |
+| `he_seniorenticket` | Umfang der Landesförderung nicht belegt |
+| alle `*_kein_seniorenticket` | „keine“ beruht auf Übersichtsartikeln; Landesseiten prüfen |
+
+### Seniorenticket des Landes (alle 16 Länder)
+
+| Land | Seniorenticket | Ab |
+|------|----------------|----|
+| Mecklenburg-Vorpommern | Deutschlandticket mit 20 € Landeszuschuss | 65 |
+| Hamburg | hvv Deutschlandticket für Senioren (49 €) | 67 |
+| Hessen | Seniorenticket Hessen (398 € im Jahr) | 65 |
+| Berlin, Brandenburg | keine (VBB-Abo 65plus seit 2026 eingestellt) | |
+| alle übrigen | keine (nur Angebote von Verbünden oder Städten) | |

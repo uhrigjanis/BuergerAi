@@ -1,0 +1,35 @@
+{
+  "name": "Ruhestand: München, mit 63 in Rente nach 40 Versicherungsjahren",
+  "beschreibung": "Vor der Regelaltersgrenze bleibt die Altersrente unklar (Abschlag, Art der Rente prüft die Rentenversicherung); Bayern hat kein Seniorenticket des Landes.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ruhestand"
+  ],
+  "anforderungen": [
+    "ANF-RUH-02",
+    "ANF-RUH-04"
+  ],
+  "fakten": {
+    "ruhestand.geburtsdatum": "1963-06-01",
+    "ruhestand.rentenbeginn": "2026-07-01",
+    "ruhestand.versicherungsjahre": 40,
+    "ruhestand.gesetzlich_krankenversichert": "ja"
+  },
+  "erwartet": {
+    "altersrente": "unklar",
+    "kvdr": "unklar",
+    "grundsicherung_alter_em": "unklar",
+    "wohngeld": "unklar"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": [
+    "bezieht_sozialhilfe",
+    "einkommen.erwerbsfaehig",
+    "einkommen.voll_erwerbsgemindert",
+    "bezieht_wohngeld",
+    "einkommen.wohnkosten",
+    "bezieht_buergergeld",
+    "bezieht_asylbewerberleistungen"
+  ]
+}

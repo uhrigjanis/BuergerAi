@@ -157,7 +157,7 @@ def einstiegs_rueckfragen(definitionen: list[FaktDefinition], fakten: dict[str, 
     return offen
 
 
-def abgeleitete_fakten(fakten: dict[str, Any]) -> dict[str, Any]:
+def abgeleitete_fakten(fakten: dict[str, Any], stichtag: Optional[date] = None) -> dict[str, Any]:
     """Berechnet Fakten, die sich aus anderen Angaben ergeben."""
     neu: dict[str, Any] = {}
     geboren = fakten.get("kind_geboren")
@@ -171,4 +171,44 @@ def abgeleitete_fakten(fakten: dict[str, Any]) -> dict[str, Any]:
         neu["bildung.alter_im_einschulungsjahr"] = jahr - geburt.year
     elif UNBEKANNT in (geburt, jahr):
         neu["bildung.alter_im_einschulungsjahr"] = UNBEKANNT
+    # Ruhestand: Alter bei Rentenbeginn und ob die Regelaltersgrenze dann erreicht ist
+    geburt, beginn = fakten.get("ruhestand.geburtsdatum"), fakten.get("ruhestand.rentenbeginn")
+    if isinstance(geburt, date) and isinstance(beginn, date):
+        neu["ruhestand.alter_bei_rentenbeginn"] = beginn.year - geburt.year - ((beginn.month, beginn.day) < (geburt.month, geburt.day))
+        neu["ruhestand.regelaltersgrenze_erreicht"] = beginn >= regelaltersrente_ab(geburt)
+    elif UNBEKANNT in (geburt, beginn):
+        neu["ruhestand.alter_bei_rentenbeginn"] = UNBEKANNT
+        neu["ruhestand.regelaltersgrenze_erreicht"] = UNBEKANNT
+    # Das Alter heute nicht noch einmal fragen, wenn das Geburtsdatum schon bekannt ist
+    if "alter" not in fakten and isinstance(geburt, date) and stichtag is not None:
+        neu["alter"] = stichtag.year - geburt.year - ((stichtag.month, stichtag.day) < (geburt.month, geburt.day))
     return neu
+
+
+def regelaltersgrenze(geburtsjahr: int) -> tuple[int, int]:
+    """Regelaltersgrenze (Jahre, Monate) nach § 35 und § 235 SGB VI.
+
+    Bis Jahrgang 1946: 65; 1947–1958: je Jahrgang einen Monat mehr; 1959–1963: je zwei Monate mehr; ab 1964: 67.
+    """
+    if geburtsjahr <= 1946:
+        monate = 0
+    elif geburtsjahr <= 1958:
+        monate = geburtsjahr - 1946
+    elif geburtsjahr <= 1963:
+        monate = 12 + (geburtsjahr - 1958) * 2
+    else:
+        monate = 24
+    return 65 + monate // 12, monate % 12
+
+
+def regelaltersrente_ab(geburt: date) -> date:
+    """Erster möglicher Beginn der Regelaltersrente: der Monat nach Erreichen der Altersgrenze.
+
+    Vorsichtig gerechnet; wer am Ersten eines Monats geboren ist, kann laut Rentenversicherung teils einen Monat früher beginnen.
+    """
+    jahre, monate = regelaltersgrenze(geburt.year)
+    monat = geburt.month + monate
+    jahr = geburt.year + jahre + (monat - 1) // 12
+    monat = (monat - 1) % 12 + 1
+    # Monat nach Erreichen der Grenze
+    return date(jahr + (monat == 12), monat % 12 + 1, 1)

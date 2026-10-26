@@ -1,0 +1,36 @@
+{
+  "name": "Ruhestand: Hamburg, 68 Jahre, nur drei Versicherungsjahre, privat versichert",
+  "beschreibung": "Ohne fünf Jahre Wartezeit keine Altersrente; privat Versicherte kommen nicht in die KVdR; das Hamburger Seniorenticket gilt ab 67.",
+  "plz": "20095",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ruhestand"
+  ],
+  "anforderungen": [
+    "ANF-RUH-02",
+    "ANF-RUH-04"
+  ],
+  "fakten": {
+    "ruhestand.geburtsdatum": "1958-05-10",
+    "ruhestand.rentenbeginn": "2026-12-01",
+    "ruhestand.versicherungsjahre": 3,
+    "ruhestand.gesetzlich_krankenversichert": "nein"
+  },
+  "erwartet": {
+    "altersrente": "nein",
+    "kvdr": "nein",
+    "seniorenticket_land": "ja",
+    "grundsicherung_alter_em": "unklar",
+    "wohngeld": "unklar"
+  },
+  "erwartet_stellen": {
+    "seniorenticket_land": "hvv"
+  },
+  "erwartet_fehlend": [
+    "bezieht_sozialhilfe",
+    "bezieht_wohngeld",
+    "einkommen.wohnkosten",
+    "bezieht_buergergeld",
+    "bezieht_asylbewerberleistungen"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Ruhestand.",
+  "fakten": [
+    {
+      "id": "ruhestand.geburtsdatum",
+      "typ": "datum",
+      "frage": "Wann sind Sie geboren? (TT.MM.JJJJ)",
+      "hilfe": "Davon hängt Ihre Regelaltersgrenze ab (ab Jahrgang 1964: 67 Jahre)."
+    },
+    {
+      "id": "ruhestand.rentenbeginn",
+      "typ": "datum",
+      "frage": "Ab wann möchten Sie in Rente gehen bzw. seit wann sind Sie in Rente? (TT.MM.JJJJ)",
+      "hilfe": "Renten beginnen immer am Ersten eines Monats."
+    },
+    {
+      "id": "ruhestand.alter_bei_rentenbeginn",
+      "typ": "zahl",
+      "frage": "Wie alt sind Sie bei Rentenbeginn?",
+      "abgeleitet": true,
+      "hilfe": "Wird aus Geburtsdatum und Rentenbeginn berechnet."
+    },
+    {
+      "id": "ruhestand.regelaltersgrenze_erreicht",
+      "typ": "ja_nein",
+      "frage": "Haben Sie zum Rentenbeginn die Regelaltersgrenze erreicht?",
+      "abgeleitet": true,
+      "hilfe": "Wird aus Geburtsdatum und Rentenbeginn berechnet."
+    },
+    {
+      "id": "ruhestand.versicherungsjahre",
+      "typ": "zahl",
+      "frage": "Wie viele Jahre waren Sie insgesamt rentenversichert? (ungefähr)",
+      "hilfe": "Beschäftigung, Kindererziehung, Pflege, Arbeitslosigkeit u. a. – die Zahl steht in Ihrer Renteninformation bzw. Rentenauskunft."
+    },
+    {
+      "id": "ruhestand.gesetzlich_krankenversichert",
+      "typ": "ja_nein",
+      "frage": "Sind Sie gesetzlich krankenversichert?"
+    }
+  ]
+}

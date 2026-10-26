@@ -1,0 +1,40 @@
+{
+  "name": "Ruhestand: Schwerin, Jahrgang 1960, Rente ab August 2026",
+  "beschreibung": "Regelaltersgrenze 66 Jahre und 4 Monate ist erreicht; Seniorenticket MV ab 65; Krankenversicherung der Rentner prüft die Krankenkasse.",
+  "plz": "19053",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "ruhestand"
+  ],
+  "anforderungen": [
+    "ANF-RUH-01",
+    "ANF-RUH-03",
+    "ANF-RUH-04"
+  ],
+  "fakten": {
+    "ruhestand.geburtsdatum": "1960-03-15",
+    "ruhestand.rentenbeginn": "2026-08-01",
+    "ruhestand.versicherungsjahre": 42,
+    "ruhestand.gesetzlich_krankenversichert": "ja"
+  },
+  "erwartet": {
+    "altersrente": "ja",
+    "seniorenticket_land": "ja",
+    "kvdr": "unklar",
+    "grundsicherung_alter_em": "unklar",
+    "wohngeld": "unklar"
+  },
+  "erwartet_stellen": {
+    "altersrente": "Deutsche Rentenversicherung",
+    "seniorenticket_land": "Mecklenburg-Vorpommern"
+  },
+  "erwartet_fehlend": [
+    "bezieht_sozialhilfe",
+    "einkommen.erwerbsfaehig",
+    "einkommen.voll_erwerbsgemindert",
+    "bezieht_wohngeld",
+    "einkommen.wohnkosten",
+    "bezieht_buergergeld",
+    "bezieht_asylbewerberleistungen"
+  ]
+}

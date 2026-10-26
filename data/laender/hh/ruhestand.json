@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Lebenslage Ruhestand: hvv Deutschlandticket für Senioren. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hh_seniorenticket",
+      "titel": "hvv – Pressemitteilung Deutschlandticket für Senioren (18.12.2025)",
+      "url": "https://www.hvv.de/resource/blob/166128/b48b2702042301a6db1d103c2b7f7c5b/PM251218_Seniorenticket.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Hamburger Verkehrsverbund (hvv) / Senat",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (hvv, AWO, gegen-hartz): vom Senat am 18.12.2025 angekündigt; ab 1.5.2026 für Hamburger ab 67 für 49 € statt 63 €; Ersparnis 168 € im Jahr."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hh_seniorenticket_stelle",
+      "name": "hvv (Servicestellen oder Kundenkonto)",
+      "beschreibung": "Bestellung im Abo."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "seniorenticket_land_hh",
+      "leistung_id": "seniorenticket_land",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "hh_seniorenticket_stelle",
+      "quellen": [
+        "hh_seniorenticket",
+        "seniorenticket_uebersicht"
+      ],
+      "regel": {
+        "fakt": "ruhestand.alter_bei_rentenbeginn",
+        "op": ">=",
+        "wert": 67,
+        "text": "Bei Rentenbeginn mindestens 67 Jahre alt",
+        "quellen": [
+          "hh_seniorenticket"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis (Alter und Wohnsitz)",
+          "Bankverbindung für das Abo"
+        ],
+        "schritte": [
+          "hvv Deutschlandticket für Senioren im Abo bestellen."
+        ]
+      },
+      "hinweise": [
+        "Ab dem Monat des 67. Geburtstags mit Wohnsitz in Hamburg: Deutschlandticket für 49 € statt 63 € im Monat (seit 1. Mai 2026).",
+        "Nur für Hamburger Hauptwohnsitz, nicht für das hvv-Umland.",
+        "Sind Sie bei Rentenbeginn jünger als 67, gilt das Ticket ab Ihrem 67. Geburtstag."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_seniorenticket"
+      ],
+      "notiz": "Landesleistung erfasst: hvv Deutschlandticket für Senioren. Weitere Landesleistungen zum Ruhestand nicht gefunden; Renten sind Bundesrecht."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ruhestand in Brandenburg: keine Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_kein_seniorenticket",
+      "titel": "VBB – Neue Fahrpreise ab 1. Januar 2026",
+      "url": "https://www.vbb.de/news/neue-fahrpreise-im-vbb-ab-1-januar-2026/",
+      "typ": "behoerde",
+      "herausgeber": "Verkehrsverbund Berlin-Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: das VBB-Abo 65plus wird ab 2026 nicht mehr verkauft; kein vom Land Brandenburg gefördertes Seniorenticket gefunden."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_kein_seniorenticket"
+      ],
+      "notiz": "Kein vom Land gefördertes Seniorenticket und keine andere Landesleistung zum Ruhestand in Brandenburg gefunden; Renten und Krankenversicherung sind Bundesrecht. Regionale Angebote von Verkehrsverbünden oder Städten sind nicht erfasst."
+    }
+  ]
+}

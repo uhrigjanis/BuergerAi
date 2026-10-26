@@ -203,6 +203,14 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Begründet keine Landesleistung:** Für alle 16 Länder steht `landesleistungen: keine` mit einer Quelle aus dem Land (Serviceportal bzw. Standesamt) und der Begründung „Bundesrecht“. Das erfüllt das Kriterium „mindestens ein Land mit eigener Leistung oder dokumentiert, warum nicht“.
 - **Fristen „frühestens“:** Anmeldung beim Standesamt (sechs Monate vor der Trauung) und der neue Ausweis (acht Wochen vorher) sind Fristen der Art `fruehestens` mit negativem Abstand zum Trauungsdatum.
 
+### 18. Umsetzung von Schritt 6, Teil 6: Ruhestand (26.10.2026)
+
+- **Fachmodul `ruhestand`** mit der Lebenslage `ruhestand` (`ereignis`). Grundsicherung im Alter und Wohngeld (Modul Einkommen) gehören auch dazu.
+- **Regelaltersgrenze als Ableitung:** `fakten.regelaltersgrenze` bildet §§ 35, 235 SGB VI ab (65 bis 67 je Jahrgang). Aus Geburtsdatum und Rentenbeginn entstehen `ruhestand.regelaltersgrenze_erreicht` und `ruhestand.alter_bei_rentenbeginn`. Gerechnet wird vorsichtig: Rente ab dem Monat nach Erreichen der Grenze.
+- **Vorzeitige Renten nur als Prüfung:** Langjährig, besonders langjährig und schwerbehindert Versicherte haben unterschiedliche, jahrgangsabhängige Grenzen. Statt sie nachzubilden, ist das Ergebnis Unklar mit Hinweis, sobald 35 Versicherungsjahre und mindestens 62 Jahre vorliegen.
+- **Alter nicht doppelt fragen (Engine):** `abgeleitete_fakten` bekommt den Stichtag. Fehlt der Kernfakt `alter`, wird er aus `ruhestand.geburtsdatum` berechnet; eine Angabe des Alters hat Vorrang.
+- **Landesleistung Seniorenticket:** Nur Tickets, die ein Land trägt oder fördert (MV, HH, HE). Angebote von Verbünden (z. B. BärenTicket) oder Städten stehen unter „nicht erfasst“.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

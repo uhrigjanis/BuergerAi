@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Ruhestand in Saarland: keine Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sl_kein_seniorenticket",
+      "titel": "echo24 – Deutschlandticket für Rentner: In diesen Bundesländern kostet es weniger",
+      "url": "https://www.echo24.de/verbraucher/deutschlandticket-fuer-rentner-liste-zeigt-wo-es-deutlich-weniger-geld-kostet-nahverkehr-senioren-rabatt-94164156.html",
+      "typ": "sekundaer",
+      "herausgeber": "echo24",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Länderliste nennt das Saarland nicht; keine amtliche Negativaussage."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "ruhestand",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sl_kein_seniorenticket"
+      ],
+      "notiz": "Kein vom Land gefördertes Seniorenticket und keine andere Landesleistung zum Ruhestand in Saarland gefunden; Renten und Krankenversicherung sind Bundesrecht. Regionale Angebote von Verkehrsverbünden oder Städten sind nicht erfasst."
+    }
+  ]
+}

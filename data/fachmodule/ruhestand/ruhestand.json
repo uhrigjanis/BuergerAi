@@ -1,0 +1,247 @@
+{
+  "_hinweis": "Fachmodul Ruhestand: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Seniorentickets der Länder unter data/laender/*/ruhestand.json.",
+  "quellen": [
+    {
+      "id": "drv_regelaltersgrenze",
+      "titel": "Deutsche Rentenversicherung (Expertenforum) – Regelaltersgrenze",
+      "url": "https://www.ihre-vorsorge.de/expertenforum/regelaltersgrenze-2",
+      "typ": "sekundaer",
+      "herausgeber": "Ihre Vorsorge (Deutsche Rentenversicherung)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (DRV-Expertenforum, betanet, cash-online): Jahrgang 1960 erreicht die Regelaltersgrenze mit 66 Jahren und 4 Monaten; Rente ab dem Folgemonat (Beispiel betanet: geboren 1.1.1960, Rente ab Juni 2026); ab Jahrgang 1964 mit 67; Rente nur auf Antrag, etwa drei Monate vorher; Wartezeit fünf Jahre (§§ 35, 235 SGB VI)."
+    },
+    {
+      "id": "betanet_regelaltersgrenze",
+      "titel": "betanet – Altersgrenze der Regelaltersrente",
+      "url": "https://www.betanet.de/altersgrenze-der-regelaltersrente.html",
+      "typ": "sekundaer",
+      "herausgeber": "betanet (beta Institut)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Tabelle der Anhebung (1947–1958 je ein Monat, 1959–1963 je zwei Monate) mit Beispielen zum Rentenbeginn im Folgemonat."
+    },
+    {
+      "id": "drv_vorzeitige_rente",
+      "titel": "Deutsche Rentenversicherung – Altersrenten vor der Regelaltersgrenze (Bericht heidelberg24)",
+      "url": "https://www.heidelberg24.de/verbraucher/2026-in-rente-wann-die-jahrgaenge-1959-bis-1963-in-den-ruhestand-koennen-zr-94178960.html",
+      "typ": "sekundaer",
+      "herausgeber": "heidelberg24",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Altersrente für langjährig Versicherte (35 Jahre) ab 63 mit Abschlag von 0,3 % je Monat; für besonders langjährig Versicherte (45 Jahre) schrittweise bis 65 ohne Abschlag; für schwerbehinderte Menschen früher. Amtlich noch prüfen."
+    },
+    {
+      "id": "kvdr_9_10",
+      "titel": "Krankenversicherung der Rentner – 9/10-Regelung (§ 5 Abs. 1 Nr. 11 SGB V, Bericht gegen-hartz.de)",
+      "url": "https://www.gegen-hartz.de/news/9-10-regelung-bei-der-rente-fruehere-entscheidungen-koennen-fuer-rentner-wirklich-teuer-werden",
+      "typ": "sekundaer",
+      "herausgeber": "gegen-hartz.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: In die Krankenversicherung der Rentner kommt, wer in der zweiten Hälfte des Erwerbslebens zu neun Zehnteln gesetzlich versichert war (pflicht-, freiwillig oder familienversichert); maßgeblich ist der Tag des Rentenantrags; je Kind drei Jahre angerechnet. Bundestagsdrucksachen bestätigen die Regel."
+    },
+    {
+      "id": "seniorenticket_uebersicht",
+      "titel": "Übersicht: Deutschlandticket für Senioren in den Ländern (gegen-hartz.de, 2026)",
+      "url": "https://www.gegen-hartz.de/news/rente-hier-ist-das-deutschlandticket-fuer-senioren-deutlich-guenstiger",
+      "typ": "sekundaer",
+      "herausgeber": "gegen-hartz.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: kein bundesweiter Seniorenrabatt; Vergünstigungen nur über Länder und Kommunen; 2026 landesweit nur Mecklenburg-Vorpommern (ab 65) und Hamburg (ab 67, ab Mai 2026); Hessen hat das eigene Seniorenticket Hessen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "rentenversicherung_antrag",
+      "name": "Deutsche Rentenversicherung (online, Auskunfts- und Beratungsstelle oder Versichertenberater)",
+      "url": "https://www.deutsche-rentenversicherung.de",
+      "beschreibung": "Antrag auch über das Versicherungsamt der Gemeinde."
+    },
+    {
+      "id": "krankenkasse_rente",
+      "name": "Ihre Krankenkasse",
+      "beschreibung": "Prüft die Mitgliedschaft in der Krankenversicherung der Rentner."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "altersrente",
+      "name": "Altersrente beantragen",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": true,
+      "kurz": "Die Rente kommt nicht automatisch – sie muss beantragt werden, am besten etwa drei Monate vor dem gewünschten Beginn."
+    },
+    {
+      "id": "kvdr",
+      "name": "Krankenversicherung der Rentner (KVdR)",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "information",
+      "kurz": "Wer im Erwerbsleben überwiegend gesetzlich versichert war, ist als Rentner pflichtversichert – günstiger als freiwillig."
+    },
+    {
+      "id": "seniorenticket_land",
+      "name": "Seniorenticket des Landes",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Einige Länder bieten älteren Menschen ein vergünstigtes Ticket für Bus und Bahn an."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "altersrente_bund",
+      "leistung_id": "altersrente",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "rentenversicherung_antrag",
+      "quellen": [
+        "drv_regelaltersgrenze",
+        "betanet_regelaltersgrenze",
+        "drv_vorzeitige_rente"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "ruhestand.regelaltersgrenze_erreicht",
+                "op": "==",
+                "wert": true,
+                "text": "Zum Rentenbeginn haben Sie die Regelaltersgrenze erreicht",
+                "quellen": [
+                  "betanet_regelaltersgrenze"
+                ]
+              },
+              {
+                "fakt": "ruhestand.versicherungsjahre",
+                "op": ">=",
+                "wert": 5,
+                "text": "Mindestens fünf Jahre rentenversichert (Wartezeit)",
+                "quellen": [
+                  "drv_regelaltersgrenze"
+                ]
+              }
+            ]
+          },
+          {
+            "alle": [
+              {
+                "fakt": "ruhestand.regelaltersgrenze_erreicht",
+                "op": "==",
+                "wert": false,
+                "text": "Rentenbeginn vor der Regelaltersgrenze"
+              },
+              {
+                "fakt": "ruhestand.alter_bei_rentenbeginn",
+                "op": ">=",
+                "wert": 62,
+                "text": "Bei Rentenbeginn mindestens 62 Jahre alt"
+              },
+              {
+                "fakt": "ruhestand.versicherungsjahre",
+                "op": ">=",
+                "wert": 35,
+                "text": "Mindestens 35 Jahre rentenversichert",
+                "quellen": [
+                  "drv_vorzeitige_rente"
+                ]
+              },
+              {
+                "pruefung_noetig": "Vor der Regelaltersgrenze gibt es Altersrente nur mit 35 Versicherungsjahren: für langjährig Versicherte ab 63 mit Abschlag (0,3 % je Monat), für schwerbehinderte Menschen früher, nach 45 Jahren ab 65 ohne Abschlag (Jahrgänge vor 1964 früher). Welche passt, prüft die Rentenversicherung.",
+                "quellen": [
+                  "drv_vorzeitige_rente"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Altersgrenze und Versicherungszeit"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "Rentenversicherungsnummer",
+          "Bankverbindung",
+          "Krankenkasse",
+          "Nachweise über noch fehlende Zeiten (Kontenklärung)"
+        ],
+        "schritte": [
+          "Versicherungsverlauf prüfen und Lücken klären lassen (Kontenklärung) – am besten schon Jahre vorher.",
+          "Rente online oder bei einer Beratungsstelle beantragen."
+        ],
+        "fristen": [
+          {
+            "text": "Etwa drei Monate vor dem gewünschten Rentenbeginn beantragen",
+            "bezug": "ruhestand.rentenbeginn",
+            "quellen": [
+              "drv_regelaltersgrenze"
+            ],
+            "art": "empfohlen",
+            "monate": -3
+          }
+        ]
+      },
+      "hinweise": [
+        "Die Regelaltersrente beginnt im Monat nach Erreichen der Altersgrenze; hier ist vorsichtig gerechnet, die Rentenversicherung nennt das genaue Datum.",
+        "Ist der gewünschte Beginn schon nah oder vorbei, stellen Sie den Antrag sofort.",
+        "Neben der Altersrente dürfen Sie unbegrenzt hinzuverdienen."
+      ]
+    },
+    {
+      "id": "kvdr_bund",
+      "leistung_id": "kvdr",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "krankenkasse_rente",
+      "quellen": [
+        "kvdr_9_10"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "ruhestand.gesetzlich_krankenversichert",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind gesetzlich krankenversichert",
+            "quellen": [
+              "kvdr_9_10"
+            ]
+          },
+          {
+            "pruefung_noetig": "Pflichtversichert als Rentner sind Sie nur, wenn Sie in der zweiten Hälfte Ihres Erwerbslebens zu neun Zehnteln gesetzlich versichert waren (je Kind zählen drei Jahre mit). Das prüft die Krankenkasse mit dem Rentenantrag.",
+            "quellen": [
+              "kvdr_9_10"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Mit dem Rentenantrag die Meldung zur Krankenversicherung der Rentner ausfüllen; die Krankenkasse prüft die Vorversicherungszeit."
+        ]
+      },
+      "hinweise": [
+        "Maßgeblich ist der Tag des Rentenantrags – spätere Versicherungszeiten zählen nicht mehr.",
+        "Wer die Voraussetzung nicht erfüllt, bleibt freiwillig versichert und zahlt Beiträge auch auf andere Einkünfte."
+      ]
+    }
+  ]
+}

@@ -399,7 +399,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     land = next((g for g in hierarchie if g.ebene is Ebene.LAND), None)
     if land is not None:
         fakten["wohnsitz_land"] = land.kuerzel
-    fakten.update(abgeleitete_fakten(fakten))
+    fakten.update(abgeleitete_fakten(fakten, anfrage.stichtag))
 
     gewaehlt = set(anfrage.lebenslagen)
     orte: dict[str, list[Gebiet]] = {}

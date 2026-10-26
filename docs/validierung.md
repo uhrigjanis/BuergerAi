@@ -489,3 +489,22 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 | Sachsen-Anhalt | 30. Juni | |
 | Schleswig-Holstein | 30. Juni | |
 | Thüringen | 1. August (am 1. August sechs) | |
+
+## Lebenslage Heirat (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `berlin_eheschliessung` | Frühestens sechs Monate vorher, sechs Monate gültig (§§ 11, 12 PStG) |
+| `bund_ausweis_name` | Ausweis ungültig nach Namensänderung; acht Wochen vorher nur mit Bescheinigung (bisher nur für Hessen belegt) |
+| `bmf_steuerklasse_heirat` | IV/IV automatisch; Stand der geplanten Abschaffung von III/V |
+| `vdek_familienversicherung` | Grenzen 2026 (565 €, 603 €); amtliche Quelle (GKV-Spitzenverband) ergänzen |
+| `rp_eheschliessung`, `sh_eheschliessung` | Merkblätter von 2017 bzw. 2021; Gebühren evtl. veraltet |
+| `sn_eheschliessung` | Quelle ist der Leitfaden des OLG zur Ehefähigkeit, nicht das Serviceportal Amt24 |
+
+### Landesleistungen (alle 16 Länder)
+
+Keine. In allen Ländern wird die Eheschließung beim Standesamt nach Bundesrecht (PStG, BGB) angemeldet; die Länder regeln nur die Gebühren. Je Land ist eine eigene Quelle hinterlegt (`*_eheschliessung` in `data/laender/*/heirat.json`).

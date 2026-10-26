@@ -197,6 +197,12 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Grenzfall Stichtag:** Ob „bis zum 30. Juni sechs“ den Geburtstag am 1. Juli einschließt, formulieren die Länder verschieden. Wir übernehmen die amtliche Formulierung (Hessen: geboren bis einschließlich 1. Juli) und weisen bei Geburtstagen am Stichtag auf Nachfrage bei der Schule hin.
 - **Jahreszahlen:** Fakten, deren ID auf `jahr` endet, werden ohne Tausenderpunkt angezeigt.
 
+### 17. Umsetzung von Schritt 6, Teil 5: Heirat (26.10.2026)
+
+- **Fachmodul `partnerschaft`** (Ehe und Partnerschaft) mit der Lebenslage `heirat` (`ereignis`). Ein eigenes Modul statt `familie`, weil Familie bisher um Kinder geht und Ehe-Fakten (Steuerklassen, Familienversicherung) dort nicht hingehören.
+- **Begründet keine Landesleistung:** Für alle 16 Länder steht `landesleistungen: keine` mit einer Quelle aus dem Land (Serviceportal bzw. Standesamt) und der Begründung „Bundesrecht“. Das erfüllt das Kriterium „mindestens ein Land mit eigener Leistung oder dokumentiert, warum nicht“.
+- **Fristen „frühestens“:** Anmeldung beim Standesamt (sechs Monate vor der Trauung) und der neue Ausweis (acht Wochen vorher) sind Fristen der Art `fruehestens` mit negativem Abstand zum Trauungsdatum.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

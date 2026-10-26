@@ -278,7 +278,14 @@ docs/
 - ✅ 3 Szenarien, 155/155 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; für Baden-Württemberg, Mecklenburg-Vorpommern, Rheinland-Pfalz und Saarland nur der Deutsche Bildungsserver bzw. Sekundärquellen; Hamburg widersprüchlich ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Heirat und Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Heirat (#41, Schritt 6)
+
+- ✅ Neues Fachmodul Ehe und Partnerschaft: Eheschließung anmelden (frühestens sechs Monate vorher), neuer Personalausweis bei Namensänderung (frühestens acht Wochen vorher), Steuerklassen nach der Heirat, Familienversicherung für den Ehepartner (Grenze 2026: 565 € bzw. 603 € mit Minijob)
+- ✅ Alle 16 Länder geprüft: keine Landesleistung zur Heirat. Eherecht, Namensrecht, Steuer und Krankenversicherung sind Bundesrecht; je Land ist das mit einer eigenen Quelle zum Standesamt belegt (`keine`)
+- ✅ 3 Szenarien, 161/161 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Familienversicherung nur über den vdek (Sekundärquelle); Abschaffung von Steuerklasse III/V laut Ratgebern nicht beschlossen ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

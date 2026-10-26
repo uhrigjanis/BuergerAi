@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Rheinland-Pfalz: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "rp_eheschliessung",
+      "titel": "Stadt Mainz – Merkblatt Unterlagen zur Eheanmeldung",
+      "url": "https://www.Mainz.de/vv/medien/Eheanmeldung-Unterlagen-Merkblatt.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Mainz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Stand 2017): Unterlagen; Gebühr meist etwa 130 € (veraltet möglich)."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Rheinland-Pfalz gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

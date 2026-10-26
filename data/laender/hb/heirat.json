@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Bremen: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hb_eheschliessung",
+      "titel": "Service Bremen – Heirat anmelden",
+      "url": "https://www.service.bremen.de/dienstleistungen/heirat-anmelden-57117",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Standesämter Bremen-Mitte und Bremen-Nord; Online-Voranmeldung."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hb_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Bremen gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

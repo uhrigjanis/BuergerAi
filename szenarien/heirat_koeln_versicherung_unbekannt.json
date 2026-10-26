@@ -1,0 +1,27 @@
+{
+  "name": "Heirat: Köln, unklar ob der Partner gesetzlich versichert ist",
+  "beschreibung": "Ohne Angabe zur Krankenversicherung des Partners bleibt die Familienversicherung unklar.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "heirat"
+  ],
+  "anforderungen": [
+    "ANF-HEI-04"
+  ],
+  "fakten": {
+    "partnerschaft.stand": "verheiratet",
+    "partnerschaft.datum": "2026-09-19",
+    "partnerschaft.name_aendert": "ja",
+    "partnerschaft.arbeitnehmer": "einer",
+    "partnerschaft.gering_verdienend": "ja",
+    "partnerschaft.anderer_gkv": "unbekannt"
+  },
+  "erwartet": {
+    "familienversicherung_ehe": "unklar",
+    "ausweis_neuer_name": "ja",
+    "steuerklasse_ehe": "ja"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

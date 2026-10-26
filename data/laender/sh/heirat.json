@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Schleswig-Holstein: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_eheschliessung",
+      "titel": "Stadt Kaltenkirchen – Anmeldung der Eheschließung (2021)",
+      "url": "https://www.kaltenkirchen.de/de-wAssets/docs/rathaus-politik/standesamt/Anmeldung-der-Eheschliessung-2021.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Kaltenkirchen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: frühestens sechs Monate vorher; beide persönlich; Gebühr für die Prüfung in Schleswig-Holstein damals 50 €."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Schleswig-Holstein gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

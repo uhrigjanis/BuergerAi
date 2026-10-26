@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Baden-Württemberg: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bw_eheschliessung",
+      "titel": "service-bw – Eheschließung anmelden",
+      "url": "https://www.heidelberg.de/-/Verfahrensbeschreibung/eheschliessung-anmelden/vbid160",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung beim Standesamt; Online-Anmeldung nur unter engen Voraussetzungen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bw_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Baden-Württemberg gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

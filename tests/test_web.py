@@ -161,7 +161,7 @@ def test_kalender(kb):
     ({"plz": "80331", "stichtag": "2026-W43-3"}, "Stichtag"),
     ({"plz": "80331", "stichtag": "2026-02-30"}, "Stichtag"),
     ({"plz": 80331}, "Ungültiger Wert"),
-    ({"plz": "80331", "lebenslagen": ["heirat"]}, "Unbekannte Lebenslage"),
+    ({"plz": "80331", "lebenslagen": ["mondreise"]}, "Unbekannte Lebenslage"),
     ({"plz": "80331", "lebenslagen": "geburt"}, "Liste"),
     ({"plz": "80331", "lebenslagen": [1]}, "Liste"),
 ])
@@ -195,7 +195,7 @@ def test_szenario_format_rundreise(kb, tmp_path):
 @pytest.mark.anforderung("ANF-MOD-02", "ANF-WEB-09")
 def test_lebenslagen_in_der_api(kb):
     meta = api.meta(kb)
-    assert [l["id"] for l in meta["lebenslagen"]] == ["ausbildung_studium", "behinderung", "geburt", "geringes_einkommen", "wohneigentum", "jobverlust", "pflege", "schule", "selbststaendig", "todesfall", "umzug"]
+    assert [l["id"] for l in meta["lebenslagen"]] == ["ausbildung_studium", "behinderung", "geburt", "geringes_einkommen", "wohneigentum", "heirat", "jobverlust", "pflege", "schule", "selbststaendig", "todesfall", "umzug"]
     assert meta["lebenslagen"][2]["modul"] == "Familie und Kinder"
     # ohne Angabe: Geburt; mit Angabe: dasselbe Ergebnis
     ohne = api.bericht(kb, anfrage())

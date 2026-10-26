@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Hessen: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "he_eheschliessung",
+      "titel": "FIM-Leistung Hessen – Eheschließung anmelden",
+      "url": "https://fimportal.de/api/v0/leistung-stammtexte/L100001/8966480/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Hessen (Landesredaktion FIM)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung gemeinsam oder mit Vollmacht; Heirat innerhalb von sechs Monaten."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Hessen gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

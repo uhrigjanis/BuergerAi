@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Niedersachsen: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ni_eheschliessung",
+      "titel": "Serviceportal Niedersachsen (FIM) – Eheschließung anmelden",
+      "url": "https://fimportal.de/api/v0/leistung-stammtexte/L100040/8664505/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Niedersachsen (Landesredaktion FIM)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung beim Standesamt des Wohnsitzes; Voranmeldung möglich."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Niedersachsen gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

@@ -164,6 +164,12 @@
     {"id": "ANF-SCH-04", "bereich": "Schule", "titel": "Ganztagsbetreuung: Rechtsanspruch ab Einschulung 2026/27, wenn Betreuung gewünscht"},
     {"id": "ANF-SCH-05", "bereich": "Schule", "titel": "Bildung und Teilhabe gehört auch zum Schulstart"},
     {"id": "ANF-SCH-06", "bereich": "Schule", "titel": "Mindestens drei Szenarien, darunter Unklar und gleiches Kind in Ländern mit verschiedenem Stichtag; Terminal und Web gleich"},
+    {"id": "ANF-HEI-01", "bereich": "Heirat", "titel": "Eheschließung anmelden nur vor der Hochzeit; Frist frühestens sechs Monate vor der Trauung"},
+    {"id": "ANF-HEI-02", "bereich": "Heirat", "titel": "Neuer Personalausweis bei Namensänderung (Pflicht); frühestens acht Wochen vor der Trauung"},
+    {"id": "ANF-HEI-03", "bereich": "Heirat", "titel": "Steuerklassen: nur einer angestellt Ja, beide Unklar (Abwägung), keiner Nein"},
+    {"id": "ANF-HEI-04", "bereich": "Heirat", "titel": "Familienversicherung nur bei geringem Einkommen und gesetzlich versichertem Partner; Versicherung des Partners nur bei geringem Einkommen gefragt"},
+    {"id": "ANF-HEI-05", "bereich": "Heirat", "titel": "Für alle 16 Länder belegt: keine Landesleistung zur Heirat (Bundesrecht), mit eigener Quelle je Land"},
+    {"id": "ANF-HEI-06", "bereich": "Heirat", "titel": "Mindestens drei Szenarien, darunter Unklar; Terminal und Web gleich"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

@@ -517,13 +517,15 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`.
 
 | Quelle | Prüfen |
 |--------|--------|
-| `drv_regelaltersgrenze`, `betanet_regelaltersgrenze` | Tabelle der Regelaltersgrenze; Rentenbeginn im Folgemonat (Geburtstag am Ersten) |
+| `drv_regelaltersgrenze`, `drv_geburtstag_erster` | Tabelle der Regelaltersgrenze; Rentenbeginn im Folgemonat, bei Geburtstag am Ersten im Monat selbst |
+| `betanet_regelaltersgrenze` | **Widersprüchlich:** Beispiel „1.1.1960 → Juni 2026“ gegen DRV-Regel (Mai 2026) |
 | `drv_vorzeitige_rente` | nur Sekundärquelle: 35/45 Jahre, Abschläge, schwerbehinderte Menschen |
 | `kvdr_9_10` | 9/10-Regel, drei Jahre je Kind |
 | `mv_seniorenticket` | Preis 2026 (43 €) nur aus Sekundärquellen |
 | `hh_seniorenticket` | Start 1.5.2026 umgesetzt? |
 | `he_seniorenticket` | Umfang der Landesförderung nicht belegt |
-| alle `*_kein_seniorenticket` | „keine“ beruht auf Übersichtsartikeln; Landesseiten prüfen |
+| `sh_kein_seniorenticket` | Landtag: Landesregierung lehnte ein Seniorenticket in der Petitionsanhörung ab |
+| übrige `*_kein_seniorenticket` | „keine“ beruht auf Übersichtsartikeln bzw. dem VBB; amtliche Negativaussage der Länder fehlt noch (Landtagsdokumentation durchsuchen) |
 
 ### Seniorenticket des Landes (alle 16 Länder)
 

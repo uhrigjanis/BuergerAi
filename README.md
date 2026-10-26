@@ -289,7 +289,8 @@ docs/
 
 - ✅ Neues Fachmodul Ruhestand: Altersrente beantragen (Regelaltersgrenze je Jahrgang wird aus Geburtsdatum und Rentenbeginn berechnet; vorher nur mit 35 Jahren und als Prüfung), Krankenversicherung der Rentner (9/10-Regel), dazu Grundsicherung im Alter und Wohngeld
 - ✅ Alle 16 Länder recherchiert: Seniorenticket des Landes in Mecklenburg-Vorpommern (ab 65), Hamburg (ab 67) und Hessen (ab 65); die übrigen 13 Länder als `keine` belegt
-- ✅ Das Alter wird aus dem Geburtsdatum abgeleitet und nicht doppelt gefragt
+- ✅ Das Alter wird aus dem Geburtsdatum abgeleitet und nicht doppelt gefragt; widersprüchliche Altersangaben werden angemerkt
+- ✅ Rentenbeginn exakt: am Ersten Geborene beginnen einen Monat früher
 - ✅ 3 Szenarien, 167/167 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Regelaltersgrenze und vorzeitige Renten nur über Sekundärquellen und das DRV-Expertenforum; „keine“ für viele Länder nur aus Übersichtsartikeln ([docs/validierung.md](docs/validierung.md))
 

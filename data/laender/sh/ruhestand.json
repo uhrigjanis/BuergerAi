@@ -3,14 +3,14 @@
   "quellen": [
     {
       "id": "sh_kein_seniorenticket",
-      "titel": "echo24 – Deutschlandticket für Rentner: In diesen Bundesländern kostet es weniger",
-      "url": "https://www.echo24.de/verbraucher/deutschlandticket-fuer-rentner-liste-zeigt-wo-es-deutlich-weniger-geld-kostet-nahverkehr-senioren-rabatt-94164156.html",
-      "typ": "sekundaer",
-      "herausgeber": "echo24",
+      "titel": "Landtag Schleswig-Holstein – Seniorenbeirat fordert günstigeres Deutschlandticket (Petitionsausschuss)",
+      "url": "https://www.landtag.ltsh.de/nachrichten/24_07_16_petitionsausschuss_seniorenticket_anhoerung/",
+      "typ": "parlament",
+      "herausgeber": "Schleswig-Holsteinischer Landtag",
       "pruefstatus": "teilweise",
       "geprueft_am": "2026-10-26",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Sekundärquelle: kein Landesticket; Kiel bietet ein kommunales Sozialticket Senior (29 €) für Bedürftige."
+      "notiz": "Über Suchergebnisse: Anhörung zur Petition für ein vergünstigtes Seniorenticket; die Vertreter der Landesregierung reagierten ablehnend; ein Landesticket gibt es nicht. Kiel bietet ein kommunales Sozialticket Senior (29 €) für Bedürftige."
     }
   ],
   "zustaendigkeiten": [],

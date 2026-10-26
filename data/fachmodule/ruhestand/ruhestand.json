@@ -18,10 +18,21 @@
       "url": "https://www.betanet.de/altersgrenze-der-regelaltersrente.html",
       "typ": "sekundaer",
       "herausgeber": "betanet (beta Institut)",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Tabelle der Anhebung (1947–1958 je ein Monat, 1959–1963 je zwei Monate). Das Beispiel „geboren 1.1.1960, Rente ab Juni 2026“ widerspricht der Regel für am Ersten Geborene (DRV-Expertenforum: Rente schon ab Mai 2026); übernommen ist die DRV-Regel."
+    },
+    {
+      "id": "drv_geburtstag_erster",
+      "titel": "Ihre Vorsorge (DRV-Expertenforum) – Beginn der Rente bei Geburtstag am 1. des Monats",
+      "url": "https://www.ihre-vorsorge.de/expertenforum/archiv/detail/beginn-rente-bei-gebtag-am-01-des-monats.html",
+      "typ": "sekundaer",
+      "herausgeber": "Ihre Vorsorge (Deutsche Rentenversicherung)",
       "pruefstatus": "teilweise",
       "geprueft_am": "2026-10-26",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Über Suchergebnis: Tabelle der Anhebung (1947–1958 je ein Monat, 1959–1963 je zwei Monate) mit Beispielen zum Rentenbeginn im Folgemonat."
+      "notiz": "Über Suchergebnisse (DRV-Expertenforum, Bürger & Geld 2026): Ein Lebensalter ist mit Ablauf des Vortags des Geburtstags vollendet; wer am Ersten geboren ist, erreicht die Grenze am Monatsletzten davor und bekommt die Rente ab dem Monat des Geburtstags (Beispiel: geboren 1.9.1960 → Rente ab 1.1.2027); alle anderen ab dem Folgemonat (§ 99 SGB VI)."
     },
     {
       "id": "drv_vorzeitige_rente",
@@ -116,6 +127,7 @@
       "quellen": [
         "drv_regelaltersgrenze",
         "betanet_regelaltersgrenze",
+        "drv_geburtstag_erster",
         "drv_vorzeitige_rente"
       ],
       "regel": {
@@ -128,7 +140,8 @@
                 "wert": true,
                 "text": "Zum Rentenbeginn haben Sie die Regelaltersgrenze erreicht",
                 "quellen": [
-                  "betanet_regelaltersgrenze"
+                  "betanet_regelaltersgrenze",
+                  "drv_geburtstag_erster"
                 ]
               },
               {
@@ -201,7 +214,7 @@
         ]
       },
       "hinweise": [
-        "Die Regelaltersrente beginnt im Monat nach Erreichen der Altersgrenze; hier ist vorsichtig gerechnet, die Rentenversicherung nennt das genaue Datum.",
+        "Die Regelaltersrente beginnt am Ersten des Monats nach Erreichen der Altersgrenze. Wer am Ersten eines Monats geboren ist, erreicht sie schon am Vortag und kann einen Monat früher beginnen. Das genaue Datum bestätigt die Rentenversicherung.",
         "Ist der gewünschte Beginn schon nah oder vorbei, stellen Sie den Antrag sofort.",
         "Neben der Altersrente dürfen Sie unbegrenzt hinzuverdienen."
       ]

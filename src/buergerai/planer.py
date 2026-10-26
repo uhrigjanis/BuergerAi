@@ -13,7 +13,7 @@ from datetime import date
 from typing import Any, Optional
 
 from . import gebiete as gebiete_mod
-from .fakten import ABLEITUNGEN, UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen
+from .fakten import ABLEITUNGEN, UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen, widersprueche
 from .fristen import BerechneteFrist, berechne
 from .modell import (
     Abdeckung,
@@ -471,7 +471,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
             )
         )
     sortiert = _sortieren(eintraege)
-    warnungen = _warnungen(kb, anfrage, hierarchie, sortiert)
+    warnungen = _warnungen(kb, anfrage, hierarchie, sortiert) + widersprueche(anfrage.fakten, anfrage.stichtag)
     for ortsfakt, namen in ohne_ort.items():
         definition = kb.fakten.get(ortsfakt)
         frage = definition.frage.split("?")[0].strip() if definition is not None and definition.frage else ""

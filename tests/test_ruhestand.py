@@ -48,7 +48,11 @@ def test_regelaltersgrenze_und_altersrente(plane_r):
     assert regelaltersgrenze(1960) == (66, 4)
     assert regelaltersgrenze(1963) == (66, 10)
     assert regelaltersgrenze(1964) == (67, 0) == regelaltersgrenze(1990)
-    assert regelaltersrente_ab(date(1960, 1, 1)) == date(2026, 6, 1)  # Beispiel der Rentenversicherung
+    # Am Ersten Geborene vollenden das Alter am Vortag und beginnen einen Monat früher (DRV-Expertenforum)
+    assert regelaltersrente_ab(date(1960, 9, 1)) == date(2027, 1, 1)  # Beispiel der Quelle
+    assert regelaltersrente_ab(date(1960, 1, 1)) == date(2026, 5, 1)
+    assert regelaltersrente_ab(date(1960, 1, 2)) == date(2026, 6, 1)
+    assert regelaltersrente_ab(date(1964, 12, 1)) == date(2031, 12, 1)
     assert regelaltersrente_ab(date(1963, 12, 10)) == date(2030, 11, 1)
     assert regelaltersrente_ab(date(1964, 11, 15)) == date(2031, 12, 1)
     b = plane_r(rentner())
@@ -111,6 +115,11 @@ def test_alter_aus_geburtsdatum(plane_r):
     assert "alter" not in abgeleitete_fakten({"alter": 70, "ruhestand.geburtsdatum": date(1960, 3, 15)}, STICHTAG)
     b = plane_r(rentner())
     assert "alter" not in b.fehlend  # nicht noch einmal gefragt
+    assert not any("passt nicht zum Geburtsdatum" in w for w in b.warnungen)
+    # Widersprüchliche Angaben werden nicht überschrieben, aber angemerkt
+    widerspruch = plane_r(rentner(alter=40))
+    assert any("Angabe zum Alter (40) passt nicht zum Geburtsdatum 15.03.1960 (das wären 66 Jahre)" in w for w in widerspruch.warnungen)
+    assert widerspruch.ergebnisse()["altersrente"] == "ja"
     assert "ruhestand" in b.eintrag("grundsicherung_alter_em").lebenslagen
     assert "ruhestand" in b.eintrag("wohngeld").lebenslagen
 

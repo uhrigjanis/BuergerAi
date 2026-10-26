@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Nordrhein-Westfalen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nw_einschulung",
+      "titel": "Schulministerium NRW – Anmeldung zur Grundschule",
+      "url": "https://www.schulministerium.nrw/anmeldung-zur-grundschule",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: schulpflichtig zum 1. August, wer bis zum 30. September sechs wird (§ 35 SchulG); bis 15. November des Vorjahres anmelden; vorzeitige Einschulung auf Antrag."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_nw",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "nw_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--09-30",
+                "text": "Geburtstag bis einschließlich 30. September (Stichtag in Nordrhein-Westfalen)",
+                "quellen": [
+                  "nw_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--09-30",
+                "text": "Geburtstag nach dem 30. September"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Nordrhein-Westfalen erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "nw_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Nordrhein-Westfalen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung bis zum 15. November des Vorjahres an einer Grundschule (Zeitraum legt die Gemeinde fest)",
+            "bezug": "keiner",
+            "quellen": [
+              "nw_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Nordrhein-Westfalen ist schulpflichtig, wer bis zum 30. September sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Kinder, die nach dem 30. September geboren sind, können auf formlosen Antrag früher eingeschult werden; die Schulleitung entscheidet.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nw_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Nordrhein-Westfalen (30. September). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

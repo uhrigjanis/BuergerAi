@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Bayern: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "by_eheschliessung",
+      "titel": "BayernPortal – Eheschließung; Anmeldung",
+      "url": "https://www.bayernportal.de/dokumente/leistung/23666151111",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Standesamt prüft die Ehevoraussetzungen; Zuständigkeit nach Wohnsitz; Anmeldung frühestens sechs Monate vorher."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "by_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Bayern gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

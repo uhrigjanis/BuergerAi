@@ -1,0 +1,34 @@
+{
+  "name": "Heirat: Paar in Berlin plant die Hochzeit im Juni 2027",
+  "beschreibung": "Anmeldung beim Standesamt frühestens sechs Monate vorher; neuer Ausweis wegen Namensänderung; nur einer angestellt; Familienversicherung möglich.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "heirat"
+  ],
+  "anforderungen": [
+    "ANF-HEI-01",
+    "ANF-HEI-02",
+    "ANF-HEI-03",
+    "ANF-HEI-04"
+  ],
+  "fakten": {
+    "partnerschaft.stand": "geplant",
+    "partnerschaft.datum": "2027-06-15",
+    "partnerschaft.name_aendert": "ja",
+    "partnerschaft.arbeitnehmer": "einer",
+    "partnerschaft.gering_verdienend": "ja",
+    "partnerschaft.anderer_gkv": "ja"
+  },
+  "erwartet": {
+    "eheschliessung_anmelden": "ja",
+    "ausweis_neuer_name": "ja",
+    "steuerklasse_ehe": "ja",
+    "familienversicherung_ehe": "ja"
+  },
+  "erwartet_stellen": {
+    "eheschliessung_anmelden": "Standesamt",
+    "familienversicherung_ehe": "Krankenkasse"
+  },
+  "erwartet_fehlend": []
+}

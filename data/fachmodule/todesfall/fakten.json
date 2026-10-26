@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Todesfall.",
+  "fakten": [
+    {
+      "id": "todesfall.datum",
+      "typ": "datum",
+      "frage": "Wann ist die Person gestorben? (TT.MM.JJJJ)",
+      "hilfe": "Ab diesem Tag laufen die Fristen für Standesamt, Bestattung und Rente."
+    },
+    {
+      "id": "todesfall.beziehung",
+      "typ": "auswahl",
+      "frage": "In welcher Beziehung standen Sie zur verstorbenen Person?",
+      "optionen": [
+        {
+          "wert": "ehepartner",
+          "text": "Ehe- bzw. eingetragene Lebenspartnerin oder -partner"
+        },
+        {
+          "wert": "kind",
+          "text": "ich bin ihr Kind"
+        },
+        {
+          "wert": "elternteil",
+          "text": "ich bin Mutter bzw. Vater"
+        },
+        {
+          "wert": "geschwister",
+          "text": "ich bin Schwester bzw. Bruder"
+        },
+        {
+          "wert": "andere",
+          "text": "andere Beziehung (z. B. Lebensgefährte ohne Trauschein, Freundin, Nachbar)"
+        }
+      ]
+    },
+    {
+      "id": "todesfall.sterbeort",
+      "typ": "ort",
+      "frage": "Wo ist die Person gestorben? (Postleitzahl)",
+      "hilfe": "Bestattungsfrist und Bestattungspflicht richten sich nach dem Land, in dem die Person gestorben ist."
+    },
+    {
+      "id": "todesfall.sterbeort_art",
+      "typ": "auswahl",
+      "frage": "Wo genau ist die Person gestorben?",
+      "optionen": [
+        {
+          "wert": "zuhause",
+          "text": "zu Hause oder an einem anderen Ort (z. B. unterwegs)"
+        },
+        {
+          "wert": "einrichtung",
+          "text": "im Krankenhaus, Pflegeheim, Hospiz oder einer ähnlichen Einrichtung"
+        }
+      ]
+    },
+    {
+      "id": "todesfall.ausschlagen_erwaegen",
+      "typ": "ja_nein",
+      "frage": "Überlegen Sie, das Erbe auszuschlagen (z. B. weil Schulden zu erwarten sind)?"
+    },
+    {
+      "id": "todesfall.erbe_kenntnis",
+      "typ": "datum",
+      "frage": "Wann haben Sie erfahren, dass Sie erben? (TT.MM.JJJJ)",
+      "hilfe": "Meist der Tag, an dem Sie vom Tod erfahren haben, bzw. der Tag, an dem das Nachlassgericht Ihnen das Testament eröffnet hat. Ab dann laufen sechs Wochen.",
+      "nur_wenn": {
+        "fakt": "todesfall.ausschlagen_erwaegen",
+        "wert": true
+      }
+    },
+    {
+      "id": "todesfall.bezog_rente",
+      "typ": "ja_nein",
+      "frage": "Hat die verstorbene Person eine gesetzliche Rente bezogen?",
+      "nur_wenn": {
+        "fakt": "todesfall.beziehung",
+        "wert": "ehepartner"
+      }
+    },
+    {
+      "id": "todesfall.kosten_tragbar",
+      "typ": "ja_nein",
+      "frage": "Können die Bestattungskosten aus dem Nachlass oder von Ihnen bezahlt werden?",
+      "hilfe": "Eine einfache Bestattung kostet meist mehrere tausend Euro."
+    }
+  ]
+}

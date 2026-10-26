@@ -262,7 +262,30 @@ docs/
 - ✅ 7 Szenarien, 142/142 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; mehrere „keine“ für Erwerbslosenberatung beruhen auf Websuchen ohne amtliche Negativaussage ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Heirat, Ruhestand, Todesfall und Schule (#41, Schritt 6) – je ein eigener PR; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Todesfall (#41, Schritt 6)
+
+- ✅ Fachmodul Todesfall: Sterbefall anzeigen (drei Werktage), Bestattung veranlassen, Vorschuss auf die Witwen-/Witwerrente (30 Tage), Hinterbliebenenrente, Erbe ausschlagen (sechs Wochen), Übernahme der Bestattungskosten durch das Sozialamt
+- ✅ Bestattungsfrist und Bestattungspflicht für alle 16 Länder recherchiert; maßgeblich ist der Sterbeort, nicht der Wohnort. Ein Datum wird nur berechnet, wenn die Frist in Kalendertagen gilt (nicht in Bayern und Sachsen mit Werktagen, nicht in Baden-Württemberg, Berlin, Bremen und Hamburg ohne feste Frist für alle Fälle)
+- ✅ Eigene Geldleistungen der Länder im Todesfall wurden nicht gefunden (dokumentiert unter „nicht erfasst“)
+- ✅ 3 Szenarien, 149/149 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft, für Hessen, Mecklenburg-Vorpommern, Rheinland-Pfalz und Schleswig-Holstein nur Sekundärquellen; Rheinland-Pfalz und Saarland widersprüchlich ([docs/validierung.md](docs/validierung.md))
+
+## Stand Lebenslage Schulstart (#41, Schritt 6)
+
+- ✅ Lebenslage Schulstart (Einschulung) im Fachmodul Bildung: Kind zur Schule anmelden (Schulpflicht), Rechtsanspruch auf Ganztagsbetreuung ab Einschulung 2026/27, Bildung und Teilhabe (Schulbedarf)
+- ✅ Stichtag der Schulpflicht für alle 16 Länder recherchiert (30. Juni, 1. Juli, 1. August, 31. August oder 30. September). Dasselbe Kind kann in München schulpflichtig sein und in Kiel nicht; nach dem Stichtag ist das Ergebnis Unklar (Kann-Kind auf Antrag)
+- ✅ Engine: Regeln vergleichen Datumsfakten jetzt auch mit einem Tag im Jahr (`--06-30`); das Alter im Einschulungsjahr wird aus Geburtsdatum und Jahr abgeleitet
+- ✅ 3 Szenarien, 155/155 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; für Baden-Württemberg, Mecklenburg-Vorpommern, Rheinland-Pfalz und Saarland nur der Deutsche Bildungsserver bzw. Sekundärquellen; Hamburg widersprüchlich ([docs/validierung.md](docs/validierung.md))
+
+## Stand Lebenslage Heirat (#41, Schritt 6)
+
+- ✅ Neues Fachmodul Ehe und Partnerschaft: Eheschließung anmelden (frühestens sechs Monate vorher), neuer Personalausweis bei Namensänderung (frühestens acht Wochen vorher), Steuerklassen nach der Heirat, Familienversicherung für den Ehepartner (Grenze 2026: 565 € bzw. 603 € mit Minijob)
+- ✅ Alle 16 Länder geprüft: keine Landesleistung zur Heirat. Eherecht, Namensrecht, Steuer und Krankenversicherung sind Bundesrecht; je Land ist das mit einer eigenen Quelle zum Standesamt belegt (`keine`)
+- ✅ 3 Szenarien, 161/161 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; Familienversicherung nur über den vdek (Sekundärquelle); Abschaffung von Steuerklasse III/V laut Ratgebern nicht beschlossen ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Ruhestand (#41, Schritt 6); danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

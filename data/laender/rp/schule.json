@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Rheinland-Pfalz. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "rp_einschulung",
+      "titel": "Deutscher Bildungsserver – Einschulung in Rheinland-Pfalz (Stichtag 31. August)",
+      "url": "https://www.bildungsserver.de/wann-kommt-mein-kind-in-die-schule-einschulung-und-stichtagsregelungen-12554-de.html",
+      "typ": "behoerde",
+      "herausgeber": "DIPF – Deutscher Bildungsserver",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Bildungsserver, Ratgeber): schulpflichtig, wer bis zum 31. August des Einschulungsjahres sechs wird; Anmeldung meist im September des Vorjahres. Seite des Bildungsministeriums nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_rp",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "rp_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--08-31",
+                "text": "Geburtstag bis einschließlich 31. August (Stichtag in Rheinland-Pfalz)",
+                "quellen": [
+                  "rp_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--08-31",
+                "text": "Geburtstag nach dem 31. August"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Rheinland-Pfalz erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "rp_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Rheinland-Pfalz"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung meist im September des Vorjahres",
+            "bezug": "keiner",
+            "quellen": [
+              "rp_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Rheinland-Pfalz ist schulpflichtig, wer bis zum 31. August sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Jüngere Kinder (Kann-Kinder) können die Schule besuchen, müssen aber nicht.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "rp_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Rheinland-Pfalz (31. August). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

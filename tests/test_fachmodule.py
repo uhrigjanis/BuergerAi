@@ -112,7 +112,7 @@ def fehler_beim_laden(tmp_path: Path, aendern: Callable[[dict[str, dict[str, Any
 # ------------------------------------------------------------------ Struktur und Modulgrenzen
 @pytest.mark.anforderung("ANF-MOD-01")
 def test_echte_daten_haben_fachmodul_familie(kb):
-    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen", "pflege", "wohnen", "bildung", "behinderung", "arbeit"}
+    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen", "pflege", "wohnen", "bildung", "behinderung", "arbeit", "todesfall", "partnerschaft"}
     geburt = kb.lebenslagen["geburt"]
     assert geburt.modul == "familie" and geburt.typ == "ereignis"
     assert geburt.einstiegsfragen[0] == "kind_geboren"
@@ -192,8 +192,8 @@ def test_mehrere_lebenslagen_leistung_nur_einmal(probe_kb):
 
 @pytest.mark.anforderung("ANF-MOD-02")
 def test_unbekannte_lebenslage(kb):
-    with pytest.raises(EingabeFehler, match="Unbekannte Lebenslage heirat"):
-        planen(kb, Anfrage(fakten={}, plz="80331", lebenslagen=["heirat"]))
+    with pytest.raises(EingabeFehler, match="Unbekannte Lebenslage mondreise"):
+        planen(kb, Anfrage(fakten={}, plz="80331", lebenslagen=["mondreise"]))
     with pytest.raises(EingabeFehler, match="mindestens eine Lebenslage"):
         planen(kb, Anfrage(fakten={}, plz="80331", lebenslagen=[]))
 

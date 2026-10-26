@@ -17,12 +17,13 @@ Automatisch erzeugte Daten (Kreise, Gemeinden, PLZ) liegen unter
 from __future__ import annotations
 
 import json
+from datetime import date
 import string
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Optional
 
-from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition
+from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition, ist_jahreszahl
 from .modell import (
     Betrag,
     Ebene,
@@ -41,7 +42,7 @@ from .modell import (
     Zustaendigkeit,
     parse_datum,
 )
-from .regeln import OPERATOREN, RegelFehler, fakten_in_regel, knotentyp, quellen_in_regel
+from .regeln import OPERATOREN, RegelFehler, fakten_in_regel, knotentyp, quellen_in_regel, tag_im_jahr
 
 STANDARD_DATENVERZEICHNIS = Path(__file__).resolve().parents[2] / "data"
 
@@ -572,6 +573,8 @@ class Wissensbasis:
             praefix = f.id.split(".", 1)[0]
             if "." in f.id and not f.je_person and praefix != f.modul and self.rolle_von_fakt(f.id) is None:
                 fehler.append(f"Fakt {f.id}: Präfix vor dem Punkt muss eine Rolle oder das eigene Modul ({f.modul}) sein")
+            if ist_jahreszahl(f.id) and f.typ != "zahl":
+                fehler.append(f"Fakt {f.id}: IDs auf 'jahr' stehen für Jahreszahlen und brauchen den Typ 'zahl' (war: {f.typ})")
             if f.nur_wenn is not None and f.nur_wenn[0] not in self.fakten:
                 fehler.append(f"Fakt {f.id}: nur_wenn verweist auf unbekannten Fakt {f.nur_wenn[0]}")
             if f.modul != KERN and f.modul not in self.fachmodule:
@@ -740,6 +743,13 @@ class Wissensbasis:
                 fehler.append(f"{wo}: unbekannter Operator {knoten.get('op')!r}")
             if not knoten.get("text"):
                 fehler.append(f"{wo}: Fakt-Bedingung {fid} braucht einen 'text'")
+            if definition and definition.typ == "datum":
+                soll = knoten.get("wert")
+                for w in soll if isinstance(soll, list) else [soll]:
+                    try:
+                        tag_im_jahr(w) if isinstance(w, str) and w.startswith("--") else date.fromisoformat(w)
+                    except (TypeError, ValueError):
+                        fehler.append(f"{wo}: Wert {w!r} für {fid} ist kein Datum (JJJJ-MM-TT) und kein Tag im Jahr (--MM-TT)")
             if definition and definition.typ == "auswahl":
                 erlaubt = {w for w, _ in definition.optionen}
                 soll = knoten.get("wert")

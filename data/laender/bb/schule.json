@@ -1,0 +1,117 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Brandenburg. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_einschulung",
+      "titel": "MBJS Brandenburg – Zeitplan für das Schulaufnahmeverfahren 2027/28",
+      "url": "https://mbjs.brandenburg.de/sixcms/media.php/140/allgemeiner_zeitplan_fuer_das_schulaufnahmeverfahren_zum_schuljahr_2027_28.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (MBJS-Zeitplan, Bildungsserver): schulpflichtig am 1. August, wer bis zum 30. September sechs wird; digitale Anmeldung ab 2.11.2026. Eine Ratgeberseite nennt einen geplanten Wechsel auf den 30. Juni; amtlich nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_bb",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "bb_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--09-30",
+                "text": "Geburtstag bis einschließlich 30. September (Stichtag in Brandenburg)",
+                "quellen": [
+                  "bb_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--09-30",
+                "text": "Geburtstag nach dem 30. September"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Brandenburg erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "bb_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Brandenburg"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Digitale Anmeldung für das Schuljahr 2027/28 ab 2. November 2026 an der zuständigen Grundschule",
+            "bezug": "keiner",
+            "quellen": [
+              "bb_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Brandenburg ist schulpflichtig, wer bis zum 30. September sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Brandenburg (30. September). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

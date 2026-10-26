@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Hamburg: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hh_eheschliessung",
+      "titel": "hamburg.de – Standesamt: Eheschließung",
+      "url": "https://www.hamburg.de/politik-und-verwaltung/bezirke/bezirksthemen/standesamt/eheschliessung",
+      "typ": "behoerde",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anmeldung beim Standesamt des Bezirks; Geburtenregister-Ausdruck online bestellbar."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hh_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Hamburg gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

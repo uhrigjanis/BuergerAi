@@ -1,0 +1,30 @@
+{
+  "_hinweis": "Lebenslage Heirat in Sachsen: keine eigene Landesleistung. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sn_eheschliessung",
+      "titel": "OLG Dresden – Leitfaden Ehefähigkeit (Sachsen)",
+      "url": "https://www.justiz.sachsen.de/olg/download/Leitfaden_Ehefaehigkeit.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Anmeldung beim Standesamt nach §§ 11, 12 PStG; Befreiung vom Ehefähigkeitszeugnis durch das OLG Dresden."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "heirat",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sn_eheschliessung"
+      ],
+      "notiz": "Keine Landesleistung zur Heirat in Sachsen gefunden. Eheschließung (PStG, BGB), Namensrecht, Steuerklassen und Familienversicherung sind Bundesrecht; das Land regelt nur die Gebühren des Standesamts. Quelle belegt das Verfahren beim Standesamt im Land."
+    }
+  ]
+}

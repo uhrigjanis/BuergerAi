@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Nordrhein-Westfalen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nw_bestattung",
+      "titel": "Bestattungsgesetz NRW – § 13 (lexmea)",
+      "url": "https://lexmea.de/gesetz/bestg-nrw/13",
+      "typ": "gesetz",
+      "herausgeber": "lexmea (Gesetzestext)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: „Erdbestattungen oder Einäscherungen müssen innerhalb von zehn Tagen durchgeführt werden. Die Totenasche ist innerhalb von sechs Wochen beizusetzen.“ Amtliche Fassung auf recht.nrw.de nicht eingesehen."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_nw",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "nw_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Erdbestattung oder Einäscherung innerhalb von zehn Tagen nach dem Tod",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "nw_bestattung"
+            ],
+            "tage": 10
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Nordrhein-Westfalen, weil die Person dort gestorben ist.",
+        "Die Asche ist innerhalb von sechs Wochen beizusetzen; Verlängerung auf Antrag möglich.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nw_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Nordrhein-Westfalen (10 Tage, als Datum berechnet). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

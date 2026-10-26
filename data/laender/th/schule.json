@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Thüringen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "th_einschulung",
+      "titel": "Stadt Apolda – Informationen zur Einschulung 2026/27 (§ 18 ThürSchulG)",
+      "url": "https://weimarerland.de/datei/anzeigen/id/43075,31/informationen_stadt_apolda_26_27.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Apolda",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Apolda, Bildungsserver, test.de): Schulpflicht für alle Kinder, die am 1. August sechs Jahre alt sind (§ 18 Abs. 1 ThürSchulG); vorzeitig auf Antrag, wenn am 30. Juni mindestens fünf."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_th",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "16",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "th_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--08-01",
+                "text": "Geburtstag bis einschließlich 1. August (Stichtag in Thüringen)",
+                "quellen": [
+                  "th_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--08-01",
+                "text": "Geburtstag nach dem 1. August"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Thüringen erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "th_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Thüringen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Termin geben Schulamt bzw. Gemeinde bekannt",
+            "bezug": "keiner",
+            "quellen": [
+              "th_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Thüringen ist schulpflichtig, wer bis zum 1. August sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Kinder, die am 30. Juni mindestens fünf sind, können auf Antrag vorzeitig eingeschult werden.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Thüringen (1. August). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

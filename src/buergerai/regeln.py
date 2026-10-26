@@ -79,8 +79,20 @@ def fakt_id(roh: str, person: Optional[str]) -> str:
     return roh
 
 
+def tag_im_jahr(wert: str) -> tuple[int, int]:
+    """Wiederkehrendes Datum "--MM-TT" (ISO 8601) als (Monat, Tag)."""
+    if len(wert) != 7 or not wert.startswith("--") or wert[4] != "-":
+        raise ValueError(f"Tag im Jahr als --MM-TT erwartet (war: {wert!r})")
+    monat, tag = int(wert[2:4]), int(wert[5:7])
+    date(2000, monat, tag)  # Schaltjahr: auch 29. Februar gültig
+    return monat, tag
+
+
 def _vergleiche(ist: Any, op: str, soll: Any) -> bool:
-    if isinstance(ist, date):
+    if isinstance(ist, date) and isinstance(soll, str) and soll.startswith("--"):
+        # Nur Monat und Tag vergleichen, z. B. Geburtstag bis zum 30. Juni
+        ist, soll = (ist.month, ist.day), tag_im_jahr(soll)
+    elif isinstance(ist, date):
         if isinstance(soll, str):
             soll = date.fromisoformat(soll)
         elif isinstance(soll, list):

@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Schleswig-Holstein. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_einschulung",
+      "titel": "Schleswig-Holstein – Einschulung",
+      "url": "https://www.schleswig-holstein.de/DE/fachinhalte/S/schulsystem/einschulung.html",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: „alle Kinder, die bis zum 30. Juni des laufenden Kalenderjahres sechs Jahre alt werden, [sind] schulpflichtig“; vorzeitige Einschulung auf Antrag; Beurlaubung für ein Jahr auf Antrag."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_sh",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "sh_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--06-30",
+                "text": "Geburtstag bis einschließlich 30. Juni (Stichtag in Schleswig-Holstein)",
+                "quellen": [
+                  "sh_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--06-30",
+                "text": "Geburtstag nach dem 30. Juni"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Schleswig-Holstein erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "sh_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Schleswig-Holstein"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Termin gibt die Grundschule bekannt",
+            "bezug": "keiner",
+            "quellen": [
+              "sh_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Schleswig-Holstein ist schulpflichtig, wer bis zum 30. Juni sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Kinder, die nach dem 30. Juni sechs werden, können auf Antrag vorzeitig eingeschult werden.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Schleswig-Holstein (30. Juni). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

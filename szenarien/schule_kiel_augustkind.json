@@ -1,0 +1,29 @@
+{
+  "name": "Schulstart: Kind aus Kiel wird im August sechs (Einschulung 2027)",
+  "beschreibung": "Gleiches Geburtsdatum wie in München, aber Schleswig-Holstein hat den Stichtag 30. Juni: Das Kind ist 2027 nicht schulpflichtig – früher nur auf Antrag (unklar).",
+  "plz": "24103",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "schule"
+  ],
+  "anforderungen": [
+    "ANF-SCH-01"
+  ],
+  "fakten": {
+    "bildung.kind_geburtsdatum": "2021-08-15",
+    "bildung.einschulungsjahr": 2027,
+    "bildung.ganztag_gewuenscht": "nein",
+    "kinder_im_haushalt": 1,
+    "bezieht_buergergeld": "nein",
+    "bezieht_sozialhilfe": "nein",
+    "bezieht_wohngeld": "nein",
+    "bezieht_kinderzuschlag": "nein",
+    "bezieht_asylbewerberleistungen": "nein"
+  },
+  "erwartet": {
+    "schulanmeldung": "unklar",
+    "ganztag_grundschule": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

@@ -62,6 +62,30 @@
         "fakt": "bildung.vorhaben",
         "wert": "aufstieg"
       }
+    },
+    {
+      "id": "bildung.kind_geburtsdatum",
+      "typ": "datum",
+      "frage": "Wann ist Ihr Kind geboren? (TT.MM.JJJJ)",
+      "hilfe": "Ob Ihr Kind schulpflichtig ist, hängt davon ab, ob es bis zum Stichtag Ihres Landes sechs wird."
+    },
+    {
+      "id": "bildung.einschulungsjahr",
+      "typ": "zahl",
+      "frage": "In welchem Jahr soll bzw. könnte Ihr Kind in die Schule kommen? (z. B. 2027)",
+      "hilfe": "Das Jahr, in dem das Schuljahr beginnt (meist im August oder September)."
+    },
+    {
+      "id": "bildung.alter_im_einschulungsjahr",
+      "typ": "zahl",
+      "frage": "Wie alt wird Ihr Kind im Jahr der Einschulung?",
+      "abgeleitet": true,
+      "hilfe": "Wird aus Geburtsdatum und Einschulungsjahr berechnet."
+    },
+    {
+      "id": "bildung.ganztag_gewuenscht",
+      "typ": "ja_nein",
+      "frage": "Brauchen Sie für Ihr Kind eine Betreuung über den Unterricht hinaus (Ganztag oder Hort)?"
     }
   ]
 }

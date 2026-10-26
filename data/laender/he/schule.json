@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Lebenslage Schulstart: Stichtag der Schulpflicht in Hessen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "he_einschulung",
+      "titel": "Hessisches Kultusministerium – Grundschule",
+      "url": "https://kultus.hessen.de/Schulsystem/Grundschule",
+      "typ": "behoerde",
+      "herausgeber": "Land Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: „Für Kinder, die bis einschließlich 1. Juli geboren sind und damit bis zum 30. Juni das sechste Lebensjahr vollenden, beginnt am 1. August die Schulpflicht“; Anmeldung im März/April des Vorjahres."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "schulanmeldung_he",
+      "leistung_id": "schulanmeldung",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "grundschule_schulbezirk",
+      "quellen": [
+        "he_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": "<=",
+                "wert": "--07-01",
+                "text": "Geburtstag bis einschließlich 1. Juli (Stichtag in Hessen)",
+                "quellen": [
+                  "he_einschulung"
+                ]
+              }
+            ]
+          },
+          {
+            "fakt": "bildung.alter_im_einschulungsjahr",
+            "op": ">=",
+            "wert": 7,
+            "text": "Ihr Kind ist im Einschulungsjahr älter als sechs (z. B. nach Zurückstellung)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "bildung.alter_im_einschulungsjahr",
+                "op": "==",
+                "wert": 6,
+                "text": "Ihr Kind wird im Einschulungsjahr sechs"
+              },
+              {
+                "fakt": "bildung.kind_geburtsdatum",
+                "op": ">",
+                "wert": "--07-01",
+                "text": "Geburtstag nach dem 1. Juli"
+              },
+              {
+                "pruefung_noetig": "Ihr Kind wird erst nach dem Stichtag sechs und ist in Hessen erst ein Jahr später schulpflichtig. Eine frühere Einschulung ist meist auf Antrag möglich – die Schule entscheidet.",
+                "quellen": [
+                  "he_einschulung"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Schulpflicht nach dem Stichtag in Hessen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Geburtsurkunde bzw. Familienstammbuch",
+          "Personalausweis eines Elternteils",
+          "ggf. Nachweis über das Sorgerecht"
+        ],
+        "schritte": [
+          "Ihr Kind an der zuständigen Grundschule anmelden – meist persönlich mit Kind.",
+          "Einschulungsuntersuchung beim Gesundheitsamt wahrnehmen (Einladung kommt meist automatisch)."
+        ],
+        "fristen": [
+          {
+            "text": "Anmeldung im Frühjahr des Jahres vor der Einschulung an der zuständigen Grundschule",
+            "bezug": "keiner",
+            "quellen": [
+              "he_einschulung"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "In Hessen ist schulpflichtig, wer bis zum 1. Juli sechs wird; die Schulpflicht beginnt mit dem Schuljahr.",
+        "Kinder mit Geburtstag nach dem 1. Juli können auf Antrag eingeschult werden; die Schulleitung entscheidet.",
+        "Liegt der Geburtstag genau am oder direkt nach dem Stichtag, fragen Sie bei der Schule nach – Länder zählen den Tag unterschiedlich."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "schule",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "he_einschulung"
+      ],
+      "notiz": "Landesrecht erfasst: Stichtag der Schulpflicht in Hessen (1. Juli). Schülerbeförderung, Lernmittelfreiheit und Landeszuschüsse zum Schulbedarf sind nicht erfasst."
+    }
+  ]
+}

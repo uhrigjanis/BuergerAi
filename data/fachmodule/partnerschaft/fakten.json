@@ -1,0 +1,64 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Partnerschaft.",
+  "fakten": [
+    {
+      "id": "partnerschaft.stand",
+      "typ": "auswahl",
+      "frage": "Steht die Hochzeit noch bevor oder haben Sie schon geheiratet?",
+      "optionen": [
+        {
+          "wert": "geplant",
+          "text": "Wir wollen heiraten"
+        },
+        {
+          "wert": "verheiratet",
+          "text": "Wir haben gerade geheiratet"
+        }
+      ]
+    },
+    {
+      "id": "partnerschaft.datum",
+      "typ": "datum",
+      "frage": "Wann ist bzw. war die Trauung? (TT.MM.JJJJ)",
+      "hilfe": "Danach richten sich die Fristen für die Anmeldung beim Standesamt und den neuen Ausweis. Ein ungefähres Datum genügt."
+    },
+    {
+      "id": "partnerschaft.name_aendert",
+      "typ": "ja_nein",
+      "frage": "Ändert sich Ihr Familienname durch die Ehe?"
+    },
+    {
+      "id": "partnerschaft.arbeitnehmer",
+      "typ": "auswahl",
+      "frage": "Wer von Ihnen beiden ist angestellt (Lohn mit Lohnsteuer)?",
+      "optionen": [
+        {
+          "wert": "beide",
+          "text": "wir beide"
+        },
+        {
+          "wert": "einer",
+          "text": "nur einer von uns"
+        },
+        {
+          "wert": "keiner",
+          "text": "keiner von uns"
+        }
+      ]
+    },
+    {
+      "id": "partnerschaft.gering_verdienend",
+      "typ": "ja_nein",
+      "frage": "Hat einer von Ihnen kein oder nur geringes Einkommen (2026: bis 565 € im Monat, mit Minijob bis 603 €) und ist weder hauptberuflich selbstständig noch verbeamtet?"
+    },
+    {
+      "id": "partnerschaft.anderer_gkv",
+      "typ": "ja_nein",
+      "frage": "Ist der andere Partner gesetzlich krankenversichert?",
+      "nur_wenn": {
+        "fakt": "partnerschaft.gering_verdienend",
+        "wert": true
+      }
+    }
+  ]
+}

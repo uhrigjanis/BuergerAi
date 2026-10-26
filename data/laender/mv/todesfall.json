@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Mecklenburg-Vorpommern. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_bestattung",
+      "titel": "Aeternitas – Bestatten in Mecklenburg-Vorpommern",
+      "url": "https://www.aeternitas.de/fuer-betroffene/bestattungsrecht/bestatten-in-deutschland/mecklenburg-vorpommern",
+      "typ": "sekundaer",
+      "herausgeber": "Aeternitas e. V.",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle (Verbraucherinitiative Bestattungskultur) über BestattG M-V: Erdbestattung bzw. Überführung ins Krematorium soll binnen zehn Tagen erfolgen; Mindestfrist 24 Stunden (früher 48); Paragraf wird unterschiedlich zitiert (§ 9 bzw. § 11)."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_mv",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "mv_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Erdbestattung bzw. Überführung ins Krematorium soll innerhalb von zehn Tagen nach dem Tod erfolgen",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "mv_bestattung"
+            ],
+            "tage": 10
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Mecklenburg-Vorpommern, weil die Person dort gestorben ist.",
+        "Erdbestattung frühestens 24 Stunden nach dem Tod; das Gesundheitsamt kann Ausnahmen zulassen.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Mecklenburg-Vorpommern (10 Tage, als Datum berechnet). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

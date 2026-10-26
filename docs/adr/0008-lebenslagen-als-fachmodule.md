@@ -180,6 +180,29 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Geteilte Leistung:** Das Grundsicherungsgeld (Modul Einkommen) gehört auch zu `jobverlust`.
 - **Landesleistungen:** Bei Jobverlust nur Beratung (Art `information`), weil Geldleistungen Bundesrecht sind; bei Gründung die Meistergründungsprämien. Gründerkredite der Landesförderbanken stehen unter „nicht erfasst“.
 
+### 15. Umsetzung von Schritt 6, Teil 3: Todesfall (26.10.2026)
+
+- **Fachmodul `todesfall`** mit der Lebenslage `todesfall` (`ereignis`).
+- **Landesrecht als Landesleistung:** „Bestattung veranlassen“ (Art `pflicht`) hat keine Bundesvariante, sondern je Land eine Variante mit der Frist aus dem Bestattungsgesetz. Damit greift die bestehende Abdeckungsprüfung (`erfasst` braucht eine Landesleistung). Geldleistungen der Länder gibt es im Todesfall nach der Recherche nicht.
+- **Ort ist der Sterbeort:** Die Leistung hat den Ortsbezug `todesfall.sterbeort` (Einstiegsfrage). Wer in Köln wohnt und dessen Vater in München gestorben ist, bekommt die bayerische Frist.
+- **Kein falsches Datum:** Wo die Frist Werktage zählt (Bayern, Sachsen) oder es keine feste Frist für alle Fälle gibt, steht die Frist nur als Text. Die Anzeigefrist beim Standesamt (dritter Werktag) wird vorsichtig als dritter Kalendertag berechnet; der Text sagt das.
+- **Bedingte Fragen:** Das Datum der Kenntnis vom Erbe wird nur gefragt, wenn das Ausschlagen erwogen wird; der Rentenbezug nur bei Ehepartnern.
+
+### 16. Umsetzung von Schritt 6, Teil 4: Schulstart (26.10.2026)
+
+- **Lebenslage `schule`** (Schulstart, `ereignis`) im bestehenden Fachmodul `bildung`; der Wechsel auf weiterführende Schulen steht unter „nicht erfasst“.
+- **Stichtag als Landesleistung:** „Kind zur Schule anmelden“ (Art `pflicht`) hat nur Landesvarianten; jede vergleicht den Geburtstag mit dem Stichtag ihres Landes.
+- **Tag im Jahr (Engine):** Ein Regelwert `--MM-TT` (ISO 8601) vergleicht bei Datumsfakten nur Monat und Tag. So braucht der Stichtag kein Jahr und veraltet nicht. Die Datenprüfung meldet ungültige Werte.
+- **Abgeleitetes Alter:** `bildung.alter_im_einschulungsjahr` = Einschulungsjahr − Geburtsjahr (in `fakten.abgeleitete_fakten`). Ist eine Angabe „weiß nicht“, ist auch das Alter unbekannt und das Ergebnis Unklar.
+- **Grenzfall Stichtag:** Ob „bis zum 30. Juni sechs“ den Geburtstag am 1. Juli einschließt, formulieren die Länder verschieden. Wir übernehmen die amtliche Formulierung (Hessen: geboren bis einschließlich 1. Juli) und weisen bei Geburtstagen am Stichtag auf Nachfrage bei der Schule hin.
+- **Jahreszahlen:** Fakten, deren ID auf `jahr` endet, werden ohne Tausenderpunkt angezeigt (`fakten.ist_jahreszahl`). Die Datenprüfung verlangt für solche Fakten den Typ `zahl`, damit die Konvention nicht unbemerkt bricht.
+
+### 17. Umsetzung von Schritt 6, Teil 5: Heirat (26.10.2026)
+
+- **Fachmodul `partnerschaft`** (Ehe und Partnerschaft) mit der Lebenslage `heirat` (`ereignis`). Ein eigenes Modul statt `familie`, weil Familie bisher um Kinder geht und Ehe-Fakten (Steuerklassen, Familienversicherung) dort nicht hingehören.
+- **Begründet keine Landesleistung:** Für alle 16 Länder steht `landesleistungen: keine` mit einer Quelle aus dem Land (Serviceportal bzw. Standesamt) und der Begründung „Bundesrecht“. Das erfüllt das Kriterium „mindestens ein Land mit eigener Leistung oder dokumentiert, warum nicht“.
+- **Fristen „frühestens“:** Anmeldung beim Standesamt (sechs Monate vor der Trauung) und der neue Ausweis (acht Wochen vorher) sind Fristen der Art `fruehestens` mit negativem Abstand zum Trauungsdatum.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

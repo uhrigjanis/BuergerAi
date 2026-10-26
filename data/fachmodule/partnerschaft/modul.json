@@ -1,0 +1,69 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Partnerschaft (ADR 0008).",
+  "fachmodul": {
+    "id": "partnerschaft",
+    "name": "Ehe und Partnerschaft",
+    "beschreibung": "Heirat: Anmeldung beim Standesamt und was sich danach bei Ausweis, Steuer und Krankenversicherung ändert.",
+    "abgrenzung": [
+      "Zusammenziehen gehört zu Umzug.",
+      "Kinder gehören zu Geburt."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "heirat",
+      "name": "Heirat",
+      "typ": "ereignis",
+      "beschreibung": "Sie wollen heiraten oder haben gerade geheiratet.",
+      "einstiegsfragen": [
+        "partnerschaft.stand",
+        "partnerschaft.datum"
+      ],
+      "synonyme": [
+        "Heirat",
+        "heiraten",
+        "Hochzeit",
+        "Ehe",
+        "Trauung",
+        "Standesamt",
+        "Eheschließung",
+        "verheiratet",
+        "Ehename",
+        "Namensänderung",
+        "Steuerklasse",
+        "Familienversicherung",
+        "Verlobung",
+        "Trauschein"
+      ],
+      "beispiele": [
+        "Wir wollen nächsten Sommer heiraten.",
+        "Was muss ich nach der Hochzeit ändern?",
+        "Welche Steuerklasse nach der Heirat?",
+        "Kann ich über meinen Mann krankenversichert werden?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Eheschließung mit Auslandsbezug (Ehefähigkeitszeugnis, Befreiung durch das Oberlandesgericht)",
+          "grund": "Einzelfallprüfung durch das Standesamt."
+        },
+        {
+          "name": "Gemeinsame Steuererklärung (Zusammenveranlagung)",
+          "grund": "Steuerfragen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Ehevertrag und Güterstand",
+          "grund": "Keine Verwaltungsleistung; Beratung durch Notar."
+        },
+        {
+          "name": "Namensänderung bei Banken, Versicherungen und Arbeitgeber",
+          "grund": "Keine staatliche Leistung."
+        },
+        {
+          "name": "Leistungen der Länder zur Heirat",
+          "grund": "Nicht vorhanden: Eherecht, Namensrecht, Steuer und Krankenversicherung sind Bundesrecht (je Land belegt)."
+        }
+      ]
+    }
+  ]
+}

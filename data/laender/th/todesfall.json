@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslage Todesfall: Bestattungsfrist nach dem Bestattungsrecht von Thüringen. Recherche am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "th_bestattung",
+      "titel": "Serviceportal Thüringen – Bestattungen: Genehmigung zur Durchführung",
+      "url": "https://buerger.thueringen.de/detail?pstId=741940",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Thüringen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Serviceportal, Gesetzestext Stand 1.1.2025): Erdbestattung oder Einäscherung innerhalb von zehn Tagen nach Feststellung des Todes (§ 17 Abs. 3 ThürBestG); Bestattungspflichtige in § 18; Urne binnen sechs Monaten."
+    }
+  ],
+  "zustaendigkeiten": [],
+  "varianten": [
+    {
+      "id": "bestattung_veranlassen_th",
+      "leistung_id": "bestattung_veranlassen",
+      "gebiet_id": "16",
+      "zustaendigkeit_id": "bestatter_friedhof",
+      "quellen": [
+        "th_bestattung",
+        "fim_bestattung"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "in",
+                "wert": [
+                  "kind",
+                  "elternteil",
+                  "geschwister"
+                ],
+                "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                "quellen": [
+                  "berlin_bestattungskosten"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung (stellt die Ärztin bzw. der Arzt bei der Leichenschau aus)",
+          "Sterbeurkunde",
+          "Personalausweis, Geburts- bzw. Eheurkunde der verstorbenen Person"
+        ],
+        "schritte": [
+          "Bestattungsunternehmen beauftragen – es übernimmt meist auch die Anzeige beim Standesamt.",
+          "Art der Bestattung festlegen (Wunsch der verstorbenen Person beachten) und Termin mit dem Friedhof vereinbaren."
+        ],
+        "fristen": [
+          {
+            "text": "Erdbestattung oder Einäscherung innerhalb von zehn Tagen nach Feststellung des Todes",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "th_bestattung"
+            ],
+            "tage": 10
+          }
+        ]
+      },
+      "hinweise": [
+        "Es gilt das Bestattungsgesetz von Thüringen, weil die Person dort gestorben ist.",
+        "In der Regel frühestens 48 Stunden nach dem Tod; die untere Gesundheitsbehörde kann die Frist verlängern. Die Urne ist innerhalb von sechs Monaten beizusetzen.",
+        "Wer bestattungspflichtig ist, muss die Kosten auch tragen, wenn er das Erbe ausschlägt; reicht das Geld nicht, hilft das Sozialamt."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "todesfall",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_bestattung"
+      ],
+      "notiz": "Landesrecht erfasst: Bestattungspflicht und Bestattungsfrist nach dem Bestattungsrecht von Thüringen (10 Tage, als Datum berechnet). Eigene Geldleistungen des Landes im Todesfall wurden nicht gefunden."
+    }
+  ]
+}

@@ -226,7 +226,8 @@
       "id": "bildung_und_teilhabe",
       "name": "Bildung und Teilhabe für Kinder",
       "lebenslagen": [
-        "geringes_einkommen"
+        "geringes_einkommen",
+        "schule"
       ],
       "verwaltungsebene": "kreis",
       "fuer": "haushalt",

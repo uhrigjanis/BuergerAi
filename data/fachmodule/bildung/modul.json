@@ -1,9 +1,9 @@
 {
-  "_hinweis": "Steckbrief des Fachmoduls Bildung (ADR 0008). Erste Lebenslage: Ausbildung, Studium oder Aufstiegsfortbildung beginnen.",
+  "_hinweis": "Steckbrief des Fachmoduls Bildung (ADR 0008). Lebenslagen: Ausbildung, Studium oder Meister; Schulstart.",
   "fachmodul": {
     "id": "bildung",
     "name": "Schule, Ausbildung und Studium",
-    "beschreibung": "Förderung für Auszubildende, Studierende und berufliche Aufstiegsfortbildungen; Schule folgt.",
+    "beschreibung": "Schulstart, Förderung für Auszubildende, Studierende und berufliche Aufstiegsfortbildungen.",
     "abgrenzung": [
       "Begrüßungsgeld bei Umzug für Studium oder Ausbildung gehört zu Umzug.",
       "Rundfunkbefreiung mit BAföG oder BAB gehört zu geringem Einkommen.",
@@ -74,6 +74,66 @@
         {
           "name": "Weiterbildungsförderung der Länder (z. B. Bildungsschecks)",
           "grund": "Je Land verschieden; folgt."
+        }
+      ]
+    },
+    {
+      "id": "schule",
+      "name": "Schulstart (Einschulung)",
+      "typ": "ereignis",
+      "beschreibung": "Ihr Kind kommt in die Schule: Ab wann es schulpflichtig ist, wo Sie es anmelden und welche Unterstützung es gibt.",
+      "einstiegsfragen": [
+        "bildung.kind_geburtsdatum",
+        "bildung.einschulungsjahr"
+      ],
+      "synonyme": [
+        "Schule",
+        "Einschulung",
+        "einschulen",
+        "Schulanfang",
+        "Schulstart",
+        "Schulanmeldung",
+        "Grundschule",
+        "Schulpflicht",
+        "schulpflichtig",
+        "Erstklässler",
+        "Kann-Kind",
+        "Zurückstellung",
+        "Ganztag",
+        "Hort",
+        "Schulranzen",
+        "Schulbedarf"
+      ],
+      "beispiele": [
+        "Mein Sohn wird im August sechs, muss er in die Schule?",
+        "Wann muss ich meine Tochter an der Grundschule anmelden?",
+        "Gibt es einen Anspruch auf einen Hortplatz?",
+        "Unser Kind ist ein Kann-Kind."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Wechsel auf eine weiterführende Schule",
+          "grund": "Verfahren je Land sehr verschieden; folgt."
+        },
+        {
+          "name": "Schülerbeförderung (Fahrkosten)",
+          "grund": "Regeln Länder und Kreise verschieden; folgt."
+        },
+        {
+          "name": "Lernmittelfreiheit und Schulbücher",
+          "grund": "Je Land verschieden; folgt."
+        },
+        {
+          "name": "Schüler-BAföG",
+          "grund": "Nur für ältere Schülerinnen und Schüler, meist mit eigener Wohnung; folgt."
+        },
+        {
+          "name": "Einschulungsuntersuchung und Sprachstandsfeststellung",
+          "grund": "Laden Gesundheitsamt bzw. Schule von sich aus ein."
+        },
+        {
+          "name": "Sonderpädagogischer Förderbedarf und Schulbegleitung",
+          "grund": "Einzelfallentscheidung; folgt."
         }
       ]
     }

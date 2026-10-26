@@ -1,0 +1,29 @@
+{
+  "name": "Heirat: frisch verheiratet in München, beide angestellt",
+  "beschreibung": "Nach der Trauung keine Anmeldung mehr; Steuerklassen bleiben eine Abwägung (unklar); keine Familienversicherung; Bayern hat keine Landesleistung zur Heirat.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "heirat"
+  ],
+  "anforderungen": [
+    "ANF-HEI-01",
+    "ANF-HEI-03",
+    "ANF-HEI-05"
+  ],
+  "fakten": {
+    "partnerschaft.stand": "verheiratet",
+    "partnerschaft.datum": "2026-10-10",
+    "partnerschaft.name_aendert": "nein",
+    "partnerschaft.arbeitnehmer": "beide",
+    "partnerschaft.gering_verdienend": "nein"
+  },
+  "erwartet": {
+    "eheschliessung_anmelden": "nein",
+    "ausweis_neuer_name": "nein",
+    "steuerklasse_ehe": "unklar",
+    "familienversicherung_ehe": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

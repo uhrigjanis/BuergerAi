@@ -124,8 +124,8 @@ def test_lebenslagen_befehl(capsys):
 def test_lebenslage_option(capsys):
     code, out, _ = lauf(capsys, "pruefen", "-s", "nur_plz", "--lebenslage", "geburt")
     assert code == 0 and "BürgerAI – Lebenslage Geburt" in out
-    code, _, err = lauf(capsys, "pruefen", "-s", "nur_plz", "-l", "heirat")
-    assert code == 2 and "Unbekannte Lebenslage heirat" in err
+    code, _, err = lauf(capsys, "pruefen", "-s", "nur_plz", "-l", "mondreise")
+    assert code == 2 and "Unbekannte Lebenslage mondreise" in err
     code, out, _ = lauf(capsys, "pruefen", "-s", "nur_plz", "--json")
     assert json.loads(out)["anfrage"]["lebenslagen"] == ["geburt"]
 
@@ -141,12 +141,12 @@ def test_fakten_nach_modul(capsys):
 
 @pytest.mark.anforderung("ANF-CLI-05")
 def test_interaktiv_fragt_lebenslage(capsys, monkeypatch):
-    eingaben = ["10", "9", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
+    eingaben = ["13", "12", "80331", "15.10.2026", "q"]  # erst ungültig, dann Umzug
     code, out, _ = lauf(capsys, "interaktiv", "--stichtag", "2026-10-24", eingaben=eingaben, monkeypatch=monkeypatch)
     assert code == 0
-    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 9" in out
+    assert "Worum geht es?" in out and "Bitte Nummern von 1 bis 12" in out
     assert "Wann ziehen Sie in die neue Wohnung ein" in out
     assert "BürgerAI – Lebenslage Umzug" in out
     code, out, _ = lauf(capsys, "interaktiv", "--plz", "80331", "--stichtag", "2026-10-24",
-                        eingaben=["3, 9", "q"], monkeypatch=monkeypatch)
+                        eingaben=["3, 12", "q"], monkeypatch=monkeypatch)
     assert code == 0 and "BürgerAI – Lebenslagen Geburt, Umzug" in out

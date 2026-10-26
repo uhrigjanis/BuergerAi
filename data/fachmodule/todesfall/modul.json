@@ -1,0 +1,79 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Todesfall (ADR 0008).",
+  "fachmodul": {
+    "id": "todesfall",
+    "name": "Todesfall",
+    "beschreibung": "Pflichten, Fristen und Leistungen für Angehörige nach einem Todesfall.",
+    "abgrenzung": [
+      "Bestattungsfristen und Bestattungspflicht regelt jedes Land selbst; sie stehen unter data/laender/*/todesfall.json."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "todesfall",
+      "name": "Todesfall in der Familie",
+      "typ": "ereignis",
+      "beschreibung": "Eine Ihnen nahestehende Person ist gestorben: Was Angehörige jetzt erledigen müssen und welche Leistungen es gibt.",
+      "einstiegsfragen": [
+        "todesfall.datum",
+        "todesfall.beziehung",
+        "todesfall.sterbeort",
+        "todesfall.sterbeort_art",
+        "todesfall.ausschlagen_erwaegen",
+        "todesfall.erbe_kenntnis"
+      ],
+      "synonyme": [
+        "Todesfall",
+        "gestorben",
+        "verstorben",
+        "Tod",
+        "Trauerfall",
+        "Sterbefall",
+        "Beerdigung",
+        "Bestattung",
+        "Beisetzung",
+        "Sterbeurkunde",
+        "Witwenrente",
+        "Witwerrente",
+        "Waisenrente",
+        "Erbe",
+        "Erbschaft",
+        "ausschlagen",
+        "Bestatter"
+      ],
+      "beispiele": [
+        "Mein Mann ist gestorben, was muss ich jetzt tun?",
+        "Mein Vater ist im Krankenhaus verstorben.",
+        "Muss ich die Beerdigung meiner Mutter bezahlen?",
+        "Wie schlage ich ein Erbe aus?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Erbschein und Erbschaftsteuer",
+          "grund": "Folgt mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Verträge, Konten, Versicherungen und Rundfunkbeitrag abmelden",
+          "grund": "Keine staatliche Leistung; Checklisten bieten Bestatter und Verbraucherzentralen."
+        },
+        {
+          "name": "Sterbegeld aus Versicherungen oder Tarifverträgen",
+          "grund": "Keine staatliche Leistung; die gesetzliche Krankenkasse zahlt kein Sterbegeld mehr."
+        },
+        {
+          "name": "Leistungen der Unfallversicherung bei Arbeitsunfall",
+          "grund": "Folgt."
+        },
+        {
+          "name": "Beamtenversorgung und Versorgungswerke",
+          "grund": "Je Dienstherr bzw. Berufsstand verschieden."
+        },
+        {
+          "name": "Geldleistungen der Länder im Todesfall",
+          "grund": "Nicht bekannt; erfasst sind Bestattungspflicht und Bestattungsfrist nach Landesrecht."
+        }
+      ]
+    }
+  ]
+}

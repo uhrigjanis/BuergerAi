@@ -1,0 +1,36 @@
+{
+  "name": "Todesfall: Sohn aus Köln, Vater im Krankenhaus in München gestorben",
+  "beschreibung": "Die Bestattungsfrist richtet sich nach Bayern (Sterbeort), nicht nach NRW (Wohnort); das Krankenhaus zeigt den Tod an; Erbausschlagung und Sozialbestattung bleiben unklar.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "todesfall"
+  ],
+  "anforderungen": [
+    "ANF-TOD-02",
+    "ANF-TOD-03",
+    "ANF-TOD-05"
+  ],
+  "fakten": {
+    "todesfall.datum": "2026-10-22",
+    "todesfall.beziehung": "kind",
+    "todesfall.sterbeort": "80331",
+    "todesfall.sterbeort_art": "einrichtung",
+    "todesfall.ausschlagen_erwaegen": "ja",
+    "todesfall.erbe_kenntnis": "2026-10-22",
+    "todesfall.kosten_tragbar": "nein"
+  },
+  "erwartet": {
+    "sterbefall_anzeigen": "nein",
+    "bestattung_veranlassen": "unklar",
+    "erbe_ausschlagen": "unklar",
+    "bestattungskosten_sozialamt": "unklar",
+    "hinterbliebenenrente": "unklar",
+    "rentenvorschuss_witwe": "nein"
+  },
+  "erwartet_stellen": {
+    "erbe_ausschlagen": "Nachlassgericht",
+    "bestattungskosten_sozialamt": "Sozialamt – Kreisfreie Stadt Köln"
+  },
+  "erwartet_fehlend": []
+}

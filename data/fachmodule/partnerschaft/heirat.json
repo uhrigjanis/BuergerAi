@@ -1,0 +1,293 @@
+{
+  "_hinweis": "Fachmodul Partnerschaft: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Je Land belegt: keine eigene Landesleistung (data/laender/*/heirat.json).",
+  "quellen": [
+    {
+      "id": "berlin_eheschliessung",
+      "titel": "Service Berlin – Eheschließung anmelden (ohne Auslandsbeteiligung)",
+      "url": "https://service.berlin.de/dienstleistung/318961/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Berlin, Stuttgart, Bochum, Hamburg): Anmeldung frühestens sechs Monate vor dem Wunschtermin; sie gilt sechs Monate, in dieser Zeit Trauung in jedem deutschen Standesamt; Unterlagen: Ausweis, beglaubigter Ausdruck aus dem Geburtenregister, ggf. erweiterte Meldebescheinigung, bei früherer Ehe Nachweis der Auflösung; ausländische Urkunden mit Übersetzung, ggf. Apostille (§§ 11, 12 PStG)."
+    },
+    {
+      "id": "bund_ausweis_name",
+      "titel": "Verwaltungsportal des Bundes – Personalausweis nach Namensänderung (Heirat) beantragen",
+      "url": "https://verwaltung.bund.de/leistungsverzeichnis/DE/leistung/99008001012006/herausgeber/NI-308023755/region/03",
+      "typ": "behoerde",
+      "herausgeber": "Bund und Länder (Leistungsverzeichnis)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Leistungsverzeichnis, Hessen, service-bw): nach Namensänderung ist der Personalausweis ungültig, neuer Ausweis nötig – außer mit gültigem Reisepass auf den neuen Namen; Antrag frühestens acht Wochen vor der Trauung mit Bescheinigung des Standesamts möglich (Hessen); bei Kindern unter 16 freiwillig."
+    },
+    {
+      "id": "bmf_steuerklasse_heirat",
+      "titel": "FIM-Stammtext – Steuerklassenwechsel bei Ehegatten",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/L100042/144061/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (FIM, VLH, Taxmaro): nach der Heirat automatisch Steuerklasse IV/IV (Standesamt meldet die Ehe); auf Antrag beim Finanzamt III/V oder IV/IV mit Faktor; Abschaffung von III/V geplant, aber laut Ratgebern (2026) nicht beschlossen."
+    },
+    {
+      "id": "vdek_familienversicherung",
+      "titel": "vdek – Familienversicherung: Gesamteinkommen und Einkommensgrenzen",
+      "url": "https://www.vdek.com/vertragspartner/mitgliedschaftsrecht_beitragsrecht/familienversicherung.html",
+      "typ": "sekundaer",
+      "herausgeber": "Verband der Ersatzkassen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (vdek, HEK-Infoblatt 2026, Verbraucherzentrale): 2026 Einkommensgrenze 565 € im Monat, bei Minijob 603 €; der Ehegatte muss gesetzlich versichert sein; nicht für hauptberuflich Selbstständige und versicherungsfreie Personen (z. B. Beamte); keine Altersgrenze für Ehegatten."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "standesamt_wohnsitz",
+      "name": "Standesamt – {gemeinde}",
+      "beschreibung": "Angemeldet wird beim Standesamt am Wohnsitz eines der beiden Partner; heiraten können Sie danach in jedem Standesamt in Deutschland."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "eheschliessung_anmelden",
+      "name": "Eheschließung beim Standesamt anmelden",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Vor der Trauung prüft das Standesamt, ob Sie heiraten dürfen. Die Anmeldung geht frühestens sechs Monate vor dem Termin."
+    },
+    {
+      "id": "ausweis_neuer_name",
+      "name": "Neuer Personalausweis nach Namensänderung",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Ändert sich Ihr Familienname, wird der Personalausweis ungültig – Sie brauchen einen neuen."
+    },
+    {
+      "id": "steuerklasse_ehe",
+      "name": "Steuerklassen nach der Heirat wählen",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Nach der Heirat bekommen Sie beide automatisch Steuerklasse IV. Verdient einer deutlich mehr oder allein, kann ein Wechsel monatlich mehr Netto bringen."
+    },
+    {
+      "id": "familienversicherung_ehe",
+      "name": "Kostenlose Familienversicherung für den Ehepartner",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "rechtsanspruch": true,
+      "kurz": "Wer kein oder nur geringes Einkommen hat, kann über den gesetzlich versicherten Ehepartner beitragsfrei krankenversichert sein."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "eheschliessung_anmelden_bund",
+      "leistung_id": "eheschliessung_anmelden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "standesamt_wohnsitz",
+      "quellen": [
+        "berlin_eheschliessung"
+      ],
+      "regel": {
+        "fakt": "partnerschaft.stand",
+        "op": "==",
+        "wert": "geplant",
+        "text": "Die Hochzeit steht noch bevor"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis oder Reisepass",
+          "beglaubigter Ausdruck aus dem Geburtenregister (beim Standesamt des Geburtsorts bestellen)",
+          "erweiterte Meldebescheinigung, wenn Sie nicht im Bezirk des Standesamts wohnen",
+          "bei früherer Ehe: Nachweis über deren Auflösung"
+        ],
+        "schritte": [
+          "Termin beim Standesamt vereinbaren (vielerorts mit Online-Voranmeldung).",
+          "Gemeinsam anmelden; ist einer verhindert, mit schriftlicher Vollmacht.",
+          "Trautermin und Ehenamen festlegen."
+        ],
+        "fristen": [
+          {
+            "text": "Frühestens sechs Monate vor der Trauung anmelden",
+            "bezug": "partnerschaft.datum",
+            "quellen": [
+              "berlin_eheschliessung"
+            ],
+            "art": "fruehestens",
+            "monate": -6
+          }
+        ],
+        "kosten": "Gebühren je nach Land und Standesamt"
+      },
+      "hinweise": [
+        "Die Anmeldung gilt sechs Monate; in dieser Zeit können Sie in jedem deutschen Standesamt heiraten.",
+        "Hat einer von Ihnen eine ausländische Staatsangehörigkeit oder Urkunden aus dem Ausland, sind weitere Unterlagen nötig (z. B. Ehefähigkeitszeugnis) – lassen Sie sich vorher beim Standesamt beraten."
+      ]
+    },
+    {
+      "id": "ausweis_neuer_name_bund",
+      "leistung_id": "ausweis_neuer_name",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "meldebehoerde",
+      "quellen": [
+        "bund_ausweis_name"
+      ],
+      "regel": {
+        "fakt": "partnerschaft.name_aendert",
+        "op": "==",
+        "wert": true,
+        "text": "Ihr Familienname ändert sich durch die Ehe",
+        "quellen": [
+          "bund_ausweis_name"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Eheurkunde (oder vor der Trauung: Bescheinigung des Standesamts)",
+          "biometrisches Passfoto",
+          "bisheriger Ausweis"
+        ],
+        "schritte": [
+          "Neuen Personalausweis beim Bürgeramt am Hauptwohnsitz beantragen."
+        ],
+        "fristen": [
+          {
+            "text": "Frühestens acht Wochen vor der Trauung beantragen (mit Bescheinigung des Standesamts)",
+            "bezug": "partnerschaft.datum",
+            "quellen": [
+              "bund_ausweis_name"
+            ],
+            "art": "fruehestens",
+            "wochen": -8
+          }
+        ]
+      },
+      "hinweise": [
+        "Haben Sie einen gültigen Reisepass auf den neuen Namen, brauchen Sie keinen neuen Personalausweis.",
+        "Ändert sich der Name Ihrer Kinder, ist ein neuer Ausweis unter 16 Jahren freiwillig."
+      ]
+    },
+    {
+      "id": "steuerklasse_ehe_bund",
+      "leistung_id": "steuerklasse_ehe",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "finanzamt",
+      "quellen": [
+        "bmf_steuerklasse_heirat"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "partnerschaft.arbeitnehmer",
+            "op": "==",
+            "wert": "einer",
+            "text": "Nur einer von Ihnen ist angestellt – Steuerklasse III für ihn bzw. sie lohnt sich meist"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "partnerschaft.arbeitnehmer",
+                "op": "==",
+                "wert": "beide",
+                "text": "Sie sind beide angestellt"
+              },
+              {
+                "pruefung_noetig": "Ob IV/IV, III/V oder IV mit Faktor günstiger ist, hängt vom Verhältnis Ihrer Löhne ab.",
+                "quellen": [
+                  "bmf_steuerklasse_heirat"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Mindestens einer von Ihnen ist angestellt"
+      },
+      "verfahren": {
+        "schritte": [
+          "Nichts tun: Nach der Heirat gilt automatisch IV/IV.",
+          "Wechsel beim Finanzamt beantragen (über ELSTER), wenn eine andere Kombination günstiger ist."
+        ]
+      },
+      "hinweise": [
+        "Die Steuerklasse verteilt nur die monatliche Lohnsteuer; die Jahressteuer ergibt sich aus der Steuererklärung.",
+        "Mit III/V oder Faktor müssen Sie eine Steuererklärung abgeben."
+      ]
+    },
+    {
+      "id": "familienversicherung_ehe_bund",
+      "leistung_id": "familienversicherung_ehe",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "krankenkasse",
+      "quellen": [
+        "vdek_familienversicherung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "partnerschaft.gering_verdienend",
+            "op": "==",
+            "wert": true,
+            "text": "Einer von Ihnen hat kein oder nur geringes Einkommen",
+            "quellen": [
+              "vdek_familienversicherung"
+            ]
+          },
+          {
+            "fakt": "partnerschaft.anderer_gkv",
+            "op": "==",
+            "wert": true,
+            "text": "Der andere ist gesetzlich krankenversichert",
+            "quellen": [
+              "vdek_familienversicherung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Eheurkunde",
+          "Nachweise über das eigene Einkommen"
+        ],
+        "schritte": [
+          "Familienversicherung bei der Krankenkasse des gesetzlich versicherten Partners beantragen (Fragebogen)."
+        ],
+        "fristen": [
+          {
+            "text": "Ab dem Tag der Heirat möglich",
+            "bezug": "partnerschaft.datum",
+            "quellen": [
+              "vdek_familienversicherung"
+            ],
+            "art": "fruehestens",
+            "tage": 0
+          }
+        ]
+      },
+      "hinweise": [
+        "Einkommensgrenze 2026: 565 € im Monat, bei einem Minijob 603 €.",
+        "Nicht möglich für hauptberuflich Selbstständige und Beamte."
+      ]
+    }
+  ]
+}

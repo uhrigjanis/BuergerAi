@@ -1,0 +1,510 @@
+{
+  "_hinweis": "Fachmodul Todesfall: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Bestattungspflicht und -frist je Land unter data/laender/*/todesfall.json.",
+  "quellen": [
+    {
+      "id": "fim_sterbefall",
+      "titel": "FIM-Stammtext – Sterbefall anzeigen",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/L100010/105454189/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Tod spätestens am dritten Werktag danach beim Standesamt des Sterbeorts anzeigen (§§ 28, 29 PStG); Krankenhäuser, Heime und ähnliche Einrichtungen zeigen selbst an; sonst Angehörige bzw. Personen im Haushalt oder die anwesend waren; ein Bestatter kann die Anzeige übernehmen; gebührenfrei, Urkunden kosten."
+    },
+    {
+      "id": "stuttgart_sterbefall",
+      "titel": "Stadt Stuttgart – Sterbefall anzeigen",
+      "url": "https://www.stuttgart.de/organigramm/leistungen/sterbefall-anzeigen",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt Stuttgart",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anzeige spätestens am dritten Werktag nach dem Tod; der Samstag zählt dabei nicht als Werktag; Unterlagen: Todesbescheinigung, Personalausweis, Geburts- bzw. Eheurkunde."
+    },
+    {
+      "id": "fim_bestattung",
+      "titel": "FIM-Stammtext – Bestattungen: Genehmigung zur Durchführung",
+      "url": "https://fimportal.de/api/v0/leistung-stammtexte/L100038/741940/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Musterbeschreibung (Thüringen) – Erdbestattung oder Einäscherung soll innerhalb von zehn Tagen nach Todeseintritt erfolgen; Fristen regelt jedes Land in seinem Bestattungsgesetz verschieden; frühestens nach 48 Stunden (Länder mit Ausnahmen)."
+    },
+    {
+      "id": "drv_vorschuss",
+      "titel": "Deutsche Rentenversicherung – Vorschuss im Sterbevierteljahr (Meldung 7.10.2025)",
+      "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2025/251007-sterbevierteljahr-vorschuss.html",
+      "typ": "behoerde",
+      "herausgeber": "Deutsche Rentenversicherung",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Hat die verstorbene Person eine Rente bezogen, kann die Witwe bzw. der Witwer innerhalb von 30 Tagen nach dem Tod beim Renten Service der Deutschen Post einen Vorschuss auf die Witwen- bzw. Witwerrente beantragen (drei Monate Rente in voller Höhe, Sterbevierteljahr); der Rentenantrag ist trotzdem nötig."
+    },
+    {
+      "id": "drv_renten_wegen_todes",
+      "titel": "Deutsche Rentenversicherung – Hinterbliebenenrente (Glossar) und Waisenrente (Meldung 13.4.2026)",
+      "url": "https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260413-wegfall-waisenrente",
+      "typ": "behoerde",
+      "herausgeber": "Deutsche Rentenversicherung",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Hinterbliebenenrenten setzen voraus, dass die verstorbene Person die allgemeine Wartezeit von fünf Jahren erfüllt hat; Waisenrente bis 18, in Schule, Ausbildung, Studium oder Freiwilligendienst bis höchstens 27; eigenes Einkommen wird bei der Witwenrente angerechnet (40 % über dem Freibetrag). Mindestehedauer von einem Jahr nur über Sekundärquellen (gegen-hartz.de) bestätigt."
+    },
+    {
+      "id": "rente_antragsfrist",
+      "titel": "Antragsfristen bei der Rente (§ 99 SGB VI)",
+      "url": "https://rechtsanwalt-und-sozialrecht.de/antragsfristen-rente/",
+      "typ": "sekundaer",
+      "herausgeber": "Rechtsanwaltskanzlei (Sozialrecht)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Hinterbliebenenrente wird höchstens zwölf Kalendermonate vor dem Monat des Antrags rückwirkend gezahlt (§ 99 Abs. 2 SGB VI); der Vorschussantrag gilt laut Expertenforum der DRV auch als Antrag auf Witwen- bzw. Witwerrente. Amtlich noch prüfen."
+    },
+    {
+      "id": "bgb_1944",
+      "titel": "§ 1944 BGB – Ausschlagungsfrist (buzer.de)",
+      "url": "https://www.buzer.de/gesetz/6597/b18016.htm",
+      "typ": "gesetz",
+      "herausgeber": "buzer.de (Gesetzestext)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Ausschlagung binnen sechs Wochen ab Kenntnis vom Anfall und vom Grund der Berufung; sechs Monate, wenn die verstorbene Person nur im Ausland wohnte oder die erbende Person sich bei Fristbeginn im Ausland aufhielt. Volltext auf gesetze-im-internet.de war nicht erreichbar."
+    },
+    {
+      "id": "ag_achim_ausschlagung",
+      "titel": "Amtsgericht Achim – Merkblatt Erbausschlagung",
+      "url": "https://www.amtsgericht-achim.niedersachsen.de/download/205572",
+      "typ": "behoerde",
+      "herausgeber": "Land Niedersachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Ausschlagung beim Nachlassgericht (zur Niederschrift) oder in öffentlich beglaubigter Form über einen Notar; wer die Frist verstreichen lässt, hat das Erbe angenommen; Gebühr etwa 30 €."
+    },
+    {
+      "id": "berlin_bestattungskosten",
+      "titel": "Bezirksamt Charlottenburg-Wilmersdorf – Übernahme von Bestattungskosten",
+      "url": "https://www.berlin.de/ba-charlottenburg-wilmersdorf/verwaltung/aemter/soziales/rechtsstelle/uebernahme-von-bestattungskosten-766570.php",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Kosten einer einfachen Bestattung übernimmt das Sozialamt nach § 74 SGB XII, soweit sie den Verpflichteten nicht zugemutet werden können; vorrangig zählt der Nachlass; Reihenfolge der Verpflichteten nach Landesbestattungsrecht."
+    },
+    {
+      "id": "koeln_bestattungskosten",
+      "titel": "Stadt Köln – Übernahme von Bestattungskosten",
+      "url": "https://www.stadt-koeln.de/service/produkte/00857/index.html",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Köln",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Antrag beim Sozialamt; möglichst vor der Beauftragung des Bestatters Kontakt aufnehmen; geprüft werden Einkommen und Vermögen der bestattungspflichtigen Person und der Nachlass."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "standesamt_sterbeort",
+      "name": "Standesamt des Sterbeorts",
+      "beschreibung": "Zuständig ist das Standesamt der Gemeinde, in der die Person gestorben ist."
+    },
+    {
+      "id": "bestatter_friedhof",
+      "name": "Bestattungsunternehmen bzw. Friedhofsverwaltung",
+      "beschreibung": "Meist beauftragen die Angehörigen ein Bestattungsunternehmen; es kümmert sich um Formalitäten und Termine mit dem Friedhof."
+    },
+    {
+      "id": "renten_service_post",
+      "name": "Renten Service der Deutschen Post",
+      "url": "https://www.deutschepost.de/rentenservice",
+      "beschreibung": "Zahlt die gesetzlichen Renten aus; Vorschuss auch über die Deutsche Rentenversicherung oder Versichertenberater."
+    },
+    {
+      "id": "rentenversicherung",
+      "name": "Deutsche Rentenversicherung (Auskunfts- und Beratungsstelle)",
+      "url": "https://www.deutsche-rentenversicherung.de",
+      "beschreibung": "Antrag auch über Versichertenberater, Gemeinde oder Versicherungsamt."
+    },
+    {
+      "id": "nachlassgericht",
+      "name": "Nachlassgericht (Amtsgericht) oder Notar",
+      "beschreibung": "Zuständig ist das Amtsgericht am letzten Wohnsitz der verstorbenen Person oder an Ihrem Wohnsitz."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "sterbefall_anzeigen",
+      "name": "Sterbefall beim Standesamt anzeigen",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "beantragt_von": "angehoerige",
+      "kurz": "Pflicht: Ein Tod zu Hause muss beim Standesamt angezeigt werden. Die Sterbeurkunde brauchen Sie für fast alles Weitere."
+    },
+    {
+      "id": "bestattung_veranlassen",
+      "name": "Bestattung veranlassen (Bestattungspflicht nach Landesrecht)",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "beantragt_von": "angehoerige",
+      "ortsbezug": "todesfall.sterbeort",
+      "kurz": "Die nächsten Angehörigen müssen für die Bestattung sorgen – innerhalb der Frist, die das Bestattungsgesetz des Landes vorgibt."
+    },
+    {
+      "id": "rentenvorschuss_witwe",
+      "name": "Vorschuss auf die Witwen- bzw. Witwerrente (Sterbevierteljahr)",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": true,
+      "kurz": "Bekam Ihr Ehepartner eine Rente, erhalten Sie drei Monate lang dessen volle Rente – aber nur auf Antrag innerhalb von 30 Tagen."
+    },
+    {
+      "id": "hinterbliebenenrente",
+      "name": "Hinterbliebenenrente (Witwen-, Witwer- oder Waisenrente)",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": true,
+      "kurz": "Ehepartner und Kinder können eine Rente aus der Versicherung der verstorbenen Person bekommen."
+    },
+    {
+      "id": "erbe_ausschlagen",
+      "name": "Erbe ausschlagen",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Wer ein überschuldetes Erbe nicht annehmen will, muss es innerhalb von sechs Wochen ausschlagen."
+    },
+    {
+      "id": "bestattungskosten_sozialamt",
+      "name": "Übernahme der Bestattungskosten durch das Sozialamt",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": true,
+      "kurz": "Wer zur Bestattung verpflichtet ist und die Kosten nicht tragen kann, bekommt sie vom Sozialamt (einfache Bestattung)."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sterbefall_anzeigen_bund",
+      "leistung_id": "sterbefall_anzeigen",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "standesamt_sterbeort",
+      "quellen": [
+        "fim_sterbefall",
+        "stuttgart_sterbefall"
+      ],
+      "regel": {
+        "fakt": "todesfall.sterbeort_art",
+        "op": "==",
+        "wert": "zuhause",
+        "text": "Die Person ist zu Hause bzw. nicht in einem Krankenhaus oder Heim gestorben",
+        "quellen": [
+          "fim_sterbefall"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Todesbescheinigung",
+          "Personalausweis der verstorbenen Person",
+          "Geburtsurkunde bzw. Eheurkunde",
+          "Ihr Personalausweis"
+        ],
+        "schritte": [
+          "Tod beim Standesamt des Sterbeorts anzeigen – oder das Bestattungsunternehmen damit beauftragen.",
+          "Sterbeurkunden in ausreichender Zahl bestellen (für Rente, Versicherungen, Banken)."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens am dritten Werktag nach dem Tod (Samstag zählt nicht) – angezeigt ist hier der dritte Kalendertag",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "fim_sterbefall",
+              "stuttgart_sterbefall"
+            ],
+            "tage": 3
+          }
+        ],
+        "kosten": "Anzeige gebührenfrei; Sterbeurkunden kosten je nach Gemeinde Gebühren"
+      },
+      "hinweise": [
+        "Stirbt jemand im Krankenhaus, Pflegeheim oder einer ähnlichen Einrichtung, zeigt die Einrichtung den Tod an."
+      ]
+    },
+    {
+      "id": "rentenvorschuss_witwe_bund",
+      "leistung_id": "rentenvorschuss_witwe",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "renten_service_post",
+      "quellen": [
+        "drv_vorschuss"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "todesfall.beziehung",
+            "op": "==",
+            "wert": "ehepartner",
+            "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+          },
+          {
+            "fakt": "todesfall.bezog_rente",
+            "op": "==",
+            "wert": true,
+            "text": "Die verstorbene Person hat eine gesetzliche Rente bezogen",
+            "quellen": [
+              "drv_vorschuss"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Sterbeurkunde",
+          "Rentennummer der verstorbenen Person"
+        ],
+        "schritte": [
+          "Vorschuss beim Renten Service der Deutschen Post beantragen (auch über die Rentenversicherung oder das Bestattungsunternehmen).",
+          "Zusätzlich die Witwen- bzw. Witwerrente bei der Rentenversicherung beantragen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von 30 Tagen nach dem Tod beantragen",
+            "bezug": "todesfall.datum",
+            "quellen": [
+              "drv_vorschuss"
+            ],
+            "tage": 30
+          }
+        ]
+      },
+      "hinweise": [
+        "In den drei Monaten nach dem Tod wird die volle Rente der verstorbenen Person gezahlt; Ihr eigenes Einkommen wird in dieser Zeit nicht angerechnet."
+      ]
+    },
+    {
+      "id": "hinterbliebenenrente_bund",
+      "leistung_id": "hinterbliebenenrente",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "rentenversicherung",
+      "quellen": [
+        "drv_renten_wegen_todes",
+        "rente_antragsfrist"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "==",
+                "wert": "ehepartner",
+                "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Die verstorbene Person muss mindestens fünf Jahre versichert gewesen sein, die Ehe muss in der Regel mindestens ein Jahr bestanden haben, und eigenes Einkommen wird angerechnet – das prüft die Rentenversicherung.",
+                "quellen": [
+                  "drv_renten_wegen_todes"
+                ]
+              }
+            ]
+          },
+          {
+            "alle": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "==",
+                "wert": "kind",
+                "text": "Sie sind ein Kind der verstorbenen Person"
+              },
+              {
+                "pruefung_noetig": "Waisenrente gibt es bis 18, in Schule, Ausbildung, Studium oder Freiwilligendienst bis höchstens 27; die verstorbene Person muss mindestens fünf Jahre versichert gewesen sein.",
+                "quellen": [
+                  "drv_renten_wegen_todes"
+                ]
+              }
+            ]
+          }
+        ],
+        "text": "Ehe- bzw. Lebenspartner oder Kind der verstorbenen Person"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Sterbeurkunde",
+          "Eheurkunde bzw. Geburtsurkunde",
+          "Rentennummer der verstorbenen Person",
+          "Nachweise über eigenes Einkommen"
+        ],
+        "schritte": [
+          "Antrag bei der Rentenversicherung stellen (online, Beratungsstelle oder Versichertenberater)."
+        ],
+        "fristen": [
+          {
+            "text": "Möglichst bald beantragen – rückwirkend gezahlt wird höchstens für zwölf Monate",
+            "bezug": "keiner",
+            "quellen": [
+              "rente_antragsfrist"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Die Rente wird nicht automatisch gezahlt.",
+        "Bei einem Arbeitsunfall kann zusätzlich die Berufsgenossenschaft zahlen (hier nicht erfasst)."
+      ]
+    },
+    {
+      "id": "erbe_ausschlagen_bund",
+      "leistung_id": "erbe_ausschlagen",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "nachlassgericht",
+      "quellen": [
+        "bgb_1944",
+        "ag_achim_ausschlagung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "todesfall.ausschlagen_erwaegen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie überlegen, das Erbe auszuschlagen"
+          },
+          {
+            "pruefung_noetig": "Ob sich das Ausschlagen lohnt, hängt vom Nachlass ab (Schulden, Vermögen) – lassen Sie sich im Zweifel beraten.",
+            "quellen": [
+              "ag_achim_ausschlagung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "Sterbeurkunde bzw. Angaben zur verstorbenen Person"
+        ],
+        "schritte": [
+          "Ausschlagung persönlich beim Nachlassgericht erklären oder über einen Notar beglaubigen lassen – ein einfacher Brief genügt nicht."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von sechs Wochen, nachdem Sie erfahren haben, dass Sie erben",
+            "bezug": "todesfall.erbe_kenntnis",
+            "quellen": [
+              "bgb_1944"
+            ],
+            "wochen": 6
+          }
+        ],
+        "kosten": "etwa 30 € Gebühr"
+      },
+      "hinweise": [
+        "Wer die Frist verstreichen lässt, hat das Erbe angenommen – mit allen Schulden.",
+        "Sechs Monate Frist, wenn die verstorbene Person nur im Ausland wohnte oder Sie bei Fristbeginn im Ausland waren.",
+        "Schlagen Sie aus, erben die Nächsten in der Reihe (oft Ihre Kinder) – auch sie müssen dann ausschlagen."
+      ]
+    },
+    {
+      "id": "bestattungskosten_sozialamt_bund",
+      "leistung_id": "bestattungskosten_sozialamt",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "sozialamt",
+      "quellen": [
+        "berlin_bestattungskosten",
+        "koeln_bestattungskosten"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "eine": [
+              {
+                "fakt": "todesfall.beziehung",
+                "op": "==",
+                "wert": "ehepartner",
+                "text": "Sie sind Ehe- bzw. eingetragene Lebenspartnerin oder -partner der verstorbenen Person"
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "todesfall.beziehung",
+                    "op": "in",
+                    "wert": [
+                      "kind",
+                      "elternteil",
+                      "geschwister"
+                    ],
+                    "text": "Sie sind Kind, Elternteil oder Geschwister der verstorbenen Person"
+                  },
+                  {
+                    "pruefung_noetig": "Bestattungspflichtig sind die Angehörigen in einer festen Reihenfolge (zuerst Ehe- bzw. Lebenspartner, dann Kinder, dann Eltern, dann Geschwister; je Land etwas verschieden). Ob Sie an der Reihe sind, hängt davon ab, wer noch lebt.",
+                    "quellen": [
+                      "berlin_bestattungskosten"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "text": "Sie gehören zu den bestattungspflichtigen Angehörigen"
+          },
+          {
+            "fakt": "todesfall.kosten_tragbar",
+            "op": "==",
+            "wert": false,
+            "text": "Sie können die Bestattungskosten nicht aus dem Nachlass oder eigenem Geld bezahlen"
+          },
+          {
+            "pruefung_noetig": "Das Sozialamt prüft, ob Ihnen die Kosten zuzumuten sind (Nachlass, Einkommen und Vermögen).",
+            "quellen": [
+              "berlin_bestattungskosten"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Sterbeurkunde",
+          "Rechnung bzw. Kostenvoranschlag des Bestatters",
+          "Nachweise über Nachlass, Einkommen und Vermögen"
+        ],
+        "schritte": [
+          "Möglichst vor dem Auftrag an den Bestatter mit dem Sozialamt sprechen.",
+          "Antrag auf Übernahme der Bestattungskosten stellen."
+        ]
+      },
+      "hinweise": [
+        "Übernommen werden die Kosten einer einfachen, ortsüblichen Bestattung."
+      ]
+    }
+  ]
+}

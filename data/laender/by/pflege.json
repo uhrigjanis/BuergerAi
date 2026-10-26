@@ -1,0 +1,122 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "lfp_landespflegegeld",
+      "titel": "Bayerisches Landesamt für Pflege – Landespflegegeld",
+      "url": "https://www.lfp.bayern.de",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Landesamt, Landkreis Günzburg, betanet, gegen-hartz.de): ab dem Pflegegeldjahr 2026 500 € pro Jahr (vorher 1.000 €); Pflegegrad 2 oder höher, Hauptwohnsitz in Bayern; unabhängig vom Einkommen; Pflegegeldjahr = Kalenderjahr; Auszahlung zu Beginn des Folgejahres. Bestandsfälle brauchen keinen neuen Antrag. Antragsfrist widersprüchlich (drei Monate nach Ende des Pflegegeldjahres, also 31.3. des Folgejahres, laut gegen-hartz.de; 31.12. laut betanet)."
+    },
+    {
+      "id": "zbfs_blindengeld",
+      "titel": "ZBFS – Infoblatt Blindengeld (Stand 07/2026)",
+      "url": "https://www.zbfs.bayern.de/imperia/md/content/stmas/zbfs_2022/weitere_aufgaben/blindengeld_infoblatt_2026-07_comp.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Zentrum Bayern Familie und Soziales",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: 809 € im Monat ab 1.7.2026 für blinde Menschen, 242,70 € für hochgradig sehbehinderte; Antrag bei der Regionalstelle des ZBFS."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lfp_bayern",
+      "name": "Bayerisches Landesamt für Pflege (Amberg)",
+      "url": "https://www.lfp.bayern.de",
+      "beschreibung": "Antrag online, per Post, Fax oder E-Mail."
+    },
+    {
+      "id": "zbfs_regionalstelle",
+      "name": "Zentrum Bayern Familie und Soziales – Regionalstelle",
+      "url": "https://www.zbfs.bayern.de",
+      "beschreibung": "Die Regionalstelle für den Regierungsbezirk, in dem die blinde Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landespflegegeld_by",
+      "leistung_id": "landespflegegeld",
+      "gebiet_id": "09",
+      "zustaendigkeit_id": "lfp_bayern",
+      "quellen": [
+        "lfp_landespflegegeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "lfp_landespflegegeld"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Landespflegegeld beim Landesamt für Pflege beantragen (online, per Post, Fax oder E-Mail); Kopie des Pflegegrad-Bescheids beilegen.",
+          "Wer schon Landespflegegeld bekommen hat, muss keinen neuen Antrag stellen."
+        ],
+        "kosten": "gebührenfrei"
+      },
+      "hinweise": [
+        "500 € pro Jahr ab 2026 (vorher 1.000 €), ausgezahlt zu Beginn des Folgejahres.",
+        "Antragsfrist laut Quellen widersprüchlich (31. März des Folgejahres bzw. 31. Dezember) – besser im laufenden Jahr beantragen."
+      ]
+    },
+    {
+      "id": "landesblindengeld_by",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "09",
+      "zustaendigkeit_id": "zbfs_regionalstelle",
+      "quellen": [
+        "zbfs_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "809 € im Monat seit 1.7.2026; 242,70 € bei hochgradiger Sehbehinderung (laut ZBFS).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "lfp_landespflegegeld",
+        "zbfs_blindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistungen erfasst: Landespflegegeld und Blindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

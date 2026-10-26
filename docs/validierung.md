@@ -215,3 +215,45 @@ Wie bei Umzug: Alle Quellen sind `teilweise` geprüft, weil Gesetzestexte und Be
 | Thüringen | keine (Familienkarte nicht einkommensabhängig) | Aufbaubank |
 
 „Keine“ heißt: Die Websuche am 25.10.2026 hat keine landeseigene Leistung gefunden. Die Landesportale sind nicht vollständig durchgesehen. Für Niedersachsen und Sachsen gibt es nur Sekundärquellen.
+
+## Lebenslage Pflege (Issue #41, Schritt 3)
+
+Recherche am 26.10.2026, wieder nur über Suchergebnisse: Alle Quellen sind `teilweise` geprüft, widersprüchliche Angaben `widerspruechlich`. Die Notiz jeder Quelle sagt, was bestätigt ist.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmg_leistungsbetraege_2026`, `bmg_pflegeleistungen_nachschlagen` | Beträge 2026; Pflegehilfsmittel 42 € und Wohnumfeld 4.180 € nur über Ratgeber abgeglichen |
+| `betanet_pflegeantrag` | 25 Arbeitstage, Leistungen rückwirkend ab Antrag (Sekundärquelle) |
+| `bmg_pflegeunterstuetzungsgeld` | zehn Arbeitstage je Kalenderjahr und pflegebedürftiger Person (seit PUEG) |
+| `bmbfsfj_familienpflegezeit`, `bt_18_8854`, `compass_infoblatt_pflegezeit` | Schwellen 15 und 25 Beschäftigte, Ankündigungsfristen, Zählweise der Beschäftigten |
+| `sgb11_44` | Voraussetzungen der Rentenversicherung für Pflegepersonen (Gesetzestext nicht erreichbar) |
+| `pflege_im_heim_bund` | Beträge für vollstationäre Pflege und Leistungszuschlag 2026 fehlen |
+| `lfp_landespflegegeld` | **Widersprüchlich:** Antragsfrist (31.3. des Folgejahres oder 31.12.) |
+| `berlin_lpflgg`, `bb_landesteilhabegeld`, `nrw_blindengeld` | **Widersprüchlich:** Höhe des Blindengelds |
+| `ni_landesblindengeld`, `sl_blindheitshilfe`, `dresden_landesblindengeld`, `sh_blindengeld`, `th_sinnesbehindertengeld`, `lwv_hessen_blindengeld`, `bremen_landespflegegeld` | Höhe 2026 nicht amtlich bestätigt |
+| `paderborn_pflegewohngeld`, `sh_pflege_bezahlen`, `vdk_hilfe_zur_pflege` | Einkommens- und Vermögensgrenzen, Antragsweg; in MV und SH keine Grenzen erfasst |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Blindengeld (Name, Höhe laut Quelle) | Weitere Landesleistung | Grundlage |
+|------|--------------------------------------|------------------------|-----------|
+| Baden-Württemberg | Landesblindenhilfe, 410 € | – | service-bw |
+| Bayern | Blindengeld, 809 € (seit 1.7.2026) | Landespflegegeld 500 € im Jahr | ZBFS, Landesamt für Pflege |
+| Berlin | Landespflegegeld (LPflGG), Höhe widersprüchlich | – | Senatsverwaltung |
+| Brandenburg | Landesteilhabegeld, 425 € bzw. 443,02 € | – | BRAVORS |
+| Bremen | Landespflegegeld für Blinde, Höhe nicht bestätigt | – | service.bremen.de |
+| Hamburg | Blindengeld, 695,50 € | – | hamburg.de |
+| Hessen | Landesblindengeld, 86 % der Blindenhilfe | – | LWV Hessen |
+| Mecklenburg-Vorpommern | Landesblindengeld, bis 430 € | Pflegewohngeld | Landesregierung, VdK |
+| Niedersachsen | Landesblindengeld, Höhe nicht bestätigt | – | FIM |
+| Nordrhein-Westfalen | Blindengeld (GHBG), 913,19 € bzw. 951,92 € | Pflegewohngeld | FIM, Kreis Paderborn |
+| Rheinland-Pfalz | Landesblindengeld, 410 € (Stand 1.1.2025) | – | Kreis Mainz-Bingen |
+| Saarland | Blindheitshilfe, Höhe nicht bestätigt | – | Landesamt für Soziales |
+| Sachsen | Landesblindengeld, Höhe nicht bestätigt | – | Stadt Dresden |
+| Sachsen-Anhalt | Blindengeld, bis 460,44 € (Stand 1.7.2025) | – | Landesamt (Formular 06/2026) |
+| Schleswig-Holstein | Landesblindengeld, Höhe nicht bestätigt | Pflegewohngeld | Landesregierung |
+| Thüringen | Sinnesbehindertengeld, Höhe nicht bestätigt | – | FIM |
+
+„–“ heißt: Die Suche nach Landespflegegeld und Pflegewohngeld hat für das Land nichts gefunden. Gehörlosen- und Taubblindengeld sind nicht erfasst (folgt mit Behinderung).

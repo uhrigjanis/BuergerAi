@@ -1,0 +1,156 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nrw_blindengeld",
+      "titel": "Leistungsbeschreibung Blindengeld nach dem GHBG (FIM, Nordrhein-Westfalen)",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/L100002/121394078/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Nordrhein-Westfalen",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (FIM, LWL-Berichte, OVG NRW 8.9.2025): Blindengeld nach dem GHBG, unabhängig von Einkommen; Antrag beim Landschaftsverband (LWL bzw. LVR) oder über Gemeinde bzw. Kreis; ab 60 Jahren niedriger (473 €). Höhe für Erwachsene unter 60: 913,19 € (7/2025) bzw. 951,92 € (laut Landesseite, Stand unklar)."
+    },
+    {
+      "id": "vz_nrw_pflegewohngeld",
+      "titel": "Verbraucherzentrale NRW – Pflegewohngeld in NRW",
+      "url": "https://www.verbraucherzentrale.nrw/wissen/gesundheit-pflege/pflege-im-heim/pflegewohngeld-in-nrw-finanzielle-hilfe-in-stationaeren-einrichtungen-86793",
+      "typ": "sekundaer",
+      "herausgeber": "Verbraucherzentrale NRW",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Zuschuss zu den Investitionskosten in Pflegeheimen in NRW (§ 14 APG NRW); Antrag beim Sozialamt, Zahlung an die Einrichtung."
+    },
+    {
+      "id": "paderborn_pflegewohngeld",
+      "titel": "Kreis Paderborn – Merkblatt Pflegewohngeld (Stand 1.1.2025)",
+      "url": "https://www.kreis-paderborn.de/kreis_paderborn-wAssets/docs/50-sozialamt/Hilfe-zur-Pflege/Merkblatt_2025-1.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Kreis Paderborn",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Pflegegrad 2–5; Vermögensgrenze 10.000 € (15.000 € mit Ehe- bzw. Lebenspartner); Einrichtung in NRW; rückwirkend, wenn der Antrag binnen drei Monaten gestellt wird (laut DVO)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "nrw_landschaftsverband",
+      "name": "Landschaftsverband (LWL bzw. LVR) oder Gemeinde bzw. Kreis",
+      "beschreibung": "Blindengeld bewilligt der Landschaftsverband; der Antrag kann auch bei der Gemeinde- oder Kreisverwaltung abgegeben werden."
+    },
+    {
+      "id": "nrw_sozialamt_pflegewohngeld",
+      "name": "Sozialamt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_nw",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nrw_landschaftsverband",
+      "quellen": [
+        "nrw_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Höhe für Erwachsene unter 60 Jahren laut Quellen 913,19 € bzw. 951,92 € (widersprüchlich); ab 60 Jahren 473 €.",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    },
+    {
+      "id": "pflegewohngeld_nw",
+      "leistung_id": "pflegewohngeld",
+      "gebiet_id": "05",
+      "zustaendigkeit_id": "nrw_sozialamt_pflegewohngeld",
+      "quellen": [
+        "vz_nrw_pflegewohngeld",
+        "paderborn_pflegewohngeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "heim",
+            "text": "Die pflegebedürftige Person lebt im Pflegeheim"
+          },
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "paderborn_pflegewohngeld"
+            ]
+          },
+          {
+            "pruefung_noetig": "Ob Einkommen und Vermögen (Grenze 10.000 €, mit Partner 15.000 €) die Investitionskosten nicht decken, rechnet das Sozialamt aus.",
+            "quellen": [
+              "paderborn_pflegewohngeld"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Bescheid über den Pflegegrad",
+          "Einkommens- und Vermögensnachweise",
+          "Heimvertrag"
+        ],
+        "schritte": [
+          "Pflegewohngeld beim Sozialamt beantragen (oft hilft das Heim dabei). Das Geld geht direkt an das Heim."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von drei Monaten nach Eintritt der Voraussetzungen beantragen, damit es rückwirkend gezahlt wird",
+            "bezug": "keiner",
+            "quellen": [
+              "paderborn_pflegewohngeld"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Nur für Heime in Nordrhein-Westfalen; bewilligt in der Regel für zwölf Monate."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "05",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nrw_blindengeld",
+        "vz_nrw_pflegewohngeld",
+        "paderborn_pflegewohngeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistungen erfasst: Blindengeld und Pflegewohngeld."
+    }
+  ]
+}

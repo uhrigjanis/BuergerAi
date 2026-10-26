@@ -217,7 +217,16 @@ docs/
 - ✅ 4 Szenarien, 103/103 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft, die Belege für „keine“ stammen aus Websuchen, nicht aus jedem Landesportal ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Lebenslage Pflege (#41, Schritt 3), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Pflege (#41, Schritt 3)
+
+- ✅ Fachmodul Pflege (Situation) mit 19 Leistungen: Pflegegrad beantragen, Pflegeberatung, Pflegegeld, Pflegesachleistung, Entlastungsbetrag, Verhinderungs- und Kurzzeitpflege, Pflegehilfsmittel, Wohnungsumbau, Heimleistungen, Hilfe zur Pflege; für pflegende Angehörige zehn freie Tage, Pflegeunterstützungsgeld, Pflegezeit, Familienpflegezeit, Darlehen und Rentenversicherung
+- ✅ Beträge 2026 der Pflegeversicherung aus der Leistungsübersicht des BMG (Pflegegeld 347–990 €, Entlastungsbetrag 131 €, 3.539 € für Verhinderungs- und Kurzzeitpflege)
+- ✅ Alle 16 Länder recherchiert und erfasst: Blindengeld in jedem Land (je eigene Stelle und Quelle, Name und Höhe je Land), Landespflegegeld nur in Bayern (500 € im Jahr ab 2026), Pflegewohngeld in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern
+- ✅ Wer pflegt, gibt den Wohnort der pflegebedürftigen Person an; Landesleistungen gelten dort (z. B. Tochter in Berlin, Mutter in Bayern → Landespflegegeld). Wer selbst pflegebedürftig ist, wird nicht danach gefragt
+- ✅ 5 Szenarien, 111/111 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; die Höhe des Blindengelds ist in mehreren Ländern nicht amtlich bestätigt und steht dann nur als Hinweis ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Lebenslage Wohnen und Eigentum (#41, Schritt 4), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

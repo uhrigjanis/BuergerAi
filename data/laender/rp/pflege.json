@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mainz_bingen_landesblindengeld",
+      "titel": "Kreisverwaltung Mainz-Bingen – Merkblatt Landesblindengeld",
+      "url": "https://www.mainz-bingen.de/default-wAssets/docs/Familie-Jugend-Asyl-Gesundheit-Soziales/Soziales/Grundsicherung/flyer33a-landesblindengeld-aktuell.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Kreisverwaltung Mainz-Bingen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Stand 1.1.2025): 410 € im Monat für Erwachsene, 205 € unter 18 Jahren; Antrag bei der Kreis- bzw. Stadtverwaltung des Wohnorts; vorrangig vor der Blindenhilfe nach SGB XII. Erhöhung für 2026 nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "rp_kreisverwaltung",
+      "name": "Kreis- bzw. Stadtverwaltung – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_rp",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "rp_kreisverwaltung",
+      "quellen": [
+        "mainz_bingen_landesblindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "410 € im Monat ab 18 Jahren, 205 € für Jüngere (Stand 1.1.2025).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mainz_bingen_landesblindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesblindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

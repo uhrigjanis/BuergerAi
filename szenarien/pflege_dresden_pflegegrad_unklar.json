@@ -1,0 +1,32 @@
+{
+  "name": "Pflege: Sohn in Dresden, Pflegegrad und Wohnort des Vaters unbekannt",
+  "beschreibung": "Mit „weiß nicht“ bleiben Pflegeleistungen unklar statt erfunden; ohne Wohnort der pflegebedürftigen Person werden keine Landesleistungen ausgewählt.",
+  "plz": "01067",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "pflege"
+  ],
+  "anforderungen": [
+    "ANF-PFL-07"
+  ],
+  "fakten": {
+    "pflege.rolle": "angehoerig",
+    "pflege.pflegegrad": "unbekannt",
+    "pflege.wohnform": "zuhause",
+    "pflege.ort": "unbekannt",
+    "pflege.pflege_durch_angehoerige": "ja",
+    "pflege.blind": "nein",
+    "pflege.beschaeftigt": "nein",
+    "pflege.pflegestunden": 20,
+    "pflege.eigene_arbeitsstunden": 0
+  },
+  "erwartet": {
+    "pflegegrad_beantragen": "unklar",
+    "pflegegeld": "unklar",
+    "entlastungsbetrag": "unklar",
+    "pflegezeit": "nein",
+    "rente_pflegeperson": "unklar"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

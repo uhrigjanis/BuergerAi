@@ -141,6 +141,15 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Das Sozialticket ist eine Leistung ohne Bundesvariante mit Varianten in Berlin, Brandenburg, Hamburg, Hessen und NRW; Baden-Württemberg hat den Landesfamilienpass. Für die übrigen 10 Länder ist „keine“ mit Quelle eingetragen. Kommunale Angebote (München, Stadt Bremen, Saarbrücken) sind Gemeindevarianten und erscheinen andernorts nicht als „nur in anderen Ländern“.
 - **Bedarfsrechnungen bleiben Prüfpunkte:** Ob Einkommen und Vermögen reichen, rechnen Jobcenter, Sozialamt, Wohngeldbehörde und Familienkasse. Die Engine liefert dafür höchstens „Unklar“ mit Hinweis auf den zuständigen Rechner oder die Stelle (ADR 0003).
 
+### 10. Umsetzung von Schritt 3: Pflege (26.10.2026)
+
+- **Fachmodul `pflege`** mit der Lebenslage `pflege` (Typ `situation`). Die nutzende Person ist entweder selbst pflegebedürftig oder pflegt einen Angehörigen (`pflege.rolle`). Die Fakten sprechen von „der pflegebedürftigen Person“ und von „Ihnen“ als Pflegeperson.
+- **Keine Rollen:** Anders als in Abschnitt 7 vermutet, braucht Pflege keine Rollen `pflegebeduerftig` und `pflegeperson`. Rollen werten eine Regel je Person aus (Mutter, anderer Elternteil). Bei Pflege gibt es je Leistung genau eine berechtigte Person, die sich aus der Leistung ergibt; dafür reicht die Angabe `pflege.rolle` in der Regel.
+- **Ort der pflegebedürftigen Person:** Landesleistungen (Landespflegegeld, Blindengeld, Pflegewohngeld) und die Hilfe zur Pflege haben den Ortsbezug `pflege.ort`. Der Fakt hat `nur_wenn` (nur bei Angehörigen). Die Engine wendet das auch auf den Ortsbezug an: Ist die Bedingung nicht erfüllt, gilt der Wohnort der Anfrage; ist sie offen, wird zuerst danach gefragt.
+- **Ort unbekannt heißt offen, nicht „anderswo“:** Fehlt der Ort einer Leistung oder ist er „weiß nicht“, erschien eine Landesleistung bisher als „nur in anderen Ländern“, beim Blindengeld mit allen 16 Ländern. Jetzt nennt ein Hinweis die Landesleistungen, die sich ohne den Ort nicht prüfen lassen. Das betrifft auch andere Module mit Ortsbezug.
+- **Blindengeld als Landesleistung in allen Ländern:** Es gibt keine Bundesvariante; jedes Land hat eine eigene Variante mit eigener Stelle und Quelle. Name und Höhe stehen im Hinweis der Variante, die Höhe nur, wenn eine Quelle sie nennt; widersprüchliche Angaben sind gekennzeichnet. Das Blindengeld gehört fachlich auch zu Behinderung und bekommt dort später eine zweite Lebenslage.
+- **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Landespflegegeld nur in Bayern, Pflegewohngeld in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern, Blindengeld überall. Damit ist die Abdeckung für alle 16 Länder `erfasst`.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

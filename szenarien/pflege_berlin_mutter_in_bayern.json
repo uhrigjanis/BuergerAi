@@ -1,0 +1,41 @@
+{
+  "name": "Pflege: Tochter in Berlin pflegt Mutter in Bayern (Pflegegrad 3)",
+  "beschreibung": "Landespflegegeld Bayern über den Wohnort der pflegebedürftigen Person, obwohl die Nutzerin in Berlin wohnt; Pflegezeit und Familienpflegezeit im großen Betrieb.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "pflege"
+  ],
+  "anforderungen": [
+    "ANF-PFL-02",
+    "ANF-PFL-03",
+    "ANF-PFL-05"
+  ],
+  "fakten": {
+    "pflege.rolle": "angehoerig",
+    "pflege.pflegegrad": 3,
+    "pflege.wohnform": "zuhause",
+    "pflege.pflege_durch_angehoerige": "ja",
+    "pflege.blind": "nein",
+    "pflege.beschaeftigt": "ja",
+    "pflege.beschaeftigte_arbeitgeber": 50,
+    "pflege.akut": "nein",
+    "pflege.pflegestunden": 14,
+    "pflege.eigene_arbeitsstunden": 30,
+    "pflege.ort": "80331"
+  },
+  "erwartet": {
+    "landespflegegeld": "ja",
+    "pflegegeld": "ja",
+    "pflegezeit": "ja",
+    "familienpflegezeit": "ja",
+    "landesblindengeld": "nein",
+    "pflegegrad_beantragen": "nein",
+    "rente_pflegeperson": "unklar"
+  },
+  "erwartet_stellen": {
+    "landespflegegeld": "Bayerisches Landesamt für Pflege",
+    "pflegegeld": "Pflegekasse"
+  },
+  "erwartet_fehlend": []
+}

@@ -1,0 +1,128 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "mv_blindengeld",
+      "titel": "Landesregierung MV – Blindengeld",
+      "url": "https://www.regierung-mv.de/Landesregierung/sm/Soziales/Behinderungen/Blindengeld/",
+      "typ": "behoerde",
+      "herausgeber": "Land Mecklenburg-Vorpommern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Landesblindengeld bis 430 € im Monat; ein Viertel für hochgradig Sehbehinderte (Angaben mit 273,05 € uneinheitlich); Antrag beim Sozialamt."
+    },
+    {
+      "id": "vdk_hilfe_zur_pflege",
+      "titel": "VdK – Merkblatt Hilfe zur Pflege (2026)",
+      "url": "https://www.vdk.de/assets/bundesverband/dokumente/Merkblaetter_WiMa/Hilfe_zur_Pflege-v32-20260513_095410.pdf",
+      "typ": "sekundaer",
+      "herausgeber": "Sozialverband VdK",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Pflegewohngeld gibt es in Nordrhein-Westfalen, Mecklenburg-Vorpommern und Schleswig-Holstein; vorrangig vor Hilfe zur Pflege; Antrag in der Regel durch die Einrichtung mit Einwilligung der Bewohnerin bzw. des Bewohners."
+    },
+    {
+      "id": "nordkurier_pflegewohngeld",
+      "titel": "Nordkurier – Zuzahlungen im Landkreis (Pflegewohngeld)",
+      "url": "https://www.nordkurier.de/regional/nordwestmecklenburg/so-viel-geld-steckt-nordwestmecklenburg-in-pflegeplaetze-2488474",
+      "typ": "sekundaer",
+      "herausgeber": "Nordkurier",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Antrag auf Pflegewohngeld beim Sozialamt des Landkreises (Beispiel Nordwestmecklenburg); Grenzen für Einkommen und Vermögen nicht genannt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "mv_sozialamt",
+      "name": "Sozialamt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_mv",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "mv_sozialamt",
+      "quellen": [
+        "mv_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Bis 430 € im Monat (laut Landesregierung).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    },
+    {
+      "id": "pflegewohngeld_mv",
+      "leistung_id": "pflegewohngeld",
+      "gebiet_id": "13",
+      "zustaendigkeit_id": "mv_sozialamt",
+      "quellen": [
+        "vdk_hilfe_zur_pflege",
+        "nordkurier_pflegewohngeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "heim",
+            "text": "Die pflegebedürftige Person lebt im Pflegeheim"
+          },
+          {
+            "pruefung_noetig": "Ob Einkommen und Vermögen die Investitionskosten nicht decken, prüft das Sozialamt; die Grenzen sind hier nicht erfasst.",
+            "quellen": [
+              "vdk_hilfe_zur_pflege"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Das Pflegeheim stellt den Antrag in der Regel mit Ihrer Einwilligung beim Sozialamt; fragen Sie dort nach."
+        ]
+      },
+      "hinweise": [
+        "Kinder werden für das Pflegewohngeld nicht herangezogen (laut VdK)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "13",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "mv_blindengeld",
+        "vdk_hilfe_zur_pflege",
+        "nordkurier_pflegewohngeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistungen erfasst: Blindengeld und Pflegewohngeld (Grenzen nicht erfasst)."
+    }
+  ]
+}

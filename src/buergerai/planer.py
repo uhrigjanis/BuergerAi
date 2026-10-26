@@ -257,6 +257,16 @@ def _ort_der_leistung(
         return wohnort, None
     wert = fakten.get(leistung.ortsbezug)
     if wert is None:
+        # Ortsfakt mit "nur_wenn": Ist die Bedingung nicht erfüllt, gilt der
+        # Wohnort (z. B. Pflege: nur fragen, wenn jemand anderes gepflegt wird).
+        definition = kb.fakten.get(leistung.ortsbezug)
+        bedingung = definition.nur_wenn if definition is not None else None
+        if bedingung is not None:
+            vorher = fakten.get(bedingung[0])
+            if vorher is None:
+                return [gebiete_mod.bund(kb)], bedingung[0]
+            if vorher is not UNBEKANNT and vorher != bedingung[1]:
+                return wohnort, None
         return [gebiete_mod.bund(kb)], leistung.ortsbezug
     if not isinstance(wert, str):  # "weiß nicht"
         return [gebiete_mod.bund(kb)], None
@@ -383,6 +393,7 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     platzhalter: dict[int, dict[str, str]] = {}  # je Hierarchie (Wohnort, Orte von Leistungen) einmal
     eintraege: list[Eintrag] = []
     nur_andere: list[NurAndereLaender] = []
+    ohne_ort: dict[str, list[str]] = {}  # Ortsfakt -> Landesleistungen, die ohne den Ort nicht prüfbar sind
     for leistung in kb.leistungen_fuer(anfrage.lebenslagen):
         ort, ort_fehlt = _ort_der_leistung(kb, leistung, fakten, hierarchie, orte)
         if ort_fehlt and not getattr(kb.fakt_definition(ort_fehlt), "abgeleitet", False):
@@ -390,7 +401,10 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         treffer = beste_variante(kb, leistung, ort, anfrage.stichtag)
         if treffer is None:
             laender = _laender_mit_variante(kb, leistung, anfrage.stichtag)
-            if laender:
+            if laender and leistung.ortsbezug is not None and ort is not hierarchie and len(ort) == 1:
+                # Ort der Leistung unbekannt: nicht "nur in anderen Ländern", sondern offen
+                ohne_ort.setdefault(leistung.ortsbezug, []).append(leistung.name)
+            elif laender:
                 nur_andere.append(NurAndereLaender(leistung, laender))
             continue
         variante, gebiet = treffer
@@ -440,12 +454,16 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
             )
         )
     sortiert = _sortieren(eintraege)
+    warnungen = _warnungen(kb, anfrage, hierarchie, sortiert)
+    for ortsfakt, namen in ohne_ort.items():
+        frage = kb.fakten[ortsfakt].frage.split("?")[0]
+        warnungen.append(f"Ohne Angabe zu „{frage}?“ lassen sich diese Landesleistungen nicht prüfen: {', '.join(namen)}.")
     return Bericht(
         anfrage,
         hierarchie,
         sortiert,
         fragen_priorisieren(vorab, eintraege, anfrage.stichtag),
-        _warnungen(kb, anfrage, hierarchie, sortiert),
+        warnungen,
         nur_andere,
         [(ll, name, grund) for ll in anfrage.lebenslagen for name, grund in kb.lebenslagen[ll].nicht_erfasst],
     )

@@ -1,0 +1,72 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bremen_landespflegegeld",
+      "titel": "Service Bremen – Landespflegegeld für blinde und schwerstbehinderte Menschen",
+      "url": "https://www.service.bremen.de/dienstleistungen/landespflegegeld-fuer-blinde-und-schwerstbehinderte-menschen-11443",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Landespflegegeld für blinde und schwerstbehinderte Menschen im Land Bremen; Höhe (559,73 € laut Ratgeber) nicht amtlich bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bremen_landespflegegeld",
+      "name": "Amt für Soziale Dienste (Bremen) bzw. Sozialamt Bremerhaven",
+      "url": "https://www.service.bremen.de/dienstleistungen/landespflegegeld-fuer-blinde-und-schwerstbehinderte-menschen-11443",
+      "beschreibung": "Zuständige Stelle laut Service Bremen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_hb",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "04",
+      "zustaendigkeit_id": "bremen_landespflegegeld",
+      "quellen": [
+        "bremen_landespflegegeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Landespflegegeld für blinde Menschen.",
+        "Höhe laut Ratgeber 559,73 € im Monat – nicht amtlich bestätigt.",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bremen_landespflegegeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landespflegegeld für blinde Menschen. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

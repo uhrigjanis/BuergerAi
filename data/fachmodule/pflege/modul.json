@@ -1,0 +1,88 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Pflege (ADR 0008).",
+  "fachmodul": {
+    "id": "pflege",
+    "name": "Pflege",
+    "beschreibung": "Leistungen für pflegebedürftige Menschen und ihre pflegenden Angehörigen.",
+    "abgrenzung": [
+      "Schwerbehindertenausweis und Nachteilsausgleiche gehören zu Behinderung.",
+      "Das Blindengeld der Länder steht vorerst hier und wechselt später auch zu Behinderung (zweite Lebenslage)."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "pflege",
+      "name": "Pflege",
+      "typ": "situation",
+      "beschreibung": "Jemand braucht dauerhaft Hilfe im Alltag – Sie selbst oder ein Angehöriger, den Sie pflegen.",
+      "einstiegsfragen": [
+        "pflege.rolle",
+        "pflege.pflegegrad",
+        "pflege.wohnform"
+      ],
+      "synonyme": [
+        "Pflege",
+        "pflegebedürftig",
+        "Pflegegrad",
+        "Pflegestufe",
+        "Pflegegeld",
+        "Pflegedienst",
+        "Pflegeheim",
+        "Heim",
+        "Angehörige pflegen",
+        "pflegende Angehörige",
+        "Demenz",
+        "Pflegezeit",
+        "Familienpflegezeit",
+        "Kurzzeitpflege",
+        "Verhinderungspflege",
+        "Treppenlift",
+        "Landespflegegeld",
+        "Blindengeld",
+        "blind",
+        "Pflegewohngeld"
+      ],
+      "beispiele": [
+        "Meine Mutter kann nicht mehr allein leben.",
+        "Mein Vater hat Pflegegrad 3, was steht uns zu?",
+        "Ich muss mich um meinen Mann kümmern und arbeite Vollzeit.",
+        "Wir brauchen einen Pflegeheimplatz – wer zahlt?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Pflege-Pauschbetrag in der Einkommensteuer",
+          "grund": "Steuerliche Vergünstigungen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Tages- und Nachtpflege",
+          "grund": "Beträge 2026 über die Suche nicht bestätigt; folgt."
+        },
+        {
+          "name": "Umwandlung von Sachleistungen in Entlastungsleistungen und Wohngruppenzuschlag",
+          "grund": "Sonderregeln; folgen."
+        },
+        {
+          "name": "Digitale Pflegeanwendungen (DiPA)",
+          "grund": "Folgt."
+        },
+        {
+          "name": "Blindenhilfe nach § 72 SGB XII",
+          "grund": "Abhängig von Einkommen und Vermögen; 951,92 € seit 1.7.2026 laut Ratgebern; folgt mit Behinderung."
+        },
+        {
+          "name": "Gehörlosen- und Taubblindengeld der Länder",
+          "grund": "Folgt mit der Lebenslage Behinderung."
+        },
+        {
+          "name": "Schwerbehindertenausweis und Merkzeichen",
+          "grund": "Folgt mit der Lebenslage Behinderung."
+        },
+        {
+          "name": "Kommunale Pflegeangebote und Zuschüsse",
+          "grund": "Je Stadt bzw. Kreis verschieden."
+        }
+      ]
+    }
+  ]
+}

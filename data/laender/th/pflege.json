@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "th_sinnesbehindertengeld",
+      "titel": "Leistungsbeschreibung Sinnesbehindertengeld (FIM, Thüringen)",
+      "url": "https://fimportal.de/api/v0/xzufi-services/L100038/354554/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Thüringen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: in Thüringen heißt die Leistung Sinnesbehindertengeld; Antrag beim Landratsamt bzw. der kreisfreien Stadt; Formulare beim Landesverwaltungsamt. Gesetzentwurf 2023 sah 472 € für Blinde vor; Stand 2026 nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "th_landratsamt",
+      "name": "Landratsamt bzw. kreisfreie Stadt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_th",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "16",
+      "zustaendigkeit_id": "th_landratsamt",
+      "quellen": [
+        "th_sinnesbehindertengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Sinnesbehindertengeld.",
+        "Höhe 2026 nicht bestätigt (Gesetzentwurf 2023: 472 € im Monat).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_sinnesbehindertengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Sinnesbehindertengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

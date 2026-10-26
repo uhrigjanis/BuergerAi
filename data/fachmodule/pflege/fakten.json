@@ -1,0 +1,91 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Pflege. 'Pflegebedürftige Person' ist entweder die nutzende Person selbst oder ein Angehöriger.",
+  "fakten": [
+    {
+      "id": "pflege.rolle",
+      "typ": "auswahl",
+      "frage": "Wer ist pflegebedürftig?",
+      "optionen": [
+        {
+          "wert": "selbst",
+          "text": "Ich selbst"
+        },
+        {
+          "wert": "angehoerig",
+          "text": "Ein Angehöriger, den ich pflege oder unterstütze"
+        }
+      ]
+    },
+    {
+      "id": "pflege.pflegegrad",
+      "typ": "zahl",
+      "frage": "Welchen Pflegegrad hat die pflegebedürftige Person? (1 bis 5; 0, wenn noch keiner festgestellt ist)",
+      "hilfe": "Der Pflegegrad steht im Bescheid der Pflegekasse. Läuft der Antrag noch: 0."
+    },
+    {
+      "id": "pflege.wohnform",
+      "typ": "auswahl",
+      "frage": "Wo lebt die pflegebedürftige Person?",
+      "optionen": [
+        {
+          "wert": "zuhause",
+          "text": "zu Hause (auch bei Angehörigen oder im betreuten Wohnen)"
+        },
+        {
+          "wert": "heim",
+          "text": "im Pflegeheim"
+        }
+      ]
+    },
+    {
+      "id": "pflege.ort",
+      "typ": "ort",
+      "frage": "Wo wohnt die pflegebedürftige Person? (Postleitzahl)",
+      "hilfe": "Für Landesleistungen zählt der Wohnort der pflegebedürftigen Person, nicht Ihrer.",
+      "nur_wenn": {
+        "fakt": "pflege.rolle",
+        "wert": "angehoerig"
+      }
+    },
+    {
+      "id": "pflege.pflege_durch_angehoerige",
+      "typ": "ja_nein",
+      "frage": "Übernehmen Angehörige, Freunde oder Nachbarn die Pflege zu Hause (ganz oder teilweise)?"
+    },
+    {
+      "id": "pflege.blind",
+      "typ": "ja_nein",
+      "frage": "Ist die pflegebedürftige Person blind oder hochgradig sehbehindert (Merkzeichen Bl im Schwerbehindertenausweis oder beantragt)?"
+    },
+    {
+      "id": "pflege.beschaeftigt",
+      "typ": "ja_nein",
+      "frage": "Sind Sie angestellt (Arbeitsverhältnis, auch Minijob oder Ausbildung)?",
+      "nur_wenn": {
+        "fakt": "pflege.rolle",
+        "wert": "angehoerig"
+      }
+    },
+    {
+      "id": "pflege.beschaeftigte_arbeitgeber",
+      "typ": "zahl",
+      "frage": "Wie viele Beschäftigte hat Ihr Arbeitgeber ungefähr?",
+      "hilfe": "Gemeint sind alle Beschäftigten des Arbeitgebers, nicht nur Ihre Abteilung. Auszubildende zählen bei der Pflegezeit nicht mit."
+    },
+    {
+      "id": "pflege.akut",
+      "typ": "ja_nein",
+      "frage": "Ist die Pflegesituation plötzlich eingetreten, sodass Sie die Pflege jetzt kurzfristig organisieren müssen?"
+    },
+    {
+      "id": "pflege.pflegestunden",
+      "typ": "zahl",
+      "frage": "Wie viele Stunden pro Woche pflegen Sie ungefähr (verteilt auf mindestens zwei Tage)?"
+    },
+    {
+      "id": "pflege.eigene_arbeitsstunden",
+      "typ": "zahl",
+      "frage": "Wie viele Stunden pro Woche arbeiten Sie selbst? (0, wenn gar nicht)"
+    }
+  ]
+}

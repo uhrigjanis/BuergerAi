@@ -112,7 +112,7 @@ def fehler_beim_laden(tmp_path: Path, aendern: Callable[[dict[str, dict[str, Any
 # ------------------------------------------------------------------ Struktur und Modulgrenzen
 @pytest.mark.anforderung("ANF-MOD-01")
 def test_echte_daten_haben_fachmodul_familie(kb):
-    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen"}
+    assert set(kb.fachmodule) == {"familie", "umzug", "einkommen", "pflege"}
     geburt = kb.lebenslagen["geburt"]
     assert geburt.modul == "familie" and geburt.typ == "ereignis"
     assert geburt.einstiegsfragen[0] == "kind_geboren"
@@ -248,7 +248,9 @@ def test_ortsbezug_unbekannt(probe_kb):
     assert "probe_zuschuss" not in b.ergebnisse()
     # Der Ort wird direkt nach den Einstiegsfragen erfragt
     assert b.fehlend[:2] == ["probe.kaufdatum", "probe.ort_immobilie"]
-    assert [(n.leistung.id, [g.name for g in n.laender]) for n in b.nur_andere_laender] == [("probe_zuschuss", ["Hessen"])]
+    # Ohne Ort ist die Landesleistung offen, nicht "nur in anderen Ländern" (ANF-PFL-03)
+    assert b.nur_andere_laender == []
+    assert any("lassen sich diese Landesleistungen nicht prüfen" in w and "Probezuschuss" in w for w in b.warnungen), b.warnungen
 
 
 @pytest.mark.anforderung("ANF-MOD-04")

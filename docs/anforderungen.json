@@ -112,6 +112,14 @@
     {"id": "ANF-EINK-06", "bereich": "Geringes Einkommen", "titel": "Sozialticket als Landesleistung in Berlin, Brandenburg, Hamburg, Hessen und NRW, anderswo „nur in anderen Ländern“; München-Pass als kommunale Leistung"},
     {"id": "ANF-EINK-07", "bereich": "Geringes Einkommen", "titel": "Kinderzuschlag gehört zu Geburt und geringem Einkommen, erscheint einmal und fragt je Lebenslage passend nach Kindern"},
     {"id": "ANF-EINK-08", "bereich": "Geringes Einkommen", "titel": "Landesleistungen bei geringem Einkommen sind für alle 16 Länder recherchiert und belegt (erfasst oder keine); kommunale Angebote ausgewählter Städte als Varianten"},
+    {"id": "ANF-PFL-01", "bereich": "Pflege", "titel": "Leistungen der Pflegeversicherung nach Pflegegrad und Wohnform: Pflegegrad beantragen ohne Grad, Entlastungsbetrag ab Grad 1, Pflegegeld nur zu Hause mit Angehörigen ab Grad 2, Heimleistungen nur im Heim"},
+    {"id": "ANF-PFL-02", "bereich": "Pflege", "titel": "Landespflegegeld Bayern ab Pflegegrad 2 am Wohnort der pflegebedürftigen Person; sonst „nur in anderen Ländern“"},
+    {"id": "ANF-PFL-03", "bereich": "Pflege", "titel": "Ort der pflegebedürftigen Person nur bei Angehörigen gefragt, sonst gilt der Wohnort; ohne Ort bleiben Landesleistungen offen (Hinweis statt „nur in anderen Ländern“)"},
+    {"id": "ANF-PFL-04", "bereich": "Pflege", "titel": "Leistungen für Pflegepersonen (Freistellung, Pflegeunterstützungsgeld, Darlehen, Rentenversicherung) nur, wenn ein Angehöriger gepflegt wird"},
+    {"id": "ANF-PFL-05", "bereich": "Pflege", "titel": "Freistellungen: zehn Arbeitstage bei akutem Pflegefall in jedem Betrieb, Pflegezeit ab mehr als 15, Familienpflegezeit ab mehr als 25 Beschäftigten, mit Ankündigungsfristen"},
+    {"id": "ANF-PFL-06", "bereich": "Pflege", "titel": "Blindengeld als Landesleistung in allen 16 Ländern mit eigener Stelle und Quelle; Pflegewohngeld nur in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern im Heim"},
+    {"id": "ANF-PFL-07", "bereich": "Pflege", "titel": "Unbekannte Angaben ergeben Unklar, widersprüchliche Quellen sind gekennzeichnet; Szenarien mit Unklar und außerhalb Bayerns"},
+    {"id": "ANF-PFL-08", "bereich": "Pflege", "titel": "Landesleistungen bei Pflege sind für alle 16 Länder recherchiert und mit eigener Quelle belegt"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

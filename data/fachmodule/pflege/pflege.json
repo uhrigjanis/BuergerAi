@@ -1,0 +1,1197 @@
+{
+  "_hinweis": "Fachmodul Pflege: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Landespflegegeld, Blindengeld und Pflegewohngeld der Länder unter data/laender/*/pflege.json.",
+  "quellen": [
+    {
+      "id": "bmg_leistungsbetraege_2026",
+      "titel": "BMG – Leistungsansprüche der Versicherten im Jahr 2026 (Übersicht)",
+      "url": "https://www.bundesgesundheitsministerium.de/fileadmin/Dateien/3_Downloads/P/Pflegeversicherung_Leistungsbeitraege/Uebersicht_Leistungsbetraege_2026_VA.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Stand 11.12.2025): Pflegegeld 347/599/800/990 € (Pflegegrad 2–5), Pflegesachleistung 796/1.497/1.859/2.299 €, Entlastungsbetrag 131 € (auch Pflegegrad 1), gemeinsamer Jahresbetrag Verhinderungs- und Kurzzeitpflege 3.539 €. Beträge seit 1.1.2025 unverändert."
+    },
+    {
+      "id": "bmg_pflegeleistungen_nachschlagen",
+      "titel": "BMG – Pflegeleistungen zum Nachschlagen (Stand 07/2026)",
+      "url": "https://www.bundesgesundheitsministerium.de/fileadmin/Dateien/5_Publikationen/Pflege/Broschueren/BMG_Pflegeleistungen_zum_Nachschlagen_bf.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Ratgeber mit allen Leistungen; bestätigt 131 € Entlastungsbetrag. Pflegehilfsmittel zum Verbrauch bis 42 € im Monat und wohnumfeldverbessernde Maßnahmen bis 4.180 € je Maßnahme (bis 16.720 €, wenn mehrere Pflegebedürftige zusammenwohnen) über Ratgeber (Stand 2026) abgeglichen."
+    },
+    {
+      "id": "bmg_pflegegrade",
+      "titel": "BMG – Pflegegrade und Begutachtung",
+      "url": "https://www.bundesgesundheitsministerium.de/pflegegrade.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Antrag bei der Pflegekasse; Begutachtung durch den Medizinischen Dienst (privat Versicherte: Medicproof); fünf Pflegegrade; die Pflegekasse entscheidet."
+    },
+    {
+      "id": "betanet_pflegeantrag",
+      "titel": "Pflegeantrag und Pflegebegutachtung (betanet)",
+      "url": "https://www.betanet.de/pflegeantrag-und-pflegebegutachtung.html",
+      "typ": "sekundaer",
+      "herausgeber": "beta Institut",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Entscheidung innerhalb von 25 Arbeitstagen (kürzere Fristen z. B. im Krankenhaus); Kosten werden in der Regel rückwirkend ab Antragsdatum übernommen; Pflegeberatung soll innerhalb von zwei Wochen nach dem Antrag stattfinden."
+    },
+    {
+      "id": "bmg_sachleistungen",
+      "titel": "BMG – Ambulanter Pflegedienst und Pflegesachleistungen",
+      "url": "https://www.bundesgesundheitsministerium.de/pflegedienst-und-pflegesachleistungen",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Pflegesachleistungen ab Pflegegrad 2 bis zu einem Höchstbetrag; Kombination mit Pflegegeld möglich (Pflegegeld anteilig)."
+    },
+    {
+      "id": "bmg_entlastungsbetrag",
+      "titel": "BMG – Entlastungsbetrag und Unterstützungsangebote",
+      "url": "https://www.bundesgesundheitsministerium.de/entlastungsbetrag.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: zweckgebunden für anerkannte Entlastungsangebote; auch Pflegegrad 1; nicht genutzte Beträge können übertragen werden. Die Seite nennt teils noch den alten Betrag (125 €); 2026 gelten 131 € (Leistungsübersicht 2026)."
+    },
+    {
+      "id": "sgb11_40",
+      "titel": "§ 40 SGB XI – Pflegehilfsmittel und wohnumfeldverbessernde Maßnahmen",
+      "url": "https://www.gesetze-im-internet.de/sgb_11/__40.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; Beträge über die BMG-Broschüre (Stand 07/2026) und Ratgeber abgeglichen; Zuschuss zum Wohnumfeld nur auf Antrag vor Beginn der Maßnahme."
+    },
+    {
+      "id": "bmg_arbeitsverhinderung",
+      "titel": "BMG – Kurzzeitige Arbeitsverhinderung",
+      "url": "https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/k/kurzzeitige-arbeitsverhinderung",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: bis zu zehn Arbeitstage fernbleiben, um in einer akut aufgetretenen Pflegesituation die Pflege eines nahen Angehörigen zu organisieren; unabhängig von der Betriebsgröße; bei allen Pflegegraden."
+    },
+    {
+      "id": "bmg_pflegeunterstuetzungsgeld",
+      "titel": "BMG – Pflegeunterstützungsgeld als Entgeltersatzleistung",
+      "url": "https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/p/pflegeunterstuetzungsgeld-als-entgeltersatzleistung",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: 90 % des ausgefallenen Nettoentgelts (100 % bei Einmalzahlungen in den letzten zwölf Monaten), begrenzt; Antrag unverzüglich bei der Pflegekasse der pflegebedürftigen Person mit ärztlicher Bescheinigung. Laut BMG-Seite zum PUEG bis zu zehn Arbeitstage je Kalenderjahr und pflegebedürftiger Person."
+    },
+    {
+      "id": "bmbfsfj_familienpflegezeit",
+      "titel": "BMBFSFJ – Die Familienpflegezeit",
+      "url": "https://www.bmbfsfj.bund.de/bmbfsfj/themen/aeltere-menschen/hilfe-und-pflege/die-familienpflegezeit-75714",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Pflegezeit (bis zu sechs Monate) gegenüber Arbeitgebern mit mehr als 15 Beschäftigten; Familienpflegezeit bis zu 24 Monate mit mindestens 15 Wochenstunden; zinsloses Darlehen beim Bundesamt für Familie und zivilgesellschaftliche Aufgaben."
+    },
+    {
+      "id": "bt_18_8854",
+      "titel": "Bundestag Drucksache 18/8854 (Schwelle Familienpflegezeit)",
+      "url": "https://dserver.bundestag.de/btd/18/088/1808854.pdf",
+      "typ": "parlament",
+      "herausgeber": "Deutscher Bundestag",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Rechtsanspruch auf Familienpflegezeit erst bei mehr als 25 Beschäftigten (im Gesetzgebungsverfahren von 15 angehoben)."
+    },
+    {
+      "id": "compass_infoblatt_pflegezeit",
+      "titel": "compass Pflegeberatung – Infoblatt Pflegezeit 2025",
+      "url": "https://www.pflegeberatung.de/fileadmin/Beratung_und_Planung/Infomaterial/Infoblaetter/Infoblatt_Pflegezeit_2025.pdf",
+      "typ": "sekundaer",
+      "herausgeber": "compass private pflegeberatung",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Ankündigung der Pflegezeit zehn Arbeitstage vorher, der Familienpflegezeit acht Wochen vorher; bei 25 oder weniger Beschäftigten Familienpflegezeit nur nach Vereinbarung."
+    },
+    {
+      "id": "sgb11_44",
+      "titel": "§ 44 SGB XI – Leistungen zur sozialen Sicherung der Pflegepersonen",
+      "url": "https://www.gesetze-im-internet.de/sgb_11/__44.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Beratungsstandpunkt NRW und Pflegestützpunkte Berlin: Pflegegrad 2–5, mindestens zehn Stunden an mindestens zwei Tagen pro Woche häusliche Pflege, nicht erwerbsmäßig, eigene Arbeit höchstens 30 Stunden pro Woche; nicht bei Bezug einer Vollrente wegen Alters nach Erreichen der Regelaltersgrenze."
+    },
+    {
+      "id": "pflegestuetzpunkte_berlin_sicherung",
+      "titel": "Pflegestützpunkte Berlin – Soziale Sicherung für Pflegepersonen (Infoblatt)",
+      "url": "https://www.pflegestuetzpunkteberlin.de/wp-content/uploads/2019/01/D-IB-32-Soziale-Sicherung-fr-Pflegepersonen.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Pflegestützpunkte Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Stand 12/2025): Voraussetzungen der Rentenversicherung für Pflegepersonen; Beiträge zahlt die Pflegekasse."
+    },
+    {
+      "id": "gesund_bund_hzp",
+      "titel": "gesund.bund.de – Hilfe zur Pflege",
+      "url": "https://gesund.bund.de/hilfe-zur-pflege",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Teil der Sozialhilfe (SGB XII), abhängig von Einkommen und Vermögen, deckt den Pflegebedarf, den die Pflegeversicherung nicht trägt; zuständig ist das Sozialamt."
+    },
+    {
+      "id": "hoexter_hzp",
+      "titel": "Kreis Höxter – Informationen für Heimbewohner und Angehörige (Hilfe zur Pflege)",
+      "url": "https://aktionstag.kreis-hoexter.de/media/aktionstag.kreis-hoexter.de/org/med_768/1174_informationen_fuer_heimbewohner_innen_und_ihre_angehoerigen.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Kreis Höxter",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Sozialhilfe setzt ein, sobald das Sozialamt von den Voraussetzungen erfährt; eine rückwirkende Zahlung ist ausgeschlossen; zuständig ist der Träger am gewöhnlichen Aufenthalt vor dem Heimeinzug. Köln: stationär mindestens Pflegegrad 2."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "pflegekasse",
+      "name": "Pflegekasse der pflegebedürftigen Person",
+      "beschreibung": "Die Pflegekasse gehört zur Krankenkasse der pflegebedürftigen Person; bei privat Versicherten das private Versicherungsunternehmen."
+    },
+    {
+      "id": "pflegeberatung",
+      "name": "Pflegeberatung der Pflegekasse oder Pflegestützpunkt",
+      "beschreibung": "Kostenlose Beratung durch die Pflegekasse; in vielen Ländern auch in Pflegestützpunkten vor Ort."
+    },
+    {
+      "id": "arbeitgeber_pflege",
+      "name": "Ihr Arbeitgeber",
+      "beschreibung": "Freistellung bzw. Ankündigung beim eigenen Arbeitgeber."
+    },
+    {
+      "id": "bafza",
+      "name": "Bundesamt für Familie und zivilgesellschaftliche Aufgaben (BAFzA)",
+      "url": "https://www.bmbfsfj.bund.de/bmbfsfj/themen/aeltere-menschen/hilfe-und-pflege/die-familienpflegezeit-75714",
+      "beschreibung": "Zinsloses Darlehen für Pflegezeit und Familienpflegezeit."
+    },
+    {
+      "id": "sozialamt_pflege",
+      "name": "Sozialamt – {kreis}",
+      "beschreibung": "Sozialamt der Stadt bzw. des Landkreises, in dem die pflegebedürftige Person wohnt."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "pflegegrad_beantragen",
+      "name": "Pflegegrad beantragen",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Ohne festgestellten Pflegegrad gibt es keine Leistungen der Pflegeversicherung. Der Antrag bei der Pflegekasse ist der erste Schritt."
+    },
+    {
+      "id": "pflegeberatung",
+      "name": "Kostenlose Pflegeberatung",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "information",
+      "kurz": "Pflegebedürftige und Angehörige haben Anspruch auf kostenlose Beratung durch die Pflegekasse oder einen Pflegestützpunkt."
+    },
+    {
+      "id": "pflegegeld",
+      "name": "Pflegegeld",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Monatliches Geld, wenn Angehörige oder andere ehrenamtlich Helfende die Pflege zu Hause übernehmen.",
+      "betraege": [
+        {
+          "text": "347 € (Pflegegrad 2), 599 € (3), 800 € (4), 990 € (5) im Monat",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_leistungsbetraege_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pflegesachleistung",
+      "name": "Pflegesachleistung (ambulanter Pflegedienst)",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Die Pflegekasse bezahlt einen zugelassenen Pflegedienst bis zu einem Höchstbetrag; mit Pflegegeld kombinierbar.",
+      "betraege": [
+        {
+          "text": "bis 796 € (Pflegegrad 2), 1.497 € (3), 1.859 € (4), 2.299 € (5) im Monat",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_leistungsbetraege_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entlastungsbetrag",
+      "name": "Entlastungsbetrag",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Zweckgebundener Betrag für anerkannte Angebote zur Unterstützung im Alltag, Tages- oder Kurzzeitpflege – auch schon bei Pflegegrad 1.",
+      "betraege": [
+        {
+          "text": "bis 131 € im Monat",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_leistungsbetraege_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "verhinderungs_kurzzeitpflege",
+      "name": "Verhinderungspflege und Kurzzeitpflege",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Ersatzpflege, wenn die Pflegeperson Urlaub macht oder krank ist, und vorübergehende Pflege in einer Einrichtung.",
+      "betraege": [
+        {
+          "text": "gemeinsamer Jahresbetrag bis 3.539 €",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_leistungsbetraege_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pflegehilfsmittel",
+      "name": "Pflegehilfsmittel",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Zum Verbrauch bestimmte Hilfsmittel (z. B. Einmalhandschuhe, Desinfektion) und technische Hilfen wie ein Pflegebett.",
+      "betraege": [
+        {
+          "text": "Verbrauchsprodukte bis 42 € im Monat",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_pflegeleistungen_nachschlagen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wohnumfeld",
+      "name": "Zuschuss für den Umbau der Wohnung",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Zuschuss für Umbauten, die die Pflege zu Hause erleichtern, z. B. bodengleiche Dusche, Treppenlift oder breitere Türen.",
+      "betraege": [
+        {
+          "text": "bis 4.180 € je Maßnahme (bis 16.720 €, wenn mehrere Pflegebedürftige zusammenwohnen)",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "bmg_pflegeleistungen_nachschlagen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pflege_im_heim",
+      "name": "Leistungen der Pflegekasse im Pflegeheim",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Die Pflegekasse beteiligt sich an den Pflegekosten im Heim. Unterkunft, Verpflegung und Investitionskosten zahlen Bewohner selbst."
+    },
+    {
+      "id": "hilfe_zur_pflege",
+      "name": "Hilfe zur Pflege (Sozialamt)",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "ortsbezug": "pflege.ort",
+      "kurz": "Wenn Rente, Einkommen und Vermögen für die Pflegekosten nicht reichen, übernimmt das Sozialamt den Rest."
+    },
+    {
+      "id": "arbeitsverhinderung_pflege",
+      "name": "Bis zu zehn Arbeitstage frei bei akutem Pflegefall",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "selbst",
+      "kurz": "Wer plötzlich die Pflege eines nahen Angehörigen organisieren muss, darf bis zu zehn Arbeitstage der Arbeit fernbleiben – in jedem Betrieb."
+    },
+    {
+      "id": "pflegeunterstuetzungsgeld",
+      "name": "Pflegeunterstützungsgeld",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Lohnersatz für die bis zu zehn freien Arbeitstage bei einem akuten Pflegefall; zahlt die Pflegekasse der pflegebedürftigen Person."
+    },
+    {
+      "id": "pflegezeit",
+      "name": "Pflegezeit (bis zu sechs Monate Freistellung)",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "selbst",
+      "kurz": "Vollständige oder teilweise Freistellung von der Arbeit für bis zu sechs Monate, um einen nahen Angehörigen zu Hause zu pflegen."
+    },
+    {
+      "id": "familienpflegezeit",
+      "name": "Familienpflegezeit (bis zu 24 Monate Teilzeit)",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "selbst",
+      "kurz": "Arbeitszeit für bis zu 24 Monate auf mindestens 15 Stunden pro Woche verringern, um einen nahen Angehörigen zu Hause zu pflegen."
+    },
+    {
+      "id": "pflegezeit_darlehen",
+      "name": "Zinsloses Darlehen für Pflegezeit und Familienpflegezeit",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Gleicht während Pflegezeit oder Familienpflegezeit einen Teil des fehlenden Einkommens aus; später in Raten zurückzuzahlen."
+    },
+    {
+      "id": "rente_pflegeperson",
+      "name": "Rentenversicherung für pflegende Angehörige",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Die Pflegekasse zahlt Rentenbeiträge für Sie, wenn Sie einen Angehörigen zu Hause pflegen – das erhöht später Ihre Rente."
+    },
+    {
+      "id": "landespflegegeld",
+      "name": "Landespflegegeld",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "ortsbezug": "pflege.ort",
+      "rechtsanspruch": true,
+      "kurz": "Eigenes Pflegegeld eines Landes zusätzlich zu den Leistungen der Pflegekasse (derzeit nur in Bayern)."
+    },
+    {
+      "id": "landesblindengeld",
+      "name": "Blindengeld des Landes",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "ortsbezug": "pflege.ort",
+      "kurz": "Alle Länder zahlen blinden Menschen ein monatliches Blindengeld – unabhängig von Einkommen und Vermögen. Name und Höhe sind je Land verschieden."
+    },
+    {
+      "id": "pflegewohngeld",
+      "name": "Pflegewohngeld",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "ortsbezug": "pflege.ort",
+      "kurz": "Zuschuss zu den Investitionskosten im Pflegeheim, wenn Einkommen und Vermögen nicht reichen (nur in einigen Ländern)."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "pflegegrad_beantragen_bund",
+      "leistung_id": "pflegegrad_beantragen",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_pflegegrade",
+        "betanet_pflegeantrag"
+      ],
+      "regel": {
+        "fakt": "pflege.pflegegrad",
+        "op": "==",
+        "wert": 0,
+        "text": "Noch kein Pflegegrad festgestellt",
+        "quellen": [
+          "bmg_pflegegrade"
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Versichertenkarte der pflegebedürftigen Person",
+          "Arztberichte und Medikamentenplan (für die Begutachtung)"
+        ],
+        "schritte": [
+          "Antrag bei der Pflegekasse stellen (formlos, telefonisch oder schriftlich); dann kommt der Medizinische Dienst (privat Versicherte: Medicproof) zur Begutachtung.",
+          "Vor der Begutachtung aufschreiben, wobei im Alltag Hilfe nötig ist (Pflegetagebuch). Angehörige sollten dabei sein.",
+          "Die Pflegekasse entscheidet in der Regel innerhalb von 25 Arbeitstagen; Leistungen gibt es in der Regel rückwirkend ab dem Antrag."
+        ],
+        "kosten": "gebührenfrei"
+      },
+      "hinweise": [
+        "Ist schon ein Pflegegrad festgestellt und hat sich der Zustand verschlechtert, kann eine Höherstufung beantragt werden."
+      ]
+    },
+    {
+      "id": "pflegeberatung_bund",
+      "leistung_id": "pflegeberatung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegeberatung",
+      "quellen": [
+        "betanet_pflegeantrag"
+      ],
+      "regel": {
+        "fakt": "pflege.rolle",
+        "op": "in",
+        "wert": [
+          "selbst",
+          "angehoerig"
+        ],
+        "text": "Sie sind pflegebedürftig oder pflegen bzw. unterstützen einen Angehörigen"
+      },
+      "verfahren": {
+        "schritte": [
+          "Termin bei der Pflegeberatung der Pflegekasse oder einem Pflegestützpunkt vereinbaren; auf Wunsch auch zu Hause.",
+          "Nach einem Antrag auf Pflegeleistungen bietet die Pflegekasse von sich aus einen Beratungstermin an (innerhalb von zwei Wochen)."
+        ],
+        "kosten": "kostenlos"
+      }
+    },
+    {
+      "id": "pflegegeld_bund",
+      "leistung_id": "pflegegeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_sachleistungen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "bmg_leistungsbetraege_2026"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          },
+          {
+            "fakt": "pflege.pflege_durch_angehoerige",
+            "op": "==",
+            "wert": true,
+            "text": "Angehörige oder andere ehrenamtlich Helfende übernehmen die Pflege zu Hause"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Antrag bei der Pflegekasse stellen (formlos, telefonisch oder schriftlich); dann kommt der Medizinische Dienst (privat Versicherte: Medicproof) zur Begutachtung. Im Antrag Pflegegeld wählen.",
+          "Bei Pflegegeld sind Beratungsbesuche Pflicht: halbjährlich bei Pflegegrad 2 und 3, vierteljährlich bei Pflegegrad 4 und 5."
+        ]
+      },
+      "hinweise": [
+        "Kommt zusätzlich ein Pflegedienst, wird das Pflegegeld anteilig gekürzt (Kombinationsleistung)."
+      ]
+    },
+    {
+      "id": "pflegesachleistung_bund",
+      "leistung_id": "pflegesachleistung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_sachleistungen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "bmg_sachleistungen"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Einen zugelassenen ambulanten Pflegedienst auswählen und einen Pflegevertrag schließen.",
+          "Der Pflegedienst rechnet direkt mit der Pflegekasse ab; Kosten über dem Höchstbetrag zahlen Sie selbst."
+        ]
+      }
+    },
+    {
+      "id": "entlastungsbetrag_bund",
+      "leistung_id": "entlastungsbetrag",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_entlastungsbetrag"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher",
+            "quellen": [
+              "bmg_entlastungsbetrag"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Ein anerkanntes Angebot nutzen (z. B. Haushaltshilfe, Betreuungsgruppe, Tagespflege) und die Rechnung bei der Pflegekasse einreichen.",
+          "Nicht genutzte Beträge verfallen nicht sofort, sondern können übertragen werden – nach den Regeln der Pflegekasse."
+        ]
+      },
+      "hinweise": [
+        "Der Betrag wird nicht bar ausgezahlt, sondern nur gegen Rechnung erstattet."
+      ]
+    },
+    {
+      "id": "verhinderungs_kurzzeitpflege_bund",
+      "leistung_id": "verhinderungs_kurzzeitpflege",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_leistungsbetraege_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "bmg_leistungsbetraege_2026"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Ersatzpflege (Verhinderungspflege) oder einen Platz in der Kurzzeitpflege organisieren.",
+          "Kosten bei der Pflegekasse einreichen bzw. vorher beantragen."
+        ]
+      },
+      "hinweise": [
+        "Während Verhinderungs- oder Kurzzeitpflege wird die Hälfte des Pflegegeldes weitergezahlt (bis zu acht Wochen im Jahr)."
+      ]
+    },
+    {
+      "id": "pflegehilfsmittel_bund",
+      "leistung_id": "pflegehilfsmittel",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "sgb11_40",
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher",
+            "quellen": [
+              "sgb11_40"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Verbrauchsprodukte bei der Pflegekasse beantragen; viele Apotheken und Anbieter liefern monatlich und rechnen direkt ab.",
+          "Technische Hilfsmittel (z. B. Pflegebett) bei der Pflegekasse beantragen."
+        ]
+      }
+    },
+    {
+      "id": "wohnumfeld_bund",
+      "leistung_id": "wohnumfeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "sgb11_40",
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher",
+            "quellen": [
+              "sgb11_40"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Kostenvoranschlag",
+          "Beschreibung der Maßnahme"
+        ],
+        "schritte": [
+          "Zuschuss bei der Pflegekasse beantragen, bevor der Umbau beginnt.",
+          "Erst nach der Zusage beauftragen."
+        ],
+        "fristen": [
+          {
+            "text": "Vor Beginn der Maßnahme beantragen",
+            "bezug": "keiner",
+            "quellen": [
+              "sgb11_40"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pflege_im_heim_bund",
+      "leistung_id": "pflege_im_heim",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "bmg_pflegeleistungen_nachschlagen"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "heim",
+            "text": "Die pflegebedürftige Person lebt im Pflegeheim"
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Leistungen für vollstationäre Pflege bei der Pflegekasse beantragen.",
+          "Die Pflegekasse zahlt direkt an das Heim; den Eigenanteil stellt das Heim in Rechnung."
+        ]
+      },
+      "hinweise": [
+        "Die Höhe hängt vom Pflegegrad und der Dauer des Heimaufenthalts ab; die Beträge 2026 sind hier noch nicht erfasst – bitte bei der Pflegekasse erfragen."
+      ]
+    },
+    {
+      "id": "hilfe_zur_pflege_bund",
+      "leistung_id": "hilfe_zur_pflege",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "sozialamt_pflege",
+      "quellen": [
+        "gesund_bund_hzp",
+        "hoexter_hzp"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher",
+            "quellen": [
+              "gesund_bund_hzp"
+            ]
+          },
+          {
+            "pruefung_noetig": "Ob Rente, Einkommen und Vermögen (auch des Ehe- bzw. Lebenspartners) für die Pflegekosten nicht reichen, rechnet das Sozialamt aus.",
+            "quellen": [
+              "gesund_bund_hzp"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Bescheid über den Pflegegrad",
+          "Einkommens- und Vermögensnachweise",
+          "Heimvertrag bzw. Kostenaufstellung"
+        ],
+        "schritte": [
+          "Antrag beim Sozialamt stellen, sobald absehbar ist, dass das Geld nicht reicht – Hilfe gibt es erst ab Kenntnis des Sozialamts, nicht rückwirkend.",
+          "Bei Bedarf zuerst formlos Bescheid geben und Unterlagen nachreichen."
+        ]
+      },
+      "hinweise": [
+        "Mit „Pflegegrad 1 oder höher“ ist hier nur die Mindestvoraussetzung gemeint; im Heim übernimmt das Sozialamt in der Regel erst ab Pflegegrad 2."
+      ]
+    },
+    {
+      "id": "arbeitsverhinderung_pflege_bund",
+      "leistung_id": "arbeitsverhinderung_pflege",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitgeber_pflege",
+      "quellen": [
+        "bmg_arbeitsverhinderung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          },
+          {
+            "fakt": "pflege.akut",
+            "op": "==",
+            "wert": true,
+            "text": "Die Pflegesituation ist plötzlich eingetreten und Sie müssen die Pflege kurzfristig organisieren",
+            "quellen": [
+              "bmg_arbeitsverhinderung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Dem Arbeitgeber sofort mitteilen, dass Sie fehlen und wie lange voraussichtlich.",
+          "Auf Verlangen eine ärztliche Bescheinigung über die Pflegebedürftigkeit vorlegen."
+        ]
+      },
+      "hinweise": [
+        "Gilt für nahe Angehörige (z. B. Eltern, Schwiegereltern, Ehe- oder Lebenspartner, Geschwister, Kinder)."
+      ]
+    },
+    {
+      "id": "pflegeunterstuetzungsgeld_bund",
+      "leistung_id": "pflegeunterstuetzungsgeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "bmg_pflegeunterstuetzungsgeld",
+        "bmg_arbeitsverhinderung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          },
+          {
+            "fakt": "pflege.akut",
+            "op": "==",
+            "wert": true,
+            "text": "Akute Pflegesituation",
+            "quellen": [
+              "bmg_arbeitsverhinderung"
+            ]
+          },
+          {
+            "pruefung_noetig": "Ob für die freien Tage Lohn weitergezahlt wird (dann kein Pflegeunterstützungsgeld), steht im Arbeits- oder Tarifvertrag.",
+            "quellen": [
+              "bmg_pflegeunterstuetzungsgeld"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Ärztliche Bescheinigung über die voraussichtliche Pflegebedürftigkeit"
+        ],
+        "schritte": [
+          "Pflegeunterstützungsgeld unverzüglich bei der Pflegekasse der pflegebedürftigen Person beantragen."
+        ]
+      },
+      "hinweise": [
+        "In der Regel 90 % des ausgefallenen Nettoentgelts, höchstens zehn Arbeitstage je Kalenderjahr und pflegebedürftiger Person."
+      ]
+    },
+    {
+      "id": "pflegezeit_bund",
+      "leistung_id": "pflegezeit",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitgeber_pflege",
+      "quellen": [
+        "bmbfsfj_familienpflegezeit",
+        "compass_infoblatt_pflegezeit"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          },
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher"
+          },
+          {
+            "fakt": "pflege.beschaeftigte_arbeitgeber",
+            "op": ">",
+            "wert": 15,
+            "text": "Ihr Arbeitgeber hat mehr als 15 Beschäftigte",
+            "quellen": [
+              "bmbfsfj_familienpflegezeit"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Pflegezeit schriftlich beim Arbeitgeber ankündigen: Zeitraum und Umfang der Freistellung angeben.",
+          "Bescheinigung über die Pflegebedürftigkeit (Pflegekasse oder Medizinischer Dienst) vorlegen."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens zehn Arbeitstage vor Beginn schriftlich ankündigen",
+            "bezug": "keiner",
+            "quellen": [
+              "compass_infoblatt_pflegezeit"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Während der Pflegezeit besteht Kündigungsschutz. Für das fehlende Einkommen gibt es ein zinsloses Darlehen."
+      ]
+    },
+    {
+      "id": "familienpflegezeit_bund",
+      "leistung_id": "familienpflegezeit",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitgeber_pflege",
+      "quellen": [
+        "bmbfsfj_familienpflegezeit",
+        "bt_18_8854",
+        "compass_infoblatt_pflegezeit"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          },
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 1,
+            "text": "Pflegegrad 1 oder höher"
+          },
+          {
+            "fakt": "pflege.beschaeftigte_arbeitgeber",
+            "op": ">",
+            "wert": 25,
+            "text": "Ihr Arbeitgeber hat mehr als 25 Beschäftigte",
+            "quellen": [
+              "bt_18_8854"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Familienpflegezeit schriftlich beim Arbeitgeber ankündigen und Umfang sowie Verteilung der Arbeitszeit angeben.",
+          "Mit dem Arbeitgeber eine schriftliche Vereinbarung über die verringerte Arbeitszeit schließen."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens acht Wochen vor Beginn schriftlich ankündigen",
+            "bezug": "keiner",
+            "quellen": [
+              "compass_infoblatt_pflegezeit"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Pflegezeit und Familienpflegezeit zusammen dürfen höchstens 24 Monate dauern.",
+        "In kleineren Betrieben ist Familienpflegezeit nur nach Vereinbarung mit dem Arbeitgeber möglich."
+      ]
+    },
+    {
+      "id": "pflegezeit_darlehen_bund",
+      "leistung_id": "pflegezeit_darlehen",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "bafza",
+      "quellen": [
+        "bmbfsfj_familienpflegezeit"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.beschaeftigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind angestellt"
+          },
+          {
+            "pruefung_noetig": "Das Darlehen gibt es nur für eine Pflegezeit oder Familienpflegezeit (bzw. eine entsprechende Vereinbarung mit dem Arbeitgeber).",
+            "quellen": [
+              "bmbfsfj_familienpflegezeit"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Darlehen beim BAFzA beantragen (online oder per Formular), am besten zusammen mit der Ankündigung beim Arbeitgeber."
+        ]
+      }
+    },
+    {
+      "id": "rente_pflegeperson_bund",
+      "leistung_id": "rente_pflegeperson",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "pflegekasse",
+      "quellen": [
+        "sgb11_44",
+        "pflegestuetzpunkte_berlin_sicherung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.rolle",
+            "op": "==",
+            "wert": "angehoerig",
+            "text": "Sie pflegen bzw. unterstützen einen Angehörigen"
+          },
+          {
+            "fakt": "pflege.pflegegrad",
+            "op": ">=",
+            "wert": 2,
+            "text": "Pflegegrad 2 oder höher",
+            "quellen": [
+              "sgb11_44"
+            ]
+          },
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "zuhause",
+            "text": "Die pflegebedürftige Person lebt zu Hause (nicht im Pflegeheim)"
+          },
+          {
+            "fakt": "pflege.pflegestunden",
+            "op": ">=",
+            "wert": 10,
+            "text": "Sie pflegen mindestens zehn Stunden pro Woche, verteilt auf mindestens zwei Tage",
+            "quellen": [
+              "sgb11_44"
+            ]
+          },
+          {
+            "fakt": "pflege.eigene_arbeitsstunden",
+            "op": "<=",
+            "wert": 30,
+            "text": "Sie arbeiten höchstens 30 Stunden pro Woche",
+            "quellen": [
+              "sgb11_44"
+            ]
+          },
+          {
+            "pruefung_noetig": "Wer schon eine volle Altersrente bezieht und die Regelaltersgrenze erreicht hat, ist nicht mehr versicherungspflichtig.",
+            "quellen": [
+              "sgb11_44"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Im Antrag auf Pflegegeld bzw. im Fragebogen zur Pflegeperson Ihre Pflegezeit angeben – die Pflegekasse meldet Sie dann bei der Rentenversicherung.",
+          "Ändert sich der Umfang der Pflege, die Pflegekasse informieren."
+        ]
+      },
+      "hinweise": [
+        "Die Beiträge zahlt die Pflegekasse; ihre Höhe richtet sich nach Pflegegrad und Art der Leistung."
+      ]
+    }
+  ]
+}

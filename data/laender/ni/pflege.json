@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "ni_landesblindengeld",
+      "titel": "Leistungsbeschreibung Landesblindengeld für Zivilblinde (FIM, Niedersachsen)",
+      "url": "https://fimportal.de/api/v0/leistung-stammtexte/L100040/8690688/landesredaktion/de-DE/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Niedersachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (FIM, Antragsvordruck Landesamt): unabhängig von Einkommen und Vermögen; Merkzeichen Bl oder laufender Antrag; gewöhnlicher Aufenthalt in Niedersachsen; Antrag beim Landkreis bzw. der kreisfreien Stadt; Zahlung frühestens ab dem Antragsmonat. Höhe 2026 nicht bestätigt (Ratgeber: 450 €)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ni_blindengeldstelle",
+      "name": "Blindengeldstelle des Landkreises bzw. der Stadt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_ni",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "ni_blindengeldstelle",
+      "quellen": [
+        "ni_landesblindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Höhe 2026 nicht amtlich bestätigt – bitte bei der Blindengeldstelle erfragen.",
+        "Zahlung frühestens ab dem Monat des Antrags."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "ni_landesblindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesblindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

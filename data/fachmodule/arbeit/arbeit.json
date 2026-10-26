@@ -1,0 +1,739 @@
+{
+  "_hinweis": "Fachmodul Arbeit: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Landesleistungen unter data/laender/*/arbeit.json.",
+  "quellen": [
+    {
+      "id": "ba_arbeitsuchend_2026",
+      "titel": "Agentur für Arbeit – Frühzeitig arbeitsuchend melden (Presseinfo 2026)",
+      "url": "https://www.arbeitsagentur.de/vor-ort/datei/2026_25_pi-arbeitssuchendmeldung_ba284196.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Presseinfo, § 38 SGB III bei buzer.de): spätestens drei Monate vor dem Ende des Arbeitsverhältnisses arbeitsuchend melden; liegen zwischen Kenntnis und Ende weniger als drei Monate, innerhalb von drei Tagen nach Kenntnis; auch wenn gegen die Kündigung geklagt wird; sonst eine Woche Sperrzeit; online, telefonisch oder persönlich."
+    },
+    {
+      "id": "ba_alg",
+      "titel": "Agentur für Arbeit – Arbeitslosengeld: Anspruch, Höhe, Dauer",
+      "url": "https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/arbeitslosengeld/finanzielle-hilfen/arbeitslosengeld-anspruch-hoehe-dauer",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Anwartschaft erfüllt bei mindestens 12 Monaten Versicherungspflicht in den letzten 30 Monaten; 60 % des pauschalierten Nettoentgelts, 67 % mit Kind; Antrag etwa zwei Wochen vor Beginn der Arbeitslosigkeit reicht; Arbeitslosmeldung spätestens am ersten Tag."
+    },
+    {
+      "id": "ba_sperrzeit",
+      "titel": "Agentur für Arbeit – Fachliche Weisungen zu § 159 SGB III (Sperrzeit)",
+      "url": "https://www.arbeitsagentur.de/datei/fw-sgb-iii-159_ba015166.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesagentur für Arbeit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Sperrzeit u. a. bei Arbeitsaufgabe ohne wichtigen Grund (Eigenkündigung, Aufhebungsvertrag) und bei verspäteter Arbeitsuchendmeldung (eine Woche). Dauer bei Arbeitsaufgabe (in der Regel 12 Wochen) nach Kenntnis des Gesetzes, nicht über die Suche bestätigt."
+    },
+    {
+      "id": "kschg_4",
+      "titel": "§ 4 KSchG – Anrufung des Arbeitsgerichts",
+      "url": "https://www.gesetze-im-internet.de/kschg/__4.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Gesetzesportalen und BAG 2 AZR 483/14: Klage innerhalb von drei Wochen nach Zugang der schriftlichen Kündigung beim Arbeitsgericht; sonst gilt die Kündigung als wirksam (§ 7 KSchG); gilt für alle schriftlichen Kündigungen."
+    },
+    {
+      "id": "insolvenzgeld_fim",
+      "titel": "Leistungsbeschreibung Insolvenzgeld (FIM)",
+      "url": "https://fimportal.de/api/v0/xzufi-services/L100009/6000032/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (FIM, DGB Rechtsschutz, Gesetzestext § 324 SGB III): ausgefallenes Nettoentgelt der letzten drei Monate vor dem Insolvenzereignis; Ausschlussfrist zwei Monate nach dem Insolvenzereignis (Eröffnung, Abweisung mangels Masse oder Betriebseinstellung); Antrag bei der Agentur für Arbeit."
+    },
+    {
+      "id": "ihk_gruendungszuschuss",
+      "titel": "IHK Chemnitz – Gründungszuschuss für Arbeitslosengeld-I-Empfänger",
+      "url": "https://www.ihk.de/chemnitz/starthilfe/finanzierung-und-foerderung/gruendungsfoerderung/gruendungszuschuss-fuer-arbeitslosengeld-i-empfaenger-1906904",
+      "typ": "behoerde",
+      "herausgeber": "IHK Chemnitz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (IHK Chemnitz, IHK Limburg, betanet 5/2026): Ermessensleistung der Arbeitsagentur; Restanspruch auf Arbeitslosengeld von mindestens 150 Tagen; hauptberufliche Selbstständigkeit; Tragfähigkeitsbescheinigung einer fachkundigen Stelle; sechs Monate Arbeitslosengeld plus 300 €, danach bis neun Monate 300 €. Eine Ratgeberseite nennt abweichend einen Tag Restanspruch (widerspricht den Kammern)."
+    },
+    {
+      "id": "sgb2_16b",
+      "titel": "§ 16b SGB II – Einstiegsgeld (Fassung 2026)",
+      "url": "https://lxgesetze.de/sgb-ii/16b",
+      "typ": "gesetz",
+      "herausgeber": "lxgesetze.de (Gesetzestext)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Gesetzestext, Weisung Jobcenter Wuppertal 5/2026): Ermessensleistung des Jobcenters bei Aufnahme einer Beschäftigung oder Selbstständigkeit, höchstens 24 Monate; Selbstständigkeit als Hauptberuf (u. a. mindestens 15 Stunden pro Woche laut Weisung Wuppertal)."
+    },
+    {
+      "id": "steuerliche_erfassung",
+      "titel": "Bayerisches Landesamt für Steuern – Merkblatt zur steuerlichen Erfassung für Neugründer (Juni 2025)",
+      "url": "https://www.lfst.bayern.de/fileadmin/RESSOURCEN/INFORMATIONEN/Steuerinfos/Zielgruppen/Existenzgruender/Merkblattblatt_zur_steuerlichen_Erfassung_Neugruender_Juni_2025.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bayerisches Landesamt für Steuern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Merkblatt, Finanzamt Brandenburg): Fragebogen zur steuerlichen Erfassung innerhalb eines Monats nach Aufnahme der Tätigkeit elektronisch über ELSTER (§ 138 Abs. 1b AO); gilt auch für Freiberufler; die Gewerbeanmeldung ersetzt ihn nicht."
+    },
+    {
+      "id": "gewerbeanmeldung",
+      "titel": "Gewerbe anmelden (Ratgeber, Bezug § 14 GewO)",
+      "url": "https://www.e-recht24.de/unternehmensgruendung/13363-gewerbe-anmelden.html",
+      "typ": "sekundaer",
+      "herausgeber": "e-recht24.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquellen: Gewerbeanzeige nach § 14 GewO bei Beginn der Tätigkeit bei der Gemeinde; Gebühren je Gemeinde (etwa 15–65 €); Freiberufler melden kein Gewerbe an."
+    },
+    {
+      "id": "handwerksrolle",
+      "titel": "service-bw – Eintragung in die Handwerksrolle beantragen",
+      "url": "https://www.heidelberg.de/-/Verfahrensbeschreibung/eintragung-in-die-handwerksrolle-beantragen/vbid546",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (service-bw, BayernPortal, FIM): zulassungspflichtiges Handwerk nur mit Eintragung in die Handwerksrolle vor Beginn; Meisterprüfung oder gleichwertige Qualifikation (auch eines angestellten Betriebsleiters) bzw. Ausnahmebewilligung; ohne Eintragung Ordnungswidrigkeit."
+    },
+    {
+      "id": "kfw_067",
+      "titel": "SIKB – Hausbankenmitteilung 06/2026 (ERP-Gründerkredit StartGeld)",
+      "url": "https://www.sikb.de/sites/default/files/SIKB/Hausbankenmitteilungen%202026/HB_06_2026.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Saarländische Investitionskreditbank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (SIKB 1/2026, Handwerksblatt): KfW-StartGeld (067) bis 200.000 € Fremdfinanzierung für Gründer und junge Unternehmen bis fünf Jahre; Antrag über die Hausbank; KfW übernimmt 80 % des Ausfallrisikos; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "gewerbeamt",
+      "name": "Gewerbeamt – {gemeinde}",
+      "beschreibung": "Gewerbeamt bzw. Bürgerbüro der Gemeinde, in der der Betrieb liegt; oft online."
+    },
+    {
+      "id": "finanzamt",
+      "name": "Finanzamt (über ELSTER)",
+      "url": "https://www.elster.de",
+      "beschreibung": "Das für Ihren Wohnort bzw. Betriebssitz zuständige Finanzamt."
+    },
+    {
+      "id": "handwerkskammer",
+      "name": "Handwerkskammer für Ihren Betriebssitz",
+      "beschreibung": "Führt die Handwerksrolle und berät Gründer."
+    },
+    {
+      "id": "arbeitsgericht",
+      "name": "Arbeitsgericht (zuständig für den Betrieb bzw. Arbeitsort)",
+      "beschreibung": "Die Klage kann auch bei der Rechtsantragstelle des Arbeitsgerichts zu Protokoll gegeben werden."
+    },
+    {
+      "id": "jobcenter_arbeit",
+      "name": "Jobcenter – {kreis}",
+      "beschreibung": "Das Jobcenter Ihrer Stadt bzw. Ihres Landkreises."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "arbeitsuchend_melden",
+      "name": "Arbeitsuchend melden",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht, sobald Sie wissen, dass Ihr Arbeitsverhältnis endet – sonst droht eine Sperrzeit beim Arbeitslosengeld."
+    },
+    {
+      "id": "arbeitslosengeld",
+      "name": "Arbeitslosengeld",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Versicherungsleistung der Arbeitsagentur: 60 % (mit Kind 67 %) des pauschalierten Nettoentgelts."
+    },
+    {
+      "id": "kuendigungsschutzklage",
+      "name": "Kündigungsschutzklage (Frist drei Wochen)",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "beantragt_von": "selbst",
+      "kurz": "Wer eine Kündigung für unwirksam hält, muss innerhalb von drei Wochen klagen – sonst gilt sie als wirksam."
+    },
+    {
+      "id": "insolvenzgeld",
+      "name": "Insolvenzgeld",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Bei Insolvenz des Arbeitgebers zahlt die Arbeitsagentur den ausgefallenen Nettolohn der letzten drei Monate."
+    },
+    {
+      "id": "erwerbslosenberatung",
+      "name": "Kostenlose Beratung bei Arbeitslosigkeit (vom Land gefördert)",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "information",
+      "kurz": "Einige Länder fördern unabhängige Beratungsstellen, die bei Bescheiden, Arbeitsrecht und Sozialrecht kostenlos helfen."
+    },
+    {
+      "id": "gewerbe_anmelden",
+      "name": "Gewerbe anmelden",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Wer ein Gewerbe (auch ein Handwerk) beginnt, muss es bei der Gemeinde anzeigen. Freie Berufe sind ausgenommen."
+    },
+    {
+      "id": "steuerliche_erfassung",
+      "name": "Fragebogen zur steuerlichen Erfassung",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Pflicht für alle Selbstständigen: dem Finanzamt die neue Tätigkeit über ELSTER melden, damit Sie eine Steuernummer bekommen."
+    },
+    {
+      "id": "handwerksrolle",
+      "name": "Eintragung in die Handwerksrolle",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "pflicht",
+      "kurz": "Ein zulassungspflichtiges Handwerk dürfen Sie erst nach Eintragung bei der Handwerkskammer betreiben."
+    },
+    {
+      "id": "gruendungszuschuss",
+      "name": "Gründungszuschuss",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Wer Arbeitslosengeld bekommt und sich hauptberuflich selbstständig macht, kann einen Zuschuss bekommen."
+    },
+    {
+      "id": "einstiegsgeld",
+      "name": "Einstiegsgeld",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Wer Grundsicherungsgeld bekommt und sich selbstständig macht, kann vom Jobcenter einen Zuschuss bekommen."
+    },
+    {
+      "id": "kfw_startgeld",
+      "name": "KfW-Gründerkredit StartGeld",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "foerderprogramm",
+      "rechtsanspruch": false,
+      "kurz": "Kredit bis 200.000 € für Gründer und junge Unternehmen; die KfW übernimmt einen Teil des Risikos der Bank."
+    },
+    {
+      "id": "meistergruendungspraemie",
+      "name": "Meistergründungsprämie des Landes",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "rechtsanspruch": false,
+      "kurz": "Viele Länder zahlen Meisterinnen und Meistern einen Zuschuss, wenn sie einen Betrieb gründen oder übernehmen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "arbeitsuchend_melden_bund",
+      "leistung_id": "arbeitsuchend_melden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "ba_arbeitsuchend_2026"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Online, telefonisch oder persönlich bei der Agentur für Arbeit arbeitsuchend melden.",
+          "Die Meldung gilt auch, wenn Sie gegen die Kündigung klagen."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens drei Monate vor dem Ende – erfahren Sie es später, innerhalb von drei Tagen nach der Kündigung",
+            "bezug": "arbeit.ende_datum",
+            "quellen": [
+              "ba_arbeitsuchend_2026"
+            ],
+            "monate": -3,
+            "nicht_vor": {
+              "bezug": "arbeit.kuendigung_zugang",
+              "tage": 3
+            }
+          }
+        ]
+      },
+      "hinweise": [
+        "Wer sich zu spät meldet, bekommt eine Woche Sperrzeit beim Arbeitslosengeld."
+      ]
+    },
+    {
+      "id": "arbeitslosengeld_bund",
+      "leistung_id": "arbeitslosengeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "ba_alg",
+        "ba_sperrzeit"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.versichert_12_monate",
+            "op": "==",
+            "wert": true,
+            "text": "In den letzten 30 Monaten mindestens 12 Monate versicherungspflichtig beschäftigt",
+            "quellen": [
+              "ba_alg"
+            ]
+          },
+          {
+            "eine": [
+              {
+                "fakt": "arbeit.grund",
+                "op": "in",
+                "wert": [
+                  "kuendigung_arbeitgeber",
+                  "befristung",
+                  "insolvenz"
+                ],
+                "text": "Das Arbeitsverhältnis endet nicht durch Sie selbst"
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "arbeit.grund",
+                    "op": "in",
+                    "wert": [
+                      "eigenkuendigung",
+                      "aufhebungsvertrag"
+                    ],
+                    "text": "Eigenkündigung oder Aufhebungsvertrag"
+                  },
+                  {
+                    "pruefung_noetig": "Bei Eigenkündigung oder Aufhebungsvertrag ohne wichtigen Grund gibt es eine Sperrzeit (meist 12 Wochen) – das prüft die Arbeitsagentur.",
+                    "quellen": [
+                      "ba_sperrzeit"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "text": "Grund für das Ende"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Kündigung bzw. Arbeitsvertrag",
+          "Arbeitsbescheinigung (stellt der Arbeitgeber aus)",
+          "Personalausweis"
+        ],
+        "schritte": [
+          "Arbeitslosengeld online beantragen (etwa zwei Wochen vor dem Ende genügt).",
+          "Spätestens am ersten Tag ohne Arbeit arbeitslos melden."
+        ],
+        "fristen": [
+          {
+            "text": "Spätestens am ersten Tag ohne Arbeit arbeitslos melden",
+            "bezug": "arbeit.ende_datum",
+            "quellen": [
+              "ba_alg"
+            ],
+            "tage": 1
+          }
+        ]
+      },
+      "hinweise": [
+        "60 % des pauschalierten Nettoentgelts, mit Kind 67 %; die Dauer hängt von Alter und Beschäftigungszeit ab."
+      ]
+    },
+    {
+      "id": "kuendigungsschutzklage_bund",
+      "leistung_id": "kuendigungsschutzklage",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsgericht",
+      "quellen": [
+        "kschg_4"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.grund",
+            "op": "==",
+            "wert": "kuendigung_arbeitgeber",
+            "text": "Ihr Arbeitgeber hat gekündigt"
+          },
+          {
+            "pruefung_noetig": "Ob die Kündigung unwirksam ist und eine Klage Aussicht hat, klären Sie mit Gewerkschaft, Anwalt oder Beratungsstelle.",
+            "quellen": [
+              "kschg_4"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Beraten lassen (Gewerkschaft, Fachanwalt, Beratungsstelle).",
+          "Klage beim Arbeitsgericht einreichen oder dort zu Protokoll geben."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von drei Wochen nach Zugang der Kündigung klagen",
+            "bezug": "arbeit.kuendigung_zugang",
+            "quellen": [
+              "kschg_4"
+            ],
+            "wochen": 3
+          }
+        ]
+      },
+      "hinweise": [
+        "In der ersten Instanz trägt jede Seite ihre Anwaltskosten selbst."
+      ]
+    },
+    {
+      "id": "insolvenzgeld_bund",
+      "leistung_id": "insolvenzgeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "insolvenzgeld_fim"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "==",
+        "wert": "insolvenz",
+        "text": "Ihr Arbeitgeber ist insolvent"
+      },
+      "verfahren": {
+        "schritte": [
+          "Insolvenzgeld bei der Agentur für Arbeit beantragen – nicht auf den Insolvenzverwalter warten; zur Fristwahrung notfalls formlos."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb von zwei Monaten nach dem Insolvenzereignis beantragen (Ausschlussfrist)",
+            "bezug": "arbeit.insolvenz_datum",
+            "quellen": [
+              "insolvenzgeld_fim"
+            ],
+            "monate": 2
+          }
+        ]
+      },
+      "hinweise": [
+        "Deckt das ausgefallene Nettoentgelt der letzten drei Monate vor dem Insolvenzereignis."
+      ]
+    },
+    {
+      "id": "gewerbe_anmelden_bund",
+      "leistung_id": "gewerbe_anmelden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "gewerbeamt",
+      "quellen": [
+        "gewerbeanmeldung"
+      ],
+      "regel": {
+        "fakt": "arbeit.taetigkeit",
+        "op": "in",
+        "wert": [
+          "gewerbe",
+          "handwerk"
+        ],
+        "text": "Gewerbe oder Handwerk (kein freier Beruf)"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "bei erlaubnispflichtigen Gewerben die Erlaubnis",
+          "im Handwerk die Handwerkskarte"
+        ],
+        "schritte": [
+          "Gewerbe beim Gewerbeamt anmelden (oft online)."
+        ],
+        "fristen": [
+          {
+            "text": "Bei Beginn der Tätigkeit anmelden",
+            "bezug": "arbeit.gruendungsdatum",
+            "quellen": [
+              "gewerbeanmeldung"
+            ],
+            "tage": 0
+          }
+        ],
+        "kosten": "je nach Gemeinde etwa 15–65 €"
+      },
+      "hinweise": [
+        "Das Gewerbeamt informiert Finanzamt, Kammer und Berufsgenossenschaft; den Fragebogen zur steuerlichen Erfassung ersetzt das nicht."
+      ]
+    },
+    {
+      "id": "steuerliche_erfassung_bund",
+      "leistung_id": "steuerliche_erfassung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "finanzamt",
+      "quellen": [
+        "steuerliche_erfassung"
+      ],
+      "regel": {
+        "fakt": "arbeit.taetigkeit",
+        "op": "in",
+        "wert": [
+          "gewerbe",
+          "handwerk",
+          "freiberuflich"
+        ],
+        "text": "Sie machen sich selbstständig"
+      },
+      "verfahren": {
+        "schritte": [
+          "ELSTER-Zugang beantragen (dauert etwa zwei Wochen).",
+          "Fragebogen zur steuerlichen Erfassung über ELSTER ausfüllen."
+        ],
+        "fristen": [
+          {
+            "text": "Innerhalb eines Monats nach Beginn der Tätigkeit",
+            "bezug": "arbeit.gruendungsdatum",
+            "quellen": [
+              "steuerliche_erfassung"
+            ],
+            "monate": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "handwerksrolle_bund",
+      "leistung_id": "handwerksrolle",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "handwerkskammer",
+      "quellen": [
+        "handwerksrolle"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.zulassungspflichtig",
+            "op": "==",
+            "wert": true,
+            "text": "Es ist ein zulassungspflichtiges Handwerk (Anlage A der Handwerksordnung)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Meisterbrief oder gleichwertiger Nachweis",
+          "Personalausweis"
+        ],
+        "schritte": [
+          "Eintragung bei der Handwerkskammer beantragen; Sie erhalten die Handwerkskarte."
+        ],
+        "fristen": [
+          {
+            "text": "Vor Beginn der Tätigkeit",
+            "bezug": "keiner",
+            "quellen": [
+              "handwerksrolle"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Ohne Meister ist die Eintragung möglich, wenn ein Betriebsleiter mit Meisterprüfung angestellt ist oder eine Ausnahmebewilligung vorliegt."
+      ]
+    },
+    {
+      "id": "gruendungszuschuss_bund",
+      "leistung_id": "gruendungszuschuss",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "arbeitsagentur",
+      "quellen": [
+        "ihk_gruendungszuschuss"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.bezieht_alg",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Arbeitslosengeld"
+          },
+          {
+            "fakt": "arbeit.hauptberuflich",
+            "op": "==",
+            "wert": true,
+            "text": "Die Selbstständigkeit ist Ihr Hauptberuf"
+          },
+          {
+            "fakt": "arbeit.alg_resttage",
+            "op": ">=",
+            "wert": 150,
+            "text": "Noch mindestens 150 Tage Anspruch auf Arbeitslosengeld",
+            "quellen": [
+              "ihk_gruendungszuschuss"
+            ]
+          },
+          {
+            "pruefung_noetig": "Gründungszuschuss ist eine Ermessensleistung; nötig ist eine Tragfähigkeitsbescheinigung (z. B. von IHK oder Handwerkskammer).",
+            "quellen": [
+              "ihk_gruendungszuschuss"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Mit der Arbeitsvermittlung sprechen, bevor Sie gründen.",
+          "Businessplan und Tragfähigkeitsbescheinigung einreichen.",
+          "Antrag vor Beginn der Selbstständigkeit stellen."
+        ]
+      },
+      "hinweise": [
+        "Sechs Monate in Höhe des Arbeitslosengeldes plus 300 €, danach auf Antrag bis zu neun Monate 300 €."
+      ]
+    },
+    {
+      "id": "einstiegsgeld_bund",
+      "leistung_id": "einstiegsgeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "jobcenter_arbeit",
+      "quellen": [
+        "sgb2_16b"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "arbeit.hauptberuflich",
+            "op": "==",
+            "wert": true,
+            "text": "Die Selbstständigkeit ist Ihr Hauptberuf"
+          },
+          {
+            "pruefung_noetig": "Einstiegsgeld ist eine Ermessensleistung des Jobcenters; es prüft die Tragfähigkeit.",
+            "quellen": [
+              "sgb2_16b"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Vor der Gründung mit dem Jobcenter sprechen und Einstiegsgeld beantragen."
+        ]
+      },
+      "hinweise": [
+        "Höchstens 24 Monate; die Höhe hängt von Dauer der Arbeitslosigkeit und Größe des Haushalts ab."
+      ]
+    },
+    {
+      "id": "kfw_startgeld_bund",
+      "leistung_id": "kfw_startgeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "hausbank",
+      "quellen": [
+        "kfw_067"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.kredit_benoetigt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie brauchen einen Kredit für die Gründung"
+          },
+          {
+            "pruefung_noetig": "Ob die Bank den Kredit vergibt, hängt von Ihrem Vorhaben ab.",
+            "quellen": [
+              "kfw_067"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Kredit über Ihre Bank beantragen, bevor Sie investieren."
+        ]
+      }
+    }
+  ]
+}

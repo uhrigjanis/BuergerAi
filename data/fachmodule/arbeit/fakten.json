@@ -1,0 +1,133 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Arbeit.",
+  "fakten": [
+    {
+      "id": "arbeit.grund",
+      "typ": "auswahl",
+      "frage": "Wie endet Ihr Arbeitsverhältnis?",
+      "optionen": [
+        {
+          "wert": "kuendigung_arbeitgeber",
+          "text": "Kündigung durch den Arbeitgeber"
+        },
+        {
+          "wert": "eigenkuendigung",
+          "text": "eigene Kündigung"
+        },
+        {
+          "wert": "aufhebungsvertrag",
+          "text": "Aufhebungsvertrag"
+        },
+        {
+          "wert": "befristung",
+          "text": "Befristung läuft aus"
+        },
+        {
+          "wert": "insolvenz",
+          "text": "Insolvenz des Arbeitgebers"
+        }
+      ]
+    },
+    {
+      "id": "arbeit.ende_datum",
+      "typ": "datum",
+      "frage": "Wann endet bzw. endete das Arbeitsverhältnis? (TT.MM.JJJJ)",
+      "hilfe": "Der letzte Tag des Arbeitsverhältnisses. Davon hängen die Fristen der Arbeitsagentur ab."
+    },
+    {
+      "id": "arbeit.kuendigung_zugang",
+      "typ": "datum",
+      "frage": "Wann haben Sie die schriftliche Kündigung erhalten? (TT.MM.JJJJ)",
+      "hilfe": "Der Tag, an dem die Kündigung bei Ihnen ankam. Ab dann läuft die Klagefrist von drei Wochen.",
+      "nur_wenn": {
+        "fakt": "arbeit.grund",
+        "wert": "kuendigung_arbeitgeber"
+      }
+    },
+    {
+      "id": "arbeit.insolvenz_datum",
+      "typ": "datum",
+      "frage": "Wann wurde das Insolvenzverfahren eröffnet (bzw. mangels Masse abgewiesen)? (TT.MM.JJJJ)",
+      "hilfe": "Ab diesem Tag läuft die Frist von zwei Monaten für das Insolvenzgeld.",
+      "nur_wenn": {
+        "fakt": "arbeit.grund",
+        "wert": "insolvenz"
+      }
+    },
+    {
+      "id": "arbeit.versichert_12_monate",
+      "typ": "ja_nein",
+      "frage": "Waren Sie in den letzten 30 Monaten insgesamt mindestens 12 Monate versicherungspflichtig beschäftigt?",
+      "hilfe": "Normale Anstellung (kein Minijob); auch Elternzeit mit Kind unter 3 Jahren kann zählen."
+    },
+    {
+      "id": "arbeit.taetigkeit",
+      "typ": "auswahl",
+      "frage": "Was für eine Selbstständigkeit planen Sie?",
+      "optionen": [
+        {
+          "wert": "gewerbe",
+          "text": "ein Gewerbe (z. B. Handel, Dienstleistung, Gastronomie)"
+        },
+        {
+          "wert": "handwerk",
+          "text": "einen Handwerksbetrieb"
+        },
+        {
+          "wert": "freiberuflich",
+          "text": "einen freien Beruf (z. B. Ärztin, Architekt, Journalistin, Designer)"
+        }
+      ]
+    },
+    {
+      "id": "arbeit.gruendungsdatum",
+      "typ": "datum",
+      "frage": "Wann beginnen Sie bzw. haben Sie begonnen? (TT.MM.JJJJ)",
+      "hilfe": "Ab diesem Tag laufen die Fristen für Gewerbeamt und Finanzamt."
+    },
+    {
+      "id": "arbeit.hauptberuflich",
+      "typ": "ja_nein",
+      "frage": "Wird die Selbstständigkeit Ihr Hauptberuf (nicht nur nebenbei)?"
+    },
+    {
+      "id": "arbeit.zulassungspflichtig",
+      "typ": "ja_nein",
+      "frage": "Ist es ein zulassungspflichtiges Handwerk (z. B. Elektriker, Installateur, Friseur, Bäcker)?",
+      "hilfe": "Die Liste steht in Anlage A der Handwerksordnung; die Handwerkskammer gibt Auskunft.",
+      "nur_wenn": {
+        "fakt": "arbeit.taetigkeit",
+        "wert": "handwerk"
+      }
+    },
+    {
+      "id": "arbeit.meister",
+      "typ": "ja_nein",
+      "frage": "Haben Sie die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden?",
+      "nur_wenn": {
+        "fakt": "arbeit.taetigkeit",
+        "wert": "handwerk"
+      }
+    },
+    {
+      "id": "arbeit.bezieht_alg",
+      "typ": "ja_nein",
+      "frage": "Bekommen Sie zurzeit Arbeitslosengeld (von der Arbeitsagentur)?"
+    },
+    {
+      "id": "arbeit.alg_resttage",
+      "typ": "zahl",
+      "frage": "Für wie viele Tage haben Sie noch Anspruch auf Arbeitslosengeld?",
+      "hilfe": "Steht im Bewilligungsbescheid der Arbeitsagentur.",
+      "nur_wenn": {
+        "fakt": "arbeit.bezieht_alg",
+        "wert": true
+      }
+    },
+    {
+      "id": "arbeit.kredit_benoetigt",
+      "typ": "ja_nein",
+      "frage": "Brauchen Sie für die Gründung einen Kredit?"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Selbstständig: Elektromeister gründet in Kiel",
+  "beschreibung": "Handwerksrolle, Gewerbeanmeldung und steuerliche Erfassung mit Fristen; Meistergründungsprämie Schleswig-Holstein unklar bis zur Prüfung.",
+  "plz": "24103",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "selbststaendig"
+  ],
+  "anforderungen": [
+    "ANF-ARB-06",
+    "ANF-ARB-08"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "arbeit.bezieht_alg": "nein",
+    "arbeit.kredit_benoetigt": "nein",
+    "arbeit.taetigkeit": "handwerk",
+    "arbeit.gruendungsdatum": "2026-12-01",
+    "arbeit.hauptberuflich": "ja",
+    "arbeit.zulassungspflichtig": "ja",
+    "arbeit.meister": "ja"
+  },
+  "erwartet": {
+    "handwerksrolle": "ja",
+    "gewerbe_anmelden": "ja",
+    "steuerliche_erfassung": "ja",
+    "meistergruendungspraemie": "unklar",
+    "gruendungszuschuss": "nein"
+  },
+  "erwartet_stellen": {
+    "meistergruendungspraemie": "IB.SH",
+    "gewerbe_anmelden": "Gewerbeamt – Kiel"
+  },
+  "erwartet_fehlend": []
+}

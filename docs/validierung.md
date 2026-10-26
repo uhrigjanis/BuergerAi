@@ -375,3 +375,42 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widerspr
 
 Landesleistung der Lebenslage ist das Blindengeld (Tabelle unter Pflege). Gehörlosen- und Taubblindengeld sind nicht erfasst.
 
+## Lebenslagen Job verloren und Selbstständig machen (Issue #41, Schritt 6)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `ba_arbeitsuchend_2026`, `ba_alg`, `ba_sperrzeit` | Fristen § 38 SGB III (Änderung durch Gesetz vom 24.7.2026?), Anwartschaft, Sperrzeit 12 Wochen |
+| `kschg_4`, `insolvenzgeld_fim` | Drei Wochen ab Zugang; zwei Monate ab Insolvenzereignis |
+| `ihk_gruendungszuschuss` | 150 Tage Restanspruch (eine Ratgeberseite widerspricht) |
+| `sgb2_16b` | Einstiegsgeld: Hauptberuf, Höhe |
+| `steuerliche_erfassung`, `gewerbeanmeldung`, `handwerksrolle` | Fristen und Ausnahmen |
+| `be_meistergruendung`, `st_meistergruendung` | nur Sekundärquellen |
+| `bb_meistergruendung` | **Widersprüchlich:** Höhe und Antragsstatus |
+| `th_meistergruendung`, `hh_gruendung_handwerk` | Höhe nicht amtlich |
+| alle `*_keine_erwerbslosenberatung` | „keine“ beruht auf Websuchen; Landeshaushalte prüfen |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Job verloren: Beratung | Selbstständig: Meistergründungsprämie |
+|------|------------------------|----------------------------------------|
+| Baden-Württemberg | Arbeitslosenberatungszentren | Tilgungszuschuss L-Bank (10 %, max. 10.000 €) |
+| Bayern | keine | keine (Meisterbonus, LfA-Kredite) |
+| Berlin | BALZ (Senat) | bis 25.000 € |
+| Brandenburg | keine | Meistergründungsprämie (widersprüchlich) |
+| Bremen | keine | keine |
+| Hamburg | keine | Zuschuss zum Hamburg-Kredit bei Ausbildungsplatz |
+| Hessen | keine | keine (Beratung, Mikrodarlehen) |
+| Mecklenburg-Vorpommern | keine | 7.500 € + 2.500 € je Arbeitsplatz |
+| Niedersachsen | unabhängige Erwerbslosenberatungsstellen | 10.000 € bei neuem Arbeitsplatz |
+| Nordrhein-Westfalen | Beratungsstellen Arbeit | bis 11.500 € (+2.000 € bei Übernahme) |
+| Rheinland-Pfalz | keine | Aufstiegsbonus II 2.500 € |
+| Saarland | Arbeitskammer (Landesrecht) | Gründer- und Nachfolgebonus 2.500 € |
+| Sachsen | keine | keine (InnoStartBonus u. a.) |
+| Sachsen-Anhalt | keine | 10.000 € (seit 7/2026) |
+| Schleswig-Holstein | keine | bis 7.500 € + 2.500 € |
+| Thüringen | keine | Meistergründungsprämie (Höhe offen) |
+

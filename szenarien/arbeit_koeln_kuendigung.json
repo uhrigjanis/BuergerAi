@@ -1,0 +1,35 @@
+{
+  "name": "Job verloren: Kündigung durch den Arbeitgeber in Köln",
+  "beschreibung": "Arbeitsuchend melden mit Drei-Tage-Frist ab Kündigung, Klagefrist drei Wochen, Arbeitslosengeld; Beratungsstelle Arbeit des Landes NRW.",
+  "plz": "50667",
+  "stichtag": "2026-10-21",
+  "lebenslagen": [
+    "jobverlust"
+  ],
+  "anforderungen": [
+    "ANF-ARB-01",
+    "ANF-ARB-02",
+    "ANF-ARB-04"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "einkommen.erwerbsfaehig": "ja",
+    "alter": 40,
+    "arbeit.grund": "kuendigung_arbeitgeber",
+    "arbeit.ende_datum": "2026-12-31",
+    "arbeit.kuendigung_zugang": "2026-10-20",
+    "arbeit.versichert_12_monate": "ja"
+  },
+  "erwartet": {
+    "arbeitsuchend_melden": "ja",
+    "arbeitslosengeld": "ja",
+    "kuendigungsschutzklage": "unklar",
+    "erwerbslosenberatung": "ja",
+    "insolvenzgeld": "nein"
+  },
+  "erwartet_stellen": {
+    "erwerbslosenberatung": "Beratungsstelle Arbeit – Kreisfreie Stadt Köln",
+    "arbeitsuchend_melden": "Agentur für Arbeit"
+  },
+  "erwartet_fehlend": []
+}

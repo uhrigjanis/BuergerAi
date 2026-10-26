@@ -1,0 +1,29 @@
+{
+  "name": "Job verloren: Befristung in Berlin, Versicherungszeit unbekannt",
+  "beschreibung": "Ohne Angabe zur Versicherungszeit bleibt das Arbeitslosengeld unklar statt erfunden.",
+  "plz": "10115",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "jobverlust"
+  ],
+  "anforderungen": [
+    "ANF-ARB-09"
+  ],
+  "fakten": {
+    "bezieht_buergergeld": "nein",
+    "einkommen.erwerbsfaehig": "ja",
+    "alter": 40,
+    "arbeit.grund": "befristung",
+    "arbeit.ende_datum": "2027-02-28",
+    "arbeit.versichert_12_monate": "unbekannt"
+  },
+  "erwartet": {
+    "arbeitslosengeld": "unklar",
+    "arbeitsuchend_melden": "ja",
+    "erwerbslosenberatung": "ja"
+  },
+  "erwartet_stellen": {
+    "erwerbslosenberatung": "BALZ"
+  },
+  "erwartet_fehlend": []
+}

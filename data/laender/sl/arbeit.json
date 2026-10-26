@@ -1,0 +1,135 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sl_arbeitskammer",
+      "titel": "Arbeitskammer des Saarlandes – 75 Jahre Beratung (AK Konkret 2/2026)",
+      "url": "https://www.arbeitskammer.de/fileadmin/user_upload/---------------AK_Download_Datenbank-------------/Ueber_uns/Ueber_uns/Web-PDF_AK_Konkret_2_2026__75Jahre_Beratung.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Arbeitskammer des Saarlandes",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Die Arbeitskammer (Körperschaft nach Landesrecht) berät Beschäftigte und Arbeitsuchende kostenlos zu Arbeits- und Sozialrecht, auch zur Arbeitslosenversicherung; rund 45.000 Ratsuchende im Jahr. Keine Landesförderung im engeren Sinn, sondern eine Einrichtung des Landesrechts."
+    },
+    {
+      "id": "sl_gruenderbonus",
+      "titel": "HWK Saarland – Flyer Gründer- und Nachfolgebonus 2026",
+      "url": "https://www.hwk-saarland.de/wp-content/uploads/Flyer-Gruender-und-Nachfolgebonus-2026.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Handwerkskammer des Saarlandes",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Flyer, Antrag, Richtlinie 1.1.2026): 2.500 € für die erste Gründung, Übernahme oder tätige Beteiligung (mindestens 25 %) im Handwerk; Meister- oder gleichwertige Prüfung höchstens vier Jahre zurück; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sl_arbeitskammer",
+      "name": "Arbeitskammer des Saarlandes – Beratung",
+      "url": "https://www.arbeitskammer.de",
+      "beschreibung": "Haus der Beratung in Saarbrücken, auch telefonisch und online."
+    },
+    {
+      "id": "hwk_saarland_gruendung",
+      "name": "Handwerkskammer des Saarlandes",
+      "url": "https://www.hwk-saarland.de",
+      "beschreibung": "Antrag über die Kammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "erwerbslosenberatung_sl",
+      "leistung_id": "erwerbslosenberatung",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "sl_arbeitskammer",
+      "quellen": [
+        "sl_arbeitskammer"
+      ],
+      "regel": {
+        "fakt": "arbeit.grund",
+        "op": "in",
+        "wert": [
+          "kuendigung_arbeitgeber",
+          "eigenkuendigung",
+          "aufhebungsvertrag",
+          "befristung",
+          "insolvenz"
+        ],
+        "text": "Ihr Arbeitsverhältnis endet"
+      },
+      "verfahren": {
+        "schritte": [
+          "Beratungsstelle in Ihrer Nähe suchen und einen Termin vereinbaren."
+        ],
+        "kosten": "kostenlos"
+      },
+      "hinweise": [
+        "Einrichtung nach saarländischem Landesrecht; berät auch Arbeitsuchende."
+      ]
+    },
+    {
+      "id": "meistergruendungspraemie_sl",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "hwk_saarland_gruendung",
+      "quellen": [
+        "sl_gruenderbonus"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "sl_gruenderbonus"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Gründer- und Nachfolgebonus.",
+        "2.500 €; Meisterprüfung höchstens vier Jahre zurück."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sl_arbeitskammer"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Landesleistung erfasst: Beratung der Arbeitskammer."
+    },
+    {
+      "gebiet_id": "10",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sl_gruenderbonus"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Gründer- und Nachfolgebonus."
+    }
+  ]
+}

@@ -172,6 +172,14 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Geteilter Fakt statt Doppelung:** Das Merkzeichen Bl ist der Fakt `pflege.blind` aus dem Modul Pflege; Behinderung importiert ihn (`importiert_fakten`). Die Frage ist neutral formuliert. Das Blindengeld der Länder gehört zu beiden Lebenslagen.
 - **Ortsbezug mit Bedingung außerhalb der Lebenslage (Engine):** Das Blindengeld hat den Ortsbezug `pflege.ort` mit `nur_wenn` auf `pflege.rolle`. Gehört diese Bedingung nicht zu den Einstiegsfragen der gewählten Lebenslagen, gilt jetzt der Wohnort, statt nach der Pflege zu fragen. Wer Pflege mitwählt, wird wie bisher gefragt.
 
+### 14. Umsetzung von Schritt 6, Teil 2: Arbeit (26.10.2026)
+
+- **Fachmodul `arbeit`** mit zwei Lebenslagen: `jobverlust` und `selbststaendig` (beide `ereignis`). Ein Modul, weil Arbeitsagentur, Jobcenter und Kammern in beiden vorkommen; die Lebenslagen bleiben getrennt wählbar.
+- **Frist mit „nicht vor“ (Engine):** § 38 SGB III verlangt die Meldung drei Monate vor dem Ende, bei kürzerem Vorlauf drei Tage nach Kenntnis. Eine Frist kann jetzt `nicht_vor: {bezug, tage}` haben; es gilt das spätere Datum. Ohne Kündigungsdatum bleibt die Drei-Monats-Frist. Die Prüfung verlangt einen erlaubten Datumsfakt.
+- **Bedingte Datumsfragen:** Zugang der Kündigung und Datum der Insolvenz sind Einstiegsfragen mit `nur_wenn` auf den Grund; gefragt wird nur, was zum Grund passt.
+- **Geteilte Leistung:** Das Grundsicherungsgeld (Modul Einkommen) gehört auch zu `jobverlust`.
+- **Landesleistungen:** Bei Jobverlust nur Beratung (Art `information`), weil Geldleistungen Bundesrecht sind; bei Gründung die Meistergründungsprämien. Gründerkredite der Landesförderbanken stehen unter „nicht erfasst“.
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

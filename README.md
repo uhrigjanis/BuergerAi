@@ -252,7 +252,17 @@ docs/
 - ✅ 4 Szenarien, 132/132 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Preis der Wertmarke nur aus einer Sekundärquelle; Zuständigkeit in Thüringen widersprüchlich ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Arbeit, Heirat, Ruhestand, Todesfall und Schule (#41, Schritt 6) – je ein eigener PR; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslagen Job verloren und Selbstständig machen (#41, Schritt 6)
+
+- ✅ Fachmodul Arbeit mit zwei Lebenslagen:
+  - **Job verloren:** arbeitsuchend melden (Frist drei Monate vor dem Ende bzw. drei Tage nach der Kündigung), Arbeitslosengeld (Sperrzeit bei Eigenkündigung als Unklar), Kündigungsschutzklage (drei Wochen), Insolvenzgeld (zwei Monate), Grundsicherungsgeld
+  - **Selbstständig machen:** Gewerbeanmeldung, Handwerksrolle, steuerliche Erfassung (ein Monat), Gründungszuschuss, Einstiegsgeld, KfW-StartGeld
+- ✅ Alle 16 Länder recherchiert: vom Land geförderte Erwerbslosenberatung in BW, Berlin, Niedersachsen, NRW und (Arbeitskammer) Saarland; Meistergründungsprämie in 12 Ländern, keine in Bayern, Bremen, Hessen und Sachsen
+- ✅ Fristen mit „nicht vor“: es gilt das spätere von zwei Daten (§ 38 SGB III)
+- ✅ 7 Szenarien, 142/142 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; mehrere „keine“ für Erwerbslosenberatung beruhen auf Websuchen ohne amtliche Negativaussage ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Heirat, Ruhestand, Todesfall und Schule (#41, Schritt 6) – je ein eigener PR; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

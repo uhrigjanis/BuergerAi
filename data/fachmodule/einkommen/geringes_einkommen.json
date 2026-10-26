@@ -172,7 +172,8 @@
       "id": "grundsicherungsgeld",
       "name": "Grundsicherungsgeld (früher Bürgergeld)",
       "lebenslagen": [
-        "geringes_einkommen"
+        "geringes_einkommen",
+        "jobverlust"
       ],
       "verwaltungsebene": "kreis",
       "fuer": "haushalt",

@@ -1,0 +1,128 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Arbeit (ADR 0008). Zwei Lebenslagen: Job verloren, Selbstständig machen.",
+  "fachmodul": {
+    "id": "arbeit",
+    "name": "Arbeit und Selbstständigkeit",
+    "beschreibung": "Arbeitsplatz verlieren, Arbeitslosigkeit und Gründung: Pflichten, Fristen und Leistungen.",
+    "abgrenzung": [
+      "Grundsicherungsgeld steht im Modul geringes Einkommen und gehört auch zu Job verloren.",
+      "Meisterbonus für die bestandene Prüfung gehört zu Ausbildung, Studium oder Meister."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "jobverlust",
+      "name": "Job verloren oder gekündigt",
+      "typ": "ereignis",
+      "beschreibung": "Ihr Arbeitsverhältnis endet: Kündigung, Aufhebungsvertrag, Befristung oder Insolvenz des Arbeitgebers.",
+      "einstiegsfragen": [
+        "arbeit.grund",
+        "arbeit.ende_datum",
+        "arbeit.kuendigung_zugang",
+        "arbeit.insolvenz_datum"
+      ],
+      "synonyme": [
+        "Kündigung",
+        "gekündigt",
+        "arbeitslos",
+        "Arbeitslosigkeit",
+        "Job verloren",
+        "entlassen",
+        "Arbeitslosengeld",
+        "ALG",
+        "Aufhebungsvertrag",
+        "Insolvenz",
+        "Insolvenzgeld",
+        "Kündigungsschutzklage",
+        "Sperrzeit",
+        "Arbeitsamt",
+        "Arbeitsagentur"
+      ],
+      "beispiele": [
+        "Mir wurde gekündigt, was muss ich jetzt tun?",
+        "Mein Arbeitgeber ist pleite.",
+        "Mein befristeter Vertrag läuft aus.",
+        "Ich überlege, selbst zu kündigen."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Bildungsgutschein und Weiterbildung",
+          "grund": "Ermessensleistung der Arbeitsagentur; folgt."
+        },
+        {
+          "name": "Abfindung und ihre Besteuerung",
+          "grund": "Keine staatliche Leistung; Steuerfragen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Kurzarbeitergeld",
+          "grund": "Beantragt der Arbeitgeber; folgt."
+        },
+        {
+          "name": "Krankenversicherung während der Arbeitslosigkeit",
+          "grund": "Mit Arbeitslosengeld automatisch versichert; Sonderfälle folgen."
+        },
+        {
+          "name": "Beratung durch Arbeitnehmerkammern und Gewerkschaften",
+          "grund": "Erfasst ist nur die vom Land geförderte Erwerbslosenberatung (bzw. die Arbeitskammer des Saarlandes)."
+        }
+      ]
+    },
+    {
+      "id": "selbststaendig",
+      "name": "Selbstständig machen",
+      "typ": "ereignis",
+      "beschreibung": "Sie gründen ein Gewerbe, einen Handwerksbetrieb oder machen sich freiberuflich selbstständig.",
+      "einstiegsfragen": [
+        "arbeit.taetigkeit",
+        "arbeit.gruendungsdatum",
+        "arbeit.hauptberuflich"
+      ],
+      "synonyme": [
+        "Gründung",
+        "gründen",
+        "selbstständig",
+        "Selbstständigkeit",
+        "Existenzgründung",
+        "Gewerbe",
+        "Gewerbeanmeldung",
+        "Freiberufler",
+        "Firma",
+        "Handwerksbetrieb",
+        "Meistergründung",
+        "Gründungszuschuss",
+        "Einstiegsgeld",
+        "Startup",
+        "Finanzamt"
+      ],
+      "beispiele": [
+        "Ich will mich als Elektriker selbstständig machen.",
+        "Wie melde ich ein Gewerbe an?",
+        "Ich bin arbeitslos und will gründen.",
+        "Ich werde freiberufliche Grafikerin."
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Gründerkredite und Zuschüsse der Landesförderbanken (z. B. LfA-Startkredit, Hessen-Mikrodarlehen, Sachsenkredit)",
+          "grund": "Je Land viele Programme; erfasst sind die Meistergründungsprämien."
+        },
+        {
+          "name": "Gründungsstipendien für innovative Gründungen (z. B. InnoStartBonus, InnoFounder)",
+          "grund": "Nur für bestimmte Vorhaben; folgt."
+        },
+        {
+          "name": "Kranken-, Renten- und Unfallversicherung für Selbstständige",
+          "grund": "Folgt."
+        },
+        {
+          "name": "Erlaubnispflichtige Gewerbe (z. B. Gaststätte, Makler, Bewachung)",
+          "grund": "Je Gewerbe verschieden; folgt."
+        },
+        {
+          "name": "Kleinunternehmerregelung und Umsatzsteuer",
+          "grund": "Steuerfragen folgen mit einer eigenen Lebenslage."
+        }
+      ]
+    }
+  ]
+}

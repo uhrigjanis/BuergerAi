@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_keine_erwerbslosenberatung",
+      "titel": "SSW – Initiative für unabhängige Beratung von Arbeitslosen",
+      "url": "https://www.ssw.de/themen/ssw-initiative-regierung-soll-unabhaengige-beratung-von-arbeitslosen-sicherstellen-4527.pdf",
+      "typ": "sekundaer",
+      "herausgeber": "SSW im Landtag",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Die Landesförderung der Arbeitslosenberatung wurde 2006 gestrichen; eine neue Förderung wurde nicht gefunden."
+    },
+    {
+      "id": "sh_meistergruendung",
+      "titel": "Leistungsbeschreibung Meistergründungsprämie (FIM, Schleswig-Holstein)",
+      "url": "https://fimportal.de/api/v0/xzufi-services/L100012/303917127/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: bis 7.500 € bei erstmaliger Gründung, Übernahme oder tätiger Beteiligung im Handwerk, bis 2.500 € je zusätzlichem Arbeits- oder Ausbildungsplatz; über die IB.SH; Antrag vor Aufnahme der Tätigkeit; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ibsh_gruendung",
+      "name": "Investitionsbank Schleswig-Holstein (IB.SH)",
+      "url": "https://www.ib-sh.de",
+      "beschreibung": "Beratung bei der Handwerkskammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_sh",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "ibsh_gruendung",
+      "quellen": [
+        "sh_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "sh_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Bis 7.500 €, dazu bis 2.500 € für einen zusätzlichen Arbeits- oder Ausbildungsplatz."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "01",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie."
+    }
+  ]
+}

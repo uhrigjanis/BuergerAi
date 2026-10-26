@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "th_keine_erwerbslosenberatung",
+      "titel": "Förderdatenbank – Landesprogramm Arbeit für Thüringen",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Thueringen/landesprogramm-arbeit-fuer-thueringen.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Projektförderung für benachteiligte Gruppen, aber keine Erwerbslosenberatung gefunden."
+    },
+    {
+      "id": "th_meistergruendung",
+      "titel": "IHK Gera – Meistergründungsprämie, ab 2026 auch im Bereich IHK und Gartenbau",
+      "url": "https://www.ihk.de/gera/gruendung-wachstum-sicherung/unternehmensgruendung-channel/finanzierungen-im-gruendungsbereich/meistergruendungspraemie2/meistergruendungspraemie-6959010",
+      "typ": "behoerde",
+      "herausgeber": "IHK Ostthüringen zu Gera",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (IHK Gera, Richtlinie TAB): Meistergründungsprämie für Gründung, Übernahme oder tätige Beteiligung; seit 1.1.2026 auch IHK-Abschlüsse (DQR 6/7); Antrag vor der Gründung digital über das Thüringer Förderportal; Beratung bei der Kammer Pflicht; Höhe nur laut Förderportal (5.000 €)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "tab_gruendung",
+      "name": "Thüringer Aufbaubank (Förderportal)",
+      "url": "https://www.aufbaubank.de",
+      "beschreibung": "Antrag digital; vorher Beratung bei der Kammer."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_th",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "16",
+      "zustaendigkeit_id": "tab_gruendung",
+      "quellen": [
+        "th_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "th_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Höhe nicht amtlich bestätigt (laut Förderportal bis 5.000 €); Beratung bei der Kammer ist Voraussetzung."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "16",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden."
+    },
+    {
+      "gebiet_id": "16",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "th_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie."
+    }
+  ]
+}

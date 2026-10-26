@@ -1,0 +1,98 @@
+{
+  "_hinweis": "Lebenslagen Job verloren und Selbstständig machen: Landesleistungen. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_keine_erwerbslosenberatung",
+      "titel": "Land Brandenburg – Richtlinie Integrationsbegleitung 2021–2027 (BRAVORS)",
+      "url": "https://bravors.brandenburg.de/verwaltungsvorschriften/integration_2021_2027",
+      "typ": "gesetz",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Websuche am 26.10.2026: Das Land fördert Integrationsbegleitung für Langzeitarbeitslose und Sozialbetriebe (ESF+), aber keine allgemeine Erwerbslosenberatung."
+    },
+    {
+      "id": "bb_meistergruendung",
+      "titel": "Förderdatenbank – Meistergründungsprämie Brandenburg",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Brandenburg/meistergruendungspraemie-brandenburg.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Zuschuss für Gründung und Übernahme im Handwerk in zwei Stufen (Basis und Arbeitsplätze), über die ILB; Richtlinie 2019, geändert 12/2023; Höhe widersprüchlich (bis 8.700 € je Meister bzw. 19.000 €, Programm teils als geschlossen gemeldet)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ilb_meistergruendung",
+      "name": "Investitionsbank des Landes Brandenburg (ILB)",
+      "url": "https://www.ilb.de",
+      "beschreibung": "Antrag vor Beginn."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "meistergruendungspraemie_bb",
+      "leistung_id": "meistergruendungspraemie",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "ilb_meistergruendung",
+      "quellen": [
+        "bb_meistergruendung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "arbeit.taetigkeit",
+            "op": "==",
+            "wert": "handwerk",
+            "text": "Sie gründen im Handwerk"
+          },
+          {
+            "fakt": "arbeit.meister",
+            "op": "==",
+            "wert": true,
+            "text": "Sie haben die Meisterprüfung (oder eine gleichwertige Prüfung) bestanden"
+          },
+          {
+            "pruefung_noetig": "Antrag in der Regel vor der Gründung bzw. Übernahme stellen; Fristen und Bedingungen nennt die Förderstelle.",
+            "quellen": [
+              "bb_meistergruendung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Handwerkskammer beraten lassen und die Prämie vor der Gründung bzw. Übernahme beantragen."
+        ]
+      },
+      "hinweise": [
+        "Höhe und Antragsstatus in den Quellen widersprüchlich – bitte bei der ILB erfragen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "jobverlust",
+      "landesleistungen": "keine",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_keine_erwerbslosenberatung"
+      ],
+      "notiz": "Websuche je Land nach vom Land geförderter Erwerbslosenberatung. Websuche am 26.10.2026: keine Landesförderung für Erwerbslosenberatung gefunden (nur Integrationsbegleitung, nicht erfasst)."
+    },
+    {
+      "gebiet_id": "12",
+      "lebenslage": "selbststaendig",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_meistergruendung"
+      ],
+      "notiz": "Websuche je Land nach Meistergründungsprämien. Landesleistung erfasst: Meistergründungsprämie (Status widersprüchlich)."
+    }
+  ]
+}

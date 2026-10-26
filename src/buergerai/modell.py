@@ -144,6 +144,9 @@ class Frist:
     ``termin`` (errechneter Entbindungstermin), ``keiner`` (nur Text) oder die
     ID eines Fakts vom Typ ``datum`` (z. B. ein Einzugsdatum).
     ``art``: ``spaetestens`` | ``fruehestens`` | ``empfohlen``.
+    ``nicht_vor``: optional (Datumsfakt, Tage). Die Frist endet nicht vor diesem
+    Datum, z. B. "drei Monate vor dem Ende, aber nicht vor drei Tagen nach der
+    Kündigung" (es gilt das spätere Datum).
     """
 
     text: str
@@ -153,6 +156,7 @@ class Frist:
     wochen: int = 0
     monate: int = 0
     quellen: tuple[str, ...] = ()
+    nicht_vor: Optional[tuple[str, int]] = None
 
 
 @dataclass(frozen=True)

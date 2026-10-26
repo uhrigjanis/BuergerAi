@@ -81,9 +81,9 @@ def fakt_id(roh: str, person: Optional[str]) -> str:
 
 def tag_im_jahr(wert: str) -> tuple[int, int]:
     """Wiederkehrendes Datum "--MM-TT" (ISO 8601) als (Monat, Tag)."""
+    if len(wert) != 7 or not wert.startswith("--") or wert[4] != "-":
+        raise ValueError(f"Tag im Jahr als --MM-TT erwartet (war: {wert!r})")
     monat, tag = int(wert[2:4]), int(wert[5:7])
-    if len(wert) != 7 or wert[4] != "-":
-        raise ValueError(wert)
     date(2000, monat, tag)  # Schaltjahr: auch 29. Februar gültig
     return monat, tag
 

@@ -25,7 +25,7 @@ from ..ausgabe import (
     geburt_text,
     person_name,
 )
-from ..fakten import UNBEKANNT, EingabeFehler, wert_als_text
+from ..fakten import UNBEKANNT, EingabeFehler, ist_jahreszahl, wert_als_text
 from ..fristen import BerechneteFrist
 from ..modell import Gebiet
 from ..planer import STANDARD_LEBENSLAGEN, Anfrage, Bericht, Eintrag, landesabdeckung, planen
@@ -125,7 +125,7 @@ def anzeige(kb: Wissensbasis, fid: str, wert: Any) -> str:
         for w, text in d.optionen:
             if w == wert:
                 return text
-    return wert_als_text(wert, jahreszahl=fid.endswith("jahr"))
+    return wert_als_text(wert, jahreszahl=ist_jahreszahl(fid))
 
 
 def _anfrage(kb: Wissensbasis, daten: Any) -> Anfrage:

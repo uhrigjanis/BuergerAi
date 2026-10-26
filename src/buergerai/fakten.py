@@ -122,6 +122,14 @@ def parse_wert(definition: FaktDefinition, roh: Any) -> Any:
     return str(roh)
 
 
+def ist_jahreszahl(fid: Optional[str]) -> bool:
+    """Fakten, deren ID auf "jahr" endet, sind Jahreszahlen (Typ zahl, Anzeige ohne Tausenderpunkt).
+
+    Die Datenprüfung stellt sicher, dass solche Fakten den Typ "zahl" haben.
+    """
+    return bool(fid) and fid.endswith("jahr")
+
+
 def wert_als_text(wert: Any, jahreszahl: bool = False) -> str:
     """Wert für die Anzeige; ``jahreszahl``: Zahl ohne Tausenderpunkt (2027 statt 2.027)."""
     if wert is UNBEKANNT:

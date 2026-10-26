@@ -7,7 +7,7 @@ import sys
 from datetime import date
 from typing import Any, Optional
 
-from .fakten import UNBEKANNT, wert_als_text
+from .fakten import UNBEKANNT, ist_jahreszahl, wert_als_text
 from .fristen import BerechneteFrist
 from .modell import Abdeckung, Ebene, Leistung, Pruefstatus
 from .planer import Bericht, Eintrag
@@ -130,8 +130,7 @@ def schritt_text(s: Schritt, kb: Wissensbasis, f: Farbe) -> str:
             if definition is not None and definition.typ == "ja_nein" and s.fakt:
                 text += f.grau(f"  [{frage_zu(kb, s.fakt)} → {wert_als_text(s.ist)}]")
             else:
-                # Fakten, deren ID auf "jahr" endet, sind Jahreszahlen (z. B. bildung.einschulungsjahr)
-                text += f.grau(f"  [Angabe: {wert_als_text(s.ist, jahreszahl=bool(s.fakt and s.fakt.endswith('jahr')))}]")
+                text += f.grau(f"  [Angabe: {wert_als_text(s.ist, jahreszahl=ist_jahreszahl(s.fakt))}]")
     farbe = {Wert.JA: f.gruen, Wert.NEIN: f.rot, Wert.UNKLAR: f.gelb}[s.wert]
     return f"{farbe(sym)} {text}"
 

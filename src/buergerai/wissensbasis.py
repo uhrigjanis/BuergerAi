@@ -23,7 +23,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Optional
 
-from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition
+from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition, ist_jahreszahl
 from .modell import (
     Betrag,
     Ebene,
@@ -573,6 +573,8 @@ class Wissensbasis:
             praefix = f.id.split(".", 1)[0]
             if "." in f.id and not f.je_person and praefix != f.modul and self.rolle_von_fakt(f.id) is None:
                 fehler.append(f"Fakt {f.id}: Präfix vor dem Punkt muss eine Rolle oder das eigene Modul ({f.modul}) sein")
+            if ist_jahreszahl(f.id) and f.typ != "zahl":
+                fehler.append(f"Fakt {f.id}: IDs auf 'jahr' stehen für Jahreszahlen und brauchen den Typ 'zahl' (war: {f.typ})")
             if f.nur_wenn is not None and f.nur_wenn[0] not in self.fakten:
                 fehler.append(f"Fakt {f.id}: nur_wenn verweist auf unbekannten Fakt {f.nur_wenn[0]}")
             if f.modul != KERN and f.modul not in self.fachmodule:

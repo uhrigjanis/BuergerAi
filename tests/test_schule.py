@@ -9,7 +9,7 @@ import pytest
 
 from buergerai import szenarien as szenarien_mod
 from buergerai.planer import Anfrage, Bericht, planen
-from buergerai.regeln import Wert, _vergleiche
+from buergerai.regeln import Wert, _vergleiche, tag_im_jahr
 from buergerai.szenarien import fakten_parsen
 
 STICHTAG = date(2026, 10, 26)
@@ -75,6 +75,18 @@ def test_vergleich_mit_tag_im_jahr(tmp_path):
     with pytest.raises(DatenFehler) as info:
         Wissensbasis.laden(daten)
     assert "kein Tag im Jahr (--MM-TT)" in str(info.value)
+    # Zu kurze oder falsch aufgebaute Werte geben denselben sauberen Fehler (kein IndexError)
+    for falsch in ("--1", "--", "-06-30x", "06-30--"):
+        with pytest.raises(ValueError, match="--MM-TT"):
+            tag_im_jahr(falsch)
+
+    def kurz(d):
+        d["varianten"][0]["regel"]["eine"][0]["alle"][1]["wert"] = "--1"
+
+    bearbeite(daten / "laender" / "by" / "schule.json", kurz)
+    with pytest.raises(DatenFehler) as info:
+        Wissensbasis.laden(daten)
+    assert "kein Tag im Jahr (--MM-TT)" in str(info.value)
 
 
 @pytest.mark.anforderung("ANF-SCH-03")
@@ -90,6 +102,23 @@ def test_alter_abgeleitet_und_unbekannt(plane_s, capsys):
               "-f", "bildung.kind_geburtsdatum=15.08.2021", "-f", "bildung.einschulungsjahr=2027", "-f", "bildung.ganztag_gewuenscht=ja"])
     out = capsys.readouterr().out
     assert "[Angabe: 2027]" in out and "2.027" not in out
+
+
+@pytest.mark.anforderung("ANF-SCH-03")
+def test_jahreszahl_braucht_typ_zahl(tmp_path):
+    from buergerai.wissensbasis import DatenFehler, Wissensbasis
+    from test_wissensbasis import bearbeite, kopie
+
+    daten = kopie(tmp_path)
+
+    def bearbeiten(d):
+        f = next(f for f in d["fakten"] if f["id"] == "bildung.einschulungsjahr")
+        f["typ"] = "datum"
+
+    bearbeite(daten / "fachmodule" / "bildung" / "fakten.json", bearbeiten)
+    with pytest.raises(DatenFehler) as info:
+        Wissensbasis.laden(daten)
+    assert "IDs auf 'jahr' stehen für Jahreszahlen" in str(info.value)
 
 
 @pytest.mark.anforderung("ANF-SCH-04")

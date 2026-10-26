@@ -195,7 +195,7 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Tag im Jahr (Engine):** Ein Regelwert `--MM-TT` (ISO 8601) vergleicht bei Datumsfakten nur Monat und Tag. So braucht der Stichtag kein Jahr und veraltet nicht. Die Datenprüfung meldet ungültige Werte.
 - **Abgeleitetes Alter:** `bildung.alter_im_einschulungsjahr` = Einschulungsjahr − Geburtsjahr (in `fakten.abgeleitete_fakten`). Ist eine Angabe „weiß nicht“, ist auch das Alter unbekannt und das Ergebnis Unklar.
 - **Grenzfall Stichtag:** Ob „bis zum 30. Juni sechs“ den Geburtstag am 1. Juli einschließt, formulieren die Länder verschieden. Wir übernehmen die amtliche Formulierung (Hessen: geboren bis einschließlich 1. Juli) und weisen bei Geburtstagen am Stichtag auf Nachfrage bei der Schule hin.
-- **Jahreszahlen:** Fakten, deren ID auf `jahr` endet, werden ohne Tausenderpunkt angezeigt.
+- **Jahreszahlen:** Fakten, deren ID auf `jahr` endet, werden ohne Tausenderpunkt angezeigt (`fakten.ist_jahreszahl`). Die Datenprüfung verlangt für solche Fakten den Typ `zahl`, damit die Konvention nicht unbemerkt bricht.
 
 ### 17. Umsetzung von Schritt 6, Teil 5: Heirat (26.10.2026)
 

@@ -1,0 +1,119 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sikb_eigentum_2026",
+      "titel": "SIKB – Merkblatt Eigentumsförderung (Stand 06/2026)",
+      "url": "https://www.sikb.de/sites/default/files/SIKB/Merkbl%C3%A4tter/Eigentumsfoerderung_2026_06.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Saarländische Investitionskreditbank",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Darlehen der saarländischen Wohnraumförderung, Zins 1,0 % fest, bis 30 Jahre mit drei tilgungsfreien Jahren; vor allem Haushalte mit Kindern und Menschen mit Behinderung; Wohnfläche begrenzt; nur im Saarland. Einkommensgrenzen nicht erfasst (Seiten 2–7 nicht gelesen)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sikb",
+      "name": "Saarländische Investitionskreditbank (SIKB)",
+      "url": "https://www.sikb.de",
+      "beschreibung": "Förderbank des Saarlandes."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_sl",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_sl",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "sikb",
+      "quellen": [
+        "sikb_eigentum_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "pruefung_noetig": "Einkommensgrenzen und Wohnflächengrenzen prüft die SIKB; Familien mit Kindern und Menschen mit Behinderung werden besonders gefördert.",
+            "quellen": [
+              "sikb_eigentum_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der SIKB beraten lassen und vor dem Vertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Zins 1,0 % fest über die ganze Laufzeit (Stand Juni 2026)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sikb_eigentum_2026"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Eigentumsförderung der SIKB."
+    }
+  ]
+}

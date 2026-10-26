@@ -1,0 +1,82 @@
+{
+  "_hinweis": "Steckbrief des Fachmoduls Wohnen (ADR 0008). Erste Lebenslage: Wohneigentum kaufen oder bauen.",
+  "fachmodul": {
+    "id": "wohnen",
+    "name": "Wohnen und Eigentum",
+    "beschreibung": "Kauf, Bau und Sanierung selbst genutzter Häuser und Wohnungen: Steuern, Förderkredite und Zuschüsse von Bund und Ländern.",
+    "abgrenzung": [
+      "Wohnung anmelden und Umzugskosten gehören zu Umzug.",
+      "Wohngeld gehört zu geringem Einkommen."
+    ],
+    "importiert_fakten": []
+  },
+  "lebenslagen": [
+    {
+      "id": "wohneigentum",
+      "name": "Haus oder Wohnung kaufen oder bauen",
+      "typ": "ereignis",
+      "beschreibung": "Sie kaufen oder bauen ein Haus oder eine Wohnung, um selbst darin zu wohnen.",
+      "einstiegsfragen": [
+        "wohnen.vorhaben",
+        "wohnen.ort_immobilie",
+        "wohnen.selbst_genutzt",
+        "wohnen.vertrag_unterschrieben"
+      ],
+      "synonyme": [
+        "Hauskauf",
+        "Haus kaufen",
+        "Wohnung kaufen",
+        "Eigentumswohnung",
+        "bauen",
+        "Hausbau",
+        "Neubau",
+        "Eigenheim",
+        "Immobilie",
+        "Grunderwerbsteuer",
+        "KfW",
+        "Baufinanzierung",
+        "Jung kauft Alt",
+        "Hessengeld",
+        "Wärmepumpe",
+        "Sanierung",
+        "Baukindergeld"
+      ],
+      "beispiele": [
+        "Wir wollen ein altes Haus kaufen und sanieren.",
+        "Wir bauen ein Einfamilienhaus, welche Förderung gibt es?",
+        "Ich kaufe meine erste Eigentumswohnung.",
+        "Was kostet die Grunderwerbsteuer und gibt es Zuschüsse?"
+      ],
+      "nicht_erfasst": [
+        {
+          "name": "Wohnberechtigungsschein und Mietwohnungen",
+          "grund": "Folgt mit einer eigenen Lebenslage zur Wohnungssuche."
+        },
+        {
+          "name": "Wohnungsbauprämie und Arbeitnehmer-Sparzulage",
+          "grund": "Bausparförderung; folgt."
+        },
+        {
+          "name": "Energieberatung für Wohngebäude (iSFP)",
+          "grund": "Förderbedingungen 2026 nicht über die Suche bestätigt; folgt."
+        },
+        {
+          "name": "Steuerermäßigung für energetische Sanierung (§ 35c EStG)",
+          "grund": "Steuerliche Vergünstigungen folgen mit einer eigenen Lebenslage."
+        },
+        {
+          "name": "Ergänzende Darlehen der Landesförderbanken ohne Einkommensgrenze (z. B. IB.SH Immo Eigentum, Hessen-Darlehen)",
+          "grund": "Erfasst sind die Landesprogramme der Wohnraumförderung; weitere Bankprodukte folgen."
+        },
+        {
+          "name": "Förderprogramme von Städten und Gemeinden (z. B. Einheimischenmodelle, Baukindergeld der Gemeinden)",
+          "grund": "Je Gemeinde verschieden; erfasst ist der Eigenheimzuschuss der Stadt Bremen."
+        },
+        {
+          "name": "Notar- und Grundbuchkosten",
+          "grund": "Keine staatliche Leistung, sondern Kosten des Kaufs."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Wohneigentum: Familie aus Kassel kauft altes Haus in Baunatal",
+  "beschreibung": "Hessengeld als Landesleistung ohne Gegenstück, Grunderwerbsteuer 6,0 % in Hessen, Jung kauft Alt für Familien mit Kindern.",
+  "plz": "34117",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "wohneigentum"
+  ],
+  "anforderungen": [
+    "ANF-WOH-01",
+    "ANF-WOH-02",
+    "ANF-WOH-04"
+  ],
+  "fakten": {
+    "wohnen.vorhaben": "kauf_bestand",
+    "wohnen.selbst_genutzt": "ja",
+    "wohnen.vertrag_unterschrieben": "nein",
+    "wohnen.schon_eigentum": "nein",
+    "wohnen.kinder_minderjaehrig": 2,
+    "wohnen.einkommen_zve": 85000,
+    "wohnen.energieklasse_fgh": "ja",
+    "wohnen.heizung_tauschen": "nein",
+    "wohnen.daemmen_fenster": "nein",
+    "wohnen.ort_immobilie": "34225"
+  },
+  "erwartet": {
+    "hessengeld": "ja",
+    "grunderwerbsteuer": "ja",
+    "kfw_jung_kauft_alt": "ja",
+    "kfw_wohneigentumsprogramm": "ja",
+    "kfw_wohneigentum_familien": "nein"
+  },
+  "erwartet_stellen": {
+    "hessengeld": "WIBank",
+    "grunderwerbsteuer": "Finanzamt"
+  },
+  "erwartet_fehlend": []
+}

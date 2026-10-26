@@ -1,0 +1,117 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_wohneigentumfoerderr_2026",
+      "titel": "Land Brandenburg – Richtlinie zur Förderung von selbstgenutztem Wohneigentum (WohneigentumförderR 2026)",
+      "url": "https://bravors.brandenburg.de/verwaltungsvorschriften/wohneigentumfoerderr_2026",
+      "typ": "gesetz",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: neue Richtlinie vom 13.2.2026 (Vorgänger galt bis 31.12.2025); Antrag bei der ILB vor Beginn der Maßnahme; nach der Richtlinie 2024 nur in bestimmten innerstädtischen Gebieten, Einkommensgrenzen mit Überschreitung bis 100 %, mindestens 15 % Eigenkapital; kein Rechtsanspruch. Ob das Programm 2026 Anträge annimmt, ist widersprüchlich (Förderportal: geschlossen)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ilb",
+      "name": "Investitionsbank des Landes Brandenburg (ILB)",
+      "url": "https://www.ilb.de",
+      "beschreibung": "Antrag vor Beginn der Maßnahme."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_bb",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_bb",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "ilb",
+      "quellen": [
+        "bb_wohneigentumfoerderr_2026"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "pruefung_noetig": "Gefördert wird nur in bestimmten Gebieten (z. B. Innenstädten) und unter Einkommensgrenzen; ob das Programm derzeit Anträge annimmt, bitte bei der ILB erfragen.",
+            "quellen": [
+              "bb_wohneigentumfoerderr_2026"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der ILB nachfragen, ob die Immobilie im Fördergebiet liegt, und vor Beginn der Maßnahme beantragen."
+        ]
+      },
+      "hinweise": []
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_wohneigentumfoerderr_2026"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: WohneigentumförderR 2026 (Antragsstatus widersprüchlich)."
+    }
+  ]
+}

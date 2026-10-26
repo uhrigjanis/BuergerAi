@@ -1,0 +1,119 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "isb_eigentum",
+      "titel": "ISB – Verwaltungsvorschrift Tilgungszuschüsse (Wohnraumförderung)",
+      "url": "https://isb.rlp.de/fileadmin/user_upload/Foerderprogramme/ANLAGEN-Wohnraum/VV_Tilgungszuschuesse.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Investitions- und Strukturbank Rheinland-Pfalz",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (ISB, Landtag Drs. 18/6133, Haufe): zinsgünstiges ISB-Darlehen für Neubau, Ersterwerb, Aus- und Umbau selbst genutzten Wohneigentums; Einkommensgrenzen steigen je Kind; Höchstbeträge regional 150.000–190.000 € (Stand 2023); Tilgungszuschüsse (Höhe widersprüchlich); nicht, wenn der Kaufvertrag länger als zwei Monate zurückliegt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "isb_rlp",
+      "name": "ISB Rheinland-Pfalz bzw. Stadt- oder Kreisverwaltung",
+      "url": "https://isb.rlp.de",
+      "beschreibung": "Antrag über die Stadt- oder Kreisverwaltung bzw. die ISB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_rp",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_rp",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "07",
+      "zustaendigkeit_id": "isb_rlp",
+      "quellen": [
+        "isb_eigentum"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen unter der Grenze liegt, prüft die ISB bzw. die Kreisverwaltung.",
+            "quellen": [
+              "isb_eigentum"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Stadt- oder Kreisverwaltung bzw. der ISB beraten lassen; spätestens zwei Monate nach dem Kaufvertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Höhe der Tilgungszuschüsse in den Quellen widersprüchlich (10 % bzw. bis 30 %)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "isb_eigentum"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: ISB-Darlehen für selbst genutztes Wohneigentum."
+    }
+  ]
+}

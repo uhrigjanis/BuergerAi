@@ -1,0 +1,65 @@
+{
+  "_hinweis": "Stadt Bremen (AGS 04011000): kommunale Variante für die Lebenslage Wohneigentum.",
+  "quellen": [
+    {
+      "id": "bremen_eigenheimzuschuss",
+      "titel": "Bremer Aufbau-Bank – Eckdatenblatt Eigenheimzuschuss",
+      "url": "https://bau.bremen.de/sixcms/media.php/13/08_Eckdatenblatt_Eigenheimzuschuss.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freie Hansestadt Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Datum des Eckdatenblatts unklar): Zuschuss nur in der Stadtgemeinde Bremen für Familien mit mindestens einem minderjährigen Kind (auch Schwangerschaft ab der 13. Woche); Kaufpreis höchstens 360.000 € (Neubau) bzw. 260.000 € (Bestand) ohne Nebenkosten; Bestand mindestens Effizienzklasse D, sonst Sanierung auf B innerhalb eines Jahres; Neubau mindestens Effizienzhaus 55; Antrag beginnt mit einer Reservierung. Höhe und Stand 2026 nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bab_bremen",
+      "name": "Bremer Aufbau-Bank (BAB)",
+      "url": "https://www.bab-bremen.de",
+      "beschreibung": "Förderlotse der BAB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesfoerderung_wohneigentum_bremen",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "04011000",
+      "zustaendigkeit_id": "bab_bremen",
+      "quellen": [
+        "bremen_eigenheimzuschuss"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.kinder_minderjaehrig",
+            "op": ">=",
+            "wert": 1,
+            "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+          },
+          {
+            "pruefung_noetig": "Kaufpreisgrenzen (360.000 € Neubau, 260.000 € Bestand) und Energiestandard prüft die BAB; ob das Programm 2026 läuft, bitte dort erfragen.",
+            "quellen": [
+              "bremen_eigenheimzuschuss"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Zuschuss bei der BAB reservieren (Alter des Kindes nachweisen), dann den Antrag stellen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Eigenheimzuschuss der Stadt Bremen (nicht in Bremerhaven)."
+      ]
+    }
+  ]
+}

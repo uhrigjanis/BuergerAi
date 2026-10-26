@@ -1,0 +1,126 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sn_familienwohnen",
+      "titel": "Landeshauptstadt Dresden – Familienwohnen (Förderung des Freistaats Sachsen)",
+      "url": "https://www.dresden.de/de/leben/wohnen/wohnungsbaufoerderung/familienwohnen.php",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt Dresden",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Dresden, Förderdatenbank, Medienservice Sachsen 2026): RL Familienwohnen der SAB; mindestens ein minderjähriges Kind mit Kindergeld; Kauf, Bau, Modernisierung; Eigenanteil 10 %; Zinsen ab 19.8.2026 zwischen 0,1 und 2,65 %; Zinsabschläge je Kind; Antrag online bei der SAB; kein Rechtsanspruch."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sab",
+      "name": "Sächsische Aufbaubank (SAB)",
+      "url": "https://www.sab.sachsen.de",
+      "beschreibung": "Antrag online im Förderportal der SAB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_sn",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,5 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_sn",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "sab",
+      "quellen": [
+        "sn_familienwohnen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "fakt": "wohnen.kinder_minderjaehrig",
+            "op": ">=",
+            "wert": 1,
+            "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+          },
+          {
+            "pruefung_noetig": "Ob die weiteren Bedingungen (u. a. Einkommen, Eigenanteil 10 %) erfüllt sind, prüft die SAB.",
+            "quellen": [
+              "sn_familienwohnen"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Darlehen online bei der SAB beantragen, bevor Sie den Vertrag schließen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Familienwohnen.",
+        "Zinsen 0,1 % bis 2,65 % (seit 19. August 2026), weniger mit jedem Kind."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sn_familienwohnen"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Familienwohnen (SAB)."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "_hinweis": "Fakten des Fachmoduls Wohnen.",
+  "fakten": [
+    {
+      "id": "wohnen.vorhaben",
+      "typ": "auswahl",
+      "frage": "Was haben Sie vor?",
+      "optionen": [
+        {
+          "wert": "kauf_bestand",
+          "text": "eine gebrauchte Immobilie kaufen"
+        },
+        {
+          "wert": "kauf_neubau",
+          "text": "einen Neubau kaufen (Erstbezug)"
+        },
+        {
+          "wert": "bauen",
+          "text": "selbst bauen"
+        }
+      ]
+    },
+    {
+      "id": "wohnen.ort_immobilie",
+      "typ": "ort",
+      "frage": "Wo liegt die Immobilie bzw. das Grundstück? (Postleitzahl)",
+      "hilfe": "Grunderwerbsteuer und Landesförderung richten sich nach dem Ort der Immobilie, nicht nach Ihrem jetzigen Wohnort."
+    },
+    {
+      "id": "wohnen.selbst_genutzt",
+      "typ": "ja_nein",
+      "frage": "Wollen Sie selbst in der Immobilie wohnen?"
+    },
+    {
+      "id": "wohnen.vertrag_unterschrieben",
+      "typ": "ja_nein",
+      "frage": "Haben Sie den Kaufvertrag (beim Notar) bzw. den Bauvertrag schon unterschrieben?",
+      "hilfe": "Viele Förderungen müssen vorher beantragt werden."
+    },
+    {
+      "id": "wohnen.schon_eigentum",
+      "typ": "ja_nein",
+      "frage": "Besitzen Sie (oder Ihr Ehe- bzw. Lebenspartner) schon ein Haus oder eine Wohnung?"
+    },
+    {
+      "id": "wohnen.kinder_minderjaehrig",
+      "typ": "zahl",
+      "frage": "Wie viele Kinder unter 18 Jahren leben in Ihrem Haushalt?",
+      "hilfe": "0, wenn keine."
+    },
+    {
+      "id": "wohnen.einkommen_zve",
+      "typ": "zahl",
+      "frage": "Wie hoch ist das zu versteuernde Einkommen Ihres Haushalts im Jahr ungefähr (in Euro)?",
+      "hilfe": "Steht im Einkommensteuerbescheid. Die KfW nimmt den Durchschnitt des zweiten und dritten Jahres vor dem Antrag."
+    },
+    {
+      "id": "wohnen.energieklasse_fgh",
+      "typ": "ja_nein",
+      "frage": "Hat die Immobilie laut Energieausweis die Effizienzklasse F, G oder H?"
+    },
+    {
+      "id": "wohnen.heizung_tauschen",
+      "typ": "ja_nein",
+      "frage": "Wollen Sie die Heizung durch eine klimafreundliche ersetzen (z. B. Wärmepumpe)?"
+    },
+    {
+      "id": "wohnen.daemmen_fenster",
+      "typ": "ja_nein",
+      "frage": "Wollen Sie dämmen (Dach, Fassade, Keller) oder Fenster erneuern?"
+    }
+  ]
+}

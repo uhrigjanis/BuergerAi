@@ -150,6 +150,14 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Blindengeld als Landesleistung in allen Ländern:** Es gibt keine Bundesvariante; jedes Land hat eine eigene Variante mit eigener Stelle und Quelle. Name und Höhe stehen im Hinweis der Variante, die Höhe nur, wenn eine Quelle sie nennt; widersprüchliche Angaben sind gekennzeichnet. Das Blindengeld gehört fachlich auch zu Behinderung und bekommt dort später eine zweite Lebenslage.
 - **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Landespflegegeld nur in Bayern, Pflegewohngeld in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern, Blindengeld überall. Damit ist die Abdeckung für alle 16 Länder `erfasst`.
 
+### 11. Umsetzung von Schritt 4: Wohneigentum (26.10.2026)
+
+- **Fachmodul `wohnen`** mit der Lebenslage `wohneigentum` (Typ `ereignis`): kaufen oder bauen, um selbst darin zu wohnen. Wohnberechtigungsschein und Mietwohnungen folgen als eigene Lebenslage im selben Modul; Schritt 4 bleibt dadurch klein genug für ein Review.
+- **Ortsbezug Immobilie:** Wie in Abschnitt 3 geplant, ist der Ort der Immobilie ein eigener Ortsfakt (`wohnen.ort_immobilie`). Grunderwerbsteuer, Landesförderung und Hessengeld gelten dort; Bundesprogramme brauchen keinen Ort. Dafür war kein Umbau der Engine nötig.
+- **Pflicht mit Landesvarianten:** Die Grunderwerbsteuer hat eine Bundesvariante (ohne Satz) und je Land eine Variante mit dem Steuersatz. Die speziellste Variante gewinnt; ohne Ort bleibt die Bundesangabe.
+- **Einkommensgrenze je Kinderzahl:** Die KfW-Grenze (90.000 € plus 10.000 € je weiterem Kind) steht als Fallunterscheidung im Regelbaum, nicht als Rechenoperation. Bei mehr als fünf Kindern bleibt sie ein Prüfpunkt.
+- **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Das Hessengeld ist eine Landesleistung ohne Gegenstück. Die Wohneigentumsförderung des Landes hat Varianten in 12 weiteren Ländern; Berlin und Mecklenburg-Vorpommern haben keine, Bremen nur in der Stadt Bremen (Gemeindevariante).
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

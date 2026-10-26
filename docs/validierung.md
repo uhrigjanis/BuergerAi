@@ -257,3 +257,44 @@ Recherche am 26.10.2026, wieder nur über Suchergebnisse: Alle Quellen sind `tei
 | Thüringen | Sinnesbehindertengeld, Höhe nicht bestätigt | – | FIM |
 
 „–“ heißt: Die Suche nach Landespflegegeld und Pflegewohngeld hat für das Land nichts gefunden. Gehörlosen- und Taubblindengeld sind nicht erfasst (folgt mit Behinderung).
+
+## Lebenslage Wohneigentum (Issue #41, Schritt 4)
+
+Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`, widersprüchliche `widerspruechlich`.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `kfw_300`, `kfw_308`, `kfw_124`, `kfw_297` | Kredithöchstbeträge, Einkommensgrenze, Zeitpunkt des Antrags (vor Kauf- bzw. Bauvertrag), Ausschluss bei vorhandenem Eigentum |
+| `heizung_2026_juli` | **Widersprüchlich:** Fördersätze seit 21.7.2026 (Einkommensbonus, Höchstsatz 70 % oder 80 %); amtliche KfW-Seite 458 lesen |
+| `bafa_em_2026` | Fördersätze und iSFP-Bonus ab 30.000 € (nur Sekundärquelle) |
+| `grest_saetze`, `grestg` | Steuersätze aller Länder in den Landesgesetzen; Thüringen 5,0 % (eine Übersicht nennt 6,5 %) |
+| `hessengeld_wibank` | Antragsfrist (31.12.2029 nur laut Ratgeber) |
+| `bb_wohneigentumfoerderr_2026` | **Widersprüchlich:** nimmt das Programm 2026 Anträge an? Fördergebiete |
+| `isb_eigentum` | **Widersprüchlich:** Höhe der Tilgungszuschüsse |
+| `tab_familien_wohneigentum` | **Widersprüchlich:** Mittel 2026 gebunden? |
+| `lbank_z15`, `nbank_eigentum`, `sikb_eigentum_2026`, `st_wohneigentum_2026`, `sh_wofoerl_2026` | Einkommensgrenzen und Konditionen 2026 |
+| `bremen_eigenheimzuschuss` | Höhe und ob das Programm 2026 läuft |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Grunderwerbsteuer | Landesförderung | Grundlage |
+|------|-------------------|-----------------|-----------|
+| Baden-Württemberg | 5,0 % | Z15-Darlehen (L-Bank) | L-Bank |
+| Bayern | 3,5 % | Zinsverbilligungsprogramm mit 5.000 € je Kind | Bauministerium |
+| Berlin | 6,0 % | keine gefunden | Websuche |
+| Brandenburg | 6,5 % | WohneigentumförderR 2026 (Status widersprüchlich) | BRAVORS |
+| Bremen | 5,5 % | keine für das Land; Eigenheimzuschuss der Stadt Bremen | BAB |
+| Hamburg | 5,5 % | IFB-Eigenheimdarlehen | IFB |
+| Hessen | 6,0 % | Hessengeld | WIBank |
+| Mecklenburg-Vorpommern | 6,0 % | keine (nur Modernisierung) | Förderdatenbank |
+| Niedersachsen | 5,0 % | Eigentumsförderung NBank | NBank |
+| Nordrhein-Westfalen | 6,5 % | Eigentumsförderung (NRW.BANK, Bewilligungsbehörde) | Stadt Münster |
+| Rheinland-Pfalz | 5,0 % | ISB-Darlehen | ISB |
+| Saarland | 6,5 % | SIKB-Eigentumsförderung | SIKB |
+| Sachsen | 5,5 % | Familienwohnen (SAB) | Stadt Dresden |
+| Sachsen-Anhalt | 5,0 % | neues Programm 2026 (IB) | Staatskanzlei |
+| Schleswig-Holstein | 6,5 % | soziale Wohnraumförderung (IB.SH) | WoFöRL 2026 |
+| Thüringen | 5,0 % | Erwerbszuschuss für Familien (Mittel 2026 gebunden) | TAB |
+

@@ -1,0 +1,135 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "nbank_eigentum",
+      "titel": "NBank – Produktinformation Eigentumsförderung",
+      "url": "https://www.nbank.de/medien/nb-media/Downloads/Programminformation/Produktinformationen/Eigentumsförderung.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Investitions- und Förderbank Niedersachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (NBank Stand 5/2024, Stadt Osnabrück 3/2025, Stadt Gifhorn): zinsgünstige Darlehen für Haushalte mit Kindern oder Menschen mit Behinderung, zusätzlicher Zuschuss je Kind; Einkommensgrenzen nach § 3 NWoFG (Überschreitung bis 20 %). Konditionen 2026 nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "ni_wohnraumfoerderstelle",
+      "name": "Wohnraumförderstelle – {kreis} (NBank)",
+      "beschreibung": "Die Wohnraumförderstelle der Stadt bzw. des Landkreises nimmt den Antrag für die NBank an."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_ni",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 5,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "landesfoerderung_wohneigentum_ni",
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "gebiet_id": "03",
+      "zustaendigkeit_id": "ni_wohnraumfoerderstelle",
+      "quellen": [
+        "nbank_eigentum"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "wohnen.kinder_minderjaehrig",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind unter 18 Jahren lebt im Haushalt"
+              },
+              {
+                "pruefung_noetig": "Gefördert werden auch Haushalte mit Menschen mit Behinderung.",
+                "quellen": [
+                  "nbank_eigentum"
+                ]
+              }
+            ],
+            "text": "Kind im Haushalt oder Mensch mit Behinderung"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Einkommen unter der Grenze des Niedersächsischen Wohnraumfördergesetzes liegt, prüft die Wohnraumförderstelle.",
+            "quellen": [
+              "nbank_eigentum"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bei der Wohnraumförderstelle beraten lassen und vor dem Vertrag beantragen."
+        ]
+      },
+      "hinweise": [
+        "Konditionen 2026 nicht bestätigt – bitte bei der NBank erfragen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "nbank_eigentum"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Eigentumsförderung der NBank (Konditionen 2026 nicht bestätigt)."
+    }
+  ]
+}

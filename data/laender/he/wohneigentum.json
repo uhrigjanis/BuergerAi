@@ -1,0 +1,159 @@
+{
+  "_hinweis": "Lebenslage Wohneigentum: Grunderwerbsteuersatz und Landesförderung. Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hessengeld_wibank",
+      "titel": "WIBank – Hessengeld",
+      "url": "https://www.wibank.de/wibank/hessengeld/hessengeld-643736",
+      "typ": "behoerde",
+      "herausgeber": "Wirtschafts- und Infrastrukturbank Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (WIBank, Förderrichtlinie, FAQ des Finanzministeriums 8/2025, Landesregierung): erstmaliger, grunderwerbsteuerpflichtiger Erwerb einer selbst genutzten Wohnimmobilie in Hessen; Beurkundung ab 1.3.2024; 10.000 € je Käufer (höchstens 20.000 €) plus 5.000 € je Kind unter 18; höchstens die gezahlte Grunderwerbsteuer; Steuer muss beim Antrag festgesetzt und gezahlt sein; Antrag im WIBank-Kundenportal (Fördercheck, dann Hauptantrag); Einzug innerhalb von drei Jahren nachweisen; Auszahlung in zehn Jahresraten. Antragsfrist bis 31.12.2029 nur laut Ratgeber."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "wibank_hessengeld",
+      "name": "WIBank – Kundenportal Hessengeld",
+      "url": "https://www.wibank.de/wibank/hessengeld/hessengeld-643736",
+      "beschreibung": "Antrag online; Fragen zum Portal: hessengeld@wibank.de."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grunderwerbsteuer_he",
+      "leistung_id": "grunderwerbsteuer",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "finanzamt_grest",
+      "quellen": [
+        "grest_saetze",
+        "grestg"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "wohnen.vorhaben",
+            "op": "in",
+            "wert": [
+              "kauf_bestand",
+              "kauf_neubau"
+            ],
+            "text": "Sie kaufen eine Immobilie"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "==",
+                "wert": "bauen",
+                "text": "Sie bauen"
+              },
+              {
+                "pruefung_noetig": "Beim Bauen fällt Grunderwerbsteuer nur an, wenn Sie das Grundstück kaufen.",
+                "quellen": [
+                  "grestg"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Der Notar meldet den Kaufvertrag dem Finanzamt; Sie bekommen einen Steuerbescheid.",
+          "Steuer fristgerecht zahlen: Erst danach kann die Eintragung im Grundbuch erfolgen."
+        ]
+      },
+      "hinweise": [
+        "Steuersatz 6,0 % des Kaufpreises (laut Übersicht der Steuersätze, nicht amtlich geprüft)."
+      ]
+    },
+    {
+      "id": "hessengeld_he",
+      "leistung_id": "hessengeld",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "wibank_hessengeld",
+      "quellen": [
+        "hessengeld_wibank"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "wohnen.selbst_genutzt",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen selbst in der Immobilie wohnen"
+          },
+          {
+            "nicht": {
+              "fakt": "wohnen.schon_eigentum",
+              "op": "==",
+              "wert": true,
+              "text": "Sie besitzen schon Wohneigentum"
+            },
+            "text": "Sie besitzen noch kein Wohneigentum"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "wohnen.vorhaben",
+                "op": "in",
+                "wert": [
+                  "kauf_bestand",
+                  "kauf_neubau"
+                ],
+                "text": "Sie kaufen eine Immobilie"
+              },
+              {
+                "alle": [
+                  {
+                    "fakt": "wohnen.vorhaben",
+                    "op": "==",
+                    "wert": "bauen",
+                    "text": "Sie bauen"
+                  },
+                  {
+                    "pruefung_noetig": "Gefördert wird nur, wenn Sie das Grundstück kaufen (grunderwerbsteuerpflichtig).",
+                    "quellen": [
+                      "hessengeld_wibank"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Notarvertrag",
+          "Ausweise aller Käufer",
+          "Meldebescheinigungen (Einzug innerhalb von drei Jahren)"
+        ],
+        "schritte": [
+          "Grunderwerbsteuer zahlen – erst danach kann der Antrag gestellt werden.",
+          "Im WIBank-Kundenportal den Fördercheck machen, registrieren und den Hauptantrag stellen.",
+          "Nach dem Einzug die Meldebescheinigungen hochladen; das Geld kommt in zehn Jahresraten."
+        ]
+      },
+      "hinweise": [
+        "10.000 € je Käufer (höchstens 20.000 €) und 5.000 € je Kind unter 18, höchstens die gezahlte Grunderwerbsteuer.",
+        "Schenkungen und Erbschaften sind nicht gefördert."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "wohneigentum",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hessengeld_wibank"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landesförderung für selbst genutztes Wohneigentum. Landesleistung erfasst: Hessengeld. Ergänzende Darlehen der WIBank (Hessen-Darlehen) sind nicht erfasst."
+    }
+  ]
+}

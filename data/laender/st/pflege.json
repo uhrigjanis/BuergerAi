@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "st_blindengeld_antrag",
+      "titel": "Landesamt für Soziales Sachsen-Anhalt – Antrag auf Blindengeld (Formular 431 002, Stand 06/2026)",
+      "url": "https://las.sachsen-anhalt.de/fileadmin/Bibliothek/Politik_und_Verwaltung/MS/Sozialagentur/Dokumente_5_famgesjugvers/510/LBliGG/431002.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Sachsen-Anhalt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Formular und Leistungstext des Landes): ab 1.7.2025 bis 460,44 € für Erwachsene, 319,76 € für Minderjährige, 66,50 € für hochgradig Sehbehinderte; einkommensunabhängig; Anpassung zum 1.7.2026 nicht geprüft."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "st_las",
+      "name": "Landesamt für Soziales, Jugend und Gesundheit (Halle)",
+      "url": "https://las.sachsen-anhalt.de",
+      "beschreibung": "Zuständig für das Blindengeld nach dem Blinden- und Gehörlosengeldgesetz."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_st",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "15",
+      "zustaendigkeit_id": "st_las",
+      "quellen": [
+        "st_blindengeld_antrag"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Bis 460,44 € im Monat für Erwachsene (Stand 1.7.2025).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "st_blindengeld_antrag"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Blindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

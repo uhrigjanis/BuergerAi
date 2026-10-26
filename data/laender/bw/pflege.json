@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "service_bw_blindenhilfe",
+      "titel": "service-bw – Blindenhilfe beantragen (Leistung 839)",
+      "url": "https://www.service-bw.de/zufi/leistungen/839",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Landesblindenhilfe 410 € für Volljährige, 205 € für Minderjährige; Antrag beim Landratsamt bzw. Bürgermeisteramt des Stadtkreises; Anrechnung bei Pflegegrad 2–5; laut Bericht zum LSG Baden-Württemberg (25.6.2026) ist ein ausdrücklicher Antrag nötig."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bw_blindenhilfe",
+      "name": "Landratsamt bzw. Stadtkreis – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_bw",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "08",
+      "zustaendigkeit_id": "bw_blindenhilfe",
+      "quellen": [
+        "service_bw_blindenhilfe"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Landesblindenhilfe.",
+        "410 € im Monat ab 18 Jahren, 205 € für Minderjährige (laut service-bw).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "08",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "service_bw_blindenhilfe"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesblindenhilfe. Ein Landespflegegeld oder Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

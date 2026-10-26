@@ -1,0 +1,72 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Geringes Einkommen (Sozialticket).",
+  "quellen": [
+    {
+      "id": "vbb_mobilitaetsticket",
+      "titel": "VBB – Mobilitätsticket Brandenburg",
+      "url": "https://www.vbb.de/tickets/monatskarten/mobilitaetsticket-brandenburg/",
+      "typ": "behoerde",
+      "herausgeber": "Verkehrsverbund Berlin-Brandenburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: persönliche Monatskarte mit bis zu 50 % Ersparnis, gilt im Land Brandenburg (nicht nach Berlin); für Grundsicherung (SGB II) Bestellcode vom Jobcenter (ab 2026 in elf Jobcentern). Aktuelle Liste weiterer Berechtigter und Preis 2026 nicht gefunden."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "mobilitaetsticket_bb",
+      "name": "Jobcenter bzw. Sozialamt – {kreis} (Mobilitätsticket Brandenburg)",
+      "url": "https://www.vbb.de/tickets/monatskarten/mobilitaetsticket-brandenburg/",
+      "beschreibung": "Jobcenter bzw. Sozialamt geben Kundenkarte oder Bestellcode aus; das Ticket gibt es beim VBB."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_bb",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "mobilitaetsticket_bb",
+      "quellen": [
+        "vbb_mobilitaetsticket"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "pruefung_noetig": "Ob auch Sozialhilfe, Asylbewerberleistungen oder Wohngeld berechtigen, ist nicht aktuell belegt – bitte beim Sozialamt nachfragen.",
+            "quellen": [
+              "vbb_mobilitaetsticket"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Bestellcode bzw. Kundenkarte beim Jobcenter oder Sozialamt holen.",
+          "Mobilitätsticket als Monatskarte beim VBB (auch als Handyticket) kaufen."
+        ]
+      },
+      "hinweise": [
+        "Bis zu 50 % günstiger als die VBB-Umweltmonatskarte; gilt nur in Brandenburg, nicht für Fahrten nach Berlin."
+      ],
+      "leistung_id": "sozialticket"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "vbb_mobilitaetsticket"
+      ],
+      "notiz": "Landesleistung erfasst: Mobilitätsticket Brandenburg. Weitere Landesleistungen für geringes Einkommen nicht recherchiert."
+    }
+  ]
+}

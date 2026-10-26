@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Abdeckung der Länder für die Lebenslage Umzug (ADR 0007). Bei neuen Landesleistungen hier auf 'erfasst' setzen.",
+  "_hinweis": "Abdeckung der Länder für die Lebenslage Umzug (ADR 0007), je Land recherchiert am 25.10.2026. Bremen ist erfasst (Begrüßungsgeld), siehe data/laender/hb/umzug.json.",
   "abdeckung": [
     {
       "gebiet_id": "01",
@@ -7,9 +7,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "sh_umzugskosten_landesdienst",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Umzugskostenregeln gelten nur für Landesbedienstete; keine Zuzugsprämie gefunden."
     },
     {
       "gebiet_id": "02",
@@ -17,9 +18,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "hamburg_praemie_rollstuhlwohnung",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Freiwillige Prämie nur bei Freigabe einer geförderten rollstuhlgerechten Wohnung (Stand 2023); SAGA-Wohnungstausch ohne Prämie. Keine allgemeine Umzugsleistung."
     },
     {
       "gebiet_id": "03",
@@ -29,17 +31,7 @@
       "quellen": [
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
-    },
-    {
-      "gebiet_id": "04",
-      "lebenslage": "umzug",
-      "landesleistungen": "keine",
-      "stand": "2026-10-25",
-      "quellen": [
-        "ratgeber_umzugspraemien"
-      ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Nur kommunale Umzugsprämien; für Niedersachsen nur Sekundärquelle."
     },
     {
       "gebiet_id": "05",
@@ -47,9 +39,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "nrw_lukg",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Seit 1.1.2026 neues Landesumzugskostengesetz mit Pauschalen – nur für Landesbedienstete."
     },
     {
       "gebiet_id": "06",
@@ -57,9 +50,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "kvh_umzugskosten_aerzte",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Umzugszuschuss nur für Ärztinnen und Ärzte, die sich in Fördergebieten niederlassen; nicht vom Land und nicht für alle."
     },
     {
       "gebiet_id": "07",
@@ -67,9 +61,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "rp_landesinitiative_rueckkehr",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Die Landesinitiative Rückkehr betrifft die freiwillige Ausreise, keine Zuzugsprämie."
     },
     {
       "gebiet_id": "08",
@@ -77,9 +72,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "bw_rueckkehrfoerderung",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Einziges Landesprogramm mit „Rückkehr“ betrifft die Ausreise ausländischer Staatsangehöriger, nicht den Zuzug."
     },
     {
       "gebiet_id": "09",
@@ -87,9 +83,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "by_rueckkehrprogramm",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Das „Bayerische Rückkehrprogramm“ fördert die freiwillige Ausreise, keine Zuzugsprämie."
     },
     {
       "gebiet_id": "10",
@@ -99,7 +96,7 @@
       "quellen": [
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Gefunden wurden nur Wirtschafts- und Arbeitsmarktprogramme für Unternehmen; nur Sekundärquelle."
     },
     {
       "gebiet_id": "11",
@@ -107,9 +104,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "berlin_umzugspraemie_wbg",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Umzugsprämie (1.500–2.500 €, Stand unklar) nur für Mieter der landeseigenen Wohnungsunternehmen beim Wechsel in eine kleinere Wohnung, bei sozialen Kriterien; keine Leistung für alle."
     },
     {
       "gebiet_id": "12",
@@ -117,10 +115,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
-        "ratgeber_umzugspraemien",
-        "bb_zuzug_initiativen"
+        "bb_zuzug_initiativen",
+        "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft. Brandenburg fördert nur Zuzugsinitiativen, keine Zahlungen an Umziehende."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Das Land fördert Zuzugs- und Rückkehrinitiativen (z. B. Perleberg, Oder-Spree), keine Zahlungen an Umziehende."
     },
     {
       "gebiet_id": "13",
@@ -128,10 +126,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
-        "ratgeber_umzugspraemien",
-        "mv_wohnsitzpraemie"
+        "mv_wohnsitzpraemie",
+        "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft. Die Wohnsitzprämie geht an Hochschulen und Städte, nicht an Studierende."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Die Wohnsitzprämie geht an Hochschulen und Städte, nicht an Studierende; Fachkräfteförderung (2026) richtet sich an Unternehmen."
     },
     {
       "gebiet_id": "14",
@@ -139,9 +137,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "sn_rueckkehr_zustaendigkeit",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Rückkehrförderung betrifft ausreisepflichtige Drittstaatsangehörige; keine Prämie für Zuzug oder Rückkehr nach Sachsen."
     },
     {
       "gebiet_id": "15",
@@ -149,9 +148,10 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "st_rueckkehr_auslaender",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Rückkehrförderung betrifft die Ausreise; Landesinitiative „Fachkraft im Fokus“ berät Rückkehrende ohne Geldleistung."
     },
     {
       "gebiet_id": "16",
@@ -159,9 +159,133 @@
       "landesleistungen": "keine",
       "stand": "2026-10-25",
       "quellen": [
+        "th_rueckkehrpraemie_vorschlag",
         "ratgeber_umzugspraemien"
       ],
-      "notiz": "Websuche am 25.10.2026 nach Umzugs-, Zuzugs- und Rückkehrprämien der Länder für Privatpersonen: keine gefunden. Landesportal (Lebenslage Umzug) noch nicht einzeln geprüft."
+      "notiz": "Websuche am 25.10.2026 je Land nach Zuzugs-, Rückkehr- und Umzugsprämien für Privatpersonen: keine Landesleistung gefunden. Eine Rückkehrprämie (5.000 €) wurde 2019 vorgeschlagen und von der Landesregierung abgelehnt; eine Einführung ist nicht belegt."
+    }
+  ],
+  "quellen": [
+    {
+      "id": "bw_rueckkehrfoerderung",
+      "titel": "Regierungspräsidium Karlsruhe – Landesförderung freiwillige Rückkehr",
+      "url": "https://rp.baden-wuerttemberg.de/themen/wirtschaft/foerderungen/fb31/landesfoerderung-freiwillige-rueckkehr/",
+      "typ": "behoerde",
+      "herausgeber": "Land Baden-Württemberg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Einziges Landesprogramm mit „Rückkehr“ betrifft die Ausreise ausländischer Staatsangehöriger, nicht den Zuzug."
+    },
+    {
+      "id": "by_rueckkehrprogramm",
+      "titel": "Bayerischer Landtag – Schriftliche Anfrage zum Bayerischen Rückkehrprogramm",
+      "url": "https://www.bayern.landtag.de/www/ElanTextAblage_WP19/Drucksachen/Schriftliche Anfragen/19_0009485.pdf",
+      "typ": "parlament",
+      "herausgeber": "Bayerischer Landtag",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Das „Bayerische Rückkehrprogramm“ fördert die freiwillige Ausreise, keine Zuzugsprämie."
+    },
+    {
+      "id": "berlin_umzugspraemie_wbg",
+      "titel": "Berliner Mieterverein – Wohnungstausch und Umzugsprämie der landeseigenen Wohnungsunternehmen",
+      "url": "https://www.berliner-mieterverein.de/?p=50993",
+      "typ": "sekundaer",
+      "herausgeber": "Berliner Mieterverein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Umzugsprämie (1.500–2.500 €, Stand unklar) nur für Mieter der landeseigenen Wohnungsunternehmen beim Wechsel in eine kleinere Wohnung, bei sozialen Kriterien; keine Leistung für alle."
+    },
+    {
+      "id": "hamburg_praemie_rollstuhlwohnung",
+      "titel": "Leistungsbeschreibung Prämie für die Freigabe rollstuhlgerechter Wohnungen (FIM, Hamburg)",
+      "url": "https://fimportal.de/api/v0/xzufi-services/S100002/S1000020010000000111/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Freiwillige Prämie nur bei Freigabe einer geförderten rollstuhlgerechten Wohnung (Stand 2023); SAGA-Wohnungstausch ohne Prämie. Keine allgemeine Umzugsleistung."
+    },
+    {
+      "id": "kvh_umzugskosten_aerzte",
+      "titel": "KV Hessen – Umzugskostenzuschuss bei Niederlassung",
+      "url": "https://www.kvhessen.de/fileadmin/user_upload/kvhessen/Berufseinsteiger/Foerderung/FOERDERUNG_Umzugskosten_Arzt_Niederlassung_Merkblatt.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Kassenärztliche Vereinigung Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Umzugszuschuss nur für Ärztinnen und Ärzte, die sich in Fördergebieten niederlassen; nicht vom Land und nicht für alle."
+    },
+    {
+      "id": "nrw_lukg",
+      "titel": "Landesumzugskostengesetz NRW (Informationsseite Universität Duisburg-Essen)",
+      "url": "https://www.uni-due.de/verwaltung/umzugskostenverguetung/",
+      "typ": "sekundaer",
+      "herausgeber": "Universität Duisburg-Essen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Seit 1.1.2026 neues Landesumzugskostengesetz mit Pauschalen – nur für Landesbedienstete."
+    },
+    {
+      "id": "rp_landesinitiative_rueckkehr",
+      "titel": "Landesinitiative Rückkehr Rheinland-Pfalz – Fördergrundsätze 2024",
+      "url": "https://mffki.rlp.de/fileadmin/07/Dokumente/Themen/Integration/Rundschreiben_zur_Fluechtlingspolitik/Landesinitiative_Rueckkehr/Landesinitiative_Rueckkehr_Rheinland-Pfalz_Foerdergrundsaetze_2024.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Land Rheinland-Pfalz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Die Landesinitiative Rückkehr betrifft die freiwillige Ausreise, keine Zuzugsprämie."
+    },
+    {
+      "id": "sn_rueckkehr_zustaendigkeit",
+      "titel": "Sächsische Förderzuständigkeitsverordnung (REVOSax)",
+      "url": "https://revosax.sachsen.de/vorschrift/21558",
+      "typ": "gesetz",
+      "herausgeber": "Freistaat Sachsen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Rückkehrförderung betrifft ausreisepflichtige Drittstaatsangehörige; keine Prämie für Zuzug oder Rückkehr nach Sachsen."
+    },
+    {
+      "id": "st_rueckkehr_auslaender",
+      "titel": "Förderdatenbank – Freiwillige Rückkehr von Ausländern (Sachsen-Anhalt)",
+      "url": "https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Sachsen-Anhalt/freiwillige-rueckkehr-auslaender-herkunftslaender.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Wirtschaft (Förderdatenbank)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Rückkehrförderung betrifft die Ausreise; Landesinitiative „Fachkraft im Fokus“ berät Rückkehrende ohne Geldleistung."
+    },
+    {
+      "id": "sh_umzugskosten_landesdienst",
+      "titel": "Schleswig-Holstein – Umzugskosten und Trennungsgeld (Dienstleistungszentrum Personal)",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/DLZP/II-Themen/UmzugskostenTrennungsgeld/_documents/Umzugskosten_FI",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Umzugskostenregeln gelten nur für Landesbedienstete; keine Zuzugsprämie gefunden."
+    },
+    {
+      "id": "th_rueckkehrpraemie_vorschlag",
+      "titel": "TMASGFF – Ministerin Werner zur vorgeschlagenen Rückkehrprämie",
+      "url": "https://www.tmasgff.de/medienservice/artikel/ministerin-heike-werner-rueckkehrpraemie-der-cdu-ist-wenig-durchdacht",
+      "typ": "behoerde",
+      "herausgeber": "Thüringer Sozialministerium",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Eine Rückkehrprämie (5.000 €) wurde 2019 vorgeschlagen und von der Landesregierung abgelehnt; eine Einführung ist nicht belegt."
     }
   ]
 }

@@ -310,6 +310,10 @@ def baum_text(s: Schritt, kb: Wissensbasis, f: Farbe, tiefe: int = 0) -> list[st
         for k in s.kinder:
             zeilen.extend(baum_text(k, kb, f, tiefe + 1))
         return zeilen
+    if s.art == "lebenslage" and s.kinder:
+        zeilen = [einrueck + f.grau(f"Lebenslage: {s.text}")]
+        zeilen.extend(baum_text(s.kinder[0], kb, f, tiefe + 1))
+        return zeilen
     if s.art == "nicht":
         zeilen = [einrueck + schritt_text(s, kb, f) + f.grau("  (Verneinung von:)")]
         zeilen.extend(baum_text(s.kinder[0], kb, f, tiefe + 2))

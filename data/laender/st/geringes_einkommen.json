@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "fim_sozialpass_st",
+      "titel": "Leistungsbeschreibung Sozialpass (FIM, Sachsen-Anhalt)",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/L100008/32471244/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Sachsen-Anhalt)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Mehrere Landkreise und Städte bieten Sozial- bzw. Familien- und Sozialpässe an; laut Landtagsantwort (2013) plante das Land keinen landesweiten Sozialpass. Der FamilienPass des Landes ist nicht einkommensabhängig."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "15",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "fim_sozialpass_st"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Sozialpässe nur bei Landkreisen und Städten; FamilienPass des Landes ist nicht einkommensabhängig."
+    }
+  ]
+}

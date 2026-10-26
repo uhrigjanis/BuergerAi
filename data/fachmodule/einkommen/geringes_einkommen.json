@@ -1,0 +1,743 @@
+{
+  "_hinweis": "Fachmodul Geringes Einkommen: Leistungen, Bundesvarianten, Zuständigkeiten und Quellen. Sozialtickets der Länder unter data/laender, München-Pass unter data/kommunen. Der Kinderzuschlag steht im Fachmodul Familie und gehört auch zu dieser Lebenslage.",
+  "quellen": [
+    {
+      "id": "bmas_neue_grundsicherung",
+      "titel": "BMAS – Neue Grundsicherung",
+      "url": "https://www.bmas.de/DE/Service/Presse/Meldungen/2026/neue-grundsicherung-verlaessliche-unterstuetzung-nachhaltige-vermittlung.html",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Arbeit und Soziales",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (BMAS, Bundesregierung): Bundestag 5.3.2026, Bundesrat 27.3.2026; wesentliche Änderungen ab 1.7.2026; das Bürgergeld heißt seitdem Grundsicherungsgeld."
+    },
+    {
+      "id": "sgb2_7",
+      "titel": "§ 7 SGB II – Leistungsberechtigte",
+      "url": "https://www.gesetze-im-internet.de/sgb_2/__7.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Jobcenter Berlin Mitte: erwerbsfähig, 15 Jahre bis Regelaltersgrenze, gewöhnlicher Aufenthalt in Deutschland, hilfebedürftig. Die Drei-Stunden-Grenze der Erwerbsfähigkeit (§ 8 SGB II) wurde über die Suche nicht bestätigt."
+    },
+    {
+      "id": "jobcenter_berlin_geld",
+      "titel": "Jobcenter Berlin Mitte – Geldleistungen",
+      "url": "https://www.berlin.de/jobcenter-mitte/geld/",
+      "typ": "behoerde",
+      "herausgeber": "Jobcenter Berlin Mitte",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Voraussetzungen für Grundsicherung (erwerbsfähig, 15 Jahre bis Regelrentenalter, hilfebedürftig)."
+    },
+    {
+      "id": "regelbedarf_2026",
+      "titel": "Regelbedarf 2026 (Bericht Stuttgarter Zeitung)",
+      "url": "https://www.stuttgarter-zeitung.de/wirtschaft/neue-grundsicherung-rentner-mhsd-79225728.html",
+      "typ": "sekundaer",
+      "herausgeber": "Stuttgarter Zeitung",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Regelbedarf 2026 unverändert, 563 € für Alleinstehende, 506 € je Person bei Paaren (Besitzschutz). Amtlich (Regelbedarfsstufen-Fortschreibung) noch prüfen."
+    },
+    {
+      "id": "sgb12_41",
+      "titel": "§ 41 SGB XII – Grundsicherung im Alter und bei Erwerbsminderung",
+      "url": "https://www.gesetze-im-internet.de/sgb_12/__41.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Ratgebern: Regelaltersgrenze erreicht oder dauerhaft voll erwerbsgemindert ab 18, gewöhnlicher Aufenthalt in Deutschland, hilfebedürftig, nur auf Antrag."
+    },
+    {
+      "id": "wogg_7",
+      "titel": "§ 7 WoGG – Ausschluss vom Wohngeld",
+      "url": "https://www.gesetze-im-internet.de/wogg/__7.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Gesetzesportalen und FIM: ausgeschlossen sind Empfänger von Leistungen nach SGB II, Grundsicherung und Hilfe zum Lebensunterhalt nach SGB XII und AsylbLG, wenn Unterkunftskosten berücksichtigt wurden; Ausnahmen u. a. bei Darlehen."
+    },
+    {
+      "id": "fim_wohngeld",
+      "titel": "Leistungsbeschreibung Wohngeld (FIM-Portal)",
+      "url": "https://fimportal.de/api/v0/leistung-stammtexte/L100009/6000071-99107023037000/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Bund und Länder)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Antrag bei der Wohngeldbehörde (Gemeinde, Stadt, Kreis) des Wohnorts; Wohnkosten selbst tragen; Mietzuschuss bzw. Lastenzuschuss; keine Gebühren; meist 12 Monate bewilligt."
+    },
+    {
+      "id": "sgb2_28",
+      "titel": "§ 28 SGB II – Bedarfe für Bildung und Teilhabe",
+      "url": "https://www.gesetze-im-internet.de/sgb_2/__28.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; Inhalt über Antragsformulare von Kommunen (Dresden, Rosenheim, Landkreis Stade) und betanet abgeglichen."
+    },
+    {
+      "id": "bkgg_6b",
+      "titel": "§ 6b BKGG – Bildung und Teilhabe bei Kinderzuschlag und Wohngeld",
+      "url": "https://www.gesetze-im-internet.de/bkgg_1996/__6b.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut Antragsformular der Stadt Bremen: Bildung und Teilhabe für Familien mit Wohngeld oder Kinderzuschlag."
+    },
+    {
+      "id": "betanet_but",
+      "titel": "Bildungs- und Teilhabepaket (betanet)",
+      "url": "https://www.betanet.de/teilhabe-und-bildungspaket.html",
+      "typ": "sekundaer",
+      "herausgeber": "beta Institut",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: Grundsicherungsgeld deckt den Antrag mit ab (außer Lernförderung); bei Wohngeld, Kinderzuschlag, Sozialhilfe, AsylbLG eigener Antrag bei der Kommune. Eine Quelle nennt eine Antragsfrist von 12 Monaten nach Entstehen des Anspruchs (bei Wohngeld bzw. Kinderzuschlag)."
+    },
+    {
+      "id": "rbstv_4",
+      "titel": "§ 4 Rundfunkbeitragsstaatsvertrag – Befreiung und Ermäßigung",
+      "url": null,
+      "typ": "gesetz",
+      "herausgeber": "Länder (Staatsvertrag)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Ratgeber und Beitragsservice-Zitate: Befreiung bei Grundsicherungsgeld, Hilfe zum Lebensunterhalt, Grundsicherung im Alter und bei Erwerbsminderung, BAföG, Berufsausbildungsbeihilfe oder Ausbildungsgeld ohne Wohnen bei den Eltern; Wohngeld und Arbeitslosengeld reichen nicht; frühestens drei Jahre vor dem Antragsmonat (Abs. 4). Leistungen nach AsylbLG nach Kenntnis des Gesetzes, nicht über die Suche bestätigt. Amtliche Fassung noch prüfen."
+    },
+    {
+      "id": "sgb5_62",
+      "titel": "§ 62 SGB V – Belastungsgrenze",
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__62.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Volltext auf gesetze-im-internet.de war aus der Entwicklungsumgebung nicht erreichbar; laut G-BA und BMG: Zuzahlungen bis 2 % der jährlichen Bruttoeinnahmen zum Lebensunterhalt, bei schwerwiegend chronisch Kranken 1 %; danach Befreiung für den Rest des Jahres auf Antrag."
+    },
+    {
+      "id": "bmg_zuzahlungen",
+      "titel": "BMG – Zuzahlungsregelungen der GKV",
+      "url": "https://www.bundesgesundheitsministerium.de/fileadmin/Dateien/3_Downloads/A/Arzneimittelversorgung/Zuzahlungsregelungen_GKV.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Bundesministerium für Gesundheit",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Belastungsgrenze und Befreiung; Volltext nicht gelesen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "jobcenter",
+      "name": "Jobcenter – {kreis}",
+      "beschreibung": "Das Jobcenter Ihrer Stadt bzw. Ihres Landkreises."
+    },
+    {
+      "id": "sozialamt",
+      "name": "Sozialamt – {kreis}",
+      "beschreibung": "Sozialamt der Stadt bzw. des Landkreises; Anträge oft auch über die Gemeinde oder die Rentenversicherung."
+    },
+    {
+      "id": "but_stelle",
+      "name": "Jobcenter bzw. Stelle für Bildung und Teilhabe – {kreis}",
+      "beschreibung": "Bei Grundsicherungsgeld das Jobcenter; bei Wohngeld, Kinderzuschlag, Sozialhilfe oder Asylbewerberleistungen die Stadt bzw. der Landkreis."
+    },
+    {
+      "id": "krankenkasse",
+      "name": "Ihre Krankenkasse",
+      "beschreibung": "Die gesetzliche Krankenkasse, bei der Sie versichert sind."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "grundsicherungsgeld",
+      "name": "Grundsicherungsgeld (früher Bürgergeld)",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Sichert den Lebensunterhalt erwerbsfähiger Menschen, deren Einkommen und Vermögen nicht reichen, einschließlich Miete und Heizung.",
+      "betraege": [
+        {
+          "text": "Regelbedarf 563 € im Monat für Alleinstehende (506 € je Person bei Paaren), dazu angemessene Miete und Heizung",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "regelbedarf_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grundsicherung_alter_em",
+      "name": "Grundsicherung im Alter und bei Erwerbsminderung",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Für Menschen ab der Regelaltersgrenze oder dauerhaft voll Erwerbsgeminderte, deren Rente und Einkommen nicht reichen.",
+      "betraege": [
+        {
+          "text": "Regelbedarf 563 € im Monat für Alleinstehende (506 € je Person bei Paaren), dazu angemessene Miete und Heizung",
+          "gueltig_ab": "2026-01-01",
+          "gueltig_bis": "2026-12-31",
+          "quellen": [
+            "regelbedarf_2026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wohngeld",
+      "name": "Wohngeld",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "geldleistung",
+      "kurz": "Zuschuss zur Miete (Mietzuschuss) oder zu den Kosten für selbst genutztes Eigentum (Lastenzuschuss) bei geringem Einkommen."
+    },
+    {
+      "id": "bildung_und_teilhabe",
+      "name": "Bildung und Teilhabe für Kinder",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "kreis",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Schulbedarf, Mittagessen in Kita und Schule, Ausflüge und Klassenfahrten, Lernförderung, Schülerbeförderung sowie Sport, Musik und Kultur für Kinder und Jugendliche."
+    },
+    {
+      "id": "rundfunkbeitrag_befreiung",
+      "name": "Befreiung vom Rundfunkbeitrag",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Wer bestimmte Sozialleistungen bekommt, muss keinen Rundfunkbeitrag zahlen – aber nur auf Antrag."
+    },
+    {
+      "id": "sozialticket",
+      "name": "Vergünstigtes Ticket für Bus und Bahn (Sozialticket)",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Einige Länder vergünstigen Monatskarten bzw. das Deutschlandticket für Menschen mit Sozialleistungen."
+    },
+    {
+      "id": "sozialpass",
+      "name": "Sozialpass der Stadt",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Ermäßigungen bei Nahverkehr, Bädern, Museen, Kursen und mehr für Menschen mit geringem Einkommen."
+    },
+    {
+      "id": "zuzahlungsbefreiung",
+      "name": "Befreiung von Zuzahlungen der Krankenkasse",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "bund",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Wer im Jahr mehr Zuzahlungen (z. B. für Medikamente) leistet als die Belastungsgrenze, wird für den Rest des Jahres befreit."
+    },
+    {
+      "id": "landesfamilienpass",
+      "name": "Familienpass des Landes",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "verwaltungsebene": "land",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "kurz": "Freier oder ermäßigter Eintritt in Einrichtungen des Landes für Familien mit geringem Einkommen, vielen Kindern oder Alleinerziehende."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "grundsicherungsgeld_bund",
+      "leistung_id": "grundsicherungsgeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "jobcenter",
+      "quellen": [
+        "sgb2_7",
+        "bmas_neue_grundsicherung",
+        "jobcenter_berlin_geld"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "alter",
+                "op": ">=",
+                "wert": 15,
+                "text": "Mindestens 15 Jahre alt",
+                "quellen": [
+                  "sgb2_7"
+                ]
+              },
+              {
+                "eine": [
+                  {
+                    "fakt": "alter",
+                    "op": "<=",
+                    "wert": 65,
+                    "text": "Regelaltersgrenze noch nicht erreicht (bis 65 Jahre)"
+                  },
+                  {
+                    "alle": [
+                      {
+                        "fakt": "alter",
+                        "op": "<",
+                        "wert": 67,
+                        "text": "Jünger als 67 Jahre"
+                      },
+                      {
+                        "pruefung_noetig": "Ob die Regelaltersgrenze schon erreicht ist, hängt vom Geburtsjahr ab (zwischen 65 und 67 Jahren).",
+                        "quellen": [
+                          "sgb2_7"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "fakt": "einkommen.erwerbsfaehig",
+                "op": "==",
+                "wert": true,
+                "text": "Sie können mindestens drei Stunden am Tag arbeiten (erwerbsfähig)",
+                "quellen": [
+                  "sgb2_7"
+                ]
+              },
+              {
+                "pruefung_noetig": "Ob Einkommen und Vermögen den Bedarf des Haushalts nicht decken, rechnet das Jobcenter aus.",
+                "quellen": [
+                  "sgb2_7"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "Mietvertrag und Nachweise über Heiz- und Nebenkosten",
+          "Einkommens- und Vermögensnachweise aller Haushaltsmitglieder",
+          "Kontoauszüge"
+        ],
+        "schritte": [
+          "Antrag beim Jobcenter stellen (online, schriftlich oder vor Ort). Der Antrag gilt ab dem Tag, an dem er gestellt wird – also nicht warten, bis alle Unterlagen da sind.",
+          "Wer schon Grundsicherungsgeld bekommt: die Weiterbewilligung rechtzeitig vor Ende des Bewilligungszeitraums beantragen."
+        ],
+        "hinweise": [
+          "Seit dem 1. Juli 2026 heißt das Bürgergeld Grundsicherungsgeld; dabei haben sich auch Mitwirkungspflichten und Vermögensprüfung geändert."
+        ]
+      }
+    },
+    {
+      "id": "grundsicherung_alter_em_bund",
+      "leistung_id": "grundsicherung_alter_em",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "sozialamt",
+      "quellen": [
+        "sgb12_41"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen bereits Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "alle": [
+              {
+                "eine": [
+                  {
+                    "fakt": "alter",
+                    "op": ">=",
+                    "wert": 67,
+                    "text": "Regelaltersgrenze erreicht (67 Jahre)",
+                    "quellen": [
+                      "sgb12_41"
+                    ]
+                  },
+                  {
+                    "alle": [
+                      {
+                        "fakt": "alter",
+                        "op": ">=",
+                        "wert": 65,
+                        "text": "Mindestens 65 Jahre alt"
+                      },
+                      {
+                        "pruefung_noetig": "Ob die Regelaltersgrenze schon erreicht ist, hängt vom Geburtsjahr ab (zwischen 65 und 67 Jahren).",
+                        "quellen": [
+                          "sgb12_41"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "alle": [
+                      {
+                        "fakt": "alter",
+                        "op": ">=",
+                        "wert": 18,
+                        "text": "Mindestens 18 Jahre alt"
+                      },
+                      {
+                        "nicht": {
+                          "fakt": "einkommen.erwerbsfaehig",
+                          "op": "==",
+                          "wert": true,
+                          "text": "Erwerbsfähig"
+                        },
+                        "text": "Nicht erwerbsfähig"
+                      },
+                      {
+                        "fakt": "einkommen.voll_erwerbsgemindert",
+                        "op": "==",
+                        "wert": true,
+                        "text": "Dauerhaft voll erwerbsgemindert (von der Rentenversicherung festgestellt)",
+                        "quellen": [
+                          "sgb12_41"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "pruefung_noetig": "Ob Rente, Einkommen und Vermögen den Bedarf nicht decken, rechnet das Sozialamt aus.",
+                "quellen": [
+                  "sgb12_41"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Personalausweis",
+          "Rentenbescheid",
+          "Mietvertrag und Nebenkostennachweise",
+          "Einkommens- und Vermögensnachweise"
+        ],
+        "schritte": [
+          "Antrag beim Sozialamt stellen; viele Rentenversicherungsträger und Gemeinden nehmen den Antrag ebenfalls entgegen.",
+          "Die Leistung gibt es nur auf Antrag, nicht automatisch zur Rente."
+        ]
+      }
+    },
+    {
+      "id": "wohngeld_bund",
+      "leistung_id": "wohngeld",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "wohngeldbehoerde",
+      "quellen": [
+        "wogg_7",
+        "fim_wohngeld",
+        "wogg_25"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_wohngeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen bereits Wohngeld"
+          },
+          {
+            "alle": [
+              {
+                "fakt": "einkommen.wohnkosten",
+                "op": "in",
+                "wert": [
+                  "miete",
+                  "eigentum"
+                ],
+                "text": "Sie zahlen selbst Miete oder Kosten für Ihr selbst genutztes Eigentum",
+                "quellen": [
+                  "fim_wohngeld"
+                ]
+              },
+              {
+                "nicht": {
+                  "fakt": "bezieht_buergergeld",
+                  "op": "==",
+                  "wert": true,
+                  "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+                },
+                "text": "Kein Grundsicherungsgeld (dort sind die Wohnkosten schon enthalten)"
+              },
+              {
+                "nicht": {
+                  "fakt": "bezieht_sozialhilfe",
+                  "op": "==",
+                  "wert": true,
+                  "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+                },
+                "text": "Keine Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+              },
+              {
+                "nicht": {
+                  "fakt": "bezieht_asylbewerberleistungen",
+                  "op": "==",
+                  "wert": true,
+                  "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+                },
+                "text": "Keine Leistungen nach dem Asylbewerberleistungsgesetz"
+              },
+              {
+                "pruefung_noetig": "Ob das Einkommen unter der Grenze liegt, hängt von Haushaltsgröße, Miete und Wohnort ab – Wohngeldrechner bzw. Wohngeldbehörde.",
+                "quellen": [
+                  "fim_wohngeld"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Mietvertrag bzw. Nachweise der Belastung bei Eigentum",
+          "Einkommensnachweise aller Haushaltsmitglieder"
+        ],
+        "schritte": [
+          "Mit einem Wohngeldrechner grob prüfen, ob sich ein Antrag lohnt (unverbindlich).",
+          "Antrag bei der Wohngeldbehörde stellen, viele Länder bieten einen Online-Antrag an.",
+          "Wohngeld wird meist für zwölf Monate bewilligt: rechtzeitig den Weiterleistungsantrag stellen."
+        ],
+        "fristen": [
+          {
+            "text": "Wohngeld gibt es ab dem Ersten des Monats, in dem der Antrag gestellt wird – also nicht warten",
+            "bezug": "keiner",
+            "quellen": [
+              "wogg_25"
+            ]
+          }
+        ],
+        "kosten": "gebührenfrei"
+      },
+      "hinweise": [
+        "Wer Grundsicherungsgeld oder Sozialhilfe bekommt, erhält kein Wohngeld; manchmal kann Wohngeld (mit Kinderzuschlag) diese Leistungen aber ersetzen. Das prüft die Wohngeldbehörde."
+      ]
+    },
+    {
+      "id": "bildung_und_teilhabe_bund",
+      "leistung_id": "bildung_und_teilhabe",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "but_stelle",
+      "quellen": [
+        "sgb2_28",
+        "bkgg_6b",
+        "betanet_but"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "kinder_im_haushalt",
+            "op": ">=",
+            "wert": 1,
+            "text": "Kinder oder Jugendliche unter 25 Jahren leben im Haushalt"
+          },
+          {
+            "eine": [
+              {
+                "fakt": "bezieht_buergergeld",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+              },
+              {
+                "fakt": "bezieht_sozialhilfe",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+              },
+              {
+                "fakt": "bezieht_wohngeld",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Wohngeld"
+              },
+              {
+                "fakt": "bezieht_kinderzuschlag",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Kinderzuschlag"
+              },
+              {
+                "fakt": "bezieht_asylbewerberleistungen",
+                "op": "==",
+                "wert": true,
+                "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+              }
+            ],
+            "text": "Bezug einer der berechtigenden Leistungen"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Bescheid über Grundsicherungsgeld, Sozialhilfe, Wohngeld, Kinderzuschlag oder Asylbewerberleistungen",
+          "Je nach Leistung: Schulbescheinigung, Kosten für Mittagessen, Ausflüge oder Vereinsbeiträge"
+        ],
+        "schritte": [
+          "Mit Grundsicherungsgeld: Der Antrag auf Grundsicherungsgeld deckt die meisten Leistungen ab; Lernförderung extra beantragen.",
+          "Mit Wohngeld, Kinderzuschlag, Sozialhilfe oder Asylbewerberleistungen: eigenen Antrag bei der Stadt bzw. dem Landkreis stellen."
+        ],
+        "hinweise": [
+          "Bei Wohngeld oder Kinderzuschlag nennt eine Quelle eine Antragsfrist von 12 Monaten nach Entstehen des Anspruchs; besser zeitnah beantragen."
+        ]
+      },
+      "hinweise": [
+        "Wie die Leistungen im Einzelnen beantragt werden, regeln Städte und Kreise unterschiedlich. In Berlin z. B. braucht nur einen Antrag, wer Wohngeld oder Kinderzuschlag bekommt."
+      ]
+    },
+    {
+      "id": "rundfunkbeitrag_befreiung_bund",
+      "leistung_id": "rundfunkbeitrag_befreiung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "beitragsservice",
+      "quellen": [
+        "rbstv_4"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          },
+          {
+            "fakt": "einkommen.ausbildungsfoerderung_ohne_eltern",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen BAföG, Berufsausbildungsbeihilfe oder Ausbildungsgeld und wohnen nicht bei den Eltern"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Bescheid über die Sozialleistung (Kopie)"
+        ],
+        "schritte": [
+          "Befreiung beim Beitragsservice beantragen (Formular online) und den Bescheid beilegen.",
+          "Die Befreiung gilt so lange wie der Bescheid; bei einem neuen Bescheid erneut einreichen."
+        ],
+        "fristen": [
+          {
+            "text": "Rückwirkend höchstens für drei Jahre vor dem Antragsmonat, wenn die Voraussetzungen damals schon bestanden",
+            "bezug": "keiner",
+            "quellen": [
+              "rbstv_4"
+            ]
+          }
+        ],
+        "online_url": "https://www.rundfunkbeitrag.de"
+      },
+      "hinweise": [
+        "Wohngeld oder Arbeitslosengeld allein reichen für die Befreiung nicht."
+      ]
+    },
+    {
+      "id": "zuzahlungsbefreiung_bund",
+      "leistung_id": "zuzahlungsbefreiung",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "krankenkasse",
+      "quellen": [
+        "sgb5_62",
+        "bmg_zuzahlungen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "einkommen.gesetzlich_versichert",
+            "op": "==",
+            "wert": true,
+            "text": "Sie sind gesetzlich krankenversichert"
+          },
+          {
+            "pruefung_noetig": "Ob Ihre Zuzahlungen im Jahr über der Belastungsgrenze liegen (2 % der Bruttoeinnahmen, bei schwerwiegend chronisch Kranken 1 %), rechnet die Krankenkasse aus.",
+            "quellen": [
+              "sgb5_62"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Quittungen über Zuzahlungen",
+          "Einkommensnachweise des Haushalts",
+          "Bei chronischer Erkrankung: ärztliche Bescheinigung"
+        ],
+        "schritte": [
+          "Quittungen für Zuzahlungen das ganze Jahr sammeln.",
+          "Bei Erreichen der Belastungsgrenze die Befreiung bei der Krankenkasse beantragen; alternativ ist eine Vorauszahlung möglich."
+        ]
+      }
+    }
+  ]
+}

@@ -131,7 +131,24 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Haushaltsfakten im Kern:** `bezieht_wohngeld`, `bezieht_buergergeld` und `arbeitsuchend_gemeldet` liegen im Kern, weil auch geringes Einkommen und Arbeit sie brauchen.
 - **Nicht erfasst:** Jede Lebenslage kann bewusst nicht erfasste Themen mit Begründung nennen (`nicht_erfasst`). Der Bericht zeigt sie (Akzeptanzkriterium aus #41).
 - **Nur echte Landesleistungen als „nur in anderen Ländern“:** Kommunale Varianten (z. B. Münchner Hundesteuer) erscheinen dort nicht mehr. Sonst stünde die Leistung einer Stadt bei allen anderen Gemeinden.
-- **Abweichung vom Akzeptanzkriterium:** „Mindestens ein Land mit landeseigener Leistung“ ist für Umzug nicht erfüllbar, weil die Recherche keine gefunden hat. Erfasst sind stattdessen kommunale Varianten (München, Berlin) und für alle Länder der Nachweis `keine`.
+- **Akzeptanzkriterium Landesleistung (nachgeholt):** Die erste, allgemeine Suche fand keine Landesleistung, und zunächst stand für alle Länder `keine` mit einer gemeinsamen Sekundärquelle. Die Nachrecherche je Land fand das Begrüßungsgeld des Landes Bremen (150 € bei Zuzug für Studium oder Ausbildung). Es nutzt den abgeleiteten Fakt `umzug.gleiches_land`. Die übrigen 15 Länder haben `keine` mit je einer eigenen Quelle.
+
+### 9. Umsetzung von Schritt 2: Geringes Einkommen (25.10.2026)
+
+- **Fachmodul `einkommen`** mit der Lebenslage `geringes_einkommen` (Typ `situation`). Viele Regeln hängen am Bezug anderer Leistungen (Grundsicherungsgeld, Sozialhilfe, Wohngeld, Kinderzuschlag, Asylbewerberleistungen). Diese Angaben liegen im Kern, weil weitere Lebenslagen sie brauchen.
+- **Geteilte Leistung:** Der Kinderzuschlag bleibt im Modul Familie und gehört zusätzlich zu `geringes_einkommen`. Damit er je Lebenslage passend fragt, gibt es den Regelknoten `{"lebenslage": …, "regel": …}`: Der Zweig gilt nur, wenn die Lebenslage gewählt ist, sonst als nicht erfüllt. Bei Geburt zählt das Neugeborene, sonst die Zahl der Kinder im Haushalt (`kinder_im_haushalt`). Die Prüfung stellt sicher, dass ein solcher Knoten nur Lebenslagen der eigenen Leistung nennt.
+- **Grundsicherungsgeld:** Seit dem 1.7.2026 heißt das Bürgergeld Grundsicherungsgeld. Die ID des Fakts `bezieht_buergergeld` bleibt, damit gespeicherte Angaben gültig bleiben; Texte nennen beide Namen.
+- **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Das Sozialticket ist eine Leistung ohne Bundesvariante mit Varianten in Berlin, Brandenburg, Hamburg, Hessen und NRW; Baden-Württemberg hat den Landesfamilienpass. Für die übrigen 10 Länder ist „keine“ mit Quelle eingetragen. Kommunale Angebote (München, Stadt Bremen, Saarbrücken) sind Gemeindevarianten und erscheinen andernorts nicht als „nur in anderen Ländern“.
+- **Bedarfsrechnungen bleiben Prüfpunkte:** Ob Einkommen und Vermögen reichen, rechnen Jobcenter, Sozialamt, Wohngeldbehörde und Familienkasse. Die Engine liefert dafür höchstens „Unklar“ mit Hinweis auf den zuständigen Rechner oder die Stelle (ADR 0003).
+
+### 10. Umsetzung von Schritt 3: Pflege (26.10.2026)
+
+- **Fachmodul `pflege`** mit der Lebenslage `pflege` (Typ `situation`). Die nutzende Person ist entweder selbst pflegebedürftig oder pflegt einen Angehörigen (`pflege.rolle`). Die Fakten sprechen von „der pflegebedürftigen Person“ und von „Ihnen“ als Pflegeperson.
+- **Keine Rollen:** Anders als in Abschnitt 7 vermutet, braucht Pflege keine Rollen `pflegebeduerftig` und `pflegeperson`. Rollen werten eine Regel je Person aus (Mutter, anderer Elternteil). Bei Pflege gibt es je Leistung genau eine berechtigte Person, die sich aus der Leistung ergibt; dafür reicht die Angabe `pflege.rolle` in der Regel.
+- **Ort der pflegebedürftigen Person:** Landesleistungen (Landespflegegeld, Blindengeld, Pflegewohngeld) und die Hilfe zur Pflege haben den Ortsbezug `pflege.ort`. Der Fakt hat `nur_wenn` (nur bei Angehörigen). Die Engine wendet das auch auf den Ortsbezug an: Ist die Bedingung nicht erfüllt, gilt der Wohnort der Anfrage; ist sie offen, wird zuerst danach gefragt.
+- **Ort unbekannt heißt offen, nicht „anderswo“:** Fehlt der Ort einer Leistung oder ist er „weiß nicht“, erschien eine Landesleistung bisher als „nur in anderen Ländern“, beim Blindengeld mit allen 16 Ländern. Jetzt nennt ein Hinweis die Landesleistungen, die sich ohne den Ort nicht prüfen lassen. Das betrifft auch andere Module mit Ortsbezug.
+- **Blindengeld als Landesleistung in allen Ländern:** Es gibt keine Bundesvariante; jedes Land hat eine eigene Variante mit eigener Stelle und Quelle. Name und Höhe stehen im Hinweis der Variante, die Höhe nur, wenn eine Quelle sie nennt; widersprüchliche Angaben sind gekennzeichnet. Das Blindengeld gehört fachlich auch zu Behinderung und bekommt dort später eine zweite Lebenslage.
+- **Akzeptanzkriterium Landesleistung erfüllt, alle Länder recherchiert:** Landespflegegeld nur in Bayern, Pflegewohngeld in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern, Blindengeld überall. Damit ist die Abdeckung für alle 16 Länder `erfasst`.
 
 ## Folgen
 

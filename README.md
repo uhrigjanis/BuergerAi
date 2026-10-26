@@ -2,7 +2,7 @@
 
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
-**Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslagen **Geburt** (Fachmodul Familie) und **Umzug** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München, Freising und (bei Umzug) Berlin. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
+**Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslagen **Geburt** (Fachmodul Familie), **Umzug** und **Geringes Einkommen** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München, Freising und (bei Umzug) Berlin. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
 
 > Unverbindliche Orientierung, keine Rechtsberatung.
 
@@ -12,7 +12,7 @@ Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwan
 ./bai web                   # dann im Browser http://localhost:8000 öffnen
 ```
 
-Ablauf: Lebenslage wählen (Geburt, Umzug, auch beides) und Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
+Ablauf: Lebenslage wählen (Geburt, Geringes Einkommen, Umzug, auch mehrere) und Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
 
 | Funktion | Wo |
 |----------|-----|
@@ -110,6 +110,11 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 | `umzug_innerhalb_muenchen` | gleiche Gemeinde: keine Hundesteuer-Ummeldung, Wohngeld neu beantragen |
 | `umzug_dresden_nach_baunatal_mit_baby` | Geburt und Umzug zusammen; Sächsisches Landeserziehungsgeld am neuen Ort nicht verfügbar |
 | `umzug_nur_plz` | Startpunkt Umzug: Anmeldung und Rundfunkbeitrag immer, sonst unklar |
+| `umzug_hannover_nach_bremen_studium` | Begrüßungsgeld des Landes Bremen (Landesleistung) beim Zuzug für das Studium |
+| `einkommen_berlin_wohngeld_zwei_kinder` | Berlin-Ticket S (Landesleistung) mit Wohngeld, Bildung und Teilhabe; keine Rundfunkbefreiung |
+| `einkommen_hamburg_grundsicherungsgeld` | hvv-Sozialrabatt, Rundfunkbefreiung; Wohngeld ausgeschlossen |
+| `einkommen_muenchen_rentnerin` | Grundsicherung im Alter unklar, München-Pass; kein Landes-Sozialticket in Bayern |
+| `einkommen_koeln_baby_kinderzuschlag` | Geburt und geringes Einkommen: Kinderzuschlag in beiden Lebenslagen, einmal gelistet |
 
 ## So funktioniert es
 
@@ -198,11 +203,30 @@ docs/
 - ✅ Fachmodul Umzug (innerhalb Deutschlands) mit 9 Leistungen: Wohnung anmelden, Fahrzeug, Hundesteuer an- und abmelden, Rundfunkbeitrag, Wohngeld neu beantragen, Umzugskosten von Jobcenter und Arbeitsagentur, Anschrift an Leistungsstellen
 - ✅ Zwei Orte: Die PLZ der Anfrage ist die neue Wohnung, der bisherige Wohnort ist eine eigene Angabe (z. B. Hundesteuer abmelden, bisheriges Jobcenter); „innerhalb derselben Gemeinde“ wird daraus abgeleitet
 - ✅ Stellen vor Ort für München (Anmeldung, Hundesteuer) und Berlin (Anmeldung); sonst Meldebehörde, Zulassungsbehörde usw. mit Gemeinde- bzw. Kreisname
-- ✅ Landesleistungen für Umzug je Land recherchiert: keine gefunden (dokumentiert in `data/fachmodule/umzug/abdeckung.json`); bewusst nicht erfasste Themen stehen mit Begründung im Bericht
+- ✅ Landesleistungen für Umzug je Land recherchiert und belegt: Begrüßungsgeld des Landes Bremen bei Zuzug für Studium oder Ausbildung, in den übrigen 15 Ländern keine (Übersicht in [docs/validierung.md](docs/validierung.md)); bewusst nicht erfasste Themen stehen mit Begründung im Bericht
 - ✅ Lebenslagen in Web und Dialog wählbar und später änderbar; 5 Szenarien, 93/93 Anforderungen mit Tests
 - ⏳ Alle Quellen nur `teilweise` geprüft: Gesetzestexte waren aus der Entwicklungsumgebung nicht erreichbar ([docs/validierung.md](docs/validierung.md))
 
-Nächste Schritte: Lebenslage Geringes Einkommen (#41, Schritt 2), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
+## Stand Lebenslage Geringes Einkommen (#41, Schritt 2)
+
+- ✅ Fachmodul Geringes Einkommen (Situation) mit 9 Leistungen: Grundsicherungsgeld (seit 1.7.2026, früher Bürgergeld), Grundsicherung im Alter und bei Erwerbsminderung, Wohngeld, Kinderzuschlag (geteilt mit Geburt), Bildung und Teilhabe, Befreiung vom Rundfunkbeitrag, Sozialticket, Sozialpass, Befreiung von Zuzahlungen
+- ✅ Alle 16 Länder recherchiert: Sozialticket in Berlin (Berlin-Ticket S), Brandenburg (Mobilitätsticket), Hamburg (hvv-Sozialrabatt), Hessen (Hessenpass mobil, Quellen widersprüchlich) und NRW (DeutschlandTicket Sozial); Landesfamilienpass in Baden-Württemberg; in den übrigen 10 Ländern keine Landesleistung gefunden (belegt)
+- ✅ Kommunal: München-Pass, StadtTicket und Bremer Pass (Stadt Bremen), SOZIALCARD Saarbrücken
+- ✅ Ausschlüsse und Abhängigkeiten als Regeln: kein Wohngeld bei Grundsicherung, Bildung und Teilhabe nur mit berechtigender Leistung, Rundfunkbefreiung nicht bei Wohngeld
+- ✅ Neuer Regelknoten `lebenslage`: Ein Zweig gilt nur, wenn die Lebenslage gewählt ist (Kinderzuschlag fragt bei Geburt nach dem Neugeborenen, sonst nach der Zahl der Kinder)
+- ✅ 4 Szenarien, 103/103 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft, die Belege für „keine“ stammen aus Websuchen, nicht aus jedem Landesportal ([docs/validierung.md](docs/validierung.md))
+
+## Stand Lebenslage Pflege (#41, Schritt 3)
+
+- ✅ Fachmodul Pflege (Situation) mit 19 Leistungen: Pflegegrad beantragen, Pflegeberatung, Pflegegeld, Pflegesachleistung, Entlastungsbetrag, Verhinderungs- und Kurzzeitpflege, Pflegehilfsmittel, Wohnungsumbau, Heimleistungen, Hilfe zur Pflege; für pflegende Angehörige zehn freie Tage, Pflegeunterstützungsgeld, Pflegezeit, Familienpflegezeit, Darlehen und Rentenversicherung
+- ✅ Beträge 2026 der Pflegeversicherung aus der Leistungsübersicht des BMG (Pflegegeld 347–990 €, Entlastungsbetrag 131 €, 3.539 € für Verhinderungs- und Kurzzeitpflege)
+- ✅ Alle 16 Länder recherchiert und erfasst: Blindengeld in jedem Land (je eigene Stelle und Quelle, Name und Höhe je Land), Landespflegegeld nur in Bayern (500 € im Jahr ab 2026; die Antragsfrist ist in den Quellen widersprüchlich und steht nur als Hinweis), Pflegewohngeld in NRW, Schleswig-Holstein und Mecklenburg-Vorpommern
+- ✅ Wer pflegt, gibt den Wohnort der pflegebedürftigen Person an; Landesleistungen gelten dort (z. B. Tochter in Berlin, Mutter in Bayern → Landespflegegeld). Wer selbst pflegebedürftig ist, wird nicht danach gefragt
+- ✅ 5 Szenarien, 111/111 Anforderungen mit Tests (gesamt)
+- ⏳ Quellen nur `teilweise` geprüft; die Höhe des Blindengelds ist in mehreren Ländern nicht amtlich bestätigt und steht dann nur als Hinweis ([docs/validierung.md](docs/validierung.md))
+
+Nächste Schritte: Lebenslage Wohnen und Eigentum (#41, Schritt 4), danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz
 

@@ -141,10 +141,119 @@ Alle Quellen haben den Status `teilweise`. Die Gesetzestexte (gesetze-im-interne
 | `muenchen_wohnsitz`, `muenchen_hundesteuer`, `berlin_wohnsitz` | Fristen und Online-Wege auf den Behördenseiten; Münchner Hundesteuersatzung (risi.muenchen.de, Stand 2017) auf Aktualität |
 | `fim_hundesteuer` | Volltext der FIM-Beschreibung (bisher nur Suchergebnis) |
 
-### Landesleistungen
+### Landesleistungen (alle 16 Länder, je Land gesucht am 25.10.2026)
 
-Für alle 16 Länder ist `landesleistungen: keine` eingetragen. Grundlage ist eine Websuche nach Umzugs-, Zuzugs- und Rückkehrprämien für Privatpersonen. Gefunden wurden nur Programme, die nicht an Umziehende zahlen (Brandenburg: Zuzugsinitiativen; Mecklenburg-Vorpommern: Wohnsitzprämie an Hochschulen). Die Lebenslage „Umzug“ der Landesportale ist noch nicht je Land geprüft. Findet sich dort eine Leistung, wird sie erfasst und der Eintrag auf `erfasst` gesetzt.
+| Land | Ergebnis | Was gefunden wurde |
+|------|----------|--------------------|
+| Bremen | **erfasst: Begrüßungsgeld** (150 €, Studium oder Ausbildung) | Radio Bremen, Hochschule Bremen; Antragsweg und Frist widersprüchlich |
+| Baden-Württemberg | keine | nur Förderung der freiwilligen Ausreise |
+| Bayern | keine | „Bayerisches Rückkehrprogramm“ betrifft die Ausreise |
+| Berlin | keine | Umzugsprämie nur für Mieter landeseigener Wohnungsunternehmen (Sekundärquelle) |
+| Brandenburg | keine | Förderung von Zuzugsinitiativen, keine Zahlungen an Personen |
+| Hamburg | keine | Prämie nur für die Freigabe rollstuhlgerechter Wohnungen |
+| Hessen | keine | Umzugszuschuss nur für Ärztinnen und Ärzte (KV Hessen) |
+| Mecklenburg-Vorpommern | keine | Wohnsitzprämie an Hochschulen; Fachkräfteförderung für Unternehmen |
+| Niedersachsen | keine | nur kommunale Prämien (nur Sekundärquelle) |
+| Nordrhein-Westfalen | keine | Landesumzugskostengesetz nur für Landesbedienstete |
+| Rheinland-Pfalz | keine | Landesinitiative Rückkehr betrifft die Ausreise |
+| Saarland | keine | nur Programme für Unternehmen (nur Sekundärquelle) |
+| Sachsen | keine | Rückkehrförderung betrifft die Ausreise |
+| Sachsen-Anhalt | keine | Rückkehrförderung betrifft die Ausreise; Beratung ohne Geldleistung |
+| Schleswig-Holstein | keine | Umzugskostenregeln nur für Landesbedienstete |
+| Thüringen | keine | Rückkehrprämie 2019 nur vorgeschlagen, nicht eingeführt |
+
+„Keine“ heißt: Die Websuche je Land hat keine Landesleistung für Umziehende gefunden. Die Landesportale sind nicht vollständig durchgesehen.
 
 ### Nicht erfasst
 
 Bewusst nicht erfasst und im Bericht mit Begründung genannt: Abmeldung bei Umzug ins Ausland, Umzugskosten in der Steuererklärung, Begrüßungsgeld für Studierende (Quellen veraltet oder widersprüchlich, z. B. Kiel 100 € oder 150 €), Zweitwohnungsteuer, Kita und Schule, Nachsendeauftrag und Versorger.
+
+## Lebenslage Geringes Einkommen (Issue #41, Schritt 2)
+
+Wie bei Umzug: Alle Quellen sind `teilweise` geprüft, weil Gesetzestexte und Behördenseiten nur über Suchergebnisse erreichbar waren. Die Notiz jeder Quelle sagt, was bestätigt ist.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmas_neue_grundsicherung`, `sgb2_7` | Inkrafttreten 1.7.2026, Name „Grundsicherungsgeld“, Altersgrenzen, Drei-Stunden-Grenze der Erwerbsfähigkeit (§ 8 SGB II, nicht über die Suche bestätigt) |
+| `regelbedarf_2026` | Regelbedarf 563 € bzw. 506 € (nur Sekundärquelle) |
+| `sgb12_41` | Voraussetzungen der Grundsicherung im Alter und bei Erwerbsminderung |
+| `wogg_7`, `fim_wohngeld` | Ausschlüsse vom Wohngeld und ihre Ausnahmen |
+| `sgb2_28`, `bkgg_6b`, `betanet_but` | Berechtigte, Antragsweg, Antragsfrist von 12 Monaten (nur eine Quelle) |
+| `rbstv_4` | Befreiungsgründe; ob Asylbewerberleistungen genannt sind (nicht über die Suche bestätigt); amtliche Fassung und URL |
+| `berlin_ticket_s`, `berlinecho_ticket_s` | Preis 2026 (27,50 € nur laut Bericht), Übergangsregel |
+| `hamburg_sozialrabatt` | Rabatt 35,50 €, berechtigte Leistungen |
+| `hessenpass_mobil` | **Widersprüchlich:** Preis 39 € oder 44 €, Berechtigte nur aus Ratgebern; amtliche Seite des Landes suchen |
+| `vbb_mobilitaetsticket` | Berechtigte außer Grundsicherungsgeld, Preis 2026 |
+| `muenchen_pass` | Einkommensgrenzen (Tabelle auf der Seite nicht erfasst) |
+| `sgb5_62` | Belastungsgrenze und Chroniker-Regel |
+
+| `nrw_deutschlandticket_sozial` | Preis je Kreis und Verbund, ob alle Kreise teilnehmen, Anteil der Landesförderung |
+| `bw_landesfamilienpass` | Berechtigte Gruppen, ob „Grundsicherung“ auch das Grundsicherungsgeld umfasst |
+| `bremen_stadtticket`, `saarbruecken_sozialcard` | Preise 2026, Aktualität der Faltblätter |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Ergebnis | Grundlage |
+|------|----------|-----------|
+| Baden-Württemberg | erfasst: Landesfamilienpass | service-bw |
+| Berlin | erfasst: Berlin-Ticket S | service.berlin.de |
+| Brandenburg | erfasst: Mobilitätsticket | VBB |
+| Hamburg | erfasst: hvv-Sozialrabatt | Sozialbehörde |
+| Hessen | erfasst: Hessenpass mobil (widersprüchlich) | Berichte |
+| Nordrhein-Westfalen | erfasst: DeutschlandTicket Sozial | Verkehrsverbünde |
+| Bayern | keine (Sozialpässe kommunal, München-Pass erfasst) | BayernPortal |
+| Bremen | keine (StadtTicket und Bremer Pass der Stadt Bremen erfasst, Bremerhaven offen) | service.bremen.de |
+| Mecklenburg-Vorpommern | keine (nur Senioren- und Azubi-Ticket) | VMV |
+| Niedersachsen | keine (nur regional) | Bericht (sekundär) |
+| Rheinland-Pfalz | keine (nur kommunal) | FIM |
+| Saarland | keine (SOZIALCARD gilt nur in Saarbrücken, erfasst) | Stadt Saarbrücken |
+| Sachsen | keine (nur Bildungsticket gefördert) | Bericht (sekundär) |
+| Sachsen-Anhalt | keine (Pässe kommunal; FamilienPass nicht einkommensabhängig) | FIM, Landtag 2013 |
+| Schleswig-Holstein | keine (Landes-Sozialticket nur gefordert) | Förderdatenbank |
+| Thüringen | keine (Familienkarte nicht einkommensabhängig) | Aufbaubank |
+
+„Keine“ heißt: Die Websuche am 25.10.2026 hat keine landeseigene Leistung gefunden. Die Landesportale sind nicht vollständig durchgesehen. Für Niedersachsen und Sachsen gibt es nur Sekundärquellen.
+
+## Lebenslage Pflege (Issue #41, Schritt 3)
+
+Recherche am 26.10.2026, wieder nur über Suchergebnisse: Alle Quellen sind `teilweise` geprüft, widersprüchliche Angaben `widerspruechlich`. Die Notiz jeder Quelle sagt, was bestätigt ist.
+
+### Für die manuelle Prüfung
+
+| Quelle | Prüfen |
+|--------|--------|
+| `bmg_leistungsbetraege_2026`, `bmg_pflegeleistungen_nachschlagen` | Beträge 2026; Pflegehilfsmittel 42 € und Wohnumfeld 4.180 € nur über Ratgeber abgeglichen |
+| `betanet_pflegeantrag` | 25 Arbeitstage, Leistungen rückwirkend ab Antrag (Sekundärquelle) |
+| `bmg_pflegeunterstuetzungsgeld` | zehn Arbeitstage je Kalenderjahr und pflegebedürftiger Person (seit PUEG) |
+| `bmbfsfj_familienpflegezeit`, `bt_18_8854`, `compass_infoblatt_pflegezeit` | Schwellen 15 und 25 Beschäftigte, Ankündigungsfristen, Zählweise der Beschäftigten |
+| `sgb11_44` | Voraussetzungen der Rentenversicherung für Pflegepersonen (Gesetzestext nicht erreichbar) |
+| `pflege_im_heim_bund` | Beträge für vollstationäre Pflege und Leistungszuschlag 2026 fehlen |
+| `lfp_landespflegegeld` | **Widersprüchlich:** Antragsfrist (31.3. des Folgejahres oder 31.12.) |
+| `berlin_lpflgg`, `bb_landesteilhabegeld`, `nrw_blindengeld` | **Widersprüchlich:** Höhe des Blindengelds |
+| `ni_landesblindengeld`, `sl_blindheitshilfe`, `dresden_landesblindengeld`, `sh_blindengeld`, `th_sinnesbehindertengeld`, `lwv_hessen_blindengeld`, `bremen_landespflegegeld` | Höhe 2026 nicht amtlich bestätigt |
+| `paderborn_pflegewohngeld`, `sh_pflege_bezahlen`, `vdk_hilfe_zur_pflege` | Einkommens- und Vermögensgrenzen, Antragsweg; in MV und SH keine Grenzen erfasst |
+
+### Landesleistungen (alle 16 Länder)
+
+| Land | Blindengeld (Name, Höhe laut Quelle) | Weitere Landesleistung | Grundlage |
+|------|--------------------------------------|------------------------|-----------|
+| Baden-Württemberg | Landesblindenhilfe, 410 € | – | service-bw |
+| Bayern | Blindengeld, 809 € (seit 1.7.2026) | Landespflegegeld 500 € im Jahr | ZBFS, Landesamt für Pflege |
+| Berlin | Landespflegegeld (LPflGG), Höhe widersprüchlich | – | Senatsverwaltung |
+| Brandenburg | Landesteilhabegeld, 425 € bzw. 443,02 € | – | BRAVORS |
+| Bremen | Landespflegegeld für Blinde, Höhe nicht bestätigt | – | service.bremen.de |
+| Hamburg | Blindengeld, 695,50 € | – | hamburg.de |
+| Hessen | Landesblindengeld, 86 % der Blindenhilfe | – | LWV Hessen |
+| Mecklenburg-Vorpommern | Landesblindengeld, bis 430 € | Pflegewohngeld | Landesregierung, VdK |
+| Niedersachsen | Landesblindengeld, Höhe nicht bestätigt | – | FIM |
+| Nordrhein-Westfalen | Blindengeld (GHBG), 913,19 € bzw. 951,92 € | Pflegewohngeld | FIM, Kreis Paderborn |
+| Rheinland-Pfalz | Landesblindengeld, 410 € (Stand 1.1.2025) | – | Kreis Mainz-Bingen |
+| Saarland | Blindheitshilfe, Höhe nicht bestätigt | – | Landesamt für Soziales |
+| Sachsen | Landesblindengeld, Höhe nicht bestätigt | – | Stadt Dresden |
+| Sachsen-Anhalt | Blindengeld, bis 460,44 € (Stand 1.7.2025) | – | Landesamt (Formular 06/2026) |
+| Schleswig-Holstein | Landesblindengeld, Höhe nicht bestätigt | Pflegewohngeld | Landesregierung |
+| Thüringen | Sinnesbehindertengeld, Höhe nicht bestätigt | – | FIM |
+
+„–“ heißt: Die Suche nach Landespflegegeld und Pflegewohngeld hat für das Land nichts gefunden. Gehörlosen- und Taubblindengeld sind nicht erfasst (folgt mit Behinderung).

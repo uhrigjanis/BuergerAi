@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "bayernportal_sozialpass",
+      "titel": "BayernPortal – Sozialpass bzw. Familienpass",
+      "url": "https://www.bayernportal.de/dokumente/leistung/7812590278164",
+      "typ": "behoerde",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis (Stand 1.4.2026): Gemeinden und Landratsämter können einen Sozial- und/oder Familienpass anbieten; freiwillige Leistung, Einzelheiten vor Ort."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "09",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "bayernportal_sozialpass"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Bayernportal: Sozial- und Familienpässe sind Sache der Gemeinden und Landratsämter (z. B. München-Pass, erfasst)."
+    }
+  ]
+}

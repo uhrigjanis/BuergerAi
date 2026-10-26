@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "lwv_hessen_blindengeld",
+      "titel": "LWV Hessen – Blindengeld und Taubblindengeld in Hessen (Broschüre)",
+      "url": "https://www.lwv-hessen.de/fileadmin/user_upload/daten/Dokumente/Broschueren_barrierefr/Blindengeld_und_Taubblindengeld_in_Hessen_Informationen_blinde_sehbehinderte_taubblinde_Menschen_barr.pdf",
+      "typ": "behoerde",
+      "herausgeber": "Landeswohlfahrtsverband Hessen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Landesblindengeld 86 % der Blindenhilfe nach SGB XII, für hochgradig Sehbehinderte 30 %; zentral beim LWV in Kassel; unabhängig von Einkommen; Gesetz laut Änderungsentwurf bis 31.12.2026 befristet. Aktuelle Beträge (Broschüre 2022/2024) nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "lwv_hessen",
+      "name": "Landeswohlfahrtsverband Hessen (Kassel)",
+      "url": "https://www.lwv-hessen.de",
+      "beschreibung": "Zentral zuständig für das Landesblindengeld."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_he",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "06",
+      "zustaendigkeit_id": "lwv_hessen",
+      "quellen": [
+        "lwv_hessen_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Höhe: 86 % der Blindenhilfe nach SGB XII (Betrag 2026 nicht bestätigt) – bitte beim LWV erfragen.",
+        "Das Landesblindengeldgesetz ist laut einem Änderungsentwurf im Landtag bis Ende 2026 befristet – bitte beim LWV nach dem Stand fragen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "06",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "lwv_hessen_blindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesblindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

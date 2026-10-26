@@ -1,0 +1,73 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "berlin_lpflgg",
+      "titel": "Senatsverwaltung – Landespflegegeldgesetz (LPflGG)",
+      "url": "https://www.berlin.de/sen/soziales/soziale-sicherung/landespflegegeldgesetz/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Senatsseite, service.berlin.de Dienstleistung 324555): Leistung für Blinde, Taubblinde, hochgradig Sehbehinderte und Gehörlose mit Wohnsitz in Berlin; unabhängig von Einkommen und Vermögen; Voraussetzungen prüft das Landesversorgungsamt, Bescheid und Zahlung das bezirkliche Amt für Soziales; Pflegekassenleistungen werden angerechnet. Höhe für Blinde widersprüchlich (730,55 € bzw. 761,54 €)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "berlin_amt_soziales_lpflgg",
+      "name": "Amt für Soziales des Bezirks (Landespflegegeld)",
+      "url": "https://service.berlin.de/dienstleistung/324555/",
+      "beschreibung": "Das Amt für Soziales des Bezirks, in dem die Person wohnt; Termin nur nach Vereinbarung."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_be",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "berlin_amt_soziales_lpflgg",
+      "quellen": [
+        "berlin_lpflgg"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Landespflegegeld nach dem Landespflegegeldgesetz.",
+        "Die Höhe für blinde Menschen ist in den Quellen widersprüchlich (730,55 € bzw. 761,54 €) – bitte beim Amt für Soziales erfragen.",
+        "Auch gehörlose Menschen können Landespflegegeld bekommen (hier nicht erfasst).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "berlin_lpflgg"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landespflegegeld für Blinde (LPflGG). Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

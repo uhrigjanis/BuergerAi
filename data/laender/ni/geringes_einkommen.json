@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "ni_sozialticket_regional",
+      "titel": "Deutschlandticket günstiger (Bericht, Niedersachsen)",
+      "url": "https://www.gegen-hartz.de/?p=243147",
+      "typ": "sekundaer",
+      "herausgeber": "gegen-hartz.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: in Niedersachsen keine landesweite Ermäßigung, nur regionale Angebote (z. B. Region Hannover)."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "03",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "ni_sozialticket_regional"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Nur regionale Sozialtickets (z. B. Region Hannover), nicht erfasst."
+    }
+  ]
+}

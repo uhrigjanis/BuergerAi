@@ -1,0 +1,97 @@
+{
+  "_hinweis": "Land Bremen: Varianten und Abdeckung für die Lebenslage Umzug.",
+  "quellen": [
+    {
+      "id": "bremen_begruessungsgeld",
+      "titel": "Begrüßungsgeld für Studierende in Bremen (Radio Bremen, buten un binnen)",
+      "url": "https://www.butenunbinnen.de/nachrichten/begruessungsgeld-studium-umzug-bremen-100.html",
+      "typ": "sekundaer",
+      "herausgeber": "Radio Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Radio Bremen, Hochschule Bremen, Grüne Fraktion, Studis Online): einmalig 150 €; seit 2008 für Studierende, seit 2017 für Auszubildende (Bürgerschaftsbeschluss 6.4.2017); Erstwohnsitz in Bremen oder Bremerhaven für mindestens 12 Monate; Studium an einer Hochschule im Land bzw. Ausbildung im Land; Antrag beim Service-Center der Universität Bremen (bsu). Antragsweg und Frist widersprüchlich (online oder per Post; bis Jahresende bzw. 1.10.–31.12.)."
+    },
+    {
+      "id": "hsb_begruessungsgeld",
+      "titel": "Hochschule Bremen – Begrüßungsgeld",
+      "url": "https://www.hs-bremen.de/studieren/rund-ums-studium/begriff/begruessungsgeld/",
+      "typ": "behoerde",
+      "herausgeber": "Hochschule Bremen",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: Hochschulseite zum Begrüßungsgeld des Landes; Volltext nicht gelesen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bremen_bsu",
+      "name": "Service-Center der Universität Bremen (bsu) – Begrüßungsgeld",
+      "url": "https://www.uni-bremen.de/bsu/begruessungsgeld.html",
+      "beschreibung": "Nimmt die Anträge für Studierende und Auszubildende im Land Bremen an."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "begruessungsgeld_studium_hb",
+      "leistung_id": "begruessungsgeld_studium",
+      "gebiet_id": "04",
+      "zustaendigkeit_id": "bremen_bsu",
+      "quellen": [
+        "bremen_begruessungsgeld",
+        "hsb_begruessungsgeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "umzug.fuer_studium_ausbildung",
+            "op": "==",
+            "wert": true,
+            "text": "Sie ziehen für ein Studium oder eine Ausbildung um"
+          },
+          {
+            "nicht": {
+              "fakt": "umzug.gleiches_land",
+              "op": "==",
+              "wert": true,
+              "text": "Umzug innerhalb des Landes Bremen"
+            },
+            "text": "Zuzug aus einem anderen Bundesland oder dem Ausland"
+          },
+          {
+            "pruefung_noetig": "Studium an einer Hochschule bzw. Ausbildung im Land Bremen, erster Wohnsitz für mindestens 12 Monate; Antragsfrist laut Quellen uneinheitlich.",
+            "quellen": [
+              "bremen_begruessungsgeld"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Meldebestätigung (Hauptwohnsitz in Bremen oder Bremerhaven)",
+          "Immatrikulationsbescheinigung bzw. Ausbildungsvertrag"
+        ],
+        "schritte": [
+          "Hauptwohnsitz in Bremen oder Bremerhaven anmelden.",
+          "Antrag beim Service-Center der Universität Bremen stellen (Weg und Frist dort prüfen)."
+        ]
+      },
+      "hinweise": [
+        "Einmalig 150 €. Bei Zuzug aus dem Ausland: Aufenthaltserlaubnis für mindestens 12 Monate."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "04",
+      "lebenslage": "umzug",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "bremen_begruessungsgeld"
+      ],
+      "notiz": "Landesleistung erfasst: Begrüßungsgeld für Studium oder Ausbildung. Sonst keine Zuzugs- oder Umzugsprämie des Landes gefunden (Websuche 25.10.2026)."
+    }
+  ]
+}

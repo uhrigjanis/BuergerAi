@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sl_blindheitshilfe",
+      "titel": "Landesamt für Soziales Saarland – Ansprechpartner",
+      "url": "https://www.saarland.de/las/DE/service/ansprechpartner",
+      "typ": "behoerde",
+      "herausgeber": "Saarland",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Landesamt, Informationsblatt Blinden- und Sehbehindertenverein Saar, Gesetzestext): Blindheitshilfe auf Antrag bei Wohnsitz im Saarland; zuständig das Landesamt für Soziales in Saarbrücken. Höhe laut undatiertem Gesetzestext 450 € (Volljährige) bzw. 317 € – Stand 2026 nicht bestätigt."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "las_saarland_blindheitshilfe",
+      "name": "Landesamt für Soziales Saarland (Saarbrücken)",
+      "url": "https://www.saarland.de/las/DE/service/ansprechpartner",
+      "beschreibung": "Zentral zuständig für die Blindheitshilfe."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_sl",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "10",
+      "zustaendigkeit_id": "las_saarland_blindheitshilfe",
+      "quellen": [
+        "sl_blindheitshilfe"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Blindheitshilfe.",
+        "Höhe 2026 nicht bestätigt (ältere Angabe: 450 € für Volljährige) – bitte beim Landesamt erfragen."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sl_blindheitshilfe"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Blindheitshilfe. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

@@ -166,7 +166,7 @@ def _frage(kb: Wissensbasis, fid: str, f: Farbe) -> Any:
 
 def _lebenslagen_fragen(kb: Wissensbasis, f: Farbe) -> list[str]:
     """Fragt, um welche Lebenslage(n) es geht. Mehrere mit Komma, z. B. "1,2"."""
-    lagen = sorted(kb.lebenslagen.values(), key=lambda x: (x.modul, x.id))
+    lagen = sorted(kb.lebenslagen.values(), key=lambda x: (x.name, x.id))
     print()
     print(f.fett("Worum geht es? (mehrere mit Komma, z. B. 1,2)"))
     for i, ll in enumerate(lagen, 1):

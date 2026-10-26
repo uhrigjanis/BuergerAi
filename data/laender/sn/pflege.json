@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "dresden_landesblindengeld",
+      "titel": "Landeshauptstadt Dresden – Landesblindengeld",
+      "url": "https://www.dresden.de/de/rathaus/dienstleistungen/landesblindengeld.php",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt Dresden",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Dresden, REVOSax Landesblindengeldgesetz): monatliche Pauschale unabhängig von Einkommen und Vermögen für blinde, hochgradig sehbehinderte und gehörlose Menschen; zuständig Landkreise und kreisfreie Städte. Höhe 2026 nicht bestätigt (Ratgeber: 380 € ab 14 Jahren)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sn_landesblindengeld",
+      "name": "Landkreis bzw. kreisfreie Stadt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_sn",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "14",
+      "zustaendigkeit_id": "sn_landesblindengeld",
+      "quellen": [
+        "dresden_landesblindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Höhe 2026 nicht amtlich bestätigt (Ratgeber: 380 € im Monat ab 14 Jahren).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "14",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "dresden_landesblindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesblindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

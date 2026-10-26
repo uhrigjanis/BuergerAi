@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "bb_landesteilhabegeld",
+      "titel": "Land Brandenburg – Landesteilhabegeldgesetz (BRAVORS)",
+      "url": "https://bravors.brandenburg.de/gesetze/lteilhgg",
+      "typ": "gesetz",
+      "herausgeber": "Land Brandenburg",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (BRAVORS, Merkblatt, Pressemitteilung MSGIV): Landesteilhabegeld (früher Landespflegegeld) für blinde, gehörlose und schwerstbehinderte Menschen mit gewöhnlichem Aufenthalt in Brandenburg, unabhängig von Einkommen; Antrag beim Landkreis bzw. der kreisfreien Stadt; Leistung frühestens ab dem Antragsmonat; in Einrichtungen in der Regel die Hälfte. Höhe widersprüchlich: 425 € (Merkblatt, Stand 1.7.2024), 443,02 € ab 1.7.2026 (betanet)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "bb_landesteilhabegeld",
+      "name": "Landkreis bzw. kreisfreie Stadt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_bb",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "12",
+      "zustaendigkeit_id": "bb_landesteilhabegeld",
+      "quellen": [
+        "bb_landesteilhabegeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Heißt hier: Landesteilhabegeld.",
+        "Höhe laut Quellen 425 € bzw. 443,02 € im Monat ab 18 Jahren (widersprüchlich).",
+        "Leistung frühestens ab dem Monat des Antrags – also nicht warten."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "12",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "bb_landesteilhabegeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Landesteilhabegeld für Blinde. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

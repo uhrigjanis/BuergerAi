@@ -1,0 +1,115 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "sh_blindengeld",
+      "titel": "Landesregierung Schleswig-Holstein – Blindengeld und Blindenhilfe",
+      "url": "https://www.schleswig-holstein.de/DE/landesregierung/themen/soziales/blindengeld-blindenhilfe",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Landesblindengeld (Stand 1.7.2026, Erhöhung zum 1.4.2026); Beträge im Suchtext abgeschnitten; Ratgeber nennen ältere Werte (300 € bzw. 350 €)."
+    },
+    {
+      "id": "sh_pflege_bezahlen",
+      "titel": "Schleswig-Holstein – Pflege bezahlen (Pflegewohngeld)",
+      "url": "https://www.schleswig-holstein.de/DE/fachinhalte/P/pflege/leistungen/PflegeBezahlen.html",
+      "typ": "behoerde",
+      "herausgeber": "Land Schleswig-Holstein",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Pflegewohngeld für Bewohner vollstationärer Pflegeeinrichtungen, abhängig von Einkommen und Vermögen; Antrag kann die Einrichtung beim örtlichen Sozialhilfeträger stellen; Höchstbetrag 15,35 € pro Tag (Stand unklar)."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "sh_kreis",
+      "name": "Kreis bzw. kreisfreie Stadt – {kreis}",
+      "beschreibung": "Landkreis bzw. kreisfreie Stadt, in dem bzw. der die pflegebedürftige Person wohnt."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_sh",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "sh_kreis",
+      "quellen": [
+        "sh_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "Höhe 2026 nicht bestätigt – bitte beim Kreis bzw. der Stadt erfragen.",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    },
+    {
+      "id": "pflegewohngeld_sh",
+      "leistung_id": "pflegewohngeld",
+      "gebiet_id": "01",
+      "zustaendigkeit_id": "sh_kreis",
+      "quellen": [
+        "sh_pflege_bezahlen"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.wohnform",
+            "op": "==",
+            "wert": "heim",
+            "text": "Die pflegebedürftige Person lebt im Pflegeheim"
+          },
+          {
+            "pruefung_noetig": "Ob Einkommen und Vermögen die Investitionskosten nicht decken, prüft der Sozialhilfeträger; die Grenzen sind hier nicht erfasst.",
+            "quellen": [
+              "sh_pflege_bezahlen"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "schritte": [
+          "Das Pflegeheim kann den Antrag beim Kreis bzw. der kreisfreien Stadt stellen; fragen Sie im Heim nach."
+        ]
+      },
+      "hinweise": [
+        "Höchstens 15,35 € pro Tag (Stand unklar)."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "01",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "sh_blindengeld",
+        "sh_pflege_bezahlen"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistungen erfasst: Blindengeld und Pflegewohngeld (Grenzen nicht erfasst)."
+    }
+  ]
+}

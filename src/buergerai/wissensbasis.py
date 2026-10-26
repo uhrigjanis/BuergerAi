@@ -745,6 +745,18 @@ class Wissensbasis:
             if not knoten.get("text"):
                 fehler.append(f"{wo}: 'nicht'-Knoten braucht einen 'text'")
             fehler.extend(self._regel_pruefen(knoten["nicht"], wo, fuer, module, leistung))
+        elif typ == "lebenslage":
+            ll = knoten["lebenslage"]
+            if ll not in self.lebenslagen:
+                fehler.append(f"{wo}: unbekannte Lebenslage {ll} im Regelknoten")
+            elif leistung is not None and ll not in leistung.lebenslagen:
+                fehler.append(f"{wo}: Regelknoten für Lebenslage {ll}, zu der die Leistung nicht gehört")
+            if not knoten.get("text"):
+                fehler.append(f"{wo}: 'lebenslage'-Knoten braucht einen 'text'")
+            if "regel" not in knoten:
+                fehler.append(f"{wo}: 'lebenslage'-Knoten braucht eine 'regel'")
+            else:
+                fehler.extend(self._regel_pruefen(knoten["regel"], wo, fuer, module, leistung))
         elif typ in ("alle", "eine"):
             if not isinstance(knoten[typ], list):
                 fehler.append(f"{wo}: '{typ}' braucht eine Liste")

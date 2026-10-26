@@ -1,0 +1,102 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Geringes Einkommen (Sozialticket).",
+  "quellen": [
+    {
+      "id": "berlin_ticket_s",
+      "titel": "Service Berlin – Berechtigung Berlin-Ticket S (Dienstleistung 121742)",
+      "url": "https://service.berlin.de/dienstleistung/121742/",
+      "typ": "behoerde",
+      "herausgeber": "Land Berlin",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Seite und PDF): Hauptwohnsitz in Berlin; Bezug von Grundsicherung (SGB II), Sozialhilfe, Grundsicherung im Alter bzw. bei voller Erwerbsminderung, AsylbLG oder Wohngeld; der Leistungsbescheid genügt als Nachweis (seit 1.1.2025 kein eigener Berechtigungsnachweis). Preis auf der Seite nicht bestätigt; Übergangsregel laut Seite bis 1.10.2026."
+    },
+    {
+      "id": "berlinecho_ticket_s",
+      "titel": "Berlin-Ticket S: Nachweis verlängert (Bericht)",
+      "url": "https://berlinecho.de/berlin-ticket-s-nachweis-verlaengert/",
+      "typ": "sekundaer",
+      "herausgeber": "berlinecho.de",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Sekundärquelle: 27,50 € im Monat seit 1.1.2026 (Tarifbereich AB, nur Monatskarte); Übergangsregel laut Senatsbeschluss bis 1.5.2027 verlängert. Amtlich noch bestätigen."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "berlin_ticket_s_verkauf",
+      "name": "BVG und S-Bahn Berlin (Verkauf Berlin-Ticket S)",
+      "url": "https://service.berlin.de/dienstleistung/121742/",
+      "beschreibung": "Das Ticket wird mit dem Leistungsbescheid an Automaten, in Verkaufsstellen oder in Apps gekauft."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_be",
+      "gebiet_id": "11",
+      "zustaendigkeit_id": "berlin_ticket_s_verkauf",
+      "quellen": [
+        "berlin_ticket_s",
+        "berlinecho_ticket_s"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          },
+          {
+            "fakt": "bezieht_wohngeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Wohngeld"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Gültiger Leistungsbescheid",
+          "Amtlicher Ausweis"
+        ],
+        "schritte": [
+          "Berlin-Ticket S (Monatskarte Tarifbereich AB) kaufen; Vor- und Nachname auf dem Ticket eintragen, wie im Bescheid.",
+          "Bescheid und Ausweis bei Kontrollen vorzeigen."
+        ]
+      },
+      "hinweise": [
+        "Preis laut Bericht 27,50 € im Monat (2026); bitte bei BVG bzw. VBB prüfen.",
+        "Mit dem Bescheid gibt es in Berlin auch Ermäßigungen bei Museen, Theatern, Bädern, Zoo, Bibliotheken und Volkshochschule."
+      ],
+      "leistung_id": "sozialticket"
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "11",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-25",
+      "quellen": [
+        "berlin_ticket_s"
+      ],
+      "notiz": "Landesleistung erfasst: Berlin-Ticket S. Weitere Landesleistungen für geringes Einkommen nicht recherchiert."
+    }
+  ]
+}

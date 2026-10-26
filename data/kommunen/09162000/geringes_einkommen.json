@@ -1,0 +1,70 @@
+{
+  "_hinweis": "München (AGS 09162000): kommunale Varianten für die Lebenslage Geringes Einkommen.",
+  "quellen": [
+    {
+      "id": "muenchen_pass",
+      "titel": "Landeshauptstadt München – München-Pass",
+      "url": "https://stadt.muenchen.de/service/info/muenchen-pass/1073956/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: freiwillige Leistung der Stadt mit Ermäßigungen (MVV, Museen, Bäder, Kinos, Theater u. a.); automatisch berechtigt bei laufender Hilfe zum Lebensunterhalt bzw. Grundsicherung (SGB XII) und Grundsicherung (SGB II); sonst bei Nettoeinkommen unter der Münchner Einkommensgrenze (Tabelle auf der Seite, Werte nicht erfasst); seit 2025 auch Studierende und Auszubildende; Bearbeitung innerhalb einer Woche, gebührenfrei."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "muenchen_pass",
+      "name": "Landeshauptstadt München – München-Pass",
+      "url": "https://stadt.muenchen.de/service/info/muenchen-pass/1073956/",
+      "beschreibung": "Antrag mit Leistungsbescheid oder vollständigen Einkommensnachweisen."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialpass_muenchen",
+      "leistung_id": "sozialpass",
+      "gebiet_id": "09162000",
+      "zustaendigkeit_id": "muenchen_pass",
+      "quellen": [
+        "muenchen_pass"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "pruefung_noetig": "Ob Ihr Nettoeinkommen unter der Münchner Einkommensgrenze liegt, zeigt die Tabelle auf der Seite der Stadt.",
+            "quellen": [
+              "muenchen_pass"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Leistungsbescheid oder vollständige Einkommensnachweise"
+        ],
+        "schritte": [
+          "München-Pass bei der Stadt beantragen.",
+          "Mit dem Pass Ermäßigungen bei MVV, Museen, Bädern, Kursen und mehr nutzen."
+        ],
+        "kosten": "gebührenfrei"
+      },
+      "hinweise": [
+        "Freiwillige Leistung der Stadt München; Bearbeitung meist innerhalb einer Woche."
+      ]
+    }
+  ]
+}

@@ -252,11 +252,31 @@ def _ort_der_leistung(
 
     Ist der Ort (z. B. der Immobilie) nicht bekannt, gilt nur der Bund: Landes-
     und Kommunalvarianten können dann nicht ausgewählt werden.
+
+    Hat der Ortsfakt ein ``nur_wenn`` (z. B. Pflege: Ort der pflegebedürftigen
+    Person nur, wenn ein Angehöriger gepflegt wird), dann gilt:
+
+    - Bedingung offen: zuerst die Bedingung erfragen, nur der Bund gilt.
+    - Bedingung nicht erfüllt: Es gilt der Wohnort der Anfrage.
+    - Bedingung "weiß nicht": nur der Bund, ohne Rückfrage. Der Ort wird nicht
+      erfragt (die Frage passt dann womöglich nicht), und der Wohnort wird nicht
+      angenommen (er könnte das falsche Land sein). Die Landesleistungen bleiben
+      offen und erscheinen im Hinweis "lassen sich nicht prüfen".
     """
     if leistung.ortsbezug is None:
         return wohnort, None
     wert = fakten.get(leistung.ortsbezug)
     if wert is None:
+        definition = kb.fakten.get(leistung.ortsbezug)
+        bedingung = definition.nur_wenn if definition is not None else None
+        if bedingung is not None:
+            vorher = fakten.get(bedingung[0])
+            if vorher is None:
+                return [gebiete_mod.bund(kb)], bedingung[0]
+            if vorher is UNBEKANNT:
+                return [gebiete_mod.bund(kb)], None
+            if vorher != bedingung[1]:
+                return wohnort, None
         return [gebiete_mod.bund(kb)], leistung.ortsbezug
     if not isinstance(wert, str):  # "weiß nicht"
         return [gebiete_mod.bund(kb)], None
@@ -307,7 +327,11 @@ def _erfragbar(kb: Wissensbasis, fid: str, fakten: dict[str, Any]) -> Optional[s
 
 
 def _personen(
-    kb: Wissensbasis, leistung: Leistung, regel: dict[str, Any], fakten: dict[str, Any]
+    kb: Wissensbasis,
+    leistung: Leistung,
+    regel: dict[str, Any],
+    fakten: dict[str, Any],
+    lebenslagen: Optional[set[str]] = None,
 ) -> tuple[list[tuple[Optional[str], dict[str, Any], bool]], list[str]]:
     """Wer wird geprüft? Liefert (Rolle, Regel, stumm) je Person und fehlende Vorbedingungen.
 
@@ -323,7 +347,7 @@ def _personen(
         if rolle.vorbedingung is None:
             personen.append((rid, regel, False))
             continue
-        vor = auswerten(rolle.vorbedingung, fakten)
+        vor = auswerten(rolle.vorbedingung, fakten, lebenslagen=lebenslagen)
         mit_vorbedingung = {"alle": [rolle.vorbedingung, regel]}
         if vor.wert is Wert.JA:
             personen.append((rid, mit_vorbedingung, False))
@@ -372,12 +396,14 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         fakten["wohnsitz_land"] = land.kuerzel
     fakten.update(abgeleitete_fakten(fakten))
 
+    gewaehlt = set(anfrage.lebenslagen)
     orte: dict[str, list[Gebiet]] = {}
     fakten.update(_ortsvergleiche(kb, fakten, hierarchie, orte))
     vorab: list[str] = einstiegs_rueckfragen(kb.einstiegsfragen(anfrage.lebenslagen), fakten)
     platzhalter: dict[int, dict[str, str]] = {}  # je Hierarchie (Wohnort, Orte von Leistungen) einmal
     eintraege: list[Eintrag] = []
     nur_andere: list[NurAndereLaender] = []
+    ohne_ort: dict[str, list[str]] = {}  # Ortsfakt -> Landesleistungen, die ohne den Ort nicht prüfbar sind
     for leistung in kb.leistungen_fuer(anfrage.lebenslagen):
         ort, ort_fehlt = _ort_der_leistung(kb, leistung, fakten, hierarchie, orte)
         if ort_fehlt and not getattr(kb.fakt_definition(ort_fehlt), "abgeleitet", False):
@@ -385,15 +411,18 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
         treffer = beste_variante(kb, leistung, ort, anfrage.stichtag)
         if treffer is None:
             laender = _laender_mit_variante(kb, leistung, anfrage.stichtag)
-            if laender:
+            if laender and leistung.ortsbezug is not None and ort is not hierarchie and len(ort) == 1:
+                # Ort der Leistung unbekannt: nicht "nur in anderen Ländern", sondern offen
+                ohne_ort.setdefault(leistung.ortsbezug, []).append(leistung.name)
+            elif laender:
                 nur_andere.append(NurAndereLaender(leistung, laender))
             continue
         variante, gebiet = treffer
-        personen, vorbedingungen_fehlen = _personen(kb, leistung, variante.regel, fakten)
+        personen, vorbedingungen_fehlen = _personen(kb, leistung, variante.regel, fakten, gewaehlt)
         _anfuegen(vorab, vorbedingungen_fehlen)
         if not personen:
             continue  # z. B. Leistung nur für den anderen Elternteil, der nicht im Haushalt lebt
-        ergebnisse = [PersonErgebnis(rid, auswerten(regel, fakten, rid)) for rid, regel, _ in personen]
+        ergebnisse = [PersonErgebnis(rid, auswerten(regel, fakten, rid, gewaehlt)) for rid, regel, _ in personen]
         gesamt = _gesamt([r.schritt.wert for r in ergebnisse])
         # Rückfragen je Person; zu "stummen" Personen (gibt es sie? weiß nicht) wird nicht weiter gefragt
         eintrag_fehlend: list[str] = []
@@ -435,12 +464,18 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
             )
         )
     sortiert = _sortieren(eintraege)
+    warnungen = _warnungen(kb, anfrage, hierarchie, sortiert)
+    for ortsfakt, namen in ohne_ort.items():
+        definition = kb.fakten.get(ortsfakt)
+        frage = definition.frage.split("?")[0].strip() if definition is not None and definition.frage else ""
+        angabe = f"„{frage}?“" if frage else "dem Ort"
+        warnungen.append(f"Ohne Angabe zu {angabe} lassen sich diese Landesleistungen nicht prüfen: {', '.join(namen)}.")
     return Bericht(
         anfrage,
         hierarchie,
         sortiert,
         fragen_priorisieren(vorab, eintraege, anfrage.stichtag),
-        _warnungen(kb, anfrage, hierarchie, sortiert),
+        warnungen,
         nur_andere,
         [(ll, name, grund) for ll in anfrage.lebenslagen for name, grund in kb.lebenslagen[ll].nicht_erfasst],
     )

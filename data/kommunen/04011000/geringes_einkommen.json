@@ -1,0 +1,96 @@
+{
+  "_hinweis": "Stadtgemeinde Bremen (AGS 04011000): kommunale Varianten für die Lebenslage Geringes Einkommen.",
+  "zustaendigkeiten": [
+    {
+      "id": "bremen_sozialzentrum",
+      "name": "Sozialzentrum (Amt für Soziale Dienste Bremen)",
+      "url": "https://www.service.bremen.de/dienstleistungen/ermaessigtes-nahverkehrsticket-stadtticket-bremen-beantragen-10191",
+      "beschreibung": "StadtTicket und Bremer Pass; Jobcenter-Kunden legen einen Nachweis über den Leistungsbezug vor."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "sozialticket_bremen",
+      "leistung_id": "sozialticket",
+      "gebiet_id": "04011000",
+      "zustaendigkeit_id": "bremen_sozialzentrum",
+      "quellen": [
+        "bremen_stadtticket"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung"
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Nachweis über den Leistungsbezug",
+          "Kundenkarte (für Erwachsene)"
+        ],
+        "schritte": [
+          "StadtTicket beim Sozialzentrum beantragen.",
+          "Monatskarte für die Verkehrsmittel des VBN in der Stadt Bremen kaufen."
+        ]
+      },
+      "hinweise": [
+        "Kinder mit Leistungen für Bildung und Teilhabe (z. B. über Wohngeld oder Kinderzuschlag) können ein Jugend-StadtTicket bekommen.",
+        "Aktueller Preis bei VBN bzw. BSAG erfragen."
+      ]
+    },
+    {
+      "id": "sozialpass_bremen",
+      "leistung_id": "sozialpass",
+      "gebiet_id": "04011000",
+      "zustaendigkeit_id": "bremen_sozialzentrum",
+      "quellen": [
+        "bremen_stadtticket"
+      ],
+      "regel": {
+        "eine": [
+          {
+            "fakt": "bezieht_buergergeld",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Grundsicherungsgeld (früher Bürgergeld)"
+          },
+          {
+            "fakt": "bezieht_sozialhilfe",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Sozialhilfe bzw. Grundsicherung im Alter oder bei Erwerbsminderung"
+          },
+          {
+            "fakt": "bezieht_asylbewerberleistungen",
+            "op": "==",
+            "wert": true,
+            "text": "Sie bekommen Leistungen nach dem Asylbewerberleistungsgesetz"
+          }
+        ],
+        "text": "Bezug einer berechtigenden Leistung"
+      },
+      "verfahren": {
+        "schritte": [
+          "Bremer Pass beim Sozialzentrum beantragen; er umfasst unter anderem den Kauf des StadtTickets."
+        ]
+      }
+    }
+  ]
+}

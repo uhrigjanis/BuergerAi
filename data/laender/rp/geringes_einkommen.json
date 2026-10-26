@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "fim_sozialticket_rp",
+      "titel": "Leistungsbeschreibung Sozialticket (FIM, Rheinland-Pfalz)",
+      "url": "https://www.fimportal.de/api/v0/leistung-stammtexte/L100039/199712466/pvog/de/pdf",
+      "typ": "behoerde",
+      "herausgeber": "FIM-Portal (Rheinland-Pfalz)",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse: Einige Städte und Gemeinden bieten Ermäßigungen nach sozialen Kriterien an; keine Landesregelung. Ein Bündnis fordert eine Landeslösung."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "07",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "fim_sozialticket_rp"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Sozialtickets nur bei einzelnen Städten und Gemeinden."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Lebenslage Geringes Einkommen: Abdeckungsnachweis des Landes.",
+  "quellen": [
+    {
+      "id": "saarbruecken_sozialcard",
+      "titel": "Landeshauptstadt Saarbrücken – SOZIALCARD",
+      "url": "https://saarbruecken.de/en/information_for_refugees/socialcard",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt Saarbrücken",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-25",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Faltblätter 2020–2023): Vergünstigungen für Bürgerinnen und Bürger der Stadt Saarbrücken mit Bürgergeld, Sozialhilfe, Grundsicherung, AsylbLG und (neuere Fassung) Wohngeld; Ausgabe bei Jobcentern Saarbrücken bzw. Sozialamt des Regionalverbands; gültig für den Bewilligungszeitraum, höchstens ein Jahr. Nicht landesweit."
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "10",
+      "lebenslage": "geringes_einkommen",
+      "landesleistungen": "keine",
+      "stand": "2026-10-25",
+      "quellen": [
+        "saarbruecken_sozialcard"
+      ],
+      "notiz": "Websuche am 25.10.2026 nach landesweitem Sozialticket, Sozial- oder Familienpass und Landesgeldleistungen bei geringem Einkommen: keine landeseigene Leistung gefunden. Die SOZIALCARD gilt trotz des Namens nur in Saarbrücken (als kommunale Variante erfasst)."
+    }
+  ]
+}

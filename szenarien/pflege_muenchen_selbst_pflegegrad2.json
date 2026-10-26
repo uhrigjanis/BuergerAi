@@ -1,0 +1,34 @@
+{
+  "name": "Pflege: Rentner in München, selbst pflegebedürftig (Pflegegrad 2)",
+  "beschreibung": "Ohne Angehörigen-Rolle gilt der eigene Wohnort für Landesleistungen: Landespflegegeld Bayern; keine Leistungen für Pflegepersonen.",
+  "plz": "80331",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "pflege"
+  ],
+  "anforderungen": [
+    "ANF-PFL-02",
+    "ANF-PFL-04"
+  ],
+  "fakten": {
+    "pflege.rolle": "selbst",
+    "pflege.pflegegrad": 2,
+    "pflege.wohnform": "zuhause",
+    "pflege.pflege_durch_angehoerige": "ja",
+    "pflege.blind": "nein"
+  },
+  "erwartet": {
+    "landespflegegeld": "ja",
+    "pflegegeld": "ja",
+    "entlastungsbetrag": "ja",
+    "pflegezeit": "nein",
+    "pflegeunterstuetzungsgeld": "nein",
+    "rente_pflegeperson": "nein",
+    "hilfe_zur_pflege": "unklar"
+  },
+  "erwartet_stellen": {
+    "landespflegegeld": "Bayerisches Landesamt für Pflege",
+    "hilfe_zur_pflege": "Sozialamt – Kreisfreie Stadt München"
+  },
+  "erwartet_fehlend": []
+}

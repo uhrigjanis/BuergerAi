@@ -1,0 +1,38 @@
+{
+  "name": "Pflege: Akuter Pflegefall, Arbeitnehmer in kleinem Hamburger Betrieb",
+  "beschreibung": "Zehn freie Arbeitstage gelten in jedem Betrieb; Pflegezeit und Familienpflegezeit nicht bei zehn Beschäftigten; Pflegegrad muss erst beantragt werden.",
+  "plz": "20095",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "pflege"
+  ],
+  "anforderungen": [
+    "ANF-PFL-05"
+  ],
+  "fakten": {
+    "pflege.rolle": "angehoerig",
+    "pflege.pflegegrad": 0,
+    "pflege.wohnform": "zuhause",
+    "pflege.ort": "20095",
+    "pflege.pflege_durch_angehoerige": "ja",
+    "pflege.blind": "nein",
+    "pflege.beschaeftigt": "ja",
+    "pflege.beschaeftigte_arbeitgeber": 10,
+    "pflege.akut": "ja",
+    "pflege.pflegestunden": 10,
+    "pflege.eigene_arbeitsstunden": 40
+  },
+  "erwartet": {
+    "pflegegrad_beantragen": "ja",
+    "arbeitsverhinderung_pflege": "ja",
+    "pflegeunterstuetzungsgeld": "unklar",
+    "pflegezeit": "nein",
+    "familienpflegezeit": "nein",
+    "pflegegeld": "nein"
+  },
+  "erwartet_stellen": {
+    "pflegegrad_beantragen": "Pflegekasse",
+    "arbeitsverhinderung_pflege": "Arbeitgeber"
+  },
+  "erwartet_fehlend": []
+}

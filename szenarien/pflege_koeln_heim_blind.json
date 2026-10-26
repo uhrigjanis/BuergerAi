@@ -1,0 +1,31 @@
+{
+  "name": "Pflege: Blinde Heimbewohnerin in Köln (Pflegegrad 4)",
+  "beschreibung": "Außerhalb Bayerns kein Landespflegegeld (nur in anderen Ländern); Blindengeld NRW über den Landschaftsverband; Pflegewohngeld NRW unklar bis zur Einkommensprüfung.",
+  "plz": "50667",
+  "stichtag": "2026-10-26",
+  "lebenslagen": [
+    "pflege"
+  ],
+  "anforderungen": [
+    "ANF-PFL-04",
+    "ANF-PFL-06"
+  ],
+  "fakten": {
+    "pflege.rolle": "selbst",
+    "pflege.pflegegrad": 4,
+    "pflege.wohnform": "heim",
+    "pflege.blind": "ja"
+  },
+  "erwartet": {
+    "landesblindengeld": "ja",
+    "pflegewohngeld": "unklar",
+    "pflege_im_heim": "ja",
+    "pflegegeld": "nein",
+    "wohnumfeld": "nein"
+  },
+  "erwartet_stellen": {
+    "landesblindengeld": "Landschaftsverband",
+    "pflegewohngeld": "Sozialamt"
+  },
+  "erwartet_fehlend": []
+}

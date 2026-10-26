@@ -1,0 +1,71 @@
+{
+  "_hinweis": "Landesvarianten für die Lebenslage Pflege (Landespflegegeld, Blindengeld, Pflegewohngeld). Recherche je Land am 26.10.2026.",
+  "quellen": [
+    {
+      "id": "hamburg_blindengeld",
+      "titel": "hamburg.de – Blindengeld beantragen",
+      "url": "https://www.hamburg.de/service/info/11255076/n0/",
+      "typ": "behoerde",
+      "herausgeber": "Freie und Hansestadt Hamburg",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnis: 695,50 € im Monat seit 7/2025; Merkzeichen BL; zentral zuständig das Bezirksamt Eimsbüttel; Pflegegeld wird angerechnet."
+    }
+  ],
+  "zustaendigkeiten": [
+    {
+      "id": "hamburg_blindengeld",
+      "name": "Bezirksamt Eimsbüttel – Blindengeld",
+      "url": "https://www.hamburg.de/service/info/11255076/n0/",
+      "beschreibung": "Zentral für ganz Hamburg zuständig."
+    }
+  ],
+  "varianten": [
+    {
+      "id": "landesblindengeld_hh",
+      "leistung_id": "landesblindengeld",
+      "gebiet_id": "02",
+      "zustaendigkeit_id": "hamburg_blindengeld",
+      "quellen": [
+        "hamburg_blindengeld"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "pflege.blind",
+            "op": "==",
+            "wert": true,
+            "text": "Die pflegebedürftige Person ist blind oder hochgradig sehbehindert (Merkzeichen Bl)"
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Schwerbehindertenausweis bzw. Bescheid mit Merkzeichen Bl (oder Nachweis über den Antrag)",
+          "Augenärztliche Befunde"
+        ],
+        "schritte": [
+          "Blindengeld bei der zuständigen Stelle beantragen; der Antrag kann zusammen mit dem Antrag auf Schwerbehindertenausweis (Merkzeichen Bl) gestellt werden.",
+          "Augenärztliche Unterlagen bzw. den Bescheid mit Merkzeichen Bl beifügen."
+        ]
+      },
+      "hinweise": [
+        "695,50 € im Monat (seit Juli 2025, laut hamburg.de).",
+        "Leistungen der Pflegekasse werden teilweise angerechnet; das Blindengeld fällt dann niedriger aus."
+      ]
+    }
+  ],
+  "abdeckung": [
+    {
+      "gebiet_id": "02",
+      "lebenslage": "pflege",
+      "landesleistungen": "erfasst",
+      "stand": "2026-10-26",
+      "quellen": [
+        "hamburg_blindengeld"
+      ],
+      "notiz": "Websuche am 26.10.2026 je Land nach Landespflegegeld, Blindengeld und Pflegewohngeld. Landesleistung erfasst: Blindengeld. Ein Pflegewohngeld gibt es laut Suche nicht."
+    }
+  ]
+}

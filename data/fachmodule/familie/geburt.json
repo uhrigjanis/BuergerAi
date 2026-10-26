@@ -207,7 +207,8 @@
       "name": "Kinderzuschlag",
       "kurz": "Zusätzlich zum Kindergeld für Familien, deren Einkommen knapp nicht für alle reicht.",
       "lebenslagen": [
-        "geburt"
+        "geburt",
+        "geringes_einkommen"
       ],
       "verwaltungsebene": "bund",
       "fuer": "haushalt",
@@ -857,12 +858,29 @@
       "regel": {
         "alle": [
           {
-            "fakt": "kind_lebt_im_haushalt",
-            "op": "==",
-            "wert": true,
-            "text": "Das Kind lebt im eigenen Haushalt",
-            "quellen": [
-              "bkgg_6a"
+            "eine": [
+              {
+                "lebenslage": "geburt",
+                "text": "Bei der Geburt: das Kind lebt im eigenen Haushalt",
+                "regel": {
+                  "fakt": "kind_lebt_im_haushalt",
+                  "op": "==",
+                  "wert": true,
+                  "text": "Das Kind lebt im eigenen Haushalt",
+                  "quellen": [
+                    "bkgg_6a"
+                  ]
+                }
+              },
+              {
+                "fakt": "kinder_im_haushalt",
+                "op": ">=",
+                "wert": 1,
+                "text": "Mindestens ein Kind lebt im Haushalt",
+                "quellen": [
+                  "bkgg_6a"
+                ]
+              }
             ]
           },
           {

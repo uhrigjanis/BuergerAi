@@ -252,20 +252,30 @@ def _ort_der_leistung(
 
     Ist der Ort (z. B. der Immobilie) nicht bekannt, gilt nur der Bund: Landes-
     und Kommunalvarianten können dann nicht ausgewählt werden.
+
+    Hat der Ortsfakt ein ``nur_wenn`` (z. B. Pflege: Ort der pflegebedürftigen
+    Person nur, wenn ein Angehöriger gepflegt wird), dann gilt:
+
+    - Bedingung offen: zuerst die Bedingung erfragen, nur der Bund gilt.
+    - Bedingung nicht erfüllt: Es gilt der Wohnort der Anfrage.
+    - Bedingung "weiß nicht": nur der Bund, ohne Rückfrage. Der Ort wird nicht
+      erfragt (die Frage passt dann womöglich nicht), und der Wohnort wird nicht
+      angenommen (er könnte das falsche Land sein). Die Landesleistungen bleiben
+      offen und erscheinen im Hinweis "lassen sich nicht prüfen".
     """
     if leistung.ortsbezug is None:
         return wohnort, None
     wert = fakten.get(leistung.ortsbezug)
     if wert is None:
-        # Ortsfakt mit "nur_wenn": Ist die Bedingung nicht erfüllt, gilt der
-        # Wohnort (z. B. Pflege: nur fragen, wenn jemand anderes gepflegt wird).
         definition = kb.fakten.get(leistung.ortsbezug)
         bedingung = definition.nur_wenn if definition is not None else None
         if bedingung is not None:
             vorher = fakten.get(bedingung[0])
             if vorher is None:
                 return [gebiete_mod.bund(kb)], bedingung[0]
-            if vorher is not UNBEKANNT and vorher != bedingung[1]:
+            if vorher is UNBEKANNT:
+                return [gebiete_mod.bund(kb)], None
+            if vorher != bedingung[1]:
                 return wohnort, None
         return [gebiete_mod.bund(kb)], leistung.ortsbezug
     if not isinstance(wert, str):  # "weiß nicht"
@@ -456,8 +466,10 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
     sortiert = _sortieren(eintraege)
     warnungen = _warnungen(kb, anfrage, hierarchie, sortiert)
     for ortsfakt, namen in ohne_ort.items():
-        frage = kb.fakten[ortsfakt].frage.split("?")[0]
-        warnungen.append(f"Ohne Angabe zu „{frage}?“ lassen sich diese Landesleistungen nicht prüfen: {', '.join(namen)}.")
+        definition = kb.fakten.get(ortsfakt)
+        frage = definition.frage.split("?")[0].strip() if definition is not None and definition.frage else ""
+        angabe = f"„{frage}?“" if frage else "dem Ort"
+        warnungen.append(f"Ohne Angabe zu {angabe} lassen sich diese Landesleistungen nicht prüfen: {', '.join(namen)}.")
     return Bericht(
         anfrage,
         hierarchie,

@@ -104,6 +104,11 @@ def test_ort_der_pflegebeduerftigen_person(plane_pfl):
     for b in (offen, plane_pfl(angehoerig(pflege__ort="unbekannt"))):
         assert b.nur_andere_laender == []
         assert any("Wo wohnt die pflegebedürftige Person?" in w and "Landespflegegeld" in w for w in b.warnungen), b.warnungen
+    # Rolle "weiß nicht": Ort nicht erfragen, Wohnort nicht annehmen, Landesleistungen offen
+    unklar = plane_pfl(angehoerig(pflege__rolle="unbekannt", pflege__ort=None), plz="80331")
+    assert "pflege.ort" not in unklar.fehlend
+    assert "landespflegegeld" not in unklar.ergebnisse() and unklar.nur_andere_laender == []
+    assert any("Landespflegegeld" in w and "nicht prüfen" in w for w in unklar.warnungen), unklar.warnungen
     # Rolle noch offen: zuerst danach fragen
     ohne_rolle = plane_pfl({})
     assert ohne_rolle.fehlend[:3] == ["pflege.rolle", "pflege.pflegegrad", "pflege.wohnform"]

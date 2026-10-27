@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import date
 
 import pytest
@@ -77,7 +78,14 @@ def test_quellen_und_pruefstatus(kb, plane):
     for e in plane(familie()).eintraege:
         assert e.quellen, e.leistung.id
     fg = plane(familie()).eintrag("bayerisches_familiengeld")
-    assert fg.pruefstatus is Pruefstatus.WIDERSPRUECHLICH
+    assert fg.pruefstatus is Pruefstatus.TEILWEISE
+    # Der schlechteste Prüfstatus der Quellen bestimmt den Eintrag
+    try:
+        original = kb.quellen["bayfamgg_9a"]
+        kb.quellen["bayfamgg_9a"] = replace(original, pruefstatus=Pruefstatus.WIDERSPRUECHLICH)
+        assert plane(familie()).eintrag("bayerisches_familiengeld").pruefstatus is Pruefstatus.WIDERSPRUECHLICH
+    finally:
+        kb.quellen["bayfamgg_9a"] = original
 
 
 @pytest.mark.anforderung("ANF-CHK-01")

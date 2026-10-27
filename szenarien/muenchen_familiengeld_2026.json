@@ -1,6 +1,6 @@
 {
   "name": "München: Kind im März 2026 geboren",
-  "beschreibung": "Familiengeld bei widersprüchlicher Rechtslage unklar; Fristen für Geburtsanzeige und Elterngeld bereits abgelaufen.",
+  "beschreibung": "Kein Familiengeld für ab dem 1.1.2025 geborene Kinder (Art. 9a BayFamGG); Fristen für Geburtsanzeige und Elterngeld bereits abgelaufen.",
   "plz": "80333",
   "stichtag": "2026-10-24",
   "anforderungen": ["ANF-BY-02", "ANF-FRI-03"],
@@ -12,7 +12,7 @@
   },
   "erwartet": {
     "geburtsanzeige": "ja",
-    "bayerisches_familiengeld": "unklar",
+    "bayerisches_familiengeld": "nein",
     "vaterschaftsanerkennung": "nein"
   }
 }

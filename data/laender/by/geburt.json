@@ -27,21 +27,43 @@
       "url": "https://stmas.bayern.de/imperia/md/content/stmas/stmas_inet/241114_infoblatt_homepage.pdf",
       "typ": "behoerde",
       "herausgeber": "Bayerisches Staatsministerium für Familie, Arbeit und Soziales",
-      "pruefstatus": "widerspruechlich",
-      "geprueft_am": "2026-10-24",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-27",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Infoblatt 11/2024: Familiengeld nur für Kinder, die vor dem 1.1.2025 geboren sind. Spätere Landtagsdrucksachen (u. a. 19/8839) nennen den Stichtag 1.9.2026 mit einkommensabhängiger Übergangsregel bis 100.000 €. Beschlossene Fassung im GVBl. prüfen."
+      "notiz": "Infoblatt 11/2024 (vor dem Gesetzesbeschluss): Familiengeld nur für Kinder, die vor dem 1.1.2025 geboren sind. Inhaltlich bestätigt durch Art. 9a BayFamGG (GVBl. 2025 S. 570); maßgeblich ist das Gesetz (bayfamgg_9a). Prüfprotokoll: docs/pruefprotokolle/stmas_familiengeld_2024.md"
     },
     {
       "id": "landtag_by_familiengeld",
-      "titel": "Bayerischer Landtag – Abstimmung 'Verzicht auf Kinderstartgeld und Reform des Familiengelds'",
+      "titel": "Bayerischer Landtag – Abstimmung über den Änderungsantrag 'Verzicht auf Kinderstartgeld und Reform des Familiengelds' (Drs. 19/8839)",
       "url": "https://www.abgeordnetenwatch.de/bayern/19/abstimmungen/verzicht-auf-kinderstartgeld-und-reform-des-familiengelds-aenderungsantrag/tabelle",
       "typ": "sekundaer",
       "herausgeber": "abgeordnetenwatch.de",
-      "pruefstatus": "widerspruechlich",
-      "geprueft_am": "2026-10-24",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-27",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Das geplante Kinderstartgeld (3.000 €) wurde nicht eingeführt; Krippengeld und Familiengeld für neue Jahrgänge eingestellt. Stichtag widersprüchlich."
+      "notiz": "Sekundärquelle (abgeordnetenwatch): Der Änderungsantrag der Grünen (Drs. 19/8839) – Familiengeld für Geburten bis 31.8.2026 mit Einkommensgrenze 100.000 € – wurde mit 26 zu 130 Stimmen abgelehnt. Der Stichtag 1.9.2026 ist damit nie Gesetz geworden. Kinderstartgeld nicht eingeführt (Plenarprotokoll 19/63 vom 13.11.2025). Prüfprotokoll: docs/pruefprotokolle/landtag_by_familiengeld.md"
+    },
+    {
+      "id": "bayfamgg_9a",
+      "titel": "Art. 9a BayFamGG – Übergangsvorschriften (Abschaffung für Geburten ab 1.1.2025)",
+      "url": "https://www.gesetze-bayern.de/Content/Document/BayFamGG-9a",
+      "typ": "gesetz",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-27",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Eingefügt durch Gesetz zur Änderung des Bayerischen Familiengeldgesetzes und weiterer Rechtsvorschriften, GVBl. 2025 S. 570 (Nr. 22 vom 28.11.2025). Wortlaut von Abs. 1 und 2 über Suchergebnisse aus gesetze-bayern.de und dem GVBl. übernommen, Volltext nicht abrufbar. Prüfprotokoll: docs/pruefprotokolle/bayfamgg_9a.md"
+    },
+    {
+      "id": "bayfamgg_3",
+      "titel": "Art. 3 BayFamGG – Höhe und Bezugszeitraum des Familiengelds",
+      "url": "https://www.gesetze-bayern.de/Content/Document/BayFamGG-3",
+      "typ": "gesetz",
+      "herausgeber": "Freistaat Bayern",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-27",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "250 € je Kind, ab dem 3. Kind 300 €, vom 13. bis zum 36. Lebensmonat – über Suchergebnisse (gesetze-bayern.de, betanet). Gilt nach Art. 9a Abs. 1 nur noch für vor dem 1.1.2025 geborene Kinder. Prüfprotokoll: docs/pruefprotokolle/bayfamgg_3.md"
     }
   ],
   "zustaendigkeiten": [
@@ -67,7 +89,7 @@
     {
       "id": "bayerisches_familiengeld",
       "name": "Bayerisches Familiengeld",
-      "kurz": "Landesleistung für Kinder im 2. und 3. Lebensjahr – wird für neue Geburtsjahrgänge abgeschafft.",
+      "kurz": "Landesleistung für Kinder im 2. und 3. Lebensjahr – nur noch für Kinder, die vor dem 1.1.2025 geboren sind.",
       "lebenslagen": [
         "geburt"
       ],
@@ -76,9 +98,10 @@
       "art": "geldleistung",
       "betraege": [
         {
-          "text": "nach altem Recht 250 € im Monat je Kind (ab dem 3. Kind 300 €), im 13. bis 36. Lebensmonat",
+          "text": "250 € im Monat je Kind (ab dem 3. Kind 300 €), vom 13. bis zum 36. Lebensmonat – nur für vor dem 1.1.2025 geborene Kinder",
           "quellen": [
-            "stmas_familiengeld_2024"
+            "bayfamgg_3",
+            "bayfamgg_9a"
           ]
         }
       ]
@@ -113,49 +136,28 @@
       "leistung_id": "bayerisches_familiengeld",
       "gebiet_id": "09",
       "regel": {
-        "eine": [
-          {
-            "fakt": "geburtsdatum_oder_termin",
-            "op": "<",
-            "wert": "2025-01-01",
-            "text": "Kind vor dem 1.1.2025 geboren",
-            "quellen": [
-              "stmas_familiengeld_2024"
-            ]
-          },
-          {
-            "alle": [
-              {
-                "fakt": "geburtsdatum_oder_termin",
-                "op": "<",
-                "wert": "2026-09-01",
-                "text": "Geburt vor dem 1.9.2026",
-                "quellen": [
-                  "landtag_by_familiengeld"
-                ]
-              },
-              {
-                "pruefung_noetig": "Für Geburten zwischen 1.1.2025 und 31.8.2026 sind die Quellen widersprüchlich (Abschaffung ab 1.1.2025 oder Übergangsregel bis 31.8.2026 mit Einkommensgrenze 100.000 €). Bitte beim ZBFS nachfragen.",
-                "quellen": [
-                  "stmas_familiengeld_2024",
-                  "landtag_by_familiengeld"
-                ]
-              }
-            ]
-          }
+        "fakt": "geburtsdatum_oder_termin",
+        "op": "<",
+        "wert": "2025-01-01",
+        "text": "Kind vor dem 1.1.2025 geboren (für später geborene Kinder abgeschafft)",
+        "quellen": [
+          "bayfamgg_9a"
         ]
       },
       "zustaendigkeit_id": "zbfs_familiengeld",
       "quellen": [
+        "bayfamgg_9a",
+        "bayfamgg_3",
         "stmas_familiengeld_2024",
         "landtag_by_familiengeld"
       ],
       "hinweise": [
-        "Das 2025 angekündigte Bayerische Kinderstartgeld (3.000 €) wurde laut Berichten nicht eingeführt."
+        "Für Kinder, die ab dem 1.1.2025 geboren sind, gibt es kein Familiengeld mehr; Anträge sind „unbeachtlich“ (Art. 9a Abs. 2 BayFamGG). Für früher geborene Kinder gilt das alte Recht weiter.",
+        "Das 2025 angekündigte Bayerische Kinderstartgeld (3.000 €) wurde nicht eingeführt."
       ],
       "verfahren": {
         "schritte": [
-          "Beim ZBFS nachfragen, ob und in welcher Höhe für Ihr Kind noch Familiengeld gezahlt wird."
+          "Für vor dem 1.1.2025 geborene Kinder: Der Antrag auf Elterngeld beim ZBFS galt zugleich als Antrag auf Familiengeld. Fragen zum laufenden Bezug beantwortet das ZBFS."
         ]
       }
     }
@@ -165,12 +167,12 @@
       "gebiet_id": "09",
       "lebenslage": "geburt",
       "landesleistungen": "erfasst",
-      "stand": "2026-10-25",
+      "stand": "2026-10-27",
       "quellen": [
         "betanet_landeserziehungsgeld",
-        "stmas_familiengeld_2024"
+        "bayfamgg_9a"
       ],
-      "notiz": "Bayerisches Familiengeld (für neue Geburtsjahrgänge eingestellt, Stichtag widersprüchlich); Kinderstartgeld nicht eingeführt."
+      "notiz": "Bayerisches Familiengeld nur noch für vor dem 1.1.2025 geborene Kinder (Art. 9a BayFamGG); Kinderstartgeld nicht eingeführt."
     }
   ]
 }

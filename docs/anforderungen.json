@@ -59,7 +59,7 @@
     {"id": "ANF-KZ-01", "bereich": "Fachregeln Bund", "titel": "Kinderzuschlag: unter Mindesteinkommen Nein, sonst höchstens Unklar"},
 
     {"id": "ANF-BY-01", "bereich": "Pilotland Bayern", "titel": "Elterngeld in Bayern: Zuständigkeit ZBFS"},
-    {"id": "ANF-BY-02", "bereich": "Pilotland Bayern", "titel": "Familiengeld: Unklar für Geburten 1.1.2025–31.8.2026 (widersprüchliche Quellen), Nein ab 1.9.2026"},
+    {"id": "ANF-BY-02", "bereich": "Pilotland Bayern", "titel": "Familiengeld: Ja nur für vor dem 1.1.2025 geborene Kinder, Nein ab 1.1.2025 (Art. 9a BayFamGG)"},
     {"id": "ANF-BY-03", "bereich": "Pilotland Bayern", "titel": "München: Standesamt München erfasst; Freising: Fallback auf Landesdaten"},
 
     {"id": "ANF-LAND-01", "bereich": "Länder", "titel": "Elterngeld zeigt in jedem Land die zuständige Stelle (Land, Bezirk oder Kreis)"},

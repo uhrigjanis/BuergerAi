@@ -1,0 +1,16 @@
+{
+  "name": "München: Kind im Dezember 2024 geboren",
+  "beschreibung": "Letzter Jahrgang mit Bayerischem Familiengeld (vor dem 1.1.2025 geboren, Art. 9a Abs. 1 BayFamGG).",
+  "plz": "80331",
+  "stichtag": "2026-10-24",
+  "anforderungen": ["ANF-BY-02"],
+  "fakten": {
+    "kind_geboren": "ja",
+    "geburtsdatum": "2024-12-31",
+    "partner_im_haushalt": "ja",
+    "eltern_verheiratet": "ja"
+  },
+  "erwartet": {
+    "bayerisches_familiengeld": "ja"
+  }
+}

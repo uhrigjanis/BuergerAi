@@ -294,6 +294,12 @@ docs/
 - ✅ 3 Szenarien, 167/167 Anforderungen mit Tests (gesamt)
 - ⏳ Quellen nur `teilweise` geprüft; Regelaltersgrenze und vorzeitige Renten nur über Sekundärquellen und das DRV-Expertenforum; „keine“ für viele Länder nur aus Übersichtsartikeln ([docs/validierung.md](docs/validierung.md))
 
+## Stand Heirat im Ausland (#51)
+
+- ✅ Wer im Ausland geheiratet hat, wird nach dem Heiratsort gefragt: Eintrag ins deutsche Eheregister (§ 34 PStG, freiwillig, nur mit deutschem Ehegatten; zuständig das Standesamt am Wohnsitz bzw. Standesamt I in Berlin) und Erklärung zum Ehenamen beim Standesamt
+- ✅ 2 neue Szenarien, 169/169 Anforderungen mit Tests (gesamt)
+- ⏳ Namensrecht seit 1.5.2025 neu: wählbare Ehenamen noch amtlich prüfen ([docs/validierung.md](docs/validierung.md))
+
 Nächste Schritte: Alle Lebenslagen aus #41 sind erfasst; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 
 ## Lizenz

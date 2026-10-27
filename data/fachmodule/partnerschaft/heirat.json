@@ -44,6 +44,39 @@
       "geprueft_am": "2026-10-26",
       "geprueft_von": "Claude (Websuche)",
       "notiz": "Über Suchergebnisse (vdek, HEK-Infoblatt 2026, Verbraucherzentrale): 2026 Einkommensgrenze 565 € im Monat, bei Minijob 603 €; der Ehegatte muss gesetzlich versichert sein; nicht für hauptberuflich Selbstständige und versicherungsfreie Personen (z. B. Beamte); keine Altersgrenze für Ehegatten."
+    },
+    {
+      "id": "aa_auslandsehe",
+      "titel": "Auswärtiges Amt – Wir haben im Ausland geheiratet. Ist unsere Ehe automatisch in Deutschland gültig?",
+      "url": "https://www.auswaertiges-amt.de/de/service/fragenkatalog-node/04-heirat-ausl---gueltigkeit-in-d/606266",
+      "typ": "behoerde",
+      "herausgeber": "Auswärtiges Amt",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (AA, Botschaften Santo Domingo und Jakarta): Eine im Ausland wirksam geschlossene Ehe gilt in Deutschland ohne Anerkennungsverfahren (Form nach Art. 11, Ehefähigkeit nach Art. 13 EGBGB); ein Eintrag ins deutsche Eheregister ist freiwillig."
+    },
+    {
+      "id": "muenchen_nachbeurkundung",
+      "titel": "Landeshauptstadt München – Nachbeurkundung einer im Ausland geschlossenen Ehe",
+      "url": "https://stadt.muenchen.de/service/info/meldung-einer-im-ausland-geschlossenen-ehe/10313439/n0/",
+      "typ": "behoerde",
+      "herausgeber": "Landeshauptstadt München",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (München, Service Berlin 318966, hamburg.de, service-bw, Botschaft Jakarta): Beurkundung nach § 34 PStG auf Antrag, wenn bei Antragstellung ein Ehegatte Deutscher ist und die Ehe noch nicht in einem deutschen Register steht; zuständig das Standesamt am jetzigen bzw. letzten Wohnsitz in Deutschland, sonst Standesamt I in Berlin; ausländische Urkunden mit Übersetzung, ggf. Apostille oder Legalisation (§ 438 ZPO); keine abschließende Unterlagenliste; Gebühren für Beurkundung und Urkunden."
+    },
+    {
+      "id": "heidelberg_namenserklaerung",
+      "titel": "Stadt Heidelberg – Namensänderung und Namenserklärung",
+      "url": "https://www.heidelberg.de/HD/Rathaus/Namensaenderung_+Namenserklaerung.html",
+      "typ": "behoerde",
+      "herausgeber": "Stadt Heidelberg",
+      "pruefstatus": "widerspruechlich",
+      "geprueft_am": "2026-10-26",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Über Suchergebnisse (Heidelberg, Standesamt I Berlin, Botschaft San José): Für deutsche Ehegatten gilt deutsches Namensrecht (Art. 10 EGBGB); ohne Erklärung bleibt der Name unverändert; der Ehename kann ohne Frist nachträglich bestimmt werden, die Erklärung muss öffentlich beglaubigt sein (Standesamt oder Auslandsvertretung); Gebühr in Heidelberg 40 €. Namensrechtsreform seit 1.5.2025: wählbare Namen noch prüfen."
     }
   ],
   "zustaendigkeiten": [
@@ -51,6 +84,11 @@
       "id": "standesamt_wohnsitz",
       "name": "Standesamt – {gemeinde}",
       "beschreibung": "Angemeldet wird beim Standesamt am Wohnsitz eines der beiden Partner; heiraten können Sie danach in jedem Standesamt in Deutschland."
+    },
+    {
+      "id": "standesamt_auslandsehe",
+      "name": "Standesamt – {gemeinde} (ohne Wohnsitz in Deutschland: Standesamt I in Berlin)",
+      "beschreibung": "Zuständig ist das Standesamt am jetzigen oder letzten Wohnsitz in Deutschland; gab es nie einen, das Standesamt I in Berlin."
     }
   ],
   "leistungen": [
@@ -98,6 +136,30 @@
       "art": "antrag",
       "rechtsanspruch": true,
       "kurz": "Wer kein oder nur geringes Einkommen hat, kann über den gesetzlich versicherten Ehepartner beitragsfrei krankenversichert sein."
+    },
+    {
+      "id": "auslandsehe_beurkunden",
+      "name": "Im Ausland geschlossene Ehe ins deutsche Eheregister eintragen lassen",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "rechtsanspruch": true,
+      "kurz": "Ihre Ehe aus dem Ausland gilt in Deutschland auch so. Mit dem Eintrag bekommen Sie aber eine deutsche Eheurkunde – praktisch für Behörden, Rente und Namen."
+    },
+    {
+      "id": "ehename_erklaeren",
+      "name": "Ehenamen nach einer Heirat im Ausland erklären",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "verwaltungsebene": "gemeinde",
+      "fuer": "haushalt",
+      "art": "antrag",
+      "rechtsanspruch": true,
+      "kurz": "Für deutsche Ehegatten gilt deutsches Namensrecht: Ohne Erklärung beim Standesamt ändert sich Ihr Name durch die Heirat im Ausland nicht."
     }
   ],
   "varianten": [
@@ -287,6 +349,123 @@
       "hinweise": [
         "Einkommensgrenze 2026: 565 € im Monat, bei einem Minijob 603 €.",
         "Nicht möglich für hauptberuflich Selbstständige und Beamte."
+      ]
+    },
+    {
+      "id": "auslandsehe_beurkunden_bund",
+      "leistung_id": "auslandsehe_beurkunden",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "standesamt_auslandsehe",
+      "quellen": [
+        "aa_auslandsehe",
+        "muenchen_nachbeurkundung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "partnerschaft.stand",
+            "op": "==",
+            "wert": "verheiratet",
+            "text": "Sie sind schon verheiratet"
+          },
+          {
+            "fakt": "partnerschaft.heiratsort",
+            "op": "==",
+            "wert": "ausland",
+            "text": "Sie haben im Ausland geheiratet",
+            "quellen": [
+              "aa_auslandsehe"
+            ]
+          },
+          {
+            "fakt": "partnerschaft.ein_partner_deutsch",
+            "op": "==",
+            "wert": true,
+            "text": "Mindestens einer von Ihnen ist deutsch",
+            "quellen": [
+              "muenchen_nachbeurkundung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "ausländische Heiratsurkunde im Original mit Übersetzung (ggf. mit Apostille oder Legalisation)",
+          "Geburtsurkunden und Ausweise beider Ehegatten",
+          "Nachweis der deutschen Staatsangehörigkeit",
+          "ggf. Nachweise über frühere Ehen"
+        ],
+        "schritte": [
+          "Beim Standesamt nachfragen, welche Unterlagen im Einzelfall nötig sind.",
+          "Antrag auf Beurkundung (Nachbeurkundung nach § 34 PStG) stellen.",
+          "Ehenamen gleich mit erklären, wenn sich ein Name ändern soll."
+        ],
+        "kosten": "Gebühren des Standesamts; dazu ggf. Übersetzung und Apostille"
+      },
+      "hinweise": [
+        "Freiwillig: Die Ehe gilt in Deutschland auch ohne Eintrag.",
+        "Nicht nötig, wenn die Ehe schon in einem deutschen Register steht (z. B. über die Botschaft beurkundet)."
+      ]
+    },
+    {
+      "id": "ehename_erklaeren_bund",
+      "leistung_id": "ehename_erklaeren",
+      "gebiet_id": "DE",
+      "zustaendigkeit_id": "standesamt_auslandsehe",
+      "quellen": [
+        "heidelberg_namenserklaerung"
+      ],
+      "regel": {
+        "alle": [
+          {
+            "fakt": "partnerschaft.stand",
+            "op": "==",
+            "wert": "verheiratet",
+            "text": "Sie sind schon verheiratet"
+          },
+          {
+            "fakt": "partnerschaft.heiratsort",
+            "op": "==",
+            "wert": "ausland",
+            "text": "Sie haben im Ausland geheiratet",
+            "quellen": [
+              "aa_auslandsehe"
+            ]
+          },
+          {
+            "fakt": "partnerschaft.ein_partner_deutsch",
+            "op": "==",
+            "wert": true,
+            "text": "Mindestens einer von Ihnen ist deutsch",
+            "quellen": [
+              "muenchen_nachbeurkundung"
+            ]
+          },
+          {
+            "fakt": "partnerschaft.name_aendert",
+            "op": "==",
+            "wert": true,
+            "text": "Sie wollen einen gemeinsamen Ehenamen bzw. einen neuen Namen führen",
+            "quellen": [
+              "heidelberg_namenserklaerung"
+            ]
+          }
+        ]
+      },
+      "verfahren": {
+        "unterlagen": [
+          "Heiratsurkunde mit Übersetzung",
+          "Ausweise beider Ehegatten"
+        ],
+        "schritte": [
+          "Erklärung zum Ehenamen beim Standesamt abgeben (im Ausland bei der deutschen Auslandsvertretung) – sie muss öffentlich beglaubigt sein."
+        ],
+        "kosten": "z. B. 40 € in Heidelberg"
+      },
+      "hinweise": [
+        "Eine Frist gibt es nicht; wirksam wird die Erklärung mit Eingang beim Standesamt.",
+        "Seit dem 1. Mai 2025 gilt ein neues Namensrecht – welche Namen möglich sind, sagt Ihnen das Standesamt.",
+        "Erst danach können Sie einen Ausweis auf den neuen Namen beantragen."
       ]
     }
   ]

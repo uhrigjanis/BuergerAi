@@ -1,0 +1,28 @@
+{
+  "name": "Heirat: im Ausland geheiratet, Frankfurt, unklar ob ein Ehegatte deutsch ist",
+  "beschreibung": "Ohne Angabe zur deutschen Staatsangehörigkeit bleiben Registereintrag und Namenserklärung unklar.",
+  "plz": "60311",
+  "stichtag": "2026-10-27",
+  "lebenslagen": [
+    "heirat"
+  ],
+  "anforderungen": [
+    "ANF-HEI-07"
+  ],
+  "fakten": {
+    "partnerschaft.stand": "verheiratet",
+    "partnerschaft.datum": "2026-08-20",
+    "partnerschaft.heiratsort": "ausland",
+    "partnerschaft.arbeitnehmer": "beide",
+    "partnerschaft.gering_verdienend": "nein",
+    "partnerschaft.ein_partner_deutsch": "unbekannt",
+    "partnerschaft.name_aendert": "ja"
+  },
+  "erwartet": {
+    "auslandsehe_beurkunden": "unklar",
+    "ehename_erklaeren": "unklar",
+    "eheschliessung_anmelden": "nein"
+  },
+  "erwartet_stellen": {},
+  "erwartet_fehlend": []
+}

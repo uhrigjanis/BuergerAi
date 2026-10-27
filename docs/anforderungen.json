@@ -176,6 +176,8 @@
     {"id": "ANF-RUH-04", "bereich": "Ruhestand", "titel": "Seniorenticket des Landes in Mecklenburg-Vorpommern, Hamburg und Hessen mit Altersgrenze; übrige 13 Länder als keine mit eigener Quelle belegt"},
     {"id": "ANF-RUH-05", "bereich": "Ruhestand", "titel": "Das Alter wird aus dem Geburtsdatum abgeleitet und nicht doppelt gefragt; widersprüchliche Altersangaben werden angemerkt; Grundsicherung im Alter und Wohngeld gehören auch zum Ruhestand"},
     {"id": "ANF-RUH-06", "bereich": "Ruhestand", "titel": "Mindestens drei Szenarien, darunter Unklar und ein Land ohne Landesleistung; Terminal und Web gleich"},
+    {"id": "ANF-HEI-07", "bereich": "Heirat", "titel": "Heirat im Ausland: Eintrag ins deutsche Eheregister (§ 34 PStG) nur, wenn ein Ehegatte deutsch ist; Heiratsort nur nach der Hochzeit gefragt, Staatsangehörigkeit nur bei Heirat im Ausland"},
+    {"id": "ANF-HEI-08", "bereich": "Heirat", "titel": "Ehenamen nach Heirat im Ausland: Erklärung beim Standesamt nötig, wenn sich der Name ändern soll; ohne deutschen Ehegatten keine dieser Leistungen"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
     {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
   ]

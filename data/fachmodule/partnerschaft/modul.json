@@ -18,7 +18,9 @@
       "beschreibung": "Sie wollen heiraten oder haben gerade geheiratet.",
       "einstiegsfragen": [
         "partnerschaft.stand",
-        "partnerschaft.datum"
+        "partnerschaft.datum",
+        "partnerschaft.heiratsort",
+        "partnerschaft.ein_partner_deutsch"
       ],
       "synonyme": [
         "Heirat",
@@ -44,8 +46,12 @@
       ],
       "nicht_erfasst": [
         {
-          "name": "Eheschließung mit Auslandsbezug (Ehefähigkeitszeugnis, Befreiung durch das Oberlandesgericht)",
+          "name": "Heirat in Deutschland mit Auslandsbezug (Ehefähigkeitszeugnis, Befreiung durch das Oberlandesgericht)",
           "grund": "Einzelfallprüfung durch das Standesamt."
+        },
+        {
+          "name": "Ehe im Ausland ohne deutschen Ehegatten (z. B. bei Zuzug)",
+          "grund": "Die Ehe gilt auch so; ein deutscher Registereintrag ist dann nicht vorgesehen."
         },
         {
           "name": "Gemeinsame Steuererklärung (Zusammenveranlagung)",

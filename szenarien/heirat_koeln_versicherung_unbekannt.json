@@ -15,12 +15,14 @@
     "partnerschaft.name_aendert": "ja",
     "partnerschaft.arbeitnehmer": "einer",
     "partnerschaft.gering_verdienend": "ja",
-    "partnerschaft.anderer_gkv": "unbekannt"
+    "partnerschaft.anderer_gkv": "unbekannt",
+    "partnerschaft.heiratsort": "inland"
   },
   "erwartet": {
     "familienversicherung_ehe": "unklar",
     "ausweis_neuer_name": "ja",
-    "steuerklasse_ehe": "ja"
+    "steuerklasse_ehe": "ja",
+    "auslandsehe_beurkunden": "nein"
   },
   "erwartet_stellen": {},
   "erwartet_fehlend": []

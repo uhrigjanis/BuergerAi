@@ -211,6 +211,12 @@ Gemessen mit einer synthetischen Wissensbasis in Zielgröße (`tests/test_perfor
 - **Alter nicht doppelt fragen (Engine):** `abgeleitete_fakten` bekommt den Stichtag. Fehlt der Kernfakt `alter`, wird er aus `ruhestand.geburtsdatum` berechnet; eine Angabe des Alters hat Vorrang. Passt sie nicht zum Geburtsdatum, erscheint ein Hinweis (`fakten.widersprueche`); überschrieben wird nichts.
 - **Landesleistung Seniorenticket:** Nur Tickets, die ein Land trägt oder fördert (MV, HH, HE). Angebote von Verbünden (z. B. BärenTicket) oder Städten stehen unter „nicht erfasst“.
 
+### 19. Ergänzung Heirat im Ausland (#51, 27.10.2026)
+
+- **Neue Fakten:** `partnerschaft.heiratsort` (nur nach der Hochzeit gefragt) und `partnerschaft.ein_partner_deutsch` (nur bei Heirat im Ausland). Der Kernfakt `person.staatsangehoerigkeit` passt nicht, weil er je Rolle gilt und hier beide Ehegatten zählen.
+- **Leistungen:** `auslandsehe_beurkunden` (Nachbeurkundung, freiwillig) und `ehename_erklaeren`. Beide setzen als erste Bedingung „schon verheiratet“, damit bei einer geplanten Hochzeit nichts zum Ausland gefragt wird.
+- **Ohne deutschen Ehegatten:** keine der beiden Leistungen; die Ehe gilt trotzdem (Hinweis unter „nicht erfasst“).
+
 ## Folgen
 
 - Neue Lebenslagen sind überwiegend Datenarbeit. Code ändert sich nur, wenn ein neues Merkmal für alle gebraucht wird.

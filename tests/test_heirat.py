@@ -95,3 +95,41 @@ def test_szenarien_heirat(kb):
     assert any("unklar" in s.erwartet.values() for s in szen)
     for s in szen:
         assert szenarien_mod.abweichungen(s, planen(kb, s.anfrage)) == [], s.id
+
+
+def ausland(**abweichungen: Any) -> dict[str, Any]:
+    werte: dict[str, Any] = {"partnerschaft__stand": "verheiratet", "partnerschaft__datum": "2026-08-20", "partnerschaft__heiratsort": "ausland",
+                             "partnerschaft__ein_partner_deutsch": "ja"}
+    werte.update(abweichungen)
+    return paar(**werte)
+
+
+@pytest.mark.anforderung("ANF-HEI-07")
+def test_auslandsehe_beurkunden(plane_h):
+    b = plane_h(ausland())
+    e = b.eintrag("auslandsehe_beurkunden")
+    assert e.ergebnis is Wert.JA and e.leistung.rechtsanspruch
+    assert "Standesamt I in Berlin" in e.zustaendigkeit.name
+    assert b.ergebnisse()["eheschliessung_anmelden"] == "nein"
+    r = lambda **f: plane_h(ausland(**f)).ergebnisse()["auslandsehe_beurkunden"]
+    assert r(partnerschaft__ein_partner_deutsch="nein") == "nein"
+    assert r(partnerschaft__ein_partner_deutsch="unbekannt") == "unklar"
+    assert r(partnerschaft__heiratsort="inland", partnerschaft__ein_partner_deutsch=None) == "nein"
+    # Heiratsort nur nach der Hochzeit, Staatsangehörigkeit nur bei Heirat im Ausland gefragt
+    geplant = plane_h(paar())
+    assert "partnerschaft.heiratsort" not in geplant.fehlend and "partnerschaft.ein_partner_deutsch" not in geplant.fehlend
+    assert geplant.ergebnisse()["auslandsehe_beurkunden"] == "nein"
+    inland = plane_h(paar(partnerschaft__stand="verheiratet", partnerschaft__heiratsort="inland"))
+    assert "partnerschaft.ein_partner_deutsch" not in inland.fehlend
+    assert plane_h(paar(partnerschaft__stand="verheiratet", partnerschaft__heiratsort=None)).fehlend[0] == "partnerschaft.heiratsort"
+
+
+@pytest.mark.anforderung("ANF-HEI-08")
+def test_ehename_nach_auslandsheirat(plane_h):
+    e = lambda **f: plane_h(ausland(**f)).ergebnisse()["ehename_erklaeren"]
+    assert e() == "ja"
+    assert e(partnerschaft__name_aendert="nein") == "nein"
+    assert e(partnerschaft__ein_partner_deutsch="nein") == "nein"
+    assert e(partnerschaft__heiratsort="inland", partnerschaft__ein_partner_deutsch=None) == "nein"  # Name wird bei der Trauung bestimmt
+    ohne_deutsch = plane_h(ausland(partnerschaft__ein_partner_deutsch="nein")).ergebnisse()
+    assert ohne_deutsch["auslandsehe_beurkunden"] == "nein" and ohne_deutsch["ehename_erklaeren"] == "nein"

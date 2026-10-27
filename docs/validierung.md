@@ -31,14 +31,14 @@ Abgleich per Websuche über mehrere Quellen. Die amtlichen Seiten (gesetze-im-in
 
 ## Checkliste für die manuelle Prüfung
 
-Für jede Quelle aus `./bai quellen --offen`:
+Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md). Kurz, für jede Quelle aus `./bai quellen --phase1 --offen`:
 
-1. URL im Browser öffnen und Volltext lesen.
-2. Jede Bedingung, die auf die Quelle verweist, vergleichen: `./bai erklaeren <leistung> -s <szenario>` zeigt die Bedingungen mit Quellen-IDs.
-3. Beträge und Fristen vergleichen (`data/fachmodule/familie/geburt.json`, `data/laender/by/geburt.json`).
-4. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
-5. Passt alles: in der Datei `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"` setzen. Passt etwas nicht: Regel/Daten korrigieren, Testfall ergänzen, dann verifizieren.
-6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen.
+1. `./bai quellen --verwendung <id>` zeigt jede Bedingung, Frist, jeden Betrag und jede Zuständigkeit mit dieser Quelle, mit Datei und JSON-Pfad.
+2. `./bai quellen --protokoll <id>` legt `docs/pruefprotokolle/<id>.md` an, vorbefüllt mit diesen Verwendungen.
+3. Volltext lesen, je Verwendung den Wortlaut zitieren und das Ergebnis eintragen. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
+4. Passt etwas nicht: Regel/Daten korrigieren, Test oder Szenario ergänzen.
+5. Claude setzt höchstens `teilweise` und verlinkt das Protokoll in `notiz`. Ein Mensch setzt nach Durchsicht `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"`.
+6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen. `./bai daten` warnt bei geprüften Quellen ohne Protokoll.
 
 Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
 - Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).

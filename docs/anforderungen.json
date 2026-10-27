@@ -179,6 +179,7 @@
     {"id": "ANF-HEI-07", "bereich": "Heirat", "titel": "Heirat im Ausland: Eintrag ins deutsche Eheregister (§ 34 PStG) nur, wenn ein Ehegatte deutsch ist; Heiratsort nur nach der Hochzeit gefragt, Staatsangehörigkeit nur bei Heirat im Ausland"},
     {"id": "ANF-HEI-08", "bereich": "Heirat", "titel": "Ehenamen nach Heirat im Ausland: Erklärung beim Standesamt nötig, wenn sich der Name ändern soll; ohne deutschen Ehegatten keine dieser Leistungen"},
     {"id": "ANF-QS-01", "bereich": "Qualität", "titel": "Jede Anforderung hat mindestens einen Test"},
-    {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"}
+    {"id": "ANF-QS-02", "bereich": "Qualität", "titel": "Quellen gelten nur mit Prüfer und Datum als verifiziert"},
+    {"id": "ANF-QS-03", "bereich": "Qualität", "titel": "Prüfung je Quelle nachvollziehbar: alle Verwendungen auffindbar (Datei, JSON-Pfad), Prüfprotokoll vorbefüllt, fehlende Protokolle gemeldet"}
   ]
 }

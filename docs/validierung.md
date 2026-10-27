@@ -504,6 +504,8 @@ Recherche am 26.10.2026 über Suchergebnisse. Alle Quellen `teilweise`.
 | `vdek_familienversicherung` | Grenzen 2026 (565 €, 603 €); amtliche Quelle (GKV-Spitzenverband) ergänzen |
 | `rp_eheschliessung`, `sh_eheschliessung` | Merkblätter von 2017 bzw. 2021; Gebühren evtl. veraltet |
 | `sn_eheschliessung` | Quelle ist der Leitfaden des OLG zur Ehefähigkeit, nicht das Serviceportal Amt24 |
+| `aa_auslandsehe`, `muenchen_nachbeurkundung` | Heirat im Ausland (#51): Gültigkeit ohne Verfahren; § 34 PStG nur mit deutschem Ehegatten; Standesamt I in Berlin |
+| `heidelberg_namenserklaerung` | **Widersprüchlich:** Namensrecht seit 1.5.2025 neu (wählbare Ehenamen); Gebühr 40 € nur Heidelberg |
 
 ### Landesleistungen (alle 16 Länder)
 

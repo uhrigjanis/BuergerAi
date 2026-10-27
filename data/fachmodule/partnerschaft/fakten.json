@@ -23,9 +23,37 @@
       "hilfe": "Danach richten sich die Fristen für die Anmeldung beim Standesamt und den neuen Ausweis. Ein ungefähres Datum genügt."
     },
     {
+      "id": "partnerschaft.heiratsort",
+      "typ": "auswahl",
+      "frage": "Wo haben Sie geheiratet?",
+      "optionen": [
+        {
+          "wert": "inland",
+          "text": "in Deutschland"
+        },
+        {
+          "wert": "ausland",
+          "text": "im Ausland"
+        }
+      ],
+      "nur_wenn": {
+        "fakt": "partnerschaft.stand",
+        "wert": "verheiratet"
+      }
+    },
+    {
+      "id": "partnerschaft.ein_partner_deutsch",
+      "typ": "ja_nein",
+      "frage": "Ist mindestens einer von Ihnen deutsch (deutsche Staatsangehörigkeit)?",
+      "nur_wenn": {
+        "fakt": "partnerschaft.heiratsort",
+        "wert": "ausland"
+      }
+    },
+    {
       "id": "partnerschaft.name_aendert",
       "typ": "ja_nein",
-      "frage": "Ändert sich Ihr Familienname durch die Ehe?"
+      "frage": "Ändert sich Ihr Familienname durch die Ehe (bzw. wollen Sie einen gemeinsamen Ehenamen führen)?"
     },
     {
       "id": "partnerschaft.arbeitnehmer",

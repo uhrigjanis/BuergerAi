@@ -1,0 +1,33 @@
+{
+  "name": "Heirat: in Dänemark geheiratet, wohnhaft in Hamburg, eine Partnerin deutsch",
+  "beschreibung": "Die Ehe gilt auch so; Eintrag ins deutsche Eheregister (§ 34 PStG) ist möglich; für den gemeinsamen Ehenamen braucht es eine Erklärung beim Standesamt; keine Anmeldung zur Eheschließung.",
+  "plz": "20095",
+  "stichtag": "2026-10-27",
+  "lebenslagen": [
+    "heirat"
+  ],
+  "anforderungen": [
+    "ANF-HEI-07",
+    "ANF-HEI-08"
+  ],
+  "fakten": {
+    "partnerschaft.stand": "verheiratet",
+    "partnerschaft.datum": "2026-08-20",
+    "partnerschaft.heiratsort": "ausland",
+    "partnerschaft.arbeitnehmer": "beide",
+    "partnerschaft.gering_verdienend": "nein",
+    "partnerschaft.ein_partner_deutsch": "ja",
+    "partnerschaft.name_aendert": "ja"
+  },
+  "erwartet": {
+    "auslandsehe_beurkunden": "ja",
+    "ehename_erklaeren": "ja",
+    "eheschliessung_anmelden": "nein",
+    "ausweis_neuer_name": "ja",
+    "steuerklasse_ehe": "unklar"
+  },
+  "erwartet_stellen": {
+    "auslandsehe_beurkunden": "Standesamt I in Berlin"
+  },
+  "erwartet_fehlend": []
+}

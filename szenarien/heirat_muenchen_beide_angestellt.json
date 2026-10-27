@@ -16,13 +16,15 @@
     "partnerschaft.datum": "2026-10-10",
     "partnerschaft.name_aendert": "nein",
     "partnerschaft.arbeitnehmer": "beide",
-    "partnerschaft.gering_verdienend": "nein"
+    "partnerschaft.gering_verdienend": "nein",
+    "partnerschaft.heiratsort": "inland"
   },
   "erwartet": {
     "eheschliessung_anmelden": "nein",
     "ausweis_neuer_name": "nein",
     "steuerklasse_ehe": "unklar",
-    "familienversicherung_ehe": "nein"
+    "familienversicherung_ehe": "nein",
+    "auslandsehe_beurkunden": "nein"
   },
   "erwartet_stellen": {},
   "erwartet_fehlend": []

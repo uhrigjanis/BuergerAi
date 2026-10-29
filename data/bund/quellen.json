@@ -24,6 +24,17 @@
       "notiz": "Rückwirkende Zahlung nur für die letzten drei Lebensmonate vor dem Antragsmonat (Leistungsbeschreibung Bayern/Berlin im FIM-Portal)."
     },
     {
+      "id": "beeg_28",
+      "titel": "§ 28 BEEG – Übergangsvorschrift (u. a. Einkommensgrenze 200.000 € für Geburten 1.4.2024–31.3.2025)",
+      "url": "https://www.gesetze-im-internet.de/beeg/__28.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "§ 28 Abs. 5: Für Geburten vom 1.4.2024 bis 31.3.2025 gilt § 1 Abs. 8 mit der Grenze 200.000 € (auch für die Summe beider Elternteile); eine eigene Grenze für Alleinerziehende (150.000 €) stand nur im Entwurf. Über Suchergebnisse (rewis.io, Haufe), Volltext nicht abrufbar. Prüfprotokoll: docs/pruefprotokolle/beeg_28.md"
+    },
+    {
       "id": "beeg_15_16",
       "titel": "§§ 15, 16 BEEG – Elternzeit, Anmeldung",
       "url": "https://www.gesetze-im-internet.de/beeg/__16.html",
@@ -60,7 +71,7 @@
     },
     {
       "id": "estg_66",
-      "titel": "§ 66 EStG – Höhe des Kindergeldes, rückwirkende Zahlung (6 Monate)",
+      "titel": "§ 66 EStG – Höhe des Kindergeldes",
       "url": "https://www.gesetze-im-internet.de/estg/__66.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
@@ -68,6 +79,17 @@
       "geprueft_am": "2026-10-24",
       "geprueft_von": "Claude (Websuche)",
       "notiz": "259 € je Kind ab 1.1.2026 (2025: 255 €) über mehrere Quellen bestätigt. Sechs-Monats-Frist für rückwirkende Zahlung noch im Volltext prüfen."
+    },
+    {
+      "id": "estg_70",
+      "titel": "§ 70 EStG – Festsetzung und Zahlung des Kindergeldes (rückwirkend höchstens 6 Monate)",
+      "url": "https://www.gesetze-im-internet.de/estg/__70.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "§ 70 Abs. 1 Satz 2: Auszahlung rückwirkend nur für die letzten sechs Monate vor Beginn des Antragsmonats (für Anträge ab 19.7.2019, § 52 Abs. 50 EStG; vorher § 66 Abs. 3). Über Suchergebnisse (rechtslupe.de, NWB, buzer.de), Volltext nicht abrufbar. Prüfprotokoll: docs/pruefprotokolle/estg_70.md"
     },
     {
       "id": "ba_kindergeld",

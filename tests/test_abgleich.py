@@ -152,7 +152,8 @@ def test_zahl_gefunden(wert, text, gefunden):
 @pytest.mark.anforderung("ANF-QS-06")
 def test_zahlen_der_quelle(kb):
     werte = {z.wert for z in ab.zahlen_der_quelle(kb, "beeg_1")}
-    assert {32, 175000, 200000, date(2025, 4, 1)} <= werte
+    assert {32, 175000, date(2025, 4, 1)} <= werte
+    assert 200000 in {z.wert for z in ab.zahlen_der_quelle(kb, "beeg_28")}, "Übergangsgrenze steht in § 28 BEEG"
     assert True not in werte and False not in werte
     assert ("tage", 7) in {z.wert for z in ab.zahlen_der_quelle(kb, "pstg_18")}
     assert {250, 300} <= {z.wert for z in ab.zahlen_der_quelle(kb, "bayfamgg_3")}
@@ -185,6 +186,12 @@ def test_abgleich_und_protokoll(kb, tmp_path):
 @pytest.mark.anforderung("ANF-QS-06")
 def test_cli_abgleich(capsys, monkeypatch, tmp_path):
     monkeypatch.setattr(qt, "http_abruf", FakeNetz(NETZ))
+    # Nur das Protokoll von bayfamgg_9a; beeg_1 wird ohne Protokoll gegen den gekürzten Testauszug geprüft
+    protokolle = tmp_path / "pruefprotokolle"
+    protokolle.mkdir()
+    (protokolle / "bayfamgg_9a.md").write_text(
+        (qp.PROTOKOLL_VERZEICHNIS / "bayfamgg_9a.md").read_text(encoding="utf-8"), encoding="utf-8")
+    monkeypatch.setattr(qp, "PROTOKOLL_VERZEICHNIS", protokolle)
     bericht = tmp_path / "bericht.md"
     code = main(["--keine-farbe", "quellen", "--abgleich", "bayfamgg_9a", "beeg_1", "--ohne-cache",
                  "--bericht", str(bericht)])

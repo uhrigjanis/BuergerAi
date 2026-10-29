@@ -548,7 +548,7 @@
       ],
       "verfahren": {
         "schritte": [
-          "Elternzeit schriftlich (mit eigenhändiger Unterschrift) beim Arbeitgeber anmelden.",
+          "Elternzeit beim Arbeitgeber anmelden. Für Kinder, die ab dem 1.5.2025 geboren sind, genügt Textform (z. B. E-Mail); für früher geborene Kinder schriftlich mit eigenhändiger Unterschrift.",
           "Für die ersten zwei Jahre verbindlich festlegen, in welchen Zeiträumen Elternzeit genommen wird."
         ],
         "fristen": [
@@ -670,7 +670,7 @@
                     "wert": "2024-04-01",
                     "text": "Geburt ab dem 1.4.2024",
                     "quellen": [
-                      "beeg_1"
+                      "beeg_28"
                     ]
                   },
                   {
@@ -679,7 +679,7 @@
                     "wert": "2025-04-01",
                     "text": "Geburt vor dem 1.4.2025",
                     "quellen": [
-                      "beeg_1"
+                      "beeg_28"
                     ]
                   },
                   {
@@ -688,7 +688,7 @@
                     "wert": 200000,
                     "text": "Zu versteuerndes Einkommen höchstens 200.000 €",
                     "quellen": [
-                      "beeg_1"
+                      "beeg_28"
                     ]
                   }
                 ]
@@ -843,7 +843,7 @@
             "art": "empfohlen",
             "monate": 6,
             "quellen": [
-              "estg_66"
+              "estg_70"
             ]
           }
         ],

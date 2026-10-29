@@ -236,6 +236,48 @@ def test_linkpruefung(server):
     assert lp.kein_netz([ergebnisse[frei]] * 9 + [ergebnisse[f"{server}/fehlt"]])
 
 
+@pytest.mark.anforderung("ANF-QS-05")
+def test_url_kodieren():
+    assert lp.url_kodieren("https://x.de/Eigentumsförderung.pdf") == "https://x.de/Eigentumsf%C3%B6rderung.pdf"
+    bereits = "https://x.de/Merkbl%C3%A4tter/a.pdf?x=1&y=%20z"
+    assert lp.url_kodieren(bereits) == bereits
+
+
+@pytest.mark.anforderung("ANF-QS-05")
+def test_linkpruefung_umlaut(server):
+    ohne_proxy = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    # Umlaut im Pfad: kein Absturz, sondern normale 404 vom Server
+    assert lp.pruefe_url(f"{server}/Förderung.pdf", oeffner=ohne_proxy).code == 404
+
+
+@pytest.mark.anforderung("ANF-QS-05")
+def test_linkpruefung_bot_schutz():
+    class Antwort:
+        status = 200
+
+        def geturl(self):
+            return "https://validate.perfdrive.com/?ssa=1"
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    class Oeffner:
+        def open(self, anfrage, timeout):
+            return Antwort()
+
+    e = lp.pruefe_url("https://www.foerderdatenbank.de/x.html", oeffner=Oeffner())
+    assert e.status == lp.NICHT_ERREICHBAR and "Bot-Schutz" in e.meldung
+
+
+@pytest.mark.anforderung("ANF-QS-05")
+def test_linkpruefung_ungueltige_url():
+    e = lp.pruefe_url("example.org/ohne-schema.pdf")  # scheitert ohne Netz
+    assert e.status == lp.FEHLER and "ungültige URL" in e.meldung
+
+
 def _freier_port() -> int:
     import socket
 

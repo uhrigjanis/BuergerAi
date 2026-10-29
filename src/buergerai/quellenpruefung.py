@@ -235,6 +235,15 @@ def beschreibung(v: Verwendung) -> str:
     return was
 
 
+def tabellenzellen(zeile: str) -> list[str]:
+    """Zellen einer Markdown-Tabellenzeile. Trennt nur an nicht maskierten ``|``;
+    ``\\|`` (so schreibt ``_zelle`` einen senkrechten Strich) bleibt Teil der Zelle."""
+    innen = zeile.strip()
+    innen = innen[1:] if innen.startswith("|") else innen
+    innen = innen[:-1] if innen.endswith("|") and not innen.endswith("\\|") else innen
+    return [z.strip().replace("\\|", "|") for z in re.split(r"(?<!\\)\|", innen)]
+
+
 def _zelle(text: str) -> str:
     return text.replace("|", "\\|").replace("\n", " ")
 
@@ -308,7 +317,7 @@ def protokoll_lesen(text: str) -> Protokollstand:
             continue
         if not in_tabelle or not zeile.startswith("|") or zeile.startswith(("|---", "| #", "| …", "| –")):
             continue
-        zellen = [z.strip() for z in zeile.strip().strip("|").split(" | ")]
+        zellen = tabellenzellen(zeile)
         ergebnis = zellen[-1] if len(zellen) >= 5 else ""
         zeilen += 1
         if not ergebnis:

@@ -603,6 +603,8 @@ class Wissensbasis:
                 for n in sorted(namen - set(PLATZHALTER)):
                     fehler.append(f"Zuständigkeit {z.id}: unbekannter Platzhalter {{{n}}} (erlaubt: {PLATZHALTER})")
         for q in self.quellen.values():
+            if q.url and (any(z.isspace() for z in q.url) or not q.url.startswith(("https://", "http://"))):
+                fehler.append(f"Quelle {q.id}: ungültige URL {q.url!r} (Leerzeichen als %20 schreiben)")
             if q.pruefstatus is Pruefstatus.VERIFIZIERT and not (q.geprueft_am and q.geprueft_von):
                 fehler.append(f"Quelle {q.id}: 'verifiziert' braucht geprueft_am und geprueft_von")
 

@@ -401,7 +401,7 @@ def cmd_lebenslagen(args: argparse.Namespace) -> int:
 def cmd_quellen(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
-    for qid in (args.verwendung, args.protokoll, args.abnehmen, args.zuruecksetzen):
+    for qid in (args.verwendung, args.protokoll, args.abnehmen, args.zuruecksetzen, *(args.abgleich or ())):
         if qid and qid not in kb.quellen:
             print(f"Unbekannte Quelle '{qid}'. Alle IDs: buergerai quellen", file=sys.stderr)
             return 2
@@ -422,6 +422,8 @@ def cmd_quellen(args: argparse.Namespace) -> int:
         return _quellen_abnahme(kb, args, f)
     if args.links:
         return _quellen_links(kb, args.phase1, f)
+    if args.abgleich is not None:
+        return _quellen_abgleich(kb, args, f)
 
     alle_quellen = list(kb.quellen.values())
     if args.phase1:
@@ -500,6 +502,60 @@ def _quellen_links(kb: Wissensbasis, nur_phase1: bool, f: Farbe) -> int:
             print(f.grau(f"    {e.meldung}"))
     print(f.fett("\nErgebnis: ") + ", ".join(f"{k}: {v}" for k, v in sorted(zaehler.items())))
     return 1 if any(e.status in (lp.FEHLER, lp.NICHT_ERREICHBAR) for e in ergebnisse) else 0
+
+
+def _quellen_abgleich(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> int:
+    from . import abgleich as ab
+    from . import quelltext as qt
+
+    if args.abgleich:
+        ids = list(args.abgleich)
+    elif args.phase1:
+        ids = qp.phase1_quellen(kb)
+    else:
+        ids = sorted(q for q in kb.quellen if qp.protokoll_pfad(q).is_file())
+    ids = [i for i in ids if kb.quellen[i].url]
+    cache = None if args.ohne_cache else qp.STANDARD_DATENVERZEICHNIS.parent / ".cache" / "quellen"
+    speicher = qt.Zwischenspeicher(verzeichnis=cache)
+    print(f.fett(f"Abgleich von {len(ids)} Quellen mit dem Quelltext …"))
+    ergebnisse = []
+    for qid in ids:
+        a = ab.abgleichen(kb, qid, qt.holen(kb.quellen[qid].url, speicher))
+        ergebnisse.append(a)
+        status = a.quelltext.status
+        farbe = f.rot if a.fehlende_zitate else f.gelb if (status != qt.OK or a.fehlende_zahlen) else f.gruen
+        print(farbe(f"\n{qid}: {a.zusammenfassung()}"))
+        if a.quelltext.abschnitt_name:
+            print(f.grau(f"    Abschnitt: {a.quelltext.abschnitt_name}"
+                         + (f" ({a.quelltext.meldung})" if a.quelltext.meldung else "")))
+        for z in a.fehlende_zitate:
+            print(f.rot(f"    ❌ Zitat Zeile {z.zeile} nicht gefunden: „{z.text[:100]}{'…' if len(z.text) > 100 else ''}“"))
+        for z in a.fehlende_zahlen:
+            print(f.gelb(f"    ⚠️  Zahl {z.anzeige()} nicht im Abschnitt ({z.herkunft[:90]})"))
+        if args.in_protokoll and status == qt.OK:
+            ab.in_protokoll_schreiben(a, date.today())
+    if args.bericht:
+        with open(args.bericht, "a", encoding="utf-8") as datei:
+            datei.write(_abgleich_markdown(ergebnisse))
+    erreichbar = [a for a in ergebnisse if a.quelltext.status != qt.NICHT_ERREICHBAR]
+    if ergebnisse and not erreichbar:
+        print(f.gelb("\nKeine Quelle erreichbar – vermutlich kein Netz oder ein sperrender Proxy. "
+                     "Bitte lokal oder in der CI ausführen."))
+        return 2
+    fehlend = sum(len(a.fehlende_zitate) for a in ergebnisse)
+    print(f.fett("\nErgebnis: ") + f"{len(ergebnisse)} Quellen, {fehlend} Zitat(e) nicht gefunden, "
+          f"{sum(len(a.fehlende_zahlen) for a in ergebnisse)} Zahl(en) nur als Hinweis, "
+          f"{len(ergebnisse) - len(erreichbar)} nicht erreichbar")
+    return 1 if fehlend else 0
+
+
+def _abgleich_markdown(ergebnisse: list[Any]) -> str:
+    zeilen = ["## Quellenabgleich", "", "| Quelle | Ergebnis | Nicht gefunden |", "|---|---|---|"]
+    for a in ergebnisse:
+        fehlt = [f"❌ Zitat Zeile {z.zeile}" for z in a.fehlende_zitate]
+        fehlt += [f"⚠️ {z.anzeige()}" for z in a.fehlende_zahlen]
+        zeilen.append(f"| `{a.quelle_id}` | {a.zusammenfassung().replace('|', '/')} | {', '.join(fehlt) or '–'} |")
+    return "\n".join(zeilen) + "\n\n"
 
 
 def _quellen_verwendung(kb: Wissensbasis, quelle_id: str, daten: Optional[Path], alle: bool, f: Farbe) -> int:
@@ -704,9 +760,16 @@ def parser() -> argparse.ArgumentParser:
     aktion.add_argument("--zuruecksetzen", metavar="ID",
                         help="Abnahme zurücknehmen, Status wieder 'teilweise' (z. B. nach Gesetzesänderung)")
     aktion.add_argument("--links", action="store_true", help="Alle Quellen-URLs abrufen und Fehler melden")
+    aktion.add_argument("--abgleich", nargs="*", metavar="ID",
+                        help="Zitate aus dem Protokoll und Zahlen der Regeln gegen den Text der Quelle prüfen "
+                             "(ohne ID: alle Quellen mit Protokoll, mit --phase1: alle der Pilotregion)")
     s.add_argument("--alle", action="store_true", help="Bei --verwendung auch große Gruppen vollständig zeigen")
     s.add_argument("--von", metavar="NAME", help="Bei --abnehmen: eigener Name")
     s.add_argument("--am", metavar="DATUM", help="Bei --abnehmen: Prüfdatum (Standard: heute)")
+    s.add_argument("--in-protokoll", action="store_true",
+                   help="Bei --abgleich: Ergebnis als Abschnitt 'Automatischer Abgleich' ins Protokoll schreiben")
+    s.add_argument("--bericht", metavar="DATEI", help="Bei --abgleich: Ergebnis als Markdown anhängen (z. B. für CI)")
+    s.add_argument("--ohne-cache", action="store_true", help="Bei --abgleich: nicht aus .cache/quellen lesen")
     s.add_argument("--trotz-hinweisen", action="store_true",
                    help="Bei --abnehmen: auch mit geklärten ⚠️-Zeilen im Protokoll abnehmen")
     s.set_defaults(func=cmd_quellen)

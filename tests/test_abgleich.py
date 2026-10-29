@@ -233,3 +233,16 @@ def test_ungueltige_url_stuerzt_nicht_ab():
 def test_negative_frist_ohne_vorzeichen(kb):
     wochen = [z for z in ab.zahlen_der_quelle(kb, "familienportal_mutterschaft") if isinstance(z.wert, tuple)]
     assert wochen and all(z.wert[1] > 0 for z in wochen)
+
+
+@pytest.mark.anforderung("ANF-QS-06")
+def test_senkrechter_strich_im_zitat():
+    """Review #66: ein | im Zitat darf die Tabellenzeile nicht zerlegen (Gerüst schreibt \\|)."""
+    assert qp.tabellenzellen("| 1 | a \\| b | `x` |  | ✅ |") == ["1", "a | b", "`x`", "", "✅"]
+    text = ("## Verwendungen in der Wissensbasis (1)\n\n"
+            "| # | Verwendung | Fundstelle | Wortlaut der Quelle (Zitat, Absatz) | Ergebnis |\n"
+            "|---|---|---|---|---|\n"
+            "| 1 | Betrag | `x` | Abs. 1: „Spalte A \\| Spalte B des Tarifs“ | ✅ |\n")
+    zitate = ab.zitate_aus_protokoll(text)
+    assert [z.text for z in zitate] == ["Spalte A | Spalte B des Tarifs"]
+    assert qp.protokoll_lesen(text) == qp.Protokollstand(zeilen=1, ohne_ergebnis=0, abweichungen=0, hinweise=0)

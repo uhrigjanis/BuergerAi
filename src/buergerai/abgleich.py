@@ -18,7 +18,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Iterator, Optional
 
-from .quellenpruefung import _fundstellen, protokoll_pfad
+from .quellenpruefung import _fundstellen, protokoll_pfad, tabellenzellen
 from .quelltext import OK, Quelltext
 from .wissensbasis import Wissensbasis
 
@@ -67,7 +67,7 @@ def zitate_aus_protokoll(text: str) -> list[Zitat]:
             continue
         if not in_tabelle or not zeile.startswith("|") or zeile.startswith(("|---", "| #")):
             continue
-        zellen = [z.strip() for z in zeile.strip().strip("|").split(" | ")]
+        zellen = tabellenzellen(zeile)
         if len(zellen) < 5 or not zellen[0].isdigit():
             continue
         for treffer in re.finditer(r"„(.+?)“", zellen[3]):

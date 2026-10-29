@@ -14,6 +14,8 @@ Je Quelle ein Protokoll `<quelle-id>.md`: Was behauptet die Wissensbasis, was st
 
 **Claude setzt nie `verifiziert`,** höchstens `teilweise` mit vollständigem Protokoll.
 
+Nur die Quellen der Pilotregion (Phase 1, Issue #45): `./bai quellen --phase1 --offen`
+
 ## Abnahme durch einen Menschen
 
 Protokoll lesen, Zitate an der Quelle nachsehen, dann:
@@ -22,7 +24,7 @@ Protokoll lesen, Zitate an der Quelle nachsehen, dann:
 ./bai quellen --abnehmen <id> --von "Vorname Nachname"
 ```
 
-Der Befehl setzt `pruefstatus: verifiziert`, `geprueft_am` (heute, oder `--am TT.MM.JJJJ`) und `geprueft_von` und trägt die Abnahme im Protokoll ein. Er ändert in der Datendatei nur diese Felder, auch in von Hand formatierten und in generierten Dateien. Er verweigert, wenn
+Der Befehl setzt `pruefstatus: verifiziert`, `geprueft_am` (heute, oder `--am TT.MM.JJJJ` bzw. `--am JJJJ-MM-TT`) und `geprueft_von` und trägt die Abnahme im Protokoll ein. Er ändert in der Datendatei nur diese Felder, auch in von Hand formatierten und in generierten Dateien. Er verweigert, wenn
 
 - das Protokoll fehlt oder nicht in der Notiz verlinkt ist,
 - eine Zeile kein Ergebnis hat oder eine Abweichung (❌) zeigt,
@@ -35,9 +37,7 @@ Gebietsquellen (`destatis_kreise`, `openplz_strassen`): Der Gebietsimport behäl
 
 ## Link-Prüfung
 
-`./bai quellen --links [--phase1]` ruft jede Quellen-URL ab und meldet HTTP-Fehler, nicht erreichbare Adressen und Umleitungen auf andere Hosts. Ohne Netz (z. B. in der Cloud-Umgebung) kommt ein Hinweis statt einer Fehlerliste. Exit-Code: 0 alles erreichbar, 1 Fehler gefunden, 2 kein Netz.
-
-Nur die Quellen der Pilotregion (Phase 1, Issue #45): `./bai quellen --phase1 --offen`
+`./bai quellen --links [--phase1]` ruft jede Quellen-URL ab und meldet HTTP-Fehler, nicht erreichbare Adressen und Umleitungen auf andere Hosts. Ohne Netz (z. B. in der Cloud-Umgebung) kommt ein Hinweis statt einer Fehlerliste. Exit-Code: 0 alles erreichbar, 1 Fehler gefunden, 2 kein Netz. Abgerufen wird per GET, nicht HEAD: Viele Behördenserver beantworten HEAD mit 403 oder 405, das ergäbe falsche Fehler. Der Inhalt wird nicht gelesen.
 
 ## Ergebnis je Zeile
 

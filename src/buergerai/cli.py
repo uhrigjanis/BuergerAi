@@ -23,6 +23,7 @@ from typing import Any, Optional
 from . import __version__
 from . import anforderungen as anforderungen_mod
 from . import gebiete as gebiete_mod
+from . import quellenpruefung as qp
 from . import szenarien as szenarien_mod
 from .ausgabe import (
     EBENE_TEXT,
@@ -400,24 +401,71 @@ def cmd_lebenslagen(args: argparse.Namespace) -> int:
 def cmd_quellen(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
-    quellen = sorted(kb.quellen.values(), key=lambda q: (q.pruefstatus.value, q.id))
+    for qid in (args.verwendung, args.protokoll):
+        if qid and qid not in kb.quellen:
+            print(f"Unbekannte Quelle '{qid}'. Alle IDs: buergerai quellen", file=sys.stderr)
+            return 2
+    daten = Path(args.daten) if args.daten else None
+    if args.verwendung:
+        return _quellen_verwendung(kb, args.verwendung, daten, args.alle, f)
+    if args.protokoll:
+        ziel = qp.protokoll_pfad(args.protokoll)
+        if ziel.exists():
+            print(f"Protokoll gibt es schon: {ziel} (wird nicht überschrieben)", file=sys.stderr)
+            return 1
+        ziel.parent.mkdir(parents=True, exist_ok=True)
+        ziel.write_text(qp.protokoll_geruest(kb, args.protokoll, date.today(), daten), encoding="utf-8")
+        print(f"Protokoll angelegt: {ziel}")
+        print(f.grau(f"Nach der Prüfung in der Notiz der Quelle verlinken: docs/pruefprotokolle/{args.protokoll}.md"))
+        return 0
+
+    alle_quellen = list(kb.quellen.values())
+    if args.phase1:
+        phase1 = set(qp.phase1_quellen(kb))
+        alle_quellen = [q for q in alle_quellen if q.id in phase1]
+    quellen = sorted(alle_quellen, key=lambda q: (q.pruefstatus.value, q.id))
     if args.offen:
         quellen = [q for q in quellen if q.pruefstatus is not Pruefstatus.VERIFIZIERT]
     zaehler: dict[str, int] = {}
-    for q in kb.quellen.values():
+    for q in alle_quellen:
         zaehler[q.pruefstatus.value] = zaehler.get(q.pruefstatus.value, 0) + 1
-    print(f.fett("Prüfstatus der Quellen: ") + ", ".join(f"{k}: {v}" for k, v in sorted(zaehler.items())))
+    titel = "Prüfstatus der Quellen der Phase 1 (Geburt, München/Freising): " if args.phase1 \
+        else "Prüfstatus der Quellen: "
+    print(f.fett(titel) + ", ".join(f"{k}: {v}" for k, v in sorted(zaehler.items())))
     for q in quellen:
         print(f"\n[{q.pruefstatus.value}] {q.id} – {q.titel}")
         if q.url:
             print(f"    {q.url}")
         if q.geprueft_am:
             print(f"    geprüft am {datum(q.geprueft_am)} von {q.geprueft_von}")
+        if qp.protokoll_pfad(q.id).is_file():
+            print(f"    Protokoll: docs/pruefprotokolle/{q.id}.md")
         if q.notiz:
             print(f"    {f.grau(q.notiz)}")
     if args.offen:
-        print(f.grau("\nNach eigener Prüfung im Volltext: in data/**/quellen bzw. der jeweiligen Datei "
-                     "pruefstatus auf \"verifiziert\" setzen und geprueft_am/geprueft_von eintragen."))
+        print(f.grau("\nPrüfen: buergerai quellen --protokoll ID legt ein Prüfprotokoll an "
+                     "(docs/pruefprotokolle/README.md). Nur ein Mensch setzt danach pruefstatus "
+                     "\"verifiziert\" mit geprueft_am und geprueft_von."))
+    return 0
+
+
+def _quellen_verwendung(kb: Wissensbasis, quelle_id: str, daten: Optional[Path], alle: bool, f: Farbe) -> int:
+    q = kb.quellen[quelle_id]
+    liste = qp.verwendungen(kb, quelle_id, daten)
+    print(f.fett(f"Verwendungen von {q.id}") + f" – {q.titel} [{q.pruefstatus.value}]: {len(liste)}")
+    if not liste:
+        print("  Keine Verwendung gefunden – Quelle zuordnen oder entfernen.")
+        return 0
+    datei = None
+    for v in (liste if alle else qp.zusammenfassen(liste, qp.phase1_gebiete(kb))):
+        if isinstance(v, str):
+            print(f.grau(f"    {v} (alle zeigen: --alle)"))
+            continue
+        if v.datei != datei:
+            datei = v.datei
+            print(f"\n  {f.fett(datei)}")
+        print(f"    {v.pfad}")
+        print(f"      {qp.beschreibung(v)}")
     return 0
 
 
@@ -434,6 +482,11 @@ def cmd_daten(args: argparse.Namespace) -> int:
     unbenutzt = kb.unbenutzte_fakten()
     if unbenutzt:
         print("  Warnung – Fakten ohne Verwendung: " + ", ".join(unbenutzt))
+    ohne = qp.ohne_protokoll(kb)
+    if ohne:
+        phase1 = set(qp.phase1_quellen(kb))
+        print(f"  Warnung – {len(ohne)} geprüfte Quellen (teilweise/verifiziert) ohne verlinktes Prüfprotokoll, "
+              f"davon {len(phase1.intersection(ohne))} aus Phase 1. Anlegen: buergerai quellen --protokoll ID")
     return 0
 
 
@@ -586,6 +639,13 @@ def parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("quellen", help="Quellen und ihr Prüfstatus")
     s.add_argument("--offen", action="store_true", help="Nur noch nicht verifizierte Quellen")
+    s.add_argument("--phase1", action="store_true",
+                   help="Nur Quellen der Pilotregion (Geburt in München und Freising)")
+    aktion = s.add_mutually_exclusive_group()
+    aktion.add_argument("--verwendung", metavar="ID", help="Wo die Wissensbasis die Quelle zitiert (Datei, JSON-Pfad)")
+    aktion.add_argument("--protokoll", metavar="ID",
+                        help="Prüfprotokoll docs/pruefprotokolle/ID.md anlegen, vorbefüllt mit allen Verwendungen")
+    s.add_argument("--alle", action="store_true", help="Bei --verwendung auch große Gruppen vollständig zeigen")
     s.set_defaults(func=cmd_quellen)
 
     sub.add_parser("daten", help="Wissensbasis auf Konsistenz prüfen").set_defaults(func=cmd_daten)

@@ -25,20 +25,25 @@ Abgleich per Websuche über mehrere Quellen. Die amtlichen Seiten (gesetze-im-in
 | Geburtsanzeige: innerhalb einer Woche, Geburtstag zählt nicht mit, gebührenfrei | bestätigt (FIM-Stammtext); Paragraf (§ 18 PStG) noch im Volltext prüfen |
 | München: Geburtenbüro München / München-Pasing, 12 € je Urkunde, gebührenfreie Urkunden für Elterngeld/Kindergeld/Mutterschaftshilfe | laut Seite der Stadt München |
 
-## Widersprüchlich
+## Geklärt: Bayerisches Familiengeld (#54)
 
-**Bayerisches Familiengeld / Kinderstartgeld:** Das StMAS-Infoblatt (11/2024) nennt die Abschaffung für Kinder ab Geburt 1.1.2025. Spätere Landtagsdrucksachen (u. a. 19/8839) nennen den Stichtag 1.9.2026 mit einkommensabhängiger Übergangsregel (100.000 €). Das angekündigte Kinderstartgeld (3.000 €) wurde laut Berichten nicht eingeführt. → Die Regel gibt für Geburten 1.1.2025–31.8.2026 **Unklar** aus. Klären: beschlossene Fassung im Bayerischen GVBl. oder Auskunft des ZBFS.
+Früher widersprüchlich (StMAS-Infoblatt: Stichtag 1.1.2025; Landtagsdrucksache 19/8839: 1.9.2026 mit Grenze 100.000 €). Geklärt am 27.10.2026 per Websuche:
+
+- **Beschlossen:** Art. 9a BayFamGG, eingefügt durch GVBl. 2025 S. 570. Für ab dem 1.1.2025 geborene Kinder sind Anträge „unbeachtlich“, für früher geborene gilt das alte Recht weiter.
+- **Nicht beschlossen:** Drs. 19/8839 war ein Änderungsantrag der Grünen und wurde mit 26 zu 130 Stimmen abgelehnt. Das Kinderstartgeld wurde nicht eingeführt.
+- Die Regel gibt jetzt für Geburten ab 1.1.2025 **Nein** aus statt Unklar. Protokolle: [bayfamgg_9a](pruefprotokolle/bayfamgg_9a.md), [bayfamgg_3](pruefprotokolle/bayfamgg_3.md), [stmas_familiengeld_2024](pruefprotokolle/stmas_familiengeld_2024.md), [landtag_by_familiengeld](pruefprotokolle/landtag_by_familiengeld.md).
+- Offen für die Abnahme: Wortlaut von Art. 9a im GVBl. bzw. auf gesetze-bayern.de nachsehen (aus der Entwicklungsumgebung nicht abrufbar).
 
 ## Checkliste für die manuelle Prüfung
 
-Für jede Quelle aus `./bai quellen --offen`:
+Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md). Kurz, für jede Quelle aus `./bai quellen --phase1 --offen`:
 
-1. URL im Browser öffnen und Volltext lesen.
-2. Jede Bedingung, die auf die Quelle verweist, vergleichen: `./bai erklaeren <leistung> -s <szenario>` zeigt die Bedingungen mit Quellen-IDs.
-3. Beträge und Fristen vergleichen (`data/fachmodule/familie/geburt.json`, `data/laender/by/geburt.json`).
-4. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
-5. Passt alles: in der Datei `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"` setzen. Passt etwas nicht: Regel/Daten korrigieren, Testfall ergänzen, dann verifizieren.
-6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen.
+1. `./bai quellen --verwendung <id>` zeigt jede Bedingung, Frist, jeden Betrag und jede Zuständigkeit mit dieser Quelle, mit Datei und JSON-Pfad.
+2. `./bai quellen --protokoll <id>` legt `docs/pruefprotokolle/<id>.md` an, vorbefüllt mit diesen Verwendungen.
+3. Volltext lesen, je Verwendung den Wortlaut zitieren und das Ergebnis eintragen. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
+4. Passt etwas nicht: Regel/Daten korrigieren, Test oder Szenario ergänzen.
+5. Claude setzt höchstens `teilweise` und verlinkt das Protokoll in `notiz`. Ein Mensch setzt nach Durchsicht `"pruefstatus": "verifiziert"`, `"geprueft_am"` und `"geprueft_von"`.
+6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen. `./bai daten` warnt bei geprüften Quellen ohne Protokoll.
 
 Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
 - Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).

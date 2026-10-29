@@ -82,7 +82,9 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Lebenslage(n) wählen | `./bai pruefen -s nur_plz --lebenslage geburt` (mehrfach möglich, Standard: `geburt`) |
 | Umzug prüfen | `./bai pruefen --plz 80331 -l umzug -f umzug.einzugsdatum=15.10.2026 -f umzug.ort_alt=85354 -f umzug.hund=ja` |
 | Leistungen und Varianten | `./bai leistungen` |
-| Quellen und Prüfstatus | `./bai quellen --offen` |
+| Quellen und Prüfstatus | `./bai quellen --offen` (nur Pilotregion: `--phase1`) |
+| Wo wird eine Quelle verwendet? | `./bai quellen --verwendung beeg_1` |
+| Prüfprotokoll anlegen | `./bai quellen --protokoll beeg_1` (siehe [docs/pruefprotokolle](docs/pruefprotokolle/README.md)) |
 | Datenkonsistenz | `./bai daten` |
 | Testmatrix (Anforderung → Tests) | `./bai anforderungen --details` |
 | Web-Oberfläche | `./bai web` |
@@ -101,7 +103,8 @@ Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sic
 | `freising_unverheiratet_privat` | Fallback auf Landesdaten, Vaterschaft/Sorge, BAS-Mutterschaftsgeld, abgelaufene Frist |
 | `muenchen_alleinerziehend_drittstaat` | ehrliches „Unklar“ bei Aufenthaltstitel |
 | `muenchen_hohes_einkommen` | Elterngeld-Einkommensgrenze, Familienversicherung unklar |
-| `muenchen_familiengeld_uebergang` | widersprüchliche Rechtslage (Bayerisches Familiengeld) |
+| `muenchen_familiengeld_2024` | letzter Jahrgang mit Bayerischem Familiengeld |
+| `muenchen_familiengeld_2026` | kein Familiengeld mehr (Geburt ab 1.1.2025), Fristen abgelaufen |
 | `muenchen_postfach_plz` | PLZ ohne Gemeinde: Rückfrage nach dem Bundesland, Warnung |
 | je ein Szenario pro Land, z. B. `kiel_…`, `baunatal_…` (Hessen), `dresden_…` (Landeserziehungsgeld), `koeln_unverheiratet`, `bremerhaven_…` (mehrdeutige PLZ) | Elterngeldstelle des Landes, Jugendamt mit Kreisname; geprüft über `erwartet_stellen` |
 | `nur_plz` | Startpunkt: fast alles unklar, viele Rückfragen |
@@ -154,6 +157,7 @@ tests/              pytest, jeweils mit @pytest.mark.anforderung("ANF-…")
 docs/
   anforderungen.json  Anforderungen mit IDs (Quelle der Testmatrix)
   validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)
+  pruefprotokolle/    Prüfprotokoll je Quelle (Wortlaut, Ergebnis, Abnahme)
   datenquellen.md     Quellen und Lizenzen der importierten Daten, Import-Anleitung
   adr/                Architekturentscheidungen
 ```

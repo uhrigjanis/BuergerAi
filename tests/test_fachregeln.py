@@ -180,7 +180,9 @@ def test_elterngeld_bayern_zbfs(plane):
 @pytest.mark.anforderung("ANF-BY-02")
 @pytest.mark.parametrize(
     "geburt,erwartet",
-    [("2024-12-31", "ja"), ("2025-01-01", "unklar"), ("2026-08-31", "unklar"), ("2026-09-01", "nein")],
+    # Art. 9a BayFamGG (GVBl. 2025 S. 570): abgeschafft für Geburten ab 1.1.2025. Der 1.9.2026 stammt aus
+    # einem abgelehnten Änderungsantrag (Drs. 19/8839) und darf keine Rolle spielen.
+    [("2024-12-31", "ja"), ("2025-01-01", "nein"), ("2026-08-31", "nein"), ("2026-09-01", "nein")],
 )
 def test_familiengeld(plane, geburt, erwartet):
     b = plane({"kind_geboren": "ja", "geburtsdatum": geburt})

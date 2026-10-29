@@ -1,0 +1,40 @@
+name: Quellenprüfung
+
+# Prüft Zitate und Zahlen gegen den Text der Quellen und alle Quellen-Links.
+# Läuft hier, weil GitHub Actions die amtlichen Seiten erreicht (die Cloud-
+# Umgebung der Entwicklung nicht). Siehe docs/pruefprotokolle/README.md.
+
+on:
+  pull_request:
+    paths:
+      - "data/**"
+      - "docs/pruefprotokolle/**"
+      - "src/buergerai/abgleich.py"
+      - "src/buergerai/quelltext.py"
+      - "src/buergerai/linkpruefung.py"
+      - ".github/workflows/quellen.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  abgleich:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # Schlägt nur fehl, wenn ein Zitat aus einem Protokoll nicht im Quelltext steht.
+      # Nicht gefundene Zahlen sind Hinweise und stehen nur in der Zusammenfassung.
+      - name: Zitate und Zahlen abgleichen (Phase 1)
+        run: ./bai --keine-farbe quellen --abgleich --phase1 --bericht "$GITHUB_STEP_SUMMARY"
+      - name: Zitate und Zahlen abgleichen (alle Quellen mit Protokoll)
+        if: success() || failure()
+        run: ./bai --keine-farbe quellen --abgleich --bericht "$GITHUB_STEP_SUMMARY"
+      # Tote Links sollen auffallen, aber keinen PR blockieren.
+      - name: Links prüfen
+        if: success() || failure()
+        continue-on-error: true
+        run: ./bai --keine-farbe quellen --links

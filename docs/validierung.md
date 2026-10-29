@@ -41,9 +41,10 @@ Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md).
 1. `./bai quellen --verwendung <id>` zeigt jede Bedingung, Frist, jeden Betrag und jede Zuständigkeit mit dieser Quelle, mit Datei und JSON-Pfad.
 2. `./bai quellen --protokoll <id>` legt `docs/pruefprotokolle/<id>.md` an, vorbefüllt mit diesen Verwendungen.
 3. Volltext lesen, je Verwendung den Wortlaut zitieren und das Ergebnis eintragen. Zusätzlich gegen offizielle Rechner gegenprüfen: Elterngeldrechner (familienportal.de), KiZ-Lotse (arbeitsagentur.de).
-4. Passt etwas nicht: Regel/Daten korrigieren, Test oder Szenario ergänzen.
-5. Claude setzt höchstens `teilweise` und verlinkt das Protokoll in `notiz`. Ein Mensch nimmt nach Durchsicht ab: `./bai quellen --abnehmen <id> --von "Vorname Nachname"` (setzt `verifiziert`, Datum und Namen; Details in [pruefprotokolle/README.md](pruefprotokolle/README.md#abnahme-durch-einen-menschen)).
-6. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen. `./bai daten` warnt bei geprüften Quellen ohne Protokoll.
+4. `./bai quellen --abgleich <id>` prüft, ob die Zitate wörtlich in der Quelle stehen und die Zahlen der Regeln im Paragrafen vorkommen (läuft auch in GitHub Actions).
+5. Passt etwas nicht: Regel/Daten korrigieren, Test oder Szenario ergänzen.
+6. Claude setzt höchstens `teilweise` und verlinkt das Protokoll in `notiz`. Ein Mensch nimmt nach Durchsicht ab: `./bai quellen --abnehmen <id> --von "Vorname Nachname"` (setzt `verifiziert`, Datum und Namen; Details in [pruefprotokolle/README.md](pruefprotokolle/README.md#abnahme-durch-einen-menschen)).
+7. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen. `./bai daten` warnt bei geprüften Quellen ohne Protokoll.
 
 Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
 - Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).

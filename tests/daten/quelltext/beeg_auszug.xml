@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Testdaten im Format von gesetze-im-internet.de (xml.zip). Wortlaut gekürzt und vereinfacht, nicht amtlich. -->
+<dokumente builddate="20260101" doknr="BJNR274810006">
+  <norm builddate="20260101" doknr="BJNR274810006">
+    <metadaten>
+      <jurabk>BEEG</jurabk>
+      <ausfertigung-datum manuell="ja">2006-12-05</ausfertigung-datum>
+      <langue>Gesetz zum Elterngeld und zur Elternzeit</langue>
+      <standangabe checked="ja"><standtyp>Neuf</standtyp><standkommentar>Neugefasst durch Bek. v. 27.1.2015 I 33</standkommentar></standangabe>
+      <standangabe checked="ja"><standtyp>Stand</standtyp><standkommentar>Zuletzt geändert durch Art. 1 G v. 1.1.2026 I Nr. 1</standkommentar></standangabe>
+    </metadaten>
+    <textdaten><text format="XML"><Content><P/></Content></text></textdaten>
+  </norm>
+  <norm builddate="20260101" doknr="BJNR274810006BJNE000100000">
+    <metadaten>
+      <jurabk>BEEG</jurabk>
+      <enbez>§ 1</enbez>
+      <titel format="parat">Berechtigte</titel>
+    </metadaten>
+    <textdaten>
+      <text format="XML"><Content>
+        <P>(1) Anspruch auf Elterngeld hat, wer
+          <DL Font="normal" Type="arabic">
+            <DT>1.</DT><DD Font="normal"><LA Size="normal">einen Wohnsitz oder seinen gewöhnlichen Aufenthalt in Deutschland hat,</LA></DD>
+            <DT>2.</DT><DD Font="normal"><LA Size="normal">mit seinem Kind in einem Haushalt lebt,</LA></DD>
+          </DL>
+        </P>
+        <P>(6) Eine Person ist nicht voll erwerbstätig, wenn ihre Arbeitszeit 32 Wochenstunden im Durchschnitt des Lebensmonats nicht übersteigt.</P>
+        <P>(8) Ein Anspruch entfällt, wenn die berechtigte Person im letzten abgeschlossenen Veranlagungszeitraum ein zu versteuerndes Einkommen von mehr als 175 000 Euro erzielt hat.</P>
+      </Content></text>
+      <fussnoten><Content><P>Fußnote, die nicht zum Text zählt: 99 999 Euro</P></Content></fussnoten>
+    </textdaten>
+  </norm>
+  <norm builddate="20260101" doknr="BJNR274810006BJNE000700000">
+    <metadaten>
+      <jurabk>BEEG</jurabk>
+      <enbez>§ 7</enbez>
+      <titel format="parat">Antragstellung</titel>
+    </metadaten>
+    <textdaten><text format="XML"><Content>
+      <P>(1) Das Elterngeld ist schriftlich zu beantragen. Es wird rückwirkend nur für die letzten drei Lebensmonate vor Beginn des Lebensmonats geleistet, in dem der Antrag auf Elterngeld eingegangen ist.</P>
+    </Content></text></textdaten>
+  </norm>
+</dokumente>

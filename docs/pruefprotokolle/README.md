@@ -39,6 +39,23 @@ Gebietsquellen (`destatis_kreise`, `openplz_strassen`): Der Gebietsimport behäl
 
 `./bai quellen --links [--phase1]` ruft jede Quellen-URL ab und meldet HTTP-Fehler, nicht erreichbare Adressen und Umleitungen auf andere Hosts. Ohne Netz (z. B. in der Cloud-Umgebung) kommt ein Hinweis statt einer Fehlerliste. Exit-Code: 0 alles erreichbar, 1 Fehler gefunden, 2 kein Netz. Abgerufen wird per GET, nicht HEAD: Viele Behördenserver beantworten HEAD mit 403 oder 405, das ergäbe falsche Fehler. Der Inhalt wird nicht gelesen.
 
+## Automatischer Abgleich
+
+```
+./bai quellen --abgleich [ID …] [--phase1] [--in-protokoll]
+```
+
+Holt den Text der Quelle und prüft zweierlei:
+
+1. **Zitate:** Jedes Zitat in „…“ aus der Spalte „Wortlaut der Quelle“ muss wörtlich im Text stehen. Leerzeichen, Anführungszeichen, Striche und Silbentrennung werden vereinheitlicht; „…“ im Zitat gilt als Lücke.
+2. **Zahlen:** Schwellenwerte, Stichtage, Fristen und Beträge der Regeln, die die Quelle zitieren, werden im zitierten Paragrafen gesucht, in deutschen Schreibweisen („175 000“, „1. Januar 2025“, „einer Woche“). Nicht gefunden ist nur ein Hinweis.
+
+Bundesgesetze kommen als XML von gesetze-im-internet.de (`<kürzel>/xml.zip`), mit dem Stand „Zuletzt geändert durch …“; der Paragraf ergibt sich aus der URL der Quelle. Andere Seiten werden als HTML-Text gelesen, PDFs als „manuell“ gemeldet. Abrufe liegen 24 Stunden in `.cache/quellen/` (`--ohne-cache` umgeht das).
+
+Ohne ID: alle Quellen mit Protokoll; mit `--phase1`: alle Quellen der Pilotregion. `--in-protokoll` schreibt das Ergebnis als Abschnitt „Automatischer Abgleich“ ins Protokoll. Exit-Code: 0 alle Zitate gefunden, 1 Zitat fehlt, 2 kein Netz.
+
+**In GitHub Actions** (`.github/workflows/quellen.yml`) läuft der Abgleich samt Link-Prüfung bei jedem PR, der Daten oder Protokolle ändert, und lässt sich manuell starten. Das Ergebnis steht in der Zusammenfassung des Laufs. Fehlende Zitate lassen den Lauf scheitern, fehlende Zahlen und tote Links nicht.
+
 ## Ergebnis je Zeile
 
 | Symbol | Bedeutung |

@@ -109,3 +109,12 @@ def test_keine_quelle_ohne_menschliche_pruefung_verifiziert(kb):
     for q in kb.quellen.values():
         if q.pruefstatus.value == "verifiziert":
             assert q.geprueft_von and not q.geprueft_von.startswith("Claude")
+
+
+@pytest.mark.anforderung("ANF-DAT-06")
+def test_quellen_url_ohne_leerzeichen(tmp_path):
+    daten = kopie(tmp_path)
+    bearbeite(daten / "bund" / "quellen.json",
+              lambda d: d["quellen"][0].update(url="https://example.org/Schriftliche Anfragen/x.pdf"))
+    with pytest.raises(DatenFehler, match="ungültige URL"):
+        Wissensbasis.laden(daten)

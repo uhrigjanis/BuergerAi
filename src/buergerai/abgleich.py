@@ -148,8 +148,8 @@ def _werte(knoten: dict[str, Any], objekt: str) -> Iterator[tuple[Any, str]]:
         elif _datum(wert):
             yield _datum(wert), herkunft
     for einheit in ("tage", "wochen", "monate"):
-        if knoten.get(einheit):
-            yield (einheit, int(knoten[einheit])), herkunft
+        if knoten.get(einheit):  # negativ = vor dem Ereignis („frühestens 7 Wochen vor“)
+            yield (einheit, abs(int(knoten[einheit]))), herkunft
     if "fakt" not in knoten and "tage" not in knoten and text and "€" in text:
         for betrag in re.findall(r"(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d{2}))?\s*€", text):
             zahl = int(betrag[0].replace(".", ""))

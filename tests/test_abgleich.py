@@ -197,3 +197,39 @@ def test_cli_abgleich(capsys, monkeypatch, tmp_path):
     monkeypatch.setattr(qt, "http_abruf", FakeNetz({}))
     assert main(["--keine-farbe", "quellen", "--abgleich", "bayfamgg_9a", "--ohne-cache"]) == 2
     assert "Keine Quelle erreichbar" in capsys.readouterr().out
+
+
+@pytest.mark.anforderung("ANF-QS-06")
+def test_stummer_host_wird_nur_einmal_abgewartet():
+    aufrufe: list[str] = []
+
+    def zeitueberschreitung(url: str):
+        aufrufe.append(url)
+        raise qt.AbrufFehler("timed out", netz=True)
+
+    speicher = qt.Zwischenspeicher(zeitueberschreitung)
+    for p in ("__1", "__7", "__16"):
+        q = qt.holen(f"https://www.gesetze-im-internet.de/beeg/{p}.html", speicher)
+        assert q.status == qt.NICHT_ERREICHBAR
+    q = qt.holen("https://www.gesetze-im-internet.de/bgb/__1592.html", speicher)
+    assert "übersprungen" in q.meldung
+    assert len(aufrufe) == 1, "ein Host, der nicht antwortet, kostet nur eine Wartezeit"
+
+
+@pytest.mark.anforderung("ANF-QS-06")
+def test_http_fehler_sperrt_den_host_nicht():
+    speicher = qt.Zwischenspeicher(FakeNetz(NETZ))
+    assert qt.holen("https://www.gesetze-bayern.de/gibt-es-nicht", speicher).status == qt.NICHT_ERREICHBAR
+    assert qt.holen("https://www.gesetze-bayern.de/Content/Document/BayFamGG-9a", speicher).status == qt.OK
+
+
+@pytest.mark.anforderung("ANF-QS-06")
+def test_ungueltige_url_stuerzt_nicht_ab():
+    q = qt.holen("https://example.org/Schriftliche Anfragen/x.html", qt.Zwischenspeicher())
+    assert q.status == qt.NICHT_ERREICHBAR and "ungültige URL" in q.meldung
+
+
+@pytest.mark.anforderung("ANF-QS-06")
+def test_negative_frist_ohne_vorzeichen(kb):
+    wochen = [z for z in ab.zahlen_der_quelle(kb, "familienportal_mutterschaft") if isinstance(z.wert, tuple)]
+    assert wochen and all(z.wert[1] > 0 for z in wochen)

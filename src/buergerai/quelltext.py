@@ -14,6 +14,7 @@ kosten und wiederholte Läufe die Server schonen.
 from __future__ import annotations
 
 import hashlib
+import http.client
 import io
 import re
 import socket
@@ -40,7 +41,12 @@ NICHT_ERREICHBAR = "nicht_erreichbar"
 
 
 class AbrufFehler(Exception):
-    pass
+    """Abruf gescheitert. ``netz``: der Host hat gar nicht geantwortet (Zeitüberschreitung,
+    Verbindung, DNS) – weitere Abrufe beim selben Host sind dann zwecklos."""
+
+    def __init__(self, meldung: str, netz: bool = False):
+        super().__init__(meldung)
+        self.netz = netz
 
 
 @dataclass
@@ -72,7 +78,9 @@ def http_abruf(url: str, timeout: float = 30.0) -> tuple[bytes, str]:
     except urllib.error.HTTPError as exc:
         raise AbrufFehler(f"HTTP {exc.code} {exc.reason}") from exc
     except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError, OSError) as exc:
-        raise AbrufFehler(str(getattr(exc, "reason", exc))) from exc
+        raise AbrufFehler(str(getattr(exc, "reason", exc)), netz=True) from exc
+    except (ValueError, http.client.HTTPException) as exc:  # z. B. Leerzeichen in der URL
+        raise AbrufFehler(f"ungültige URL oder Antwort: {exc}") from exc
 
 
 class Zwischenspeicher:
@@ -82,16 +90,29 @@ class Zwischenspeicher:
         self.abrufer = abrufer or http_abruf
         self.verzeichnis = verzeichnis
         self._speicher: dict[str, tuple[bytes, str]] = {}
+        self._fehler: dict[str, AbrufFehler] = {}
+        self._stumme_hosts: set[str] = set()  # antworteten nicht – nicht erneut warten
 
     def holen(self, url: str) -> tuple[bytes, str]:
         if url in self._speicher:
             return self._speicher[url]
+        if url in self._fehler:
+            raise self._fehler[url]
+        host = urlsplit(url).hostname or ""
+        if host in self._stumme_hosts:
+            raise AbrufFehler(f"{host} antwortete schon vorher nicht – übersprungen", netz=True)
         datei = self._datei(url)
         if datei and datei.exists() and time.time() - datei.stat().st_mtime < CACHE_GUELTIG_SEKUNDEN:
             typ, _, inhalt = datei.read_bytes().partition(b"\n")
             ergebnis = (inhalt, typ.decode("utf-8", "replace"))
         else:
-            ergebnis = self.abrufer(url)
+            try:
+                ergebnis = self.abrufer(url)
+            except AbrufFehler as exc:
+                self._fehler[url] = exc
+                if exc.netz:
+                    self._stumme_hosts.add(host)
+                raise
             if datei:
                 datei.parent.mkdir(parents=True, exist_ok=True)
                 datei.write_bytes(ergebnis[1].encode("utf-8") + b"\n" + ergebnis[0])

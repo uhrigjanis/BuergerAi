@@ -236,6 +236,12 @@ def test_linkpruefung(server):
     assert lp.kein_netz([ergebnisse[frei]] * 9 + [ergebnisse[f"{server}/fehlt"]])
 
 
+@pytest.mark.anforderung("ANF-QS-05")
+def test_linkpruefung_ungueltige_url():
+    e = lp.pruefe_url("https://example.org/Schriftliche Anfragen/x.pdf")
+    assert e.status == lp.FEHLER and "ungültige URL" in e.meldung
+
+
 def _freier_port() -> int:
     import socket
 

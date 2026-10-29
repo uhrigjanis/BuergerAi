@@ -6,6 +6,7 @@ Inhalt aber nicht. Proxy-Einstellungen aus der Umgebung (HTTPS_PROXY) gelten.
 
 from __future__ import annotations
 
+import http.client
 import socket
 import urllib.error
 import urllib.request
@@ -55,6 +56,8 @@ def pruefe_url(url: str, timeout: float = 15.0,
     except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError, OSError) as exc:
         grund = getattr(exc, "reason", exc)
         return Linkergebnis(url, NICHT_ERREICHBAR, meldung=str(grund))
+    except (ValueError, http.client.HTTPException) as exc:  # z. B. Leerzeichen in der URL
+        return Linkergebnis(url, FEHLER, meldung=f"ungültige URL oder Antwort: {exc}")
     if _host(ziel) != _host(url):
         return Linkergebnis(url, UMLEITUNG, code, ziel, f"leitet um auf {ziel}")
     return Linkergebnis(url, OK, code, ziel)

@@ -343,6 +343,40 @@ def vergleichen(alt: Iterable[dict[str, Any]], neu: Iterable[dict[str, Any]]) ->
     return d
 
 
+PRUEFFELDER = ("pruefstatus", "geprueft_am", "geprueft_von", "notiz")
+
+
+def pruefung_uebernehmen(neu: list[dict[str, Any]], alt: list[dict[str, Any]]) -> list[str]:
+    """Übernimmt Prüfstatus, Prüfer und Notiz aus der vorhandenen Datei, solange die Quelle
+    dieselbe Datenversion beschreibt (gleicher Titel mit Stand und gleiche URL).
+
+    Eine Abnahme gilt nur für die geprüfte Version: Bei neuer Version bleibt der Status
+    ``ungeprueft`` aus dem Import. Gibt Hinweise zu zurückgesetzten Abnahmen zurück.
+    """
+    vorher = {q["id"]: q for q in alt}
+    hinweise: list[str] = []
+    for q in neu:
+        a = vorher.get(q["id"])
+        if a is None or a.get("pruefstatus", "ungeprueft") == "ungeprueft":
+            continue
+        if (a.get("titel"), a.get("url")) == (q.get("titel"), q.get("url")):
+            for feld in PRUEFFELDER:
+                if feld in a:
+                    q[feld] = a[feld]
+                else:
+                    q.pop(feld, None)
+        else:
+            hinweise.append(f"Quelle {q['id']}: neue Datenversion – Prüfstatus '{a['pruefstatus']}' "
+                            "zurückgesetzt auf 'ungeprueft', bitte erneut prüfen")
+    return hinweise
+
+
+def vorhandene_quellen(pfad: Path) -> list[dict[str, Any]]:
+    if not pfad.exists():
+        return []
+    return json.loads(pfad.read_text(encoding="utf-8")).get("quellen", [])
+
+
 def vorhandene_gebiete(pfad: Path) -> list[dict[str, Any]]:
     if not pfad.exists():
         return []

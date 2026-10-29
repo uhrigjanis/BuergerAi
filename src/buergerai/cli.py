@@ -401,7 +401,7 @@ def cmd_lebenslagen(args: argparse.Namespace) -> int:
 def cmd_quellen(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
-    for qid in (args.verwendung, args.protokoll):
+    for qid in (args.verwendung, args.protokoll, args.abnehmen, args.zuruecksetzen):
         if qid and qid not in kb.quellen:
             print(f"Unbekannte Quelle '{qid}'. Alle IDs: buergerai quellen", file=sys.stderr)
             return 2
@@ -418,6 +418,10 @@ def cmd_quellen(args: argparse.Namespace) -> int:
         print(f"Protokoll angelegt: {ziel}")
         print(f.grau(f"Nach der Prüfung in der Notiz der Quelle verlinken: docs/pruefprotokolle/{args.protokoll}.md"))
         return 0
+    if args.abnehmen or args.zuruecksetzen:
+        return _quellen_abnahme(kb, args, f)
+    if args.links:
+        return _quellen_links(kb, args.phase1, f)
 
     alle_quellen = list(kb.quellen.values())
     if args.phase1:
@@ -447,6 +451,55 @@ def cmd_quellen(args: argparse.Namespace) -> int:
                      "(docs/pruefprotokolle/README.md). Nur ein Mensch setzt danach pruefstatus "
                      "\"verifiziert\" mit geprueft_am und geprueft_von."))
     return 0
+
+
+def _quellen_abnahme(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> int:
+    am = _stichtag(args.am)
+    try:
+        if args.abnehmen:
+            if not args.von:
+                print("Bitte den eigenen Namen angeben: --von \"Vorname Nachname\"", file=sys.stderr)
+                return 2
+            datei = qp.abnehmen(kb, args.abnehmen, args.von, am, args.trotz_hinweisen)
+            print(f.gruen(f"{args.abnehmen}: verifiziert von {args.von.strip()} am {datum(am)}"))
+        else:
+            datei = qp.zuruecksetzen(kb, args.zuruecksetzen, am)
+            print(f.gelb(f"{args.zuruecksetzen}: Abnahme zurückgenommen, Status wieder 'teilweise'"))
+    except qp.AbnahmeFehler as exc:
+        print(f"Abnahme nicht möglich: {exc}", file=sys.stderr)
+        return 1
+    qid = args.abnehmen or args.zuruecksetzen
+    print(f"  geändert: {datei}")
+    print(f"  geändert: {qp.protokoll_pfad(qid)}")
+    print(f.grau("Danach: buergerai daten && python -m pytest, dann committen."))
+    return 0
+
+
+def _quellen_links(kb: Wissensbasis, nur_phase1: bool, f: Farbe) -> int:
+    from . import linkpruefung as lp
+
+    ids = set(qp.phase1_quellen(kb)) if nur_phase1 else set(kb.quellen)
+    nach_url: dict[str, list[str]] = {}
+    for q in sorted(kb.quellen.values(), key=lambda q: q.id):
+        if q.id in ids and q.url:
+            nach_url.setdefault(q.url, []).append(q.id)
+    print(f.fett(f"Prüfe {len(nach_url)} Adressen von {sum(map(len, nach_url.values()))} Quellen …"))
+    ergebnisse = lp.pruefe_urls(nach_url)
+    if lp.kein_netz(ergebnisse):
+        weg = [e for e in ergebnisse if e.status == lp.NICHT_ERREICHBAR]
+        print(f.gelb(f"{len(weg)} von {len(ergebnisse)} Adressen nicht erreichbar ({weg[0].meldung}) – vermutlich "
+                     "kein Netz oder ein sperrender Proxy. Die Prüfung bitte lokal oder in der CI ausführen."))
+        return 2
+    zaehler: dict[str, int] = {}
+    for e in ergebnisse:
+        zaehler[e.status] = zaehler.get(e.status, 0) + 1
+        if e.problem:
+            farbe = f.rot if e.status == lp.FEHLER else f.gelb
+            print(farbe(f"[{e.status}] {', '.join(nach_url[e.url])}"))
+            print(f"    {e.url}")
+            print(f.grau(f"    {e.meldung}"))
+    print(f.fett("\nErgebnis: ") + ", ".join(f"{k}: {v}" for k, v in sorted(zaehler.items())))
+    return 1 if any(e.status in (lp.FEHLER, lp.NICHT_ERREICHBAR) for e in ergebnisse) else 0
 
 
 def _quellen_verwendung(kb: Wissensbasis, quelle_id: str, daten: Optional[Path], alle: bool, f: Farbe) -> int:
@@ -529,9 +582,10 @@ def cmd_gebiete_import(args: argparse.Namespace) -> int:
         return 1
     inhalt = gi.datei_erzeugen(daten, kreisquelle, args.plz_stand or "unbekannt", kreis_version)
     ziel = Path(args.ziel) if args.ziel else gi.ZIEL_STANDARD
+    zurueckgesetzt = gi.pruefung_uebernehmen(inhalt["quellen"], gi.vorhandene_quellen(ziel))
     anzahl = inhalt["_import"]["anzahl"]
     print(f.fett(f"Import: {anzahl['kreise']} Kreise, {anzahl['gemeinden']} Gemeinden, {anzahl['plz']} PLZ"))
-    for h in daten.hinweise:
+    for h in daten.hinweise + zurueckgesetzt:
         print(f.gelb(f"  Hinweis: {h}"))
     mehrdeutig = sum(1 for n in _plz_zaehler(inhalt).values() if n > 1)
     print(f"  PLZ mit mehreren Gemeinden: {mehrdeutig}")
@@ -645,7 +699,16 @@ def parser() -> argparse.ArgumentParser:
     aktion.add_argument("--verwendung", metavar="ID", help="Wo die Wissensbasis die Quelle zitiert (Datei, JSON-Pfad)")
     aktion.add_argument("--protokoll", metavar="ID",
                         help="Prüfprotokoll docs/pruefprotokolle/ID.md anlegen, vorbefüllt mit allen Verwendungen")
+    aktion.add_argument("--abnehmen", metavar="ID",
+                        help="Quelle nach eigener Prüfung auf 'verifiziert' setzen (nur Menschen, mit --von)")
+    aktion.add_argument("--zuruecksetzen", metavar="ID",
+                        help="Abnahme zurücknehmen, Status wieder 'teilweise' (z. B. nach Gesetzesänderung)")
+    aktion.add_argument("--links", action="store_true", help="Alle Quellen-URLs abrufen und Fehler melden")
     s.add_argument("--alle", action="store_true", help="Bei --verwendung auch große Gruppen vollständig zeigen")
+    s.add_argument("--von", metavar="NAME", help="Bei --abnehmen: eigener Name")
+    s.add_argument("--am", metavar="DATUM", help="Bei --abnehmen: Prüfdatum (Standard: heute)")
+    s.add_argument("--trotz-hinweisen", action="store_true",
+                   help="Bei --abnehmen: auch mit geklärten ⚠️-Zeilen im Protokoll abnehmen")
     s.set_defaults(func=cmd_quellen)
 
     sub.add_parser("daten", help="Wissensbasis auf Konsistenz prüfen").set_defaults(func=cmd_daten)

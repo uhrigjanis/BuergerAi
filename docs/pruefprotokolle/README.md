@@ -9,10 +9,33 @@ Je Quelle ein Protokoll `<quelle-id>.md`: Was behauptet die Wissensbasis, was st
 3. **Volltext lesen:** aktuelle Fassung abrufen. Bei Gesetzen „zuletzt geändert durch …“, bei Behördenseiten das Abrufdatum eintragen.
 4. **Abgleichen:** je Zeile den Wortlaut (mit Absatz) zitieren und das Ergebnis setzen. Bei Fristen auch Beginn, Dauer, „Tag zählt mit?“ und das Ende an Wochenenden prüfen; bei Beträgen den Gültigkeitszeitraum.
 5. **Bei Abweichung:** Daten oder Regel korrigieren und einen Test oder ein Szenario ergänzen, das den Fehler gefunden hätte. Unter „Abweichungen und Folgeaktionen“ den PR nennen.
-6. **Status setzen und verlinken:** In der Quelle (`data/**/quellen`) `pruefstatus`, `geprueft_am`, `geprueft_von` setzen und in `notiz` auf `docs/pruefprotokolle/<id>.md` verweisen. `./bai daten` warnt bei geprüften Quellen ohne verlinktes Protokoll.
+6. **Verlinken:** In der Quelle (`data/**/quellen`) in `notiz` auf `docs/pruefprotokolle/<id>.md` verweisen und höchstens `teilweise` setzen. `./bai daten` warnt bei geprüften Quellen ohne verlinktes Protokoll.
 7. `./bai daten && ./bai szenarien --pruefen && python -m pytest`
 
-**Claude setzt nie `verifiziert`,** höchstens `teilweise` mit vollständigem Protokoll. `verifiziert` setzt ein Mensch nach Durchsicht des Protokolls, mit eigenem Namen und Datum.
+**Claude setzt nie `verifiziert`,** höchstens `teilweise` mit vollständigem Protokoll.
+
+## Abnahme durch einen Menschen
+
+Protokoll lesen, Zitate an der Quelle nachsehen, dann:
+
+```
+./bai quellen --abnehmen <id> --von "Vorname Nachname"
+```
+
+Der Befehl setzt `pruefstatus: verifiziert`, `geprueft_am` (heute, oder `--am TT.MM.JJJJ`) und `geprueft_von` und trägt die Abnahme im Protokoll ein. Er ändert in der Datendatei nur diese Felder, auch in von Hand formatierten und in generierten Dateien. Er verweigert, wenn
+
+- das Protokoll fehlt oder nicht in der Notiz verlinkt ist,
+- eine Zeile kein Ergebnis hat oder eine Abweichung (❌) zeigt,
+- eine Zeile ⚠️ zeigt – nach Klärung mit `--trotz-hinweisen`,
+- der Name mit „Claude“ beginnt.
+
+Abnahme zurücknehmen (z. B. nach einer Gesetzesänderung): `./bai quellen --zuruecksetzen <id>`. Danach committen.
+
+Gebietsquellen (`destatis_kreise`, `openplz_strassen`): Der Gebietsimport behält die Abnahme, solange dieselbe Datenversion importiert wird. Bei einer neuen Version fällt der Status auf `ungeprueft` zurück, mit Hinweis in der Ausgabe.
+
+## Link-Prüfung
+
+`./bai quellen --links [--phase1]` ruft jede Quellen-URL ab und meldet HTTP-Fehler, nicht erreichbare Adressen und Umleitungen auf andere Hosts. Ohne Netz (z. B. in der Cloud-Umgebung) kommt ein Hinweis statt einer Fehlerliste. Exit-Code: 0 alles erreichbar, 1 Fehler gefunden, 2 kein Netz.
 
 Nur die Quellen der Pilotregion (Phase 1, Issue #45): `./bai quellen --phase1 --offen`
 

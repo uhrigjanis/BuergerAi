@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -282,3 +283,168 @@ def protokoll_geruest(kb: Wissensbasis, quelle_id: str, heute: date,
         "",
     ]
     return "\n".join(zeilen)
+
+
+# ------------------------------------------------------------------ Abnahme
+class AbnahmeFehler(Exception):
+    """Die Abnahme ist nicht möglich; die Meldung sagt, was fehlt."""
+
+
+@dataclass(frozen=True)
+class Protokollstand:
+    zeilen: int  # Tabellenzeilen mit Verwendungen
+    ohne_ergebnis: int
+    abweichungen: int  # ❌
+    hinweise: int  # ⚠️
+
+
+def protokoll_lesen(text: str) -> Protokollstand:
+    """Zählt die Ergebnisse in der Tabelle „Verwendungen in der Wissensbasis“."""
+    zeilen = ohne = abweichungen = hinweise = 0
+    in_tabelle = False
+    for zeile in text.splitlines():
+        if zeile.startswith("## "):
+            in_tabelle = zeile.startswith("## Verwendungen")
+            continue
+        if not in_tabelle or not zeile.startswith("|") or zeile.startswith(("|---", "| #", "| …", "| –")):
+            continue
+        zellen = [z.strip() for z in zeile.strip().strip("|").split(" | ")]
+        ergebnis = zellen[-1] if len(zellen) >= 5 else ""
+        zeilen += 1
+        if not ergebnis:
+            ohne += 1
+        elif "❌" in ergebnis:
+            abweichungen += 1
+        elif "⚠" in ergebnis:
+            hinweise += 1
+    return Protokollstand(zeilen, ohne, abweichungen, hinweise)
+
+
+def _quelldatei(kb: Wissensbasis, quelle_id: str) -> Path:
+    for datei in kb.dateien:
+        inhalt = json.loads(datei.read_text(encoding="utf-8"))
+        if any(q.get("id") == quelle_id for q in inhalt.get("quellen", ())):
+            return datei
+    raise AbnahmeFehler(f"Quelle {quelle_id} in keiner Datei gefunden")
+
+
+def _eintrag_ersetzen(text: str, quelle_id: str, aendern: Any) -> str:
+    """Ersetzt nur den JSON-Eintrag der Quelle; der Rest der Datei bleibt Zeichen für Zeichen gleich.
+
+    ``aendern`` bekommt den Eintrag (dict) und gibt den neuen zurück.
+    """
+    decoder = json.JSONDecoder()
+    for treffer in re.finditer(r'"id"\s*:\s*' + re.escape(json.dumps(quelle_id)), text):
+        start = text.rfind("{", 0, treffer.start())
+        while start != -1:
+            try:
+                objekt, ende = decoder.raw_decode(text, start)
+            except json.JSONDecodeError:
+                objekt, ende = None, -1
+            if isinstance(objekt, dict) and objekt.get("id") == quelle_id and ende > treffer.end():
+                break
+            start = text.rfind("{", 0, start)
+        else:
+            continue
+        if "pruefstatus" not in objekt or "titel" not in objekt:
+            continue  # gleiche ID, aber kein Quellen-Eintrag
+        neu = aendern(dict(objekt))
+        zeilenanfang = text.rfind("\n", 0, start) + 1
+        einrueckung = text[zeilenanfang:start] if not text[zeilenanfang:start].strip() else ""
+        if "\n" in text[start:ende]:
+            block = json.dumps(neu, ensure_ascii=False, indent=2).replace("\n", "\n" + einrueckung)
+        else:
+            block = json.dumps(neu, ensure_ascii=False)
+        ergebnis = text[:start] + block + text[ende:]
+        # Sicherheitsnetz: inhaltlich darf sich nur dieser Eintrag geändert haben
+        vorher, nachher = json.loads(text), json.loads(ergebnis)
+        erwartet = json.loads(json.dumps(vorher))
+        for q in erwartet.get("quellen", ()):
+            if q.get("id") == quelle_id:
+                q.clear()
+                q.update(neu)
+        if nachher != erwartet:
+            raise AbnahmeFehler(f"Eintrag von {quelle_id} ließ sich nicht sicher ersetzen")
+        return ergebnis
+    raise AbnahmeFehler(f"Eintrag von {quelle_id} nicht gefunden")
+
+
+def _felder_setzen(eintrag: dict[str, Any], werte: dict[str, Any]) -> dict[str, Any]:
+    """Setzt Felder; neue Prüffelder stehen direkt hinter pruefstatus, sonst bleibt die Reihenfolge."""
+    neu: dict[str, Any] = {}
+    for k, v in eintrag.items():
+        neu[k] = werte.get(k, v)
+        if k == "pruefstatus":
+            for zusatz in ("geprueft_am", "geprueft_von"):
+                if zusatz in werte and zusatz not in eintrag:
+                    neu[zusatz] = werte[zusatz]
+    for k, v in werte.items():
+        neu.setdefault(k, v)
+    return neu
+
+
+def _abnahme_im_protokoll(text: str, eintrag: str) -> str:
+    if re.search(r"Abnahme:[^\n]*", text):
+        return re.sub(r"Abnahme:[^\n]*", lambda _m: f"Abnahme: {eintrag}", text, count=1)
+    zeilen = text.splitlines(keepends=True)
+    letzte = max((i for i, z in enumerate(zeilen[:15]) if z.startswith("- ")), default=0)
+    zeilen.insert(letzte + 1, f"- Abnahme: {eintrag}\n")
+    return "".join(zeilen)
+
+
+def abnehmen(kb: Wissensbasis, quelle_id: str, von: str, am: date, trotz_hinweisen: bool = False,
+             protokolle: Optional[Path] = None) -> Path:
+    """Setzt eine Quelle nach menschlicher Prüfung auf ``verifiziert`` (ADR 0004, ANF-QS-02).
+
+    Gibt die geänderte Datendatei zurück. Prüft vorher Protokoll und Name.
+    """
+    von = von.strip()
+    if not von:
+        raise AbnahmeFehler("Name fehlt (--von)")
+    if von.lower().startswith("claude"):
+        raise AbnahmeFehler("'verifiziert' setzt nur ein Mensch – bitte den eigenen Namen angeben")
+    q = kb.quellen.get(quelle_id)
+    if q is None:
+        raise AbnahmeFehler(f"Unbekannte Quelle {quelle_id}")
+    pfad = protokoll_pfad(quelle_id, protokolle)
+    if not hat_protokoll(q, protokolle):
+        raise AbnahmeFehler(
+            f"Kein verlinktes Prüfprotokoll: {pfad} muss existieren und in der Notiz der Quelle "
+            f"als docs/pruefprotokolle/{quelle_id}.md genannt sein (anlegen: buergerai quellen --protokoll {quelle_id})")
+    protokoll = pfad.read_text(encoding="utf-8")
+    stand = protokoll_lesen(protokoll)
+    if stand.zeilen == 0:
+        raise AbnahmeFehler("Das Protokoll hat keine Verwendungen mit Ergebnis")
+    if stand.ohne_ergebnis:
+        raise AbnahmeFehler(f"{stand.ohne_ergebnis} von {stand.zeilen} Zeilen im Protokoll ohne Ergebnis")
+    if stand.abweichungen:
+        raise AbnahmeFehler(f"{stand.abweichungen} Abweichung(en) (❌) im Protokoll – erst korrigieren")
+    if stand.hinweise and not trotz_hinweisen:
+        raise AbnahmeFehler(f"{stand.hinweise} Zeile(n) mit ⚠️ im Protokoll – geklärt? Dann mit --trotz-hinweisen")
+
+    datei = _quelldatei(kb, quelle_id)
+    werte = {"pruefstatus": Pruefstatus.VERIFIZIERT.value, "geprueft_am": am.isoformat(), "geprueft_von": von}
+    text = _eintrag_ersetzen(datei.read_text(encoding="utf-8"), quelle_id, lambda e: _felder_setzen(e, werte))
+    datei.write_text(text, encoding="utf-8")
+    pfad.write_text(_abnahme_im_protokoll(protokoll, f"{von}, {am.strftime('%d.%m.%Y')}"), encoding="utf-8")
+    return datei
+
+
+def zuruecksetzen(kb: Wissensbasis, quelle_id: str, am: date, protokolle: Optional[Path] = None) -> Path:
+    """Nimmt eine Abnahme zurück (z. B. nach einer Gesetzesänderung): Status wieder ``teilweise``."""
+    q = kb.quellen.get(quelle_id)
+    if q is None:
+        raise AbnahmeFehler(f"Unbekannte Quelle {quelle_id}")
+    if q.pruefstatus is not Pruefstatus.VERIFIZIERT:
+        raise AbnahmeFehler(f"{quelle_id} ist nicht verifiziert (Status: {q.pruefstatus.value})")
+    datei = _quelldatei(kb, quelle_id)
+    text = _eintrag_ersetzen(datei.read_text(encoding="utf-8"), quelle_id,
+                             lambda e: _felder_setzen(e, {"pruefstatus": Pruefstatus.TEILWEISE.value}))
+    datei.write_text(text, encoding="utf-8")
+    pfad = protokoll_pfad(quelle_id, protokolle)
+    if pfad.is_file():
+        vorher = f"{q.geprueft_von}, {q.geprueft_am.strftime('%d.%m.%Y') if q.geprueft_am else '?'}"
+        pfad.write_text(_abnahme_im_protokoll(
+            pfad.read_text(encoding="utf-8"),
+            f"zurückgenommen am {am.strftime('%d.%m.%Y')} (vorher {vorher}) – erneut prüfen"), encoding="utf-8")
+    return datei

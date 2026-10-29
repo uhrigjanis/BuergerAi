@@ -85,6 +85,8 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Quellen und Prüfstatus | `./bai quellen --offen` (nur Pilotregion: `--phase1`) |
 | Wo wird eine Quelle verwendet? | `./bai quellen --verwendung beeg_1` |
 | Prüfprotokoll anlegen | `./bai quellen --protokoll beeg_1` (siehe [docs/pruefprotokolle](docs/pruefprotokolle/README.md)) |
+| Quelle abnehmen (nur Menschen) | `./bai quellen --abnehmen beeg_1 --von "Vorname Nachname"` |
+| Quellen-Links prüfen | `./bai quellen --links --phase1` |
 | Datenkonsistenz | `./bai daten` |
 | Testmatrix (Anforderung → Tests) | `./bai anforderungen --details` |
 | Web-Oberfläche | `./bai web` |

@@ -225,7 +225,7 @@ def test_http_fehler_sperrt_den_host_nicht():
 
 @pytest.mark.anforderung("ANF-QS-06")
 def test_ungueltige_url_stuerzt_nicht_ab():
-    q = qt.holen("https://example.org/Schriftliche Anfragen/x.html", qt.Zwischenspeicher())
+    q = qt.holen("example.org/ohne-schema.html", qt.Zwischenspeicher())  # scheitert ohne Netz
     assert q.status == qt.NICHT_ERREICHBAR and "ungültige URL" in q.meldung
 
 

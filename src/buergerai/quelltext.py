@@ -30,6 +30,7 @@ from typing import Callable, Optional
 from urllib.parse import urlsplit
 
 from . import __version__
+from .linkpruefung import url_kodieren
 
 USER_AGENT = f"BuergerAI-Quellenabgleich/{__version__} (+https://github.com/uhrigjanis/BuergerAi)"
 GII_HOST = "gesetze-im-internet.de"
@@ -71,8 +72,8 @@ Abrufer = Callable[[str], tuple[bytes, str]]  # url -> (Inhalt, Content-Type)
 
 
 def http_abruf(url: str, timeout: float = 30.0) -> tuple[bytes, str]:
-    anfrage = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
     try:
+        anfrage = urllib.request.Request(url_kodieren(url), headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
         with urllib.request.urlopen(anfrage, timeout=timeout) as antwort:
             return antwort.read(), antwort.headers.get("Content-Type", "")
     except urllib.error.HTTPError as exc:

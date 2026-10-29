@@ -9,6 +9,7 @@ from __future__ import annotations
 import http.client
 import socket
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
@@ -38,6 +39,15 @@ class Linkergebnis:
         return self.status != OK
 
 
+# Hosts, auf die ein Bot-Schutz umleitet: die Seite ist nicht umgezogen, nur für Skripte gesperrt.
+BOT_SCHUTZ_HOSTS = ("validate.perfdrive.com",)
+
+
+def url_kodieren(url: str) -> str:
+    """Umlaute und andere Nicht-ASCII-Zeichen im Pfad prozentkodieren; Vorhandenes bleibt."""
+    return urllib.parse.quote(url, safe=":/?#[]@!$&'()*+,;=%~")
+
+
 def _host(url: str) -> str:
     host = urlsplit(url).hostname or ""
     return host[4:] if host.startswith("www.") else host
@@ -46,8 +56,8 @@ def _host(url: str) -> str:
 def pruefe_url(url: str, timeout: float = 15.0,
                oeffner: Optional[urllib.request.OpenerDirector] = None) -> Linkergebnis:
     oeffner = oeffner or urllib.request.build_opener()
-    anfrage = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
     try:
+        anfrage = urllib.request.Request(url_kodieren(url), headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
         with oeffner.open(anfrage, timeout=timeout) as antwort:
             ziel = antwort.geturl()
             code = antwort.status
@@ -58,6 +68,8 @@ def pruefe_url(url: str, timeout: float = 15.0,
         return Linkergebnis(url, NICHT_ERREICHBAR, meldung=str(grund))
     except (ValueError, http.client.HTTPException) as exc:  # z. B. Leerzeichen in der URL
         return Linkergebnis(url, FEHLER, meldung=f"ungültige URL oder Antwort: {exc}")
+    if (urlsplit(ziel).hostname or "") in BOT_SCHUTZ_HOSTS:
+        return Linkergebnis(url, NICHT_ERREICHBAR, code, ziel, f"gesperrt (Bot-Schutz {urlsplit(ziel).hostname})")
     if _host(ziel) != _host(url):
         return Linkergebnis(url, UMLEITUNG, code, ziel, f"leitet um auf {ziel}")
     return Linkergebnis(url, OK, code, ziel)

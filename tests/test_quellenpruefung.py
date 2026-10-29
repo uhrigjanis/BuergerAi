@@ -97,14 +97,14 @@ def test_protokoll_geruest(kb):
 
 @pytest.mark.anforderung("ANF-QS-03")
 def test_ohne_protokoll(kb, tmp_path):
-    q = kb.quellen["beeg_1"]
+    q = kb.quellen["fim_by_elterngeld"]
     assert q.pruefstatus is Pruefstatus.TEILWEISE
-    assert "beeg_1" in qp.ohne_protokoll(kb, tmp_path)
+    assert "fim_by_elterngeld" in qp.ohne_protokoll(kb, tmp_path)
     assert all(kb.quellen[i].pruefstatus is not Pruefstatus.UNGEPRUEFT for i in qp.ohne_protokoll(kb, tmp_path))
 
-    (tmp_path / "beeg_1.md").write_text("# Prüfprotokoll: beeg_1\n", encoding="utf-8")
+    (tmp_path / "fim_by_elterngeld.md").write_text("# Prüfprotokoll: fim_by_elterngeld\n", encoding="utf-8")
     assert not qp.hat_protokoll(q, tmp_path), "Datei allein reicht nicht – die Notiz muss verlinken"
-    verlinkt = replace(q, notiz="Protokoll: docs/pruefprotokolle/beeg_1.md")
+    verlinkt = replace(q, notiz="Protokoll: docs/pruefprotokolle/fim_by_elterngeld.md")
     assert qp.hat_protokoll(verlinkt, tmp_path)
     assert not qp.hat_protokoll(verlinkt, tmp_path / "leer"), "Link ohne Datei reicht nicht"
 

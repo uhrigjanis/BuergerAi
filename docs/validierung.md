@@ -34,6 +34,19 @@ Früher widersprüchlich (StMAS-Infoblatt: Stichtag 1.1.2025; Landtagsdrucksache
 - Die Regel gibt jetzt für Geburten ab 1.1.2025 **Nein** aus statt Unklar. Protokolle: [bayfamgg_9a](pruefprotokolle/bayfamgg_9a.md), [bayfamgg_3](pruefprotokolle/bayfamgg_3.md), [stmas_familiengeld_2024](pruefprotokolle/stmas_familiengeld_2024.md), [landtag_by_familiengeld](pruefprotokolle/landtag_by_familiengeld.md).
 - Offen für die Abnahme: Wortlaut von Art. 9a im GVBl. bzw. auf gesetze-bayern.de nachsehen (aus der Entwicklungsumgebung nicht abrufbar).
 
+## Bundesgesetze der Phase 1 (#55, #56)
+
+14 Quellen mit Prüfprotokoll (Recherche per Websuche am 29.10.2026; gesetze-im-internet.de ist aus Entwicklungsumgebung und CI nicht erreichbar). Status `teilweise`; die Zitate werden lokal mit `./bai quellen --abgleich <id>` gegen das amtliche XML geprüft, danach Abnahme.
+
+| Befund | Korrektur |
+|---|---|
+| Elternzeit: „schriftlich mit Unterschrift“ – seit BEG IV genügt für Geburten ab 1.5.2025 **Textform** | Schritt angepasst, ANF-EZ-02 |
+| Kindergeld: Sechs-Monats-Rückwirkung steht in **§ 70 Abs. 1 Satz 2 EStG** (seit 2019), nicht in § 66 | neue Quelle `estg_70` |
+| Elterngeld: Grenze 200.000 € (Geburten 1.4.2024–31.3.2025) steht in **§ 28 Abs. 5 BEEG** | neue Quelle `beeg_28` |
+| Geprüft, kein Fehler: eigene Grenze 150.000 € für Alleinerziehende stand nur im Entwurf | Test ergänzt |
+
+Offen (⚠️ in den Protokollen): Kinderzuschlag-Höchstbetrag 297 € nur über Sekundärquellen; Kindergeld-Bedingung „Kind im Haushalt“ folgt aus § 64 EStG (Quelle ergänzen); Mutterschaftsgeld-Antrag „vor der Schutzfrist“ ist eine Empfehlung, keine gesetzliche Frist. Die kommunalen Quellen `muenchen_sorgeerklaerung` und `freising_belehrung_vaterschaft` laufen mit den Behördenseiten in #57.
+
 ## Checkliste für die manuelle Prüfung
 
 Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md). Kurz, für jede Quelle aus `./bai quellen --phase1 --offen`:

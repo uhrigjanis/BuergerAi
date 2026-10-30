@@ -1,14 +1,14 @@
 # Prüfprotokoll: beeg_1
 
 - Quelle: § 1 BEEG – Berechtigte (Elterngeld), https://www.gesetze-im-internet.de/beeg/__1.html
-- Fassung/Stand: recherchiert am 29.10.2026 über Websuche (gesetze-im-internet.de aus Entwicklungsumgebung und CI nicht erreichbar) · Stand „zuletzt geändert durch …“ beim lokalen Abgleich eintragen
-- Geprüft von: Claude (Recherche) · Abnahme: <Name, Datum>
+- Fassung/Stand: amtliches XML von gesetze-im-internet.de, abgerufen am 30.10.2026 · zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370 (Recherche vorher am 29.10.2026 per Websuche)
+- Geprüft von: Claude (Recherche 29.10.2026, Abgleich mit dem amtlichen XML 30.10.2026) · Abnahme: <Name, Datum>
 - Prüfstatus vorher: teilweise (2026-10-24, Claude (Websuche))
 - Gerüst erzeugt am 2026-10-29 mit `./bai quellen --protokoll beeg_1`
 
 > Bisherige Notiz: Einkommensgrenze 175.000 € (Geburten ab 1.4.2025) bzw. 200.000 € (1.4.2024–31.3.2025) über mehrere Quellen bestätigt. 32-Stunden-Grenze (§ 1 Abs. 6) und Aufenthaltstitel-Regeln (§ 1 Abs. 7) noch im Volltext prüfen.
 >
-> **Einschränkung:** Zitate aus Suchergebnissen (Gesetzesspiegel wie dejure.org, buzer.de, lxgesetze.de, rewis.io, Kommentare). Vor der Abnahme lokal prüfen: `./bai quellen --abgleich beeg_1 --in-protokoll` – der Abgleich vergleicht jedes Zitat mit dem amtlichen XML von gesetze-im-internet.de.
+> **Abgleich:** Die Zitate stammen aus der Websuche vom 29.10.2026 und wurden am 30.10.2026 mit `./bai quellen --abgleich beeg_1` gegen das amtliche XML von gesetze-im-internet.de geprüft (Ergebnis unten unter „Automatischer Abgleich“).
 
 ## Verwendungen in der Wissensbasis (26)
 
@@ -47,4 +47,14 @@ Ergebnis: ✅ stimmt mit dem Wortlaut überein · ❌ weicht ab (Korrektur nöti
 
 - Die Bedingungen für Geburten vom 1.4.2024 bis 31.3.2025 (Grenze 200.000 €) zitierten § 1 BEEG; die Regel steht in § 28 Abs. 5 BEEG. Korrigiert: neue Quelle [beeg_28](beeg_28.md), Test `test_grenze_200000_zitiert_uebergangsvorschrift`.
 - Geprüft und **nicht** übernommen: eine eigene Grenze von 150.000 € für Alleinerziehende (Geburten 1.4.2024–31.3.2025). Sie stand nur im Referentenentwurf; beschlossen sind 200.000 € für alle (Haufe, Tillmanns/Mutschler). Absicherung: `test_keine_eigene_grenze_fuer_alleinerziehende_2024`.
+- **Abgleich 30.10.2026:** alle 9 Zitate wörtlich im amtlichen Text. Die Hinweise „01.04.2025“ und „01.04.2024 nicht im Abschnitt“ sind erwartet: Die Stichtage stehen in der Übergangsvorschrift § 28 BEEG, die diese Bedingungen bereits zusätzlich zitieren (beeg_28).
 - § 1 Abs. 6 Nr. 3 (Tagespflegepersonen, ohne Begrenzung auf fünf Kinder seit 1.5.2025) ist nicht modelliert; betrifft die Pilotregion nur am Rand.
+
+## Automatischer Abgleich
+
+Stand 30.10.2026 (`./bai quellen --abgleich beeg_1`): Zitate 9/9 · Zahlen 2/4 · Stand: zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370
+
+Geprüfter Abschnitt: § 1 BEEG
+
+- ⚠️ Zahl 01.04.2025 nicht im Abschnitt gefunden (elterngeld_bund: Geburt ab dem 1.4.2025)
+- ⚠️ Zahl 01.04.2024 nicht im Abschnitt gefunden (elterngeld_bund: Geburt vor dem 1.4.2024)

@@ -19,7 +19,7 @@
       "id": "brutto_haushalt_monat",
       "typ": "zahl",
       "frage": "Wie hoch ist das monatliche Bruttoeinkommen des Haushalts in Euro?",
-      "hilfe": "Erwerbseinkommen aller Erwachsenen im Haushalt vor Abzügen."
+      "hilfe": "Alle Einnahmen der Erwachsenen im Haushalt vor Abzügen, z. B. Lohn, Gewinn aus Selbständigkeit, Arbeitslosengeld, Krankengeld, Elterngeld oder Unterhalt. Nicht mitzählen: Kindergeld, Wohngeld, Kinderzuschlag und Mutterschaftsgeld."
     },
     {
       "id": "person.staatsangehoerigkeit",

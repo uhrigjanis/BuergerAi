@@ -58,6 +58,7 @@
     {"id": "ANF-KG-03", "bereich": "Fachregeln Bund", "titel": "Kindergeld-Frist: 6 Monate rückwirkend"},
     {"id": "ANF-KV-01", "bereich": "Fachregeln Bund", "titel": "Familienversicherung: beide GKV ja, keiner GKV nein, verheiratet mit privat versichertem Elternteil unklar"},
     {"id": "ANF-KZ-01", "bereich": "Fachregeln Bund", "titel": "Kinderzuschlag: unter Mindesteinkommen Nein, sonst höchstens Unklar"},
+    {"id": "ANF-KZ-02", "bereich": "Fachregeln Bund", "titel": "Kinderzuschlag: Mindesteinkommen zählt alle Einnahmen (z. B. Arbeitslosengeld, Elterngeld), ohne Kindergeld, Wohngeld und Mutterschaftsgeld"},
 
     {"id": "ANF-BY-01", "bereich": "Pilotland Bayern", "titel": "Elterngeld in Bayern: Zuständigkeit ZBFS"},
     {"id": "ANF-BY-02", "bereich": "Pilotland Bayern", "titel": "Familiengeld: Ja nur für vor dem 1.1.2025 geborene Kinder, Nein ab 1.1.2025 (Art. 9a BayFamGG)"},
@@ -185,6 +186,8 @@
     {"id": "ANF-QS-04", "bereich": "Qualität", "titel": "Abnahme per Befehl: setzt 'verifiziert' nur mit Namen eines Menschen und vollständigem Protokoll ohne Abweichungen, ändert nur die Prüffelder; Gebietsimport behält die Abnahme bei gleicher Datenversion"},
     {"id": "ANF-QS-05", "bereich": "Qualität", "titel": "Link-Prüfung meldet nicht erreichbare Quellen, HTTP-Fehler und Umleitungen auf andere Hosts; ohne Netz ein klarer Hinweis statt Fehlerflut"},
     {"id": "ANF-QS-06", "bereich": "Qualität", "titel": "Abgleich gegen den Quelltext: Zitate aus dem Prüfprotokoll müssen wörtlich in der Quelle stehen (Bundesgesetze als XML), Zahlen der Regeln werden im zitierten Paragrafen gesucht und nur als Hinweis gemeldet"},
-    {"id": "ANF-QS-07", "bereich": "Qualität", "titel": "Änderungswächter: Fingerabdruck des geprüften Texts bei der Abnahme; Abweichung wird mit Diff gemeldet (Gesetze: Text des Paragrafen, Stand nur zur Anzeige), unwesentliche Änderungen ausgeblendet; Hinweis 'seit Prüfung geändert' in den Ergebnissen, Prüfstatus bleibt"}
+    {"id": "ANF-QS-07", "bereich": "Qualität", "titel": "Änderungswächter: Fingerabdruck des geprüften Texts bei der Abnahme; Abweichung wird mit Diff gemeldet (Gesetze: Text des Paragrafen, Stand nur zur Anzeige), unwesentliche Änderungen ausgeblendet; Hinweis 'seit Prüfung geändert' in den Ergebnissen, Prüfstatus bleibt"},
+    {"id": "ANF-QS-08", "bereich": "Qualität", "titel": "CI-Zusammenfassung: Ergebnis, Fehlschläge und langsamste Tests je Python-Version; bricht pytest ohne Ergebnis ab, gilt der Lauf als rot"},
+    {"id": "ANF-QS-09", "bereich": "Qualität", "titel": "Pflicht-Check: tests.yml läuft bei jedem PR ohne Pfadfilter, der Job heißt stabil tests (3.10) und tests (3.13) und prüft Daten, Szenarien, Anforderungen, pyflakes und pytest"}
   ]
 }

@@ -57,6 +57,8 @@ Bundesgesetze kommen als XML von gesetze-im-internet.de (`<kürzel>/xml.zip`), m
 
 Ohne ID: alle Quellen mit Protokoll; mit `--phase1`: alle Quellen der Pilotregion. `--in-protokoll` schreibt das Ergebnis als Abschnitt „Automatischer Abgleich“ ins Protokoll. Exit-Code: 0 alle Zitate gefunden, 1 Zitat fehlt, 2 kein Netz.
 
+**macOS mit Python von python.org:** Meldet der Abgleich `CERTIFICATE_VERIFY_FAILED`, fehlen Python die Stammzertifikate. Entweder einmal „Install Certificates.command“ im Ordner `/Applications/Python 3.x/` ausführen oder das Zertifikatsbündel von macOS mitgeben: `SSL_CERT_FILE=/etc/ssl/cert.pem ./bai quellen --abgleich …`.
+
 **In GitHub Actions** (`.github/workflows/quellen.yml`) läuft der Abgleich samt Link-Prüfung bei jedem PR, der Daten oder Protokolle ändert, und lässt sich manuell starten. Das Ergebnis steht in der Zusammenfassung des Laufs. Fehlende Zitate lassen den Lauf scheitern, fehlende Zahlen und tote Links nicht.
 
 ## Änderungswächter

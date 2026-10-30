@@ -44,8 +44,11 @@ Früher widersprüchlich (StMAS-Infoblatt: Stichtag 1.1.2025; Landtagsdrucksache
 | Kindergeld: Sechs-Monats-Rückwirkung steht in **§ 70 Abs. 1 Satz 2 EStG** (seit 2019), nicht in § 66 | neue Quelle `estg_70` |
 | Elterngeld: Grenze 200.000 € (Geburten 1.4.2024–31.3.2025) steht in **§ 28 Abs. 5 BEEG** | neue Quelle `beeg_28` |
 | Geprüft, kein Fehler: eigene Grenze 150.000 € für Alleinerziehende stand nur im Entwurf | Test ergänzt |
+| Kinderzuschlag: Mindesteinkommen (§ 6a Abs. 1 Nr. 2 BKGG) zählt **alle Einnahmen** nach § 11 SGB II, z. B. Elterngeld, Arbeitslosengeld; der Hilfetext fragte nur nach Erwerbseinkommen | Hilfetext von `brutto_haushalt_monat` berichtigt, ANF-KZ-02 |
 
-Offen (⚠️ in den Protokollen): Kinderzuschlag-Höchstbetrag 297 € nur über Sekundärquellen; Kindergeld-Bedingung „Kind im Haushalt“ folgt aus § 64 EStG (Quelle ergänzen); Mutterschaftsgeld-Antrag „vor der Schutzfrist“ ist eine Empfehlung, keine gesetzliche Frist. Die kommunalen Quellen `muenchen_sorgeerklaerung` und `freising_belehrung_vaterschaft` laufen mit den Behördenseiten in #57.
+**Abgleich mit dem amtlichen Text (30.10.2026, #55):** Die 8 Quellen aus #55 (`beeg_1`, `estg_62`, `sgb5_10`, `muschg_19_20`, `sgb5_24i`, `bkgg_6a`, `bgb_1592_1594`, `bgb_1626a`) lokal mit `./bai quellen --abgleich … --in-protokoll` gegen das XML von gesetze-im-internet.de geprüft: 35 von 35 Zitaten wörtlich gefunden, Stand „zuletzt geändert durch …“ in jedem Protokoll. Dabei berichtigt: ein Zitat zu § 19 Abs. 2 MuSchG (Wortstellung eines Gesetzesspiegels) und eine Fundstelle, die noch dem MuSchG vor 2018 folgte. Neu gefunden und nicht modelliert: § 62 Abs. 1a EStG (kein Kindergeld für EU/EWR-Bürger in den ersten drei Monaten nach Zuzug). Die 5 Zahlen-Hinweise sind erwartet und in den Protokollen begründet (Stichtage in § 28 BEEG, 13 € in § 20 MuSchG, 297 € nicht im Gesetz). Status bleibt `teilweise` bis zur Abnahme.
+
+Offen (⚠️ in den Protokollen): Kinderzuschlag-Höchstbetrag 297 € für 2025 im Familienportal belegt, für 2026 mit dem KiZ-Lotsen gegenprüfen; Kindergeld-Bedingung „Kind im Haushalt“ folgt aus § 64 EStG (Quelle ergänzen); Mutterschaftsgeld-Antrag „vor der Schutzfrist“ ist eine Empfehlung, keine gesetzliche Frist. Die kommunalen Quellen `muenchen_sorgeerklaerung` und `freising_belehrung_vaterschaft` laufen mit den Behördenseiten in #57.
 
 ## Checkliste für die manuelle Prüfung
 
@@ -61,10 +64,10 @@ Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md).
 8. Danach wacht der Änderungswächter: Die Abnahme speichert einen Fingerabdruck des geprüften Texts, `./bai quellen --aenderungen` (wöchentlich in GitHub Actions) meldet Änderungen mit Diff als Issue ([Details](pruefprotokolle/README.md#änderungswächter)).
 
 Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
-- Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).
-- Kindergeld: Sechs-Monats-Frist für die rückwirkende Zahlung (§ 66 Abs. 3 EStG).
-- Elternzeit: Anmeldung 7 Wochen vorher, schriftlich (§ 16 BEEG).
-- Familienversicherung: Ausschluss nach § 10 Abs. 3 SGB V.
+- ~~Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).~~ Am 30.10.2026 gegen den amtlichen Text abgeglichen ([beeg_1](pruefprotokolle/beeg_1.md)).
+- Kindergeld: Sechs-Monats-Frist für die rückwirkende Zahlung (seit 2019 § 70 Abs. 1 Satz 2 EStG, [estg_70](pruefprotokolle/estg_70.md)).
+- Elternzeit: Anmeldung 7 Wochen vorher, Textform bzw. schriftlich (§ 16 BEEG).
+- ~~Familienversicherung: Ausschluss nach § 10 Abs. 3 SGB V.~~ Am 30.10.2026 gegen den amtlichen Text abgeglichen ([sgb5_10](pruefprotokolle/sgb5_10.md)).
 - Gebietsdaten: AGS München 09162000, Freising 09178124; PLZ 80xxx/81xxx = München, 85354/85356 = Freising.
 
 

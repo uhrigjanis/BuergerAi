@@ -7,7 +7,6 @@ from typing import Any, Optional
 
 import pytest
 
-from buergerai import gebiete
 from buergerai import szenarien as szenarien_mod
 from buergerai.planer import Anfrage, Bericht, planen
 from buergerai.regeln import Wert

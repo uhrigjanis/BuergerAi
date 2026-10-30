@@ -401,7 +401,8 @@ def cmd_lebenslagen(args: argparse.Namespace) -> int:
 def cmd_quellen(args: argparse.Namespace) -> int:
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
-    for qid in (args.verwendung, args.protokoll, args.abnehmen, args.zuruecksetzen, *(args.abgleich or ())):
+    for qid in (args.verwendung, args.protokoll, args.abnehmen, args.zuruecksetzen, *(args.abgleich or ()),
+                *(args.fingerabdruck or ()), *(args.aenderungen or ())):
         if qid and qid not in kb.quellen:
             print(f"Unbekannte Quelle '{qid}'. Alle IDs: buergerai quellen", file=sys.stderr)
             return 2
@@ -424,6 +425,10 @@ def cmd_quellen(args: argparse.Namespace) -> int:
         return _quellen_links(kb, args.phase1, f)
     if args.abgleich is not None:
         return _quellen_abgleich(kb, args, f)
+    if args.fingerabdruck is not None:
+        return _quellen_fingerabdruck(kb, args, f)
+    if args.aenderungen is not None:
+        return _quellen_aenderungen(kb, args, f)
 
     alle_quellen = list(kb.quellen.values())
     if args.phase1:
@@ -462,8 +467,12 @@ def _quellen_abnahme(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> in
             if not args.von:
                 print("Bitte den eigenen Namen angeben: --von \"Vorname Nachname\"", file=sys.stderr)
                 return 2
+            quelltext = _text_vor_abnahme(kb, args.abnehmen)
+            if quelltext is False:
+                return 1
             datei = qp.abnehmen(kb, args.abnehmen, args.von, am, args.trotz_hinweisen)
             print(f.gruen(f"{args.abnehmen}: verifiziert von {args.von.strip()} am {datum(am)}"))
+            _fingerabdruck_bei_abnahme(args.abnehmen, quelltext, am, f)
         else:
             datei = qp.zuruecksetzen(kb, args.zuruecksetzen, am)
             print(f.gelb(f"{args.zuruecksetzen}: Abnahme zurückgenommen, Status wieder 'teilweise'"))
@@ -475,6 +484,159 @@ def _quellen_abnahme(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> in
     print(f"  geändert: {qp.protokoll_pfad(qid)}")
     print(f.grau("Danach: buergerai daten && python -m pytest, dann committen."))
     return 0
+
+
+def _speicher(ohne_cache: bool) -> Any:
+    from . import quelltext as qt
+
+    cache = None if ohne_cache else qp.STANDARD_DATENVERZEICHNIS.parent / ".cache" / "quellen"
+    return qt.Zwischenspeicher(verzeichnis=cache)
+
+
+def _text_vor_abnahme(kb: Wissensbasis, qid: str) -> Any:
+    """Aktueller Text der Quelle für den Fingerabdruck (#64), frisch abgerufen (ohne Zwischenspeicher:
+    der Bezug soll der Text sein, den der Mensch gerade geprüft hat). ``None`` ohne URL.
+
+    ``False`` (Abnahme verweigert): Es gibt schon einen Fingerabdruck (z. B. vom Protokoll), und der Text
+    hat sich seitdem geändert oder ist gerade nicht abrufbar – sonst bliebe ein veralteter Bezug stehen."""
+    from . import aenderungen as ae
+    from . import quelltext as qt
+
+    url = kb.quellen[qid].url
+    if not url:
+        return None
+    text = qt.holen(url, _speicher(ohne_cache=True))
+    alt = ae.lesen().get(qid)
+    if alt and text.status != qt.OK:
+        print(f"Abnahme nicht möglich: Text von {qid} nicht abrufbar ({text.meldung}). Der Fingerabdruck vom "
+              f"{alt.erfasst_am.strftime('%d.%m.%Y')} bliebe sonst als Bezug stehen – bitte mit Netz erneut "
+              "abnehmen.", file=sys.stderr)
+        return False
+    v = ae.vergleichen(qid, text, alt, date.today())
+    if v.geaendert:
+        print(f"Abnahme nicht möglich: Der Text von {qid} hat sich seit dem Fingerabdruck vom "
+              f"{v.fingerabdruck.erfasst_am.strftime('%d.%m.%Y')} geändert. Protokoll prüfen, dann "
+              f"buergerai quellen --fingerabdruck {qid} und erneut abnehmen.", file=sys.stderr)
+        for zeile in v.diff:
+            print("    " + zeile, file=sys.stderr)
+        return False
+    return text
+
+
+def _fingerabdruck_bei_abnahme(qid: str, quelltext: Any, am: date, f: Farbe) -> None:
+    """Bei der Abnahme den geprüften Text als Bezug für den Änderungswächter speichern (#64)."""
+    from . import aenderungen as ae
+
+    if quelltext is None:
+        return
+    try:
+        fa = ae.speichern(quelltext, qid, am, "abnahme")
+    except ValueError as exc:
+        print(f.gelb(f"  Fingerabdruck nicht gespeichert: {exc}"))
+        print(f.gelb(f"  Später nachholen: buergerai quellen --fingerabdruck {qid}"))
+        return
+    print(f"  Fingerabdruck: {fa.pruefsumme[:19]}…" + (f" · {fa.stand}" if fa.stand else ""))
+    print(f"  geändert: {ae.textpfad(qid)}")
+
+
+def _ids_mit_protokoll(kb: Wissensbasis, phase1: bool) -> list[str]:
+    ids = sorted(q for q in kb.quellen if qp.protokoll_pfad(q).is_file())
+    if phase1:
+        p1 = set(qp.phase1_quellen(kb))
+        ids = [i for i in ids if i in p1]
+    return ids
+
+
+def _quellen_fingerabdruck(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> int:
+    """Bezugstext speichern. Mit IDs: neu erfassen (z. B. nach unwesentlicher Änderung) und den Hinweis
+    „seit Prüfung geändert“ entfernen. Ohne IDs: nur Quellen mit Protokoll, die noch keinen haben."""
+    from . import aenderungen as ae
+    from . import quelltext as qt
+
+    vorhanden = ae.lesen()
+    if args.fingerabdruck:
+        ids = list(args.fingerabdruck)
+    else:
+        ids = [i for i in _ids_mit_protokoll(kb, args.phase1) if i not in vorhanden]
+    ids = [i for i in ids if kb.quellen[i].url]
+    speicher = _speicher(args.ohne_cache)
+    heute = date.today()
+    print(f.fett(f"Fingerabdruck für {len(ids)} Quellen …"))
+    fehler = 0
+    for qid in ids:
+        try:
+            fa = ae.speichern(qt.holen(kb.quellen[qid].url, speicher), qid, heute, "erfasst")
+        except ValueError as exc:
+            fehler += 1
+            print(f.gelb(f"  {exc}"))
+            continue
+        print(f.gruen(f"  {qid}: {fa.pruefsumme[:19]}…") + (f.grau(f" · {fa.stand}") if fa.stand else ""))
+        if args.fingerabdruck and kb.quellen[qid].seit_pruefung_geaendert:
+            ae.vermerken(kb, qid, None)
+            print(f.grau("      Hinweis „seit Prüfung geändert“ entfernt"))
+    if ids:
+        print(f.grau(f"\nGespeichert in {qp.PROTOKOLL_VERZEICHNIS / ae.DATEINAME} und {ae.TEXTE}/ – bitte committen."))
+    return 1 if fehler else 0
+
+
+def _quellen_aenderungen(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> int:
+    """Änderungswächter: aktuellen Text mit dem Fingerabdruck vergleichen (#64)."""
+    from . import aenderungen as ae
+    from . import quelltext as qt
+
+    vorhanden = ae.lesen()
+    ids = list(args.aenderungen) if args.aenderungen else sorted(vorhanden)
+    if args.phase1 and not args.aenderungen:
+        p1 = set(qp.phase1_quellen(kb))
+        ids = [i for i in ids if i in p1]
+    # Fingerabdrücke von Quellen, die es nicht mehr gibt: nicht stumm übergehen
+    entfernt = [i for i in ids if i not in kb.quellen]
+    for qid in entfernt:
+        print(f.rot(f"{qid}: Quelle nicht mehr in den Daten – Eintrag in {ae.DATEINAME} und {ae.TEXTE}/{qid}.txt "
+                    "entfernen"))
+    ids = [i for i in ids if i in kb.quellen]
+    speicher = _speicher(args.ohne_cache)
+    heute = date.today()
+    issues = Path(args.issues) if args.issues else None
+    print(f.fett(f"Änderungswächter: {len(ids)} Quellen mit Fingerabdruck …"))
+    ergebnisse = []
+    for qid in ids:
+        url = kb.quellen[qid].url
+        if url:
+            v = ae.vergleichen(qid, qt.holen(url, speicher), vorhanden.get(qid), heute)
+        else:
+            v = ae.Vergleich(qid, ae.URL_GEAENDERT, vorhanden.get(qid), meldung="Quelle hat keine URL mehr")
+        ergebnisse.append(v)
+        farbe = f.rot if v.befund else f.gruen if v.status == ae.UNVERAENDERT else f.gelb
+        print(farbe(f"{qid}: {v.zusammenfassung()}"))
+        if v.befund and issues:
+            issues.mkdir(parents=True, exist_ok=True)
+            (issues / f"{qid}.md").write_text(ae.issue_text(kb, v, heute), encoding="utf-8")
+        if v.geaendert:
+            if v.meldung:
+                print(f.gelb(f"    {v.meldung}"))
+            for zeile in v.diff:
+                zeile_f = f.gruen if zeile.startswith("+") else f.rot if zeile.startswith("-") else f.grau
+                print("    " + zeile_f(zeile))
+            if args.vermerken:
+                print(f.gelb(f"    vermerkt: „seit Prüfung geändert“ in {ae.vermerken(kb, qid, heute)}"))
+    if args.bericht:
+        with open(args.bericht, "a", encoding="utf-8") as datei:
+            datei.write(ae.bericht_markdown(ergebnisse))
+    geaendert = [v for v in ergebnisse if v.geaendert]
+    befunde = [v for v in ergebnisse if v.befund]
+    weg = [v for v in ergebnisse if v.status == qt.NICHT_ERREICHBAR]
+    print(f.fett("\nErgebnis: ") + f"{len(ergebnisse)} Quellen, {len(geaendert)} geändert, "
+          f"{sum(1 for v in ergebnisse if v.status == ae.UNVERAENDERT)} unverändert, {len(weg)} nicht erreichbar, "
+          f"{len(befunde) - len(geaendert)} nicht mehr überwachbar")
+    if geaendert and not args.vermerken:
+        print(f.grau("Prüfen, dann: unwesentlich → buergerai quellen --fingerabdruck ID; wesentlich → "
+                     "--zuruecksetzen ID, Daten und Protokoll anpassen, --fingerabdruck ID, nach erneuter "
+                     "Prüfung --abnehmen ID. Hinweis in den Ergebnissen bis dahin: --aenderungen ID --vermerken"))
+    if ergebnisse and len(weg) == len(ergebnisse):
+        print(f.gelb("Keine Quelle erreichbar – vermutlich kein Netz oder ein sperrender Proxy."))
+        return 2
+    return 1 if befunde or entfernt else 0
 
 
 def _quellen_links(kb: Wissensbasis, nur_phase1: bool, f: Farbe) -> int:
@@ -515,8 +677,10 @@ def _quellen_abgleich(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> i
     else:
         ids = sorted(q for q in kb.quellen if qp.protokoll_pfad(q).is_file())
     ids = [i for i in ids if kb.quellen[i].url]
-    cache = None if args.ohne_cache else qp.STANDARD_DATENVERZEICHNIS.parent / ".cache" / "quellen"
-    speicher = qt.Zwischenspeicher(verzeichnis=cache)
+    from . import aenderungen as ae
+
+    speicher = _speicher(args.ohne_cache)
+    fingerabdruecke = ae.lesen()
     print(f.fett(f"Abgleich von {len(ids)} Quellen mit dem Quelltext …"))
     ergebnisse = []
     for qid in ids:
@@ -525,6 +689,11 @@ def _quellen_abgleich(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> i
         status = a.quelltext.status
         farbe = f.rot if a.fehlende_zitate else f.gelb if (status != qt.OK or a.fehlende_zahlen) else f.gruen
         print(farbe(f"\n{qid}: {a.zusammenfassung()}"))
+        if qid in fingerabdruecke and status == qt.OK:
+            v = ae.vergleichen(qid, a.quelltext, fingerabdruecke[qid], date.today())
+            print((f.rot if v.geaendert else f.grau)(f"    {v.zusammenfassung()}"
+                                                    + (f" – Diff: buergerai quellen --aenderungen {qid}"
+                                                       if v.geaendert else "")))
         if a.quelltext.abschnitt_name:
             print(f.grau(f"    Abschnitt: {a.quelltext.abschnitt_name}"
                          + (f" ({a.quelltext.meldung})" if a.quelltext.meldung else "")))
@@ -763,13 +932,24 @@ def parser() -> argparse.ArgumentParser:
     aktion.add_argument("--abgleich", nargs="*", metavar="ID",
                         help="Zitate aus dem Protokoll und Zahlen der Regeln gegen den Text der Quelle prüfen "
                              "(ohne ID: alle Quellen mit Protokoll, mit --phase1: alle der Pilotregion)")
+    aktion.add_argument("--fingerabdruck", nargs="*", metavar="ID",
+                        help="Aktuellen Text als Bezug für den Änderungswächter speichern (ohne ID: Quellen mit "
+                             "Protokoll, die noch keinen haben; mit ID: neu erfassen und Hinweis entfernen)")
+    aktion.add_argument("--aenderungen", nargs="*", metavar="ID",
+                        help="Änderungswächter: aktuellen Text mit dem Fingerabdruck vergleichen, Diff zeigen "
+                             "(ohne ID: alle mit Fingerabdruck)")
     s.add_argument("--alle", action="store_true", help="Bei --verwendung auch große Gruppen vollständig zeigen")
     s.add_argument("--von", metavar="NAME", help="Bei --abnehmen: eigener Name")
     s.add_argument("--am", metavar="DATUM", help="Bei --abnehmen: Prüfdatum (Standard: heute)")
     s.add_argument("--in-protokoll", action="store_true",
                    help="Bei --abgleich: Ergebnis als Abschnitt 'Automatischer Abgleich' ins Protokoll schreiben")
-    s.add_argument("--bericht", metavar="DATEI", help="Bei --abgleich: Ergebnis als Markdown anhängen (z. B. für CI)")
-    s.add_argument("--ohne-cache", action="store_true", help="Bei --abgleich: nicht aus .cache/quellen lesen")
+    s.add_argument("--bericht", metavar="DATEI",
+                   help="Bei --abgleich/--aenderungen: Ergebnis als Markdown anhängen (z. B. für CI)")
+    s.add_argument("--ohne-cache", action="store_true", help="Quelltexte nicht aus .cache/quellen lesen")
+    s.add_argument("--vermerken", action="store_true",
+                   help="Bei --aenderungen: geänderte Quellen in den Daten als 'seit Prüfung geändert' markieren")
+    s.add_argument("--issues", metavar="VERZ",
+                   help="Bei --aenderungen: je geänderter Quelle einen Issue-Text VERZ/<id>.md schreiben (CI)")
     s.add_argument("--trotz-hinweisen", action="store_true",
                    help="Bei --abnehmen: auch mit geklärten ⚠️-Zeilen im Protokoll abnehmen")
     s.set_defaults(func=cmd_quellen)

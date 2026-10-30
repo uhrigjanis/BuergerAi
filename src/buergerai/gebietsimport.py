@@ -343,7 +343,7 @@ def vergleichen(alt: Iterable[dict[str, Any]], neu: Iterable[dict[str, Any]]) ->
     return d
 
 
-PRUEFFELDER = ("pruefstatus", "geprueft_am", "geprueft_von", "notiz")
+PRUEFFELDER = ("pruefstatus", "geprueft_am", "geprueft_von", "notiz", "seit_pruefung_geaendert")
 
 
 def pruefung_uebernehmen(neu: list[dict[str, Any]], alt: list[dict[str, Any]]) -> list[str]:

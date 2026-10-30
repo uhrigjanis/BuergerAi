@@ -1,0 +1,137 @@
+{
+  "_hinweis": "Fingerabdrücke geprüfter Quellen für den Änderungswächter (#64). Bezugstexte in texte/. Erzeugt von ./bai quellen --abnehmen bzw. --fingerabdruck, nicht von Hand ändern.",
+  "quellen": {
+    "bayfamgg_3": {
+      "url": "https://www.gesetze-bayern.de/Content/Document/BayFamGG-3",
+      "stand": "Text gilt ab: 31.12.2025",
+      "pruefsumme": "sha256:ba463eb4b585f85d709916ec3aa3e6540770ca7ab300eb315ffeb6a969171152",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "bayfamgg_9a": {
+      "url": "https://www.gesetze-bayern.de/Content/Document/BayFamGG-9a",
+      "stand": "Text gilt ab: 31.12.2025",
+      "pruefsumme": "sha256:85769f7325da856bdcaf81f596db9756e4e9c8fac64eababf1cb4e845a680fe7",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "beeg_1": {
+      "url": "https://www.gesetze-im-internet.de/beeg/__1.html",
+      "abschnitt": "§ 1 BEEG",
+      "stand": "zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370",
+      "pruefsumme": "sha256:4bf00c081e09c819950876be4a3e6d4cee5977e99e3b18501120df1d915a42c7",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "beeg_15_16": {
+      "url": "https://www.gesetze-im-internet.de/beeg/__16.html",
+      "abschnitt": "§ 16 BEEG",
+      "stand": "zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370",
+      "pruefsumme": "sha256:1bb647f9418c68e8a9f0cf093a1f98d638e7122f2ec7621d58abf1628286e62a",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "beeg_28": {
+      "url": "https://www.gesetze-im-internet.de/beeg/__28.html",
+      "abschnitt": "§ 28 BEEG",
+      "stand": "zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370",
+      "pruefsumme": "sha256:49568e080eab5b455c16093b77782115828458def2d3fd2bb54462ed976b8781",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "beeg_7": {
+      "url": "https://www.gesetze-im-internet.de/beeg/__7.html",
+      "abschnitt": "§ 7 BEEG",
+      "stand": "zuletzt geändert durch Art. 19 Abs. 2 G v. 22.12.2025 I Nr. 370",
+      "pruefsumme": "sha256:a567de48105147bded64cf42d76011321df6a490f666e4e6dcc6ae42023715f5",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "bgb_1592_1594": {
+      "url": "https://www.gesetze-im-internet.de/bgb/__1592.html",
+      "abschnitt": "§ 1592 BGB",
+      "stand": "zuletzt geändert durch Art. 6 G v. 23.7.2026 I Nr. 226",
+      "pruefsumme": "sha256:22e0eeabe90d7dfe9a82e18a907831b5278c279f8bf8c6a6aaacf1f071839399",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "bgb_1626a": {
+      "url": "https://www.gesetze-im-internet.de/bgb/__1626a.html",
+      "abschnitt": "§ 1626a BGB",
+      "stand": "zuletzt geändert durch Art. 6 G v. 23.7.2026 I Nr. 226",
+      "pruefsumme": "sha256:6acf1890756e9b70bd4b66a72c492f4912d8e74cd71a1b9014f226b07bce0039",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "bkgg_6a": {
+      "url": "https://www.gesetze-im-internet.de/bkgg_1996/__6a.html",
+      "abschnitt": "§ 6a BKGG 1996",
+      "stand": "zuletzt geändert durch Art. 10 G v. 16.4.2026 I Nr. 107",
+      "pruefsumme": "sha256:4a88b61ba8cfadaf56997ca6b2df474c959b1b42322e852766a2117766a9d3ae",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "estg_62": {
+      "url": "https://www.gesetze-im-internet.de/estg/__62.html",
+      "abschnitt": "§ 62 EStG",
+      "stand": "zuletzt geändert durch Art. 1 G v. 15.10.2026 I Nr. 307",
+      "pruefsumme": "sha256:926844e223a4468b09e581b2276ab5dffaea65ad875e5e294ab1b67d9881c27c",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "estg_66": {
+      "url": "https://www.gesetze-im-internet.de/estg/__66.html",
+      "abschnitt": "§ 66 EStG",
+      "stand": "zuletzt geändert durch Art. 1 G v. 15.10.2026 I Nr. 307",
+      "pruefsumme": "sha256:5fba30039452ca04df6fdab31dfded754c718bdd6a095a5641da091912020ebc",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "estg_70": {
+      "url": "https://www.gesetze-im-internet.de/estg/__70.html",
+      "abschnitt": "§ 70 EStG",
+      "stand": "zuletzt geändert durch Art. 1 G v. 15.10.2026 I Nr. 307",
+      "pruefsumme": "sha256:7b229c482ad1d7bdbcae74e782b3ec2f551c52b3d33f2aeb22a62b712b83ffe0",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "landtag_by_familiengeld": {
+      "url": "https://www.abgeordnetenwatch.de/bayern/19/abstimmungen/verzicht-auf-kinderstartgeld-und-reform-des-familiengelds-aenderungsantrag/tabelle",
+      "pruefsumme": "sha256:f9a66bb85d988f5f316998f5694294ba8a8d150af68a0f92b2540f90827d8f5d",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "muschg_19_20": {
+      "url": "https://www.gesetze-im-internet.de/muschg_2018/__19.html",
+      "abschnitt": "§ 19 MuSchG 2018",
+      "stand": "Zuletzt geändert durch Art. 13 G v. 22.12.2025 I Nr. 371",
+      "pruefsumme": "sha256:472aadadefb5db4b6f0409342f4fd8189f173632c55d2594a5e855b08d7abae3",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "pstg_18": {
+      "url": "https://www.gesetze-im-internet.de/pstg/__18.html",
+      "abschnitt": "§ 18 PStG",
+      "stand": "Zuletzt geändert durch Art. 4 G v. 21.7.2026 I Nr. 221",
+      "pruefsumme": "sha256:4261d21361ce7593e46e65191c5d0b8312a4742d94ce4383e644a6e852dc4c3e",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "sgb5_10": {
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__10.html",
+      "abschnitt": "§ 10 SGB 5",
+      "stand": "Zuletzt geändert durch Art. 1 G v. 26.6.2026 I Nr. 195",
+      "pruefsumme": "sha256:886cc9982202462bfb7270458dab3082566e60f91037ab23dccadb37deee4819",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    },
+    "sgb5_24i": {
+      "url": "https://www.gesetze-im-internet.de/sgb_5/__24i.html",
+      "abschnitt": "§ 24i SGB 5",
+      "stand": "Zuletzt geändert durch Art. 1 G v. 26.6.2026 I Nr. 195",
+      "pruefsumme": "sha256:904fc5d74d1415ed4193c2dd46bdd6e837d87b06242d389321519d31d622cd55",
+      "erfasst_am": "2026-10-30",
+      "anlass": "erfasst"
+    }
+  }
+}

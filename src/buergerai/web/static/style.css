@@ -190,6 +190,7 @@ summary { cursor: pointer; font-weight: 600; }
 .person-titel { font-weight: 600; margin: .4rem 0 0; }
 .quellen li { font-size: .9rem; overflow-wrap: anywhere; }
 .status { font-size: .8rem; color: var(--leise); }
+.status.geaendert { color: var(--unklar); font-weight: 600; }
 
 .fuss { max-width: 1200px; margin: 0 auto; padding: 0 16px 2rem; color: var(--leise); font-size: .85rem; }
 

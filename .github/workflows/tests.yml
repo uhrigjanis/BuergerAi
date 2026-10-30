@@ -1,5 +1,9 @@
 name: Tests
 
+# Pflicht-Check für PRs auf main (#69). Läuft bei JEDEM PR, ohne Pfadfilter:
+# Ein Pflicht-Check, der wegen eines Filters nicht startet, ließe den PR für
+# immer auf „Expected – Waiting for status“ warten.
+
 on:
   push:
     branches: [main]
@@ -8,9 +12,19 @@ on:
 permissions:
   contents: read
 
+# Ein neuer Push auf denselben PR bricht den alten Lauf ab.
+# Auf main läuft jeder Commit zu Ende, damit jeder Stand ein Ergebnis hat.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
+  # ACHTUNG: Job-Name und Matrix nicht umbenennen. Die Pflicht-Checks im Ruleset
+  # für main heißen „tests (3.10)“ und „tests (3.13)“. Wer das hier ändert, muss
+  # das Ruleset anpassen, sonst wartet jeder PR auf einen Check, der nie kommt.
   tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -20,11 +34,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: pytest installieren
-        run: python -m pip install pytest
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: pytest und pyflakes installieren
+        run: python -m pip install pytest pyflakes
       - name: Wissensbasis prüfen
         run: ./bai --keine-farbe daten
       - name: Szenarien prüfen
+        if: success() || failure()
         run: ./bai --keine-farbe szenarien --pruefen
+      # Exit 1, wenn eine Anforderung aus docs/anforderungen.json keinen Test hat.
+      - name: Anforderungsabdeckung
+        if: success() || failure()
+        run: ./bai --keine-farbe anforderungen
+      - name: Statischer Check (pyflakes)
+        if: success() || failure()
+        run: python -m pyflakes src tests scripts
       - name: Tests
-        run: python -m pytest
+        id: pytest
+        if: success() || failure()
+        run: |
+          set -o pipefail
+          python -m pytest -ra --durations=10 2>&1 | tee pytest.log
+      - name: Zusammenfassung
+        if: always() && steps.pytest.outcome != 'skipped'
+        run: python scripts/pytest_zusammenfassung.py pytest.log "Python ${{ matrix.python }}" >> "$GITHUB_STEP_SUMMARY"

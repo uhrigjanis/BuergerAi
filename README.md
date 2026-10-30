@@ -1,5 +1,7 @@
 # BürgerAI
 
+[![Tests](https://github.com/uhrigjanis/BuergerAi/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/uhrigjanis/BuergerAi/actions/workflows/tests.yml)
+
 Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwangerschaft, Geburt, Heirat). Sie sucht die passenden Leistungen und Anträge der zuständigen Behörden heraus und zeigt sie mit Anleitung.
 
 **Aktueller Stand: Phase 2 + bundesweite Abdeckung + Fachmodule, ohne LLM.** Alle Ergebnisse kommen aus einer deterministischen Regel-Engine. Lebenslagen **Geburt** (Fachmodul Familie), **Umzug** und **Geringes Einkommen** für **ganz Deutschland**: alle 16 Länder, 400 Kreise und rund 10.700 Gemeinden mit PLZ. Besonders detailliert: Bayern, München, Freising und (bei Umzug) Berlin. Weitere Lebenslagen kommen als Fachmodule dazu ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md), #41).
@@ -175,6 +177,18 @@ docs/
 - Neue Kommune: `data/kommunen/<AGS>/geburt.json` mit Varianten; per `"erbt_von": "<varianten-id>"` übernimmt man Regel, Verfahren und Quellen und überschreibt nur, was vor Ort anders ist.
 - Regelknoten: `alle`, `eine`, `nicht` (mit `text`), `fakt` (mit `op`, `wert`, `text`, `quellen`) und `pruefung_noetig`. Operatoren: `== != < <= > >= in nicht_in`.
 - Nach jeder Änderung: `./bai daten && ./bai szenarien --pruefen && python -m pytest`.
+
+### Vor dem PR
+
+Die CI (`.github/workflows/tests.yml`) läuft bei jedem PR mit Python 3.10 und 3.13 und ist Pflicht-Check für `main`: Mit roten Tests lässt sich nicht mergen. Lokal dieselben Prüfungen:
+
+```bash
+./bai daten && ./bai szenarien --pruefen && ./bai anforderungen && python -m pyflakes src tests scripts && python -m pytest
+```
+
+`./bai anforderungen` scheitert, wenn eine Anforderung aus `docs/anforderungen.json` keinen Test hat. pyflakes ggf. mit `pip install pyflakes` nachinstallieren. Die Quellenprüfung (`quellen.yml`) läuft nur bei Änderungen an Daten und Protokollen und ist kein Pflicht-Check.
+
+**Ruleset für `main`** (einmalig, Settings → Rules → Rulesets): „Require a pull request before merging“ und „Require status checks to pass“ mit `tests (3.10)` und `tests (3.13)`. Nicht `abgleich` eintragen, er startet nicht bei jedem PR. Wird der Job in `tests.yml` umbenannt, muss das Ruleset mit angepasst werden.
 
 ## Stand Phase 1
 

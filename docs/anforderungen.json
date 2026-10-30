@@ -185,6 +185,8 @@
     {"id": "ANF-QS-03", "bereich": "Qualität", "titel": "Prüfung je Quelle nachvollziehbar: alle Verwendungen auffindbar (Datei, JSON-Pfad), Prüfprotokoll vorbefüllt, fehlende Protokolle gemeldet"},
     {"id": "ANF-QS-04", "bereich": "Qualität", "titel": "Abnahme per Befehl: setzt 'verifiziert' nur mit Namen eines Menschen und vollständigem Protokoll ohne Abweichungen, ändert nur die Prüffelder; Gebietsimport behält die Abnahme bei gleicher Datenversion"},
     {"id": "ANF-QS-05", "bereich": "Qualität", "titel": "Link-Prüfung meldet nicht erreichbare Quellen, HTTP-Fehler und Umleitungen auf andere Hosts; ohne Netz ein klarer Hinweis statt Fehlerflut"},
-    {"id": "ANF-QS-06", "bereich": "Qualität", "titel": "Abgleich gegen den Quelltext: Zitate aus dem Prüfprotokoll müssen wörtlich in der Quelle stehen (Bundesgesetze als XML), Zahlen der Regeln werden im zitierten Paragrafen gesucht und nur als Hinweis gemeldet"}
+    {"id": "ANF-QS-06", "bereich": "Qualität", "titel": "Abgleich gegen den Quelltext: Zitate aus dem Prüfprotokoll müssen wörtlich in der Quelle stehen (Bundesgesetze als XML), Zahlen der Regeln werden im zitierten Paragrafen gesucht und nur als Hinweis gemeldet"},
+    {"id": "ANF-QS-07", "bereich": "Qualität", "titel": "CI-Zusammenfassung: Ergebnis, Fehlschläge und langsamste Tests je Python-Version; bricht pytest ohne Ergebnis ab, gilt der Lauf als rot"},
+    {"id": "ANF-QS-08", "bereich": "Qualität", "titel": "Pflicht-Check: tests.yml läuft bei jedem PR ohne Pfadfilter, der Job heißt stabil tests (3.10) und tests (3.13) und prüft Daten, Szenarien, Anforderungen, pyflakes und pytest"}
   ]
 }

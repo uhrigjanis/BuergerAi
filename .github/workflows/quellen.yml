@@ -1,8 +1,11 @@
 name: Quellenprüfung
 
 # Prüft Zitate und Zahlen gegen den Text der Quellen und alle Quellen-Links.
-# Läuft hier, weil GitHub Actions die amtlichen Seiten erreicht (die Cloud-
-# Umgebung der Entwicklung nicht). Siehe docs/pruefprotokolle/README.md.
+# Achtung: gesetze-im-internet.de ist von GitHub-Runnern aus NICHT erreichbar
+# (siehe Diagnose-Schritt unten und #66). Bundesgesetze werden daher lokal
+# abgeglichen; hier greift der Abgleich nur für die übrigen Seiten.
+# Kein Pflicht-Check (#69): Wegen des Pfadfilters startet er nicht bei jedem
+# PR, und er hängt von externen Seiten ab. Siehe docs/pruefprotokolle/README.md.
 
 on:
   pull_request:

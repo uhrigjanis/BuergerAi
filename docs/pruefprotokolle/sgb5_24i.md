@@ -1,12 +1,12 @@
 # Prüfprotokoll: sgb5_24i
 
 - Quelle: § 24i SGB V – Mutterschaftsgeld der Krankenkasse (bis 13 € je Kalendertag), https://www.gesetze-im-internet.de/sgb_5/__24i.html
-- Fassung/Stand: recherchiert am 29.10.2026 über Websuche (gesetze-im-internet.de aus Entwicklungsumgebung und CI nicht erreichbar) · Stand „zuletzt geändert durch …“ beim lokalen Abgleich eintragen
-- Geprüft von: Claude (Recherche) · Abnahme: <Name, Datum>
+- Fassung/Stand: amtliches XML von gesetze-im-internet.de, abgerufen am 30.10.2026 · zuletzt geändert durch Art. 1 G v. 26.6.2026 I Nr. 195 (Recherche vorher am 29.10.2026 per Websuche)
+- Geprüft von: Claude (Recherche 29.10.2026, Abgleich mit dem amtlichen XML 30.10.2026) · Abnahme: <Name, Datum>
 - Prüfstatus vorher: teilweise (2026-10-24, Claude (Websuche))
 - Gerüst erzeugt am 2026-10-29 mit `./bai quellen --protokoll sgb5_24i`
 
-> **Einschränkung:** Zitate aus Suchergebnissen (Gesetzesspiegel wie dejure.org, buzer.de, lxgesetze.de, rewis.io, Kommentare). Vor der Abnahme lokal prüfen: `./bai quellen --abgleich sgb5_24i --in-protokoll` – der Abgleich vergleicht jedes Zitat mit dem amtlichen XML von gesetze-im-internet.de.
+> **Abgleich:** Die Zitate stammen aus der Websuche vom 29.10.2026 und wurden am 30.10.2026 mit `./bai quellen --abgleich sgb5_24i` gegen das amtliche XML von gesetze-im-internet.de geprüft (Ergebnis unten unter „Automatischer Abgleich“).
 
 ## Verwendungen in der Wissensbasis (5)
 
@@ -22,4 +22,12 @@ Ergebnis: ✅ stimmt mit dem Wortlaut überein · ❌ weicht ab (Korrektur nöti
 
 ## Abweichungen und Folgeaktionen
 
-- Keine.
+- Keine. **Abgleich 30.10.2026:** alle Zitate wörtlich im amtlichen Text, „13“ in Abs. 2 gefunden.
+
+## Automatischer Abgleich
+
+Stand 30.10.2026 (`./bai quellen --abgleich sgb5_24i`): Zitate 3/3 · Zahlen 1/1 · Stand: Zuletzt geändert durch Art. 1 G v. 26.6.2026 I Nr. 195
+
+Geprüfter Abschnitt: § 24i SGB 5
+
+- ✅ alle Zitate und Zahlen gefunden

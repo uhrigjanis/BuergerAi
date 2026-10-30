@@ -8,9 +8,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "Abs. 1 (Wohnsitz/Aufenthalt, Haushalt, Betreuung, keine volle Erwerbstätigkeit), Abs. 6 (32 Wochenstunden), Abs. 7 (Aufenthaltstitel) und Abs. 8 (175.000 €, auch Summe beider Eltern, einheitlich für Alleinerziehende) über Gesetzesspiegel und Kommentare bestätigt. Die 200.000-€-Grenze für Geburten 1.4.2024–31.3.2025 steht in § 28 Abs. 5 (beeg_28). Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/beeg_1.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "Abs. 1 (Wohnsitz/Aufenthalt, Haushalt, Betreuung, keine volle Erwerbstätigkeit), Abs. 6 (32 Wochenstunden), Abs. 7 (Aufenthaltstitel) und Abs. 8 (175.000 €, auch Summe beider Eltern, einheitlich für Alleinerziehende) über Gesetzesspiegel und Kommentare bestätigt. Die 200.000-€-Grenze für Geburten 1.4.2024–31.3.2025 steht in § 28 Abs. 5 (beeg_28). Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Prüfprotokoll: docs/pruefprotokolle/beeg_1.md"
     },
     {
       "id": "beeg_7",
@@ -69,9 +69,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "notiz": "Abs. 1 (Wohnsitz oder gewöhnlicher Aufenthalt im Inland) und Abs. 2 (nicht freizügigkeitsberechtigte Ausländer nur mit bestimmten Titeln) bestätigt. Bedingung „Kind im Haushalt“ folgt aus § 64 Abs. 2, nicht aus § 62. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/estg_62.md",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)"
+      "notiz": "Abs. 1 (Wohnsitz oder gewöhnlicher Aufenthalt im Inland) und Abs. 2 (nicht freizügigkeitsberechtigte Ausländer nur mit bestimmten Titeln) bestätigt. Bedingung „Kind im Haushalt“ folgt aus § 64 Abs. 2, nicht aus § 62. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Nicht modelliert: Drei-Monats-Sperre für EU/EWR-Bürger nach Zuzug (Abs. 1a). Prüfprotokoll: docs/pruefprotokolle/estg_62.md",
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)"
     },
     {
       "id": "estg_66",
@@ -110,9 +110,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "Mindesteinkommen 900 € (Paare) / 600 € (Alleinerziehende) übereinstimmend in allen Quellen; Höchstbetrag 297 € (seit 1.1.2025, 2026 unverändert) nur über Sekundärquellen, steht nicht als Zahl im Gesetz. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bkgg_6a.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "Mindesteinkommen 900 € (Paare) / 600 € (Alleinerziehende) übereinstimmend in allen Quellen; Höchstbetrag 297 € (seit 1.1.2025) laut Familienportal des Bundes, steht nicht als Zahl im Gesetz; Betrag 2026 mit dem KiZ-Lotsen gegenprüfen. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Mindesteinkommen zählt alle Einnahmen nach § 11 SGB II (Hilfetext berichtigt, ANF-KZ-02). Prüfprotokoll: docs/pruefprotokolle/bkgg_6a.md"
     },
     {
       "id": "kiz_lotse",
@@ -129,9 +129,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "§ 19 Abs. 2 (Nicht-Kassenmitglieder: höchstens 210 € vom Bundesamt für Soziale Sicherung) und § 20 (Zuschuss: Unterschied zwischen 13 € und kalendertäglichem Netto) bestätigt. Keine gesetzliche Antragsfrist – unsere Frist ist eine Empfehlung. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/muschg_19_20.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "§ 19 Abs. 2 (Nicht-Kassenmitglieder: höchstens 210 € vom Bundesamt für Soziale Sicherung) und § 20 (Zuschuss: Unterschied zwischen 13 € und kalendertäglichem Netto) bestätigt. Keine gesetzliche Antragsfrist – unsere Frist ist eine Empfehlung. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Zitat zu § 19 Abs. 2 berichtigt („jedoch insgesamt höchstens 210 Euro“). Prüfprotokoll: docs/pruefprotokolle/muschg_19_20.md"
     },
     {
       "id": "sgb5_24i",
@@ -140,9 +140,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "Abs. 1 (Mitglieder mit Krankengeldanspruch oder ohne Entgelt wegen der Schutzfristen) und Abs. 2 (höchstens 13 € je Kalendertag, Rest zahlt der Arbeitgeber) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/sgb5_24i.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "Abs. 1 (Mitglieder mit Krankengeldanspruch oder ohne Entgelt wegen der Schutzfristen) und Abs. 2 (höchstens 13 € je Kalendertag, Rest zahlt der Arbeitgeber) bestätigt. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Prüfprotokoll: docs/pruefprotokolle/sgb5_24i.md"
     },
     {
       "id": "familienportal_mutterschaft",
@@ -168,9 +168,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "notiz": "Abs. 1 (Kinder von Mitgliedern) und Abs. 3 (Ausschluss bei nicht gesetzlich versichertem, besser verdienendem Ehegatten über 1/12 der Jahresarbeitsentgeltgrenze) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/sgb5_10.md",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)"
+      "notiz": "Abs. 1 (Kinder von Mitgliedern) und Abs. 3 (Ausschluss bei nicht gesetzlich versichertem, besser verdienendem Ehegatten über 1/12 der Jahresarbeitsentgeltgrenze) bestätigt. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Prüfprotokoll: docs/pruefprotokolle/sgb5_10.md",
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)"
     },
     {
       "id": "pstg_18",
@@ -190,9 +190,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "§ 1592 (Vater: Ehemann bei Geburt, Anerkennung, Feststellung) und § 1594 Abs. 4 (Anerkennung vor der Geburt zulässig) bestätigt; Änderung des Abstammungsrechts zum 1.4.2026 betrifft die Anfechtung, nicht diese Aussagen. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bgb_1592_1594.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "§ 1592 (Vater: Ehemann bei Geburt, Anerkennung, Feststellung) und § 1594 Abs. 4 (Anerkennung vor der Geburt zulässig) bestätigt; Änderung des Abstammungsrechts zum 1.4.2026 betrifft die Anfechtung, nicht diese Aussagen. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Prüfprotokoll: docs/pruefprotokolle/bgb_1592_1594.md"
     },
     {
       "id": "bgb_1626a",
@@ -201,9 +201,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-29",
-      "geprueft_von": "Claude (Websuche)",
-      "notiz": "Abs. 1 (gemeinsame Sorge u. a. durch Sorgeerklärungen) und Abs. 3 (sonst Sorge der Mutter) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bgb_1626a.md"
+      "geprueft_am": "2026-10-30",
+      "geprueft_von": "Claude (Websuche, Abgleich mit amtlichem XML)",
+      "notiz": "Abs. 1 (gemeinsame Sorge u. a. durch Sorgeerklärungen) und Abs. 3 (sonst Sorge der Mutter) bestätigt. Alle Zitate am 30.10.2026 mit ./bai quellen --abgleich gegen das amtliche XML geprüft. Prüfprotokoll: docs/pruefprotokolle/bgb_1626a.md"
     },
     {
       "id": "bmfsfj_elterngeldstellen",

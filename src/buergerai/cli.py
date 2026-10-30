@@ -467,7 +467,7 @@ def _quellen_abnahme(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -> in
             if not args.von:
                 print("Bitte den eigenen Namen angeben: --von \"Vorname Nachname\"", file=sys.stderr)
                 return 2
-            quelltext = _text_vor_abnahme(kb, args.abnehmen, args.ohne_cache, f)
+            quelltext = _text_vor_abnahme(kb, args.abnehmen)
             if quelltext is False:
                 return 1
             datei = qp.abnehmen(kb, args.abnehmen, args.von, am, args.trotz_hinweisen)
@@ -493,19 +493,26 @@ def _speicher(ohne_cache: bool) -> Any:
     return qt.Zwischenspeicher(verzeichnis=cache)
 
 
-def _text_vor_abnahme(kb: Wissensbasis, qid: str, ohne_cache: bool, f: Farbe) -> Any:
-    """Aktueller Text der Quelle für den Fingerabdruck (#64), oder ``None`` ohne URL.
+def _text_vor_abnahme(kb: Wissensbasis, qid: str) -> Any:
+    """Aktueller Text der Quelle für den Fingerabdruck (#64), frisch abgerufen (ohne Zwischenspeicher:
+    der Bezug soll der Text sein, den der Mensch gerade geprüft hat). ``None`` ohne URL.
 
-    ``False``: Es gibt schon einen Fingerabdruck (z. B. vom Protokoll), und der Text hat sich seitdem
-    geändert – dann passt das Protokoll womöglich nicht mehr, die Abnahme wird verweigert."""
+    ``False`` (Abnahme verweigert): Es gibt schon einen Fingerabdruck (z. B. vom Protokoll), und der Text
+    hat sich seitdem geändert oder ist gerade nicht abrufbar – sonst bliebe ein veralteter Bezug stehen."""
     from . import aenderungen as ae
     from . import quelltext as qt
 
     url = kb.quellen[qid].url
     if not url:
         return None
-    text = qt.holen(url, _speicher(ohne_cache))
-    v = ae.vergleichen(qid, text, ae.lesen().get(qid), date.today())
+    text = qt.holen(url, _speicher(ohne_cache=True))
+    alt = ae.lesen().get(qid)
+    if alt and text.status != qt.OK:
+        print(f"Abnahme nicht möglich: Text von {qid} nicht abrufbar ({text.meldung}). Der Fingerabdruck vom "
+              f"{alt.erfasst_am.strftime('%d.%m.%Y')} bliebe sonst als Bezug stehen – bitte mit Netz erneut "
+              "abnehmen.", file=sys.stderr)
+        return False
+    v = ae.vergleichen(qid, text, alt, date.today())
     if v.geaendert:
         print(f"Abnahme nicht möglich: Der Text von {qid} hat sich seit dem Fingerabdruck vom "
               f"{v.fingerabdruck.erfasst_am.strftime('%d.%m.%Y')} geändert. Protokoll prüfen, dann "
@@ -582,17 +589,29 @@ def _quellen_aenderungen(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -
     if args.phase1 and not args.aenderungen:
         p1 = set(qp.phase1_quellen(kb))
         ids = [i for i in ids if i in p1]
-    ids = [i for i in ids if i in kb.quellen and kb.quellen[i].url]
+    # Fingerabdrücke von Quellen, die es nicht mehr gibt: nicht stumm übergehen
+    entfernt = [i for i in ids if i not in kb.quellen]
+    for qid in entfernt:
+        print(f.rot(f"{qid}: Quelle nicht mehr in den Daten – Eintrag in {ae.DATEINAME} und {ae.TEXTE}/{qid}.txt "
+                    "entfernen"))
+    ids = [i for i in ids if i in kb.quellen]
     speicher = _speicher(args.ohne_cache)
     heute = date.today()
     issues = Path(args.issues) if args.issues else None
     print(f.fett(f"Änderungswächter: {len(ids)} Quellen mit Fingerabdruck …"))
     ergebnisse = []
     for qid in ids:
-        v = ae.vergleichen(qid, qt.holen(kb.quellen[qid].url, speicher), vorhanden.get(qid), heute)
+        url = kb.quellen[qid].url
+        if url:
+            v = ae.vergleichen(qid, qt.holen(url, speicher), vorhanden.get(qid), heute)
+        else:
+            v = ae.Vergleich(qid, ae.URL_GEAENDERT, vorhanden.get(qid), meldung="Quelle hat keine URL mehr")
         ergebnisse.append(v)
-        farbe = f.rot if v.geaendert else f.gruen if v.status == ae.UNVERAENDERT else f.gelb
+        farbe = f.rot if v.befund else f.gruen if v.status == ae.UNVERAENDERT else f.gelb
         print(farbe(f"{qid}: {v.zusammenfassung()}"))
+        if v.befund and issues:
+            issues.mkdir(parents=True, exist_ok=True)
+            (issues / f"{qid}.md").write_text(ae.issue_text(kb, v, heute), encoding="utf-8")
         if v.geaendert:
             if v.meldung:
                 print(f.gelb(f"    {v.meldung}"))
@@ -600,26 +619,24 @@ def _quellen_aenderungen(kb: Wissensbasis, args: argparse.Namespace, f: Farbe) -
                 zeile_f = f.gruen if zeile.startswith("+") else f.rot if zeile.startswith("-") else f.grau
                 print("    " + zeile_f(zeile))
             if args.vermerken:
-                ae.vermerken(kb, qid, heute)
-                print(f.gelb(f"    vermerkt: „seit Prüfung geändert“ in {qp._quelldatei(kb, qid)}"))
-            if issues:
-                issues.mkdir(parents=True, exist_ok=True)
-                (issues / f"{qid}.md").write_text(ae.issue_text(kb, v, heute), encoding="utf-8")
+                print(f.gelb(f"    vermerkt: „seit Prüfung geändert“ in {ae.vermerken(kb, qid, heute)}"))
     if args.bericht:
         with open(args.bericht, "a", encoding="utf-8") as datei:
             datei.write(ae.bericht_markdown(ergebnisse))
     geaendert = [v for v in ergebnisse if v.geaendert]
+    befunde = [v for v in ergebnisse if v.befund]
     weg = [v for v in ergebnisse if v.status == qt.NICHT_ERREICHBAR]
     print(f.fett("\nErgebnis: ") + f"{len(ergebnisse)} Quellen, {len(geaendert)} geändert, "
-          f"{sum(1 for v in ergebnisse if v.status == ae.UNVERAENDERT)} unverändert, {len(weg)} nicht erreichbar")
+          f"{sum(1 for v in ergebnisse if v.status == ae.UNVERAENDERT)} unverändert, {len(weg)} nicht erreichbar, "
+          f"{len(befunde) - len(geaendert)} nicht mehr überwachbar")
     if geaendert and not args.vermerken:
-        print(f.grau("Prüfen, dann: unwesentlich → buergerai quellen --fingerabdruck ID; "
-                     "wesentlich → Daten anpassen, --zuruecksetzen ID, später --abnehmen ID. "
-                     "Hinweis in den Ergebnissen bis dahin: --aenderungen ID --vermerken"))
+        print(f.grau("Prüfen, dann: unwesentlich → buergerai quellen --fingerabdruck ID; wesentlich → "
+                     "--zuruecksetzen ID, Daten und Protokoll anpassen, --fingerabdruck ID, nach erneuter "
+                     "Prüfung --abnehmen ID. Hinweis in den Ergebnissen bis dahin: --aenderungen ID --vermerken"))
     if ergebnisse and len(weg) == len(ergebnisse):
         print(f.gelb("Keine Quelle erreichbar – vermutlich kein Netz oder ein sperrender Proxy."))
         return 2
-    return 1 if geaendert else 0
+    return 1 if befunde or entfernt else 0
 
 
 def _quellen_links(kb: Wissensbasis, nur_phase1: bool, f: Farbe) -> int:

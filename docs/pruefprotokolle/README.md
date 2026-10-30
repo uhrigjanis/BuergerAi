@@ -30,7 +30,7 @@ Der Befehl setzt `pruefstatus: verifiziert`, `geprueft_am` (heute, oder `--am TT
 - eine Zeile kein Ergebnis hat oder eine Abweichung (❌) zeigt,
 - eine Zeile ⚠️ zeigt – nach Klärung mit `--trotz-hinweisen`,
 - der Name mit „Claude“ beginnt.
-- es schon einen Fingerabdruck gibt (z. B. vom Protokoll) und sich der Text seitdem geändert hat – der Diff wird gezeigt; nach Prüfung `--fingerabdruck <id>`, dann erneut abnehmen.
+- es schon einen Fingerabdruck gibt (z. B. vom Protokoll) und sich der Text seitdem geändert hat – der Diff wird gezeigt; nach Prüfung `--fingerabdruck <id>`, dann erneut abnehmen – oder der Text gerade nicht abrufbar ist (der alte Fingerabdruck bliebe sonst stehen). Abgerufen wird dabei immer frisch, ohne Zwischenspeicher.
 
 Nach der Abnahme speichert der Befehl den Fingerabdruck des Texts für den [Änderungswächter](#änderungswächter).
 
@@ -71,14 +71,14 @@ Eine geprüfte Quelle darf nicht unbemerkt veralten (#64). Dafür gibt es je Que
 | Änderungen suchen, mit Diff | `./bai quellen --aenderungen [<id> …] [--phase1]` |
 | Hinweis „seit Prüfung geändert“ in den Ergebnissen setzen | `./bai quellen --aenderungen <id> --vermerken` |
 
-Verglichen wird bei Bundesgesetzen der Paragraf aus der URL: zuerst der Stand („Zuletzt geändert durch …“), nur bei neuem Stand der Text. Ändert ein Gesetz nur andere Paragrafen, bleibt die Quelle unverändert. Bei anderen Seiten zählt der Inhaltsbereich; Navigation, „Seite aktualisiert am …“ und Ähnliches blendet die Ausschlussliste in `src/buergerai/aenderungen.py` aus (`AUSSCHLUSS`, je Host Anfangs- und Endmarke, Stand-Zeile, auszublendende Zeilen). Exit-Code: 0 nichts geändert, 1 Änderung gefunden, 2 kein Netz.
+Verglichen wird bei Bundesgesetzen der Text des Paragrafen aus der URL; der Stand („Zuletzt geändert durch …“) wird nur angezeigt, weil gesetze-im-internet.de Änderungen teils vor dem Stand nachträgt. Ändert ein Gesetz nur andere Paragrafen, bleibt die Quelle unverändert. Bei anderen Seiten zählt der Inhaltsbereich; Navigation, „Seite aktualisiert am …“ und Ähnliches blendet die Ausschlussliste in `src/buergerai/aenderungen.py` aus (`AUSSCHLUSS`, je Host Anfangs- und Endmarke, Stand-Zeile, auszublendende Zeilen). Exit-Code: 0 nichts geändert, 1 Befund (Text geändert, URL geändert oder entfernt), 2 kein Netz. Wer `AUSSCHLUSS` ändert, erfasst im selben PR die Fingerabdrücke der betroffenen Quellen neu (`--fingerabdruck <id> …`), sonst meldet der nächste Lauf sie als geändert.
 
 **Wöchentlich** (`.github/workflows/aenderungen.yml`, montags, auch manuell startbar) legt der Wächter je geänderter Quelle ein Issue „Quelle geändert: <id>“ an oder aktualisiert es, mit Diff, betroffenen Verwendungen und nächsten Schritten.
 
 Der Prüfstatus fällt nicht automatisch zurück (ADR 0004, Nachtrag #64). Ein Mensch entscheidet:
 
 - **unwesentlich** (Redaktion, Verweise): `--fingerabdruck <id>`, committen, Issue schließen;
-- **wesentlich**: Daten und Protokoll anpassen, `--zuruecksetzen <id>`, nach erneuter Prüfung `--abnehmen`.
+- **wesentlich**: bei verifizierter Quelle `--zuruecksetzen <id>`; Daten und Protokoll anpassen, `--fingerabdruck <id>` (neuer Bezugstext), nach erneuter Prüfung `--abnehmen`.
 
 Grenzen: Quellen, die mehrere Paragrafen abdecken (z. B. `beeg_15_16`), werden nur mit dem Paragrafen aus der URL verglichen. PDFs werden nicht ausgelesen. gesetze-im-internet.de ist von GitHub-Runnern aus bisher nicht erreichbar; Bundesgesetze dort als „nicht erreichbar“, lokal prüfen.
 

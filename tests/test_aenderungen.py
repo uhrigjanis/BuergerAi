@@ -101,9 +101,9 @@ def test_gesetz_erst_stand_dann_paragraf(ablage):
     fa = ae.speichern(gesetz(), "beeg_1", AM, "abnahme", ablage)
     assert fa.stand == NEUER_STAND[0] and fa.abschnitt == "§ 1 BEEG"
 
-    # Gleicher Stand: unverändert, ohne den Text zu vergleichen
+    # Gleicher Stand, aber Text schon geändert (gesetze-im-internet.de trägt den Stand teils später nach)
     gleich = gesetz(BEEG_XML.replace("32 Wochenstunden", "30 Wochenstunden"))
-    assert ae.vergleichen("beeg_1", gleich, fa, SPAETER, ablage).status == ae.UNVERAENDERT
+    assert ae.vergleichen("beeg_1", gleich, fa, SPAETER, ablage).geaendert
 
     # Neuer Stand, aber nur § 7 geändert: § 1 unverändert
     nur_7 = gesetz(BEEG_XML.replace(*NEUER_STAND).replace("drei Lebensmonate", "vier Lebensmonate"))
@@ -123,12 +123,34 @@ def test_sonderfaelle(ablage):
     assert ae.vergleichen("beeg_1", gesetz(), None, SPAETER, ablage).status == ae.KEIN_FINGERABDRUCK
     fa = ae.speichern(gesetz(), "beeg_1", AM, "abnahme", ablage)
     andere_url = gesetz(url="https://www.gesetze-im-internet.de/beeg/__7.html")
-    assert ae.vergleichen("beeg_1", andere_url, fa, SPAETER, ablage).status == ae.URL_GEAENDERT
+    v = ae.vergleichen("beeg_1", andere_url, fa, SPAETER, ablage)
+    assert v.status == ae.URL_GEAENDERT and v.befund, "nicht mehr überwachbar ist ein Befund"
     weg = qt.Quelltext(BEEG_URL, qt.NICHT_ERREICHBAR, meldung="timed out")
     v = ae.vergleichen("beeg_1", weg, fa, SPAETER, ablage)
     assert v.status == qt.NICHT_ERREICHBAR and not v.geaendert
+    assert not v.befund
     with pytest.raises(ValueError, match="nicht verfügbar"):
         ae.speichern(weg, "beeg_1", AM, "abnahme", ablage)
+
+
+@pytest.mark.anforderung("ANF-QS-07")
+def test_pruefsumme_unabhaengig_von_zeilenteilung():
+    assert ae.pruefsumme(["Satz eins.", "Satz zwei."]) == ae.pruefsumme(["Satz eins. Satz zwei."])
+    assert ae.pruefsumme(["Satz eins."]) != ae.pruefsumme(["Satz zwei."])
+
+
+@pytest.mark.anforderung("ANF-QS-07")
+def test_issue_text_kuerzt_nur_den_diff(kb, ablage):
+    fa = ae.speichern(gesetz(), "beeg_1", AM, "abnahme", ablage)
+    v = ae.Vergleich("beeg_1", ae.GEAENDERT, fa, None, ["+" + "x" * 1000] * 100)
+    text = ae.issue_text(kb, v, SPAETER)
+    assert "gekürzt" in text and text.count("```") % 2 == 0, "Codeblöcke bleiben geschlossen"
+    assert "### Nächste Schritte" in text and len(text) < 65536
+    assert "--zuruecksetzen beeg_1" in text and text.index("--fingerabdruck beeg_1` (neuer Bezugstext)") \
+        < text.index("--abnehmen beeg_1")
+    url = ae.issue_text(kb, ae.Vergleich("beeg_1", ae.URL_GEAENDERT, fa, meldung="Quelle hat keine URL mehr"),
+                        SPAETER)
+    assert "nicht mehr überwachen" in url and "keine URL mehr" in url
 
 
 # ------------------------------------------------------------------ Daten und Ausgabe
@@ -256,10 +278,23 @@ def test_cli_abnahme_fingerabdruck_aenderungen_issue(umgebung, capsys, monkeypat
     assert "seit dem Fingerabdruck" in err and "1. Mai 2026" in err
     assert Wissensbasis.laden(daten).quellen["bayfamgg_9a"].pruefstatus is Pruefstatus.TEILWEISE
 
-    # Kein Netz
+    # Abnahme ohne Netz, obwohl es einen Fingerabdruck gibt: verweigert (alter Bezug bliebe stehen)
     monkeypatch.setattr(qt, "http_abruf", Netz({}))
+    assert main([*argv, "--abnehmen", "bayfamgg_9a", "--von", "Janis Uhrig"]) == 1
+    assert "nicht abrufbar" in capsys.readouterr().err
+
+    # Kein Netz
     assert main([*argv, "--aenderungen", "--ohne-cache"]) == 2
     assert "Keine Quelle erreichbar" in capsys.readouterr().out
+
+    # URL in den Daten geändert: Befund mit Issue, nicht stumm übergangen
+    kb = Wissensbasis.laden(daten)
+    datei = qp._quelldatei(kb, "bayfamgg_9a")
+    datei.write_text(datei.read_text(encoding="utf-8").replace(BY_URL, BY_URL + "-neu"), encoding="utf-8")
+    monkeypatch.setattr(qt, "http_abruf", Netz({BY_URL + "-neu": html()}))
+    assert main([*argv, "--aenderungen", "--ohne-cache", "--issues", str(issues)]) == 1
+    assert "URL geändert" in capsys.readouterr().out
+    assert "nicht mehr überwachen" in (issues / "bayfamgg_9a.md").read_text(encoding="utf-8")
 
 
 @pytest.mark.anforderung("ANF-QS-07")

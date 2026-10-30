@@ -33,6 +33,7 @@ from .wissensbasis import Wissensbasis
 DATEINAME = "fingerabdruecke.json"
 TEXTE = "texte"
 DIFF_ZEILEN_MAX = 200
+DIFF_ZEICHEN_MAX = 40000  # GitHub erlaubt 65 536 Zeichen im Issue-Text
 
 # ------------------------------------------------------------------ Ausschlussliste
 # Zeilen, die ganz auf eines dieser Muster passen, zählen nicht (Groß-/Kleinschreibung egal).
@@ -118,7 +119,10 @@ def bezugstext(qt: Quelltext) -> tuple[list[str], Optional[str]]:
 
 
 def pruefsumme(zeilen: list[str]) -> str:
-    return "sha256:" + hashlib.sha256("\n".join(zeilen).encode("utf-8")).hexdigest()
+    """Prüfsumme über den Text ohne Zeilenumbrüche: Eine andere Teilung in Sätze (``_saetze``)
+    ändert sie nicht. Änderungen an ``AUSSCHLUSS`` dagegen schon – dann im selben PR
+    ``--fingerabdruck`` für die betroffenen Quellen neu erfassen."""
+    return "sha256:" + hashlib.sha256(" ".join(zeilen).encode("utf-8")).hexdigest()
 
 
 # ------------------------------------------------------------------ Fingerabdrücke
@@ -202,6 +206,11 @@ class Vergleich:
     def geaendert(self) -> bool:
         return self.status == GEAENDERT
 
+    @property
+    def befund(self) -> bool:
+        """Braucht einen Menschen: Text geändert oder Quelle nicht mehr überwachbar (URL geändert/entfernt)."""
+        return self.status in (GEAENDERT, URL_GEAENDERT)
+
     def zusammenfassung(self) -> str:
         fa = self.fingerabdruck
         seit = f" seit {fa.erfasst_am.strftime('%d.%m.%Y')}" if fa else ""
@@ -230,8 +239,10 @@ def vergleichen(quelle_id: str, qt: Quelltext, fa: Optional[Fingerabdruck], heut
                          meldung=f"Fingerabdruck für {fa.url} – nach Prüfung neu erfassen")
     if qt.status != OK:
         return Vergleich(quelle_id, qt.status, fa, meldung=qt.meldung)
-    if qt.stand and fa.stand and qt.stand == fa.stand:
-        return Vergleich(quelle_id, UNVERAENDERT, fa, qt.stand)  # Gesetz unverändert: Text nicht nötig
+    # Immer den Text vergleichen, auch bei gleichem Stand: gesetze-im-internet.de baut Änderungen teils
+    # schon in den Text ein, bevor „Zuletzt geändert durch“ nachgezogen ist („Hinweis: … textlich
+    # nachgewiesen, dokumentarisch noch nicht abschließend bearbeitet“). Der Abruf kostet ohnehin das
+    # ganze Gesetz; der Stand dient nur der Anzeige.
     zeilen, stand = bezugstext(qt)
     if pruefsumme(zeilen) == fa.pruefsumme:
         return Vergleich(quelle_id, UNVERAENDERT, fa, stand)
@@ -274,6 +285,12 @@ def vermerken(kb: Wissensbasis, quelle_id: str, am: Optional[date]) -> Path:
 # ------------------------------------------------------------------ Issue-Text
 def issue_text(kb: Wissensbasis, v: Vergleich, heute: date, daten: Optional[Path] = None) -> str:
     q = kb.quellen[v.quelle_id]
+    if v.status != GEAENDERT:  # z. B. URL geändert: nicht mehr überwachbar
+        return "\n".join([
+            f"Der Änderungswächter (#64) kann **`{q.id}`** nicht mehr überwachen ({v.status}).", "",
+            f"_{v.meldung}_", "",
+            f"Neue Adresse prüfen (Protokoll anpassen), dann `./bai quellen --fingerabdruck {q.id}`, "
+            "committen, Issue schließen.", ""])
     fa = v.fingerabdruck
     assert fa is not None
     pruefung = f"{q.pruefstatus.value}"
@@ -298,7 +315,10 @@ def issue_text(kb: Wissensbasis, v: Vergleich, heute: date, daten: Optional[Path
     zeilen += ["", "### Änderung", ""]
     if v.meldung:
         zeilen += [f"_{v.meldung}_", ""]
-    zeilen += ["```diff", *v.diff, "```", ""]
+    diff = "\n".join(v.diff).replace("```", "` ` `")
+    if len(diff) > DIFF_ZEICHEN_MAX:  # kürzen innerhalb des Blocks, damit er geschlossen bleibt
+        diff = diff[:DIFF_ZEICHEN_MAX].rsplit("\n", 1)[0] + f"\n… gekürzt – vollständig: ./bai quellen --aenderungen {q.id}"
+    zeilen += ["```diff", diff, "```", ""]
     liste = qp.verwendungen(kb, q.id, daten)
     zeilen += [f"### Betroffene Verwendungen ({len(liste)})", ""]
     for e in qp.zusammenfassen(liste, qp.phase1_gebiete(kb)):
@@ -315,22 +335,21 @@ def issue_text(kb: Wissensbasis, v: Vergleich, heute: date, daten: Optional[Path
         "1. Diff lesen und mit dem Prüfprotokoll vergleichen.",
         f"2. **Unwesentlich** (z. B. Redaktion, Verweise): `./bai quellen --fingerabdruck {q.id}` speichert "
         "den neuen Bezugstext. Committen, Issue schließen.",
-        "3. **Wesentlich**: Daten und Regeln anpassen, Protokoll aktualisieren. Bei einer verifizierten Quelle "
-        f"`./bai quellen --zuruecksetzen {q.id}`, nach erneuter Prüfung `./bai quellen --abnehmen {q.id} --von \"…\"`.",
+        "3. **Wesentlich**: Bei einer verifizierten Quelle zuerst `./bai quellen --zuruecksetzen "
+        f"{q.id}`. Daten, Regeln und Protokoll an den neuen Text anpassen, dann `./bai quellen --fingerabdruck "
+        f"{q.id}` (neuer Bezugstext) und nach erneuter Prüfung durch einen Menschen "
+        f"`./bai quellen --abnehmen {q.id} --von \"…\"`.",
         "",
         f"Bis zur Klärung zeigt `./bai quellen --aenderungen {q.id} --vermerken` (danach committen) in den "
         "Ergebnissen den Hinweis „Quelle seit Prüfung geändert“.",
         "",
     ]
-    text = "\n".join(zeilen)
-    if len(text) > 60000:  # GitHub erlaubt 65 536 Zeichen im Issue-Text
-        text = text[:60000] + "\n```\n\n_(gekürzt)_\n"
-    return text
+    return "\n".join(zeilen)
 
 
 def bericht_markdown(ergebnisse: list[Vergleich]) -> str:
     zeilen = ["## Änderungswächter", "", "| Quelle | Ergebnis |", "|---|---|"]
     for v in ergebnisse:
-        symbol = {"geändert": "🔴", "unverändert": "✅"}.get(v.status, "⚠️")
+        symbol = "🔴" if v.befund else "✅" if v.status == UNVERAENDERT else "⚠️"
         zeilen.append(f"| `{v.quelle_id}` | {symbol} {v.zusammenfassung().replace('|', '/')} |")
     return "\n".join(zeilen) + "\n\n"

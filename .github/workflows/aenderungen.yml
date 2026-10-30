@@ -26,20 +26,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      # Exit-Code 1 (Änderung gefunden) ist kein Fehler des Laufs, sondern Anlass für ein Issue.
-      # 2 (keine Quelle erreichbar) wird als Warnung gemeldet.
+      # Exit-Code 1 (Befund) ist kein Fehler des Laufs, sondern Anlass für ein Issue.
+      # 2 gilt nur dann als „kein Netz“ (Warnung), wenn die Ausgabe das sagt – argparse und
+      # „Unbekannte Quelle“ enden auch mit 2 und sollen den Lauf scheitern lassen.
       - name: Quellen auf Änderungen prüfen
         id: pruefen
         run: |
           set +e
           ./bai --keine-farbe quellen --aenderungen --ohne-cache \
-            --bericht "$GITHUB_STEP_SUMMARY" --issues "$RUNNER_TEMP/issues"
-          code=$?
+            --bericht "$GITHUB_STEP_SUMMARY" --issues "$RUNNER_TEMP/issues" 2>&1 | tee "$RUNNER_TEMP/ausgabe.txt"
+          code=${PIPESTATUS[0]}
           set -e
           echo "code=$code" >> "$GITHUB_OUTPUT"
           case $code in
             0|1) ;;
-            2) echo "::warning::Keine Quelle erreichbar – Netz der Runner prüfen" ;;
+            2)
+              if grep -q "Keine Quelle erreichbar" "$RUNNER_TEMP/ausgabe.txt"; then
+                echo "::warning::Keine Quelle erreichbar – Netz der Runner prüfen"
+              else
+                exit 2
+              fi ;;
             *) exit $code ;;
           esac
       - name: Issues anlegen oder aktualisieren

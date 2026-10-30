@@ -18,5 +18,5 @@ Im Architektur-Dokument vermischt der „Abdeckungsstatus“ zwei Fragen: Wie sp
 **Entscheidung:**
 - Der Prüfstatus fällt **nicht automatisch** zurück. Nicht jede Textänderung berührt die Aussage der Regel (Redaktion, Verweise, andere Absätze); das zu beurteilen bleibt beim Menschen, wie die Abnahme selbst.
 - Stattdessen meldet der Wächter die Änderung als Issue mit Diff. Bis zur Klärung kann die Quelle mit `--vermerken` das Feld `seit_pruefung_geaendert` (Datum) bekommen; die Ergebnisse zeigen dann „Quelle seit Prüfung geändert“ neben dem unveränderten Prüfstatus.
-- Klärung: unwesentlich → `--fingerabdruck <id>` (neuer Bezugstext, Hinweis entfällt); wesentlich → Daten anpassen, `--zuruecksetzen <id>`, nach erneuter Prüfung `--abnehmen` (speichert neuen Fingerabdruck, Hinweis entfällt).
+- Klärung: unwesentlich → `--fingerabdruck <id>` (neuer Bezugstext, Hinweis entfällt); wesentlich → `--zuruecksetzen <id>`, Daten und Protokoll anpassen, `--fingerabdruck <id>`, nach erneuter Prüfung `--abnehmen` (Hinweis entfällt).
 - Fingerabdrücke und Bezugstexte liegen bei den Protokollen (`docs/pruefprotokolle/fingerabdruecke.json`, `texte/`), nicht in den Daten: Sie sind Prüfbelege, keine Wissensbasis.

@@ -46,7 +46,8 @@ def umgebung(tmp_path):
     daten = tmp_path / "data"
     shutil.copytree(STANDARD_DATENVERZEICHNIS, daten)
     protokolle = tmp_path / "pruefprotokolle"
-    shutil.copytree(qp.PROTOKOLL_VERZEICHNIS, protokolle)
+    # ohne eingecheckte Fingerabdrücke (#64): sonst verlangt die Abnahme Netz
+    shutil.copytree(qp.PROTOKOLL_VERZEICHNIS, protokolle, ignore=shutil.ignore_patterns("fingerabdruecke.json", "texte"))
     return daten, protokolle
 
 

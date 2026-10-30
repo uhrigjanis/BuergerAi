@@ -143,6 +143,7 @@ Angaben (Fakten) ───────────────────► Re
 - **Abdeckung und Prüfstatus:** Jeder Eintrag zeigt, ob die zuständige Stelle vor Ort erfasst ist oder nur allgemeine Angaben vorliegen, und wie gut die Quellen geprüft sind ([ADR 0004](docs/adr/0004-abdeckung-und-pruefstatus.md), [ADR 0007](docs/adr/0007-bundesweit-vor-phase-3.md)).
 - **Je Person:** Leistungen können je Rolle geprüft werden (z. B. Elterngeld für Mutter und anderen Elternteil). Rollen stehen in den Daten.
 - **Fachmodule:** Jede Lebenslage gehört zu einem Fachmodul (dem späteren Experten). Ein Modul ist ein Datenpaket, alle Module laufen auf derselben Engine ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md)).
+- **LLM-Schicht (Phase 3, geplant):** Das LLM erkennt Lebenslagen, entnimmt Angaben aus Freitext und formuliert Antworten, entscheidet aber nie über Ansprüche. Verarbeitung in der EU (Claude Haiku 5.5 über Vertex AI `eu`), Client nur als optionales Extra `[llm]`, ohne LLM läuft alles wie heute ([ADR 0009](docs/adr/0009-llm-schicht.md)).
 
 ## Projektstruktur
 

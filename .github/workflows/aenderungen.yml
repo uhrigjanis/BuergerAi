@@ -1,0 +1,63 @@
+name: Änderungswächter
+
+# Vergleicht wöchentlich den Text geprüfter Quellen mit dem Fingerabdruck aus
+# docs/pruefprotokolle/fingerabdruecke.json (#64). Je geänderter Quelle wird ein
+# Issue „Quelle geändert: <id>“ angelegt oder aktualisiert, mit Diff und den
+# betroffenen Verwendungen. Siehe docs/pruefprotokolle/README.md.
+#
+# Hinweis: gesetze-im-internet.de verwirft bisher Verbindungen von GitHub-Runnern
+# (siehe quellen.yml). Bundesgesetze erscheinen dann als „nicht erreichbar“ in der
+# Zusammenfassung; lokal prüfen mit ./bai quellen --aenderungen.
+
+on:
+  schedule:
+    - cron: "17 5 * * 1"  # montags 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  aenderungen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # Exit-Code 1 (Änderung gefunden) ist kein Fehler des Laufs, sondern Anlass für ein Issue.
+      # 2 (keine Quelle erreichbar) wird als Warnung gemeldet.
+      - name: Quellen auf Änderungen prüfen
+        id: pruefen
+        run: |
+          set +e
+          ./bai --keine-farbe quellen --aenderungen --ohne-cache \
+            --bericht "$GITHUB_STEP_SUMMARY" --issues "$RUNNER_TEMP/issues"
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          case $code in
+            0|1) ;;
+            2) echo "::warning::Keine Quelle erreichbar – Netz der Runner prüfen" ;;
+            *) exit $code ;;
+          esac
+      - name: Issues anlegen oder aktualisieren
+        if: steps.pruefen.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create quellenaenderung --color D93F0B \
+            --description "Änderungswächter: Quelle seit Prüfung geändert (#64)" 2>/dev/null || true
+          for datei in "$RUNNER_TEMP"/issues/*.md; do
+            id=$(basename "$datei" .md)
+            titel="Quelle geändert: $id"
+            nummer=$(gh issue list --state open --label quellenaenderung --limit 200 --json number,title \
+              --jq ".[] | select(.title == \"$titel\") | .number" | head -n1)
+            if [ -n "$nummer" ]; then
+              gh issue edit "$nummer" --body-file "$datei"
+              echo "Issue #$nummer aktualisiert: $titel"
+            else
+              gh issue create --title "$titel" --label quellenaenderung --body-file "$datei"
+            fi
+          done

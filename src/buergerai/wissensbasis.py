@@ -215,6 +215,7 @@ class Wissensbasis:
                     geprueft_am=parse_datum(q.get("geprueft_am")),
                     geprueft_von=q.get("geprueft_von"),
                     notiz=q.get("notiz"),
+                    seit_pruefung_geaendert=parse_datum(q.get("seit_pruefung_geaendert")),
                 ),
                 datei,
                 fehler,

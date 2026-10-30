@@ -9,7 +9,7 @@ from typing import Any, Optional
 
 from .fakten import UNBEKANNT, ist_jahreszahl, wert_als_text
 from .fristen import BerechneteFrist
-from .modell import Abdeckung, Ebene, Leistung, Pruefstatus
+from .modell import Abdeckung, Ebene, Leistung, Pruefstatus, Quelle
 from .planer import Bericht, Eintrag
 from .regeln import Schritt, Wert, begruendung
 from .wissensbasis import Wissensbasis
@@ -61,6 +61,15 @@ PRUEF_TEXT = {
     Pruefstatus.UNGEPRUEFT: "Quellen ungeprüft",
     Pruefstatus.WIDERSPRUECHLICH: "Quellen widersprüchlich",
 }
+GEAENDERT_KURZ = "Quelle seit Prüfung geändert"
+
+
+def geaendert_text(q: Quelle) -> str:
+    """Hinweis des Änderungswächters (#64); der Prüfstatus bleibt bis zur erneuten Prüfung."""
+    assert q.seit_pruefung_geaendert
+    return f"(seit Prüfung geändert, festgestellt am {q.seit_pruefung_geaendert.strftime('%d.%m.%Y')})"
+
+
 EBENE_TEXT = {Ebene.BUND: "Bund", Ebene.LAND: "Land", Ebene.KREIS: "Kreis", Ebene.GEMEINDE: "Gemeinde"}
 
 
@@ -143,7 +152,8 @@ def _quellen_zeilen(e: Eintrag, f: Farbe) -> list[str]:
             status = f.rot(status)
         elif q.pruefstatus is not Pruefstatus.VERIFIZIERT:
             status = f.gelb(status)
-        zeilen.append(f"- {q.titel} [{status}]" + (f"\n        {f.grau(q.url)}" if q.url else ""))
+        hinweis = f" {f.gelb(geaendert_text(q))}" if q.seit_pruefung_geaendert else ""
+        zeilen.append(f"- {q.titel} [{status}]{hinweis}" + (f"\n        {f.grau(q.url)}" if q.url else ""))
     return zeilen
 
 
@@ -152,6 +162,8 @@ def eintrag_text(
 ) -> list[str]:
     l = e.leistung
     meta = [f"Daten: {EBENE_TEXT[e.gebiet.ebene]}", ABDECKUNG_TEXT[e.abdeckung], PRUEF_TEXT[e.pruefstatus]]
+    if any(q.seit_pruefung_geaendert for q in e.quellen):
+        meta.append(GEAENDERT_KURZ)
     zeilen = [f"{f.fett(f'{nr}. {l.name}')}  {f.grau('[' + ' · '.join(meta) + ']')}"]
     zeilen.append(f"   {l.kurz}")
     if mehrere_lebenslagen and e.lebenslagen:
@@ -398,6 +410,7 @@ def bericht_json(bericht: Bericht) -> dict[str, Any]:
                     for p in e.personen
                 ],
                 "quellen": [q.id for q in e.quellen],
+                "quellen_seit_pruefung_geaendert": [q.id for q in e.quellen if q.seit_pruefung_geaendert],
             }
             for e in bericht.eintraege
         ],

@@ -19,6 +19,7 @@ from ..ausgabe import (
     ABDECKUNG_TEXT,
     BEANTRAGT_TEXT,
     EBENE_TEXT,
+    GEAENDERT_KURZ,
     PRUEF_TEXT,
     anspruch_text,
     frage_zu,
@@ -263,7 +264,8 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis) -> dict[str, Any]:
         "abdeckung": e.abdeckung.value,
         "abdeckung_text": ABDECKUNG_TEXT[e.abdeckung],
         "pruefstatus": e.pruefstatus.value,
-        "pruef_text": PRUEF_TEXT[e.pruefstatus],
+        "pruef_text": PRUEF_TEXT[e.pruefstatus]
+        + (f" · {GEAENDERT_KURZ}" if any(q.seit_pruefung_geaendert for q in e.quellen) else ""),
         "zustaendigkeit": {
             "name": e.zustaendigkeit.name,
             "beschreibung": e.zustaendigkeit.beschreibung,
@@ -290,7 +292,8 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis) -> dict[str, Any]:
             "hinweise": list(v.hinweise),
         },
         "quellen": [
-            {"id": q.id, "titel": q.titel, "url": q.url, "typ": q.typ, "pruefstatus": q.pruefstatus.value}
+            {"id": q.id, "titel": q.titel, "url": q.url, "typ": q.typ, "pruefstatus": q.pruefstatus.value,
+             "seit_pruefung_geaendert": q.seit_pruefung_geaendert.isoformat() if q.seit_pruefung_geaendert else None}
             for q in e.quellen
         ],
         "offene_fragen": len(e.fehlend),

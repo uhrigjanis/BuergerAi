@@ -125,6 +125,8 @@ class Quelle:
     geprueft_am: Optional[date]
     geprueft_von: Optional[str]
     notiz: Optional[str] = None
+    # Änderungswächter (#64): Text der Quelle hat sich seit der Prüfung geändert (festgestellt am)
+    seit_pruefung_geaendert: Optional[date] = None
 
 
 @dataclass(frozen=True)

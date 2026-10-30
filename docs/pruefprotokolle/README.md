@@ -30,6 +30,9 @@ Der Befehl setzt `pruefstatus: verifiziert`, `geprueft_am` (heute, oder `--am TT
 - eine Zeile kein Ergebnis hat oder eine Abweichung (❌) zeigt,
 - eine Zeile ⚠️ zeigt – nach Klärung mit `--trotz-hinweisen`,
 - der Name mit „Claude“ beginnt.
+- es schon einen Fingerabdruck gibt (z. B. vom Protokoll) und sich der Text seitdem geändert hat – der Diff wird gezeigt; nach Prüfung `--fingerabdruck <id>`, dann erneut abnehmen.
+
+Nach der Abnahme speichert der Befehl den Fingerabdruck des Texts für den [Änderungswächter](#änderungswächter).
 
 Abnahme zurücknehmen (z. B. nach einer Gesetzesänderung): `./bai quellen --zuruecksetzen <id>`. Danach committen.
 
@@ -55,6 +58,29 @@ Bundesgesetze kommen als XML von gesetze-im-internet.de (`<kürzel>/xml.zip`), m
 Ohne ID: alle Quellen mit Protokoll; mit `--phase1`: alle Quellen der Pilotregion. `--in-protokoll` schreibt das Ergebnis als Abschnitt „Automatischer Abgleich“ ins Protokoll. Exit-Code: 0 alle Zitate gefunden, 1 Zitat fehlt, 2 kein Netz.
 
 **In GitHub Actions** (`.github/workflows/quellen.yml`) läuft der Abgleich samt Link-Prüfung bei jedem PR, der Daten oder Protokolle ändert, und lässt sich manuell starten. Das Ergebnis steht in der Zusammenfassung des Laufs. Fehlende Zitate lassen den Lauf scheitern, fehlende Zahlen und tote Links nicht.
+
+## Änderungswächter
+
+Eine geprüfte Quelle darf nicht unbemerkt veralten (#64). Dafür gibt es je Quelle einen **Fingerabdruck**: den Text des geprüften Abschnitts (`texte/<id>.txt`) mit Prüfsumme und Stand (`fingerabdruecke.json`).
+
+| Was | Befehl |
+|-----|--------|
+| Fingerabdruck bei der Abnahme | automatisch mit `--abnehmen` (ohne Netz: Hinweis, später nachholen) |
+| Fingerabdruck für Quellen mit Protokoll, die noch keinen haben | `./bai quellen --fingerabdruck` |
+| Neu erfassen nach unwesentlicher Änderung | `./bai quellen --fingerabdruck <id> …` (entfernt auch den Hinweis) |
+| Änderungen suchen, mit Diff | `./bai quellen --aenderungen [<id> …] [--phase1]` |
+| Hinweis „seit Prüfung geändert“ in den Ergebnissen setzen | `./bai quellen --aenderungen <id> --vermerken` |
+
+Verglichen wird bei Bundesgesetzen der Paragraf aus der URL: zuerst der Stand („Zuletzt geändert durch …“), nur bei neuem Stand der Text. Ändert ein Gesetz nur andere Paragrafen, bleibt die Quelle unverändert. Bei anderen Seiten zählt der Inhaltsbereich; Navigation, „Seite aktualisiert am …“ und Ähnliches blendet die Ausschlussliste in `src/buergerai/aenderungen.py` aus (`AUSSCHLUSS`, je Host Anfangs- und Endmarke, Stand-Zeile, auszublendende Zeilen). Exit-Code: 0 nichts geändert, 1 Änderung gefunden, 2 kein Netz.
+
+**Wöchentlich** (`.github/workflows/aenderungen.yml`, montags, auch manuell startbar) legt der Wächter je geänderter Quelle ein Issue „Quelle geändert: <id>“ an oder aktualisiert es, mit Diff, betroffenen Verwendungen und nächsten Schritten.
+
+Der Prüfstatus fällt nicht automatisch zurück (ADR 0004, Nachtrag #64). Ein Mensch entscheidet:
+
+- **unwesentlich** (Redaktion, Verweise): `--fingerabdruck <id>`, committen, Issue schließen;
+- **wesentlich**: Daten und Protokoll anpassen, `--zuruecksetzen <id>`, nach erneuter Prüfung `--abnehmen`.
+
+Grenzen: Quellen, die mehrere Paragrafen abdecken (z. B. `beeg_15_16`), werden nur mit dem Paragrafen aus der URL verglichen. PDFs werden nicht ausgelesen. gesetze-im-internet.de ist von GitHub-Runnern aus bisher nicht erreichbar; Bundesgesetze dort als „nicht erreichbar“, lokal prüfen.
 
 ## Ergebnis je Zeile
 

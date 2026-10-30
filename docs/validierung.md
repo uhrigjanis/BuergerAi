@@ -58,6 +58,7 @@ Ablauf und Vorlage: [docs/pruefprotokolle/README.md](pruefprotokolle/README.md).
 5. Passt etwas nicht: Regel/Daten korrigieren, Test oder Szenario ergänzen.
 6. Claude setzt höchstens `teilweise` und verlinkt das Protokoll in `notiz`. Ein Mensch nimmt nach Durchsicht ab: `./bai quellen --abnehmen <id> --von "Vorname Nachname"` (setzt `verifiziert`, Datum und Namen; Details in [pruefprotokolle/README.md](pruefprotokolle/README.md#abnahme-durch-einen-menschen)).
 7. `./bai daten && ./bai szenarien --pruefen && python -m pytest` ausführen. `./bai daten` warnt bei geprüften Quellen ohne Protokoll.
+8. Danach wacht der Änderungswächter: Die Abnahme speichert einen Fingerabdruck des geprüften Texts, `./bai quellen --aenderungen` (wöchentlich in GitHub Actions) meldet Änderungen mit Diff als Issue ([Details](pruefprotokolle/README.md#änderungswächter)).
 
 Besonders prüfen (bisher nur aus Fachwissen, ohne Abgleich):
 - Elterngeld: 32-Stunden-Grenze (§ 1 Abs. 6 BEEG), Regeln für Nicht-EU-Staatsangehörige (§ 1 Abs. 7).

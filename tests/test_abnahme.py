@@ -15,6 +15,7 @@ import pytest
 from buergerai import gebietsimport as gi
 from buergerai import linkpruefung as lp
 from buergerai import quellenpruefung as qp
+from buergerai import quelltext as qt
 from buergerai.cli import main
 from buergerai.modell import Pruefstatus
 from buergerai.wissensbasis import STANDARD_DATENVERZEICHNIS, Wissensbasis
@@ -172,8 +173,10 @@ def test_cli_abnahme(umgebung, capsys, monkeypatch):
     assert main(["--keine-farbe", "--daten", str(daten), "quellen", "--abnehmen", "bayfamgg_3",
                  "--von", "Janis Uhrig"]) == 1
     assert "Abnahme nicht möglich" in capsys.readouterr().err
+    # Ohne Netz: der Fingerabdruck (#64) wird übersprungen, die Abnahme gelingt trotzdem
+    monkeypatch.setattr(qt, "http_abruf", lambda url: (_ for _ in ()).throw(qt.AbrufFehler("kein Netz", netz=True)))
     code = main(["--keine-farbe", "--daten", str(daten), "quellen", "--abnehmen", "bayfamgg_9a",
-                 "--von", "Janis Uhrig", "--am", "29.10.2026"])
+                 "--von", "Janis Uhrig", "--am", "29.10.2026", "--ohne-cache"])
     out = capsys.readouterr().out
     assert code == 0 and "verifiziert von Janis Uhrig am 29.10.2026" in out
     assert main(["--keine-farbe", "--daten", str(daten), "quellen", "--zuruecksetzen", "bayfamgg_9a"]) == 0

@@ -10,3 +10,13 @@ Im Architektur-Dokument vermischt der „Abdeckungsstatus“ zwei Fragen: Wie sp
 - **Prüfstatus** (je Quelle): `verifiziert`, `teilweise`, `ungeprueft`, `widerspruechlich`. Ein Eintrag zeigt den schlechtesten Status seiner Quellen.
 - `verifiziert` setzt nur ein Mensch nach Prüfung des Volltexts, mit `geprueft_am` und `geprueft_von` (wird von der Konsistenzprüfung erzwungen).
 - Bei widersprüchlichen Quellen (Beispiel: Bayerisches Familiengeld) gibt die Regel bewusst Unklar aus.
+
+## Nachtrag 30.10.2026: Änderungen nach der Prüfung (#64)
+
+**Kontext:** Eine verifizierte Quelle kann sich nach der Abnahme ändern (Gesetzesänderung, neue Behördenseite). Der Änderungswächter (`./bai quellen --aenderungen`, wöchentlich in GitHub Actions) erkennt das am Fingerabdruck des geprüften Texts.
+
+**Entscheidung:**
+- Der Prüfstatus fällt **nicht automatisch** zurück. Nicht jede Textänderung berührt die Aussage der Regel (Redaktion, Verweise, andere Absätze); das zu beurteilen bleibt beim Menschen, wie die Abnahme selbst.
+- Stattdessen meldet der Wächter die Änderung als Issue mit Diff. Bis zur Klärung kann die Quelle mit `--vermerken` das Feld `seit_pruefung_geaendert` (Datum) bekommen; die Ergebnisse zeigen dann „Quelle seit Prüfung geändert“ neben dem unveränderten Prüfstatus.
+- Klärung: unwesentlich → `--fingerabdruck <id>` (neuer Bezugstext, Hinweis entfällt); wesentlich → Daten anpassen, `--zuruecksetzen <id>`, nach erneuter Prüfung `--abnehmen` (speichert neuen Fingerabdruck, Hinweis entfällt).
+- Fingerabdrücke und Bezugstexte liegen bei den Protokollen (`docs/pruefprotokolle/fingerabdruecke.json`, `texte/`), nicht in den Daten: Sie sind Prüfbelege, keine Wissensbasis.

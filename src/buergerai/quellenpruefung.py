@@ -433,7 +433,9 @@ def abnehmen(kb: Wissensbasis, quelle_id: str, von: str, am: date, trotz_hinweis
 
     datei = _quelldatei(kb, quelle_id)
     werte = {"pruefstatus": Pruefstatus.VERIFIZIERT.value, "geprueft_am": am.isoformat(), "geprueft_von": von}
-    text = _eintrag_ersetzen(datei.read_text(encoding="utf-8"), quelle_id, lambda e: _felder_setzen(e, werte))
+    # Eine neue Abnahme erledigt auch den Hinweis des Änderungswächters (#64)
+    text = _eintrag_ersetzen(datei.read_text(encoding="utf-8"), quelle_id, lambda e: _felder_setzen(
+        {k: v for k, v in e.items() if k != "seit_pruefung_geaendert"}, werte))
     datei.write_text(text, encoding="utf-8")
     pfad.write_text(_abnahme_im_protokoll(protokoll, f"{von}, {am.strftime('%d.%m.%Y')}"), encoding="utf-8")
     return datei

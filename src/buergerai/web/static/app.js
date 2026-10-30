@@ -518,7 +518,10 @@ function leistungKarte(l) {
   teile.push(el("details", {}, el("summary", {}, "Quellen und Datenstand"),
     el("p", { class: "status" }, `Daten: ${l.gebiet.ebene_text} ${l.gebiet.name} · ${l.abdeckung_text} · ${l.pruef_text}`),
     el("ul", { class: "quellen" }, l.quellen.map((q) => el("li", {},
-      q.url ? sicherLink(q.url, q.titel) : q.titel, el("span", { class: "status" }, ` [${q.pruefstatus}]`)))),
+      q.url ? sicherLink(q.url, q.titel) : q.titel, el("span", { class: "status" }, ` [${q.pruefstatus}]`),
+      q.seit_pruefung_geaendert
+        ? el("span", { class: "status geaendert" }, ` seit Prüfung geändert (festgestellt am ${datumText(q.seit_pruefung_geaendert)})`)
+        : null))),
   ));
 
   return el("article", { class: `karte leistung ${l.ergebnis}${erledigt ? " erledigt" : ""}`, id: `leistung-${l.id}` },

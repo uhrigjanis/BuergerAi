@@ -35,7 +35,7 @@ FAILED tests/test_a.py::test_x - assert 1 == 2
 """
 
 
-@pytest.mark.anforderung("ANF-QS-07")
+@pytest.mark.anforderung("ANF-QS-08")
 def test_zusammenfassung_gruen():
     text = zf.zusammenfassung(GRUEN, "Python 3.13")
     assert text.startswith("### Tests (Python 3.13): ✅ 499 passed in 138.26s")
@@ -45,7 +45,7 @@ def test_zusammenfassung_gruen():
     assert "passed" not in langsam, "mit -q steht die Ergebniszeile ohne Trenner direkt nach den Laufzeiten"
 
 
-@pytest.mark.anforderung("ANF-QS-07")
+@pytest.mark.anforderung("ANF-QS-08")
 def test_zusammenfassung_rot_nennt_fehlschlaege():
     text = zf.zusammenfassung(ROT, "Python 3.10")
     assert "❌ 1 failed, 7 passed in 1.20s" in text
@@ -53,20 +53,20 @@ def test_zusammenfassung_rot_nennt_fehlschlaege():
     assert "E   assert" not in text, "nur die Kurzliste, nicht die ganze Fehlerausgabe"
 
 
-@pytest.mark.anforderung("ANF-QS-07")
+@pytest.mark.anforderung("ANF-QS-08")
 def test_zusammenfassung_ohne_ergebnis_ist_rot():
     text = zf.zusammenfassung("ImportError: cannot import name 'x'\n", "Python 3.10")
     assert "❌" in text and "kein Ergebnis" in text
 
 
-@pytest.mark.anforderung("ANF-QS-07")
+@pytest.mark.anforderung("ANF-QS-08")
 def test_zusammenfassung_ergebniszeile_mit_trennern():
     """pytest ohne -q setzt die Ergebniszeile zwischen Gleichheitszeichen."""
     log = "========================= 3 passed, 1 skipped in 0.10s =========================\n"
     assert "✅ 3 passed, 1 skipped in 0.10s" in zf.zusammenfassung(log, "x")
 
 
-@pytest.mark.anforderung("ANF-QS-08")
+@pytest.mark.anforderung("ANF-QS-09")
 def test_workflow_laeuft_bei_jedem_pr_ohne_pfadfilter():
     text = WORKFLOW.read_text(encoding="utf-8")
     ausloeser = text[text.index("\non:"):text.index("\npermissions:")]
@@ -74,7 +74,7 @@ def test_workflow_laeuft_bei_jedem_pr_ohne_pfadfilter():
     assert "paths" not in ausloeser, "ein Pfadfilter ließe Pflicht-Checks ewig warten"
 
 
-@pytest.mark.anforderung("ANF-QS-08")
+@pytest.mark.anforderung("ANF-QS-09")
 def test_workflow_jobname_stabil():
     """Die Pflicht-Checks im Ruleset heißen „tests (3.10)“ und „tests (3.13)“."""
     text = WORKFLOW.read_text(encoding="utf-8")
@@ -84,7 +84,7 @@ def test_workflow_jobname_stabil():
     assert "\n    name:" not in text, "ein eigener Job-Name würde die Check-Namen ändern"
 
 
-@pytest.mark.anforderung("ANF-QS-08")
+@pytest.mark.anforderung("ANF-QS-09")
 def test_workflow_prueft_alles():
     text = WORKFLOW.read_text(encoding="utf-8")
     for befehl in ("./bai --keine-farbe daten", "szenarien --pruefen", "./bai --keine-farbe anforderungen",

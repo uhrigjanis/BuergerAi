@@ -38,3 +38,18 @@ def test_keine_eigene_grenze_fuer_alleinerziehende_2024(plane):
     b = plane(familie(kind_geboren="ja", errechneter_termin=None, geburtsdatum="2024-10-01",
                       partner_im_haushalt="nein", zve_eltern=180000), stichtag=date(2025, 1, 15))
     assert b.eintrag("elterngeld").ergebnis.value == "ja"
+
+
+@pytest.mark.anforderung("ANF-KZ-02")
+def test_mindesteinkommen_kinderzuschlag_zaehlt_alle_einnahmen(kb):
+    """§ 6a Abs. 1 Nr. 2 BKGG: Einkommen im Sinne des § 11 SGB II, nicht nur Erwerbseinkommen.
+
+    Elterngeld zählt (§ 10 Abs. 5 BEEG), Mutterschaftsgeld nicht (§ 11a Abs. 1 Nr. 6 SGB II),
+    Kindergeld und Wohngeld nicht (§ 6a Abs. 1 Nr. 2 BKGG).
+    """
+    hilfe = kb.fakten["brutto_haushalt_monat"].hilfe
+    for zaehlt in ("Arbeitslosengeld", "Krankengeld", "Elterngeld"):
+        assert zaehlt in hilfe
+    nicht = hilfe[hilfe.index("Nicht"):]
+    for zaehlt_nicht in ("Kindergeld", "Wohngeld", "Mutterschaftsgeld"):
+        assert zaehlt_nicht in nicht

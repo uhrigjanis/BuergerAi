@@ -61,7 +61,7 @@ Vergleich (Preise je Million Tokens, Eingabe / Ausgabe, Stand 30.10.2026):
 |---|---|---|---|
 | **Claude Haiku 5.5 auf Vertex AI, `eu`** | EU (Multi-Region, Google als Auftragsverarbeiter) | $0,11 / $0,55 (Grundpreis $0,10 / $0,50 plus 10 % für Multi-Region) | **gewählt:** günstig, EU, kleines Modell reicht für alle drei Rollen (#71) |
 | Claude Haiku 5.5 auf Amazon Bedrock, EU-Profil | EU (Routing über mehrere EU-Regionen; in Frankfurt kein eigener Endpunkt) | Grundpreis plus 10 % für regionales Routing | gleichwertig, falls ein AWS-Konto bevorzugt wird; Haiku 5.5 ist auf Bedrock laut Anthropic-Doku noch nicht für alle Kunden freigeschaltet |
-| Mistral Small über La Plateforme | EU, Anbieter mit Sitz in der EU | etwa $0,15–0,20 / $0,60 (Quellen uneinheitlich, vor Nutzung auf mistral.ai prüfen) | **Zweitanbieter in der Evaluation:** ähnlich günstig, kein US-Konzern; Training auf API-Daten muss abgeschaltet werden |
+| Mistral Small über La Plateforme | EU, Anbieter mit Sitz in der EU | etwa $0,15–0,20 / $0,60 (Quellen uneinheitlich, vor Nutzung auf mistral.ai prüfen); kostenlos im Plan „Experiment“ (Abschnitt 5a) | **für Entwicklung und Evaluation (Abschnitt 5a), Zweitanbieter:** ähnlich günstig, kein US-Konzern; Training auf API-Daten muss abgeschaltet werden |
 | Anthropic-API direkt | global oder USA (`inference_geo` kennt nur `global` und `us`) | $0,10 / $0,50 | verworfen: keine EU-Verarbeitung |
 | Selbst gehostetes Open-Weight-Modell (Ollama/vLLM) bei einem EU-Hoster | EU, volle Kontrolle | GPU-Server laufen dauerhaft, grob mehrere hundert Euro im Monat | verworfen: feste Kosten weit über den Tokenkosten, Betriebsaufwand |
 | IONOS / STACKIT (EU-Cloud mit Open-Weight-Modellen) | EU, deutsche Anbieter | nutzungsabhängig | Alternative, falls ein US-Konzern als Auftragsverarbeiter ausgeschlossen werden soll; Qualität der verfügbaren Modelle wird erst geprüft, wenn das nötig wird |
@@ -81,6 +81,20 @@ Vergleich (Preise je Million Tokens, Eingabe / Ausgabe, Stand 30.10.2026):
 - Auftragsverarbeitungsvertrag, kein Training auf Kundendaten, Aufbewahrung der Anfragen.
 - Ob Prompt-Caching in der Multi-Region `eu` verfügbar ist.
 
+### 5a. Entwicklung und Evaluation: Mistral La Plateforme, Plan „Experiment“ (kostenlos)
+
+Für die Entwicklung (#75 bis #79) und die Evaluation (#73) wird der kostenlose Plan „Experiment“ von Mistral genutzt, mit Mistral Small. Mistral ist ein EU-Unternehmen und verarbeitet in der EU. Damit braucht die Entwicklung kein Budget, und Mistral ist als Zweitanbieter von Anfang an im Adapter.
+
+Regeln für den kostenlosen Plan:
+
+- **Nur ausgedachte Texte:** Evaluationsfälle (#73), Testtexte, eigene Probeeingaben. Nie Texte echter Nutzer, nie echte Gesundheitsdaten. Auf diesem Plan nutzt Mistral Eingaben und Ausgaben standardmäßig zum Training.
+- **Training abschalten:** In der Admin-Konsole unter Privacy die Weitergabe zur Verbesserung („Anonymous improvement data“) ausschalten, bevor der Schlüssel genutzt wird.
+- **Nicht für den Betrieb:** Der Plan ist zum Ausprobieren gedacht, hat enge Limits (etwa 1 Anfrage pro Sekunde, bei Last nachrangig) und keinen Vertrag zur Auftragsverarbeitung für unseren Zweck. Die Web-Oberfläche mit echten Nutzern läuft nur mit dem Anbieter aus Abschnitt 5 oder einem bezahlten Plan.
+- **Schlüssel nur lokal:** Der API-Schlüssel steht in einer Umgebungsvariablen, nie im Repository. CI bekommt keinen Schlüssel und läuft weiter mit dem Fake-Modell (Abschnitt 4).
+- **Limits einplanen:** Das Bewertungsskript (#73) wartet zwischen Aufrufen und wiederholt bei HTTP 429. Ein Lauf über alle Fälle darf daher einige Minuten dauern.
+
+Haiku 5.5 wird vor dem Betrieb mit demselben Evaluationssatz gemessen. Ein Lauf kostet wenige Cent.
+
 **Was die Wahl ändern kann:** Die Evaluation (#73) zeigt, dass Haiku 5.5 die Qualitätsgrenze nicht erreicht oder Mistral gleich gut ist; die Datenschutzprüfung schließt US-Anbieter aus; die Kosten in #80 liegen deutlich über der Schätzung.
 
 ### 6. Fallback
@@ -92,4 +106,5 @@ Ohne LLM läuft alles wie heute: Lebenslagen-Auswahl, Stichwortsuche über Synon
 - Neue Anforderungen `ANF-LLM-*` im Katalog. Jetzt prüfbar ist die Abhängigkeitsregel (ANF-LLM-01). Die übrigen Regeln aus diesem ADR werden mit den Issues #74 bis #80 als Anforderungen mit Tests ergänzt, damit jede Anforderung einen Test hat (ANF-QS-01).
 - ADR 0002 verweist auf die Ausnahme in Abschnitt 4.
 - Der Anbieter steht in der Konfiguration, nicht im Code. Schlüssel und Projekt-ID kommen aus Umgebungsvariablen.
+- Der Adapter (#74) unterstützt zuerst Mistral (Entwicklung, Abschnitt 5a), dann Vertex AI (Betrieb, Abschnitt 5).
 - Offene Punkte: Text des Hinweises und der Einwilligung; Hosting des Webservers in der EU (#6).

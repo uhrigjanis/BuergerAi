@@ -46,6 +46,7 @@
     {"id": "ANF-MU-02", "bereich": "Fachregeln Bund", "titel": "Mutterschaftsgeld vom BAS: angestellt und privat oder familienversichert"},
     {"id": "ANF-MU-03", "bereich": "Fachregeln Bund", "titel": "Arbeitgeberzuschuss bei Beschäftigung der Mutter"},
     {"id": "ANF-EZ-01", "bereich": "Fachregeln Bund", "titel": "Elternzeit nur für angestellte Elternteile"},
+    {"id": "ANF-EZ-02", "bereich": "Fachregeln Bund", "titel": "Elternzeit-Anmeldung: Textform genügt für Geburten ab 1.5.2025 (§ 16 BEEG), sonst schriftlich"},
     {"id": "ANF-EG-01", "bereich": "Fachregeln Bund", "titel": "Elterngeld: Einkommensgrenze 175.000 € für Geburten ab 1.4.2025"},
     {"id": "ANF-EG-02", "bereich": "Fachregeln Bund", "titel": "Elterngeld: Einkommensgrenze 200.000 € für Geburten 1.4.2024–31.3.2025"},
     {"id": "ANF-EG-03", "bereich": "Fachregeln Bund", "titel": "Elterngeld: höchstens 32 Wochenstunden Erwerbstätigkeit"},

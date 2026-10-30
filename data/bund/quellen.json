@@ -8,9 +8,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Einkommensgrenze 175.000 € (Geburten ab 1.4.2025) bzw. 200.000 € (1.4.2024–31.3.2025) über mehrere Quellen bestätigt. 32-Stunden-Grenze (§ 1 Abs. 6) und Aufenthaltstitel-Regeln (§ 1 Abs. 7) noch im Volltext prüfen."
+      "notiz": "Abs. 1 (Wohnsitz/Aufenthalt, Haushalt, Betreuung, keine volle Erwerbstätigkeit), Abs. 6 (32 Wochenstunden), Abs. 7 (Aufenthaltstitel) und Abs. 8 (175.000 €, auch Summe beider Eltern, einheitlich für Alleinerziehende) über Gesetzesspiegel und Kommentare bestätigt. Die 200.000-€-Grenze für Geburten 1.4.2024–31.3.2025 steht in § 28 Abs. 5 (beeg_28). Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/beeg_1.md"
     },
     {
       "id": "beeg_7",
@@ -19,9 +19,20 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Rückwirkende Zahlung nur für die letzten drei Lebensmonate vor dem Antragsmonat (Leistungsbeschreibung Bayern/Berlin im FIM-Portal)."
+      "notiz": "Abs. 1 Satz 2: rückwirkend nur für die letzten drei Lebensmonate vor dem Antragsmonat – Wortlaut über mehrere Gesetzesspiegel bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/beeg_7.md"
+    },
+    {
+      "id": "beeg_28",
+      "titel": "§ 28 BEEG – Übergangsvorschrift (u. a. Einkommensgrenze 200.000 € für Geburten 1.4.2024–31.3.2025)",
+      "url": "https://www.gesetze-im-internet.de/beeg/__28.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "§ 28 Abs. 5: Für Geburten vom 1.4.2024 bis 31.3.2025 gilt § 1 Abs. 8 mit der Grenze 200.000 € (auch für die Summe beider Elternteile); eine eigene Grenze für Alleinerziehende (150.000 €) stand nur im Entwurf. Über Suchergebnisse (rewis.io, Haufe), Volltext nicht abrufbar. Prüfprotokoll: docs/pruefprotokolle/beeg_28.md"
     },
     {
       "id": "beeg_15_16",
@@ -29,8 +40,10 @@
       "url": "https://www.gesetze-im-internet.de/beeg/__16.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
-      "pruefstatus": "ungeprueft",
-      "notiz": "Anmeldefrist 7 Wochen vor Beginn (bis zum 3. Geburtstag), schriftlich. Noch nicht gegen Volltext geprüft."
+      "pruefstatus": "teilweise",
+      "notiz": "§ 15 Abs. 1 (Haushalt, Betreuung) und § 16 Abs. 1 (spätestens 7 Wochen vorher bis zum 3. Geburtstag, sonst 13 Wochen) bestätigt. Seit BEG IV genügt für Geburten ab 1.5.2025 Textform statt Schriftform. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/beeg_15_16.md",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)"
     },
     {
       "id": "familienportal_elterngeld",
@@ -55,19 +68,32 @@
       "url": "https://www.gesetze-im-internet.de/estg/__62.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
-      "pruefstatus": "ungeprueft",
-      "notiz": "§ 62 Abs. 2: Nicht freizügigkeitsberechtigte Ausländer nur mit bestimmten Aufenthaltstiteln."
+      "pruefstatus": "teilweise",
+      "notiz": "Abs. 1 (Wohnsitz oder gewöhnlicher Aufenthalt im Inland) und Abs. 2 (nicht freizügigkeitsberechtigte Ausländer nur mit bestimmten Titeln) bestätigt. Bedingung „Kind im Haushalt“ folgt aus § 64 Abs. 2, nicht aus § 62. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/estg_62.md",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)"
     },
     {
       "id": "estg_66",
-      "titel": "§ 66 EStG – Höhe des Kindergeldes, rückwirkende Zahlung (6 Monate)",
+      "titel": "§ 66 EStG – Höhe des Kindergeldes",
       "url": "https://www.gesetze-im-internet.de/estg/__66.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "259 € je Kind ab 1.1.2026 (2025: 255 €) über mehrere Quellen bestätigt. Sechs-Monats-Frist für rückwirkende Zahlung noch im Volltext prüfen."
+      "notiz": "Abs. 1: 259 € je Kind (seit 1.1.2026), 2025: 255 € (frühere Fassung). Die Sechs-Monats-Rückwirkung steht in § 70 Abs. 1 Satz 2 (estg_70). Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/estg_66.md"
+    },
+    {
+      "id": "estg_70",
+      "titel": "§ 70 EStG – Festsetzung und Zahlung des Kindergeldes (rückwirkend höchstens 6 Monate)",
+      "url": "https://www.gesetze-im-internet.de/estg/__70.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "§ 70 Abs. 1 Satz 2: Auszahlung rückwirkend nur für die letzten sechs Monate vor Beginn des Antragsmonats (für Anträge ab 19.7.2019, § 52 Abs. 50 EStG; vorher § 66 Abs. 3). Über Suchergebnisse (rechtslupe.de, NWB, buzer.de), Volltext nicht abrufbar. Prüfprotokoll: docs/pruefprotokolle/estg_70.md"
     },
     {
       "id": "ba_kindergeld",
@@ -84,9 +110,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Höchstbetrag 297 € (2026), Mindesteinkommen 900 € (Paare) / 600 € (Alleinerziehende) brutto: Mehrheit der Quellen; eine Quelle nennt abweichende Werte. Gegen Volltext prüfen."
+      "notiz": "Mindesteinkommen 900 € (Paare) / 600 € (Alleinerziehende) übereinstimmend in allen Quellen; Höchstbetrag 297 € (seit 1.1.2025, 2026 unverändert) nur über Sekundärquellen, steht nicht als Zahl im Gesetz. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bkgg_6a.md"
     },
     {
       "id": "kiz_lotse",
@@ -103,9 +129,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Privat oder familienversicherte Arbeitnehmerinnen: einmalig bis 210 € vom Bundesamt für Soziale Sicherung; Arbeitgeber zahlt Zuschuss. Schutzfrist i. d. R. 6 Wochen vor, 8 Wochen nach der Geburt."
+      "notiz": "§ 19 Abs. 2 (Nicht-Kassenmitglieder: höchstens 210 € vom Bundesamt für Soziale Sicherung) und § 20 (Zuschuss: Unterschied zwischen 13 € und kalendertäglichem Netto) bestätigt. Keine gesetzliche Antragsfrist – unsere Frist ist eine Empfehlung. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/muschg_19_20.md"
     },
     {
       "id": "sgb5_24i",
@@ -114,8 +140,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
-      "geprueft_von": "Claude (Websuche)"
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Abs. 1 (Mitglieder mit Krankengeldanspruch oder ohne Entgelt wegen der Schutzfristen) und Abs. 2 (höchstens 13 € je Kalendertag, Rest zahlt der Arbeitgeber) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/sgb5_24i.md"
     },
     {
       "id": "familienportal_mutterschaft",
@@ -140,8 +167,10 @@
       "url": "https://www.gesetze-im-internet.de/sgb_5/__10.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
-      "pruefstatus": "ungeprueft",
-      "notiz": "§ 10 Abs. 3: Ausschluss, wenn der privat versicherte Ehegatte mehr verdient und über der Jahresarbeitsentgeltgrenze liegt."
+      "pruefstatus": "teilweise",
+      "notiz": "Abs. 1 (Kinder von Mitgliedern) und Abs. 3 (Ausschluss bei nicht gesetzlich versichertem, besser verdienendem Ehegatten über 1/12 der Jahresarbeitsentgeltgrenze) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/sgb5_10.md",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)"
     },
     {
       "id": "pstg_18",
@@ -150,9 +179,9 @@
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
       "pruefstatus": "teilweise",
-      "geprueft_am": "2026-10-24",
+      "geprueft_am": "2026-10-29",
       "geprueft_von": "Claude (Websuche)",
-      "notiz": "Frist eine Woche, Geburtstag zählt nicht mit, Anzeige gebührenfrei (FIM-Stammtext). Paragraf selbst noch im Volltext prüfen."
+      "notiz": "Abs. 1: Anzeige beim Standesamt des Geburtsorts binnen einer Woche (Fassung seit 1.11.2022: „ist … anzuzeigen“); Tag der Geburt zählt nach § 187 Abs. 1 BGB nicht mit. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/pstg_18.md"
     },
     {
       "id": "bgb_1592_1594",
@@ -160,7 +189,10 @@
       "url": "https://www.gesetze-im-internet.de/bgb/__1592.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
-      "pruefstatus": "ungeprueft"
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "§ 1592 (Vater: Ehemann bei Geburt, Anerkennung, Feststellung) und § 1594 Abs. 4 (Anerkennung vor der Geburt zulässig) bestätigt; Änderung des Abstammungsrechts zum 1.4.2026 betrifft die Anfechtung, nicht diese Aussagen. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bgb_1592_1594.md"
     },
     {
       "id": "bgb_1626a",
@@ -168,7 +200,10 @@
       "url": "https://www.gesetze-im-internet.de/bgb/__1626a.html",
       "typ": "gesetz",
       "herausgeber": "Bundesministerium der Justiz",
-      "pruefstatus": "ungeprueft"
+      "pruefstatus": "teilweise",
+      "geprueft_am": "2026-10-29",
+      "geprueft_von": "Claude (Websuche)",
+      "notiz": "Abs. 1 (gemeinsame Sorge u. a. durch Sorgeerklärungen) und Abs. 3 (sonst Sorge der Mutter) bestätigt. Volltext nicht abrufbar; Zitate lokal mit ./bai quellen --abgleich prüfen. Prüfprotokoll: docs/pruefprotokolle/bgb_1626a.md"
     },
     {
       "id": "bmfsfj_elterngeldstellen",

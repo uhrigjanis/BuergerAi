@@ -119,8 +119,8 @@ def test_abnahme_in_handformatierter_und_generierter_datei(umgebung):
     [
         ("bayfamgg_9a", "Claude (Websuche)", None, "nur ein Mensch"),
         ("bayfamgg_9a", "  ", None, "Name fehlt"),
-        ("beeg_1", "Janis Uhrig", None, "Kein verlinktes Prüfprotokoll"),
-        ("beeg_1", "Janis Uhrig", "nur_datei", "Kein verlinktes Prüfprotokoll"),
+        ("fim_by_elterngeld", "Janis Uhrig", None, "Kein verlinktes Prüfprotokoll"),
+        ("fim_by_elterngeld", "Janis Uhrig", "nur_datei", "Kein verlinktes Prüfprotokoll"),
         ("bayfamgg_9a", "Janis Uhrig", ("❌", "✅"), "Abweichung"),
         ("bayfamgg_9a", "Janis Uhrig", ("✅", ""), "ohne Ergebnis"),
         ("bayfamgg_3", "Janis Uhrig", None, "--trotz-hinweisen"),

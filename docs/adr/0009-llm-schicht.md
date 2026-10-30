@@ -35,6 +35,7 @@ Erkannte Angaben bestätigt der Nutzer, bevor sie in den Bericht eingehen („Wi
 - Das LLM entscheidet nie über Ansprüche. Es nennt keine Leistung, keinen Betrag, keine Frist und keine Stelle, die nicht im Bericht steht.
 - Das LLM schreibt keine Regeln und ändert keine Daten unter `data/`.
 - Eingaben werden als Daten behandelt, nicht als Anweisungen. Eine Prompt-Injection im Freitext kann wegen der Prüfungen höchstens falsche Angaben vorschlagen, die der Nutzer dann sieht und bestätigen muss.
+- Die vollständigen Schutzregeln (Missbrauch und Kosten, Fragen außerhalb des Themas, Prompt-Injection, Notlagen) beschreibt #82. Grundsatz dort: Was sich im Code prüfen lässt, wird im Code geprüft, nicht im Prompt.
 
 ### 3. Datenschutz
 

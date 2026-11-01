@@ -43,7 +43,11 @@
       "fakten": {
         "arbeit.bezieht_alg": "ja",
         "arbeit.taetigkeit": "freiberuflich"
-      }
+      },
+      "lebenslagen_optional": [
+        "jobverlust"
+      ],
+      "notiz": "Die Person ist schon arbeitslos; Jobverlust ist vertretbar, aber nicht nötig."
     },
     {
       "id": "selbststaendig-04",

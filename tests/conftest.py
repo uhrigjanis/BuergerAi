@@ -22,6 +22,14 @@ def _keine_lokale_env(monkeypatch, tmp_path):
     monkeypatch.setenv("BUERGERAI_ENV_DATEI", str(tmp_path / "keine.env"))
 
 
+@pytest.fixture(autouse=True)
+def _eval_ergebnisse_temporaer(monkeypatch, tmp_path):
+    """Läufe von "eval intake" in Tests schreiben nie nach tests/eval/ergebnisse."""
+    from buergerai import evaluation
+
+    monkeypatch.setattr(evaluation, "ERGEBNIS_VERZEICHNIS", tmp_path / "eval-ergebnisse")
+
+
 @pytest.fixture(scope="session")
 def kb() -> Wissensbasis:
     return Wissensbasis.laden()

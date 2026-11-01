@@ -38,6 +38,7 @@ from .ausgabe import (
     person_name,
 )
 from .fakten import UNBEKANNT, EingabeFehler, parse_wert
+from .llm.basis import LLMFehler
 from .modell import Pruefstatus
 from .planer import Anfrage, planen
 from .wissensbasis import DatenFehler, Wissensbasis
@@ -853,14 +854,42 @@ def cmd_eval(args: argparse.Namespace) -> int:
         for zeile in fehler:
             print(f"  {zeile}")
         return 1
-    ergebnisse = ev.bewerten(kb, faelle, ev.VERFAHREN[args.verfahren](kb))
+    if args.verfahren == "llm":
+        from .llm import aus_umgebung, erzeugen
+
+        try:
+            konfig = aus_umgebung()
+            modell = erzeugen(konfig) if konfig else None
+        except LLMFehler as exc:
+            print(f.rot(f"LLM-Konfiguration fehlerhaft: {exc}"))
+            return 2
+        if modell is None:
+            print(f.rot("LLM-Schicht aus: --verfahren llm braucht BUERGERAI_LLM_ANBIETER (siehe buergerai llm)"))
+            return 2
+        pause = 1.0 if args.pause is None else args.pause
+        print(f.grau(f"{konfig.beschreibung()} · {len(faelle)} Fälle · Pause {pause:g} s"), file=sys.stderr)
+        verfahren = ev.llm_router(kb, pause=pause, llm=modell)
+        modellname = f"{konfig.anbieter}/{konfig.modell}"
+    else:
+        verfahren = ev.VERFAHREN[args.verfahren](kb)
+        modellname = None
+    ergebnisse = ev.bewerten(kb, faelle, verfahren)
     kennzahlen = ev.kennzahlen(ergebnisse)
+    datei = None
+    if not args.keine_datei:
+        try:
+            datei = ev.ergebnis_speichern(ev.ergebnis_json(ergebnisse, args.verfahren, modellname),
+                                          Path(args.ausgabe) if args.ausgabe else None)
+        except OSError as exc:
+            print(f.rot(f"Ergebnisdatei nicht geschrieben: {exc}"), file=sys.stderr)
     if args.json:
         print(json.dumps({"verfahren": args.verfahren, **kennzahlen}, ensure_ascii=False, indent=2))
-        return 0
-    print(ev.als_text(kennzahlen, args.verfahren))
-    if args.details:
-        print("\n" + ev.details_text(ergebnisse))
+    else:
+        print(ev.als_text(kennzahlen, args.verfahren))
+        if args.details:
+            print("\n" + ev.details_text(ergebnisse))
+    if datei:
+        print(f.grau(f"Ergebnisse gespeichert: {datei}"), file=sys.stderr if args.json else sys.stdout)
     return 0
 
 
@@ -879,7 +908,7 @@ def cmd_llm(args: argparse.Namespace) -> int:
     from . import llm as llm_mod
 
     f = Farbe(None if not args.keine_farbe else False)
-    if args.schema is not None or args.extrahieren is not None:
+    if args.schema is not None or args.extrahieren is not None or args.router is not None:
         kb = _kb(args)
         lagen = args.lebenslage or args.schema or []
         unbekannt = [x for x in lagen if x not in kb.lebenslagen]
@@ -902,11 +931,13 @@ def cmd_llm(args: argparse.Namespace) -> int:
     if konfig is None:
         print("LLM-Schicht aus (BUERGERAI_LLM_ANBIETER nicht gesetzt). Alles läuft ohne LLM über Formular und Stichwortsuche.")
         print(f.grau("Zum Entwickeln (z. B. Gemini): cp .env.beispiel .env und dort den Schlüssel eintragen (ADR 0009, Abschnitt 5a)"))
-        return 1 if (args.probe or args.modelle or args.extrahieren is not None) else 0
+        return 1 if (args.probe or args.modelle or args.extrahieren is not None or args.router is not None) else 0
     print(f"LLM-Schicht an: {konfig.beschreibung()}")
     env_datei = llm_mod.env_datei_finden()
     if env_datei:
         print(f.grau(f"Werte aus {env_datei} (gesetzte Umgebungsvariablen haben Vorrang)"))
+    if args.router is not None:
+        return _llm_router(args, kb, konfig, f)
     if args.extrahieren is not None:
         return _llm_extrahieren(args, kb, lagen, konfig, f)
     if args.modelle:
@@ -924,6 +955,7 @@ def cmd_llm(args: argparse.Namespace) -> int:
         return 0
     if not args.probe:
         print(f.grau("Testanfrage senden: buergerai llm --probe"))
+        print(f.grau('Lebenslagen erkennen: buergerai llm --router "Wir bekommen im März ein Kind"'))
         print(f.grau('Angaben aus Freitext: buergerai llm --extrahieren "Wir bekommen im März ein Kind" -l geburt'))
         return 0
     start = time.monotonic()
@@ -944,6 +976,44 @@ def cmd_llm(args: argparse.Namespace) -> int:
     return 1
 
 
+def _llm_router(args: argparse.Namespace, kb: Wissensbasis, konfig: Any, f: "Farbe") -> int:
+    """Freitext → Lebenslagen (#76). Nur ausgedachte Texte!"""
+    import time
+
+    from . import llm as llm_mod
+    from .llm.router import erkennen
+
+    text = args.router.strip()
+    if not text:
+        print(f.rot("Bitte einen Text angeben."))
+        return 2
+    start = time.monotonic()
+    try:
+        routing = erkennen(llm_mod.erzeugen(konfig), kb, text)
+    except llm_mod.LLMFehler as exc:
+        print(f.rot(f"✗ {exc.art}: {exc}"))
+        return 1
+    dauer = time.monotonic() - start
+    if args.json:
+        print(json.dumps({"kategorie": routing.kategorie, "quelle": routing.quelle, "fehler": routing.fehler,
+                          "lebenslagen": [{"id": t.id, "begruendung": t.begruendung} for t in routing.lebenslagen],
+                          "verworfen": routing.verworfen, "hinweis": routing.hinweis}, ensure_ascii=False, indent=2))
+        return 0
+    if routing.quelle == "llm":
+        print(f.gruen(f"✓ Antwort nach {dauer:.1f} s"))
+    else:
+        print(f.rot(f"✗ LLM nicht genutzt ({routing.fehler}), Ergebnis der Stichwortsuche"))
+    print(f"Kategorie: {routing.kategorie}")
+    for t in routing.lebenslagen:
+        name = kb.lebenslagen[t.id].name
+        print(f"  {t.id} – {name}" + (f.grau(f"  {t.begruendung}") if t.begruendung else ""))
+    if routing.verworfen:
+        print(f.rot(f"Verworfen (nicht im Katalog): {', '.join(routing.verworfen)}"))
+    if routing.hinweis:
+        print("\n" + routing.hinweis)
+    return 0
+
+
 def _llm_extrahieren(args: argparse.Namespace, kb: Wissensbasis, lagen: list[str], konfig: Any, f: "Farbe") -> int:
     """Freitext → LLM → geprüfte Vorschläge, zum Ausprobieren (#75; Ausbau in #77). Nur ausgedachte Texte!"""
     import time
@@ -951,19 +1021,26 @@ def _llm_extrahieren(args: argparse.Namespace, kb: Wissensbasis, lagen: list[str
     from . import llm as llm_mod
     from .fakten import wert_als_text
     from .llm.extraktion import extrahieren
-    from .suche import lebenslagen_suchen
+    from .llm.router import erkennen
 
     text = args.extrahieren.strip()
     if not text:
         print(f.rot("Bitte einen Text angeben."))
         return 2
     if not lagen:
-        treffer = lebenslagen_suchen(kb, text)[:3]
-        lagen = [ll.id for ll, _ in treffer]
-        if not lagen:
-            print(f.rot("Keine Lebenslage erkannt. Bitte mit -l angeben (buergerai lebenslagen)."))
-            return 2
-        print(f.grau(f"Lebenslagen aus der Stichwortsuche (Router folgt mit #76): {', '.join(lagen)}"))
+        try:
+            routing = erkennen(llm_mod.erzeugen(konfig), kb, text)
+        except llm_mod.LLMFehler as exc:  # z. B. Konfiguration
+            print(f.rot(f"✗ {exc.art}: {exc}"))
+            return 1
+        if routing.hinweis:
+            print(routing.hinweis)
+        if not routing.ids:
+            print(f.grau(f"Keine Lebenslage ({routing.kategorie}), deshalb keine Extraktion."))
+            return 0
+        lagen = routing.ids
+        quelle = "Router" if routing.quelle == "llm" else f"Stichwortsuche (Fallback: {routing.fehler})"
+        print(f.grau(f"Lebenslagen aus dem {quelle}: {', '.join(lagen)}"))
     try:
         heute = date.fromisoformat(args.stichtag) if args.stichtag else date.today()
     except ValueError:
@@ -1134,9 +1211,15 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("eval", help="Evaluation der Freitext-Eingabe: Router, Abweisung, Extraktion (tests/eval/intake)")
     s.add_argument("was", choices=["intake"], help="Was bewertet wird (bisher nur intake)")
     s.add_argument("--verfahren", default="stichwortsuche", choices=sorted(evaluation_mod.VERFAHREN),
-                   help="stichwortsuche: Baseline ohne LLM; erwartung: Erwartung selbst (Selbsttest, 100 %%)")
+                   help="stichwortsuche: Baseline ohne LLM; llm: Router mit dem konfigurierten LLM (#76); "
+                        "erwartung: Erwartung selbst (Selbsttest, 100 %%)")
+    s.add_argument("--pause", type=float, default=None, metavar="SEKUNDEN",
+                   help="Wartezeit zwischen LLM-Aufrufen (Standard bei --verfahren llm: 1; kostenlose Pläne)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
+    s.add_argument("--ausgabe", metavar="DATEI.json",
+                   help="Ergebnisdatei (Standard: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json)")
+    s.add_argument("--keine-datei", action="store_true", help="keine Ergebnisdatei schreiben")
     s.set_defaults(func=cmd_eval)
 
     s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")
@@ -1146,10 +1229,12 @@ def parser() -> argparse.ArgumentParser:
                    help="JSON-Schema der Fakten-Extraktion für diese Lebenslagen ausgeben (ohne LLM)")
     s.add_argument("--extrahieren", metavar="TEXT",
                    help="Angaben aus einem ausgedachten Freitext entnehmen und prüfen (nie echte Personendaten)")
+    s.add_argument("--router", metavar="TEXT",
+                   help="Lebenslagen in einem ausgedachten Freitext erkennen (nie echte Personendaten)")
     s.add_argument("--lebenslage", "-l", action="append", metavar="ID",
-                   help="Lebenslage für --extrahieren (mehrfach möglich; sonst Stichwortsuche)")
+                   help="Lebenslage für --extrahieren (mehrfach möglich; sonst erkennt sie der Router)")
     s.add_argument("--stichtag", help="Bezugsdatum für relative Angaben, JJJJ-MM-TT (Standard: heute)")
-    s.add_argument("--json", action="store_true", help="Ergebnis von --extrahieren maschinenlesbar")
+    s.add_argument("--json", action="store_true", help="Ergebnis von --router bzw. --extrahieren maschinenlesbar")
     s.set_defaults(func=cmd_llm)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")

@@ -32,6 +32,7 @@ GRUND_FORM = "form"  # kein Objekt mit "wert" und "beleg"
 GRUND_WERT = "wert"  # parse_wert lehnt den Wert ab
 GRUND_BELEG = "beleg"  # Beleg fehlt oder steht nicht in der Eingabe
 GRUND_NUR_WENN = "nur_wenn"  # Bedingung des Fakts ist nachweislich nicht erfüllt
+GRUND_WIDERSPRUCH = "widerspruch"  # Aufrufe je Lebenslage liefern verschiedene Werte (#77)
 
 
 # ------------------------------------------------------------------ Welche Fakten?
@@ -123,9 +124,8 @@ def fakt_schema(kb: Wissensbasis, fid: str, d: FaktDefinition) -> dict[str, Any]
     }
 
 
-def schema_fuer(kb: Wissensbasis, lebenslagen: Iterable[str]) -> dict[str, Any]:
-    """JSON-Schema der Extraktion für die Lebenslagen. Jede Angabe ist freiwillig."""
-    erlaubt = erlaubte_fakten(kb, lebenslagen)
+def schema_aus(kb: Wissensbasis, erlaubt: dict[str, FaktDefinition]) -> dict[str, Any]:
+    """JSON-Schema der Extraktion für diese Fakten. Jede Angabe ist freiwillig."""
     return {
         "type": "object",
         "properties": {
@@ -139,6 +139,20 @@ def schema_fuer(kb: Wissensbasis, lebenslagen: Iterable[str]) -> dict[str, Any]:
         "required": ["fakten"],
         "additionalProperties": False,
     }
+
+
+def schema_fuer(kb: Wissensbasis, lebenslagen: Iterable[str]) -> dict[str, Any]:
+    """JSON-Schema der Extraktion für die Lebenslagen."""
+    return schema_aus(kb, erlaubte_fakten(kb, lebenslagen))
+
+
+def frage_text(kb: Wissensbasis, fid: str) -> Optional[str]:
+    """Frage zum Fakt, wie das Formular sie stellt (mit eingesetzter Person)."""
+    d = kb.fakt_definition(fid)
+    if d is None:
+        return None
+    rolle = kb.rolle_von_fakt(fid)
+    return d.frage_fuer(rolle.wer if rolle else None)
 
 
 # ------------------------------------------------------------------ Prüfung
@@ -191,51 +205,60 @@ def _bedingung_id(fid: str, d: FaktDefinition) -> Optional[str]:
     return ziel
 
 
-def pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str, lebenslagen: Iterable[str],
-            bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
-    """Prüft die Ausgabe des LLM gegen Katalog, Eingabetext und ``nur_wenn``.
+def eintraege_pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str,
+                      erlaubt: dict[str, FaktDefinition]) -> tuple[dict[str, Vorschlag], list[Verworfen]]:
+    """Jede Angabe für sich: ID erlaubt, Form, Wert (``parse_wert``), Beleg im Text.
 
-    ``bekannt``: schon bestätigte Angaben (geparste Werte), für ``nur_wenn``.
-    Ist die äußere Form falsch, gilt die ganze Ausgabe als ungültig (``LLMUngueltigeAusgabe``,
-    der Aufrufer fällt dann aufs Formular zurück).
+    ``nur_wenn`` prüft ``nur_wenn_pruefen`` danach, weil die Bedingung auch aus einem
+    anderen Aufruf kommen kann. Falsche äußere Form ist ``LLMUngueltigeAusgabe``.
     """
     if not isinstance(ausgabe, dict) or not isinstance(ausgabe.get("fakten"), dict):
         raise LLMUngueltigeAusgabe("Objekt mit 'fakten' erwartet")
-    erlaubt = erlaubte_fakten(kb, lebenslagen)
-    ergebnis = Pruefung()
     gueltig: dict[str, Vorschlag] = {}
-
+    verworfen: list[Verworfen] = []
     for fid, eintrag in ausgabe["fakten"].items():
         fid = str(fid)
         d = erlaubt.get(fid)
         if d is None:
             grund = GRUND_NICHT_IM_SCHEMA if kb.fakt_definition(fid) is not None else GRUND_UNBEKANNT
-            ergebnis.verworfen.append(Verworfen(fid, grund))
+            verworfen.append(Verworfen(fid, grund))
             continue
         if not isinstance(eintrag, dict) or "wert" not in eintrag or "beleg" not in eintrag:
-            ergebnis.verworfen.append(Verworfen(fid, GRUND_FORM))
+            verworfen.append(Verworfen(fid, GRUND_FORM))
             continue
         roh = eintrag["wert"]
         if d.typ == "zahl" and isinstance(roh, str) and roh.strip().lower() != UNBEKANNT_TEXT:
             # "1.500" hieße für parse_wert 1500, "1.5" aber 15: Zahlen nur als JSON-Zahl
-            ergebnis.verworfen.append(Verworfen(fid, GRUND_WERT))
+            verworfen.append(Verworfen(fid, GRUND_WERT))
             continue
         try:
             wert = parse_wert(d, roh)
         except EingabeFehler:
-            ergebnis.verworfen.append(Verworfen(fid, GRUND_WERT))
+            verworfen.append(Verworfen(fid, GRUND_WERT))
             continue
         if not beleg_im_text(eintrag["beleg"], eingabe):
-            ergebnis.verworfen.append(Verworfen(fid, GRUND_BELEG))
+            verworfen.append(Verworfen(fid, GRUND_BELEG))
+            continue
+        if d.typ == "ort" and wert is not UNBEKANNT and wert not in eintrag["beleg"]:
+            # PLZ oder Gemeindeschlüssel nur, wenn die Person sie selbst schreibt; sonst wären sie geraten
+            verworfen.append(Verworfen(fid, GRUND_BELEG))
             continue
         gueltig[fid] = Vorschlag(fid, wert, eintrag["beleg"].strip())
+    return gueltig, verworfen
 
-    # nur_wenn: verwerfen, wenn die Bedingung bekannt ist und nicht zutrifft.
-    # Fehlt die Bedingung ganz, bleibt der Vorschlag; der Nutzer sieht und bestätigt ihn.
+
+def nur_wenn_pruefen(kb: Wissensbasis, gueltig: dict[str, Vorschlag],
+                     bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
+    """Verwirft Vorschläge, deren Bedingung bekannt ist und nicht zutrifft.
+
+    Bekannt heißt: in ``bekannt`` (schon bestätigt) oder selbst vorgeschlagen.
+    Fehlt die Bedingung ganz, bleibt der Vorschlag; der Nutzer sieht und bestätigt ihn.
+    """
+    ergebnis = Pruefung()
     werte = {**(bekannt or {}), **{fid: v.wert for fid, v in gueltig.items()}}
     for fid, v in gueltig.items():
-        d = erlaubt[fid]
-        ziel = _bedingung_id(fid, d)
+        d = kb.fakt_definition(fid)
+        ziel = _bedingung_id(fid, d) if d else None
         if ziel is not None and ziel in werte:
             ziel_def = kb.fakt_definition(ziel)
             try:
@@ -249,7 +272,22 @@ def pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str, lebenslagen: Iterable[
     return ergebnis
 
 
+def pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str, lebenslagen: Iterable[str],
+            bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
+    """Prüft die Ausgabe des LLM gegen Katalog, Eingabetext und ``nur_wenn``.
+
+    ``bekannt``: schon bestätigte Angaben (geparste Werte), für ``nur_wenn``.
+    Ist die äußere Form falsch, gilt die ganze Ausgabe als ungültig (``LLMUngueltigeAusgabe``,
+    der Aufrufer fällt dann aufs Formular zurück).
+    """
+    gueltig, verworfen = eintraege_pruefen(kb, ausgabe, eingabe, erlaubte_fakten(kb, lebenslagen))
+    ergebnis = nur_wenn_pruefen(kb, gueltig, bekannt)
+    ergebnis.verworfen[:0] = verworfen
+    return ergebnis
+
+
 __all__ = [
     "GRUND_BELEG", "GRUND_FORM", "GRUND_NICHT_IM_SCHEMA", "GRUND_NUR_WENN", "GRUND_UNBEKANNT", "GRUND_WERT",
-    "Pruefung", "Verworfen", "Vorschlag", "beleg_im_text", "erlaubte_fakten", "fakt_schema", "pruefen", "schema_fuer",
+    "GRUND_WIDERSPRUCH", "Pruefung", "Verworfen", "Vorschlag", "beleg_im_text", "eintraege_pruefen",
+    "erlaubte_fakten", "fakt_schema", "frage_text", "nur_wenn_pruefen", "pruefen", "schema_aus", "schema_fuer",
 ]

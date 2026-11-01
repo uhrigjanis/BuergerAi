@@ -192,11 +192,11 @@ def test_extrahieren_mit_fake(kb, caplog):
     assert p.fakten() == {"eltern_verheiratet": True}
     assert _gruende(p) == {"kind_geboren": GRUND_BELEG}
     aufruf = fake.aufrufe[0]
-    assert aufruf["aufgabe"] == "extraktion" and aufruf["eingabe"] == text
-    assert "2026-11-02" in aufruf["system"] and text not in aufruf["system"]
+    assert aufruf["aufgabe"] == "extraktion" and text in aufruf["eingabe"]
+    assert "2026-11-02" in aufruf["eingabe"] and text not in aufruf["system"]
     assert aufruf["schema"] == schema_fuer(kb, ["geburt"])
     assert "GEHEIM-4711" not in caplog.text and "verheiratet" not in caplog.text
-    assert "vorschlaege=1 verworfen=1 gruende=beleg" in caplog.text
+    assert "aufrufe=1 vorschlaege=1 verworfen=1 gruende=beleg" in caplog.text
 
 
 @pytest.mark.anforderung("ANF-LLM-09")

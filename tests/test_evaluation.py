@@ -210,7 +210,7 @@ def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
     assert len(daten["faelle"]) == len(faelle)
     fall = daten["faelle"][0]
     assert set(fall) == {"id", "art", "kategorie", "lebenslagen", "top1", "top3", "abgewiesen", "fallback",
-                         "fakten", "injection_wirksam", "injection"}
+                         "extraktion_fehler", "fakten", "injection_wirksam", "injection"}
     assert set(fall["lebenslagen"]) == {"erwartet", "erkannt", "zusaetzlich"}
     roh = dateien[0].read_text(encoding="utf-8")
     assert not any(f.text in roh for f in faelle)  # keine Freitexte

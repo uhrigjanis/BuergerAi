@@ -854,7 +854,7 @@ def cmd_eval(args: argparse.Namespace) -> int:
         for zeile in fehler:
             print(f"  {zeile}")
         return 1
-    if args.verfahren == "llm":
+    if args.verfahren in ("llm", "llm-extraktion"):
         from .llm import aus_umgebung, erzeugen
 
         try:
@@ -864,11 +864,12 @@ def cmd_eval(args: argparse.Namespace) -> int:
             print(f.rot(f"LLM-Konfiguration fehlerhaft: {exc}"))
             return 2
         if modell is None:
-            print(f.rot("LLM-Schicht aus: --verfahren llm braucht BUERGERAI_LLM_ANBIETER (siehe buergerai llm)"))
+            print(f.rot(f"LLM-Schicht aus: --verfahren {args.verfahren} braucht BUERGERAI_LLM_ANBIETER "
+                        "(siehe buergerai llm)"))
             return 2
         pause = 1.0 if args.pause is None else args.pause
         print(f.grau(f"{konfig.beschreibung()} · {len(faelle)} Fälle · Pause {pause:g} s"), file=sys.stderr)
-        verfahren = ev.llm_router(kb, pause=pause, llm=modell)
+        verfahren = ev.VERFAHREN[args.verfahren](kb, pause=pause, llm=modell)
         modellname = f"{konfig.anbieter}/{konfig.modell}"
     else:
         verfahren = ev.VERFAHREN[args.verfahren](kb)
@@ -1015,19 +1016,24 @@ def _llm_router(args: argparse.Namespace, kb: Wissensbasis, konfig: Any, f: "Far
 
 
 def _llm_extrahieren(args: argparse.Namespace, kb: Wissensbasis, lagen: list[str], konfig: Any, f: "Farbe") -> int:
-    """Freitext → LLM → geprüfte Vorschläge, zum Ausprobieren (#75; Ausbau in #77). Nur ausgedachte Texte!"""
+    """Freitext → LLM → geprüfte Vorschläge (#77); mit --offen als Antwort auf eine Rückfrage. Nur ausgedachte Texte!"""
     import time
 
     from . import llm as llm_mod
     from .fakten import wert_als_text
-    from .llm.extraktion import extrahieren
+    from .llm.extraktion import antwort_extrahieren, extrahieren
     from .llm.router import erkennen
 
     text = args.extrahieren.strip()
     if not text:
         print(f.rot("Bitte einen Text angeben."))
         return 2
-    if not lagen:
+    if args.offen:
+        unbekannt = [x for x in args.offen if kb.fakt_definition(x) is None]
+        if unbekannt:
+            print(f.rot(f"Unbekannter Fakt: {', '.join(unbekannt)}"))
+            return 2
+    elif not lagen:
         try:
             routing = erkennen(llm_mod.erzeugen(konfig), kb, text)
         except llm_mod.LLMFehler as exc:  # z. B. Konfiguration
@@ -1048,11 +1054,14 @@ def _llm_extrahieren(args: argparse.Namespace, kb: Wissensbasis, lagen: list[str
         return 2
     start = time.monotonic()
     try:
-        ergebnis = extrahieren(llm_mod.erzeugen(konfig), kb, text, lagen, heute=heute)
+        modell = llm_mod.erzeugen(konfig)
+        ergebnis = (antwort_extrahieren(modell, kb, text, args.offen, heute=heute) if args.offen
+                    else extrahieren(modell, kb, text, lagen, heute=heute))
     except llm_mod.LLMFehler as exc:
         print(f.rot(f"✗ {exc.art}: {exc}"))
         return 1
-    print(f.gruen(f"✓ Antwort nach {time.monotonic() - start:.1f} s") + f.grau(f" (Lebenslagen: {', '.join(lagen)})"))
+    bezug = f"offene Fakten: {', '.join(args.offen)}" if args.offen else f"Lebenslagen: {', '.join(lagen)}"
+    print(f.gruen(f"✓ Antwort nach {time.monotonic() - start:.1f} s") + f.grau(f" ({bezug})"))
     if args.json:
         print(json.dumps({
             "vorschlaege": [{"id": v.id, "wert": "unbekannt" if v.wert is UNBEKANNT else
@@ -1212,9 +1221,10 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("was", choices=["intake"], help="Was bewertet wird (bisher nur intake)")
     s.add_argument("--verfahren", default="stichwortsuche", choices=sorted(evaluation_mod.VERFAHREN),
                    help="stichwortsuche: Baseline ohne LLM; llm: Router mit dem konfigurierten LLM (#76); "
+                        "llm-extraktion: Router und Fakten-Extraktion (#77); "
                         "erwartung: Erwartung selbst (Selbsttest, 100 %%)")
     s.add_argument("--pause", type=float, default=None, metavar="SEKUNDEN",
-                   help="Wartezeit zwischen LLM-Aufrufen (Standard bei --verfahren llm: 1; kostenlose Pläne)")
+                   help="Wartezeit zwischen LLM-Aufrufen (Standard mit LLM: 1; kostenlose Pläne)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
     s.add_argument("--ausgabe", metavar="DATEI.json",
@@ -1233,6 +1243,9 @@ def parser() -> argparse.ArgumentParser:
                    help="Lebenslagen in einem ausgedachten Freitext erkennen (nie echte Personendaten)")
     s.add_argument("--lebenslage", "-l", action="append", metavar="ID",
                    help="Lebenslage für --extrahieren (mehrfach möglich; sonst erkennt sie der Router)")
+    s.add_argument("--offen", action="append", metavar="FAKT",
+                   help="--extrahieren als freie Antwort auf eine Rückfrage: nur diese offenen Fakten "
+                        "(mehrfach möglich; der erste ist die gestellte Frage)")
     s.add_argument("--stichtag", help="Bezugsdatum für relative Angaben, JJJJ-MM-TT (Standard: heute)")
     s.add_argument("--json", action="store_true", help="Ergebnis von --router bzw. --extrahieren maschinenlesbar")
     s.set_defaults(func=cmd_llm)

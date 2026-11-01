@@ -312,3 +312,66 @@ def test_logs_ohne_freitexte_und_schluessel(mistral, caplog):
     assert caplog.records, "jeder Aufruf wird protokolliert"
     assert GEHEIM not in caplog.text and SCHLUESSEL not in caplog.text
     assert "aufgabe=router" in caplog.text and "tokens_ein=12" in caplog.text and "ergebnis=dienst" in caplog.text
+
+
+# ------------------------------------------------------------------ .env
+
+
+@pytest.mark.anforderung("ANF-LLM-07")
+def test_env_datei_lesen(tmp_path):
+    from buergerai.llm.konfiguration import env_datei_lesen
+
+    datei = tmp_path / ".env"
+    datei.write_text(
+        "# Kommentar\n\nBUERGERAI_LLM_ANBIETER=mistral\nexport MISTRAL_API_KEY = 'sk-mit # raute'\n"
+        'BUERGERAI_LLM_MODELL="mistral-small-latest"\nBUERGERAI_LLM_TIMEOUT=30 # Sekunden\n'
+        f"kaputte zeile {GEHEIM}\n1FALSCH=x\nLEER=\n", encoding="utf-8")
+    assert env_datei_lesen(datei) == {
+        "BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "sk-mit # raute",
+        "BUERGERAI_LLM_MODELL": "mistral-small-latest", "BUERGERAI_LLM_TIMEOUT": "30", "LEER": ""}
+
+
+@pytest.mark.anforderung("ANF-LLM-07")
+def test_env_datei_wird_gelesen_umgebung_hat_vorrang(tmp_path, monkeypatch, caplog):
+    datei = tmp_path / "meine.env"
+    datei.write_text(f"BUERGERAI_LLM_ANBIETER=mistral\nMISTRAL_API_KEY={SCHLUESSEL}\nBUERGERAI_LLM_TIMEOUT=30\n"
+                     f"ungueltig {GEHEIM}\n", encoding="utf-8")
+    monkeypatch.setenv("BUERGERAI_ENV_DATEI", str(datei))
+    for name in ("BUERGERAI_LLM_ANBIETER", "MISTRAL_API_KEY", "BUERGERAI_LLM_MODELL", "BUERGERAI_LLM_VERSUCHE"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("BUERGERAI_LLM_TIMEOUT", "5")
+    with caplog.at_level(logging.DEBUG, logger="buergerai.llm"):
+        k = llm.aus_umgebung()
+    assert (k.anbieter, k.schluessel, k.timeout) == ("mistral", SCHLUESSEL, 5.0)
+    assert llm.env_datei_finden() == datei
+    assert "zeile=4" in caplog.text and GEHEIM not in caplog.text and SCHLUESSEL not in caplog.text
+
+
+@pytest.mark.anforderung("ANF-LLM-07")
+def test_env_im_aktuellen_ordner(tmp_path, monkeypatch, capsys):
+    monkeypatch.delenv("BUERGERAI_ENV_DATEI")
+    for name in ("BUERGERAI_LLM_ANBIETER", "MISTRAL_API_KEY", "BUERGERAI_LLM_FAKE_DATEI"):
+        monkeypatch.delenv(name, raising=False)
+    (tmp_path / ".env").write_text(f"BUERGERAI_LLM_ANBIETER=fake\nBUERGERAI_LLM_FAKE_DATEI={PROBE}\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    assert main(["--keine-farbe", "llm", "--probe"]) == 0
+    out = capsys.readouterr().out
+    assert "Anbieter fake" in out and f"Werte aus {tmp_path / '.env'}" in out
+
+
+@pytest.mark.anforderung("ANF-LLM-07")
+def test_platzhalter_aus_der_vorlage_wird_erkannt():
+    from buergerai.llm.konfiguration import REPO, env_datei_lesen
+
+    vorlage = env_datei_lesen(REPO / ".env.beispiel")
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="Platzhalter"):
+        llm.aus_umgebung(vorlage)
+
+
+@pytest.mark.anforderung("ANF-LLM-07")
+def test_env_wird_nicht_eingecheckt():
+    from buergerai.llm.konfiguration import REPO
+
+    regeln = (REPO / ".gitignore").read_text(encoding="utf-8").splitlines()
+    assert ".env" in regeln and ".env.*" in regeln and "!.env.beispiel" in regeln
+    assert (REPO / ".env.beispiel").is_file()

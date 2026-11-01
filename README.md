@@ -134,10 +134,12 @@ Jedes Szenario hat eine `persona` (kurze Beschreibung, `sprachstil`, `vorwissen`
 Ohne Konfiguration ist die LLM-Schicht aus, und alles läuft wie oben beschrieben. Zum Entwickeln wird der kostenlose Mistral-Plan „Experiment“ genutzt, **nur mit ausgedachten Texten** und mit eingeschaltetem Training-Opt-out in der Mistral-Konsole ([ADR 0009](docs/adr/0009-llm-schicht.md), Abschnitt 5a).
 
 ```bash
-export BUERGERAI_LLM_ANBIETER=mistral
-export MISTRAL_API_KEY=…            # nie ins Repository
+cp .env.beispiel .env               # .env steht in .gitignore und wird nie eingecheckt
+# in .env den Schlüssel bei MISTRAL_API_KEY eintragen
 ./bai llm --probe                   # Testanfrage ohne personenbezogene Daten
 ```
+
+Die Werte können statt in `.env` auch als Umgebungsvariablen gesetzt werden (z. B. als Codespaces-Secret); gesetzte Umgebungsvariablen haben Vorrang. `./bai llm` zeigt, aus welcher `.env` die Werte kommen.
 
 | Variable | Bedeutung |
 |---|---|
@@ -146,6 +148,7 @@ export MISTRAL_API_KEY=…            # nie ins Repository
 | `MISTRAL_API_KEY` | Schlüssel für Mistral |
 | `BUERGERAI_LLM_TIMEOUT`, `BUERGERAI_LLM_VERSUCHE` | Sekunden je Anfrage (20) und Versuche bei Rate-Limit oder Serverfehler (3) |
 | `BUERGERAI_LLM_FAKE_DATEI` | vorbereitete Antworten für `fake`, z. B. `tests/daten/llm/probe.json` |
+| `BUERGERAI_ENV_DATEI` | andere `.env`-Datei (Standard: `.env` im aktuellen Ordner, sonst im Repository) |
 
 Jeder Fehler (Timeout, Rate-Limit, Ablehnung, ungültige Ausgabe) führt zurück zu Stichwortsuche und Formular. Logs enthalten keine Freitexte, nur Aufgabe, Modell, Dauer und Tokenzahlen.
 

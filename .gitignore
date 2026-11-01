@@ -7,3 +7,7 @@ build/
 .DS_Store
 .venv
 .cache/
+# Lokale Geheimnisse (z. B. MISTRAL_API_KEY), nie einchecken. Vorlage: .env.beispiel
+.env
+.env.*
+!.env.beispiel

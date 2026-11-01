@@ -886,9 +886,12 @@ def cmd_llm(args: argparse.Namespace) -> int:
         return 2
     if konfig is None:
         print("LLM-Schicht aus (BUERGERAI_LLM_ANBIETER nicht gesetzt). Alles läuft ohne LLM über Formular und Stichwortsuche.")
-        print(f.grau("Mistral zum Entwickeln: export BUERGERAI_LLM_ANBIETER=mistral MISTRAL_API_KEY=…  (ADR 0009, Abschnitt 5a)"))
+        print(f.grau("Mistral zum Entwickeln: cp .env.beispiel .env und dort den Schlüssel eintragen (ADR 0009, Abschnitt 5a)"))
         return 1 if args.probe else 0
     print(f"LLM-Schicht an: {konfig.beschreibung()}")
+    env_datei = llm_mod.env_datei_finden()
+    if env_datei:
+        print(f.grau(f"Werte aus {env_datei} (gesetzte Umgebungsvariablen haben Vorrang)"))
     if not args.probe:
         print(f.grau("Testanfrage senden: buergerai llm --probe"))
         return 0

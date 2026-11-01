@@ -16,6 +16,12 @@ def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line("markers", "anforderung(*ids): Test deckt Anforderung(en) aus docs/anforderungen.json ab")
 
 
+@pytest.fixture(autouse=True)
+def _keine_lokale_env(monkeypatch, tmp_path):
+    """Eine lokale .env (z. B. mit MISTRAL_API_KEY) darf die Tests nicht beeinflussen."""
+    monkeypatch.setenv("BUERGERAI_ENV_DATEI", str(tmp_path / "keine.env"))
+
+
 @pytest.fixture(scope="session")
 def kb() -> Wissensbasis:
     return Wissensbasis.laden()

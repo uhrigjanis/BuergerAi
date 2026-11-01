@@ -403,7 +403,7 @@ def https_server(tmp_path, monkeypatch):
     server.schliessen()
 
 
-@pytest.mark.anforderung("ANF-LLM-08")
+@pytest.mark.anforderung("ANF-LLM-10")
 def test_unbekanntes_zertifikat_klare_meldung(https_server):
     url, _ = https_server
     m = MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", timeout=5, versuche=1, url=url))
@@ -411,7 +411,7 @@ def test_unbekanntes_zertifikat_klare_meldung(https_server):
         m.strukturiert("s", "e", SCHEMA, aufgabe="router")
 
 
-@pytest.mark.anforderung("ANF-LLM-08")
+@pytest.mark.anforderung("ANF-LLM-10")
 def test_eigene_zertifikatsdatei(https_server):
     url, zert = https_server
     k = llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x", "BUERGERAI_LLM_URL": url,
@@ -420,7 +420,7 @@ def test_eigene_zertifikatsdatei(https_server):
     assert MistralLLM(k).strukturiert("s", "e", SCHEMA, aufgabe="router") == {"lebenslagen": []}
 
 
-@pytest.mark.anforderung("ANF-LLM-08")
+@pytest.mark.anforderung("ANF-LLM-10")
 def test_ungueltige_zertifikatsdatei(tmp_path):
     with pytest.raises(llm.LLMKonfigurationsfehler, match="nicht gefunden"):
         llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x",

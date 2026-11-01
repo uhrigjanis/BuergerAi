@@ -30,5 +30,10 @@
     "landespflegegeld": "Bayerisches Landesamt für Pflege",
     "hilfe_zur_pflege": "Sozialamt – Kreisfreie Stadt München"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Rentner, der selbst pflegebedürftig ist und von seiner Familie gepflegt wird. Erzählt gern aus seinem Alltag.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

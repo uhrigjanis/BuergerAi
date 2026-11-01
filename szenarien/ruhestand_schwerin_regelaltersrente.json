@@ -36,5 +36,10 @@
     "einkommen.wohnkosten",
     "bezieht_buergergeld",
     "bezieht_asylbewerberleistungen"
-  ]
+  ],
+  "persona": {
+    "beschreibung": "Frau, deren reguläre Rente gerade begonnen hat und die alles in Ordnung bringen will. Erzählt gern von ihrem Berufsweg.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

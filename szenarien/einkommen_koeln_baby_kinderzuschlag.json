@@ -30,5 +30,10 @@
     "geburtsanzeige": "ja",
     "bildung_und_teilhabe": "nein",
     "wohngeld": "unklar"
+  },
+  "persona": {
+    "beschreibung": "Paar mit wenig Geld, das ein Baby erwartet. Macht sich Sorgen ums Geld und schreibt so, wie es spricht.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
   }
 }

@@ -27,5 +27,10 @@
   "erwartet_stellen": {
     "einstiegsgeld": "Jobcenter – Kreisfreie Stadt Dresden"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frau, die aus dem Grundsicherungsgeld heraus einen kleinen Laden eröffnen will und dafür Geld leihen muss. Unsicher, ob sie das darf.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

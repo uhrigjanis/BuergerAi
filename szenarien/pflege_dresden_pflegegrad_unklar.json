@@ -28,5 +28,10 @@
     "rente_pflegeperson": "unklar"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Sohn, der sich um seinen Vater kümmert, aber weder Pflegegrad noch genaue Adresse des Vaters parat hat.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

@@ -22,5 +22,10 @@
   "erwartet_stellen": {
     "bafoeg_studium": "Studierendenwerk"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Erstsemester, die sich gerade einschreibt. Schreibt sehr locker und gibt ihr Alter nicht an.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
+  }
 }

@@ -34,5 +34,10 @@
   },
   "erwartet_stellen": {
     "elterngeld": "Jugendamt Ihres Bezirks"
+  },
+  "persona": {
+    "beschreibung": "Junges Paar in Berlin, erstes Kind unterwegs. Schreibt locker, mit Abkürzungen und Emojis.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "etwas"
   }
 }

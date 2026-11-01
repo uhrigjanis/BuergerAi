@@ -29,5 +29,10 @@
   "erwartet_stellen": {
     "wohnsitz_anmelden": "Bürgerbüro der Landeshauptstadt München"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Familie mit Hund, die innerhalb der Stadt umzieht und Wohngeld bekommt. Schreibt ordentlich und vollständig.",
+    "sprachstil": "foermlich",
+    "vorwissen": "etwas"
+  }
 }

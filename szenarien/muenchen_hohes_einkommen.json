@@ -34,5 +34,10 @@
     "familienversicherung_kind": "unklar",
     "vaterschaftsanerkennung": "nein",
     "sorgeerklaerung": "nein"
+  },
+  "persona": {
+    "beschreibung": "Gutverdienendes Paar, die Mutter privat versichert. Erwartet, dass es kaum Leistungen gibt, und will das bestätigt haben.",
+    "sprachstil": "knapp",
+    "vorwissen": "gut"
   }
 }

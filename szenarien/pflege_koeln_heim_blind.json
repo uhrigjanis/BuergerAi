@@ -27,5 +27,10 @@
     "landesblindengeld": "Landschaftsverband",
     "pflegewohngeld": "Sozialamt"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Blinde Heimbewohnerin, die mit Hilfe einer Betreuerin schreibt. Höflich, sachlich, nennt ihren Pflegegrad sicher.",
+    "sprachstil": "foermlich",
+    "vorwissen": "etwas"
+  }
 }

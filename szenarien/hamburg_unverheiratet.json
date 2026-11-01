@@ -37,5 +37,10 @@
   "erwartet_stellen": {
     "elterngeld": "Bezirksamt",
     "vaterschaftsanerkennung": "Jugendamt – Kreisfreie Stadt Hamburg"
+  },
+  "persona": {
+    "beschreibung": "Unverheiratetes Paar, das nicht weiß, was es wegen der fehlenden Ehe beachten muss. Fragt mehrmals nach.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
   }
 }

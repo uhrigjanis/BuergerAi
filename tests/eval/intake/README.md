@@ -55,6 +55,9 @@ Ausgedachte Freitexte mit den erwarteten Lebenslagen und Angaben. Damit werden R
 
 ## Kennzahlen
 
+Alle Kennzahlen hier sind **deterministisch**: Sie vergleichen exakt mit der Erwartung, ohne Modell als Prüfer. Der LLM-Judge aus #83 kommt nur für Antworttexte und Gesprächsverläufe hinzu und entscheidet nie über Lebenslagen, Fakten oder Ansprüche.
+
+
 | Kennzahl | Bedeutung |
 |---|---|
 | Router Top-1 | Die erste erkannte Lebenslage gehört zu den erwarteten |
@@ -79,5 +82,25 @@ Ausgedachte Freitexte mit den erwarteten Lebenslagen und Angaben. Damit werden R
 | Extraktion (174 Angaben) | Recall 0 %, 174 Fehlerpunkte; die Stichwortsuche entnimmt keine Angaben |
 
 Die Stichwortsuche findet fast immer irgendeine Lebenslage, weil einzelne Wörter passen („Wetter morgen in Berlin“). Deshalb weist sie kaum etwas ab. Genau hier soll der Router mit LLM besser werden, ohne normale Anfragen abzuweisen.
+
+## Personas für Ende-zu-Ende-Tests (#83)
+
+Für ganze Anwendungsfälle (Freitext, Rückfragen, Antworttext) hat jedes Szenario in `szenarien/` eine `persona`:
+
+```json
+"persona": {
+  "beschreibung": "Lagerarbeiter, zum ersten Mal ohne Job. Weiß nicht, wie lange er versichert war, und sagt das auch so.",
+  "sprachstil": "unsicher",
+  "vorwissen": "keins"
+}
+```
+
+| Feld | Werte |
+|---|---|
+| `beschreibung` | ein bis zwei Sätze: wer schreibt, wie die Person tickt. Keine Zahlen; Fakten kommen nur aus dem Szenario |
+| `sprachstil` | `knapp`, `ausfuehrlich`, `umgangssprachlich`, `unsicher`, `foermlich`, `einfach` (Deutsch als Zweitsprache, einfache Sätze) |
+| `vorwissen` | `keins`, `etwas`, `gut` (kennt Begriffe wie Sperrzeit oder Handwerksrolle) |
+
+Der Simulator bekommt Persona und Fakten des Szenarios, der Bericht wird gegen `erwartet` geprüft. `pytest` stellt sicher, dass jedes Szenario eine gültige Persona hat und alle Stile vorkommen (ANF-EVAL-05).
 
 `--verfahren erwartung` gibt die Erwartung selbst zurück und muss überall 100 % ergeben (Selbsttest der Bewertung).

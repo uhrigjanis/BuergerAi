@@ -35,5 +35,10 @@
   "erwartet_stellen": {
     "sozialticket": "hvv",
     "grundsicherungsgeld": "Jobcenter"
+  },
+  "persona": {
+    "beschreibung": "Alleinstehender Mann, der seit Längerem Grundsicherungsgeld bekommt und die Ämter kennt. Antwortet knapp und genau.",
+    "sprachstil": "knapp",
+    "vorwissen": "gut"
   }
 }

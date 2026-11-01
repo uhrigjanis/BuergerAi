@@ -12,5 +12,10 @@
   },
   "erwartet": {
     "bayerisches_familiengeld": "ja"
+  },
+  "persona": {
+    "beschreibung": "Vater, der gehört hat, dass es in Bayern Familiengeld gab, und wissen will, ob sein Kind noch dazugehört.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
   }
 }

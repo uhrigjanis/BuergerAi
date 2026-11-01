@@ -31,5 +31,10 @@
     "erwerbslosenberatung": "Beratungsstelle Arbeit – Kreisfreie Stadt Köln",
     "arbeitsuchend_melden": "Agentur für Arbeit"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Techniker, gerade gekündigt und verärgert. Will schnell wissen, was er tun muss, und antwortet kurz.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

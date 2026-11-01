@@ -32,5 +32,10 @@
     "sterbefall_anzeigen": "Standesamt",
     "rentenvorschuss_witwe": "Renten Service"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Witwe, deren Mann zu Hause gestorben ist. Schreibt lang und durcheinander, weil sie unter Schock steht.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "keins"
+  }
 }

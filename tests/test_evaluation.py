@@ -164,3 +164,31 @@ def test_cli_eval_intake(capsys):
     assert main(["eval", "intake", "--json", "--verfahren", "erwartung"]) == 0
     daten = json.loads(capsys.readouterr().out)
     assert daten["verfahren"] == "erwartung" and daten["router"]["top1"] == 1
+
+
+@pytest.mark.anforderung("ANF-EVAL-05")
+def test_jedes_szenario_hat_eine_persona(kb):
+    from buergerai import szenarien
+
+    alle = szenarien.alle(kb)
+    ohne = [s.id for s in alle if s.persona is None]
+    assert ohne == []
+    stile = Counter(s.persona.sprachstil for s in alle)
+    assert set(stile) == set(szenarien.SPRACHSTILE), stile
+    assert {s.persona.vorwissen for s in alle} == set(szenarien.VORWISSEN)
+
+
+@pytest.mark.anforderung("ANF-EVAL-05")
+@pytest.mark.parametrize("roh, meldung", [
+    ("knapp", "Objekt"),
+    ({"beschreibung": "", "sprachstil": "knapp", "vorwissen": "etwas"}, "beschreibung"),
+    ({"beschreibung": "Mann, 40 Jahre alt.", "sprachstil": "knapp", "vorwissen": "etwas"}, "keine Zahlen"),
+    ({"beschreibung": "Mann.", "sprachstil": "laut", "vorwissen": "etwas"}, "sprachstil"),
+    ({"beschreibung": "Mann.", "sprachstil": "knapp", "vorwissen": "viel"}, "vorwissen"),
+])
+def test_ungueltige_persona(roh, meldung):
+    from buergerai.fakten import EingabeFehler
+    from buergerai.szenarien import persona_parsen
+
+    with pytest.raises(EingabeFehler, match=meldung):
+        persona_parsen(roh)

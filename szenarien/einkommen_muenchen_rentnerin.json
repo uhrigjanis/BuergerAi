@@ -32,5 +32,10 @@
   "erwartet_stellen": {
     "sozialpass": "München-Pass",
     "grundsicherung_alter_em": "Sozialamt – Kreisfreie Stadt München"
+  },
+  "persona": {
+    "beschreibung": "Ältere Dame mit kleiner Rente, die sich schämt, nach Hilfe zu fragen. Schreibt höflich und etwas umständlich.",
+    "sprachstil": "foermlich",
+    "vorwissen": "keins"
   }
 }

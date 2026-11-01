@@ -34,5 +34,10 @@
     "hessengeld": "WIBank",
     "grunderwerbsteuer": "Finanzamt"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Familie, die ein altes Haus kaufen will und sich über das Hessengeld informiert hat. Fragt gezielt nach Voraussetzungen.",
+    "sprachstil": "foermlich",
+    "vorwissen": "gut"
+  }
 }

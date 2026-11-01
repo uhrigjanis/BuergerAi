@@ -37,5 +37,10 @@
   "erwartet_stellen": {
     "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Dresden",
     "landeserziehungsgeld_sn": "Kreisfreie Stadt Dresden"
+  },
+  "persona": {
+    "beschreibung": "Werdender Vater, der sich gut informiert hat und nach dem Landeserziehungsgeld fragt. Erzählt gern Hintergründe.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "gut"
   }
 }

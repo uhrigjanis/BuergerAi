@@ -33,5 +33,10 @@
   "erwartet_stellen": {
     "wertmarke_freifahrt": "Zentrum Bayern Familie und Soziales"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Angestellter nach einem Unfall, gehbehindert, fährt selbst Auto. Beschreibt seinen Alltag und seine Fragen ausführlich.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

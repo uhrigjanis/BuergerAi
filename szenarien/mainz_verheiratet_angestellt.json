@@ -34,5 +34,10 @@
   },
   "erwartet_stellen": {
     "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Mainz"
+  },
+  "persona": {
+    "beschreibung": "Juristin, die ein Kind erwartet. Formuliert präzise und erwartet genaue Angaben zu Fristen.",
+    "sprachstil": "foermlich",
+    "vorwissen": "gut"
   }
 }

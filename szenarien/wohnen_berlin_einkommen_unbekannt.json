@@ -27,5 +27,10 @@
     "grunderwerbsteuer": "ja"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Paar, das eine Wohnung kaufen will und das zu versteuernde Einkommen nicht kennt. Fragt, was das überhaupt ist.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

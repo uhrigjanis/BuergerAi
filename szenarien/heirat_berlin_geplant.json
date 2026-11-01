@@ -30,5 +30,10 @@
     "eheschliessung_anmelden": "Standesamt",
     "familienversicherung_ehe": "Krankenkasse"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Verlobte, die die Hochzeit plant und den Namen des Partners annehmen will. Freut sich und schreibt mit vielen Ausrufezeichen.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
+  }
 }

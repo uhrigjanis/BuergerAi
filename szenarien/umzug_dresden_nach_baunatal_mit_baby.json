@@ -29,5 +29,10 @@
   "erwartet_stellen": {
     "wohnsitz_anmelden": "Meldebehörde – Baunatal",
     "elterngeld": "Kassel"
+  },
+  "persona": {
+    "beschreibung": "Werdende Eltern, die von Sachsen nach Hessen ziehen. Schreiben locker und haben viele Dinge gleichzeitig im Kopf.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "etwas"
   }
 }

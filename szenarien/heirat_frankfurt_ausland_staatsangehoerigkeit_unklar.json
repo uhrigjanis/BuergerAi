@@ -24,5 +24,10 @@
     "eheschliessung_anmelden": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mann, der Deutsch als Zweitsprache spricht und im Ausland geheiratet hat. Schreibt einfache Sätze und ist bei der Staatsangehörigkeit unsicher.",
+    "sprachstil": "einfach",
+    "vorwissen": "keins"
+  }
 }

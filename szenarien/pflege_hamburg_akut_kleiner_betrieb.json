@@ -34,5 +34,10 @@
     "pflegegrad_beantragen": "Pflegekasse",
     "arbeitsverhinderung_pflege": "Arbeitgeber"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Angestellter in einem kleinen Betrieb, dessen Angehöriger plötzlich Pflege braucht. Schreibt kurz und unter Druck.",
+    "sprachstil": "knapp",
+    "vorwissen": "keins"
+  }
 }

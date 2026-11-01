@@ -19,6 +19,34 @@ from .wissensbasis import Wissensbasis
 SZENARIO_VERZEICHNIS = Path(__file__).resolve().parents[2] / "szenarien"
 
 
+# Persona für den Nutzer-Simulator (#83): wie die Person schreibt und was sie schon weiß.
+# Die Fakten kennt der Simulator aus dem Szenario; die Beschreibung enthält deshalb keine Zahlen.
+SPRACHSTILE = ("knapp", "ausfuehrlich", "umgangssprachlich", "unsicher", "foermlich", "einfach")
+VORWISSEN = ("keins", "etwas", "gut")
+
+
+@dataclass(frozen=True)
+class Persona:
+    beschreibung: str
+    sprachstil: str
+    vorwissen: str
+
+
+def persona_parsen(roh: Any) -> Persona:
+    if not isinstance(roh, dict):
+        raise EingabeFehler("persona: Objekt mit beschreibung, sprachstil und vorwissen erwartet")
+    beschreibung = str(roh.get("beschreibung") or "").strip()
+    if not beschreibung or len(beschreibung) > 300:
+        raise EingabeFehler("persona.beschreibung: ein bis zwei Sätze (höchstens 300 Zeichen)")
+    if any(z.isdigit() for z in beschreibung):
+        raise EingabeFehler("persona.beschreibung: keine Zahlen, die Fakten stehen im Szenario")
+    if roh.get("sprachstil") not in SPRACHSTILE:
+        raise EingabeFehler(f"persona.sprachstil: erlaubt sind {', '.join(SPRACHSTILE)}")
+    if roh.get("vorwissen") not in VORWISSEN:
+        raise EingabeFehler(f"persona.vorwissen: erlaubt sind {', '.join(VORWISSEN)}")
+    return Persona(beschreibung, roh["sprachstil"], roh["vorwissen"])
+
+
 @dataclass
 class Szenario:
     id: str
@@ -30,6 +58,7 @@ class Szenario:
     erwartet_stellen: dict[str, str] = field(default_factory=dict)  # Leistung -> Teil des Namens der Stelle
     anforderungen: list[str] = field(default_factory=list)
     pfad: Optional[Path] = None
+    persona: Optional[Persona] = None
 
 
 def fakten_parsen(kb: Wissensbasis, roh: dict[str, Any]) -> dict[str, Any]:
@@ -64,6 +93,7 @@ def laden(kb: Wissensbasis, pfad: Path) -> Szenario:
         erwartet_stellen=roh.get("erwartet_stellen", {}),
         anforderungen=roh.get("anforderungen", []),
         pfad=pfad,
+        persona=persona_parsen(roh["persona"]) if "persona" in roh else None,
     )
 
 

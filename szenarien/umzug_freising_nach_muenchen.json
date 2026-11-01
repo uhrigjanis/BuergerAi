@@ -39,5 +39,10 @@
     "hundesteuer_abmelden": "Steueramt der Gemeinde – Freising",
     "kfz_umzug": "Kfz-Zulassungsbehörde – Kreisfreie Stadt München"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mann mit Hund und Auto, der in die Stadt zieht. Will eine Checkliste und antwortet kurz.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

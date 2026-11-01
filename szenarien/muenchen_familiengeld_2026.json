@@ -14,5 +14,10 @@
     "geburtsanzeige": "ja",
     "bayerisches_familiengeld": "nein",
     "vaterschaftsanerkennung": "nein"
+  },
+  "persona": {
+    "beschreibung": "Mutter mit Baby, die spät dran ist und hofft, noch etwas beantragen zu können. Schreibt schnell und etwas gestresst.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "etwas"
   }
 }

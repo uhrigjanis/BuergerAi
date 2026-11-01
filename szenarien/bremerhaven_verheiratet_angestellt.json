@@ -36,5 +36,10 @@
   },
   "erwartet_stellen": {
     "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Bremerhaven"
+  },
+  "persona": {
+    "beschreibung": "Verwaltungsangestellte, schwanger, schreibt in ganzen Sätzen und bedankt sich für jede Antwort.",
+    "sprachstil": "foermlich",
+    "vorwissen": "etwas"
   }
 }

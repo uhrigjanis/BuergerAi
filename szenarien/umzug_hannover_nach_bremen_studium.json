@@ -31,5 +31,10 @@
     "begruessungsgeld_studium": "Universität Bremen",
     "wohnsitz_anmelden": "Meldebehörde – Bremen"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Studentin, die für das Studium umzieht und vom Begrüßungsgeld gehört hat. Sehr locker im Ton.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
+  }
 }

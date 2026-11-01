@@ -37,5 +37,10 @@
     "landespflegegeld": "Bayerisches Landesamt für Pflege",
     "pflegegeld": "Pflegekasse"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Berufstätige Tochter, die ihre Mutter in Bayern pflegt und viel pendelt. Erzählt ausführlich und ist erschöpft.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

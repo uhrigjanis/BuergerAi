@@ -32,5 +32,10 @@
     "erbe_ausschlagen": "Nachlassgericht",
     "bestattungskosten_sozialamt": "Sozialamt – Kreisfreie Stadt Köln"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Sohn, dessen Vater in einer anderen Stadt im Krankenhaus gestorben ist. Kurz angebunden, denkt über das Ausschlagen des Erbes nach.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

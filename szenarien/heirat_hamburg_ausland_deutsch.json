@@ -29,5 +29,10 @@
   "erwartet_stellen": {
     "auslandsehe_beurkunden": "Standesamt I in Berlin"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frau, die mit ihrer Partnerin in Dänemark geheiratet hat und wissen will, ob die Ehe hier gilt. Erzählt von der Hochzeit.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

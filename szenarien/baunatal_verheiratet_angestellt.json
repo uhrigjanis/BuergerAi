@@ -34,5 +34,10 @@
   },
   "erwartet_stellen": {
     "elterngeld": "Hessisches Amt für Versorgung und Soziales Kassel"
+  },
+  "persona": {
+    "beschreibung": "Werkzeugmacher, dessen Frau schwanger ist. Schreibt kurz vom Handy in der Pause.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
   }
 }

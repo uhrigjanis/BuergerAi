@@ -41,5 +41,10 @@
     "sozialticket": "Berlin-Ticket S",
     "bildung_und_teilhabe": "Stelle für Bildung und Teilhabe"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mutter von zwei Kindern, die Wohngeld bekommt und sich fragt, ob es noch mehr Hilfe gibt. Entschuldigt sich oft für ihre Fragen.",
+    "sprachstil": "unsicher",
+    "vorwissen": "etwas"
+  }
 }

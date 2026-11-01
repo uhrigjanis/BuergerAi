@@ -29,5 +29,10 @@
   "erwartet_stellen": {
     "schulanmeldung": "Grundschule im Schulbezirk bzw. Schulamt – München"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mutter eines Sommerkinds, die Nachmittagsbetreuung braucht. Schreibt locker und fragt nach dem Hort.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
+  }
 }

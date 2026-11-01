@@ -32,5 +32,10 @@
     "einkommen.wohnkosten",
     "bezieht_buergergeld",
     "bezieht_asylbewerberleistungen"
-  ]
+  ],
+  "persona": {
+    "beschreibung": "Ehemaliger Selbstständiger im Rentenalter mit privater Krankenversicherung, der kaum in die Rentenkasse eingezahlt hat. Höflich und erstaunt.",
+    "sprachstil": "foermlich",
+    "vorwissen": "keins"
+  }
 }

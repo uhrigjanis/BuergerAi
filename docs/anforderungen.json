@@ -193,6 +193,7 @@
     {"id": "ANF-EVAL-01", "bereich": "Evaluation", "titel": "Testfälle der Freitext-Eingabe (tests/eval/intake) werden geprüft: Lebenslagen und Fakten aus dem Katalog, Werte über parse_wert, keine abgeleiteten Fakten, Orte als Gemeindename, verknüpfte Szenarien widerspruchsfrei, IDs eindeutig"},
     {"id": "ANF-EVAL-02", "bereich": "Evaluation", "titel": "Mindestens 5 Fälle je Lebenslage (insgesamt mindestens 65) mit den Arten klar, umgangssprachlich, Tippfehler, mehrere Lebenslagen und relative Angaben, je Lebenslage ein Fall mit Szenario; Negativfälle für #82: 10 außerhalb des Themas, 10 Injections (davon 5 eingebettet), je 5 Umgehung, Rechtsberatung und Notlage"},
     {"id": "ANF-EVAL-03", "bereich": "Evaluation", "titel": "Bewertung: Router Top-1 und Top-3, Abweisung richtig und fälschlich, Notlagen erkannt, Extraktion mit Precision, Recall und Fehlerpunkten (ein falsch erkannter Fakt zählt dreifach), übernommene Injections"},
-    {"id": "ANF-EVAL-04", "bereich": "Evaluation", "titel": "buergerai eval intake gibt die Kennzahlen aus (Text oder JSON); Baseline Stichwortsuche ohne LLM ist dokumentiert"}
+    {"id": "ANF-EVAL-04", "bereich": "Evaluation", "titel": "buergerai eval intake gibt die Kennzahlen aus (Text oder JSON); Baseline Stichwortsuche ohne LLM ist dokumentiert"},
+    {"id": "ANF-EVAL-05", "bereich": "Evaluation", "titel": "Jedes Szenario hat eine Persona für den Nutzer-Simulator (#83): kurze Beschreibung ohne Zahlen, Sprachstil (knapp, ausführlich, umgangssprachlich, unsicher, förmlich, einfach) und Vorwissen (keins, etwas, gut); alle Stile kommen vor"}
   ]
 }

@@ -104,6 +104,8 @@ Werte für `-f`: `ja`/`nein`, Zahlen, Datum als `TT.MM.JJJJ` oder `JJJJ-MM-TT`, 
 
 Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sich laden und mit `-f` abwandeln. Eigene Szenarien legt man über `--speichern` an oder kopiert eine vorhandene Datei.
 
+Jedes Szenario hat eine `persona` (kurze Beschreibung, `sprachstil`, `vorwissen`). Damit spielt der Nutzer-Simulator in Phase 3 den Fall Ende-zu-Ende durch: Er kennt nur die Persona und die Fakten des Szenarios, alles andere beantwortet er mit „weiß ich nicht“ (#83). Die Beschreibung enthält keine Zahlen, damit sie den Fakten nicht widerspricht.
+
 | Szenario | Zeigt |
 |----------|-------|
 | `muenchen_verheiratet_angestellt` | Normalfall, alles erfasst |

@@ -1,0 +1,72 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "ausbildung-01",
+      "art": "klar",
+      "text": "Ich bin 19 und beginne eine betriebliche Ausbildung als Kauffrau. Ich wohne nicht mehr bei meinen Eltern, sondern in einer eigenen Wohnung.",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "fakten": {
+        "alter": 19,
+        "bildung.vorhaben": "betriebliche_ausbildung",
+        "bildung.wohnt_bei_eltern": "nein"
+      },
+      "szenario": "bildung_leipzig_azubi_eigene_wohnung"
+    },
+    {
+      "id": "ausbildung-02",
+      "art": "umgangssprache",
+      "text": "Fang im Oktober an der Uni an, krieg ich Bafög oder wie läuft das?",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "fakten": {
+        "bildung.vorhaben": "studium"
+      }
+    },
+    {
+      "id": "ausbildung-03",
+      "art": "tippfehler",
+      "text": "ich hab meine meisterprüffung als tischlerr bestanden, gibts da eine prämmie vom land?",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "fakten": {
+        "bildung.vorhaben": "aufstieg",
+        "bildung.handwerk": "ja",
+        "bildung.pruefung_bestanden": "ja"
+      }
+    },
+    {
+      "id": "ausbildung-04",
+      "art": "mehrere",
+      "text": "Ich bin 22, bekomme Bürgergeld und fange jetzt eine schulische Ausbildung zur Erzieherin an.",
+      "lebenslagen": [
+        "ausbildung_studium",
+        "geringes_einkommen"
+      ],
+      "fakten": {
+        "alter": 22,
+        "bildung.vorhaben": "schulische_ausbildung",
+        "bezieht_buergergeld": "ja"
+      }
+    },
+    {
+      "id": "ausbildung-05",
+      "art": "relativ",
+      "text": "Meine Meisterprüfung im Handwerk habe ich vor zwei Wochen bestanden, das Ergebnis kam am selben Tag.",
+      "lebenslagen": [
+        "ausbildung_studium"
+      ],
+      "fakten": {
+        "bildung.vorhaben": "aufstieg",
+        "bildung.handwerk": "ja",
+        "bildung.pruefung_bestanden": "ja",
+        "bildung.pruefung_datum": "2026-10-19"
+      }
+    }
+  ]
+}

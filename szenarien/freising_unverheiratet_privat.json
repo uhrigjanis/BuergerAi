@@ -37,5 +37,10 @@
     "sorgeerklaerung": "ja",
     "bayerisches_familiengeld": "nein"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Selbstbewusste Mutter mit privater Krankenversicherung, Kind schon da. Hat viel gelesen und fragt gezielt nach.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "gut"
+  }
 }

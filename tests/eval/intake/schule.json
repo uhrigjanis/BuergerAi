@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "schule-01",
+      "art": "klar",
+      "text": "Unser Sohn ist am 15.08.2021 geboren und soll 2027 eingeschult werden. Eine Nachmittagsbetreuung brauchen wir nicht. Er ist unser einziges Kind.",
+      "lebenslagen": [
+        "schule"
+      ],
+      "fakten": {
+        "bildung.kind_geburtsdatum": "2021-08-15",
+        "bildung.einschulungsjahr": 2027,
+        "bildung.ganztag_gewuenscht": "nein",
+        "kinder_im_haushalt": 1
+      },
+      "szenario": "schule_kiel_augustkind"
+    },
+    {
+      "id": "schule-02",
+      "art": "umgangssprache",
+      "text": "Unsere Kleine kommt nächstes Jahr in die Schule, brauchen wir da nen Hortplatz und wie kriegen wir den?",
+      "lebenslagen": [
+        "schule"
+      ],
+      "fakten": {
+        "bildung.einschulungsjahr": 2027
+      },
+      "notiz": "Die Frage nach dem Hort ist keine Angabe zum Ganztag."
+    },
+    {
+      "id": "schule-03",
+      "art": "tippfehler",
+      "text": "muss mein kind mit 6 jaren in die schule? er ist im juli 2021 geborn",
+      "lebenslagen": [
+        "schule"
+      ],
+      "fakten": {},
+      "notiz": "Nur Monat und Jahr der Geburt, also kein Geburtsdatum."
+    },
+    {
+      "id": "schule-04",
+      "art": "mehrere",
+      "text": "Wir sind gerade nach Potsdam gezogen und unsere Tochter (geboren am 03.02.2021) kommt 2027 in die Schule.",
+      "lebenslagen": [
+        "schule",
+        "umzug"
+      ],
+      "fakten": {
+        "bildung.kind_geburtsdatum": "2021-02-03",
+        "bildung.einschulungsjahr": 2027
+      },
+      "orte": {
+        "wohnort": "Potsdam"
+      }
+    },
+    {
+      "id": "schule-05",
+      "art": "relativ",
+      "text": "Unser Sohn wird morgen fünf Jahre alt. Wann muss er in die Schule?",
+      "lebenslagen": [
+        "schule"
+      ],
+      "fakten": {
+        "bildung.kind_geburtsdatum": "2021-11-03"
+      }
+    }
+  ]
+}

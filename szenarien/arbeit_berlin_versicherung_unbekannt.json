@@ -25,5 +25,10 @@
   "erwartet_stellen": {
     "erwerbslosenberatung": "BALZ"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Lagerarbeiter, zum ersten Mal ohne Job. Weiß nicht, wie lange er versichert war, und sagt das auch so.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

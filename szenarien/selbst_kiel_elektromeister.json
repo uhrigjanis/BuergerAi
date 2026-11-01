@@ -31,5 +31,10 @@
     "meistergruendungspraemie": "IB.SH",
     "gewerbe_anmelden": "Gewerbeamt – Kiel"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Elektromeister, der sich mit eigenem Betrieb selbstständig macht. Kennt die Handwerksrolle und will die Reihenfolge der Schritte.",
+    "sprachstil": "knapp",
+    "vorwissen": "gut"
+  }
 }

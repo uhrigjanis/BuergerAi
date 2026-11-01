@@ -8,6 +8,7 @@ Beispiele::
     buergerai erklaeren elterngeld --szenario freising_unverheiratet
     buergerai lebenslagen --suche "Wir bekommen ein Baby"
     buergerai szenarien --pruefen
+    buergerai eval intake --details             # Evaluation der Freitext-Eingabe (Baseline Stichwortsuche)
     buergerai web                               # Web-Oberfläche auf http://localhost:8000
 """
 
@@ -22,6 +23,7 @@ from typing import Any, Optional
 
 from . import __version__
 from . import anforderungen as anforderungen_mod
+from . import evaluation as evaluation_mod
 from . import gebiete as gebiete_mod
 from . import quellenpruefung as qp
 from . import szenarien as szenarien_mod
@@ -841,6 +843,27 @@ def cmd_web(args: argparse.Namespace) -> int:
     return starten(_kb(args), host=args.host, port=args.port, oeffnen=args.oeffnen)
 
 
+def cmd_eval(args: argparse.Namespace) -> int:
+    ev = evaluation_mod
+    kb = _kb(args)
+    f = Farbe(None if not args.keine_farbe else False)
+    faelle, fehler = ev.laden(kb)
+    if fehler:
+        print(f.rot(f"{len(fehler)} Fehler in den Testfällen ({ev.EVAL_VERZEICHNIS}):"))
+        for zeile in fehler:
+            print(f"  {zeile}")
+        return 1
+    ergebnisse = ev.bewerten(kb, faelle, ev.VERFAHREN[args.verfahren](kb))
+    kennzahlen = ev.kennzahlen(ergebnisse)
+    if args.json:
+        print(json.dumps({"verfahren": args.verfahren, **kennzahlen}, ensure_ascii=False, indent=2))
+        return 0
+    print(ev.als_text(kennzahlen, args.verfahren))
+    if args.details:
+        print("\n" + ev.details_text(ergebnisse))
+    return 0
+
+
 def cmd_anforderungen(args: argparse.Namespace) -> int:
     f = Farbe(None if not args.keine_farbe else False)
     matrix = anforderungen_mod.testmatrix()
@@ -976,6 +999,14 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--host", default="127.0.0.1", help="Adresse (Standard: 127.0.0.1, nur lokal erreichbar)")
     s.add_argument("--oeffnen", action="store_true", help="Browser automatisch öffnen")
     s.set_defaults(func=cmd_web)
+
+    s = sub.add_parser("eval", help="Evaluation der Freitext-Eingabe: Router, Abweisung, Extraktion (tests/eval/intake)")
+    s.add_argument("was", choices=["intake"], help="Was bewertet wird (bisher nur intake)")
+    s.add_argument("--verfahren", default="stichwortsuche", choices=sorted(evaluation_mod.VERFAHREN),
+                   help="stichwortsuche: Baseline ohne LLM; erwartung: Erwartung selbst (Selbsttest, 100 %%)")
+    s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
+    s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
+    s.set_defaults(func=cmd_eval)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")
     s.add_argument("--details", "-d", action="store_true")

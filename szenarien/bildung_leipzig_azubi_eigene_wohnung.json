@@ -24,5 +24,10 @@
     "berufsausbildungsbeihilfe": "Agentur für Arbeit – Kreisfreie Stadt Leipzig",
     "kindergeld_ausbildung": "Familienkasse"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Azubi im ersten Lehrjahr mit eigener Wohnung. Schreibt kurz und umgangssprachlich, versteht Amtsdeutsch kaum.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
+  }
 }

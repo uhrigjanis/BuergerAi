@@ -37,5 +37,10 @@
     "sorgeerklaerung": "nein",
     "bayerisches_familiengeld": "nein"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Verheiratetes Paar beim ersten Kind; die Mutter will eine Pause machen, der Partner Teilzeit arbeiten. Erklärt die Pläne genau.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

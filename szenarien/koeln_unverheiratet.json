@@ -36,5 +36,10 @@
   "erwartet_stellen": {
     "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Köln",
     "vaterschaftsanerkennung": "Jugendamt – Kreisfreie Stadt Köln"
+  },
+  "persona": {
+    "beschreibung": "Werdender Vater ohne Trauschein, der wissen will, was er für die Vaterschaft tun muss. Wenig Worte.",
+    "sprachstil": "knapp",
+    "vorwissen": "keins"
   }
 }

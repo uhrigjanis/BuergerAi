@@ -1,0 +1,81 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "todesfall-01",
+      "art": "klar",
+      "text": "Mein Mann ist am 24.10.2026 zu Hause in Köln gestorben. Er hat eine gesetzliche Rente bezogen. Das Erbe will ich nicht ausschlagen und die Beerdigung können wir bezahlen.",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "fakten": {
+        "todesfall.datum": "2026-10-24",
+        "todesfall.beziehung": "ehepartner",
+        "todesfall.sterbeort_art": "zuhause",
+        "todesfall.bezog_rente": "ja",
+        "todesfall.ausschlagen_erwaegen": "nein",
+        "todesfall.kosten_tragbar": "ja"
+      },
+      "orte": {
+        "todesfall.sterbeort": "Köln"
+      },
+      "szenario": "todesfall_koeln_witwe_zuhause"
+    },
+    {
+      "id": "todesfall-02",
+      "art": "umgangssprache",
+      "text": "Opa ist heute Nacht im Pflegeheim eingeschlafen. Was muss ich als Erstes machen?",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "fakten": {
+        "todesfall.sterbeort_art": "einrichtung"
+      },
+      "fakten_optional": {
+        "todesfall.beziehung": "andere"
+      },
+      "notiz": "'Heute Nacht' kann der 01.11. oder 02.11. sein, deshalb kein Datum."
+    },
+    {
+      "id": "todesfall-03",
+      "art": "tippfehler",
+      "text": "meine mutter ist verstorbn, sie hatte schulden. kann ich das erbe ausschlagn?",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "fakten": {
+        "todesfall.beziehung": "kind",
+        "todesfall.ausschlagen_erwaegen": "ja"
+      }
+    },
+    {
+      "id": "todesfall-04",
+      "art": "mehrere",
+      "text": "Mein Vater ist gestorben, ich ziehe jetzt in sein Haus in Kassel.",
+      "lebenslagen": [
+        "todesfall",
+        "umzug"
+      ],
+      "fakten": {
+        "todesfall.beziehung": "kind"
+      },
+      "orte": {
+        "wohnort": "Kassel"
+      }
+    },
+    {
+      "id": "todesfall-05",
+      "art": "relativ",
+      "text": "Meine Frau ist letzten Freitag im Krankenhaus gestorben.",
+      "lebenslagen": [
+        "todesfall"
+      ],
+      "fakten": {
+        "todesfall.datum": "2026-10-30",
+        "todesfall.beziehung": "ehepartner",
+        "todesfall.sterbeort_art": "einrichtung"
+      }
+    }
+  ]
+}

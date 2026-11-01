@@ -24,5 +24,10 @@
     "arbeitsuchend_melden": "ja"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Abteilungsleiterin, die einen Aufhebungsvertrag unterschrieben hat. Schreibt sachlich und kennt den Begriff Sperrzeit.",
+    "sprachstil": "foermlich",
+    "vorwissen": "gut"
+  }
 }

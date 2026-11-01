@@ -11,5 +11,10 @@
     "kindergeld": "unklar",
     "mutterschaftsgeld_krankenkasse": "unklar",
     "bayerisches_familiengeld": "unklar"
+  },
+  "persona": {
+    "beschreibung": "Schwangere, die noch gar nichts weiß und nur ihren Wohnort nennt. Beantwortet Rückfragen zögerlich, oft mit 'weiß ich nicht'.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
   }
 }

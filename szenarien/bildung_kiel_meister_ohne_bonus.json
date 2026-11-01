@@ -20,5 +20,10 @@
     "aufstiegs_bafoeg": "unklar"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frischgebackener Kfz-Meister, der von einer Meisterprämie gehört hat und wissen will, ob es die bei ihm gibt.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

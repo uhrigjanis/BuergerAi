@@ -29,5 +29,10 @@
   "erwartet_stellen": {
     "landesfoerderung_wohneigentum": "BayernLabo"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Familie, die außerhalb der Stadt neu bauen will. Kurz und zielgerichtet, interessiert an zinsgünstigen Krediten.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

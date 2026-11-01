@@ -27,5 +27,10 @@
     "bestattungskosten_sozialamt": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frau, deren langjähriger Lebensgefährte gestorben ist; sie waren nicht verheiratet. Traurig, unsicher, was sie überhaupt darf.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

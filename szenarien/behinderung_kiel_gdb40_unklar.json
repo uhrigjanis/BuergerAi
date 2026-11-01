@@ -28,5 +28,10 @@
     "wertmarke_freifahrt": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mann mit Rückenleiden und Schwerbehindertenbescheid. Lässt offen, ob er gerade arbeitet, und sagt dazu nur 'weiß ich nicht'.",
+    "sprachstil": "knapp",
+    "vorwissen": "etwas"
+  }
 }

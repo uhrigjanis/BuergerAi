@@ -35,5 +35,10 @@
   "erwartet_stellen": {
     "elterngeld": "ZBFS",
     "geburtsanzeige": "Standesamt des Geburtsorts"
+  },
+  "persona": {
+    "beschreibung": "Person, die versehentlich die Postfach-Postleitzahl ihres Arbeitgebers angibt. Schreibt höflich und korrigiert sich nur, wenn gefragt.",
+    "sprachstil": "foermlich",
+    "vorwissen": "keins"
   }
 }

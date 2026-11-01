@@ -1,0 +1,77 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "wohnen-01",
+      "art": "klar",
+      "text": "Wir wollen in Baunatal ein älteres Haus kaufen und selbst darin wohnen. Wir haben zwei Kinder unter 18, unser zu versteuerndes Einkommen liegt bei 85.000 € im Jahr. Den Kaufvertrag haben wir noch nicht unterschrieben, und wir besitzen bisher keine Immobilie.",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "fakten": {
+        "wohnen.vorhaben": "kauf_bestand",
+        "wohnen.selbst_genutzt": "ja",
+        "wohnen.kinder_minderjaehrig": 2,
+        "wohnen.einkommen_zve": 85000,
+        "wohnen.vertrag_unterschrieben": "nein",
+        "wohnen.schon_eigentum": "nein"
+      },
+      "orte": {
+        "wohnen.ort_immobilie": "Baunatal"
+      },
+      "szenario": "wohnen_kassel_altbau_hessengeld"
+    },
+    {
+      "id": "wohnen-02",
+      "art": "umgangssprache",
+      "text": "Wir bauen n Einfamilienhaus für uns und die Kids, gibts da irgendwelche Zuschüsse?",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "fakten": {
+        "wohnen.vorhaben": "bauen",
+        "wohnen.selbst_genutzt": "ja"
+      }
+    },
+    {
+      "id": "wohnen-03",
+      "art": "tippfehler",
+      "text": "ich kaufe meine erste eigentumswohung als kapitalanlage zum vermieten, was kostet die grunderwerbsteur?",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "fakten": {
+        "wohnen.selbst_genutzt": "nein",
+        "wohnen.schon_eigentum": "nein"
+      }
+    },
+    {
+      "id": "wohnen-04",
+      "art": "mehrere",
+      "text": "Wir haben gerade ein Baby bekommen und kaufen jetzt ein neu gebautes Reihenhaus, Einzug ist im Frühjahr.",
+      "lebenslagen": [
+        "wohneigentum",
+        "geburt",
+        "umzug"
+      ],
+      "fakten": {
+        "kind_geboren": "ja",
+        "wohnen.vorhaben": "kauf_neubau",
+        "wohnen.selbst_genutzt": "ja"
+      }
+    },
+    {
+      "id": "wohnen-05",
+      "art": "relativ",
+      "text": "Den Notarvertrag für unsere Wohnung haben wir vor drei Tagen unterschrieben, wir ziehen selbst ein.",
+      "lebenslagen": [
+        "wohneigentum"
+      ],
+      "fakten": {
+        "wohnen.vertrag_unterschrieben": "ja",
+        "wohnen.selbst_genutzt": "ja"
+      }
+    }
+  ]
+}

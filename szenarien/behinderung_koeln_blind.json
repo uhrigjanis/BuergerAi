@@ -33,5 +33,10 @@
     "landesblindengeld": "Landschaftsverband",
     "wertmarke_freifahrt": "Kreisfreie Stadt Köln"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Blinde Frau, die mit Vorlesesoftware schreibt. Kennt ihre Merkzeichen genau und formuliert höflich und präzise.",
+    "sprachstil": "foermlich",
+    "vorwissen": "gut"
+  }
 }

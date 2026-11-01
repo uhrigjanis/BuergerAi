@@ -27,5 +27,10 @@
     "ganztag_grundschule": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mutter, die Wohngeld bekommt und Angst hat, die Schulanmeldung zu verpassen. Fragt nach, was sie mitbringen muss.",
+    "sprachstil": "unsicher",
+    "vorwissen": "etwas"
+  }
 }

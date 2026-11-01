@@ -27,5 +27,10 @@
     "auslandsehe_beurkunden": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frisch verheirateter Ingenieur, der vor allem die Steuerklassen klären will. Kurze, sachliche Antworten.",
+    "sprachstil": "knapp",
+    "vorwissen": "gut"
+  }
 }

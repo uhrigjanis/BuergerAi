@@ -27,5 +27,10 @@
   "erwartet_stellen": {
     "erwerbslosenberatung": "Unabhängige Erwerbslosenberatungsstelle"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Buchhalterin, deren Firma pleite ist. Erzählt viel über die Lage im Betrieb und hat schon vom Insolvenzgeld gehört.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

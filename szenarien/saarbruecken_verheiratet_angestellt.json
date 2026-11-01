@@ -34,5 +34,10 @@
   },
   "erwartet_stellen": {
     "elterngeld": "Landesamt für Soziales Saarland"
+  },
+  "persona": {
+    "beschreibung": "Verheiratetes Paar, das zum ersten Mal Eltern wird und sich sehr höflich und vorsichtig ausdrückt.",
+    "sprachstil": "foermlich",
+    "vorwissen": "keins"
   }
 }

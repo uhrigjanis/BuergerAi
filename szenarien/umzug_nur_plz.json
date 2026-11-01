@@ -18,5 +18,10 @@
     "hundesteuer_anmelden": "unklar",
     "hundesteuer_abmelden": "unklar",
     "wohngeld_umzug": "unklar"
+  },
+  "persona": {
+    "beschreibung": "Person, die gerade umgezogen ist und nur den neuen Wohnort nennt. Antwortet einsilbig.",
+    "sprachstil": "knapp",
+    "vorwissen": "keins"
   }
 }

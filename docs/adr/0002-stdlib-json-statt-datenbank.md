@@ -13,3 +13,6 @@ Das Architektur-Dokument nennt PostgreSQL, Neo4j und Redis. Für Phase 1 (≈ 15
 ## Folgen
 - Änderungen an Daten sind im Git-Diff nachvollziehbar (gut für Review vor Freigabe, Phase 4).
 - Ein späterer Umzug in eine Datenbank ist möglich, weil der Zugriff über `Wissensbasis` gekapselt ist.
+
+## Ausnahme (30.10.2026)
+Der Client für ein LLM darf als optionales Extra `[llm]` dazukommen ([ADR 0009](0009-llm-schicht.md), Abschnitt 4). `dependencies` bleibt leer; Kern, Tests und CI laufen ohne dieses Extra.

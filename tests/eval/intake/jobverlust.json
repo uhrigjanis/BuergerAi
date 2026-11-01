@@ -1,0 +1,77 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "jobverlust-01",
+      "art": "klar",
+      "text": "Mein Arbeitgeber hat mir gekündigt. Die Kündigung habe ich am 20.10.2026 bekommen, mein letzter Arbeitstag ist der 31.12.2026. Ich bin 40 und war die letzten Jahre durchgehend sozialversicherungspflichtig angestellt.",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "fakten": {
+        "arbeit.grund": "kuendigung_arbeitgeber",
+        "arbeit.kuendigung_zugang": "2026-10-20",
+        "arbeit.ende_datum": "2026-12-31",
+        "alter": 40,
+        "arbeit.versichert_12_monate": "ja"
+      },
+      "szenario": "arbeit_koeln_kuendigung"
+    },
+    {
+      "id": "jobverlust-02",
+      "art": "umgangssprache",
+      "text": "Die Firma ist pleite, Insolvenz wurde am 1. Oktober eröffnet. Was jetzt?? Krieg ich überhaupt noch Kohle?",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "fakten": {
+        "arbeit.grund": "insolvenz",
+        "arbeit.insolvenz_datum": "2026-10-01"
+      }
+    },
+    {
+      "id": "jobverlust-03",
+      "art": "tippfehler",
+      "text": "mein befristeter vertrag leuft ende februar aus und wird nich verlängert",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "fakten": {
+        "arbeit.grund": "befristung"
+      },
+      "fakten_optional": {
+        "arbeit.ende_datum": "2027-02-28"
+      }
+    },
+    {
+      "id": "jobverlust-04",
+      "art": "mehrere",
+      "text": "Ich habe einen Aufhebungsvertrag zum 31.03.2027 unterschrieben und will mich danach als Grafikdesignerin selbstständig machen.",
+      "lebenslagen": [
+        "jobverlust",
+        "selbststaendig"
+      ],
+      "fakten": {
+        "arbeit.grund": "aufhebungsvertrag",
+        "arbeit.ende_datum": "2027-03-31"
+      },
+      "fakten_optional": {
+        "arbeit.taetigkeit": "freiberuflich"
+      }
+    },
+    {
+      "id": "jobverlust-05",
+      "art": "relativ",
+      "text": "Ich habe gestern die Kündigung von meinem Chef bekommen, Frist ist drei Monate zum Monatsende.",
+      "lebenslagen": [
+        "jobverlust"
+      ],
+      "fakten": {
+        "arbeit.grund": "kuendigung_arbeitgeber",
+        "arbeit.kuendigung_zugang": "2026-11-01"
+      },
+      "notiz": "Das Ende hängt davon ab, wie die Frist gerechnet wird; deshalb kein ende_datum."
+    }
+  ]
+}

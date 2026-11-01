@@ -1,0 +1,69 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "einkommen-01",
+      "art": "klar",
+      "text": "Ich bin 45, lebe allein ohne Kinder in einer Mietwohnung und bekomme Grundsicherungsgeld vom Jobcenter. Ich bin gesetzlich krankenversichert.",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "fakten": {
+        "alter": 45,
+        "kinder_im_haushalt": 0,
+        "einkommen.wohnkosten": "miete",
+        "bezieht_buergergeld": "ja",
+        "einkommen.gesetzlich_versichert": "ja"
+      },
+      "szenario": "einkommen_hamburg_grundsicherungsgeld"
+    },
+    {
+      "id": "einkommen-02",
+      "art": "umgangssprache",
+      "text": "Das Geld reicht hinten und vorne nicht, die Miete frisst alles auf. Wir sind zu viert, zwei Kinder.",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "fakten": {
+        "einkommen.wohnkosten": "miete",
+        "kinder_im_haushalt": 2
+      }
+    },
+    {
+      "id": "einkommen-03",
+      "art": "tippfehler",
+      "text": "bekomen wir wohngeld? wir verdinen zusammen 2100 brutto im monat",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "fakten": {
+        "brutto_haushalt_monat": 2100
+      }
+    },
+    {
+      "id": "einkommen-04",
+      "art": "mehrere",
+      "text": "Ich bin alleinerziehend mit einem Baby, das im September geboren wurde, und wir kommen mit dem Geld nicht aus.",
+      "lebenslagen": [
+        "geringes_einkommen",
+        "geburt"
+      ],
+      "fakten": {
+        "kind_geboren": "ja",
+        "partner_im_haushalt": "nein"
+      }
+    },
+    {
+      "id": "einkommen-05",
+      "art": "relativ",
+      "text": "Seit letztem Monat bekomme ich Bürgergeld, vorher hatte ich Arbeitslosengeld.",
+      "lebenslagen": [
+        "geringes_einkommen"
+      ],
+      "fakten": {
+        "bezieht_buergergeld": "ja"
+      }
+    }
+  ]
+}

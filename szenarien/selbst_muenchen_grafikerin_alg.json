@@ -26,5 +26,10 @@
     "einstiegsgeld": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Grafikerin, die aus der Arbeitslosigkeit freiberuflich startet. Kreativ, locker im Ton, hat vom Gründungszuschuss gehört.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "etwas"
+  }
 }

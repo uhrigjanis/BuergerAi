@@ -32,5 +32,10 @@
     "sorgeerklaerung": "ja",
     "bayerisches_familiengeld": "nein"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Alleinerziehende Mutter mit Staatsangehörigkeit außerhalb der EU und wenig Geld. Schreibt kurze, einfache Sätze und kennt die Begriffe der Ämter nicht.",
+    "sprachstil": "einfach",
+    "vorwissen": "keins"
+  }
 }

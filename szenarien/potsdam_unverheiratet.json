@@ -37,5 +37,10 @@
   "erwartet_stellen": {
     "elterngeld": "Elterngeldstelle – Kreisfreie Stadt Potsdam",
     "sorgeerklaerung": "Jugendamt – Kreisfreie Stadt Potsdam"
+  },
+  "persona": {
+    "beschreibung": "Junges, unverheiratetes Paar, das zum ersten Mal Eltern wird. Locker im Ton, wenig Vorwissen.",
+    "sprachstil": "umgangssprachlich",
+    "vorwissen": "keins"
   }
 }

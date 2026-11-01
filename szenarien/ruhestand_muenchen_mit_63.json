@@ -31,5 +31,10 @@
     "einkommen.wohnkosten",
     "bezieht_buergergeld",
     "bezieht_asylbewerberleistungen"
-  ]
+  ],
+  "persona": {
+    "beschreibung": "Langjährig Beschäftigter, der früher in Rente gehen will und von der Rente mit dreiundsechzig gehört hat.",
+    "sprachstil": "knapp",
+    "vorwissen": "gut"
+  }
 }

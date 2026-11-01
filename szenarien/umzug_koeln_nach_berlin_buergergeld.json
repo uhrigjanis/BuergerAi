@@ -34,5 +34,10 @@
     "wohnsitz_anmelden": "Bürgeramt (Berlin)",
     "umzugskosten_jobcenter": "Jobcenter – Kreisfreie Stadt Köln"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Mann mit Grundsicherungsgeld, der zu seiner Familie zieht. Schreibt einfach und kennt das Jobcenter, aber nicht die Regeln für den Umzug.",
+    "sprachstil": "einfach",
+    "vorwissen": "etwas"
+  }
 }

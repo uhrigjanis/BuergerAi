@@ -76,6 +76,7 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Abdeckung je Land | `./bai abdeckung` |
 | Gebiete und PLZ neu importieren | `./bai gebiete-import …` (siehe [docs/datenquellen.md](docs/datenquellen.md)) |
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
+| Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)) |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
 | Namen aller Angaben (für `-f`), nach Fachmodul | `./bai fakten` |
@@ -102,6 +103,8 @@ Werte für `-f`: `ja`/`nein`, Zahlen, Datum als `TT.MM.JJJJ` oder `JJJJ-MM-TT`, 
 ### Szenarien
 
 Unter `szenarien/` liegen Testprofile mit erwarteten Ergebnissen. Sie lassen sich laden und mit `-f` abwandeln. Eigene Szenarien legt man über `--speichern` an oder kopiert eine vorhandene Datei.
+
+Jedes Szenario hat eine `persona` (kurze Beschreibung, `sprachstil`, `vorwissen`). Damit spielt der Nutzer-Simulator in Phase 3 den Fall Ende-zu-Ende durch: Er kennt nur die Persona und die Fakten des Szenarios, alles andere beantwortet er mit „weiß ich nicht“ (#83). Die Beschreibung enthält keine Zahlen, damit sie den Fakten nicht widerspricht.
 
 | Szenario | Zeigt |
 |----------|-------|
@@ -143,6 +146,7 @@ Angaben (Fakten) ───────────────────► Re
 - **Abdeckung und Prüfstatus:** Jeder Eintrag zeigt, ob die zuständige Stelle vor Ort erfasst ist oder nur allgemeine Angaben vorliegen, und wie gut die Quellen geprüft sind ([ADR 0004](docs/adr/0004-abdeckung-und-pruefstatus.md), [ADR 0007](docs/adr/0007-bundesweit-vor-phase-3.md)).
 - **Je Person:** Leistungen können je Rolle geprüft werden (z. B. Elterngeld für Mutter und anderen Elternteil). Rollen stehen in den Daten.
 - **Fachmodule:** Jede Lebenslage gehört zu einem Fachmodul (dem späteren Experten). Ein Modul ist ein Datenpaket, alle Module laufen auf derselben Engine ([ADR 0008](docs/adr/0008-lebenslagen-als-fachmodule.md)).
+- **LLM-Schicht (Phase 3, geplant):** Das LLM erkennt Lebenslagen, entnimmt Angaben aus Freitext und formuliert Antworten, entscheidet aber nie über Ansprüche. Verarbeitung in der EU (Claude Haiku 5.5 über Vertex AI `eu`), Client nur als optionales Extra `[llm]`, ohne LLM läuft alles wie heute ([ADR 0009](docs/adr/0009-llm-schicht.md)).
 
 ## Projektstruktur
 
@@ -160,6 +164,7 @@ data/               Wissensbasis (getrennt vom Code)
   kommunen/09162000/  München: kommunale Varianten
 szenarien/          Testprofile für manuelles Testen und Regression
 tests/              pytest, jeweils mit @pytest.mark.anforderung("ANF-…")
+tests/eval/intake/  ausgedachte Freitexte mit erwarteten Lebenslagen und Angaben (Evaluation Phase 3, #73)
 docs/
   anforderungen.json  Anforderungen mit IDs (Quelle der Testmatrix)
   validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)

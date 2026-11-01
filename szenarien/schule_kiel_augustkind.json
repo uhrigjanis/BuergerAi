@@ -25,5 +25,10 @@
     "ganztag_grundschule": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Vater eines Sommerkinds, der unsicher ist, ob sein Sohn schon in die Schule muss. Hat Freunde in Bayern, bei denen es anders ist.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

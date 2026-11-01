@@ -25,5 +25,10 @@
     "auslandsehe_beurkunden": "nein"
   },
   "erwartet_stellen": {},
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Frisch verheiratete Frau, die nicht weiß, wie ihr Mann versichert ist. Sagt das offen.",
+    "sprachstil": "unsicher",
+    "vorwissen": "keins"
+  }
 }

@@ -26,5 +26,10 @@
   "erwartet_stellen": {
     "meisterbonus": "ESF-Online-Portal"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Tischlermeisterin, gerade bestanden, hat sich schon über Prämien informiert. Nennt Daten genau, wenn danach gefragt wird.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "gut"
+  }
 }

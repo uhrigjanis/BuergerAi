@@ -1,0 +1,70 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "behinderung-01",
+      "art": "klar",
+      "text": "Bei mir wurde ein GdB von 80 mit Merkzeichen G festgestellt. Ich bin angestellt und habe ein eigenes Auto.",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "fakten": {
+        "behinderung.gdb": 80,
+        "behinderung.merkzeichen_g": "ja",
+        "behinderung.beschaeftigt": "ja",
+        "behinderung.kfz_halter": "ja"
+      },
+      "szenario": "behinderung_muenchen_gdb80_gehbehindert"
+    },
+    {
+      "id": "behinderung-02",
+      "art": "umgangssprache",
+      "text": "Hab nen Schwerbehindertenausweis mit 50 bekommen, bringt mir das irgendwas?",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "fakten": {
+        "behinderung.gdb": 50
+      }
+    },
+    {
+      "id": "behinderung-03",
+      "art": "tippfehler",
+      "text": "mein sohn ist gehörloss und hat merkzeichen GL im ausweis, was gibts da an hilfen",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "fakten": {
+        "behinderung.merkzeichen_gl": "ja"
+      }
+    },
+    {
+      "id": "behinderung-04",
+      "art": "mehrere",
+      "text": "Ich bin seit einem Schlaganfall auf den Rollstuhl angewiesen, habe Pflegegrad 3 und einen GdB von 100 mit aG.",
+      "lebenslagen": [
+        "behinderung",
+        "pflege"
+      ],
+      "fakten": {
+        "behinderung.gdb": 100,
+        "behinderung.merkzeichen_ag": "ja",
+        "pflege.pflegegrad": 3,
+        "pflege.rolle": "selbst"
+      }
+    },
+    {
+      "id": "behinderung-05",
+      "art": "relativ",
+      "text": "Seit zwei Jahren habe ich Multiple Sklerose. Einen Antrag auf Schwerbehinderung habe ich noch nie gestellt.",
+      "lebenslagen": [
+        "behinderung"
+      ],
+      "fakten": {
+        "behinderung.gdb": 0
+      },
+      "notiz": "GdB 0 bedeutet laut Frage: noch kein Grad festgestellt."
+    }
+  ]
+}

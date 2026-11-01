@@ -30,5 +30,10 @@
   "erwartet_stellen": {
     "landesfoerderung_wohneigentum": "Sächsische Aufbaubank"
   },
-  "erwartet_fehlend": []
+  "erwartet_fehlend": [],
+  "persona": {
+    "beschreibung": "Käufer, der den Notarvertrag schon unterschrieben hat und jetzt erst nach Förderung sucht. Erzählt, wie der Kauf lief.",
+    "sprachstil": "ausfuehrlich",
+    "vorwissen": "etwas"
+  }
 }

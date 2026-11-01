@@ -429,3 +429,24 @@ def test_ungueltige_zertifikatsdatei(tmp_path):
     kaputt.write_text("kein Zertifikat", encoding="utf-8")
     with pytest.raises(llm.LLMKonfigurationsfehler, match="keine gültigen Zertifikate"):
         MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", ca_datei=str(kaputt)))
+
+
+@pytest.mark.anforderung("ANF-LLM-04", "ANF-LLM-06")
+def test_fehlerkennung_ohne_fehlertext(mistral):
+    auslastung = {"object": "error", "message": f"Service tier capacity exceeded {GEHEIM}",
+                  "type": "service_tier_capacity_exceeded", "param": None, "code": "3505"}
+    m, _, gewartet = mistral(*[(429, {}, auslastung)] * 3)
+    with pytest.raises(llm.LLMRateLimit) as info:
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+    meldung = str(info.value)
+    assert "(service_tier_capacity_exceeded, 3505)" in meldung and "BUERGERAI_LLM_MODELL" in meldung
+    assert GEHEIM not in meldung and len(gewartet) == 2
+
+    m, _, _ = mistral((429, {}, {"type": f"rate limit {GEHEIM}", "code": "1300"}), versuche=1)
+    with pytest.raises(llm.LLMRateLimit) as info:
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+    assert str(info.value) == "HTTP 429 nach 1 Versuchen (1300): Limit erreicht, kurz warten und erneut versuchen"
+
+    m, _, _ = mistral((401, {}, {"message": GEHEIM, "type": "invalid_api_key"}))
+    with pytest.raises(llm.LLMKonfigurationsfehler, match=r"HTTP 401 \(invalid_api_key\)"):
+        m.text("s", "e", aufgabe="antwort")

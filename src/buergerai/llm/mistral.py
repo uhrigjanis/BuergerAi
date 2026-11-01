@@ -11,6 +11,7 @@ oder 1, 2, 4 … Sekunden, höchstens 30). Danach gilt ein ``LLMFehler``.
 from __future__ import annotations
 
 import json
+import re
 import socket
 import ssl
 import time
@@ -34,6 +35,8 @@ from .basis import (
 from .konfiguration import Konfiguration
 
 URL = "https://api.mistral.ai/v1/chat/completions"
+# Nur kurze Kennungen aus der Fehlerantwort übernehmen, nie den Fehlertext (kann die Eingabe enthalten)
+_KENNUNG = re.compile(r"[A-Za-z0-9_.-]{1,64}")
 ZERTIFIKAT_HINWEIS = (
     "TLS-Zertifikat nicht prüfbar: Python findet keine passenden Stammzertifikate. "
     "Auf dem Mac mit Python von python.org einmal 'Install Certificates.command' ausführen, "
@@ -107,16 +110,22 @@ class MistralLLM:
                     return json.loads(antwort.read().decode("utf-8"))
             except urllib.error.HTTPError as exc:
                 status = exc.code
-                # Den Fehlertext nicht übernehmen: er kann die Eingabe enthalten.
+                kennung = self._kennung(exc)
                 if status in (401, 403):
-                    raise LLMKonfigurationsfehler(f"Schlüssel abgelehnt (HTTP {status})") from None
+                    raise LLMKonfigurationsfehler(f"Schlüssel abgelehnt (HTTP {status}{kennung})") from None
                 if status == 429 or status >= 500:
                     if letzter:
                         fehler = LLMRateLimit if status == 429 else LLMDienstfehler
-                        raise fehler(f"HTTP {status} nach {versuch} Versuchen") from None
+                        meldung = f"HTTP {status} nach {versuch} Versuchen{kennung}"
+                        if "capacity" in kennung:
+                            meldung += (": Modell im kostenlosen Plan ausgelastet, später erneut versuchen "
+                                        "oder ein anderes Modell wählen (BUERGERAI_LLM_MODELL)")
+                        elif status == 429:
+                            meldung += ": Limit erreicht, kurz warten und erneut versuchen"
+                        raise fehler(meldung) from None
                     self._schlafen(self._wartezeit(exc.headers.get("Retry-After"), versuch))
                     continue
-                raise LLMDienstfehler(f"HTTP {status}") from None
+                raise LLMDienstfehler(f"HTTP {status}{kennung}") from None
             except (TimeoutError, socket.timeout):
                 raise LLMTimeout(f"keine Antwort nach {self.konfig.timeout:g} s") from None
             except urllib.error.URLError as exc:
@@ -128,6 +137,23 @@ class MistralLLM:
             except (json.JSONDecodeError, UnicodeDecodeError):
                 raise LLMDienstfehler("Antwort des Dienstes ist kein JSON") from None
         raise LLMDienstfehler("keine Antwort")  # nur bei versuche < 1
+
+    @staticmethod
+    def _kennung(exc: urllib.error.HTTPError) -> str:
+        """Fehlertyp und -code aus der Antwort, z. B. " (service_tier_capacity_exceeded, 3505)".
+
+        Übernommen werden nur kurze Kennungen aus den Feldern ``type`` und ``code``,
+        nie ``message`` oder ``detail``: Diese können die Eingabe enthalten.
+        """
+        try:
+            daten = json.loads(exc.read(4096).decode("utf-8"))
+        except Exception:  # Fehlerantwort ohne JSON: dann eben ohne Kennung
+            return ""
+        if not isinstance(daten, dict):
+            return ""
+        teile = [str(daten[k]) for k in ("type", "code") if daten.get(k) is not None]
+        teile = [t for t in teile if _KENNUNG.fullmatch(t)]
+        return f" ({', '.join(teile)})" if teile else ""
 
     @staticmethod
     def _wartezeit(retry_after: Optional[str], versuch: int) -> float:

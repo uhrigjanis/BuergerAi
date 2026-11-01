@@ -160,6 +160,8 @@ Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Sche
 | `BUERGERAI_ENV_DATEI` | andere `.env`-Datei (Standard: `.env` im aktuellen Ordner, sonst im Repository) |
 | `BUERGERAI_LLM_CA_DATEI` | Datei mit Stammzertifikaten (PEM), nur bei Zertifikatsfehlern nötig (siehe unten) |
 
+**Fehler „rate_limit: HTTP 429“**: Mistral lehnt wegen eines Limits ab. Die Meldung nennt den Typ: `service_tier_capacity_exceeded` heißt, das Modell ist im kostenlosen Plan gerade ausgelastet. Dann später erneut versuchen oder in `.env` ein anderes Modell setzen (`BUERGERAI_LLM_MODELL`, verfügbare Modelle in der Mistral-Konsole). Sonst ist das Anfragelimit erreicht: kurz warten.
+
 **Fehler „TLS-Zertifikat nicht prüfbar“** (`SSLCertVerificationError`): Python findet keine Stammzertifikate, um die Verbindung zu Mistral zu prüfen. Die Prüfung abzuschalten ist keine Lösung.
 
 - Mac mit Python von python.org: einmal `open "/Applications/Python 3.X/Install Certificates.command"` ausführen (3.X durch die eigene Version ersetzen).

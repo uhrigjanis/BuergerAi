@@ -12,18 +12,29 @@ bisher über Formular und Stichwortsuche. Schlüssel stehen nie im Repository.
 | ``BUERGERAI_LLM_VERSUCHE`` | Versuche bei Rate-Limit und Serverfehlern, Standard 3 |
 | ``BUERGERAI_LLM_URL`` | andere Adresse des Anbieters (Tests, Proxy) |
 | ``BUERGERAI_LLM_FAKE_DATEI`` | Antworten für ``fake`` (JSON), zum Ausprobieren ohne Modell |
+| ``BUERGERAI_ENV_DATEI`` | andere ``.env``-Datei (Standard: ``.env`` im aktuellen Ordner, sonst im Repository) |
+
+Die Werte können in einer lokalen ``.env`` stehen, die Git ignoriert (Vorlage:
+``.env.beispiel``). Gesetzte Umgebungsvariablen haben Vorrang. Die Datei wird
+nur gelesen, nie als Shell-Code ausgeführt.
 """
 
 from __future__ import annotations
 
 import logging
 import os
+import re
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Mapping, Optional
 
 from .basis import LLM, LLMKonfigurationsfehler
 
 log = logging.getLogger("buergerai.llm")
+
+REPO = Path(__file__).resolve().parents[3]
+_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+PLATZHALTER = "hier-deinen-schluessel-eintragen"  # aus .env.beispiel
 
 ANBIETER = ("mistral", "fake")  # Vertex AI (Betrieb, ADR 0009 §5) folgt
 STANDARD_MODELL = {"mistral": "mistral-small-latest", "fake": "fake"}
@@ -63,9 +74,52 @@ def _zahl(env: Mapping[str, str], name: str, standard: float, typ: type = float)
     return wert
 
 
-def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfiguration]:
-    """Konfiguration aus Umgebungsvariablen; ``None``, wenn die LLM-Schicht aus ist."""
+def env_datei_lesen(pfad: Path) -> dict[str, str]:
+    """Liest ``NAME=wert``-Zeilen. Kommentare (#), Leerzeilen und ``export`` sind erlaubt.
+
+    Werte in Anführungszeichen bleiben wörtlich. Ungültige Zeilen werden mit
+    Zeilennummer gemeldet und übersprungen; ihr Inhalt erscheint nie im Log.
+    """
+    werte: dict[str, str] = {}
+    for nr, zeile in enumerate(pfad.read_text(encoding="utf-8").splitlines(), 1):
+        zeile = zeile.strip()
+        if not zeile or zeile.startswith("#"):
+            continue
+        if zeile.startswith("export "):
+            zeile = zeile[len("export "):].lstrip()
+        name, gleich, wert = zeile.partition("=")
+        name = name.strip()
+        if not gleich or not _NAME.fullmatch(name):
+            log.warning("env datei=%s zeile=%d ungueltig, uebersprungen", pfad.name, nr)
+            continue
+        wert = wert.strip()
+        if len(wert) >= 2 and wert[0] == wert[-1] and wert[0] in "\"'":
+            wert = wert[1:-1]
+        elif " #" in wert:
+            wert = wert.split(" #", 1)[0].rstrip()
+        werte[name] = wert
+    return werte
+
+
+def env_datei_finden(env: Optional[Mapping[str, str]] = None) -> Optional[Path]:
+    """``BUERGERAI_ENV_DATEI``, sonst ``.env`` im aktuellen Ordner, sonst im Repository."""
     env = os.environ if env is None else env
+    eigene = env.get("BUERGERAI_ENV_DATEI", "").strip()
+    kandidaten = [Path(eigene)] if eigene else [Path.cwd() / ".env", REPO / ".env"]
+    return next((p for p in kandidaten if p.is_file()), None)
+
+
+def umgebung() -> dict[str, str]:
+    """Werte aus der ``.env`` (falls vorhanden), überschrieben von gesetzten Umgebungsvariablen."""
+    pfad = env_datei_finden()
+    werte = env_datei_lesen(pfad) if pfad else {}
+    werte.update(os.environ)
+    return werte
+
+
+def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfiguration]:
+    """Konfiguration aus Umgebungsvariablen und ``.env``; ``None``, wenn die LLM-Schicht aus ist."""
+    env = umgebung() if env is None else env
     anbieter = env.get("BUERGERAI_LLM_ANBIETER", "").strip().lower()
     if not anbieter:
         return None
@@ -76,6 +130,8 @@ def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfigurat
         schluessel = env.get("MISTRAL_API_KEY", "").strip() or None
     if anbieter == "mistral" and not schluessel:
         raise LLMKonfigurationsfehler("MISTRAL_API_KEY fehlt")
+    if schluessel == PLATZHALTER:
+        raise LLMKonfigurationsfehler("MISTRAL_API_KEY ist noch der Platzhalter aus .env.beispiel")
     fake_datei = env.get("BUERGERAI_LLM_FAKE_DATEI", "").strip() or None
     if anbieter == "fake" and not fake_datei:
         raise LLMKonfigurationsfehler("BUERGERAI_LLM_FAKE_DATEI fehlt")

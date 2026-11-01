@@ -25,10 +25,10 @@ from .basis import (
     mit_fallback,
 )
 from .fake import FakeLLM
-from .konfiguration import Konfiguration, aus_umgebung, erzeugen, llm_aus_umgebung
+from .konfiguration import Konfiguration, aus_umgebung, env_datei_finden, erzeugen, llm_aus_umgebung
 
 __all__ = [
     "LLM", "Ergebnis", "FakeLLM", "Konfiguration", "LLMAblehnung", "LLMDienstfehler", "LLMFehler",
     "LLMKonfigurationsfehler", "LLMRateLimit", "LLMTimeout", "LLMUngueltigeAusgabe", "aus_umgebung",
-    "erzeugen", "llm_aus_umgebung", "mit_fallback",
+    "env_datei_finden", "erzeugen", "llm_aus_umgebung", "mit_fallback",
 ]

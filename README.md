@@ -76,6 +76,7 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Abdeckung je Land | `./bai abdeckung` |
 | Gebiete und PLZ neu importieren | `./bai gebiete-import …` (siehe [docs/datenquellen.md](docs/datenquellen.md)) |
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
+| Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)) |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
 | Namen aller Angaben (für `-f`), nach Fachmodul | `./bai fakten` |
@@ -161,6 +162,7 @@ data/               Wissensbasis (getrennt vom Code)
   kommunen/09162000/  München: kommunale Varianten
 szenarien/          Testprofile für manuelles Testen und Regression
 tests/              pytest, jeweils mit @pytest.mark.anforderung("ANF-…")
+tests/eval/intake/  ausgedachte Freitexte mit erwarteten Lebenslagen und Angaben (Evaluation Phase 3, #73)
 docs/
   anforderungen.json  Anforderungen mit IDs (Quelle der Testmatrix)
   validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)

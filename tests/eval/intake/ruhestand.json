@@ -1,0 +1,74 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "ruhestand-01",
+      "art": "klar",
+      "text": "Ich bin am 15.03.1960 geboren und möchte ab dem 01.08.2026 in Rente gehen. Ich war 42 Jahre rentenversichert und bin gesetzlich krankenversichert.",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "fakten": {
+        "ruhestand.geburtsdatum": "1960-03-15",
+        "ruhestand.rentenbeginn": "2026-08-01",
+        "ruhestand.versicherungsjahre": 42,
+        "ruhestand.gesetzlich_krankenversichert": "ja"
+      },
+      "szenario": "ruhestand_schwerin_regelaltersrente"
+    },
+    {
+      "id": "ruhestand-02",
+      "art": "umgangssprache",
+      "text": "Bin Jahrgang 61 und hab die Schnauze voll vom Arbeiten. Wann kann ich frühestens in Rente?",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "fakten": {},
+      "notiz": "Nur der Jahrgang, kein Geburtsdatum."
+    },
+    {
+      "id": "ruhestand-03",
+      "art": "tippfehler",
+      "text": "ich gehe im januar 2027 in rente, bin privat krankenversicert. muss ich da was beantragen?",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "fakten": {
+        "ruhestand.gesetzlich_krankenversichert": "nein"
+      },
+      "fakten_optional": {
+        "ruhestand.rentenbeginn": "2027-01-01"
+      }
+    },
+    {
+      "id": "ruhestand-04",
+      "art": "mehrere",
+      "text": "Ich gehe zum 1. Februar in Rente und wir ziehen dann an die Ostsee nach Rostock.",
+      "lebenslagen": [
+        "ruhestand",
+        "umzug"
+      ],
+      "fakten": {
+        "ruhestand.rentenbeginn": "2027-02-01"
+      },
+      "orte": {
+        "wohnort": "Rostock"
+      }
+    },
+    {
+      "id": "ruhestand-05",
+      "art": "relativ",
+      "text": "Ich werde nächsten Monat 67 und habe 45 Versicherungsjahre.",
+      "lebenslagen": [
+        "ruhestand"
+      ],
+      "fakten": {
+        "ruhestand.versicherungsjahre": 45
+      },
+      "fakten_optional": {
+        "alter": 66
+      }
+    }
+  ]
+}

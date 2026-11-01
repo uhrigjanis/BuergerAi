@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "pflege-01",
+      "art": "klar",
+      "text": "Ich habe Pflegegrad 2, lebe zu Hause und werde von meiner Tochter gepflegt. Ich bin nicht blind.",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "fakten": {
+        "pflege.rolle": "selbst",
+        "pflege.pflegegrad": 2,
+        "pflege.wohnform": "zuhause",
+        "pflege.pflege_durch_angehoerige": "ja",
+        "pflege.blind": "nein"
+      },
+      "szenario": "pflege_muenchen_selbst_pflegegrad2"
+    },
+    {
+      "id": "pflege-02",
+      "art": "umgangssprache",
+      "text": "Mama kommt allein nicht mehr klar, seit dem Sturz geht gar nix mehr. Ich kümmer mich, aber ich arbeite ja auch Vollzeit...",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "fakten": {
+        "pflege.rolle": "angehoerig",
+        "pflege.pflege_durch_angehoerige": "ja",
+        "pflege.beschaeftigt": "ja"
+      },
+      "fakten_optional": {
+        "pflege.akut": "ja"
+      }
+    },
+    {
+      "id": "pflege-03",
+      "art": "tippfehler",
+      "text": "mein vater hat demenz und pflegegrat 3, er wohnt im pflegeheim. wer zahlt das?",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "fakten": {
+        "pflege.rolle": "angehoerig",
+        "pflege.pflegegrad": 3,
+        "pflege.wohnform": "heim"
+      }
+    },
+    {
+      "id": "pflege-04",
+      "art": "mehrere",
+      "text": "Mein Mann ist gestorben und jetzt kann meine Schwiegermutter, die bei uns wohnt, nicht mehr allein bleiben. Sie hat noch keinen Pflegegrad.",
+      "lebenslagen": [
+        "pflege",
+        "todesfall"
+      ],
+      "fakten": {
+        "todesfall.beziehung": "ehepartner",
+        "pflege.rolle": "angehoerig",
+        "pflege.pflegegrad": 0,
+        "pflege.wohnform": "zuhause"
+      }
+    },
+    {
+      "id": "pflege-05",
+      "art": "relativ",
+      "text": "Seit gestern ist meine Frau nach einem Schlaganfall pflegebedürftig, ich muss sofort zu Hause bleiben. Ich arbeite 38 Stunden pro Woche.",
+      "lebenslagen": [
+        "pflege"
+      ],
+      "fakten": {
+        "pflege.rolle": "angehoerig",
+        "pflege.akut": "ja",
+        "pflege.eigene_arbeitsstunden": 38,
+        "pflege.beschaeftigt": "ja"
+      }
+    }
+  ]
+}

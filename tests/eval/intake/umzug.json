@@ -1,0 +1,89 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "umzug-01",
+      "art": "klar",
+      "text": "Ich bin am 15.10.2026 von Freising nach München gezogen. Ich habe einen Hund und ein Auto.",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "fakten": {
+        "umzug.einzugsdatum": "2026-10-15",
+        "umzug.hund": "ja",
+        "umzug.kfz_halter": "ja"
+      },
+      "orte": {
+        "wohnort": "München",
+        "umzug.ort_alt": "Freising"
+      },
+      "szenario": "umzug_freising_nach_muenchen"
+    },
+    {
+      "id": "umzug-02",
+      "art": "umgangssprache",
+      "text": "Hab endlich ne neue Bude in Leipzig gefunden, Schlüssel krieg ich zum 1.12. Muss ich mich da irgendwo ummelden?",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "fakten": {
+        "umzug.einzugsdatum": "2026-12-01"
+      },
+      "orte": {
+        "wohnort": "Leipzig"
+      }
+    },
+    {
+      "id": "umzug-03",
+      "art": "tippfehler",
+      "text": "wir ziehn um von hamburg nach kiel wegen meinem neuen job, hund kommt mit",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "fakten": {
+        "umzug.wegen_arbeit": "ja",
+        "umzug.hund": "ja"
+      },
+      "orte": {
+        "wohnort": "Kiel",
+        "umzug.ort_alt": "Hamburg"
+      }
+    },
+    {
+      "id": "umzug-04",
+      "art": "mehrere",
+      "text": "Ich fange im Oktober nächsten Jahres eine Ausbildung zum Mechatroniker an und ziehe dafür von Dresden nach Stuttgart.",
+      "lebenslagen": [
+        "umzug",
+        "ausbildung_studium"
+      ],
+      "fakten": {
+        "umzug.fuer_studium_ausbildung": "ja"
+      },
+      "fakten_optional": {
+        "bildung.vorhaben": "betriebliche_ausbildung"
+      },
+      "orte": {
+        "wohnort": "Stuttgart",
+        "umzug.ort_alt": "Dresden"
+      }
+    },
+    {
+      "id": "umzug-05",
+      "art": "relativ",
+      "text": "Wir sind letzten Freitag innerhalb von Köln umgezogen. Wohngeld bekommen wir auch.",
+      "lebenslagen": [
+        "umzug"
+      ],
+      "fakten": {
+        "umzug.einzugsdatum": "2026-10-30",
+        "bezieht_wohngeld": "ja"
+      },
+      "orte": {
+        "wohnort": "Köln",
+        "umzug.ort_alt": "Köln"
+      }
+    }
+  ]
+}

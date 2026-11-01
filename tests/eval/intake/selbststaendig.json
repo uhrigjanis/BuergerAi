@@ -1,0 +1,81 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "selbststaendig-01",
+      "art": "klar",
+      "text": "Ich bin Elektromeister und mache mich zum 01.12.2026 hauptberuflich mit einem eigenen Betrieb selbstständig. Einen Kredit brauche ich nicht.",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "fakten": {
+        "arbeit.taetigkeit": "handwerk",
+        "arbeit.meister": "ja",
+        "arbeit.gruendungsdatum": "2026-12-01",
+        "arbeit.hauptberuflich": "ja",
+        "arbeit.kredit_benoetigt": "nein"
+      },
+      "fakten_optional": {
+        "arbeit.zulassungspflichtig": "ja"
+      },
+      "szenario": "selbst_kiel_elektromeister"
+    },
+    {
+      "id": "selbststaendig-02",
+      "art": "umgangssprache",
+      "text": "Will nebenher n kleinen Onlineshop aufmachen, muss ich da was anmelden?",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "fakten": {
+        "arbeit.taetigkeit": "gewerbe",
+        "arbeit.hauptberuflich": "nein"
+      }
+    },
+    {
+      "id": "selbststaendig-03",
+      "art": "tippfehler",
+      "text": "bin arbeitsloss, kriege ALG und will mich als freiberufliche übersetzerinn selbstständig machen, wie krieg ich gründungszuschus?",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "fakten": {
+        "arbeit.bezieht_alg": "ja",
+        "arbeit.taetigkeit": "freiberuflich"
+      }
+    },
+    {
+      "id": "selbststaendig-04",
+      "art": "mehrere",
+      "text": "Wir ziehen nach Nürnberg und ich eröffne dort im Januar ein Café.",
+      "lebenslagen": [
+        "selbststaendig",
+        "umzug"
+      ],
+      "fakten": {
+        "arbeit.taetigkeit": "gewerbe"
+      },
+      "orte": {
+        "wohnort": "Nürnberg"
+      }
+    },
+    {
+      "id": "selbststaendig-05",
+      "art": "relativ",
+      "text": "In drei Wochen startet meine Selbstständigkeit als Friseurmeisterin mit eigenem Salon, das ist dann mein Hauptjob.",
+      "lebenslagen": [
+        "selbststaendig"
+      ],
+      "fakten": {
+        "arbeit.gruendungsdatum": "2026-11-23",
+        "arbeit.taetigkeit": "handwerk",
+        "arbeit.meister": "ja",
+        "arbeit.hauptberuflich": "ja"
+      },
+      "fakten_optional": {
+        "arbeit.zulassungspflichtig": "ja"
+      }
+    }
+  ]
+}

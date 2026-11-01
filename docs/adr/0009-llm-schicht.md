@@ -94,7 +94,7 @@ Regeln für den kostenlosen Plan:
 - **Schlüssel nur lokal:** Der API-Schlüssel steht in einer Umgebungsvariablen, nie im Repository. CI bekommt keinen Schlüssel und läuft weiter mit dem Fake-Modell (Abschnitt 4).
 - **Limits einplanen:** Das Bewertungsskript (#73) wartet zwischen Aufrufen und wiederholt bei HTTP 429. Ein Lauf über alle Fälle darf daher einige Minuten dauern.
 
-Haiku 5.5 wird vor dem Betrieb mit demselben Evaluationssatz gemessen. Ein Lauf kostet wenige Cent.
+Haiku 5.5 wird vor dem Betrieb mit demselben Evaluationssatz (`tests/eval/intake`, `./bai eval intake`) gemessen. Ein Lauf kostet wenige Cent.
 
 **Was die Wahl ändern kann:** Die Evaluation (#73) zeigt, dass Haiku 5.5 die Qualitätsgrenze nicht erreicht oder Mistral gleich gut ist; die Datenschutzprüfung schließt US-Anbieter aus; die Kosten in #80 liegen deutlich über der Schätzung.
 

@@ -1,0 +1,77 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "heirat-01",
+      "art": "klar",
+      "text": "Wir heiraten am 15.06.2027. Ich nehme den Namen meines Partners an. Nur mein Partner ist angestellt, ich verdiene nichts. Er ist gesetzlich krankenversichert.",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "fakten": {
+        "partnerschaft.stand": "geplant",
+        "partnerschaft.datum": "2027-06-15",
+        "partnerschaft.name_aendert": "ja",
+        "partnerschaft.arbeitnehmer": "einer",
+        "partnerschaft.gering_verdienend": "ja",
+        "partnerschaft.anderer_gkv": "ja"
+      },
+      "szenario": "heirat_berlin_geplant"
+    },
+    {
+      "id": "heirat-02",
+      "art": "umgangssprache",
+      "text": "Haben letzten Samstag geheiratet 💍 was müssen wir jetzt alles ummelden?",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "fakten": {
+        "partnerschaft.stand": "verheiratet",
+        "partnerschaft.datum": "2026-10-31"
+      }
+    },
+    {
+      "id": "heirat-03",
+      "art": "tippfehler",
+      "text": "wir wolen nächstes jahr im mai heiraten, welche steurklasse ist dann besser? wir arbeiten beide als angestellte",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "fakten": {
+        "partnerschaft.stand": "geplant",
+        "partnerschaft.arbeitnehmer": "beide"
+      }
+    },
+    {
+      "id": "heirat-04",
+      "art": "mehrere",
+      "text": "Wir haben im August in Dänemark geheiratet und ziehen jetzt zusammen nach Hamburg. Ich bin Deutsche.",
+      "lebenslagen": [
+        "heirat",
+        "umzug"
+      ],
+      "fakten": {
+        "partnerschaft.stand": "verheiratet",
+        "partnerschaft.heiratsort": "ausland",
+        "partnerschaft.ein_partner_deutsch": "ja"
+      },
+      "orte": {
+        "wohnort": "Hamburg"
+      }
+    },
+    {
+      "id": "heirat-05",
+      "art": "relativ",
+      "text": "In sechs Wochen ist unsere standesamtliche Trauung. Wir behalten beide unsere Namen.",
+      "lebenslagen": [
+        "heirat"
+      ],
+      "fakten": {
+        "partnerschaft.stand": "geplant",
+        "partnerschaft.datum": "2026-12-14",
+        "partnerschaft.name_aendert": "nein"
+      }
+    }
+  ]
+}

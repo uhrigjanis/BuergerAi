@@ -1,0 +1,94 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für die Freitext-Eingabe (#73). Relative Angaben beziehen sich auf den Stichtag (Montag). Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "geburt-01",
+      "art": "klar",
+      "text": "Wir sind verheiratet, wohnen zusammen in München und erwarten unser erstes Kind. Der errechnete Termin ist der 15.12.2026. Wir sind beide angestellt und gesetzlich krankenversichert.",
+      "lebenslagen": [
+        "geburt"
+      ],
+      "fakten": {
+        "kind_geboren": "nein",
+        "errechneter_termin": "2026-12-15",
+        "eltern_verheiratet": "ja",
+        "partner_im_haushalt": "ja",
+        "mutter.beschaeftigt": "ja",
+        "partner.beschaeftigt": "ja",
+        "mutter.krankenversicherung": "gesetzlich_mitglied",
+        "partner.krankenversicherung": "gesetzlich_mitglied"
+      },
+      "fakten_optional": {
+        "kinder_im_haushalt": 0
+      },
+      "orte": {
+        "wohnort": "München"
+      },
+      "szenario": "muenchen_verheiratet_angestellt"
+    },
+    {
+      "id": "geburt-02",
+      "art": "umgangssprache",
+      "text": "Unser Kleiner ist am 20.10. auf die Welt gekommen!! Mein Mann und ich haben null Plan, was wir jetzt alles erledigen müssen 😅",
+      "lebenslagen": [
+        "geburt"
+      ],
+      "fakten": {
+        "kind_geboren": "ja",
+        "geburtsdatum": "2026-10-20"
+      },
+      "fakten_optional": {
+        "eltern_verheiratet": "ja",
+        "partner_im_haushalt": "ja"
+      },
+      "notiz": "'Mein Mann' heißt umgangssprachlich nicht sicher verheiratet, deshalb optional."
+    },
+    {
+      "id": "geburt-03",
+      "art": "tippfehler",
+      "text": "bin schwnger und alleinerzihend, der vater wohnt nich bei mir. was steht mir zu??",
+      "lebenslagen": [
+        "geburt"
+      ],
+      "fakten": {
+        "kind_geboren": "nein",
+        "partner_im_haushalt": "nein"
+      }
+    },
+    {
+      "id": "geburt-04",
+      "art": "mehrere",
+      "text": "Wir bekommen Ende März ein Kind und ziehen vorher nach Freising, Einzug ist am 1. Februar.",
+      "lebenslagen": [
+        "geburt",
+        "umzug"
+      ],
+      "fakten": {
+        "kind_geboren": "nein",
+        "umzug.einzugsdatum": "2027-02-01"
+      },
+      "orte": {
+        "wohnort": "Freising"
+      },
+      "notiz": "'Ende März' ist kein Datum, deshalb kein errechneter Termin."
+    },
+    {
+      "id": "geburt-05",
+      "art": "relativ",
+      "text": "Unsere Tochter wurde vor zwei Wochen geboren und lebt bei uns. Ich bin die Mutter und will ein Jahr lang komplett zu Hause bleiben.",
+      "lebenslagen": [
+        "geburt"
+      ],
+      "fakten": {
+        "kind_geboren": "ja",
+        "geburtsdatum": "2026-10-19",
+        "kind_lebt_im_haushalt": "ja",
+        "mutter.erwerbsstunden_nach_geburt": 0
+      },
+      "fakten_optional": {
+        "mutter.betreut_kind_selbst": "ja"
+      }
+    }
+  ]
+}

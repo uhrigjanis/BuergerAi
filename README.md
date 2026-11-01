@@ -158,6 +158,12 @@ Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Sche
 | `BUERGERAI_LLM_TIMEOUT`, `BUERGERAI_LLM_VERSUCHE` | Sekunden je Anfrage (20) und Versuche bei Rate-Limit oder Serverfehler (3) |
 | `BUERGERAI_LLM_FAKE_DATEI` | vorbereitete Antworten für `fake`, z. B. `tests/daten/llm/probe.json` |
 | `BUERGERAI_ENV_DATEI` | andere `.env`-Datei (Standard: `.env` im aktuellen Ordner, sonst im Repository) |
+| `BUERGERAI_LLM_CA_DATEI` | Datei mit Stammzertifikaten (PEM), nur bei Zertifikatsfehlern nötig (siehe unten) |
+
+**Fehler „TLS-Zertifikat nicht prüfbar“** (`SSLCertVerificationError`): Python findet keine Stammzertifikate, um die Verbindung zu Mistral zu prüfen. Die Prüfung abzuschalten ist keine Lösung.
+
+- Mac mit Python von python.org: einmal `open "/Applications/Python 3.X/Install Certificates.command"` ausführen (3.X durch die eigene Version ersetzen).
+- Firmen- oder Schulnetz mit eigenem Zertifikat: das Firmenzertifikat als PEM-Datei besorgen (IT-Abteilung) und in `.env` `BUERGERAI_LLM_CA_DATEI=/pfad/zur/datei.pem` setzen.
 
 Jeder Fehler (Timeout, Rate-Limit, Ablehnung, ungültige Ausgabe) führt zurück zu Stichwortsuche und Formular. Logs enthalten keine Freitexte, nur Aufgabe, Modell, Dauer und Tokenzahlen.
 

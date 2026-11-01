@@ -11,6 +11,7 @@ bisher über Formular und Stichwortsuche. Schlüssel stehen nie im Repository.
 | ``BUERGERAI_LLM_TIMEOUT`` | Sekunden je Anfrage, Standard 20 |
 | ``BUERGERAI_LLM_VERSUCHE`` | Versuche bei Rate-Limit und Serverfehlern, Standard 3 |
 | ``BUERGERAI_LLM_URL`` | andere Adresse des Anbieters (Tests, Proxy) |
+| ``BUERGERAI_LLM_CA_DATEI`` | Datei mit Stammzertifikaten (PEM), z. B. für einen Firmen-Proxy oder Python ohne Zertifikate |
 | ``BUERGERAI_LLM_FAKE_DATEI`` | Antworten für ``fake`` (JSON), zum Ausprobieren ohne Modell |
 | ``BUERGERAI_ENV_DATEI`` | andere ``.env``-Datei (Standard: ``.env`` im aktuellen Ordner, sonst im Repository) |
 
@@ -49,6 +50,7 @@ class Konfiguration:
     versuche: int = 3
     url: Optional[str] = None
     fake_datei: Optional[str] = None
+    ca_datei: Optional[str] = None
 
     def beschreibung(self) -> str:
         """Für Ausgaben und Logs: ohne Schlüssel."""
@@ -58,6 +60,8 @@ class Konfiguration:
             teile.append("Schlüssel gesetzt" if self.schluessel else "kein Schlüssel")
         if self.url:
             teile.append(f"URL {self.url}")
+        if self.ca_datei:
+            teile.append(f"Zertifikate aus {self.ca_datei}")
         return ", ".join(teile)
 
 
@@ -133,6 +137,9 @@ def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfigurat
     if schluessel == PLATZHALTER:
         raise LLMKonfigurationsfehler("MISTRAL_API_KEY ist noch der Platzhalter aus .env.beispiel")
     fake_datei = env.get("BUERGERAI_LLM_FAKE_DATEI", "").strip() or None
+    ca_datei = env.get("BUERGERAI_LLM_CA_DATEI", "").strip() or None
+    if ca_datei and not Path(ca_datei).expanduser().is_file():
+        raise LLMKonfigurationsfehler("BUERGERAI_LLM_CA_DATEI: Datei nicht gefunden")
     if anbieter == "fake" and not fake_datei:
         raise LLMKonfigurationsfehler("BUERGERAI_LLM_FAKE_DATEI fehlt")
     return Konfiguration(
@@ -143,6 +150,7 @@ def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfigurat
         versuche=int(_zahl(env, "BUERGERAI_LLM_VERSUCHE", 3, int)),
         url=env.get("BUERGERAI_LLM_URL", "").strip() or None,
         fake_datei=fake_datei,
+        ca_datei=ca_datei,
     )
 
 

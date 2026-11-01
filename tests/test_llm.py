@@ -375,3 +375,57 @@ def test_env_wird_nicht_eingecheckt():
     regeln = (REPO / ".gitignore").read_text(encoding="utf-8").splitlines()
     assert ".env" in regeln and ".env.*" in regeln and "!.env.beispiel" in regeln
     assert (REPO / ".env.beispiel").is_file()
+
+
+# ------------------------------------------------------------------ TLS-Zertifikate
+
+
+@pytest.fixture
+def https_server(tmp_path, monkeypatch):
+    """Lokaler HTTPS-Server mit selbst erzeugtem Zertifikat, wie Mistral hinter einem Firmen-Proxy."""
+    import shutil
+    import ssl
+    import subprocess
+
+    if not shutil.which("openssl"):
+        pytest.skip("openssl nicht installiert")
+    for name in ("HTTPS_PROXY", "HTTP_PROXY", "https_proxy", "http_proxy", "ALL_PROXY", "all_proxy"):
+        monkeypatch.delenv(name, raising=False)
+    zert, schluessel = tmp_path / "zert.pem", tmp_path / "schluessel.pem"
+    subprocess.run(["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-days", "1", "-subj", "/CN=127.0.0.1",
+                    "-addext", "subjectAltName=IP:127.0.0.1", "-keyout", str(schluessel), "-out", str(zert)],
+                   check=True, capture_output=True)
+    server = _Server([_antwort('{"lebenslagen": []}')])
+    kontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    kontext.load_cert_chain(zert, schluessel)
+    server.httpd.socket = kontext.wrap_socket(server.httpd.socket, server_side=True)
+    yield server.url.replace("http://", "https://"), zert
+    server.schliessen()
+
+
+@pytest.mark.anforderung("ANF-LLM-08")
+def test_unbekanntes_zertifikat_klare_meldung(https_server):
+    url, _ = https_server
+    m = MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", timeout=5, versuche=1, url=url))
+    with pytest.raises(llm.LLMDienstfehler, match="TLS-Zertifikat nicht prüfbar.*BUERGERAI_LLM_CA_DATEI"):
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+
+
+@pytest.mark.anforderung("ANF-LLM-08")
+def test_eigene_zertifikatsdatei(https_server):
+    url, zert = https_server
+    k = llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x", "BUERGERAI_LLM_URL": url,
+                          "BUERGERAI_LLM_CA_DATEI": str(zert)})
+    assert f"Zertifikate aus {zert}" in k.beschreibung()
+    assert MistralLLM(k).strukturiert("s", "e", SCHEMA, aufgabe="router") == {"lebenslagen": []}
+
+
+@pytest.mark.anforderung("ANF-LLM-08")
+def test_ungueltige_zertifikatsdatei(tmp_path):
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="nicht gefunden"):
+        llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x",
+                          "BUERGERAI_LLM_CA_DATEI": str(tmp_path / "fehlt.pem")})
+    kaputt = tmp_path / "kaputt.pem"
+    kaputt.write_text("kein Zertifikat", encoding="utf-8")
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="keine gültigen Zertifikate"):
+        MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", ca_datei=str(kaputt)))

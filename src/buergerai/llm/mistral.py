@@ -12,9 +12,11 @@ from __future__ import annotations
 
 import json
 import socket
+import ssl
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
 from typing import Any, Callable, Optional
 
 from .basis import (
@@ -32,6 +34,11 @@ from .basis import (
 from .konfiguration import Konfiguration
 
 URL = "https://api.mistral.ai/v1/chat/completions"
+ZERTIFIKAT_HINWEIS = (
+    "TLS-Zertifikat nicht prüfbar: Python findet keine passenden Stammzertifikate. "
+    "Auf dem Mac mit Python von python.org einmal 'Install Certificates.command' ausführen, "
+    "im Firmennetz BUERGERAI_LLM_CA_DATEI auf das Firmenzertifikat setzen (README, LLM-Schicht)"
+)
 MAX_WARTEN = 30.0
 
 
@@ -42,6 +49,12 @@ class MistralLLM:
         self.konfig = konfig
         self.name = f"mistral/{konfig.modell}"
         self._schlafen = schlafen
+        self._ssl: Optional[ssl.SSLContext] = None
+        if konfig.ca_datei:
+            try:
+                self._ssl = ssl.create_default_context(cafile=str(Path(konfig.ca_datei).expanduser()))
+            except (OSError, ssl.SSLError):
+                raise LLMKonfigurationsfehler("BUERGERAI_LLM_CA_DATEI: keine gültigen Zertifikate (PEM)") from None
 
     # ------------------------------------------------------------ Schnittstelle
 
@@ -90,7 +103,7 @@ class MistralLLM:
         for versuch in range(1, self.konfig.versuche + 1):
             letzter = versuch == self.konfig.versuche
             try:
-                with urllib.request.urlopen(anfrage, timeout=self.konfig.timeout) as antwort:
+                with urllib.request.urlopen(anfrage, timeout=self.konfig.timeout, context=self._ssl) as antwort:
                     return json.loads(antwort.read().decode("utf-8"))
             except urllib.error.HTTPError as exc:
                 status = exc.code
@@ -109,6 +122,8 @@ class MistralLLM:
             except urllib.error.URLError as exc:
                 if isinstance(exc.reason, (TimeoutError, socket.timeout)):
                     raise LLMTimeout(f"keine Antwort nach {self.konfig.timeout:g} s") from None
+                if isinstance(exc.reason, ssl.SSLCertVerificationError):
+                    raise LLMDienstfehler(ZERTIFIKAT_HINWEIS) from None
                 raise LLMDienstfehler(f"keine Verbindung ({type(exc.reason).__name__})") from None
             except (json.JSONDecodeError, UnicodeDecodeError):
                 raise LLMDienstfehler("Antwort des Dienstes ist kein JSON") from None

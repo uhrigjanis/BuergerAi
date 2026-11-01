@@ -901,14 +901,27 @@ def cmd_llm(args: argparse.Namespace) -> int:
         return 2
     if konfig is None:
         print("LLM-Schicht aus (BUERGERAI_LLM_ANBIETER nicht gesetzt). Alles läuft ohne LLM über Formular und Stichwortsuche.")
-        print(f.grau("Mistral zum Entwickeln: cp .env.beispiel .env und dort den Schlüssel eintragen (ADR 0009, Abschnitt 5a)"))
-        return 1 if (args.probe or args.extrahieren is not None) else 0
+        print(f.grau("Zum Entwickeln (z. B. Gemini): cp .env.beispiel .env und dort den Schlüssel eintragen (ADR 0009, Abschnitt 5a)"))
+        return 1 if (args.probe or args.modelle or args.extrahieren is not None) else 0
     print(f"LLM-Schicht an: {konfig.beschreibung()}")
     env_datei = llm_mod.env_datei_finden()
     if env_datei:
         print(f.grau(f"Werte aus {env_datei} (gesetzte Umgebungsvariablen haben Vorrang)"))
     if args.extrahieren is not None:
         return _llm_extrahieren(args, kb, lagen, konfig, f)
+    if args.modelle:
+        try:
+            modelle = llm_mod.erzeugen(konfig).modelle()  # type: ignore[attr-defined]
+        except AttributeError:
+            print(f.rot(f"Anbieter {konfig.anbieter} kann keine Modellliste liefern"))
+            return 2
+        except llm_mod.LLMFehler as exc:
+            print(f.rot(f"✗ {exc.art}: {exc}"))
+            return 1
+        for name in modelle:
+            print(("* " if name == konfig.modell else "  ") + name)
+        print(f.grau(f"{len(modelle)} Modelle. Wählen in .env: BUERGERAI_LLM_MODELL=…  (* = aktuell)"))
+        return 0
     if not args.probe:
         print(f.grau("Testanfrage senden: buergerai llm --probe"))
         print(f.grau('Angaben aus Freitext: buergerai llm --extrahieren "Wir bekommen im März ein Kind" -l geburt'))
@@ -918,7 +931,7 @@ def cmd_llm(args: argparse.Namespace) -> int:
         antwort = llm_mod.erzeugen(konfig).strukturiert(
             "Du prüfst nur die Verbindung. Antworte ausschließlich mit dem JSON-Objekt aus dem Schema.",
             "Testanfrage von BürgerAI ohne personenbezogene Daten. Setze ok auf true.",
-            PROBE_SCHEMA, aufgabe="probe", max_tokens=50,
+            PROBE_SCHEMA, aufgabe="probe", max_tokens=512,
         )
     except llm_mod.LLMFehler as exc:
         print(f.rot(f"✗ {exc.art}: {exc}"))
@@ -1128,6 +1141,7 @@ def parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")
     s.add_argument("--probe", action="store_true", help="kurze Testanfrage ohne personenbezogene Daten senden")
+    s.add_argument("--modelle", action="store_true", help="Modelle auflisten, die der Schlüssel nutzen darf")
     s.add_argument("--schema", nargs="*", metavar="LEBENSLAGE",
                    help="JSON-Schema der Fakten-Extraktion für diese Lebenslagen ausgeben (ohne LLM)")
     s.add_argument("--extrahieren", metavar="TEXT",

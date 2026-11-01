@@ -12,7 +12,7 @@ import pytest
 from buergerai import llm
 from buergerai.cli import main
 from buergerai.llm.basis import FEHLERARTEN
-from buergerai.llm.mistral import MistralLLM
+from buergerai.llm.openai_kompatibel import OpenAIKompatibelLLM as MistralLLM
 
 PROBE = Path(__file__).parent / "daten" / "llm" / "probe.json"
 GEHEIM = "GEHEIMER-FREITEXT-4711"
@@ -42,10 +42,17 @@ class _Server:
         server = self
 
         class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):  # noqa: N802
+                server.anfragen.append({"headers": dict(self.headers), "body": None, "pfad": self.path})
+                self._antworten()
+
             def do_POST(self):  # noqa: N802
                 laenge = int(self.headers.get("Content-Length", 0))
-                server.anfragen.append({"headers": dict(self.headers),
+                server.anfragen.append({"headers": dict(self.headers), "pfad": self.path,
                                         "body": json.loads(self.rfile.read(laenge))})
+                self._antworten()
+
+            def _antworten(self):
                 status, header, body = server.antworten.pop(0)
                 if status == "schlafen":
                     time.sleep(header)
@@ -375,3 +382,146 @@ def test_env_wird_nicht_eingecheckt():
     regeln = (REPO / ".gitignore").read_text(encoding="utf-8").splitlines()
     assert ".env" in regeln and ".env.*" in regeln and "!.env.beispiel" in regeln
     assert (REPO / ".env.beispiel").is_file()
+
+
+# ------------------------------------------------------------------ TLS-Zertifikate
+
+
+@pytest.fixture
+def https_server(tmp_path, monkeypatch):
+    """Lokaler HTTPS-Server mit selbst erzeugtem Zertifikat, wie Mistral hinter einem Firmen-Proxy."""
+    import shutil
+    import ssl
+    import subprocess
+
+    if not shutil.which("openssl"):
+        pytest.skip("openssl nicht installiert")
+    for name in ("HTTPS_PROXY", "HTTP_PROXY", "https_proxy", "http_proxy", "ALL_PROXY", "all_proxy"):
+        monkeypatch.delenv(name, raising=False)
+    zert, schluessel = tmp_path / "zert.pem", tmp_path / "schluessel.pem"
+    subprocess.run(["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-days", "1", "-subj", "/CN=127.0.0.1",
+                    "-addext", "subjectAltName=IP:127.0.0.1", "-keyout", str(schluessel), "-out", str(zert)],
+                   check=True, capture_output=True)
+    server = _Server([_antwort('{"lebenslagen": []}')])
+    kontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    kontext.load_cert_chain(zert, schluessel)
+    server.httpd.socket = kontext.wrap_socket(server.httpd.socket, server_side=True)
+    yield server.url.replace("http://", "https://"), zert
+    server.schliessen()
+
+
+@pytest.mark.anforderung("ANF-LLM-10")
+def test_unbekanntes_zertifikat_klare_meldung(https_server):
+    url, _ = https_server
+    m = MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", timeout=5, versuche=1, url=url))
+    with pytest.raises(llm.LLMDienstfehler, match="TLS-Zertifikat nicht prüfbar.*BUERGERAI_LLM_CA_DATEI"):
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+
+
+@pytest.mark.anforderung("ANF-LLM-10")
+def test_eigene_zertifikatsdatei(https_server):
+    url, zert = https_server
+    k = llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x", "BUERGERAI_LLM_URL": url,
+                          "BUERGERAI_LLM_CA_DATEI": str(zert)})
+    assert f"Zertifikate aus {zert}" in k.beschreibung()
+    assert MistralLLM(k).strukturiert("s", "e", SCHEMA, aufgabe="router") == {"lebenslagen": []}
+
+
+@pytest.mark.anforderung("ANF-LLM-10")
+def test_ungueltige_zertifikatsdatei(tmp_path):
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="nicht gefunden"):
+        llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "mistral", "MISTRAL_API_KEY": "x",
+                          "BUERGERAI_LLM_CA_DATEI": str(tmp_path / "fehlt.pem")})
+    kaputt = tmp_path / "kaputt.pem"
+    kaputt.write_text("kein Zertifikat", encoding="utf-8")
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="keine gültigen Zertifikate"):
+        MistralLLM(llm.Konfiguration("mistral", "m", schluessel="x", ca_datei=str(kaputt)))
+
+
+@pytest.mark.anforderung("ANF-LLM-04", "ANF-LLM-06")
+def test_fehlerkennung_ohne_fehlertext(mistral):
+    auslastung = {"object": "error", "message": f"Service tier capacity exceeded {GEHEIM}",
+                  "type": "service_tier_capacity_exceeded", "param": None, "code": "3505"}
+    m, _, gewartet = mistral(*[(429, {}, auslastung)] * 3)
+    with pytest.raises(llm.LLMRateLimit) as info:
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+    meldung = str(info.value)
+    assert "(service_tier_capacity_exceeded, 3505)" in meldung and "BUERGERAI_LLM_MODELL" in meldung
+    assert GEHEIM not in meldung and len(gewartet) == 2
+
+    m, _, _ = mistral((429, {}, {"type": f"rate limit {GEHEIM}", "code": "1300"}), versuche=1)
+    with pytest.raises(llm.LLMRateLimit) as info:
+        m.strukturiert("s", "e", SCHEMA, aufgabe="router")
+    assert str(info.value) == "HTTP 429 nach 1 Versuchen (1300): Limit erreicht, kurz warten und erneut versuchen"
+
+    m, _, _ = mistral((401, {}, {"message": GEHEIM, "type": "invalid_api_key"}))
+    with pytest.raises(llm.LLMKonfigurationsfehler, match=r"HTTP 401 \(invalid_api_key\)"):
+        m.text("s", "e", aufgabe="antwort")
+
+
+# ------------------------------------------------------------------ Gemini (OpenAI-kompatibel)
+
+
+@pytest.mark.anforderung("ANF-LLM-02")
+def test_gemini_konfiguration():
+    k = llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "gemini", "GEMINI_API_KEY": SCHLUESSEL})
+    assert (k.anbieter, k.modell, k.schluessel) == ("gemini", "gemini-2.5-flash-lite", SCHLUESSEL)
+    assert SCHLUESSEL not in k.beschreibung()
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="GEMINI_API_KEY fehlt"):
+        llm.aus_umgebung({"BUERGERAI_LLM_ANBIETER": "gemini", "MISTRAL_API_KEY": "x"})
+    m = llm.erzeugen(k)
+    assert m.name == "gemini/gemini-2.5-flash-lite"
+    assert m.url == "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+
+
+def _gemini(server, **extra):
+    return MistralLLM(llm.Konfiguration("gemini", "gemini-2.5-flash-lite", schluessel=SCHLUESSEL, url=server.url,
+                                        **extra), schlafen=lambda s: None)
+
+
+@pytest.mark.anforderung("ANF-LLM-04")
+def test_gemini_anfrage_wie_openai(mistral):
+    _, server, _ = mistral(_antwort('{"lebenslagen": ["geburt"]}'))
+    m = _gemini(server)
+    assert m.strukturiert("System", "Ich bin schwanger", SCHEMA, aufgabe="router") == {"lebenslagen": ["geburt"]}
+    anfrage = server.anfragen[0]
+    assert anfrage["headers"]["Authorization"] == f"Bearer {SCHLUESSEL}"
+    assert anfrage["body"]["model"] == "gemini-2.5-flash-lite"
+    assert anfrage["body"]["response_format"]["json_schema"]["schema"] == SCHEMA
+
+
+@pytest.mark.anforderung("ANF-LLM-04", "ANF-LLM-06")
+def test_gemini_fehlerformat(mistral):
+    erschoepft = [{"error": {"code": 429, "message": f"Quota exceeded {GEHEIM}", "status": "RESOURCE_EXHAUSTED"}}]
+    _, server, _ = mistral((429, {}, erschoepft), (429, {}, erschoepft))
+    with pytest.raises(llm.LLMRateLimit) as info:
+        _gemini(server, versuche=2).strukturiert("s", "e", SCHEMA, aufgabe="router")
+    assert "(429, RESOURCE_EXHAUSTED)" in str(info.value) and GEHEIM not in str(info.value)
+
+    _, server, _ = mistral((404, {}, [{"error": {"code": 404, "message": GEHEIM, "status": "NOT_FOUND"}}]))
+    with pytest.raises(llm.LLMKonfigurationsfehler, match="unbekannt.*--modelle") as info:
+        _gemini(server).text("s", "e", aufgabe="antwort")
+    assert GEHEIM not in str(info.value)
+
+
+@pytest.mark.anforderung("ANF-LLM-04")
+def test_modellliste(mistral):
+    liste = {"object": "list", "data": [{"id": "models/gemini-2.5-flash-lite"}, {"id": "models/gemini-2.5-flash"},
+                                        {"id": "models/gemini-2.5-flash"}, {"kein": "id"}]}
+    _, server, _ = mistral((200, {}, liste))
+    assert _gemini(server).modelle() == ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
+    assert server.anfragen[0]["pfad"] == "/v1/models" and server.anfragen[0]["body"] is None
+
+
+@pytest.mark.anforderung("ANF-LLM-02")
+def test_cli_modelle(mistral, monkeypatch, capsys):
+    _, server, _ = mistral((200, {}, {"data": [{"id": "models/gemini-2.5-flash-lite"}, {"id": "models/x"}]}))
+    monkeypatch.setenv("BUERGERAI_LLM_ANBIETER", "gemini")
+    monkeypatch.setenv("GEMINI_API_KEY", SCHLUESSEL)
+    monkeypatch.setenv("BUERGERAI_LLM_URL", server.url)
+    assert main(["--keine-farbe", "llm", "--modelle"]) == 0
+    out = capsys.readouterr().out
+    assert "* gemini-2.5-flash-lite" in out and "  x" in out and SCHLUESSEL not in out
+    monkeypatch.setenv("BUERGERAI_LLM_ANBIETER", "fake")
+    monkeypatch.setenv("BUERGERAI_LLM_FAKE_DATEI", str(PROBE))
+    assert main(["--keine-farbe", "llm", "--modelle"]) == 2

@@ -132,11 +132,12 @@ Jedes Szenario hat eine `persona` (kurze Beschreibung, `sprachstil`, `vorwissen`
 
 ## LLM-Schicht (Phase 3, optional)
 
-Ohne Konfiguration ist die LLM-Schicht aus, und alles läuft wie oben beschrieben. Zum Entwickeln wird der kostenlose Mistral-Plan „Experiment“ genutzt, **nur mit ausgedachten Texten** und mit eingeschaltetem Training-Opt-out in der Mistral-Konsole ([ADR 0009](docs/adr/0009-llm-schicht.md), Abschnitt 5a).
+Ohne Konfiguration ist die LLM-Schicht aus, und alles läuft wie oben beschrieben. Zum Entwickeln wird der kostenlose Plan der Gemini-API (Google AI Studio) mit einem kleinen Modell genutzt, **nur mit ausgedachten Texten**; Mistral geht alternativ ([ADR 0009](docs/adr/0009-llm-schicht.md), Abschnitt 5a).
 
 ```bash
 cp .env.beispiel .env               # .env steht in .gitignore und wird nie eingecheckt
-# in .env den Schlüssel bei MISTRAL_API_KEY eintragen
+# in .env den Schlüssel bei GEMINI_API_KEY eintragen
+./bai llm --modelle                 # welche Modelle der Schlüssel nutzen darf
 ./bai llm --probe                   # Testanfrage ohne personenbezogene Daten
 ```
 
@@ -152,17 +153,20 @@ Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Sche
 
 | Variable | Bedeutung |
 |---|---|
-| `BUERGERAI_LLM_ANBIETER` | `mistral` oder `fake`; leer = LLM-Schicht aus |
-| `BUERGERAI_LLM_MODELL` | Standard `mistral-small-latest` |
+| `BUERGERAI_LLM_ANBIETER` | `gemini`, `mistral` oder `fake`; leer = LLM-Schicht aus |
+| `BUERGERAI_LLM_MODELL` | Standard `gemini-2.5-flash-lite` bzw. `mistral-small-latest`; Liste: `./bai llm --modelle` |
+| `GEMINI_API_KEY` | Schlüssel aus Google AI Studio |
 | `MISTRAL_API_KEY` | Schlüssel für Mistral |
 | `BUERGERAI_LLM_TIMEOUT`, `BUERGERAI_LLM_VERSUCHE` | Sekunden je Anfrage (20) und Versuche bei Rate-Limit oder Serverfehler (3) |
 | `BUERGERAI_LLM_FAKE_DATEI` | vorbereitete Antworten für `fake`, z. B. `tests/daten/llm/probe.json` |
 | `BUERGERAI_ENV_DATEI` | andere `.env`-Datei (Standard: `.env` im aktuellen Ordner, sonst im Repository) |
 | `BUERGERAI_LLM_CA_DATEI` | Datei mit Stammzertifikaten (PEM), nur bei Zertifikatsfehlern nötig (siehe unten) |
 
-**Fehler „rate_limit: HTTP 429“**: Mistral lehnt wegen eines Limits ab. Die Meldung nennt den Typ: `service_tier_capacity_exceeded` heißt, das Modell ist im kostenlosen Plan gerade ausgelastet. Dann später erneut versuchen oder in `.env` ein anderes Modell setzen (`BUERGERAI_LLM_MODELL`, verfügbare Modelle in der Mistral-Konsole). Sonst ist das Anfragelimit erreicht: kurz warten.
+**Fehler „rate_limit: HTTP 429“**: Der Anbieter lehnt wegen eines Limits ab. Die Meldung nennt den Typ: `service_tier_capacity_exceeded` (Mistral) heißt, das Modell ist im kostenlosen Plan gerade ausgelastet; `RESOURCE_EXHAUSTED` (Gemini) heißt, das Kontingent ist aufgebraucht. Dann später erneut versuchen oder in `.env` ein anderes Modell setzen (`BUERGERAI_LLM_MODELL`, Liste: `./bai llm --modelle`).
 
-**Fehler „TLS-Zertifikat nicht prüfbar“** (`SSLCertVerificationError`): Python findet keine Stammzertifikate, um die Verbindung zu Mistral zu prüfen. Die Prüfung abzuschalten ist keine Lösung.
+**Fehler „HTTP 404 … Modell unbekannt“**: Den Modellnamen gibt es beim Anbieter nicht (mehr). `./bai llm --modelle` zeigt die verfügbaren.
+
+**Fehler „TLS-Zertifikat nicht prüfbar“** (`SSLCertVerificationError`): Python findet keine Stammzertifikate, um die Verbindung zum Anbieter zu prüfen. Die Prüfung abzuschalten ist keine Lösung.
 
 - Mac mit Python von python.org: einmal `open "/Applications/Python 3.X/Install Certificates.command"` ausführen (3.X durch die eigene Version ersetzen).
 - Firmen- oder Schulnetz mit eigenem Zertifikat: das Firmenzertifikat als PEM-Datei besorgen (IT-Abteilung) und in `.env` `BUERGERAI_LLM_CA_DATEI=/pfad/zur/datei.pem` setzen.

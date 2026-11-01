@@ -1,8 +1,10 @@
-"""Mistral La Plateforme über die REST-API (ADR 0009 §5a, #74).
+"""Anbieter mit OpenAI-kompatibler Chat-API: Mistral und Gemini (ADR 0009 §5a, #74).
 
+Beide bieten ``POST …/chat/completions`` mit ``response_format: json_schema``.
 Nur die Standardbibliothek (``urllib``), deshalb kein zusätzliches Paket.
-Für die Entwicklung mit dem kostenlosen Plan „Experiment“: nur ausgedachte
-Texte, Training-Opt-out in der Mistral-Konsole einschalten.
+
+Entwicklung mit kostenlosen Plänen (Google AI Studio, Mistral „Experiment“):
+nur ausgedachte Texte senden, die Anbieter können sie zum Training nutzen.
 
 Bei HTTP 429 und Serverfehlern wird mit Wartezeit wiederholt (``Retry-After``
 oder 1, 2, 4 … Sekunden, höchstens 30). Danach gilt ein ``LLMFehler``.
@@ -32,9 +34,12 @@ from .basis import (
     json_objekt,
     protokollieren,
 )
-from .konfiguration import Konfiguration
+from .konfiguration import SCHLUESSEL_VARIABLE, Konfiguration
 
-URL = "https://api.mistral.ai/v1/chat/completions"
+URLS = {
+    "mistral": "https://api.mistral.ai/v1/chat/completions",
+    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+}
 # Nur kurze Kennungen aus der Fehlerantwort übernehmen, nie den Fehlertext (kann die Eingabe enthalten)
 _KENNUNG = re.compile(r"[A-Za-z0-9_.-]{1,64}")
 ZERTIFIKAT_HINWEIS = (
@@ -45,12 +50,15 @@ ZERTIFIKAT_HINWEIS = (
 MAX_WARTEN = 30.0
 
 
-class MistralLLM:
+class OpenAIKompatibelLLM:
     def __init__(self, konfig: Konfiguration, schlafen: Callable[[float], None] = time.sleep):
+        if konfig.anbieter not in URLS and not konfig.url:
+            raise LLMKonfigurationsfehler(f"Anbieter {konfig.anbieter!r} hat keine Adresse")
         if not konfig.schluessel:
-            raise LLMKonfigurationsfehler("MISTRAL_API_KEY fehlt")
+            raise LLMKonfigurationsfehler(f"{SCHLUESSEL_VARIABLE.get(konfig.anbieter, 'Schlüssel')} fehlt")
         self.konfig = konfig
-        self.name = f"mistral/{konfig.modell}"
+        self.name = f"{konfig.anbieter}/{konfig.modell}"
+        self.url = konfig.url or URLS[konfig.anbieter]
         self._schlafen = schlafen
         self._ssl: Optional[ssl.SSLContext] = None
         if konfig.ca_datei:
@@ -70,6 +78,16 @@ class MistralLLM:
     def text(self, system: str, eingabe: str, *, aufgabe: str, max_tokens: int = 1024) -> str:
         return self._aufruf(system, eingabe, aufgabe, max_tokens, None)
 
+    def modelle(self) -> list[str]:
+        """Modelle, die der Schlüssel nutzen darf (``GET …/models``), ohne Präfix ``models/``."""
+        basis = self.url.rsplit("/chat/completions", 1)[0]
+        daten = self._http(basis + "/models", None)
+        eintraege = daten.get("data") if isinstance(daten, dict) else None
+        if not isinstance(eintraege, list):
+            raise LLMUngueltigeAusgabe("Modellliste ohne data")
+        ids = {str(e.get("id", "")).removeprefix("models/") for e in eintraege if isinstance(e, dict)}
+        return sorted(i for i in ids if i)
+
     # ------------------------------------------------------------ intern
 
     def _aufruf(self, system: str, eingabe: str, aufgabe: str, max_tokens: int,
@@ -84,7 +102,7 @@ class MistralLLM:
             body["response_format"] = format_
         start = time.monotonic()
         try:
-            daten = self._senden(body)
+            daten = self._http(self.url, body)
             inhalt, tokens = self._auswerten(daten)
         except LLMFehler as exc:
             protokollieren(self.name, aufgabe, time.monotonic() - start, exc.art)
@@ -92,16 +110,17 @@ class MistralLLM:
         protokollieren(self.name, aufgabe, time.monotonic() - start, "ok", *tokens)
         return inhalt
 
-    def _senden(self, body: dict[str, Any]) -> dict[str, Any]:
+    def _http(self, url: str, body: Optional[dict[str, Any]]) -> Any:
+        """POST (mit body) bzw. GET, mit Wiederholung bei 429 und Serverfehlern."""
         anfrage = urllib.request.Request(
-            self.konfig.url or URL,
-            data=json.dumps(body).encode("utf-8"),
+            url,
+            data=None if body is None else json.dumps(body).encode("utf-8"),
             headers={
                 "Authorization": f"Bearer {self.konfig.schluessel}",
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             },
-            method="POST",
+            method="GET" if body is None else "POST",
         )
         for versuch in range(1, self.konfig.versuche + 1):
             letzter = versuch == self.konfig.versuche
@@ -125,6 +144,10 @@ class MistralLLM:
                         raise fehler(meldung) from None
                     self._schlafen(self._wartezeit(exc.headers.get("Retry-After"), versuch))
                     continue
+                if status == 404:
+                    raise LLMKonfigurationsfehler(
+                        f"HTTP 404{kennung}: Modell {self.konfig.modell!r} unbekannt? "
+                        "Verfügbare Modelle: buergerai llm --modelle") from None
                 raise LLMDienstfehler(f"HTTP {status}{kennung}") from None
             except (TimeoutError, socket.timeout):
                 raise LLMTimeout(f"keine Antwort nach {self.konfig.timeout:g} s") from None
@@ -140,18 +163,23 @@ class MistralLLM:
 
     @staticmethod
     def _kennung(exc: urllib.error.HTTPError) -> str:
-        """Fehlertyp und -code aus der Antwort, z. B. " (service_tier_capacity_exceeded, 3505)".
+        """Fehlertyp, -code und -status aus der Antwort, z. B. " (service_tier_capacity_exceeded, 3505)".
 
-        Übernommen werden nur kurze Kennungen aus den Feldern ``type`` und ``code``,
-        nie ``message`` oder ``detail``: Diese können die Eingabe enthalten.
+        Mistral liefert ``{"type": …, "code": …}``, Gemini ``[{"error": {"code": …, "status": …}}]``.
+        Übernommen werden nur kurze Kennungen, nie ``message`` oder ``detail``: Diese
+        können die Eingabe enthalten.
         """
         try:
             daten = json.loads(exc.read(4096).decode("utf-8"))
         except Exception:  # Fehlerantwort ohne JSON: dann eben ohne Kennung
             return ""
+        if isinstance(daten, list) and daten:
+            daten = daten[0]
+        if isinstance(daten, dict) and isinstance(daten.get("error"), dict):
+            daten = daten["error"]
         if not isinstance(daten, dict):
             return ""
-        teile = [str(daten[k]) for k in ("type", "code") if daten.get(k) is not None]
+        teile = [str(daten[k]) for k in ("type", "code", "status") if daten.get(k) is not None]
         teile = [t for t in teile if _KENNUNG.fullmatch(t)]
         return f" ({', '.join(teile)})" if teile else ""
 
@@ -172,13 +200,13 @@ class MistralLLM:
         except (KeyError, IndexError, TypeError, AttributeError):
             raise LLMUngueltigeAusgabe("Antwort ohne choices[0].message") from None
         grund = wahl.get("finish_reason")
-        if grund in ("length", "model_length"):
+        if grund in ("length", "model_length", "max_tokens"):
             raise LLMUngueltigeAusgabe("Antwort abgeschnitten (max_tokens)")
-        if grund == "content_filter":
+        if grund in ("content_filter", "safety", "recitation"):
             raise LLMAblehnung("vom Anbieter abgelehnt")
         if grund == "error":
             raise LLMDienstfehler("Anbieter meldet einen Fehler")
-        if isinstance(inhalt, list):  # Mistral kann Inhalte als Liste von Teilen liefern
+        if isinstance(inhalt, list):  # Inhalt kann als Liste von Teilen kommen
             inhalt = "".join(t.get("text", "") for t in inhalt if isinstance(t, dict))
         if not isinstance(inhalt, str) or not inhalt.strip():
             raise LLMUngueltigeAusgabe("leere Antwort")

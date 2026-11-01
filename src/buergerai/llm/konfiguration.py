@@ -5,8 +5,9 @@ bisher über Formular und Stichwortsuche. Schlüssel stehen nie im Repository.
 
 | Variable | Bedeutung |
 |---|---|
-| ``BUERGERAI_LLM_ANBIETER`` | ``mistral`` oder ``fake``; leer = aus |
-| ``BUERGERAI_LLM_MODELL`` | Modell, Standard je Anbieter (Mistral: ``mistral-small-latest``) |
+| ``BUERGERAI_LLM_ANBIETER`` | ``gemini``, ``mistral`` oder ``fake``; leer = aus |
+| ``BUERGERAI_LLM_MODELL`` | Modell, Standard je Anbieter (``gemini-2.5-flash-lite``, ``mistral-small-latest``) |
+| ``GEMINI_API_KEY`` | Schlüssel aus Google AI Studio |
 | ``MISTRAL_API_KEY`` | Schlüssel für Mistral |
 | ``BUERGERAI_LLM_TIMEOUT`` | Sekunden je Anfrage, Standard 20 |
 | ``BUERGERAI_LLM_VERSUCHE`` | Versuche bei Rate-Limit und Serverfehlern, Standard 3 |
@@ -37,8 +38,9 @@ REPO = Path(__file__).resolve().parents[3]
 _NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 PLATZHALTER = "hier-deinen-schluessel-eintragen"  # aus .env.beispiel
 
-ANBIETER = ("mistral", "fake")  # Vertex AI (Betrieb, ADR 0009 §5) folgt
-STANDARD_MODELL = {"mistral": "mistral-small-latest", "fake": "fake"}
+ANBIETER = ("gemini", "mistral", "fake")  # Vertex AI (Betrieb, ADR 0009 §5) folgt
+STANDARD_MODELL = {"gemini": "gemini-2.5-flash-lite", "mistral": "mistral-small-latest", "fake": "fake"}
+SCHLUESSEL_VARIABLE = {"gemini": "GEMINI_API_KEY", "mistral": "MISTRAL_API_KEY"}
 
 
 @dataclass(frozen=True)
@@ -130,12 +132,13 @@ def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfigurat
     if anbieter not in ANBIETER:
         raise LLMKonfigurationsfehler(f"BUERGERAI_LLM_ANBIETER: unbekannt, erlaubt sind {', '.join(ANBIETER)}")
     schluessel = None
-    if anbieter == "mistral":
-        schluessel = env.get("MISTRAL_API_KEY", "").strip() or None
-    if anbieter == "mistral" and not schluessel:
-        raise LLMKonfigurationsfehler("MISTRAL_API_KEY fehlt")
-    if schluessel == PLATZHALTER:
-        raise LLMKonfigurationsfehler("MISTRAL_API_KEY ist noch der Platzhalter aus .env.beispiel")
+    variable = SCHLUESSEL_VARIABLE.get(anbieter)
+    if variable:
+        schluessel = env.get(variable, "").strip() or None
+        if not schluessel:
+            raise LLMKonfigurationsfehler(f"{variable} fehlt")
+        if schluessel == PLATZHALTER:
+            raise LLMKonfigurationsfehler(f"{variable} ist noch der Platzhalter aus .env.beispiel")
     fake_datei = env.get("BUERGERAI_LLM_FAKE_DATEI", "").strip() or None
     ca_datei = env.get("BUERGERAI_LLM_CA_DATEI", "").strip() or None
     if ca_datei and not Path(ca_datei).expanduser().is_file():
@@ -155,10 +158,10 @@ def aus_umgebung(env: Optional[Mapping[str, str]] = None) -> Optional[Konfigurat
 
 
 def erzeugen(konfig: Konfiguration) -> LLM:
-    if konfig.anbieter == "mistral":
-        from .mistral import MistralLLM
+    if konfig.anbieter in SCHLUESSEL_VARIABLE:
+        from .openai_kompatibel import OpenAIKompatibelLLM
 
-        return MistralLLM(konfig)
+        return OpenAIKompatibelLLM(konfig)
     if konfig.anbieter == "fake":
         from .fake import FakeLLM
 

@@ -77,6 +77,7 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Gebiete und PLZ neu importieren | `./bai gebiete-import …` (siehe [docs/datenquellen.md](docs/datenquellen.md)) |
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
 | Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)) |
+| LLM-Konfiguration zeigen bzw. testen | `./bai llm` bzw. `./bai llm --probe` (siehe [LLM-Schicht](#llm-schicht-phase-3-optional)) |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
 | Namen aller Angaben (für `-f`), nach Fachmodul | `./bai fakten` |
@@ -128,6 +129,26 @@ Jedes Szenario hat eine `persona` (kurze Beschreibung, `sprachstil`, `vorwissen`
 | `einkommen_muenchen_rentnerin` | Grundsicherung im Alter unklar, München-Pass; kein Landes-Sozialticket in Bayern |
 | `einkommen_koeln_baby_kinderzuschlag` | Geburt und geringes Einkommen: Kinderzuschlag in beiden Lebenslagen, einmal gelistet |
 
+## LLM-Schicht (Phase 3, optional)
+
+Ohne Konfiguration ist die LLM-Schicht aus, und alles läuft wie oben beschrieben. Zum Entwickeln wird der kostenlose Mistral-Plan „Experiment“ genutzt, **nur mit ausgedachten Texten** und mit eingeschaltetem Training-Opt-out in der Mistral-Konsole ([ADR 0009](docs/adr/0009-llm-schicht.md), Abschnitt 5a).
+
+```bash
+export BUERGERAI_LLM_ANBIETER=mistral
+export MISTRAL_API_KEY=…            # nie ins Repository
+./bai llm --probe                   # Testanfrage ohne personenbezogene Daten
+```
+
+| Variable | Bedeutung |
+|---|---|
+| `BUERGERAI_LLM_ANBIETER` | `mistral` oder `fake`; leer = LLM-Schicht aus |
+| `BUERGERAI_LLM_MODELL` | Standard `mistral-small-latest` |
+| `MISTRAL_API_KEY` | Schlüssel für Mistral |
+| `BUERGERAI_LLM_TIMEOUT`, `BUERGERAI_LLM_VERSUCHE` | Sekunden je Anfrage (20) und Versuche bei Rate-Limit oder Serverfehler (3) |
+| `BUERGERAI_LLM_FAKE_DATEI` | vorbereitete Antworten für `fake`, z. B. `tests/daten/llm/probe.json` |
+
+Jeder Fehler (Timeout, Rate-Limit, Ablehnung, ungültige Ausgabe) führt zurück zu Stichwortsuche und Formular. Logs enthalten keine Freitexte, nur Aufgabe, Modell, Dauer und Tokenzahlen.
+
 ## So funktioniert es
 
 ```
@@ -151,7 +172,7 @@ Angaben (Fakten) ───────────────────► Re
 ## Projektstruktur
 
 ```
-src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, suche, ausgabe, cli
+src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, suche, ausgabe, cli, evaluation, llm/
   web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, JS)
 data/               Wissensbasis (getrennt vom Code)
   kern/               Fakten, die alle Fachmodule nutzen (Wohnort, Haushalt, Einkommen, Personen)

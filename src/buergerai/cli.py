@@ -864,6 +864,52 @@ def cmd_eval(args: argparse.Namespace) -> int:
     return 0
 
 
+PROBE_SCHEMA = {
+    "type": "object",
+    "properties": {"ok": {"type": "boolean"}},
+    "required": ["ok"],
+    "additionalProperties": False,
+}
+
+
+def cmd_llm(args: argparse.Namespace) -> int:
+    """Konfiguration der LLM-Schicht zeigen und mit --probe eine Testanfrage senden (#74)."""
+    import time
+
+    from . import llm as llm_mod
+
+    f = Farbe(None if not args.keine_farbe else False)
+    try:
+        konfig = llm_mod.aus_umgebung()
+    except llm_mod.LLMFehler as exc:
+        print(f.rot(f"LLM-Konfiguration fehlerhaft: {exc}"))
+        return 2
+    if konfig is None:
+        print("LLM-Schicht aus (BUERGERAI_LLM_ANBIETER nicht gesetzt). Alles läuft ohne LLM über Formular und Stichwortsuche.")
+        print(f.grau("Mistral zum Entwickeln: export BUERGERAI_LLM_ANBIETER=mistral MISTRAL_API_KEY=…  (ADR 0009, Abschnitt 5a)"))
+        return 1 if args.probe else 0
+    print(f"LLM-Schicht an: {konfig.beschreibung()}")
+    if not args.probe:
+        print(f.grau("Testanfrage senden: buergerai llm --probe"))
+        return 0
+    start = time.monotonic()
+    try:
+        antwort = llm_mod.erzeugen(konfig).strukturiert(
+            "Du prüfst nur die Verbindung. Antworte ausschließlich mit dem JSON-Objekt aus dem Schema.",
+            "Testanfrage von BürgerAI ohne personenbezogene Daten. Setze ok auf true.",
+            PROBE_SCHEMA, aufgabe="probe", max_tokens=50,
+        )
+    except llm_mod.LLMFehler as exc:
+        print(f.rot(f"✗ {exc.art}: {exc}"))
+        return 1
+    dauer = time.monotonic() - start
+    if antwort.get("ok") is True:
+        print(f.gruen(f"✓ Antwort im Schema nach {dauer:.1f} s"))
+        return 0
+    print(f.rot(f"✗ Antwort im Schema, aber ok ist nicht true ({dauer:.1f} s)"))
+    return 1
+
+
 def cmd_anforderungen(args: argparse.Namespace) -> int:
     f = Farbe(None if not args.keine_farbe else False)
     matrix = anforderungen_mod.testmatrix()
@@ -1007,6 +1053,10 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
     s.set_defaults(func=cmd_eval)
+
+    s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")
+    s.add_argument("--probe", action="store_true", help="kurze Testanfrage ohne personenbezogene Daten senden")
+    s.set_defaults(func=cmd_llm)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")
     s.add_argument("--details", "-d", action="store_true")

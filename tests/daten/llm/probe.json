@@ -1,0 +1,9 @@
+{
+  "_hinweis": "Vorbereitete Antworten für FakeLLM (#74). Zum Ausprobieren ohne Modell: BUERGERAI_LLM_ANBIETER=fake BUERGERAI_LLM_FAKE_DATEI=tests/daten/llm/probe.json ./bai llm --probe",
+  "antworten": [
+    {"aufgabe": "probe", "antwort": {"ok": true}},
+    {"aufgabe": "router", "enthaelt": "schwanger", "antwort": {"lebenslagen": ["geburt"]}},
+    {"aufgabe": "router", "enthaelt": "Zeitüberschreitung", "fehler": "timeout"},
+    {"aufgabe": "antwort", "antwort": "Sie können Elterngeld beantragen. Unverbindliche Orientierung, keine Rechtsberatung."}
+  ]
+}

@@ -4,30 +4,30 @@ Testfälle liegen in ``tests/eval/intake/*.json``: ein ausgedachter Freitext mit
 den erwarteten Lebenslagen und Fakten. Das Format beschreibt
 ``tests/eval/intake/README.md``.
 
-Ein *Verfahren* bekommt einen Fall und liefert eine ``Vorhersage``. Heute gibt es
-nur die Stichwortsuche als Baseline (ohne LLM). Router und Extraktion mit LLM
-(#76, #77) werden später als weitere Verfahren angeschlossen und mit denselben
+Ein *Verfahren* bekommt einen Fall und liefert eine ``Vorhersage``: die
+Stichwortsuche als Baseline (ohne LLM) und der LLM-Router (#76). Die Extraktion
+mit LLM (#77) wird als weiteres Verfahren angeschlossen und mit denselben
 Kennzahlen gemessen.
 """
 
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 from typing import Any, Callable, Optional
 
 from .fakten import EingabeFehler, FaktDefinition, parse_wert
+from .llm.router import ABWEISEN, KATEGORIEN
 from .modell import Ebene
 from .wissensbasis import Wissensbasis
 
 EVAL_VERZEICHNIS = Path(__file__).resolve().parents[2] / "tests" / "eval" / "intake"
 
-# Was das System mit dem Text tun soll (#82). "lebenslage": normal weiter.
-KATEGORIEN = ("lebenslage", "kein_thema", "umgehung", "rechtsberatung", "notlage")
-# Kategorien, bei denen keine Lebenslage und keine Fakten erkannt werden dürfen
-ABWEISEN = {"kein_thema", "umgehung", "rechtsberatung"}
+# KATEGORIEN (was das System mit dem Text tun soll, #82) und ABWEISEN (keine
+# Lebenslage, keine Fakten) stehen im Router, damit beide dasselbe meinen.
 # Wie der Text formuliert ist
 ARTEN = ("klar", "umgangssprache", "tippfehler", "mehrere", "relativ", "injection", "negativ")
 ARTEN_JE_LEBENSLAGE = ("klar", "umgangssprache", "tippfehler", "mehrere", "relativ")
@@ -58,6 +58,7 @@ class Vorhersage:
     lebenslagen: list[str]
     fakten: dict[str, Any] = field(default_factory=dict)  # Rohwerte, werden mit parse_wert geprüft
     kategorie: str = "lebenslage"
+    fallback: Optional[str] = None  # Grund, wenn statt des LLM die Stichwortsuche galt
 
 
 Verfahren = Callable[[Fall], Vorhersage]
@@ -240,6 +241,24 @@ def stichwortsuche(kb: Wissensbasis) -> Verfahren:
     return vorhersagen
 
 
+def llm_router(kb: Wissensbasis, pause: float = 0.0, llm: Any = None) -> Verfahren:
+    """Router mit dem konfigurierten LLM (#76); keine Fakten. ``pause``: Sekunden zwischen Aufrufen."""
+    from .llm import llm_aus_umgebung
+    from .llm.router import erkennen
+
+    modell = llm if llm is not None else llm_aus_umgebung()
+    erster = [True]
+
+    def vorhersagen(fall: Fall) -> Vorhersage:
+        if pause and not erster[0]:
+            time.sleep(pause)
+        erster[0] = False
+        r = erkennen(modell, kb, fall.text)
+        return Vorhersage(lebenslagen=r.ids, kategorie=r.kategorie, fallback=r.fehler)
+
+    return vorhersagen
+
+
 def erwartung(fall: Fall) -> Vorhersage:
     """Gibt genau die Erwartung zurück. Prüft die Bewertung (Obergrenze aller Kennzahlen)."""
     return Vorhersage(lebenslagen=list(fall.lebenslagen), fakten=dict(fall.fakten), kategorie=fall.kategorie)
@@ -247,6 +266,7 @@ def erwartung(fall: Fall) -> Vorhersage:
 
 VERFAHREN: dict[str, Callable[[Wissensbasis], Verfahren]] = {
     "stichwortsuche": stichwortsuche,
+    "llm": llm_router,
     "erwartung": lambda kb: erwartung,
 }
 
@@ -353,7 +373,17 @@ def kennzahlen(ergebnisse: list[FallErgebnis]) -> dict[str, Any]:
             "faelle": len(injections),
             "wirksam": sum(e.injection_wirksam for e in injections),
         },
+        "fallback": _fallbacks(ergebnisse),
     }
+
+
+def _fallbacks(ergebnisse: list[FallErgebnis]) -> dict[str, int]:
+    """Wie oft statt des LLM die Stichwortsuche galt, je Grund (leer bei Verfahren ohne LLM)."""
+    gruende: dict[str, int] = {}
+    for e in ergebnisse:
+        if e.vorhersage.fallback:
+            gruende[e.vorhersage.fallback] = gruende.get(e.vorhersage.fallback, 0) + 1
+    return dict(sorted(gruende.items()))
 
 
 def bewerten(kb: Wissensbasis, faelle: list[Fall], verfahren: Verfahren) -> list[FallErgebnis]:
@@ -387,6 +417,9 @@ def als_text(k: dict[str, Any], verfahren: str) -> str:
         f"Fehlerpunkte {x['fehlerpunkte']} (fehlend + {x['gewicht_falsch']} × falsch)",
         f"Injection: in {i['wirksam']} von {i['faelle']} Fällen wurde ein verbotener Fakt übernommen",
     ]
+    if k.get("fallback"):
+        zeilen.append("Fallback auf die Stichwortsuche: "
+                      + ", ".join(f"{n} × {grund}" for grund, n in k["fallback"].items()))
     return "\n".join(zeilen)
 
 

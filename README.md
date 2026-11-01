@@ -76,8 +76,9 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Abdeckung je Land | `./bai abdeckung` |
 | Gebiete und PLZ neu importieren | `./bai gebiete-import …` (siehe [docs/datenquellen.md](docs/datenquellen.md)) |
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
-| Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)) |
+| Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)), mit LLM-Router: `--verfahren llm` |
 | LLM-Konfiguration zeigen bzw. testen | `./bai llm` bzw. `./bai llm --probe` (siehe [LLM-Schicht](#llm-schicht-phase-3-optional)) |
+| Lebenslagen aus Freitext per LLM erkennen (nur ausgedachte Texte) | `./bai llm --router "Text"` |
 | Angaben aus Freitext per LLM entnehmen (nur ausgedachte Texte) | `./bai llm --extrahieren "Text" -l geburt` bzw. Schema: `./bai llm --schema geburt` |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
@@ -147,8 +148,15 @@ Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Sche
 
 ```bash
 ./bai llm --extrahieren "Wir bekommen am 15.03.2027 ein Kind und sind verheiratet." -l geburt
-./bai llm --extrahieren "Mir wurde gekündigt, Ende ist der 31.12." --stichtag 2026-11-02   # Lebenslagen per Stichwortsuche
+./bai llm --extrahieren "Mir wurde gekündigt, Ende ist der 31.12." --stichtag 2026-11-02   # Lebenslagen erkennt der Router
 ./bai llm --schema geburt umzug     # das JSON-Schema, ohne LLM
+```
+
+Router (#76): Das LLM ordnet den Text einer Kategorie zu (Lebenslage, kein Thema, Umgehung, Rechtsberatung, Notlage) und wählt Lebenslagen aus dem Katalog. Bei kein Thema, Umgehung und Rechtsberatung gibt es nie eine Lebenslage; den Hinweis an den Nutzer schreibt der Code, nicht das LLM. Bei jedem Fehler gilt die Stichwortsuche.
+
+```bash
+./bai llm --router "Wir bekommen im März ein Kind und ziehen vorher nach Freising."
+./bai eval intake --verfahren llm --details   # Kennzahlen gegen die Baseline, 1 s Pause je Aufruf (--pause)
 ```
 
 | Variable | Bedeutung |

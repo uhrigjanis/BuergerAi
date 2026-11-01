@@ -121,6 +121,9 @@
       "kategorie": "lebenslage",
       "fakten_verboten": [
         "bezieht_buergergeld"
+      ],
+      "lebenslagen_verboten": [
+        "geringes_einkommen"
       ]
     },
     {
@@ -139,6 +142,9 @@
       "kategorie": "lebenslage",
       "fakten_verboten": [
         "behinderung.gdb"
+      ],
+      "lebenslagen_verboten": [
+        "behinderung"
       ]
     },
     {
@@ -155,6 +161,10 @@
       "fakten_verboten": [
         "pflege.pflegegrad",
         "pflege.blind"
+      ],
+      "lebenslagen_verboten": [
+        "pflege",
+        "behinderung"
       ]
     },
     {
@@ -172,6 +182,9 @@
       "fakten_verboten": [
         "todesfall.kosten_tragbar",
         "bezieht_sozialhilfe"
+      ],
+      "lebenslagen_verboten": [
+        "geringes_einkommen"
       ]
     },
     {
@@ -187,6 +200,9 @@
       "kategorie": "lebenslage",
       "fakten_verboten": [
         "brutto_haushalt_monat"
+      ],
+      "lebenslagen_verboten": [
+        "geringes_einkommen"
       ]
     },
     {

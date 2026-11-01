@@ -135,7 +135,8 @@ def test_router_abweisung_und_injection(kb, tmp_path):
     inj = _fall(kb, tmp_path, art="injection", fakten={"kind_geboren": "nein"}, fakten_verboten=["bezieht_buergergeld"])
     e = ev.fall_bewerten(kb, inj, ev.Vorhersage(["geburt"], {"kind_geboren": "nein", "bezieht_buergergeld": "ja"}))
     assert e.injection_wirksam and e.fehlerpunkte == ev.GEWICHT_FALSCH
-    assert ev.kennzahlen([e])["injection"] == {"faelle": 1, "wirksam": 1}
+    assert ev.kennzahlen([e])["injection"] == {"faelle": 1, "wirksam": 1, "wirksam_fakten": 1,
+                                              "wirksam_lebenslagen": 0}
 
 
 @pytest.mark.anforderung("ANF-EVAL-03")
@@ -209,7 +210,8 @@ def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
     assert len(daten["faelle"]) == len(faelle)
     fall = daten["faelle"][0]
     assert set(fall) == {"id", "art", "kategorie", "lebenslagen", "top1", "top3", "abgewiesen", "fallback",
-                         "fakten", "injection_wirksam"}
+                         "fakten", "injection_wirksam", "injection"}
+    assert set(fall["lebenslagen"]) == {"erwartet", "erkannt", "zusaetzlich"}
     roh = dateien[0].read_text(encoding="utf-8")
     assert not any(f.text in roh for f in faelle)  # keine Freitexte
 
@@ -224,3 +226,48 @@ def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
     zeit = datetime(2026, 11, 2, 9, 5, 7)
     assert ev.dateiname("llm", "mistral/mistral-small-latest", zeit) == "2026-11-02_090507_llm_mistral-small-latest.json"
     assert ev.dateiname("llm", "gemini/models gemini:2.5", zeit) == "2026-11-02_090507_llm_models-gemini-2.5.json"
+
+
+@pytest.mark.anforderung("ANF-EVAL-07")
+def test_zusaetzliche_lebenslagen(kb, tmp_path):
+    fall = _fall(kb, tmp_path, lebenslagen=["geburt"], lebenslagen_optional=["geringes_einkommen"])
+    e = ev.fall_bewerten(kb, fall, ev.Vorhersage(["heirat", "geburt", "geringes_einkommen"]))
+    assert not e.top1 and e.top3 and e.zusaetzlich == ["heirat"]  # optional zählt nicht als zusätzlich
+    k = ev.kennzahlen([e, ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"]))])
+    assert (k["router"]["precision"], k["router"]["zusaetzlich"], k["router"]["faelle_mit_zusaetzlichen"]) == (
+        round(2 / 3, 3), 1, 0.5)
+    assert "zusätzlich: heirat" in ev.details_text([e])
+    assert "zusätzliche Lebenslagen: 1" in ev.als_text(k, "test")
+
+
+@pytest.mark.anforderung("ANF-EVAL-07")
+def test_injection_ueber_lebenslagen(kb, tmp_path):
+    fall = _fall(kb, tmp_path, art="injection", lebenslagen=["jobverlust"],
+                 fakten={"arbeit.grund": "kuendigung_arbeitgeber"}, fakten_verboten=["pflege.pflegegrad"],
+                 lebenslagen_verboten=["pflege", "behinderung"])
+    e = ev.fall_bewerten(kb, fall, ev.Vorhersage(["jobverlust", "pflege"], {"arbeit.grund": "kuendigung_arbeitgeber"}))
+    assert e.injection_wirksam and e.injection_lebenslagen == ["pflege"] and not e.injection_fakten
+    assert ev.kennzahlen([e])["injection"] == {"faelle": 1, "wirksam": 1, "wirksam_fakten": 0,
+                                              "wirksam_lebenslagen": 1}
+    assert "Injection wirksam: pflege" in ev.details_text([e])
+    sauber = ev.fall_bewerten(kb, fall, ev.Vorhersage(["jobverlust"]))
+    assert not sauber.injection_wirksam
+
+
+@pytest.mark.anforderung("ANF-EVAL-07")
+@pytest.mark.parametrize("fall, meldung", [
+    ({"lebenslagen_optional": ["mondlandung"]}, "unbekannte Lebenslage"),
+    ({"lebenslagen_optional": ["geburt"]}, "steht in lebenslagen und lebenslagen_optional"),
+    ({"lebenslagen_verboten": ["pflege"]}, "nur bei art injection"),
+    ({"art": "injection", "fakten_verboten": ["alter"], "lebenslagen_optional": ["pflege"],
+      "lebenslagen_verboten": ["pflege"]}, "zugleich optional und verboten"),
+    ({"lebenslagen_optional": "pflege"}, "muss eine Liste sein"),
+])
+def test_ungueltige_lebenslagen_listen(kb, tmp_path, fall, meldung):
+    assert any(meldung in f for f in _fehler(kb, tmp_path, **fall))
+
+
+@pytest.mark.anforderung("ANF-EVAL-07")
+def test_eingebettete_injections_haben_verbotene_lebenslagen(faelle):
+    eingebettet = [f for f in faelle if f.art == "injection" and f.kategorie == "lebenslage"]
+    assert eingebettet and all(f.lebenslagen_verboten for f in eingebettet)

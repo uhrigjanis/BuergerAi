@@ -51,6 +51,7 @@ Erkannte Angaben bestätigt der Nutzer, bevor sie in den Bericht eingehen („Wi
 - Der LLM-Client kommt als optionales Extra `[llm]` in `pyproject.toml`. `dependencies` bleibt leer.
 - Code, der das Paket des Anbieters importiert, liegt nur im Adapter (`buergerai.llm`, #74). Der Import steht in der Funktion, nicht oben im Modul, damit der Kern ohne Extra lädt.
 - Kern, Tests und CI laufen ohne Extra, ohne Netz und ohne Schlüssel. Tests nutzen ein Fake-Modell (#74).
+- Umsetzung (#74): Mistral wird über die REST-API mit `urllib` aus der Standardbibliothek angesprochen und braucht kein Extra. Das Extra `[llm]` kommt erst mit dem SDK für Vertex AI dazu. Ein eigener HTTP-Client ist hier vertretbar, weil die API klein ist (ein Endpunkt) und Wiederholung, Timeout und Fehlerbehandlung ohnehin selbst festgelegt werden. Die Tests prüfen den Adapter gegen einen lokalen Server.
 
 ### 5. Anbieter
 

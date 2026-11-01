@@ -159,6 +159,9 @@ def test_eval_cli_braucht_llm(capsys, monkeypatch, tmp_path):
     assert main(["--keine-farbe", "eval", "intake", "--verfahren", "llm", "--pause", "0", "--json"]) == 0
     k = json.loads(capsys.readouterr().out)
     assert k["verfahren"] == "llm" and k["fallback"] == {"timeout": k["faelle"]}
+    datei = next(evaluation.ERGEBNIS_VERZEICHNIS.glob("*_llm_fake.json"))
+    daten = json.loads(datei.read_text(encoding="utf-8"))
+    assert daten["modell"] == "fake/fake" and all(f["fallback"] == "timeout" for f in daten["faelle"])
 
 
 @pytest.mark.anforderung("ANF-LLM-11")

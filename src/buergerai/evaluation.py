@@ -13,9 +13,11 @@ Kennzahlen gemessen.
 from __future__ import annotations
 
 import json
+import re
+import subprocess
 import time
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Callable, Optional
 
@@ -25,6 +27,8 @@ from .modell import Ebene
 from .wissensbasis import Wissensbasis
 
 EVAL_VERZEICHNIS = Path(__file__).resolve().parents[2] / "tests" / "eval" / "intake"
+# Jeder Lauf von "buergerai eval intake" schreibt hierhin (README dort)
+ERGEBNIS_VERZEICHNIS = Path(__file__).resolve().parents[2] / "tests" / "eval" / "ergebnisse"
 
 # KATEGORIEN (was das System mit dem Text tun soll, #82) und ABWEISEN (keine
 # Lebenslage, keine Fakten) stehen im Router, damit beide dasselbe meinen.
@@ -440,3 +444,60 @@ def details_text(ergebnisse: list[FallErgebnis]) -> str:
         if probleme:
             zeilen.append(f"{e.fall.id} ({e.fall.art}): " + " · ".join(probleme))
     return "\n".join(zeilen) or "Keine Abweichungen."
+
+
+# ---------------------------------------------------------------- Ergebnisdatei
+
+
+def _git_commit() -> Optional[str]:
+    try:
+        aus = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ERGEBNIS_VERZEICHNIS.parents[2],
+                             capture_output=True, text=True, timeout=5)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return aus.stdout.strip() or None if aus.returncode == 0 else None
+
+
+def fall_json(e: FallErgebnis) -> dict[str, Any]:
+    """Ein Fall ohne Freitext: der steht in tests/eval/intake und wird über die ID gefunden."""
+    return {
+        "id": e.fall.id,
+        "art": e.fall.art,
+        "kategorie": {"erwartet": e.fall.kategorie, "erkannt": e.vorhersage.kategorie},
+        "lebenslagen": {"erwartet": e.fall.lebenslagen, "erkannt": e.vorhersage.lebenslagen},
+        "top1": e.top1,
+        "top3": e.top3,
+        "abgewiesen": e.abgewiesen,
+        "fallback": e.vorhersage.fallback,
+        "fakten": {"richtig": e.richtig, "falsch": e.falsch, "fehlend": e.fehlend},
+        "injection_wirksam": e.injection_wirksam,
+    }
+
+
+def ergebnis_json(ergebnisse: list[FallErgebnis], verfahren: str, modell: Optional[str] = None,
+                  zeitpunkt: Optional[datetime] = None) -> dict[str, Any]:
+    """Alles zu einem Lauf: wann, womit, Kennzahlen und jeder Fall. Kein Schlüssel, keine Freitexte."""
+    zeitpunkt = zeitpunkt or datetime.now().astimezone()
+    return {
+        "zeitpunkt": zeitpunkt.isoformat(timespec="seconds"),
+        "verfahren": verfahren,
+        "modell": modell,
+        "commit": _git_commit(),
+        "kennzahlen": kennzahlen(ergebnisse),
+        "faelle": [fall_json(e) for e in ergebnisse],
+    }
+
+
+def dateiname(verfahren: str, modell: Optional[str], zeitpunkt: datetime) -> str:
+    teile = [zeitpunkt.strftime("%Y-%m-%d_%H%M%S"), verfahren] + ([modell.split("/")[-1]] if modell else [])
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", "_".join(teile)) + ".json"
+
+
+def ergebnis_speichern(daten: dict[str, Any], ziel: Optional[Path] = None) -> Path:
+    """Schreibt die Ergebnisdatei; ohne ``ziel`` nach ERGEBNIS_VERZEICHNIS mit Datum, Verfahren und Modell."""
+    if ziel is None:
+        zeitpunkt = datetime.fromisoformat(daten["zeitpunkt"])
+        ziel = ERGEBNIS_VERZEICHNIS / dateiname(daten["verfahren"], daten.get("modell"), zeitpunkt)
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    ziel.write_text(json.dumps(daten, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return ziel

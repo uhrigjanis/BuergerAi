@@ -192,3 +192,35 @@ def test_ungueltige_persona(roh, meldung):
 
     with pytest.raises(EingabeFehler, match=meldung):
         persona_parsen(roh)
+
+
+@pytest.mark.anforderung("ANF-EVAL-06")
+def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
+    from datetime import datetime
+
+    assert ev.ERGEBNIS_VERZEICHNIS != ev.EVAL_VERZEICHNIS.parent / "ergebnisse"  # Tests schreiben nie ins Repo
+    assert main(["--keine-farbe", "eval", "intake"]) == 0
+    dateien = list(ev.ERGEBNIS_VERZEICHNIS.glob("*_stichwortsuche.json"))
+    assert len(dateien) == 1 and f"Ergebnisse gespeichert: {dateien[0]}" in capsys.readouterr().out
+    daten = json.loads(dateien[0].read_text(encoding="utf-8"))
+    assert {"zeitpunkt", "verfahren", "modell", "commit", "kennzahlen", "faelle"} <= set(daten)
+    assert daten["verfahren"] == "stichwortsuche" and daten["modell"] is None
+    assert daten["kennzahlen"] == ev.kennzahlen(ev.bewerten(kb, faelle, ev.stichwortsuche(kb)))
+    assert len(daten["faelle"]) == len(faelle)
+    fall = daten["faelle"][0]
+    assert set(fall) == {"id", "art", "kategorie", "lebenslagen", "top1", "top3", "abgewiesen", "fallback",
+                         "fakten", "injection_wirksam"}
+    roh = dateien[0].read_text(encoding="utf-8")
+    assert not any(f.text in roh for f in faelle)  # keine Freitexte
+
+    ziel = tmp_path / "unter" / "lauf.json"
+    assert main(["eval", "intake", "--json", "--verfahren", "erwartung", "--ausgabe", str(ziel)]) == 0
+    json.loads(capsys.readouterr().out)  # stdout bleibt reines JSON
+    assert json.loads(ziel.read_text(encoding="utf-8"))["kennzahlen"]["router"]["top1"] == 1
+
+    vorher = set(ev.ERGEBNIS_VERZEICHNIS.iterdir())
+    assert main(["eval", "intake", "--keine-datei"]) == 0
+    assert set(ev.ERGEBNIS_VERZEICHNIS.iterdir()) == vorher
+    zeit = datetime(2026, 11, 2, 9, 5, 7)
+    assert ev.dateiname("llm", "mistral/mistral-small-latest", zeit) == "2026-11-02_090507_llm_mistral-small-latest.json"
+    assert ev.dateiname("llm", "gemini/models gemini:2.5", zeit) == "2026-11-02_090507_llm_models-gemini-2.5.json"

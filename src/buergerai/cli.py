@@ -869,16 +869,27 @@ def cmd_eval(args: argparse.Namespace) -> int:
         pause = 1.0 if args.pause is None else args.pause
         print(f.grau(f"{konfig.beschreibung()} · {len(faelle)} Fälle · Pause {pause:g} s"), file=sys.stderr)
         verfahren = ev.llm_router(kb, pause=pause, llm=modell)
+        modellname = f"{konfig.anbieter}/{konfig.modell}"
     else:
         verfahren = ev.VERFAHREN[args.verfahren](kb)
+        modellname = None
     ergebnisse = ev.bewerten(kb, faelle, verfahren)
     kennzahlen = ev.kennzahlen(ergebnisse)
+    datei = None
+    if not args.keine_datei:
+        try:
+            datei = ev.ergebnis_speichern(ev.ergebnis_json(ergebnisse, args.verfahren, modellname),
+                                          Path(args.ausgabe) if args.ausgabe else None)
+        except OSError as exc:
+            print(f.rot(f"Ergebnisdatei nicht geschrieben: {exc}"), file=sys.stderr)
     if args.json:
         print(json.dumps({"verfahren": args.verfahren, **kennzahlen}, ensure_ascii=False, indent=2))
-        return 0
-    print(ev.als_text(kennzahlen, args.verfahren))
-    if args.details:
-        print("\n" + ev.details_text(ergebnisse))
+    else:
+        print(ev.als_text(kennzahlen, args.verfahren))
+        if args.details:
+            print("\n" + ev.details_text(ergebnisse))
+    if datei:
+        print(f.grau(f"Ergebnisse gespeichert: {datei}"), file=sys.stderr if args.json else sys.stdout)
     return 0
 
 
@@ -1206,6 +1217,9 @@ def parser() -> argparse.ArgumentParser:
                    help="Wartezeit zwischen LLM-Aufrufen (Standard bei --verfahren llm: 1; kostenlose Pläne)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
+    s.add_argument("--ausgabe", metavar="DATEI.json",
+                   help="Ergebnisdatei (Standard: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json)")
+    s.add_argument("--keine-datei", action="store_true", help="keine Ergebnisdatei schreiben")
     s.set_defaults(func=cmd_eval)
 
     s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")

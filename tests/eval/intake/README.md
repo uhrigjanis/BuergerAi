@@ -8,7 +8,10 @@ Ausgedachte Freitexte mit den erwarteten Lebenslagen und Angaben. Damit werden R
 ./bai eval intake                  # Kennzahlen der Baseline (Stichwortsuche, ohne LLM)
 ./bai eval intake --details        # zusätzlich die Abweichungen je Fall
 ./bai eval intake --json           # maschinenlesbar
+./bai eval intake --verfahren llm   # Router mit dem konfigurierten LLM (#76)
 ```
+
+Jeder Lauf schreibt eine Ergebnisdatei nach [`tests/eval/ergebnisse`](../ergebnisse/README.md).
 
 ## Dateien
 

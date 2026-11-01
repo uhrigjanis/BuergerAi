@@ -879,6 +879,21 @@ def cmd_llm(args: argparse.Namespace) -> int:
     from . import llm as llm_mod
 
     f = Farbe(None if not args.keine_farbe else False)
+    if args.schema is not None or args.extrahieren is not None:
+        kb = _kb(args)
+        lagen = args.lebenslage or args.schema or []
+        unbekannt = [x for x in lagen if x not in kb.lebenslagen]
+        if unbekannt:
+            print(f.rot(f"Unbekannte Lebenslage: {', '.join(unbekannt)} (siehe buergerai lebenslagen)"))
+            return 2
+        if args.schema is not None:
+            if not lagen:
+                print(f.rot("Bitte Lebenslagen angeben, z. B. buergerai llm --schema geburt umzug"))
+                return 2
+            from .llm.schema import schema_fuer
+
+            print(json.dumps(schema_fuer(kb, lagen), ensure_ascii=False, indent=2))
+            return 0
     try:
         konfig = llm_mod.aus_umgebung()
     except llm_mod.LLMFehler as exc:
@@ -887,13 +902,16 @@ def cmd_llm(args: argparse.Namespace) -> int:
     if konfig is None:
         print("LLM-Schicht aus (BUERGERAI_LLM_ANBIETER nicht gesetzt). Alles läuft ohne LLM über Formular und Stichwortsuche.")
         print(f.grau("Mistral zum Entwickeln: cp .env.beispiel .env und dort den Schlüssel eintragen (ADR 0009, Abschnitt 5a)"))
-        return 1 if args.probe else 0
+        return 1 if (args.probe or args.extrahieren is not None) else 0
     print(f"LLM-Schicht an: {konfig.beschreibung()}")
     env_datei = llm_mod.env_datei_finden()
     if env_datei:
         print(f.grau(f"Werte aus {env_datei} (gesetzte Umgebungsvariablen haben Vorrang)"))
+    if args.extrahieren is not None:
+        return _llm_extrahieren(args, kb, lagen, konfig, f)
     if not args.probe:
         print(f.grau("Testanfrage senden: buergerai llm --probe"))
+        print(f.grau('Angaben aus Freitext: buergerai llm --extrahieren "Wir bekommen im März ein Kind" -l geburt'))
         return 0
     start = time.monotonic()
     try:
@@ -911,6 +929,57 @@ def cmd_llm(args: argparse.Namespace) -> int:
         return 0
     print(f.rot(f"✗ Antwort im Schema, aber ok ist nicht true ({dauer:.1f} s)"))
     return 1
+
+
+def _llm_extrahieren(args: argparse.Namespace, kb: Wissensbasis, lagen: list[str], konfig: Any, f: "Farbe") -> int:
+    """Freitext → LLM → geprüfte Vorschläge, zum Ausprobieren (#75; Ausbau in #77). Nur ausgedachte Texte!"""
+    import time
+
+    from . import llm as llm_mod
+    from .fakten import wert_als_text
+    from .llm.extraktion import extrahieren
+    from .suche import lebenslagen_suchen
+
+    text = args.extrahieren.strip()
+    if not text:
+        print(f.rot("Bitte einen Text angeben."))
+        return 2
+    if not lagen:
+        treffer = lebenslagen_suchen(kb, text)[:3]
+        lagen = [ll.id for ll, _ in treffer]
+        if not lagen:
+            print(f.rot("Keine Lebenslage erkannt. Bitte mit -l angeben (buergerai lebenslagen)."))
+            return 2
+        print(f.grau(f"Lebenslagen aus der Stichwortsuche (Router folgt mit #76): {', '.join(lagen)}"))
+    try:
+        heute = date.fromisoformat(args.stichtag) if args.stichtag else date.today()
+    except ValueError:
+        print(f.rot("--stichtag: Datum als JJJJ-MM-TT erwartet"))
+        return 2
+    start = time.monotonic()
+    try:
+        ergebnis = extrahieren(llm_mod.erzeugen(konfig), kb, text, lagen, heute=heute)
+    except llm_mod.LLMFehler as exc:
+        print(f.rot(f"✗ {exc.art}: {exc}"))
+        return 1
+    print(f.gruen(f"✓ Antwort nach {time.monotonic() - start:.1f} s") + f.grau(f" (Lebenslagen: {', '.join(lagen)})"))
+    if args.json:
+        print(json.dumps({
+            "vorschlaege": [{"id": v.id, "wert": "unbekannt" if v.wert is UNBEKANNT else
+                             (v.wert.isoformat() if isinstance(v.wert, date) else v.wert), "beleg": v.beleg}
+                            for v in ergebnis.vorschlaege],
+            "verworfen": [{"id": v.id, "grund": v.grund} for v in ergebnis.verworfen],
+        }, ensure_ascii=False, indent=2))
+        return 0
+    print(f"\nErkannt ({len(ergebnis.vorschlaege)}):")
+    for v in ergebnis.vorschlaege:
+        wert = "weiß nicht" if v.wert is UNBEKANNT else wert_als_text(v.wert)
+        print(f"  {v.id} = {wert}  " + f.grau(f"„{v.beleg}“"))
+    if ergebnis.verworfen:
+        print(f"\nVerworfen ({len(ergebnis.verworfen)}):")
+        for v in ergebnis.verworfen:
+            print(f"  {v.id}  " + f.rot(v.grund))
+    return 0
 
 
 def cmd_anforderungen(args: argparse.Namespace) -> int:
@@ -1059,6 +1128,14 @@ def parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")
     s.add_argument("--probe", action="store_true", help="kurze Testanfrage ohne personenbezogene Daten senden")
+    s.add_argument("--schema", nargs="*", metavar="LEBENSLAGE",
+                   help="JSON-Schema der Fakten-Extraktion für diese Lebenslagen ausgeben (ohne LLM)")
+    s.add_argument("--extrahieren", metavar="TEXT",
+                   help="Angaben aus einem ausgedachten Freitext entnehmen und prüfen (nie echte Personendaten)")
+    s.add_argument("--lebenslage", "-l", action="append", metavar="ID",
+                   help="Lebenslage für --extrahieren (mehrfach möglich; sonst Stichwortsuche)")
+    s.add_argument("--stichtag", help="Bezugsdatum für relative Angaben, JJJJ-MM-TT (Standard: heute)")
+    s.add_argument("--json", action="store_true", help="Ergebnis von --extrahieren maschinenlesbar")
     s.set_defaults(func=cmd_llm)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")

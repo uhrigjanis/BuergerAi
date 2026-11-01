@@ -78,6 +78,7 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Alle Szenarien prüfen | `./bai szenarien --pruefen` |
 | Freitext-Eingabe bewerten (Router, Abweisung, Extraktion) | `./bai eval intake --details` (Testfälle: [tests/eval/intake](tests/eval/intake/README.md)) |
 | LLM-Konfiguration zeigen bzw. testen | `./bai llm` bzw. `./bai llm --probe` (siehe [LLM-Schicht](#llm-schicht-phase-3-optional)) |
+| Angaben aus Freitext per LLM entnehmen (nur ausgedachte Texte) | `./bai llm --extrahieren "Text" -l geburt` bzw. Schema: `./bai llm --schema geburt` |
 | Maschinenlesbar | `./bai pruefen -s nur_plz --json` |
 | Gebietshierarchie | `./bai gebiet 80331` |
 | Namen aller Angaben (für `-f`), nach Fachmodul | `./bai fakten` |
@@ -140,6 +141,14 @@ cp .env.beispiel .env               # .env steht in .gitignore und wird nie eing
 ```
 
 Die Werte können statt in `.env` auch als Umgebungsvariablen gesetzt werden (z. B. als Codespaces-Secret); gesetzte Umgebungsvariablen haben Vorrang. `./bai llm` zeigt, aus welcher `.env` die Werte kommen.
+
+Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Schema kommt aus dem Faktenkatalog; jede Angabe wird geprüft (Katalog, `parse_wert`, wörtlicher Beleg im Text, `nur_wenn`), alles andere wird mit Grund verworfen:
+
+```bash
+./bai llm --extrahieren "Wir bekommen am 15.03.2027 ein Kind und sind verheiratet." -l geburt
+./bai llm --extrahieren "Mir wurde gekündigt, Ende ist der 31.12." --stichtag 2026-11-02   # Lebenslagen per Stichwortsuche
+./bai llm --schema geburt umzug     # das JSON-Schema, ohne LLM
+```
 
 | Variable | Bedeutung |
 |---|---|

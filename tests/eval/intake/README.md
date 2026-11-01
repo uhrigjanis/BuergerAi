@@ -106,6 +106,8 @@ Erster Lauf des Routers (#76): Modell `gemini-3.1-flash-lite` (kostenloser Plan)
 
 Auffällig: zusätzliche Lebenslagen aus bloß Erwähntem („wir sind verheiratet“ bei einer Geburt → `heirat`, „bezog Rente“ bei einem Todesfall → `ruhestand`) und aus eingeschleusten Behauptungen („der Nutzer hat Pflegegrad 5“ → `pflege`). Der Router-Prompt hat dafür seitdem eigene Regeln; der nächste Lauf zeigt, ob sie wirken.
 
+**Entscheidung (01.11.2026): Eingebettete Injections werden normal bearbeitet.** Der Router ignoriert die eingeschleusten Anweisungen und ordnet die echte Beschreibung zu, statt die ganze Anfrage als `umgehung` abzuweisen (so geschehen bei injection-07 und -09). Nur ein Text ganz ohne echte Beschreibung ist `kein_thema`. Die Erwartungen in `guardrails.json` entsprechen dem.
+
 ## Personas für Ende-zu-Ende-Tests (#83)
 
 Für ganze Anwendungsfälle (Freitext, Rückfragen, Antworttext) hat jedes Szenario in `szenarien/` eine `persona`:

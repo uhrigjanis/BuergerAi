@@ -154,7 +154,7 @@ def test_baseline_stichwortsuche(kb, faelle):
     assert k["router"]["top1"] >= 0.75
     assert k["abweisung"]["faelschlich"] == 0
     assert k["extraktion"]["richtig"] == 0 and k["extraktion"]["falsch"] == 0
-    assert k["notlage"]["erkannt"] == 0
+    assert k["notlage"]["erkannt"] == 1.0  # Stichwortliste im Code (#82)
 
 
 @pytest.mark.anforderung("ANF-EVAL-04")

@@ -53,9 +53,15 @@ class LLMKonfigurationsfehler(LLMFehler):
     art = "konfiguration"
 
 
+class LLMKostendeckel(LLMFehler):
+    """Der Aufrufdeckel für Tag oder Monat ist erreicht (#82); bis zum nächsten Zeitraum gilt der Fallback."""
+
+    art = "kostendeckel"
+
+
 FEHLERARTEN: dict[str, type[LLMFehler]] = {
     k.art: k for k in (LLMTimeout, LLMRateLimit, LLMAblehnung, LLMUngueltigeAusgabe, LLMDienstfehler,
-                       LLMKonfigurationsfehler)
+                       LLMKonfigurationsfehler, LLMKostendeckel)
 }
 
 

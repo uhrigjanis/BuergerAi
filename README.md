@@ -158,6 +158,8 @@ Angaben aus einem ausgedachten Freitext entnehmen (#75, Ausbau in #77). Das Sche
 
 Router (#76): Das LLM ordnet den Text einer Kategorie zu (Lebenslage, kein Thema, Umgehung, Rechtsberatung, Notlage) und wählt Lebenslagen aus dem Katalog. Bei kein Thema, Umgehung und Rechtsberatung gibt es nie eine Lebenslage; den Hinweis an den Nutzer schreibt der Code, nicht das LLM. Bei jedem Fehler gilt die Stichwortsuche.
 
+Schutzregeln (#82, ADR 0009 §8): Freitext höchstens 2.000 Zeichen, je IP höchstens 10 Freitext-Anfragen pro Minute und 100 pro Tag, ein Deckel für Modellaufrufe je Tag und Monat, gleiche Anfragen aus einem kurzen Cache. Notlagen erkennt zusätzlich eine Stichwortliste im Code, damit der Hinweis auf Hilfetelefone auch ohne LLM erscheint.
+
 ```bash
 ./bai llm --router "Wir bekommen im März ein Kind und ziehen vorher nach Freising."
 ./bai eval intake --verfahren llm --details   # Kennzahlen gegen die Baseline, 1 s Pause je Aufruf (--pause)
@@ -170,6 +172,7 @@ Router (#76): Das LLM ordnet den Text einer Kategorie zu (Lebenslage, kein Thema
 | `GEMINI_API_KEY` | Schlüssel aus Google AI Studio |
 | `MISTRAL_API_KEY` | Schlüssel für Mistral |
 | `BUERGERAI_LLM_TIMEOUT`, `BUERGERAI_LLM_VERSUCHE` | Sekunden je Anfrage (20) und Versuche bei Rate-Limit oder Serverfehler (3) |
+| `BUERGERAI_LLM_MAX_AUFRUFE_TAG`, `BUERGERAI_LLM_MAX_AUFRUFE_MONAT` | Kostendeckel der Web-Oberfläche: Modellaufrufe je Tag (1000) und Monat (10000); danach läuft alles ohne LLM |
 | `BUERGERAI_LLM_FAKE_DATEI` | vorbereitete Antworten für `fake`, z. B. `tests/daten/llm/probe.json` |
 | `BUERGERAI_ENV_DATEI` | andere `.env`-Datei (Standard: `.env` im aktuellen Ordner, sonst im Repository) |
 | `BUERGERAI_LLM_CA_DATEI` | Datei mit Stammzertifikaten (PEM), nur bei Zertifikatsfehlern nötig (siehe unten) |

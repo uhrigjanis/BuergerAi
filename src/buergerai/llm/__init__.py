@@ -19,6 +19,7 @@ from .basis import (
     LLMDienstfehler,
     LLMFehler,
     LLMKonfigurationsfehler,
+    LLMKostendeckel,
     LLMRateLimit,
     LLMTimeout,
     LLMUngueltigeAusgabe,
@@ -29,6 +30,6 @@ from .konfiguration import Konfiguration, aus_umgebung, env_datei_finden, erzeug
 
 __all__ = [
     "LLM", "Ergebnis", "FakeLLM", "Konfiguration", "LLMAblehnung", "LLMDienstfehler", "LLMFehler",
-    "LLMKonfigurationsfehler", "LLMRateLimit", "LLMTimeout", "LLMUngueltigeAusgabe", "aus_umgebung",
+    "LLMKonfigurationsfehler", "LLMKostendeckel", "LLMRateLimit", "LLMTimeout", "LLMUngueltigeAusgabe", "aus_umgebung",
     "env_datei_finden", "erzeugen", "llm_aus_umgebung", "mit_fallback",
 ]

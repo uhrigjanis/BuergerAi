@@ -90,7 +90,7 @@ Alle Kennzahlen hier sind **deterministisch**: Sie vergleichen exakt mit der Erw
 | Router-Precision | 21 % (316 zusätzliche Lebenslagen, in allen Fällen) |
 | richtig abgewiesen (25 Fälle) | 16 % (richtige Kategorie 12 %) |
 | fälschlich abgewiesen | 0 % |
-| Notlagen erkannt | 0 % |
+| Notlagen erkannt | 100 % (Stichwortliste im Code, #82) |
 | Extraktion (174 Angaben) | Recall 0 %, 174 Fehlerpunkte; die Stichwortsuche entnimmt keine Angaben |
 
 Die Stichwortsuche findet fast immer irgendeine Lebenslage, weil einzelne Wörter passen („Wetter morgen in Berlin“). Deshalb weist sie kaum etwas ab. Genau hier soll der Router mit LLM besser werden, ohne normale Anfragen abzuweisen.

@@ -11,6 +11,8 @@ bisher über Formular und Stichwortsuche. Schlüssel stehen nie im Repository.
 | ``MISTRAL_API_KEY`` | Schlüssel für Mistral |
 | ``BUERGERAI_LLM_TIMEOUT`` | Sekunden je Anfrage, Standard 20 |
 | ``BUERGERAI_LLM_VERSUCHE`` | Versuche bei Rate-Limit und Serverfehlern, Standard 3 |
+| ``BUERGERAI_LLM_MAX_AUFRUFE_TAG`` | Kostendeckel der Web-Oberfläche: Modellaufrufe je Tag, Standard 1000 (#82) |
+| ``BUERGERAI_LLM_MAX_AUFRUFE_MONAT`` | dasselbe je Kalendermonat, Standard 10000 |
 | ``BUERGERAI_LLM_URL`` | andere Adresse des Anbieters (Tests, Proxy) |
 | ``BUERGERAI_LLM_CA_DATEI`` | Datei mit Stammzertifikaten (PEM), z. B. für einen Firmen-Proxy oder Python ohne Zertifikate |
 | ``BUERGERAI_LLM_FAKE_DATEI`` | Antworten für ``fake`` (JSON), zum Ausprobieren ohne Modell |

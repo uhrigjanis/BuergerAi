@@ -4,44 +4,59 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BürgerAI – Lebenslagen</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=0.6.0">
-  <script src="app.js?v=0.6.0" defer></script>
+  <script type="module" src="app.js?v=0.6.0"></script>
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
   <header class="kopf">
-    <div class="kopf-innen">
-      <div>
-        <p class="marke">BürgerAI</p>
-        <h1 id="titel">Lebenslagen</h1>
-      </div>
-      <p class="pilot">Ganz Deutschland · Bund, Länder, Kreise, Gemeinden</p>
-    </div>
+    <p class="marke">BürgerAI</p>
+    <p class="kopf-text" id="titel">Anträge, Pflichten und Fristen für Ihre Lebenslage</p>
   </header>
 
   <main id="inhalt">
-    <p class="hinweis-recht">Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle.
-      Ihre Angaben werden zur Berechnung an den Server geschickt, dort aber weder gespeichert noch protokolliert.
-      Damit Sie später weitermachen können, merkt sich nur dieser Browser Ihre Angaben; „Neu beginnen“ löscht sie.</p>
-
     <div id="meldung" class="meldung" role="alert" hidden></div>
 
-    <!-- Schritt 1: Wohnort -->
-    <section id="start" class="karte start" aria-labelledby="start-titel">
-      <h2 id="start-titel">Worum geht es, und wo wohnen Sie?</h2>
-      <p class="leise">Wir prüfen, welche Leistungen und Pflichten in Ihrer Lebenslage gelten, und erstellen eine Checkliste mit Fristen.</p>
-      <form id="ort-form" novalidate>
-        <fieldset id="lebenslagen-wahl" class="lebenslagen-wahl">
-          <legend>Lebenslage (mehrere möglich)</legend>
-        </fieldset>
-        <label for="plz">Postleitzahl</label>
-        <p class="leise klein">Bei einem Umzug: Postleitzahl der neuen Wohnung.</p>
+    <!-- Einstieg: Freitext oder Suche, Kacheln, Wohnort -->
+    <section id="start" class="start" aria-labelledby="start-titel">
+      <h1 id="start-titel" class="start-titel">Was ist bei Ihnen los?</h1>
+
+      <form id="text-form" class="text-form" novalidate>
+        <label id="text-label" for="freitext">Beschreiben Sie Ihre Lage in eigenen Worten</label>
+        <textarea id="freitext" rows="3" maxlength="2000" placeholder="z. B. „Wir bekommen im März ein Baby und ziehen nach Freising.“"></textarea>
+        <div id="einwilligung" class="einwilligung" hidden>
+          <p>Ihr Text wird zur Auswertung an einen KI-Dienst geschickt und danach nicht gespeichert.
+            Namen, Adressen oder Diagnosen sind nicht nötig. Ohne KI geht es weiter mit der Auswahl unten.</p>
+          <label class="haken"><input type="checkbox" id="einwilligung-ja"> Einverstanden, meinen Text auswerten lassen</label>
+        </div>
         <div class="zeile">
-          <input id="plz" name="plz" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="z. B. 80331" required>
-          <button type="submit" class="primaer">Weiter</button>
+          <button type="submit" id="text-senden" class="primaer">Text auswerten</button>
+        </div>
+      </form>
+
+      <section id="verstanden" class="verstanden" aria-labelledby="verstanden-titel" tabindex="-1" hidden>
+        <h2 id="verstanden-titel">Das haben wir verstanden – stimmt das?</h2>
+        <div id="verstanden-hinweise"></div>
+        <blockquote id="verstanden-text" class="eigene-worte"></blockquote>
+        <p id="verstanden-lagen" class="leise"></p>
+        <div id="verstanden-liste"></div>
+      </section>
+
+      <fieldset id="lebenslagen-wahl" class="kacheln">
+        <legend id="kacheln-titel">Oder wählen Sie aus – mehrere sind möglich</legend>
+      </fieldset>
+      <ul id="auswahl-text" class="auswahl-text" aria-live="polite"></ul>
+
+      <form id="ort-form" class="ort-form" novalidate>
+        <label for="plz">Postleitzahl</label>
+        <p class="leise klein" id="plz-hilfe">Bei einem Umzug: Postleitzahl der neuen Wohnung.</p>
+        <div class="zeile">
+          <input id="plz" name="plz" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="80331" aria-describedby="plz-hilfe" required>
+          <button type="submit" id="ort-senden" class="primaer">Checkliste erstellen</button>
         </div>
         <div id="gemeinde-wahl" hidden>
-          <label for="gemeinde">Die PLZ gehört zu mehreren Gemeinden. Welche ist es?</label>
+          <label for="gemeinde">Die Postleitzahl gehört zu mehreren Gemeinden. Welche ist es?</label>
           <select id="gemeinde"></select>
         </div>
         <div id="land-wahl" hidden>
@@ -50,34 +65,38 @@
           <select id="land"></select>
         </div>
       </form>
-      <details class="beispiele">
-        <summary>Zum Testen: Beispiel laden</summary>
+
+      <p class="leise klein start-fuss">
+        <label class="datei-link">Gespeicherte Angaben öffnen (.json)<input type="file" id="datei-laden-start" accept=".json,application/json"></label>
+      </p>
+      <details id="beispiele" class="beispiele" hidden>
+        <summary>Entwicklung: Beispiel laden</summary>
         <div class="zeile">
           <select id="szenario" aria-label="Beispiel auswählen"></select>
           <button type="button" id="szenario-laden">Laden</button>
         </div>
         <p id="szenario-text" class="leise"></p>
-        <label class="datei">Oder gespeicherte Angaben öffnen (.json)
-          <input type="file" id="datei-laden-start" accept=".json,application/json">
-        </label>
       </details>
     </section>
 
-    <!-- Schritt 2: Fragen und Ergebnis -->
-    <div id="arbeit" class="arbeit" hidden>
-      <div class="spalte-links">
-        <section class="karte ort-karte" aria-label="Wohnort">
-          <p><span class="leise">Wohnort:</span> <strong id="ort-text"></strong></p>
-          <p id="stichtag-zeile" class="leise"></p>
-          <button type="button" class="link" id="neu">Neu beginnen</button>
-        </section>
+    <!-- Arbeitsbereich: Fragen und Checkliste -->
+    <div id="arbeit" class="arbeit" data-reiter="fragen" hidden>
+      <section id="spalte-fragen" class="spalte-fragen" aria-label="Fragen und Angaben">
+        <p class="ort-zeile"><span class="leise">Wohnort</span> <strong id="ort-text"></strong>
+          <button type="button" class="link" id="neu">Neu beginnen</button></p>
+        <p id="stichtag-zeile" class="leise klein"></p>
 
-        <section id="frage-karte" class="karte frage-karte" aria-live="polite" aria-labelledby="frage-titel"></section>
+        <section id="frage-karte" class="frage" aria-labelledby="frage-titel"></section>
+        <p id="aenderung" class="aenderung" role="status"></p>
 
-        <section class="karte angaben-karte" aria-labelledby="angaben-titel">
-          <h2 id="angaben-titel" class="klein">Ihre Angaben</h2>
+        <section class="angaben-box" aria-labelledby="angaben-titel">
+          <h2 id="angaben-titel" class="klein-titel">Ihre Angaben</h2>
           <ul id="angaben" class="angaben"></ul>
-          <details class="erweitert">
+          <details id="lebenslagen-aendern" class="nebenbei">
+            <summary>Lebenslagen ändern</summary>
+            <fieldset id="lebenslagen-wahl-arbeit" class="lagen-liste"><legend class="leise">Ihre Angaben bleiben erhalten.</legend></fieldset>
+          </details>
+          <details class="nebenbei">
             <summary>Datum simulieren</summary>
             <label for="stichtag">Fristen und Rechtsstand berechnen zum</label>
             <div class="zeile">
@@ -86,44 +105,70 @@
             </div>
           </details>
         </section>
-      </div>
+      </section>
 
-      <section class="spalte-rechts" aria-labelledby="ergebnis-titel">
-        <div class="ergebnis-kopf">
-          <h2 id="ergebnis-titel">Ihre Checkliste</h2>
+      <section id="spalte-liste" class="spalte-liste" aria-labelledby="ergebnis-titel">
+        <div class="liste-kopf">
+          <div>
+            <h2 id="ergebnis-titel">Ihre Checkliste</h2>
+            <p id="liste-kontext" class="leise"></p>
+          </div>
           <div class="werkzeuge">
-            <button type="button" id="kalender">Fristen in Kalender (.ics)</button>
-            <button type="button" id="drucken">Drucken</button>
-            <button type="button" id="speichern">Angaben speichern</button>
-            <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
+            <button type="button" id="kalender" class="primaer">In Kalender eintragen</button>
+            <details class="menue" id="menue">
+              <summary aria-label="Weitere Aktionen">Mehr</summary>
+              <div class="menue-inhalt">
+                <button type="button" id="drucken">Drucken (nach Stelle sortiert)</button>
+                <button type="button" id="speichern">Angaben speichern</button>
+                <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
+              </div>
+            </details>
           </div>
         </div>
-        <details id="lebenslagen-aendern" class="lebenslagen-aendern">
-          <summary>Lebenslage: <span id="lebenslage-text"></span> <span class="leise">(ändern)</span></summary>
-          <fieldset id="lebenslagen-wahl-arbeit" class="lebenslagen-wahl"><legend class="leise">Ihre Angaben bleiben erhalten.</legend></fieldset>
-        </details>
+
+        <div class="filter">
+          <div class="umschalter" role="group" aria-label="Sortierung">
+            <button type="button" data-ansicht="zeit" aria-pressed="true">Nach Zeit</button>
+            <button type="button" data-ansicht="stelle" aria-pressed="false">Nach Stelle</button>
+            <button type="button" data-ansicht="ergebnis" aria-pressed="false">Nach Ergebnis</button>
+          </div>
+          <div id="fuer-filter" class="umschalter" role="group" aria-label="Für wen" hidden></div>
+        </div>
+
         <p id="kind-text" class="leise"></p>
         <ul id="warnungen" class="warnungen"></ul>
-        <p id="andere-laender" class="leise" hidden></p>
-        <div id="zaehler" class="zaehler"></div>
+        <div id="liste" class="liste"></div>
 
-        <section id="zeitplan-box" class="karte zeitplan" aria-labelledby="zeitplan-titel">
-          <h3 id="zeitplan-titel">Fristen auf einen Blick</h3>
-          <ol id="zeitplan"></ol>
-        </section>
-
-        <div id="leistungen"></div>
-        <details id="nicht-erfasst-box" class="nicht-erfasst" hidden>
-          <summary>Noch nicht erfasst</summary>
+        <details id="nein-box" class="nebenliste" hidden>
+          <summary id="nein-titel"></summary>
+          <div id="nein-liste"></div>
+        </details>
+        <details id="andere-box" class="nebenliste" hidden>
+          <summary id="andere-titel"></summary>
+          <ul id="andere-liste"></ul>
+        </details>
+        <details id="nicht-erfasst-box" class="nebenliste" hidden>
+          <summary id="nicht-erfasst-titel"></summary>
           <p class="leise">Diese Themen gehören zur Lebenslage, sind aber bewusst (noch) nicht in der Checkliste:</p>
           <ul id="nicht-erfasst"></ul>
         </details>
       </section>
+
+      <nav class="reiter" aria-label="Bereich wählen">
+        <button type="button" data-reiter="fragen" aria-pressed="true">Fragen <span id="reiter-fragen"></span></button>
+        <button type="button" data-reiter="liste" aria-pressed="false">Checkliste <span id="reiter-liste"></span></button>
+      </nav>
     </div>
+
+    <dialog id="detail" class="detail" aria-labelledby="detail-titel"></dialog>
+    <section id="druck" class="druck" aria-hidden="true"></section>
   </main>
 
   <footer class="fuss">
-    <p>BürgerAI · ohne KI: Alle Ergebnisse kommen aus festen, nachprüfbaren Regeln. Quellen stehen bei jeder Leistung. <span id="version"></span></p>
+    <p>Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle.
+      Ob Ihnen etwas zusteht, ergibt sich aus festen, nachprüfbaren Regeln; die Quellen stehen bei jeder Leistung.
+      Ihre Angaben werden zur Berechnung an den Server geschickt, dort aber weder gespeichert noch protokolliert.
+      Nur dieser Browser merkt sich Ihre Angaben; „Neu beginnen“ löscht sie. <span id="version"></span></p>
   </footer>
 </body>
 </html>

@@ -106,6 +106,26 @@ Haiku 5.5 wird vor dem Betrieb mit demselben Evaluationssatz (`tests/eval/intake
 
 Ohne LLM läuft alles wie heute: Lebenslagen-Auswahl, Stichwortsuche über Synonyme (`./bai lebenslagen --suche`) und Formular. Das gilt, wenn kein Schlüssel konfiguriert ist, das Extra nicht installiert ist, der Anbieter ausfällt oder nicht rechtzeitig antwortet, die Ausgabe die Prüfung nicht besteht oder das Modell ablehnt. Der Nutzer sieht dann einen Hinweis und das Formular, keine Fehlerseite.
 
+### 7. Qualitätsgrenze der Fakten-Extraktion
+
+*Ergänzt am 01.11.2026 mit #77.*
+
+**Kennzahl:** Fehlerquote = falsch erkannte Fakten / alle erkannten Fakten (richtig + falsch), über alle Fälle in `tests/eval/intake`, gemessen mit `./bai eval intake --verfahren llm-extraktion` (Router und Extraktion wie in der Anwendung). Falsch heißt wie in #73: falscher Wert, nicht im Text oder keine gültige Angabe. Richtig erkannte optionale Fakten zählen nicht mit.
+
+**Grenzwert:** Die Fehlerquote liegt bei **höchstens 5 %**, und **kein** eingeschleuster Fakt (`fakten_verboten`) wird übernommen. Für den Recall gibt es keine Grenze: Fehlende Angaben fragt das Formular nach.
+
+**Begründung:** Ein falsch erkannter Fakt kann ohne Rückfrage zu einem falschen Ergebnis führen, ein fehlender kostet nur eine Frage. Weil der Nutzer jeden Vorschlag mit Beleg sieht und bestätigt (#79), ist eine kleine Restquote vertretbar. Bei drei bis vier erkannten Angaben je Text heißt 5 %: etwa in jedem sechsten Gespräch muss eine Angabe korrigiert werden. Mehr würde das Vertrauen in die Vorschläge untergraben.
+
+**Folge bei Verfehlen:** Das Modell aus Abschnitt 5 muss die Grenze vor dem Betrieb einhalten. Verfehlt es sie, bleibt die Extraktion aus. Router und Formular laufen weiter (Abschnitt 6). Läufe mit Entwicklungsmodellen (Abschnitt 5a) zeigen die Richtung, entscheiden aber nicht.
+
+**Ablauf der Extraktion** (deterministischer Rahmen, #77):
+
+- Ein Aufruf je Lebenslage aus dem Router, mit dem Schema dieser Lebenslage (#75). Liefern zwei Aufrufe denselben Fakt mit verschiedenen Werten, wird er verworfen und später gefragt.
+- Das heutige Datum kommt aus dem Code und steht in der Eingabe. Das Modell rechnet relative Angaben damit um; der System-Prompt bleibt für Prompt-Caching gleich.
+- Postleitzahlen und Gemeindeschlüssel werden nur übernommen, wenn sie als Ziffern im Beleg stehen. Aus einem Ortsnamen leitet das Modell keine Postleitzahl ab.
+- Rückfragen dürfen frei beantwortet werden. Derselbe Weg, aber das Schema enthält nur die offenen Fakten, und der Beleg muss in der Antwort stehen, nicht in der Frage.
+- Jeder Vorschlag hat einen Beleg, der wörtlich im Text des Nutzers steht. Nur geprüfte Vorschläge gehen an die Bestätigung (#79) und danach an die Engine.
+
 ## Folgen
 
 - Neue Anforderungen `ANF-LLM-*` im Katalog. Jetzt prüfbar ist die Abhängigkeitsregel (ANF-LLM-01). Die übrigen Regeln aus diesem ADR werden mit den Issues #74 bis #80 als Anforderungen mit Tests ergänzt, damit jede Anforderung einen Test hat (ANF-QS-01).

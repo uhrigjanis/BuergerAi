@@ -24,9 +24,11 @@ STATIC = Path(__file__).resolve().parent / "static"
 DATEIEN = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
-    "/app.js": ("app.js", "text/javascript; charset=utf-8"),
     "/style.css": ("style.css", "text/css; charset=utf-8"),
 }
+# ES-Module der Oberfläche (#86); mit default-src 'self' erlaubt
+MODULE = ("app", "gemeinsam", "start", "vorschlaege", "frage", "checkliste", "detail")
+DATEIEN.update({f"/{m}.js": (f"{m}.js", "text/javascript; charset=utf-8") for m in MODULE})
 MAX_BODY = 64 * 1024
 SICHERHEIT = {
     "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'self'",
@@ -36,11 +38,16 @@ SICHERHEIT = {
 }
 
 
-def handler_fuer(kb: Wissensbasis) -> type[BaseHTTPRequestHandler]:
+def handler_fuer(kb: Wissensbasis, llm: Any = None) -> type[BaseHTTPRequestHandler]:
     post_routen: dict[str, Callable[[Wissensbasis, Any], Any]] = {
         "/api/ort": api.ort,
         "/api/bericht": api.bericht,
+        "/api/suche": api.suche,
     }
+    # Freitext (#79): ohne LLM-Konfiguration gibt es diese Endpunkte nicht
+    if llm is not None:
+        post_routen["/api/intake"] = lambda k, d: api.intake(k, llm, d)
+        post_routen["/api/antwort"] = lambda k, d: api.antwort(k, llm, d)
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "BuergerAI"
@@ -76,7 +83,7 @@ def handler_fuer(kb: Wissensbasis) -> type[BaseHTTPRequestHandler]:
                     name, typ = DATEIEN[pfad]
                     self._senden(200, (STATIC / name).read_bytes(), typ)
                 elif pfad == "/api/meta":
-                    self._json(200, api.meta(kb))
+                    self._json(200, api.meta(kb, llm))
                 elif pfad.startswith("/api/szenario/"):
                     self._json(200, api.szenario(kb, unquote(pfad[len("/api/szenario/"):])))
                 elif pfad == "/api/gesund":
@@ -123,20 +130,25 @@ def handler_fuer(kb: Wissensbasis) -> type[BaseHTTPRequestHandler]:
     return Handler
 
 
-def erstellen(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000) -> ThreadingHTTPServer:
-    server = ThreadingHTTPServer((host, port), handler_fuer(kb))
+def erstellen(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, llm: Any = None) -> ThreadingHTTPServer:
+    server = ThreadingHTTPServer((host, port), handler_fuer(kb, llm))
     server.daemon_threads = True
     return server
 
 
 def starten(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, oeffnen: bool = False) -> int:
+    from ..llm import llm_aus_umgebung
+
+    llm = llm_aus_umgebung()
     try:
-        server = erstellen(kb, host, port)
+        server = erstellen(kb, host, port, llm)
     except OSError as exc:
         print(f"Fehler: Port {port} ist nicht verfügbar ({exc.strerror}). Anderen Port wählen: --port 8001", file=sys.stderr)
         return 2
     adresse = f"http://{'localhost' if host in ('127.0.0.1', '0.0.0.0') else host}:{server.server_address[1]}/"
     print(f"BürgerAI Web-Oberfläche läuft auf {adresse}")
+    print(f"Freitext-Eingabe: an (Modell {llm.name})" if llm is not None
+          else "Freitext-Eingabe: aus (kein LLM konfiguriert, siehe .env.beispiel). Suche und Formular laufen.")
     print("In Codespaces: unten im Reiter 'Ports' auf die Weltkugel bei Port "
           f"{server.server_address[1]} klicken. Beenden mit Strg+C.")
     sys.stdout.flush()

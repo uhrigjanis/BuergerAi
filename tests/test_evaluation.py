@@ -210,7 +210,7 @@ def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
     assert len(daten["faelle"]) == len(faelle)
     fall = daten["faelle"][0]
     assert set(fall) == {"id", "art", "kategorie", "lebenslagen", "top1", "top3", "abgewiesen", "fallback",
-                         "fakten", "injection_wirksam", "injection"}
+                         "extraktion_fehler", "gemessen", "fakten", "injection_wirksam", "injection"}
     assert set(fall["lebenslagen"]) == {"erwartet", "erkannt", "zusaetzlich"}
     roh = dateien[0].read_text(encoding="utf-8")
     assert not any(f.text in roh for f in faelle)  # keine Freitexte
@@ -271,3 +271,40 @@ def test_ungueltige_lebenslagen_listen(kb, tmp_path, fall, meldung):
 def test_eingebettete_injections_haben_verbotene_lebenslagen(faelle):
     eingebettet = [f for f in faelle if f.art == "injection" and f.kategorie == "lebenslage"]
     assert eingebettet and all(f.lebenslagen_verboten for f in eingebettet)
+
+
+@pytest.mark.anforderung("ANF-EVAL-09")
+def test_ohne_erreichbares_llm_nicht_gemessen(kb, tmp_path):
+    a = _fall(kb, tmp_path, fakten={"kind_geboren": "nein"})
+    gut = ev.fall_bewerten(kb, a, ev.Vorhersage(["geburt"], {"kind_geboren": "nein"}))
+    # Fallback wegen Rate-Limit: viele Lebenslagen der Stichwortsuche, zählt aber nicht
+    weg = ev.fall_bewerten(kb, ev.Fall(**{**a.__dict__, "id": "t-02"}),
+                           ev.Vorhersage(["pflege", "heirat", "geburt"], fallback="rate_limit"))
+    # Extraktion fiel aus (Timeout): ebenfalls nicht gemessen
+    aus = ev.fall_bewerten(kb, ev.Fall(**{**a.__dict__, "id": "t-03"}),
+                           ev.Vorhersage(["geburt"], extraktion_fehler="timeout"))
+    # Leere oder ungültige Antwort ist Verhalten des Modells und zählt
+    leer = ev.fall_bewerten(kb, a, ev.Vorhersage(["pflege"], fallback="leer"))
+    assert (gut.ausfall, weg.ausfall, aus.ausfall, leer.ausfall) == (None, "rate_limit", "timeout", None)
+
+    k = ev.kennzahlen([gut, weg, aus, leer])
+    assert (k["faelle"], k["gemessen"]) == (4, 2)
+    assert k["nicht_gemessen"] == {"faelle": 2, "gruende": {"rate_limit": 1, "timeout": 1}, "ids": ["t-02", "t-03"]}
+    assert k["router"]["faelle"] == 2 and k["router"]["zusaetzlich"] == 1  # nur "pflege" aus leer
+    assert k["extraktion"]["erwartet"] == 2 and k["extraktion"]["richtig"] == 1
+    assert k["fallback"] == {"leer": 1, "rate_limit": 1}  # was passiert ist, über alle Fälle
+    text = ev.als_text(k, "llm")
+    assert "4 Fälle, davon 2 gemessen" in text
+    assert "NICHT GEMESSEN: 2 Fälle" in text and "--nur t-02,t-03" in text
+    assert "t-02 (klar): nicht gemessen (rate_limit)" in ev.details_text([gut, weg])
+    assert ev.fall_json(weg)["gemessen"] is False and ev.fall_json(gut)["gemessen"] is True
+    # Ohne Ausfälle keine Zeile dazu
+    assert "NICHT GEMESSEN" not in ev.als_text(ev.kennzahlen([gut]), "llm")
+
+
+@pytest.mark.anforderung("ANF-EVAL-09")
+def test_cli_nur_bestimmte_faelle(capsys):
+    assert main(["--keine-farbe", "eval", "intake", "--json", "--nur", "geburt-01,umzug-02", "--nur", "heirat-01"]) == 0
+    assert json.loads(capsys.readouterr().out)["faelle"] == 3
+    assert main(["--keine-farbe", "eval", "intake", "--nur", "geburt-01,gibtsnicht"]) == 2
+    assert "Unbekannte Fälle: gibtsnicht" in capsys.readouterr().out

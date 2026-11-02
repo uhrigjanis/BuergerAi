@@ -13,7 +13,7 @@ from buergerai import szenarien as szenarien_mod
 from buergerai.modell import Ebene, Gebiet
 from buergerai.planer import planen
 from buergerai.web import api
-from buergerai.web.server import erstellen
+from buergerai.web.server import MODULE, erstellen
 from buergerai.wissensbasis import Wissensbasis
 
 STICHTAG = "2026-10-24"
@@ -246,8 +246,11 @@ def test_server_liefert_oberflaeche(basis):
     assert status == 200 and kopf["Content-Type"].startswith("text/html")
     assert "Content-Security-Policy" in kopf
     assert b"app.js" in inhalt and "BürgerAI" in inhalt.decode()
-    for datei in ("/app.js", "/style.css"):
-        assert http(basis + datei)[0] == 200
+    for datei in ("/style.css", *(f"/{m}.js" for m in MODULE)):
+        status, kopf, _ = http(basis + datei)
+        assert status == 200, datei
+        if datei.endswith(".js"):
+            assert kopf["Content-Type"].startswith("text/javascript")
 
 
 @pytest.mark.anforderung("ANF-WEB-01")
@@ -279,6 +282,10 @@ def test_server_lehnt_ab(basis):
 STATIC = Path(__file__).resolve().parents[1] / "src" / "buergerai" / "web" / "static"
 
 
+def alles_js():
+    return "\n".join((STATIC / f"{m}.js").read_text(encoding="utf-8") for m in MODULE)
+
+
 @pytest.mark.anforderung("ANF-WEB-01")
 def test_oberflaeche_version_passt_zum_server():
     """Veraltete Dateien im Browser fallen auf: Version in app.js und index.html = Paketversion."""
@@ -291,7 +298,7 @@ def test_oberflaeche_version_passt_zum_server():
 @pytest.mark.anforderung("ANF-WEB-03")
 def test_inhalte_nur_ueber_null_sicheren_helfer():
     """replaceChildren zeigt null als Text "null" an; nur der Helfer fuellen() darf es aufrufen."""
-    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    js = alles_js()
     code = [z for z in js.splitlines() if not z.strip().startswith("//")]
     aufrufe = [z.strip() for z in code if "replaceChildren(" in z]
     assert aufrufe == ["ziel.replaceChildren(...kinder.flat(Infinity).filter((k) => k !== null && k !== undefined && k !== false));"]
@@ -301,7 +308,7 @@ def test_inhalte_nur_ueber_null_sicheren_helfer():
 def test_lebenslagen_waehlen_und_aendern(kb):
     """Die Oberfläche schickt die gewählten Lebenslagen mit; beim Wechsel bleiben alle Angaben erhalten."""
     html = (STATIC / "index.html").read_text(encoding="utf-8")
-    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    js = alles_js()
     assert 'id="lebenslagen-wahl"' in html and 'id="lebenslagen-wahl-arbeit"' in html
     assert "daten.lebenslagen = zustand.lebenslagen" in js and "Bitte mindestens eine Lebenslage wählen." in js
     fakten = {"kind_geboren": False, "errechneter_termin": "2026-12-15", "umzug.hund": True}

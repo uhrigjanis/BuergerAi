@@ -14,20 +14,24 @@ Eine KI, der man erklärt, in welcher Lebenslage man sich befindet (z. B. Schwan
 ./bai web                   # dann im Browser http://localhost:8000 öffnen
 ```
 
-Ablauf: Lebenslage wählen (Geburt, Geringes Einkommen, Umzug, auch mehrere) und Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste rechts aktualisiert sich nach jeder Antwort.
+Ablauf: „Was ist bei Ihnen los?“ – Lage in eigenen Worten beschreiben (mit LLM) oder per Stichwort suchen und Lebenslagen als Kacheln wählen (auch mehrere), Postleitzahl eingeben → Fragen per Buttons, Auswahl, Datum oder Zahl beantworten (immer mit „Weiß nicht“) → die Checkliste aktualisiert sich nach jeder Antwort.
 
 | Funktion | Wo |
 |----------|-----|
-| Beispiel laden (alle Szenarien) | Startseite → „Zum Testen: Beispiel laden“ |
-| Lebenslage ergänzen oder wechseln | über der Checkliste „Lebenslage: … (ändern)“ – Angaben bleiben erhalten |
+| Freitext statt Formular | Startseite, nur mit konfiguriertem LLM (siehe `.env.beispiel`). Erkannte Angaben erscheinen mit markierter Textstelle und werden erst nach „Stimmt so“ übernommen. Ohne LLM ist das Feld eine Stichwortsuche. |
+| Beispiel laden (alle Szenarien) | Startseite mit `?dev` in der Adresse, z. B. `http://localhost:8000/?dev` |
+| Lebenslage ergänzen oder wechseln | „Ihre Angaben“ → „Lebenslagen ändern“ – Angaben bleiben erhalten |
+| Warum wird das gefragt? | unter jeder Frage: „Entscheidet über …“ bzw. „Legt Fristen fest für …“ |
 | Angabe ändern | „Ihre Angaben“ → „ändern“ |
-| Fragen überspringen | „Fragen beenden, nur Ergebnis“ |
+| Fragen überspringen | „Fragen beenden“ |
+| Unklare Leistung klären | „Jetzt klären“ in der Zeile springt zur entscheidenden Frage |
+| Checkliste sortieren | „Nach Zeit“ (Abgelaufen, Diese Woche, …), „Nach Stelle“, „Nach Ergebnis“; bei mehreren Personen Filter „Für“ |
 | Checkliste abhaken | Kästchen je Leistung (bleibt im Browser gespeichert) |
-| Fristen auf einen Blick / in den Kalender | „Fristen auf einen Blick“, Knopf „Fristen in Kalender (.ics)“ |
-| Warum Ja/Nein/Unklar, Unterlagen, Anleitung, Quellen | aufklappbar je Leistung |
+| Details: So geht's, Unterlagen, Warum, Quellen | Name der Leistung anklicken (Seitenpanel, am Handy Vollbild) |
+| Fristen in den Kalender | Knopf „In Kalender eintragen“ (.ics) |
 | Anderes Datum simulieren | „Ihre Angaben“ → „Datum simulieren“ |
-| Angaben speichern/öffnen | Knöpfe über der Checkliste (gleiches Format wie `szenarien/`, also auch mit `./bai pruefen -s datei.json` nutzbar) |
-| Drucken | Knopf „Drucken“ (klappt alle Details auf) |
+| Angaben speichern/öffnen, Drucken | Menü „Mehr“ (gleiches Format wie `szenarien/`, also auch mit `./bai pruefen -s datei.json` nutzbar). Der Druck ist eine Behördenmappe: je Stelle, was zu tun ist und was man mitnehmen muss. |
+| Handy | unten die Reiter „Fragen“ und „Checkliste“ |
 
 Optionen: `./bai web --port 8001`, `--oeffnen` (Browser öffnen), `--host 0.0.0.0` (im Netzwerk erreichbar, nur bewusst nutzen).
 
@@ -205,7 +209,7 @@ Angaben (Fakten) ───────────────────► Re
 
 ```
 src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, suche, ausgabe, cli, evaluation, llm/
-  web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, JS)
+  web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, ES-Module)
 data/               Wissensbasis (getrennt vom Code)
   kern/               Fakten, die alle Fachmodule nutzen (Wohnort, Haushalt, Einkommen, Personen)
   fachmodule/<id>/    je Fachmodul: modul.json (Steckbrief, Lebenslagen, Rollen), fakten.json, Leistungen und Bundesvarianten

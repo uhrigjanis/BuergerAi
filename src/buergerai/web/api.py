@@ -31,11 +31,29 @@ from ..fristen import BerechneteFrist
 from ..modell import Gebiet
 from ..planer import STANDARD_LEBENSLAGEN, Anfrage, Bericht, Eintrag, landesabdeckung, planen
 from ..regeln import Schritt, Wert, begruendung
+from ..suche import lebenslagen_suchen
 from ..wissensbasis import Wissensbasis
 
 FRIST_ART_TEXT = {"spaetestens": "spätestens", "fruehestens": "frühestens ab", "empfohlen": "empfohlen bis"}
 MAX_FAKTEN = 200
 MAX_LEBENSLAGEN = 20
+MAX_FREITEXT = 2000  # Zeichen im ersten Freitext (#79)
+MAX_ANTWORT = 500  # Zeichen in einer freien Antwort auf eine Rückfrage
+MAX_SUCHE = 200
+
+# Zeitgruppen der Checkliste in Anzeigereihenfolge (#86). Eine Leistung steht in der
+# Gruppe ihrer dringendsten Frist.
+ZEITGRUPPEN = (
+    ("abgelaufen", "Abgelaufen"),
+    ("diese_woche", "Diese Woche"),
+    ("vier_wochen", "In den nächsten vier Wochen"),
+    ("spaeter", "Später"),
+    ("vor_geburt", "Vor der Geburt"),
+    ("nach_geburt", "Nach der Geburt"),
+    ("datum_fehlt", "Sobald das Datum feststeht"),
+    ("ohne_frist", "Ohne Frist"),
+)
+ZEITGRUPPE_RANG = {gid: i for i, (gid, _) in enumerate(ZEITGRUPPEN)}
 
 
 class ApiFehler(Exception):
@@ -107,6 +125,38 @@ def frage_json(kb: Wissensbasis, fid: str) -> dict[str, Any]:
     }
 
 
+_GEBURT_FAKTEN = frozenset({"kind_geboren", "geburtsdatum", "errechneter_termin"})
+
+
+def _betrifft(b: Bericht) -> dict[str, list[dict[str, str]]]:
+    """Je offener Frage die Leistungen, über die sie entscheidet (#86).
+
+    ``art`` ist ``anspruch``, wenn die Antwort das Ergebnis klären kann, und ``frist``,
+    wenn sie nur das Datum einer Frist festlegt (z. B. der errechnete Termin).
+    """
+    ergebnis: dict[str, list[dict[str, str]]] = {fid: [] for fid in b.fehlend}
+
+    def dazu(fid: str, e: Eintrag, art: str) -> None:
+        if all(x["id"] != e.leistung.id for x in ergebnis[fid]):
+            ergebnis[fid].append({"id": e.leistung.id, "name": e.leistung.name, "ergebnis": e.ergebnis.value, "art": art})
+
+    for e in b.eintraege:
+        for fid in e.fehlend:
+            if fid in ergebnis:
+                dazu(fid, e, "anspruch")
+    for e in b.eintraege:
+        if e.ergebnis is Wert.NEIN:
+            continue
+        for bf in e.fristen:
+            if bf.datum is not None:
+                continue
+            bezug = bf.frist.bezug
+            for fid in ergebnis:
+                if fid == bezug or (bezug in ("geburt", "termin") and fid in _GEBURT_FAKTEN):
+                    dazu(fid, e, "frist")
+    return ergebnis
+
+
 def _lebenslagen(kb: Wissensbasis, daten: dict[str, Any]) -> list[str]:
     roh = daten.get("lebenslagen")
     if roh is None or roh == []:
@@ -173,7 +223,7 @@ def laender_json(kb: Wissensbasis) -> list[dict[str, Any]]:
 
 
 # ------------------------------------------------------------------ Endpunkte
-def meta(kb: Wissensbasis) -> dict[str, Any]:
+def meta(kb: Wissensbasis, llm: Any = None) -> dict[str, Any]:
     szenarien = []
     for s in szenarien_mod.alle(kb):
         szenarien.append({"id": s.id, "name": s.name, "beschreibung": s.beschreibung})
@@ -184,6 +234,8 @@ def meta(kb: Wissensbasis) -> dict[str, Any]:
     return {
         "version": __version__,
         "heute": date.today().isoformat(),
+        # Freitext-Eingabe nur mit konfiguriertem LLM; sonst zeigt die Oberfläche nur Suche und Formular
+        "freitext": llm is not None,
         "laender": laender_json(kb),
         "lebenslagen": lebenslagen,
         "szenarien": szenarien,
@@ -235,8 +287,25 @@ def _grund_json(s: Schritt, kb: Wissensbasis) -> dict[str, Any]:
     return d
 
 
+def zeitgruppe(bf: BerechneteFrist) -> str:
+    """Zeitgruppe einer Frist für die Checkliste (#86)."""
+    if bf.datum is None:
+        if bf.frist.bezug == "keiner":
+            return "ohne_frist"
+        return {"geburt": "nach_geburt", "termin": "vor_geburt"}.get(bf.frist.bezug, "datum_fehlt")
+    tage = bf.tage_bis if bf.tage_bis is not None else 0
+    if bf.frist.art == "fruehestens" and tage <= 0:
+        return "ohne_frist"  # ab jetzt möglich, kein Termindruck
+    if bf.abgelaufen:
+        return "abgelaufen"
+    if tage <= 7:
+        return "diese_woche"
+    return "vier_wochen" if tage <= 30 else "spaeter"
+
+
 def _frist_json(bf: BerechneteFrist) -> dict[str, Any]:
     return {
+        "gruppe": zeitgruppe(bf),
         "text": bf.frist.text,
         "art": bf.frist.art,
         "art_text": FRIST_ART_TEXT[bf.frist.art],
@@ -249,8 +318,22 @@ def _frist_json(bf: BerechneteFrist) -> dict[str, Any]:
     }
 
 
-def _eintrag_json(e: Eintrag, kb: Wissensbasis) -> dict[str, Any]:
+def _leitfrist(e: Eintrag) -> Optional[int]:
+    """Index der Frist, die die Zeitgruppe der Leistung bestimmt (dringendste zuerst)."""
+    if not e.fristen:
+        return None
+    return min(range(len(e.fristen)), key=lambda i: (
+        ZEITGRUPPE_RANG[zeitgruppe(e.fristen[i])],
+        e.fristen[i].tage_bis if e.fristen[i].tage_bis is not None else 0,
+    ))
+
+
+def _eintrag_json(e: Eintrag, kb: Wissensbasis, fehlend: Optional[list[str]] = None) -> dict[str, Any]:
     v = e.variante.verfahren
+    leit = _leitfrist(e)
+    # Die Frage, die diese Leistung am stärksten entscheidet: die erste offene Frage des
+    # Berichts (nach Entscheidungskraft sortiert), die auch diese Leistung braucht (#86)
+    klaeren_mit = next((fid for fid in (fehlend or []) if fid in e.fehlend), None)
     return {
         "id": e.leistung.id,
         "name": e.leistung.name,
@@ -297,6 +380,9 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis) -> dict[str, Any]:
             for q in e.quellen
         ],
         "offene_fragen": len(e.fehlend),
+        "klaeren_mit": klaeren_mit,
+        "leitfrist": leit,
+        "zeitgruppe": zeitgruppe(e.fristen[leit]) if leit is not None else "ohne_frist",
     }
 
 
@@ -328,6 +414,7 @@ def bericht_berechnen(kb: Wissensbasis, daten: Any) -> tuple[Anfrage, Bericht]:
 def bericht(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
     anfrage, b = bericht_berechnen(kb, daten)
     zaehler = {w.value: sum(1 for e in b.eintraege if e.ergebnis is w) for w in Wert}
+    betrifft = _betrifft(b)
     return {
         "stichtag": anfrage.stichtag.isoformat(),
         "lebenslagen": [{"id": ll, "name": kb.lebenslagen[ll].name} for ll in anfrage.lebenslagen],
@@ -340,15 +427,127 @@ def bericht(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
         "ort": {"hierarchie": [_gebiet_json(g) for g in b.hierarchie], "text": " → ".join(g.name for g in b.hierarchie)},
         "kind": geburt_text(anfrage.fakten) if "geburt" in anfrage.lebenslagen else None,
         "warnungen": b.warnungen,
-        "fragen": [frage_json(kb, fid) for fid in b.fehlend],
+        "fragen": [{**frage_json(kb, fid), "betrifft": betrifft[fid]} for fid in b.fehlend],
         "angaben": [
             {**frage_json(kb, fid), "wert": _wert_json(w), "anzeige": anzeige(kb, fid, w), "aktiv": _aktiv(kb, fid, anfrage.fakten)}
             for fid, w in anfrage.fakten.items()
         ],
         "zaehler": zaehler,
-        "leistungen": [_eintrag_json(e, kb) for e in b.eintraege],
+        "leistungen": [_eintrag_json(e, kb, b.fehlend) for e in b.eintraege],
+        "zeitgruppen": [{"id": gid, "text": text} for gid, text in ZEITGRUPPEN],
         "zeitplan": _zeitplan(b),
     }
+
+
+# ------------------------------------------------------------------ Freitext (#79, ADR 0009)
+# Die Endpunkte liefern nur Vorschläge. Sie rechnen keinen Bericht; die Oberfläche
+# schickt erst die vom Nutzer bestätigten Angaben an /api/bericht. Freitexte werden
+# weder gespeichert noch protokolliert (ADR 0009 §3).
+
+HINWEIS_OHNE_ANGABEN = ("Angaben aus Ihrem Text konnten wir nicht automatisch übernehmen. "
+                        "Die nötigen Fragen stellen wir Ihnen gleich einzeln.")
+HINWEIS_ANTWORT_LEER = ("Aus Ihrer Antwort konnten wir keine Angabe sicher entnehmen. "
+                        "Bitte wählen Sie oben eine Antwort.")
+_GLEICHE_ZEICHEN = {
+    '"': '["„“”]', "„": '["„“”]', "“": '["„“”]', "”": '["„“”]',
+    "'": "['‚‘’]", "‚": "['‚‘’]", "‘": "['‚‘’]", "’": "['‚‘’]",
+    "-": "[-–—]", "–": "[-–—]", "—": "[-–—]",
+}
+
+
+def _freitext(daten: Any, schluessel: str, max_laenge: int) -> str:
+    if not isinstance(daten, dict):
+        raise ApiFehler(400, "JSON-Objekt erwartet")
+    text = daten.get(schluessel)
+    if not isinstance(text, str) or not text.strip():
+        raise ApiFehler(400, "Bitte einen Text eingeben")
+    if len(text) > max_laenge:
+        raise ApiFehler(400, f"Der Text ist zu lang (höchstens {max_laenge} Zeichen)")
+    return text.strip()
+
+
+def beleg_stelle(text: str, beleg: str) -> Optional[list[int]]:
+    """Start und Ende des Belegs im Text, damit die Oberfläche ihn markieren kann.
+
+    Toleriert dieselben Unterschiede wie ``schema.beleg_im_text``: Groß-/Kleinschreibung,
+    Leerraum, Art der Anführungszeichen und Striche, Satzzeichen am Rand.
+    """
+    woerter = beleg.strip(" .,;:!?\"'…„“”‚‘’").split()
+    if not woerter:
+        return None
+    muster = r"\s+".join("".join(_GLEICHE_ZEICHEN.get(z, re.escape(z)) for z in w) for w in woerter)
+    treffer = re.search(muster, text, re.IGNORECASE)
+    return [treffer.start(), treffer.end()] if treffer else None
+
+
+def _vorschlag_json(kb: Wissensbasis, text: str, v: Any) -> dict[str, Any]:
+    return {
+        **frage_json(kb, v.id),
+        "wert": _wert_json(v.wert),
+        "anzeige": "weiß nicht" if v.wert is UNBEKANNT else anzeige(kb, v.id, v.wert),
+        "beleg": v.beleg,
+        "stelle": beleg_stelle(text, v.beleg),
+    }
+
+
+def suche(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
+    """Stichwortsuche nach Lebenslagen: der Einstieg ohne LLM (#86)."""
+    text = _freitext(daten, "text", MAX_SUCHE)
+    return {"lebenslagen": [ll.id for ll, _ in lebenslagen_suchen(kb, text)[:3]]}
+
+
+def intake(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
+    """Freitext -> erkannte Lebenslagen und Vorschläge für Angaben, jeweils mit Beleg."""
+    from ..llm import LLMFehler
+    from ..llm.extraktion import extrahieren
+    from ..llm.router import ABWEISEN, erkennen
+
+    text = _freitext(daten, "text", MAX_FREITEXT)
+    stichtag = _stichtag(daten)
+    routing = erkennen(llm, kb, text)
+    vorschlaege: list[dict[str, Any]] = []
+    hinweise = [routing.hinweis] if routing.hinweis else []
+    if routing.kategorie not in ABWEISEN and routing.ids:
+        try:
+            if routing.quelle != "llm":
+                raise LLMFehler("Router im Fallback: keine Extraktion")
+            pruefung = extrahieren(llm, kb, text, routing.ids, heute=stichtag)
+            vorschlaege = [_vorschlag_json(kb, text, v) for v in pruefung.vorschlaege]
+        except LLMFehler:
+            hinweise.append(HINWEIS_OHNE_ANGABEN)
+    return {
+        "kategorie": routing.kategorie,
+        "quelle": routing.quelle,
+        "hinweise": hinweise,
+        "lebenslagen": [
+            {"id": t.id, "name": kb.lebenslagen[t.id].name, "begruendung": t.begruendung}
+            for t in routing.lebenslagen
+        ],
+        "vorschlaege": vorschlaege,
+    }
+
+
+def antwort(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
+    """Freie Antwort auf eine Rückfrage -> Vorschläge.
+
+    Die Anfrage enthält alle bisherigen Angaben wie bei ``bericht``. So kennt der
+    Server die offenen Fragen, ohne Zustand zu speichern.
+    """
+    from ..llm import LLMFehler
+    from ..llm.extraktion import antwort_extrahieren
+
+    text = _freitext(daten, "text", MAX_ANTWORT)
+    frage = daten.get("frage")
+    anfrage, b = bericht_berechnen(kb, daten)
+    if not isinstance(frage, str) or frage not in b.fehlend:
+        raise ApiFehler(400, "Diese Frage ist nicht mehr offen")
+    offen = [frage] + [fid for fid in b.fehlend if fid != frage]
+    try:
+        pruefung = antwort_extrahieren(llm, kb, text, offen, heute=anfrage.stichtag, bekannt=anfrage.fakten)
+    except LLMFehler:
+        return {"vorschlaege": [], "hinweise": [HINWEIS_ANTWORT_LEER]}
+    vorschlaege = [_vorschlag_json(kb, text, v) for v in pruefung.vorschlaege]
+    return {"vorschlaege": vorschlaege, "hinweise": [] if vorschlaege else [HINWEIS_ANTWORT_LEER]}
 
 
 # ------------------------------------------------------------------ Kalender

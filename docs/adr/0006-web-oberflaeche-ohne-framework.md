@@ -16,3 +16,10 @@ Phase 2 braucht einen formularbasierten Intake mit einfacher Web-UI. Das Projekt
 - Start ohne Installation (`./bai web`), auch in Codespaces (Port 8000 wird automatisch weitergeleitet).
 - Für einen öffentlichen Betrieb (Phase 5) fehlen noch: TLS, Rate-Limit und ein produktionsreifer Server davor (z. B. Reverse Proxy). Die API ist dafür klein genug.
 - Neue Fragetypen brauchen eine Erweiterung in `app.js` (`eingabe`).
+
+## Nachtrag 02.11.2026: viele Lebenslagen und Freitext (#86, #79)
+
+- **Module statt einer Datei:** `app.js` ist der Einstieg und lädt ES-Module (`start.js`, `frage.js`, `checkliste.js`, `detail.js`, `vorschlaege.js`, `gemeinsam.js`). Ohne Build-Schritt; mit `default-src 'self'` erlaubt. Der Server liefert nur die Dateien aus seiner Liste (`server.MODULE`).
+- **Zusätzliche Felder, gleiche Engine:** `fragen[].betrifft` (Leistungen, über die eine Frage entscheidet oder deren Frist sie festlegt), `fristen[].gruppe` und `leistungen[].zeitgruppe` (Abgelaufen, Diese Woche, …), `leistungen[].klaeren_mit` (stärkste offene Frage). Die Ergebnisse bleiben dieselben wie im Terminal.
+- **Neue Endpunkte:** `POST /api/suche` (Stichwortsuche, ohne LLM). Nur mit konfiguriertem LLM: `POST /api/intake` (Freitext → Lebenslagen und Vorschläge mit Beleg) und `POST /api/antwort` (freie Antwort auf eine offene Frage → Vorschläge). `/api/meta` meldet `freitext`. Beide Freitext-Endpunkte rechnen keinen Bericht: Erst die vom Nutzer bestätigten Angaben gehen an `/api/bericht` (ADR 0009 §1).
+- **Zustandslos wie bisher:** Freitexte werden weder auf dem Server noch im Browser gespeichert; `localStorage` enthält nur bestätigte Angaben.

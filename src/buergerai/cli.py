@@ -854,6 +854,13 @@ def cmd_eval(args: argparse.Namespace) -> int:
         for zeile in fehler:
             print(f"  {zeile}")
         return 1
+    if args.nur:
+        ids = [x.strip() for teil in args.nur for x in teil.split(",") if x.strip()]
+        unbekannt = sorted(set(ids) - {fall.id for fall in faelle})
+        if unbekannt:
+            print(f.rot(f"Unbekannte Fälle: {', '.join(unbekannt)}"))
+            return 2
+        faelle = [fall for fall in faelle if fall.id in ids]
     if args.verfahren in ("llm", "llm-extraktion"):
         from .llm import aus_umgebung, erzeugen
 
@@ -1225,6 +1232,8 @@ def parser() -> argparse.ArgumentParser:
                         "erwartung: Erwartung selbst (Selbsttest, 100 %%)")
     s.add_argument("--pause", type=float, default=None, metavar="SEKUNDEN",
                    help="Wartezeit zwischen LLM-Aufrufen (Standard mit LLM: 1; kostenlose Pläne)")
+    s.add_argument("--nur", action="append", metavar="ID[,ID…]",
+                   help="nur diese Fälle, z. B. die nicht gemessenen eines Laufs (mehrfach möglich)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
     s.add_argument("--ausgabe", metavar="DATEI.json",

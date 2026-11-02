@@ -103,6 +103,18 @@ def test_fallback_bei_llm_fehler(kb, fehler):
 
 
 @pytest.mark.anforderung("ANF-LLM-11")
+def test_fallback_hoechstens_drei_lebenslagen(kb):
+    from buergerai.suche import lebenslagen_suchen
+
+    faelle, _ = evaluation.laden(kb)
+    text = next(f.text for f in faelle if f.id == "wohnen-01")
+    alle = [ll.id for ll, _ in lebenslagen_suchen(kb, text)]
+    assert len(alle) > router.MAX_KANDIDATEN == 3  # ungekürzt wären es viel mehr
+    r = erkennen(_fake(fehler="rate_limit"), kb, text)
+    assert r.ids == alle[:3] and r.ids[0] == "wohneigentum"
+
+
+@pytest.mark.anforderung("ANF-LLM-11")
 def test_fallback_ohne_llm_und_bei_leerer_antwort(kb):
     assert erkennen(None, kb, TEXT).fehler == "aus"
     r = erkennen(_fake(_antwort("lebenslage")), kb, TEXT)

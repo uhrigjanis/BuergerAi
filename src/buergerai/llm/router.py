@@ -24,6 +24,8 @@ from .basis import LLM, LLMFehler, LLMUngueltigeAusgabe, log
 KATEGORIEN = ("lebenslage", "kein_thema", "umgehung", "rechtsberatung", "notlage")
 # Bei diesen Kategorien gibt es keine Lebenslage und keine Fakten
 ABWEISEN = frozenset({"kein_thema", "umgehung", "rechtsberatung"})
+# Höchstens so viele Treffer der Stichwortsuche: als Kandidaten im Prompt und als Fallback.
+# Ungekürzt liefert die Suche bis zu zehn Lebenslagen und damit viele unnötige Fragen.
 MAX_KANDIDATEN = 3
 
 # Feste Hinweise: Das LLM formuliert sie nicht, damit nichts Erfundenes darin steht.
@@ -144,8 +146,8 @@ def schema(kb: Wissensbasis) -> dict[str, Any]:
 
 
 def stichwortsuche(kb: Wissensbasis, text: str, fehler: Optional[str]) -> Routing:
-    """Fallback ohne LLM: Treffer der Stichwortsuche, ohne Treffer ``kein_thema``."""
-    treffer = [Treffer(ll.id) for ll, _ in lebenslagen_suchen(kb, text)]
+    """Fallback ohne LLM: die besten Treffer der Stichwortsuche, ohne Treffer ``kein_thema``."""
+    treffer = [Treffer(ll.id) for ll, _ in lebenslagen_suchen(kb, text)[:MAX_KANDIDATEN]]
     return Routing("lebenslage" if treffer else "kein_thema", treffer, quelle="fallback", fehler=fehler)
 
 

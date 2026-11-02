@@ -10,7 +10,10 @@ Ausgedachte Freitexte mit den erwarteten Lebenslagen und Angaben. Damit werden R
 ./bai eval intake --json           # maschinenlesbar
 ./bai eval intake --verfahren llm   # Router mit dem konfigurierten LLM (#76)
 ./bai eval intake --verfahren llm-extraktion   # Router und Fakten-Extraktion je Lebenslage (#77)
+./bai eval intake --verfahren llm --nur umzug-01,wohnen-02   # nur diese Fälle
 ```
+
+**Nicht gemessen:** War das LLM nicht erreichbar (Rate-Limit, Timeout, Dienst- oder Konfigurationsfehler), gilt in der Anwendung die Stichwortsuche. Über das Modell sagt so ein Fall nichts. Er geht deshalb in keine Kennzahl ein und steht unter „NICHT GEMESSEN“, mit der passenden `--nur`-Zeile zum Wiederholen. Leere, ungültige oder abgelehnte Antworten sind Verhalten des Modells und zählen.
 
 Jeder Lauf schreibt eine Ergebnisdatei nach [`tests/eval/ergebnisse`](../ergebnisse/README.md).
 

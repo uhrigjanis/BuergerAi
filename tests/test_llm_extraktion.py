@@ -250,7 +250,14 @@ def test_eval_grenzwert_und_ausfall(kb, tmp_path):
     k = evaluation.kennzahlen(ergebnisse)
     assert k["extraktion"]["ausgefallen"] == {"rate_limit": 1} and k["fallback"] == {}
     assert "Extraktion ausgefallen (keine Fakten): 1 × rate_limit" in evaluation.als_text(k, "llm-extraktion")
-    assert "Extraktion ausgefallen: rate_limit" in evaluation.details_text(ergebnisse)
+    # LLM nicht erreichbar: der Fall zählt nicht (ANF-EVAL-09)
+    assert k["gemessen"] == 0 and k["extraktion"]["erwartet"] == 0
+    assert "nicht gemessen (rate_limit)" in evaluation.details_text(ergebnisse)
+    # Ungültige Antwort ist Verhalten des Modells: gemessen, Fakten fehlen
+    fake = FakeLLM([_router("geburt"), {"aufgabe": "extraktion", "fehler": "ungueltig"}])
+    ergebnisse = evaluation.bewerten(kb, faelle, evaluation.llm_extraktion(kb, llm=fake))
+    assert "Extraktion ausgefallen: ungueltig" in evaluation.details_text(ergebnisse)
+    assert evaluation.kennzahlen(ergebnisse)["extraktion"]["fehlend"] == 2
 
 
 @pytest.mark.anforderung("ANF-EVAL-08")

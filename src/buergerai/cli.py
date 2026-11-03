@@ -1005,7 +1005,8 @@ def _llm_router(args: argparse.Namespace, kb: Wissensbasis, konfig: Any, f: "Far
     if args.json:
         print(json.dumps({"kategorie": routing.kategorie, "quelle": routing.quelle, "fehler": routing.fehler,
                           "lebenslagen": [{"id": t.id, "begruendung": t.begruendung} for t in routing.lebenslagen],
-                          "verworfen": routing.verworfen, "hinweis": routing.hinweis}, ensure_ascii=False, indent=2))
+                          "verworfen": routing.verworfen, "hinweis": routing.hinweis,
+                          "hinweise": routing.hinweise}, ensure_ascii=False, indent=2))
         return 0
     if routing.quelle == "llm":
         print(f.gruen(f"✓ Antwort nach {dauer:.1f} s"))

@@ -154,17 +154,39 @@ def test_max_tokens_fest_je_aufgabe(kb):
 
 # ------------------------------------------------------------------ Cache
 @pytest.mark.anforderung("ANF-GR-05")
-def test_gleiche_anfrage_nicht_erneut_ans_modell(kb):
+def test_gleiche_anfrage_nicht_erneut_an_den_router(kb):
     uhr = Uhr()
     roh = fake_llm()
-    llm = GeschuetztesLLM(roh, Aufrufdeckel(pro_tag=3, pro_monat=100), cache_sekunden=600, uhr=uhr)
+    llm = GeschuetztesLLM(roh, Aufrufdeckel(pro_tag=5, pro_monat=100), cache_sekunden=600, uhr=uhr)
     erstes = api.intake(kb, llm, {"text": TEXT, "stichtag": STICHTAG})
-    n = len(roh.aufrufe)
-    assert n == 3  # Router und zwei Extraktionen; Deckel damit voll
-    assert api.intake(kb, llm, {"text": TEXT, "stichtag": STICHTAG}) == erstes
-    assert len(roh.aufrufe) == n  # aus dem Cache, zählt nicht gegen den Deckel
+    assert [a["aufgabe"] for a in roh.aufrufe] == ["router", "extraktion", "extraktion"]
+    zweites = api.intake(kb, llm, {"text": TEXT, "stichtag": STICHTAG})
+    # Router aus dem Cache, Extraktion erneut (sie enthält Belege aus dem Text und wird nie gecacht)
+    assert [a["aufgabe"] for a in roh.aufrufe[3:]] == ["extraktion", "extraktion"]
+    assert zweites["vorschlaege"] == erstes["vorschlaege"]
+    assert [ll["id"] for ll in zweites["lebenslagen"]] == [ll["id"] for ll in erstes["lebenslagen"]]
+    assert all(ll["begruendung"] == "" for ll in zweites["lebenslagen"])  # Begründung nicht gespeichert
     uhr.t += 600
     assert api.intake(kb, llm, {"text": TEXT, "stichtag": STICHTAG})["quelle"] == "fallback"  # abgelaufen, Deckel voll
+
+
+@pytest.mark.anforderung("ANF-GR-05")
+def test_cache_ohne_freitext(kb):
+    geheim = "GEHEIM-schwanger-und-MS"
+    roh = FakeLLM([
+        {"aufgabe": "router", "antwort": {"kategorie": "lebenslage",
+                                          "lebenslagen": [{"id": "geburt", "begruendung": geheim}]}},
+        {"aufgabe": "extraktion", "antwort": {"fakten": {}}},
+        {"aufgabe": "antwort", "antwort": f"Text mit {geheim}"},
+    ])
+    llm = GeschuetztesLLM(roh, Aufrufdeckel(100, 100))
+    erkennen(llm, kb, f"Ich bin {geheim}")
+    llm.strukturiert("s", geheim, {"type": "object"}, aufgabe="extraktion")
+    llm.text("s", geheim, aufgabe="antwort")
+    assert len(llm._cache) == 1  # nur der Router
+    assert geheim not in json.dumps(list(llm._cache.items()), default=str)
+    llm.text("s", geheim, aufgabe="antwort")
+    assert [a["aufgabe"] for a in roh.aufrufe] == ["router", "extraktion", "antwort", "antwort"]
 
 
 @pytest.mark.anforderung("ANF-GR-05")
@@ -314,3 +336,60 @@ def test_negativfaelle_in_der_evaluation(kb):
     k = evaluation.kennzahlen(evaluation.bewerten(kb, faelle, evaluation.stichwortsuche(kb)))
     text = evaluation.als_text(k, "stichwortsuche")
     assert "richtig abgewiesen" in text and "fälschlich abgewiesen" in text
+
+
+# ------------------------------------------------------------------ Review-Befunde (#97)
+FEHLALARME = [
+    "Ich arbeite in der Obdachlosenhilfe und ziehe nach Köln um.",
+    "Wir kümmern uns um obdachlose Menschen.",
+    "Mein Vater ist gestern bewusstlos geworden und braucht jetzt Pflege.",
+    "Ich habe keine Suizidgedanken, brauche nur Wohngeld.",
+    "Der Vermieter bedroht uns mit Kündigung, wir ziehen um.",
+    "Das Baby schläft nachts und atmet nicht laut.",
+    "Wir haben heute noch nichts gegessen, weil wir umziehen.",
+    "Die Bürokratie bringt mich noch um.",
+]
+
+
+@pytest.mark.anforderung("ANF-GR-06")
+@pytest.mark.parametrize("text", FEHLALARME)
+def test_kein_notlage_hinweis_bei_harmlosen_saetzen(text):
+    assert not notlage_im_text(text)
+
+
+@pytest.mark.anforderung("ANF-GR-06")
+@pytest.mark.parametrize("text", [
+    "Ich weiß nicht, ob ich Suizidgedanken habe.",
+    "Ich will mich umbringen.",
+    "Mein Ex bedroht mich mit einem Messer.",
+    "Meine Mutter ist bewusstlos!",
+    "Mein Kind bekommt keine Luft.",
+])
+def test_notlage_trotz_engerer_muster(text):
+    assert notlage_im_text(text)
+
+
+@pytest.mark.anforderung("ANF-GR-07")
+@pytest.mark.parametrize("kategorie", ["umgehung", "rechtsberatung"])
+def test_notlage_ersetzt_umgehung_und_rechtsberatung_nicht(kb, kategorie):
+    text = "Wie täusche ich vor, obdachlos zu sein?"
+    r = erkennen(FakeLLM([_router(kategorie)]), kb, text)
+    assert r.kategorie == kategorie and r.ids == []
+    assert r.hinweise == [HINWEISE["notlage"], HINWEISE[kategorie]]
+    antwort = api.intake(kb, FakeLLM([_router(kategorie)]), {"text": text, "stichtag": STICHTAG})
+    assert antwort["kategorie"] == kategorie and antwort["hinweise"] == [HINWEISE["notlage"], HINWEISE[kategorie]]
+    assert antwort["lebenslagen"] == [] and antwort["vorschlaege"] == []
+
+
+@pytest.mark.anforderung("ANF-GR-11")
+def test_hoechstens_drei_lebenslagen_und_vier_aufrufe(kb):
+    from buergerai.llm.router import MAX_LEBENSLAGEN
+
+    viele = ["geburt", "umzug", "heirat", "pflege", "jobverlust", "ruhestand", "schule"]
+    llm = FakeLLM([_router("lebenslage", *viele), {"aufgabe": "extraktion", "antwort": {"fakten": {}}}])
+    r = erkennen(llm, kb, "Text, der vieles anspricht")
+    assert MAX_LEBENSLAGEN == 3 and r.ids == viele[:3]  # Reihenfolge des Modells bleibt
+    llm.aufrufe.clear()
+    antwort = api.intake(kb, llm, {"text": "Text, der vieles anspricht", "stichtag": STICHTAG})
+    assert len(antwort["lebenslagen"]) == 3
+    assert [a["aufgabe"] for a in llm.aufrufe] == ["router"] + ["extraktion"] * 3

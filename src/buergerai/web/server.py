@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 from urllib.parse import unquote, urlparse
 
+from ..llm.schutz import RateLimit
 from ..wissensbasis import Wissensbasis
 from . import api
 
@@ -30,6 +31,10 @@ DATEIEN = {
 MODULE = ("app", "gemeinsam", "start", "vorschlaege", "frage", "checkliste", "detail")
 DATEIEN.update({f"/{m}.js": (f"{m}.js", "text/javascript; charset=utf-8") for m in MODULE})
 MAX_BODY = 64 * 1024
+# Rate-Limit nur für Freitext (#82); Suche, Formular und Bericht bleiben ohne Limit
+FREITEXT_ROUTEN = ("/api/intake", "/api/antwort")
+HINWEIS_RATE_LIMIT = ("Sie haben in kurzer Zeit viele Texte auswerten lassen. Bitte wählen Sie Ihre Lebenslage "
+                      "unten aus und beantworten Sie die Fragen im Formular, oder versuchen Sie es später erneut.")
 SICHERHEIT = {
     "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'self'",
     "X-Content-Type-Options": "nosniff",
@@ -38,7 +43,9 @@ SICHERHEIT = {
 }
 
 
-def handler_fuer(kb: Wissensbasis, llm: Any = None) -> type[BaseHTTPRequestHandler]:
+def handler_fuer(kb: Wissensbasis, llm: Any = None, rate_limit: Optional[RateLimit] = None
+                 ) -> type[BaseHTTPRequestHandler]:
+    rate_limit = rate_limit or RateLimit()
     post_routen: dict[str, Callable[[Wissensbasis, Any], Any]] = {
         "/api/ort": api.ort,
         "/api/bericht": api.bericht,
@@ -96,6 +103,9 @@ def handler_fuer(kb: Wissensbasis, llm: Any = None) -> type[BaseHTTPRequestHandl
         def do_POST(self) -> None:  # noqa: N802
             pfad = urlparse(self.path).path
             try:
+                # Vor dem Lesen des Bodys; die IP bleibt nur im Speicher des Rate-Limits
+                if pfad in post_routen and pfad in FREITEXT_ROUTEN and not rate_limit.erlaubt(self.client_address[0]):
+                    raise api.ApiFehler(429, HINWEIS_RATE_LIMIT)
                 daten = self._body()
                 if pfad == "/api/kalender":
                     ics = api.kalender(kb, daten).encode("utf-8")
@@ -130,16 +140,24 @@ def handler_fuer(kb: Wissensbasis, llm: Any = None) -> type[BaseHTTPRequestHandl
     return Handler
 
 
-def erstellen(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, llm: Any = None) -> ThreadingHTTPServer:
-    server = ThreadingHTTPServer((host, port), handler_fuer(kb, llm))
+def erstellen(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, llm: Any = None,
+              rate_limit: Optional[RateLimit] = None) -> ThreadingHTTPServer:
+    server = ThreadingHTTPServer((host, port), handler_fuer(kb, llm, rate_limit))
     server.daemon_threads = True
     return server
 
 
 def starten(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, oeffnen: bool = False) -> int:
-    from ..llm import llm_aus_umgebung
+    from ..llm import LLMKonfigurationsfehler, llm_aus_umgebung
+    from ..llm.schutz import schuetzen
 
     llm = llm_aus_umgebung()
+    if llm is not None:
+        try:
+            llm = schuetzen(llm)  # Aufrufdeckel und Cache (#82)
+        except LLMKonfigurationsfehler as exc:
+            print(f"Freitext-Eingabe aus: {exc}", file=sys.stderr)
+            llm = None
     try:
         server = erstellen(kb, host, port, llm)
     except OSError as exc:
@@ -147,7 +165,8 @@ def starten(kb: Wissensbasis, host: str = "127.0.0.1", port: int = 8000, oeffnen
         return 2
     adresse = f"http://{'localhost' if host in ('127.0.0.1', '0.0.0.0') else host}:{server.server_address[1]}/"
     print(f"BürgerAI Web-Oberfläche läuft auf {adresse}")
-    print(f"Freitext-Eingabe: an (Modell {llm.name})" if llm is not None
+    print(f"Freitext-Eingabe: an (Modell {llm.name}, höchstens {llm.deckel.pro_tag} Aufrufe am Tag und "
+          f"{llm.deckel.pro_monat} im Monat)" if llm is not None
           else "Freitext-Eingabe: aus (kein LLM konfiguriert, siehe .env.beispiel). Suche und Formular laufen.")
     print("In Codespaces: unten im Reiter 'Ports' auf die Weltkugel bei Port "
           f"{server.server_address[1]} klicken. Beenden mit Strg+C.")

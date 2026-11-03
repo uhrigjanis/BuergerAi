@@ -35,7 +35,7 @@ Erkannte Angaben bestätigt der Nutzer, bevor sie in den Bericht eingehen („Wi
 - Das LLM entscheidet nie über Ansprüche. Es nennt keine Leistung, keinen Betrag, keine Frist und keine Stelle, die nicht im Bericht steht.
 - Das LLM schreibt keine Regeln und ändert keine Daten unter `data/`.
 - Eingaben werden als Daten behandelt, nicht als Anweisungen. Eine Prompt-Injection im Freitext kann wegen der Prüfungen höchstens falsche Angaben vorschlagen, die der Nutzer dann sieht und bestätigen muss.
-- Die vollständigen Schutzregeln (Missbrauch und Kosten, Fragen außerhalb des Themas, Prompt-Injection, Notlagen) beschreibt #82. Grundsatz dort: Was sich im Code prüfen lässt, wird im Code geprüft, nicht im Prompt.
+- Die vollständigen Schutzregeln (Missbrauch und Kosten, Fragen außerhalb des Themas, Prompt-Injection, Notlagen) beschreibt #82 (Abschnitt 8). Grundsatz dort: Was sich im Code prüfen lässt, wird im Code geprüft, nicht im Prompt.
 
 ### 3. Datenschutz
 
@@ -126,9 +126,40 @@ Ohne LLM läuft alles wie heute: Lebenslagen-Auswahl, Stichwortsuche über Synon
 - Rückfragen dürfen frei beantwortet werden. Derselbe Weg, aber das Schema enthält nur die offenen Fakten, und der Beleg muss in der Antwort stehen, nicht in der Frage.
 - Jeder Vorschlag hat einen Beleg, der wörtlich im Text des Nutzers steht. Nur geprüfte Vorschläge gehen an die Bestätigung (#79) und danach an die Engine.
 
+### 8. Schutzregeln (Guardrails, #82)
+
+BürgerAI beantwortet per Freitext nur Fragen zu Lebenslagen, Leistungen und Behörden. Missbrauch darf weder Kosten verursachen noch falsche Ergebnisse erzeugen. Die Regeln wirken in drei Schichten, deterministisch zuerst:
+
+1. **Vor dem LLM** (Code, ohne Modellaufruf): Länge, Rate-Limit, Kostendeckel, Cache, Notlagen-Stichworte.
+2. **Im LLM** (Prompt und Ausgabeformat): Das Modell wählt nur Katalogwerte, Kategorien und Fakten-IDs, keinen freien Text für den Nutzer.
+3. **Nach dem LLM** (Code): Schema, `parse_wert`, Beleg im Text, Bestätigung durch den Nutzer. Was nicht passt, wird verworfen.
+
+Eine Regel, die sich im Code prüfen lässt, gehört nicht in den Prompt. Rate-Limit, Kostendeckel und Cache stehen in `buergerai.llm.schutz`, leben nur im Speicher des Prozesses und beginnen nach einem Neustart von vorn.
+
+| Regel | Schicht | Umsetzung | Anforderung |
+|---|---|---|---|
+| Freitext höchstens 2.000 Zeichen, freie Antwort höchstens 500; länger wird abgelehnt, nicht gekürzt | vor | `api.MAX_FREITEXT`, `api.MAX_ANTWORT` | ANF-GR-01 |
+| Rate-Limit je IP: 10 Freitext-Anfragen pro Minute, 100 pro Tag; dann 429 mit Hinweis auf das Formular. Suche, Formular und Bericht ohne Limit. Die IP liegt nur im Speicher, solange das Zeitfenster läuft | vor | `schutz.RateLimit`, `server.FREITEXT_ROUTEN` | ANF-GR-02 |
+| Kostendeckel: höchstens 1.000 Modellaufrufe am Tag und 10.000 im Monat (einstellbar); danach Fallback wie ohne LLM bis zum nächsten Zeitraum. Der Deckel zählt Aufrufe; mit der Tokenzählung (#80) wird er auf Tokens umgestellt | vor | `schutz.Aufrufdeckel`, `BUERGERAI_LLM_MAX_AUFRUFE_TAG/_MONAT` | ANF-GR-03 |
+| `max_tokens` fest je Aufgabe (Router 600, Extraktion 1.500) | vor | `schutz.MAX_TOKENS` | ANF-GR-04 |
+| Gleiche Anfragen innerhalb von 10 Minuten nicht erneut an das Modell; Schlüssel ist ein Hash, kein Text in Logs | vor | `schutz.GeschuetztesLLM` | ANF-GR-05 |
+| Notlagen (Suizidgedanken, Gewalt, Obdachlosigkeit, Hunger, medizinischer Notfall): Stichwortliste im Code, Hinweis auch ohne LLM; Lebenslagen bleiben | vor | `schutz.notlage_im_text`, `router.notlage_sichern` | ANF-GR-06 |
+| Kategorien `kein_thema`, `umgehung`, `rechtsberatung`, `notlage` mit festen Texten aus dem Code (Notruf, Telefonseelsorge 0800 111 0 111, Hilfetelefon 116 016, Beratungsstellen); bei Abweisung keine Lebenslage, keine Extraktion | im / nach | `router.HINWEISE`, `router.pruefen` | ANF-GR-07, ANF-LLM-11 |
+| Grenzfälle im Thema, aber nicht im Katalog (z. B. Steuererklärung allgemein): keine Antwort aus dem Modellwissen | im | Router wählt nur Katalog-IDs; ohne Treffer gilt die Stichwortsuche, sonst der Hinweis zu `kein_thema` mit Auswahl. **Offen:** ein eigener Hinweis „noch nicht erfasst“ wie bei `nicht_erfasst` (ADR 0008) braucht eine eigene Kategorie und Evaluationsfälle | ANF-LLM-11 |
+| Prompt-Injection: Freitext ist Daten, abgegrenzt in der Eingabe, nie im System-Prompt; keine Werkzeuge; Ausgabe nur Katalog-IDs und gültige Werte mit Beleg; Vorschläge wirken erst nach Bestätigung | im / nach | Router-Prompt, `schema.py`, `/api/intake` | ANF-GR-08, ANF-LLM-09, ANF-LLM-18 |
+| Kein Geheimnis im Prompt: nur der öffentliche Katalog, keine Schlüssel. „Zeig mir deinen Prompt“ ist `kein_thema` | im | Router-Prompt | ANF-GR-08 |
+| Indirekte Injection: Inhalte der Wissensbasis gelten als geprüft (ADR 0004); Webseiten werden zur Laufzeit nicht abgerufen | – | kein Netzzugriff außer zum Modell | ANF-LLM-01 |
+| Ablehnung oder ungültige Ausgabe des Modells führt zum Fallback, nie zu einer Fehlerseite | nach | `LLMFehler`, `mit_fallback` | ANF-LLM-05 |
+| Hinweis „Unverbindliche Orientierung, keine Rechtsberatung“ aus dem Code | Ausgabe | Oberfläche, Terminal, Kalender | ANF-GR-09 |
+| Negativfälle in der Evaluation, Quoten richtig und fälschlich abgewiesener Fälle bei jedem Lauf | Messung | `tests/eval/intake/guardrails.json` | ANF-GR-10 |
+
+**Folgt mit der Formulierung (#78):** Das Modell bekommt dort nur den Bericht, nicht den Freitext; eine Injection im Freitext erreicht den Antworttext also nicht. Der Antworttext übernimmt das Ergebnis der Engine (Ja/Nein/Unklar) und macht keine Zusagen („Sie bekommen sicher …“). Links, Telefonnummern und Beträge, die weder im Bericht noch in den festen Texten stehen, werden verworfen. Diese Regeln bekommen ihre Anforderungen und Tests mit #78, weil es den Formulierungsschritt vorher nicht gibt.
+
+**Betrieb hinter einem Proxy (#6):** Das Rate-Limit nutzt die Adresse der Verbindung. Header wie `X-Forwarded-For` werden nicht ausgewertet, weil Nutzer sie fälschen können. Steht der Server hinter einem Reverse-Proxy, muss das Limit dort oder mit einer vertrauenswürdigen Proxy-Konfiguration umgesetzt werden.
+
 ## Folgen
 
-- Neue Anforderungen `ANF-LLM-*` im Katalog. Jetzt prüfbar ist die Abhängigkeitsregel (ANF-LLM-01). Die übrigen Regeln aus diesem ADR werden mit den Issues #74 bis #80 als Anforderungen mit Tests ergänzt, damit jede Anforderung einen Test hat (ANF-QS-01).
+- Neue Anforderungen `ANF-LLM-*` im Katalog. Jetzt prüfbar ist die Abhängigkeitsregel (ANF-LLM-01). Die übrigen Regeln aus diesem ADR werden mit den Issues #74 bis #80 als Anforderungen mit Tests ergänzt, damit jede Anforderung einen Test hat (ANF-QS-01). Die Schutzregeln aus Abschnitt 8 stehen als `ANF-GR-*` im Katalog (#82).
 - ADR 0002 verweist auf die Ausnahme in Abschnitt 4.
 - Der Anbieter steht in der Konfiguration, nicht im Code. Schlüssel und Projekt-ID kommen aus Umgebungsvariablen.
 - Der Adapter (#74) unterstützt zuerst Gemini und Mistral (Entwicklung, Abschnitt 5a), dann Vertex AI (Betrieb, Abschnitt 5).

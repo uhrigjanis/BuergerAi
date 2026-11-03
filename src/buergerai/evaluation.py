@@ -261,14 +261,16 @@ def laden(kb: Wissensbasis, verzeichnis: Optional[Path] = None) -> tuple[list[Fa
 def stichwortsuche(kb: Wissensbasis) -> Verfahren:
     """Baseline ohne LLM: Lebenslagen aus der Stichwortsuche, keine Fakten.
 
-    Ohne Treffer gilt der Text als ``kein_thema``. Umgehung, Rechtsberatung und
-    Notlagen erkennt die Stichwortsuche nicht.
+    Ohne Treffer gilt der Text als ``kein_thema``. Umgehung und Rechtsberatung
+    erkennt die Stichwortsuche nicht; Notlagen über die Stichwortliste (#82).
     """
+    from .llm.schutz import notlage_im_text
     from .suche import lebenslagen_suchen
 
     def vorhersagen(fall: Fall) -> Vorhersage:
         treffer = [ll.id for ll, _ in lebenslagen_suchen(kb, fall.text)]
-        return Vorhersage(lebenslagen=treffer, kategorie="lebenslage" if treffer else "kein_thema")
+        kategorie = "notlage" if notlage_im_text(fall.text) else "lebenslage" if treffer else "kein_thema"
+        return Vorhersage(lebenslagen=treffer, kategorie=kategorie)
 
     return vorhersagen
 

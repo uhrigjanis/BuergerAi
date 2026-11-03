@@ -19,6 +19,7 @@ from typing import Any, Optional
 from ..suche import lebenslagen_suchen
 from ..wissensbasis import Wissensbasis
 from .basis import LLM, LLMFehler, LLMUngueltigeAusgabe, log
+from .schutz import MAX_TOKENS, notlage_im_text
 
 # Was mit dem Text geschieht (#82). "lebenslage": normal weiter.
 KATEGORIEN = ("lebenslage", "kein_thema", "umgehung", "rechtsberatung", "notlage")
@@ -29,7 +30,7 @@ ABWEISEN = frozenset({"kein_thema", "umgehung", "rechtsberatung"})
 MAX_KANDIDATEN = 3
 
 # Feste Hinweise: Das LLM formuliert sie nicht, damit nichts Erfundenes darin steht.
-# Vorläufige Texte; Prüfung und Feinschliff mit den Guardrails (#82).
+# Katalog der Schutzregeln: ADR 0009 §8 (#82), Anforderung ANF-GR-07.
 HINWEISE = {
     "kein_thema": "Dabei kann ich nicht helfen. Ich finde Leistungen, Anträge und Fristen für Ihre Lebenslage, "
                   "zum Beispiel bei einer Geburt, einem Umzug oder wenn das Geld nicht reicht. "
@@ -175,13 +176,24 @@ def eingabe_text(kb: Wissensbasis, text: str) -> str:
             f"Text der Person:\n<<<\n{text}\n>>>")
 
 
-def erkennen(llm: Optional[LLM], kb: Wissensbasis, text: str) -> Routing:
-    """Lebenslagen zum Text. Ohne LLM, bei ``LLMFehler`` oder leerer Antwort: Stichwortsuche."""
+def notlage_sichern(routing: Routing, text: str) -> Routing:
+    """Stichwortliste im Code (#82): Bei einer Notlage erscheint der Hinweis immer.
+
+    Gilt auch ohne LLM, im Fallback und wenn das Modell eine andere Kategorie wählt.
+    Erkannte Lebenslagen bleiben erhalten (bei abgewiesenen Kategorien gibt es keine).
+    """
+    if routing.kategorie != "notlage" and notlage_im_text(text):
+        log.info("router notlage per stichwort statt kategorie=%s", routing.kategorie)
+        routing.kategorie = "notlage"
+    return routing
+
+
+def _llm_erkennen(llm: Optional[LLM], kb: Wissensbasis, text: str) -> Routing:
     if llm is None:
         return stichwortsuche(kb, text, "aus")
     try:
         routing = pruefen(kb, llm.strukturiert(system_prompt(kb), eingabe_text(kb, text), schema(kb),
-                                                aufgabe="router", max_tokens=600))
+                                                aufgabe="router", max_tokens=MAX_TOKENS["router"]))
     except LLMFehler as exc:
         log.warning("llm fallback grund=%s modell=%s", exc.art, llm.name)
         return stichwortsuche(kb, text, exc.art)
@@ -194,5 +206,13 @@ def erkennen(llm: Optional[LLM], kb: Wissensbasis, text: str) -> Routing:
     return routing
 
 
-__all__ = ["ABWEISEN", "HINWEISE", "KATEGORIEN", "Routing", "Treffer", "erkennen", "katalog_text", "pruefen",
-           "schema", "stichwortsuche", "system_prompt"]
+def erkennen(llm: Optional[LLM], kb: Wissensbasis, text: str) -> Routing:
+    """Lebenslagen zum Text. Ohne LLM, bei ``LLMFehler`` oder leerer Antwort: Stichwortsuche.
+
+    Die Notlagen-Stichworte gelten in jedem Fall (``notlage_sichern``).
+    """
+    return notlage_sichern(_llm_erkennen(llm, kb, text), text)
+
+
+__all__ = ["ABWEISEN", "HINWEISE", "KATEGORIEN", "Routing", "Treffer", "erkennen", "katalog_text", "notlage_sichern",
+           "pruefen", "schema", "stichwortsuche", "system_prompt"]

@@ -32,6 +32,7 @@ from .schema import (
     nur_wenn_pruefen,
     schema_aus,
 )
+from .schutz import MAX_TOKENS
 
 REGELN = """Regeln:
 - Gib nur Angaben an, die der Text ausdrücklich enthält. Rate nicht. Fehlt etwas, lass das Feld weg.
@@ -68,7 +69,8 @@ def _heute(heute: Optional[date]) -> str:
 def _aufrufen(llm: LLM, kb: Wissensbasis, system: str, eingabe: str, text: str,
               erlaubt: dict[str, FaktDefinition]) -> tuple[dict[str, Vorschlag], list[Verworfen]]:
     """Ein LLM-Aufruf; der Beleg wird nur gegen ``text`` geprüft (nie gegen Frage oder Kopfzeilen)."""
-    ausgabe = llm.strukturiert(system, eingabe, schema_aus(kb, erlaubt), aufgabe="extraktion", max_tokens=1500)
+    ausgabe = llm.strukturiert(system, eingabe, schema_aus(kb, erlaubt), aufgabe="extraktion",
+                             max_tokens=MAX_TOKENS["extraktion"])
     return eintraege_pruefen(kb, ausgabe, text, erlaubt)
 
 

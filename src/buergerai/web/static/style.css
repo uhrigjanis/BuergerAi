@@ -212,6 +212,10 @@ progress::-moz-progress-bar { background: var(--ja); border-radius: 999px; }
 .liste-kopf h2 { font-size: 1.777rem; letter-spacing: -.015em; margin: 0; }
 .liste-kopf p { margin: .15rem 0 0; }
 .werkzeuge { display: flex; gap: .4rem; align-items: flex-start; }
+.zusammenfassung { margin: 1rem 0; padding: 1rem; border: 1px solid var(--linie-stark); border-radius: var(--r-klein); background: var(--flaeche); }
+.zusammenfassung h3 { margin: 0; }
+.zusammenfassung h4 { margin: 1rem 0 .25rem; }
+.zusammenfassung p { margin: .25rem 0; }
 .menue { position: relative; }
 .menue summary { list-style: none; min-height: 44px; display: inline-flex; align-items: center; padding: .55rem .9rem; border: 1px solid var(--linie-stark); border-radius: var(--r-klein); background: var(--flaeche); }
 .menue summary::-webkit-details-marker { display: none; }

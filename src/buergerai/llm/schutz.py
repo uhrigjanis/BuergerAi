@@ -27,7 +27,7 @@ from typing import Any, Callable, Mapping, Optional
 
 from .basis import LLM, LLMKostendeckel, log
 
-MAX_TOKENS = {"router": 600, "extraktion": 1500}
+MAX_TOKENS = {"router": 600, "extraktion": 1500, "formulierung": 3000}
 
 # ------------------------------------------------------------------ Notlagen
 # Bewusst eng gefasst: lieber ein Hinweis zu viel als einer zu wenig, aber normale

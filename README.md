@@ -160,9 +160,12 @@ Router (#76): Das LLM ordnet den Text einer Kategorie zu (Lebenslage, kein Thema
 
 Schutzregeln (#82, ADR 0009 §8): Freitext höchstens 2.000 Zeichen, je IP höchstens 10 Freitext-Anfragen pro Minute und 100 pro Tag, ein Deckel für Modellaufrufe je Tag und Monat, gleiche Anfragen aus einem kurzen Cache. Notlagen erkennt zusätzlich eine Stichwortliste im Code, damit der Hinweis auf Hilfetelefone auch ohne LLM erscheint.
 
+Antworttext (#78): In der Checkliste unter „Mehr → Als Text zusammenfassen“. Das LLM bekommt nur den Bericht, nie den Freitext, und schreibt je Leistung ein paar erklärende Sätze. Name, Ergebnis, Quellen und den Hinweis „keine Rechtsberatung“ setzt der Code. Jede Antwort wird nachgeprüft: alle Leistungen, Ergebnisse unverändert, keine Zusagen, nur Beträge, Daten und Links aus dem Bericht. Sonst und ohne LLM kommt ein Vorlagentext aus dem Bericht.
+
 ```bash
 ./bai llm --router "Wir bekommen im März ein Kind und ziehen vorher nach Freising."
 ./bai eval intake --verfahren llm --details   # Kennzahlen gegen die Baseline, 1 s Pause je Aufruf (--pause)
+./bai llm --antwort arbeit_koeln_kuendigung   # Antworttext zu einem Szenario; --vorlage ohne LLM, --json
 ```
 
 | Variable | Bedeutung |

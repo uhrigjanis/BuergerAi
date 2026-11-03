@@ -118,6 +118,7 @@
             <details class="menue" id="menue">
               <summary aria-label="Weitere Aktionen">Mehr</summary>
               <div class="menue-inhalt">
+                <button type="button" id="zusammenfassen">Als Text zusammenfassen</button>
                 <button type="button" id="drucken">Drucken (nach Stelle sortiert)</button>
                 <button type="button" id="speichern">Angaben speichern</button>
                 <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
@@ -134,6 +135,13 @@
           </div>
           <div id="fuer-filter" class="umschalter" role="group" aria-label="Für wen" hidden></div>
         </div>
+
+        <section id="zusammenfassung" class="zusammenfassung" aria-labelledby="zusammenfassung-titel" hidden>
+          <h3 id="zusammenfassung-titel" tabindex="-1">Zusammenfassung</h3>
+          <p id="zusammenfassung-quelle" class="leise"></p>
+          <div id="zusammenfassung-text" aria-live="polite"></div>
+          <button type="button" id="zusammenfassung-schliessen">Schließen</button>
+        </section>
 
         <p id="kind-text" class="leise"></p>
         <ul id="warnungen" class="warnungen"></ul>

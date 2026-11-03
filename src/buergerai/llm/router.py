@@ -28,6 +28,11 @@ ABWEISEN = frozenset({"kein_thema", "umgehung", "rechtsberatung"})
 # Höchstens so viele Treffer der Stichwortsuche: als Kandidaten im Prompt und als Fallback.
 # Ungekürzt liefert die Suche bis zu zehn Lebenslagen und damit viele unnötige Fragen.
 MAX_KANDIDATEN = 3
+# Höchstens so viele Lebenslagen je Text. Je Lebenslage folgt ein Extraktionsaufruf; ohne
+# Grenze könnte ein Text (oder eine Injection) viele Modellaufrufe auslösen (#82).
+MAX_LEBENSLAGEN = 3
+# Bei einem Notlage-Stichwort behalten diese Kategorien ihren Hinweis (zusätzlich zum Notlage-Hinweis)
+BEHALTEN_BEI_NOTLAGE = frozenset({"umgehung", "rechtsberatung"})
 
 # Feste Hinweise: Das LLM formuliert sie nicht, damit nichts Erfundenes darin steht.
 # Katalog der Schutzregeln: ADR 0009 §8 (#82), Anforderung ANF-GR-07.
@@ -61,7 +66,7 @@ Kategorien:
   Passt zusätzlich eine Lebenslage, gib sie mit an.
 
 Regeln:
-- Mehrere Lebenslagen sind möglich, wenn der Text mehrere Situationen beschreibt.
+- Mehrere Lebenslagen sind möglich, wenn der Text mehrere Situationen beschreibt, höchstens drei.
 - Wähle nur Lebenslagen, die der Text wirklich beschreibt. Ein einzelnes Wort reicht nicht.
 - Wähle nur Lebenslagen, die für die Person jetzt anstehen. Was schon erledigt ist oder nur nebenbei
   erwähnt wird, ist keine eigene Lebenslage (z. B. "wir sind verheiratet" bei einer Geburt,
@@ -93,14 +98,25 @@ class Routing:
     quelle: str = "llm"  # "llm" oder "fallback"
     fehler: Optional[str] = None  # Fehlerart des LLM, "aus" ohne LLM, "leer" ohne Lebenslage
     verworfen: list[str] = field(default_factory=list)  # IDs außerhalb des Katalogs
+    # Notlage-Stichwort bei umgehung oder rechtsberatung: beide Hinweise erscheinen (#82)
+    notlage: bool = False
 
     @property
     def ids(self) -> list[str]:
         return [t.id for t in self.lebenslagen]
 
     @property
+    def hinweise(self) -> list[str]:
+        """Feste Hinweise, der Notlage-Hinweis immer zuerst."""
+        liste = [HINWEISE["notlage"]] if self.notlage and self.kategorie != "notlage" else []
+        if self.kategorie in HINWEISE:
+            liste.append(HINWEISE[self.kategorie])
+        return liste
+
+    @property
     def hinweis(self) -> Optional[str]:
-        return HINWEISE.get(self.kategorie)
+        """Alle Hinweise als ein Text (Terminal)."""
+        return "\n\n".join(self.hinweise) or None
 
 
 def katalog_text(kb: Wissensbasis) -> str:
@@ -167,6 +183,9 @@ def pruefen(kb: Wissensbasis, ausgabe: Any) -> Routing:
             routing.lebenslagen.append(Treffer(lid, grund.strip() if isinstance(grund, str) else ""))
     if routing.kategorie in ABWEISEN:
         routing.lebenslagen = []  # gilt immer, egal was das Modell schreibt
+    if len(routing.lebenslagen) > MAX_LEBENSLAGEN:
+        log.info("router lebenslagen gekuerzt von=%d auf=%d", len(routing.lebenslagen), MAX_LEBENSLAGEN)
+        routing.lebenslagen = routing.lebenslagen[:MAX_LEBENSLAGEN]
     return routing
 
 
@@ -180,11 +199,18 @@ def notlage_sichern(routing: Routing, text: str) -> Routing:
     """Stichwortliste im Code (#82): Bei einer Notlage erscheint der Hinweis immer.
 
     Gilt auch ohne LLM, im Fallback und wenn das Modell eine andere Kategorie wählt.
-    Erkannte Lebenslagen bleiben erhalten (bei abgewiesenen Kategorien gibt es keine).
+    Erkannte Lebenslagen bleiben erhalten. Hat das Modell ``umgehung`` oder
+    ``rechtsberatung`` erkannt, bleibt diese Kategorie samt Hinweis; der Notlage-Hinweis
+    kommt davor (``Routing.hinweise``). ``kein_thema`` wird zur Notlage: Ein Text mit
+    Notlage ist nicht themenfremd, und „Dabei kann ich nicht helfen“ neben dem Notruf
+    wäre falsch.
     """
     if routing.kategorie != "notlage" and notlage_im_text(text):
-        log.info("router notlage per stichwort statt kategorie=%s", routing.kategorie)
-        routing.kategorie = "notlage"
+        log.info("router notlage per stichwort kategorie=%s", routing.kategorie)
+        if routing.kategorie in BEHALTEN_BEI_NOTLAGE:
+            routing.notlage = True
+        else:
+            routing.kategorie = "notlage"
     return routing
 
 
@@ -214,5 +240,5 @@ def erkennen(llm: Optional[LLM], kb: Wissensbasis, text: str) -> Routing:
     return notlage_sichern(_llm_erkennen(llm, kb, text), text)
 
 
-__all__ = ["ABWEISEN", "HINWEISE", "KATEGORIEN", "Routing", "Treffer", "erkennen", "katalog_text", "notlage_sichern",
+__all__ = ["ABWEISEN", "HINWEISE", "KATEGORIEN", "MAX_LEBENSLAGEN", "Routing", "Treffer", "erkennen", "katalog_text", "notlage_sichern",
            "pruefen", "schema", "stichwortsuche", "system_prompt"]

@@ -506,7 +506,7 @@ def intake(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
     stichtag = _stichtag(daten)
     routing = erkennen(llm, kb, text)
     vorschlaege: list[dict[str, Any]] = []
-    hinweise = [routing.hinweis] if routing.hinweis else []
+    hinweise = list(routing.hinweise)
     if routing.kategorie not in ABWEISEN and routing.ids:
         try:
             if routing.quelle != "llm":

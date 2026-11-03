@@ -5,8 +5,13 @@
 - ``RateLimit``: Freitext-Anfragen je IP; die IP liegt nur im Speicher und nur,
   solange sie für das Zeitfenster gebraucht wird.
 - ``GeschuetztesLLM``: Hülle um ein ``LLM`` mit Aufrufdeckel je Tag und Monat und
-  einem kurzen Cache für gleiche Anfragen. Ist der Deckel erreicht, gibt es einen
+  einem kurzen Cache für gleiche Router-Anfragen. Ist der Deckel erreicht, gibt es einen
   ``LLMKostendeckel`` und der Aufrufer fällt wie bei jedem ``LLMFehler`` zurück.
+
+Der Cache hält keinen Freitext (ADR 0009 §3): Der Schlüssel ist ein Hash, und
+gespeichert werden nur Router-Ergebnisse (Kategorie und Katalog-IDs) ohne
+Begründung. Extraktionen werden nicht gecacht, weil sie wörtliche Belege aus dem
+Text enthalten.
 
 Der Deckel zählt Aufrufe, nicht Tokens. Mit der Tokenzählung (#80) wird er auf
 Tokens umgestellt. Rate-Limit, Deckel und Cache leben im Speicher des Prozesses
@@ -28,23 +33,44 @@ from typing import Any, Callable, Mapping, Optional
 from .basis import LLM, LLMKostendeckel, log
 
 MAX_TOKENS = {"router": 600, "extraktion": 1500}
+# Nur diese Aufgaben kommen in den Cache; ihre Ausgabe enthält nach dem Entfernen
+# von FREITEXT_FELDER nur Katalogwerte.
+CACHE_AUFGABEN = frozenset({"router"})
+FREITEXT_FELDER = frozenset({"begruendung", "beleg"})
 
 # ------------------------------------------------------------------ Notlagen
 # Bewusst eng gefasst: lieber ein Hinweis zu viel als einer zu wenig, aber normale
-# Lebenslagen (Todesfall, Pflege, Jobverlust) dürfen ihn nicht auslösen.
-NOTLAGE_MUSTER = [
-    r"suizid", r"selbstmord", r"umbringen", r"(mir|mich|uns) das leben (zu )?nehmen",
-    r"nicht mehr leben (will|möchte)", r"will nicht mehr leben", r"möchte nicht mehr leben",
-    r"(schlägt|schlagen|verprügelt|würgt|bedroht) (mich|uns)", r"häusliche gewalt", r"vergewaltig",
-    r"obdachlos", r"(keinen|kein) schlafplatz", r"auf der straße (schlafen|leben|sitzen)",
-    r"nichts (mehr )?(gegessen|zu essen)", r"atmet nicht", r"bewusstlos",
+# Lebenslagen (Umzug, Pflege, Kündigung) dürfen ihn nicht auslösen. Deshalb Wortgrenzen
+# und Muster mit Bezug zur Person oder zur Dauer ("seit drei Tagen nichts gegessen"),
+# nicht einzelne Wörter ("Obdachlosenhilfe", "bedroht uns mit Kündigung").
+# Diese Muster gelten nicht, wenn direkt davor "kein…" steht ("keine Suizidgedanken").
+NOTLAGE_VERNEINBAR = [r"\bsuizid", r"\bselbstmord"]
+NOTLAGE_MUSTER = NOTLAGE_VERNEINBAR + [
+    r"\b(mich|mir)\b[^.!?]{0,20}\bumbringen\b", r"\b(mir|mich|uns) das leben (zu )?nehmen\b",
+    r"\bnicht mehr leben (will|möchte)\b", r"\b(will|möchte) nicht mehr leben\b",
+    r"\b(schlägt|schlagen|verprügelt|verprügeln|würgt|würgen) (mich|uns)\b",
+    r"\b(bedroht|bedrohen) (mich|uns) mit (dem tod|gewalt|einem messer|einer waffe)\b",
+    r"\b(droht|drohen) (mir|uns) mit (dem tod|gewalt|schlägen)\b",
+    r"\bhäusliche gewalt\b", r"\bvergewaltig",
+    r"\bobdachlos\b", r"\b(keinen|kein) schlafplatz\b", r"\bauf der straße (schlafen|leben)\b",
+    r"\bseit \w+ (tagen|tag)\b[^.!?]{0,30}\bnichts\b[^.!?]{0,15}\b(gegessen|zu essen)\b",
+    r"\bnichts (mehr )?zu essen\b", r"\bkein geld (mehr )?für essen\b",
+    r"\batmet nicht mehr\b", r"\bbekommt keine luft\b", r"\b(ist|liegt) bewusstlos\b",
 ]
 _NOTLAGE = re.compile("|".join(f"(?:{m})" for m in NOTLAGE_MUSTER), re.IGNORECASE)
+_VERNEINBAR = re.compile("|".join(f"(?:{m})" for m in NOTLAGE_VERNEINBAR), re.IGNORECASE)
+_VERNEINUNG_DAVOR = re.compile(r"\b(kein|keine|keinen|keinerlei)\s+(\w+\s+)?$", re.IGNORECASE)
 
 
 def notlage_im_text(text: str) -> bool:
     """Deutet der Text auf eine akute Notlage hin? Ohne Modellaufruf."""
-    return bool(_NOTLAGE.search(" ".join(text.split())))
+    text = " ".join(text.split())
+    for treffer in _NOTLAGE.finditer(text):
+        verneint = _VERNEINBAR.fullmatch(treffer.group()) is not None and \
+            _VERNEINUNG_DAVOR.search(text[:treffer.start()]) is not None
+        if not verneint:
+            return True
+    return False
 
 
 # ------------------------------------------------------------------ Rate-Limit
@@ -105,7 +131,7 @@ class Aufrufdeckel:
 
 
 class GeschuetztesLLM:
-    """Gleiche Schnittstelle wie ``LLM``: erst Cache, dann Deckel, dann das Modell."""
+    """Gleiche Schnittstelle wie ``LLM``: erst Cache (nur ``CACHE_AUFGABEN``), dann Deckel, dann das Modell."""
 
     def __init__(self, llm: LLM, deckel: Aufrufdeckel, cache_sekunden: float = 600, cache_max: int = 256,
                  uhr: Callable[[], float] = time.monotonic):
@@ -120,6 +146,15 @@ class GeschuetztesLLM:
         roh = json.dumps(teile, ensure_ascii=False, sort_keys=True)
         return hashlib.sha256(roh.encode("utf-8")).hexdigest()
 
+    @classmethod
+    def _ohne_freitext(cls, wert: Any) -> Any:
+        """Kopie ohne Felder, die Text des Modells oder der Person enthalten können."""
+        if isinstance(wert, dict):
+            return {k: ("" if k in FREITEXT_FELDER else cls._ohne_freitext(v)) for k, v in wert.items()}
+        if isinstance(wert, list):
+            return [cls._ohne_freitext(v) for v in wert]
+        return copy.deepcopy(wert)
+
     def _gecacht(self, schluessel: str, aufrufen: Callable[[], Any]) -> Any:
         jetzt = self.uhr()
         with self._sperre:
@@ -131,20 +166,25 @@ class GeschuetztesLLM:
         self.deckel.belasten()
         wert = aufrufen()  # Fehler werden nicht gecacht
         with self._sperre:
-            self._cache[schluessel] = (jetzt, copy.deepcopy(wert))
+            self._cache[schluessel] = (jetzt, self._ohne_freitext(wert))
             while len(self._cache) > self.cache_max:
                 self._cache.popitem(last=False)
         return wert
 
     def strukturiert(self, system: str, eingabe: str, schema: dict[str, Any], *, aufgabe: str,
                      max_tokens: int = 1024) -> dict[str, Any]:
-        k = self._schluessel("strukturiert", aufgabe, max_tokens, system, eingabe, schema)
-        return self._gecacht(k, lambda: self.llm.strukturiert(system, eingabe, schema, aufgabe=aufgabe,
-                                                              max_tokens=max_tokens))
+        def aufrufen() -> dict[str, Any]:
+            return self.llm.strukturiert(system, eingabe, schema, aufgabe=aufgabe, max_tokens=max_tokens)
+
+        if aufgabe not in CACHE_AUFGABEN:
+            self.deckel.belasten()
+            return aufrufen()
+        return self._gecacht(self._schluessel("strukturiert", aufgabe, max_tokens, system, eingabe, schema), aufrufen)
 
     def text(self, system: str, eingabe: str, *, aufgabe: str, max_tokens: int = 1024) -> str:
-        k = self._schluessel("text", aufgabe, max_tokens, system, eingabe)
-        return self._gecacht(k, lambda: self.llm.text(system, eingabe, aufgabe=aufgabe, max_tokens=max_tokens))
+        # Freier Text kann den Freitext zitieren: nie im Cache
+        self.deckel.belasten()
+        return self.llm.text(system, eingabe, aufgabe=aufgabe, max_tokens=max_tokens)
 
 
 STANDARD_DECKEL_TAG = 1000
@@ -164,5 +204,5 @@ def schuetzen(llm: LLM, env: Optional[Mapping[str, str]] = None) -> Geschuetztes
     return GeschuetztesLLM(llm, deckel)
 
 
-__all__ = ["MAX_TOKENS", "NOTLAGE_MUSTER", "Aufrufdeckel", "GeschuetztesLLM", "RateLimit", "notlage_im_text",
+__all__ = ["CACHE_AUFGABEN", "MAX_TOKENS", "NOTLAGE_MUSTER", "NOTLAGE_VERNEINBAR", "Aufrufdeckel", "GeschuetztesLLM", "RateLimit", "notlage_im_text",
            "schuetzen"]

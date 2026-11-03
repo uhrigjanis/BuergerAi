@@ -227,6 +227,7 @@ docs/
   validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)
   pruefprotokolle/    Prüfprotokoll je Quelle (Wortlaut, Ergebnis, Abnahme)
   datenquellen.md     Quellen und Lizenzen der importierten Daten, Import-Anleitung
+  design/             Design-Richtlinie für die Web-Oberfläche (claude-design.md)
   adr/                Architekturentscheidungen
 ```
 

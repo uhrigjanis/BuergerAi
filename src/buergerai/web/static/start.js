@@ -94,7 +94,8 @@ async function suchen(text) {
 async function freitextAuswerten(text) {
   const knopf = $("#text-senden");
   knopf.disabled = true;
-  knopf.textContent = "Wird ausgewertet …";
+  knopf.textContent = "Wird ausgewertet";
+  knopf.classList.add("wartet");
   try {
     const r = await api("/api/intake", { text, stichtag: zustand.stichtag });
     verstandenZeigen(text, r);
@@ -104,7 +105,8 @@ async function freitextAuswerten(text) {
       : e.message);
   } finally {
     knopf.disabled = false;
-    knopf.textContent = "Text auswerten";
+    knopf.classList.remove("wartet");
+    knopf.textContent = "Auswerten";
   }
 }
 
@@ -133,6 +135,18 @@ function verstandenZeigen(text, r) {
     $("#ort-senden").textContent = "Checkliste erstellen";
   }
   box.focus();
+}
+
+// ------------------------------------------------------------------ Eingabezeile (#99)
+// Eine Zeile im Ruhezustand, wächst mit dem Text bis zur Höchsthöhe aus dem CSS.
+// Der Senden-Knopf ist erst gefüllt, wenn Text da ist; die Einwilligung erscheint beim ersten Tippen.
+function eingabeAnpassen() {
+  const feld = $("#freitext");
+  feld.style.height = "auto";
+  feld.style.height = `${feld.scrollHeight}px`;
+  const hatText = feld.value.trim() !== "";
+  $("#text-senden").classList.toggle("bereit", hatText);
+  if (hatText && sitzung.meta.freitext) $("#einwilligung").hidden = false;
 }
 
 // ------------------------------------------------------------------ Wohnort und Start
@@ -210,17 +224,16 @@ export function startLeeren() {
   startZuruecksetzen();
   $("#freitext").value = "";
   $("#plz").value = "";
+  $("#einwilligung").hidden = true;
+  eingabeAnpassen();
   $("#kacheln-titel").textContent = sitzung.meta.freitext ? "Oder wählen Sie aus – mehrere sind möglich" : "Wählen Sie aus – mehrere sind möglich";
 }
 
 export function startEinrichten() {
   const meta = sitzung.meta;
-  if (meta.freitext) {
-    $("#einwilligung").hidden = false;
-  } else {
-    // Ohne LLM: dasselbe Feld als Stichwortsuche, gleiches Layout (#86)
+  if (!meta.freitext) {
+    // Ohne LLM: dieselbe Zeile als Stichwortsuche, gleiches Layout (#86)
     $("#text-label").textContent = "Suchen Sie nach einem Stichwort";
-    $("#freitext").rows = 1;
     $("#freitext").maxLength = 200;
     $("#freitext").placeholder = "z. B. „Baby“, „Kündigung“ oder „Umzug“";
     $("#text-senden").textContent = "Suchen";
@@ -228,6 +241,9 @@ export function startEinrichten() {
   }
   kachelnZeichnen();
   $("#text-form").addEventListener("submit", textAbsenden);
+  $("#freitext").addEventListener("input", eingabeAnpassen);
+  eingabeAnpassen();  // passt auch einen umbrechenden Platzhalter an (schmale Bildschirme)
+  window.addEventListener("resize", eingabeAnpassen);
   // Enter im einzeiligen Suchfeld sucht; im Freitext macht es eine neue Zeile
   $("#freitext").addEventListener("keydown", (ev) => {
     if (ev.key === "Enter" && !ev.shiftKey && !meta.freitext) { ev.preventDefault(); $("#text-form").requestSubmit(); }

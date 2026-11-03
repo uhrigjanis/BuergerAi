@@ -12,7 +12,7 @@ from buergerai.web import api
 from buergerai.web.server import MODULE, erstellen
 from buergerai.wissensbasis import Wissensbasis
 
-from test_web import STICHTAG, anfrage, http
+from test_web import STICHTAG, alles_js, anfrage, http
 
 STATIC = Path(__file__).resolve().parents[1] / "src" / "buergerai" / "web" / "static"
 TEXT = "Wir bekommen im März ein Baby, mein Mann und ich ziehen nach Freising. Ich bin 34."
@@ -249,12 +249,19 @@ def test_checkliste_ansichten_und_druck():
 
 
 @pytest.mark.anforderung("ANF-WEB-14")
-def test_module_reiter_und_ergebnis_nicht_nur_farbe():
+def test_module_eine_spalte_und_ergebnis_nicht_nur_farbe():
     html = (STATIC / "index.html").read_text(encoding="utf-8")
     assert '<script type="module" src="app.js' in html
     for m in MODULE:
         assert (STATIC / f"{m}.js").exists()
-    assert 'class="reiter"' in html and 'data-reiter="liste"' in html
+    # Eine Spalte ohne Reiter; Angaben, Lebenslagen, Datum und Dateien in einer Schublade (#99)
+    assert 'class="reiter"' not in html and "data-reiter" not in html
+    schublade = html[html.index('<dialog id="schublade"'):html.index("</dialog>", html.index('<dialog id="schublade"'))]
+    for teil in ('id="angaben"', 'id="lebenslagen-wahl-arbeit"', 'id="stichtag"', 'id="speichern"', 'id="datei-laden"', 'id="neu"'):
+        assert teil in schublade, teil
     gemeinsam = (STATIC / "gemeinsam.js").read_text(encoding="utf-8")
-    # Ergebnis immer mit Symbol und Text
-    assert "SYMBOL[wert]" in gemeinsam and "ERGEBNIS_TEXT[wert]" in gemeinsam
+    # Ergebnis immer als Wort (Ja/Unklar/Nein), ohne Symbole
+    assert "ERGEBNIS_TEXT[wert]" in gemeinsam and "SYMBOL" not in alles_js()
+    assert "✓" not in alles_js().replace("☐", "") and "✗" not in alles_js()
+    # "Weiß nicht" bei jeder Frage
+    assert '"Weiß nicht")' in (STATIC / "frage.js").read_text(encoding="utf-8")

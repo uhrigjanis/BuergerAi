@@ -1,6 +1,6 @@
 // Details einer Leistung (#86): auf großen Bildschirmen als Seitenpanel, am Handy als
 // Vollbild. Ein <dialog> hält den Fokus und schließt mit Escape.
-import { $, ERGEBNIS_TEXT, SYMBOL, datumText, el, ergebnisMarke, fuellen, sicherLink, sitzung } from "./gemeinsam.js";
+import { $, ERGEBNIS_TEXT, datumText, el, ergebnisMarke, fuellen, sicherLink, sitzung } from "./gemeinsam.js";
 
 let ausloeser = null;
 
@@ -18,12 +18,12 @@ function fristZeile(fr) {
     fr.abgelaufen ? ", abgelaufen" : "", `: ${fr.text}`);
 }
 
+// Begründung je Voraussetzung: das Ergebnis steht als Wort vorn, nicht als Symbol (#99)
 function gruendeListe(gruende) {
-  if (!gruende.length) return el("ul", { class: "gruende" }, el("li", { class: "ja" }, el("span", { class: "sym", "aria-hidden": "true" }, "✓"), "Keine besonderen Voraussetzungen"));
+  if (!gruende.length) return el("ul", { class: "gruende" }, el("li", { class: "ja" }, "Keine besonderen Voraussetzungen"));
   return el("ul", { class: "gruende" }, gruende.map((g) => el("li", { class: g.ergebnis },
-    el("span", { class: "sym", "aria-hidden": "true" }, g.art === "pruefung_noetig" ? "!" : SYMBOL[g.ergebnis]),
-    el("span", { class: "unsichtbar" }, `${ERGEBNIS_TEXT[g.ergebnis]}: `),
-    g.art === "pruefung_noetig" ? `Prüfung nötig: ${g.text}` : g.text,
+    el("span", { class: "wort" }, g.art === "pruefung_noetig" ? "Prüfung nötig: " : `${ERGEBNIS_TEXT[g.ergebnis]}: `),
+    g.text,
     g.fehlt ? el("span", { class: "angabe" }, ` – Angabe fehlt: ${g.fehlt}`) : null,
     g.angabe ? el("span", { class: "angabe" }, ` – Ihre Angabe: ${g.angabe === "unbekannt" ? "weiß nicht" : g.angabe}`) : null,
   )));
@@ -47,9 +47,9 @@ export function detailOeffnen(id) {
   fuellen(dialog,
     el("div", { class: "detail-kopf" },
       el("h2", { id: "detail-titel" }, l.name),
-      el("button", { type: "button", class: "schliessen", onclick: () => dialog.close() }, "Schließen")),
+      el("button", { type: "button", class: "schliessen leise-knopf", onclick: () => dialog.close() }, "Schließen")),
     el("div", { class: "detail-inhalt" },
-      el("p", {}, ergebnisMarke(l.ergebnis), " ", l.kurz),
+      el("p", { class: "detail-kurz" }, ergebnisMarke(l.ergebnis), " – ", l.kurz),
       l.anspruch_hinweis ? el("p", { class: "hinweis" }, l.anspruch_hinweis) : null,
       l.hinweise.map((h) => el("p", { class: "hinweis" }, h)),
       el("dl", { class: "fakten-liste" },

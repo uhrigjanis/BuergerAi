@@ -89,7 +89,8 @@
     {"id": "ANF-WEB-11", "bereich": "Web-Oberfläche", "titel": "Einstieg mit Suchfeld und Kacheln nach Bereichen; ohne LLM sucht das Feld per Stichwort, 'Beispiel laden' nur mit ?dev (#86)"},
     {"id": "ANF-WEB-12", "bereich": "Web-Oberfläche", "titel": "Jede Frage nennt die Leistungen, über die sie entscheidet; Fortschritt als Anteil geklärter Leistungen (#86)"},
     {"id": "ANF-WEB-13", "bereich": "Web-Oberfläche", "titel": "Checkliste als kompakte Zeilen, nach Zeit, Stelle oder Ergebnis gruppiert; Details, 'Jetzt klären', Datenstand je Zeile, Druck als Behördenmappe (#86)"},
-    {"id": "ANF-WEB-14", "bereich": "Web-Oberfläche", "titel": "Oberfläche als ES-Module ohne Build-Schritt; Handy mit Reitern Fragen/Checkliste; Ergebnis nie nur über Farbe (#86)"},
+    {"id": "ANF-WEB-14", "bereich": "Web-Oberfläche", "titel": "Oberfläche als ES-Module ohne Build-Schritt; eine Spalte, Nebensächliches in einer Schublade; Ergebnis als Wort, nie nur über Farbe (#86, #99)"},
+    {"id": "ANF-WEB-15", "bereich": "Web-Oberfläche", "titel": "Gestaltung nach docs/design/ClaudeDesign.md: Farben nur als Tokens (hell und dunkel), Text-Kontrast mindestens 4,5 : 1, Bewegung nur ohne 'weniger Bewegung' (#99)"},
 
     {"id": "ANF-MOD-01", "bereich": "Fachmodule (ADR 0008)", "titel": "Fachmodule sind Datenpakete (Steckbrief, Lebenslagen, Rollen, Fakten); Regeln nutzen nur Kern-, eigene oder importierte Fakten"},
     {"id": "ANF-MOD-02", "bereich": "Fachmodule (ADR 0008)", "titel": "Mehrere Lebenslagen je Anfrage; jede Leistung erscheint einmal und nennt ihre Lebenslagen"},

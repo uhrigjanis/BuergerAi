@@ -2,7 +2,6 @@
 
 export const SPEICHER = "buergerai.v1";
 export const ERGEBNIS_TEXT = { ja: "Ja", unklar: "Unklar", nein: "Nein" };
-export const SYMBOL = { ja: "✓", unklar: "?", nein: "✗" };
 
 // Alles, was der Browser sich merkt. Freitexte gehören bewusst nicht dazu.
 export const zustand = {
@@ -122,8 +121,16 @@ export function anzahl(n, eins, mehr) {
   return `${n} ${n === 1 ? eins : mehr}`;
 }
 
+// Ergebnis als Wort, unterschieden über Gewicht und Ton – nie nur über Farbe, ohne Symbole (#99)
 export function ergebnisMarke(wert) {
-  return el("span", { class: `ergebnis ${wert}` }, el("span", { "aria-hidden": "true" }, SYMBOL[wert]), " ", ERGEBNIS_TEXT[wert]);
+  return el("span", { class: `ergebnis ${wert}` }, ERGEBNIS_TEXT[wert]);
+}
+
+// Neue Inhalte blenden kurz ein (200 ms); bei "weniger Bewegung" greift die Animation nicht (CSS)
+export function einblenden(e) {
+  e.classList.remove("einblenden");
+  void e.offsetWidth;  // Animation neu starten
+  e.classList.add("einblenden");
 }
 
 // Ein Ereignis-Bus zwischen den Modulen: "neu-zeichnen", "aktualisieren"

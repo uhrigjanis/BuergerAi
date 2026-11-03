@@ -1,7 +1,7 @@
 // Checkliste (#86): kompakte Zeilen, gruppiert nach Zeit, Stelle oder Ergebnis.
 // Details öffnen sich in detail.js; "Jetzt klären" springt zur entscheidenden Frage.
 import {
-  $, ERGEBNIS_TEXT, anfrage, anzahl, aufzaehlung, ausloesen, datumText, download, el, ergebnisMarke, fuellen, meldung,
+  $, ERGEBNIS_TEXT, anfrage, anzahl, aufzaehlung, ausloesen, datumText, download, einblenden, el, ergebnisMarke, fuellen, meldung,
   sitzung, speichern, zustand,
 } from "./gemeinsam.js";
 import { detailOeffnen } from "./detail.js";
@@ -47,7 +47,6 @@ function jetztKlaeren(l) {
   zustand.fokusFrage = l.klaeren_mit;
   zustand.pausiert = false;
   zustand.bearbeiten = null;
-  ausloesen("reiter", "fragen");
   ausloesen("neu-zeichnen", { fokus: true });
 }
 
@@ -104,7 +103,7 @@ function gruppen(leistungen) {
   return b.zeitgruppen.map((g) => ({ titel: g.text, liste: leistungen.filter((l) => l.zeitgruppe === g.id) }));
 }
 
-export function zeichneListe() {
+export function zeichneListe(optionen = {}) {
   const b = sitzung.bericht;
   const alle = gefiltert();
   const relevant = alle.filter((l) => l.ergebnis !== "nein");
@@ -122,8 +121,9 @@ export function zeichneListe() {
   fuellen($("#nein-liste"), el("ul", { class: "zeilen" }, nein.map(zeile)));
 
   for (const k of document.querySelectorAll("[data-ansicht]")) k.setAttribute("aria-pressed", String(k.dataset.ansicht === zustand.ansicht));
-  fuellen($("#reiter-liste"), `(${relevant.length})`);
-  fuellen($("#reiter-fragen"), `(${b.fragen.length})`);
+  // Kalender nur, wenn es datierte Fristen gibt (kontextuelles Einblenden, #99)
+  $("#kalender").hidden = !relevant.some((l) => l.fristen.some((fr) => fr.datum));
+  if (optionen.einblenden) einblenden(box);
 }
 
 function zeichneFilter() {
@@ -157,7 +157,7 @@ export function zeichneCheckliste() {
   fuellen($("#nicht-erfasst"), fehlt.map((n) => el("li", {}, el("strong", {}, n.name),
     b.lebenslagen.length > 1 ? ` (${n.lebenslage})` : "", " – ", n.grund)));
   zeichneFilter();
-  zeichneListe();
+  zeichneListe({ einblenden: true });
 }
 
 // ------------------------------------------------------------------ Werkzeuge
@@ -217,18 +217,12 @@ function druckAufbauen() {
 
 export function checklisteEinrichten() {
   $("#kalender").addEventListener("click", kalender);
-  $("#speichern").addEventListener("click", () => { $("#menue").open = false; angabenSpeichern(); });
+  $("#speichern").addEventListener("click", angabenSpeichern);
   $("#drucken").addEventListener("click", () => {
-    $("#menue").open = false;
     druckAufbauen();
     window.print();
   });
   for (const k of document.querySelectorAll("[data-ansicht]")) {
-    k.addEventListener("click", () => { zustand.ansicht = k.dataset.ansicht; speichern(); zeichneListe(); });
+    k.addEventListener("click", () => { zustand.ansicht = k.dataset.ansicht; speichern(); zeichneListe({ einblenden: true }); });
   }
-  // Menü schließt bei Klick daneben und mit Escape
-  document.addEventListener("click", (ev) => { if (!$("#menue").contains(ev.target)) $("#menue").open = false; });
-  $("#menue").addEventListener("keydown", (ev) => {
-    if (ev.key === "Escape") { $("#menue").open = false; $("#menue summary").focus(); }
-  });
 }

@@ -158,6 +158,8 @@ Eine Regel, die sich im Code prüfen lässt, gehört nicht in den Prompt. Rate-L
 
 **Formulierung (#78):** Die Nachprüfung ist bewusst streng: Sie vergleicht Zahlen und Daten je Leistung mit dem Bericht (Schreibweisen wie „23. Oktober 2026“ und „23.10.2026“ gelten als gleich) und sucht nach Zusagen und Bejahungen bei „nein“ und „unklar“. Ein falscher Treffer kostet nur den schöneren Text, denn dann kommt die Vorlage. Was sie nicht findet, sind unverständliche oder irreführende Formulierungen ohne falsche Zahl. Das bewertet der Judge (#83) in der Entwicklung.
 
+**Router-Tests (#83, Test der Oberfläche in #110):** „Wir bekommen im Mai ein Kind“ ergab ohne LLM zusätzlich Schulstart und Geringes Einkommen, weil das Wort „Kind“ bei allen dreien vorkommt. Seitdem gilt: Der Router-Prompt grenzt mehrdeutige Wörter ab (ein Kind ist kein Schulstart, Kinder sind kein geringes Einkommen, ein Alter ist kein Ruhestand) und gibt kurze Beispiele. Die Stichwortsuche zählt solche Allerweltswörter nicht, prüft Synonyme nur am Wortanfang und lässt schwache Mitläufer weg. `buergerai eval judge` prüft beides gegen `tests/eval/judge/*.yaml`: Lebenslagen exakt, mit `--judge` zusätzlich durch ein eigenes Modell gegen die Erwartung einer Fachperson (ANF-LLM-23).
+
 **Betrieb hinter einem Proxy (#6):** Das Rate-Limit nutzt die Adresse der Verbindung. Header wie `X-Forwarded-For` werden nicht ausgewertet, weil Nutzer sie fälschen können. Steht der Server hinter einem Reverse-Proxy, muss das Limit dort oder mit einer vertrauenswürdigen Proxy-Konfiguration umgesetzt werden.
 
 ## Folgen

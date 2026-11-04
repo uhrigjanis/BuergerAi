@@ -36,8 +36,8 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: pip
           cache-dependency-path: pyproject.toml
-      - name: pytest und pyflakes installieren
-        run: python -m pip install pytest pyflakes
+      - name: pytest, pyflakes und PyYAML installieren
+        run: python -m pip install pytest pyflakes pyyaml
       - name: Wissensbasis prüfen
         run: ./bai --keine-farbe daten
       - name: Szenarien prüfen

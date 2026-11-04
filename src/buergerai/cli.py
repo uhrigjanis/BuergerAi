@@ -9,6 +9,7 @@ Beispiele::
     buergerai lebenslagen --suche "Wir bekommen ein Baby"
     buergerai szenarien --pruefen
     buergerai eval intake --details             # Evaluation der Freitext-Eingabe (Baseline Stichwortsuche)
+    buergerai eval judge [--judge]              # Judge-Tests: Router gegen tests/eval/judge/*.yaml
     buergerai web                               # Web-Oberfläche auf http://localhost:8000
 """
 
@@ -844,7 +845,76 @@ def cmd_web(args: argparse.Namespace) -> int:
     return starten(_kb(args), host=args.host, port=args.port, oeffnen=args.oeffnen)
 
 
+def cmd_eval_judge(args: argparse.Namespace) -> int:
+    """Judge-Tests (#83): Router gegen tests/eval/judge/*.yaml, optional mit LLM als Prüfer."""
+    from . import judge as judge_mod
+    from .llm import aus_umgebung, erzeugen
+    from .llm.basis import LLMFehler as _LLMFehler
+    from .llm.konfiguration import umgebung
+
+    kb = _kb(args)
+    f = Farbe(None if not args.keine_farbe else False)
+    try:
+        tests, fehler = judge_mod.laden(kb, [Path(p) for p in args.datei] if args.datei else None)
+    except judge_mod.JudgeFehler as exc:
+        print(f.rot(str(exc)))
+        return 2
+    if fehler:
+        print(f.rot(f"{len(fehler)} Fehler in den Judge-Tests:"))
+        for zeile in fehler:
+            print(f"  {zeile}")
+        return 2
+    if args.nur:
+        ids = [x.strip() for teil in args.nur for x in teil.split(",") if x.strip()]
+        unbekannt = sorted(set(ids) - {t.id for t in tests})
+        if unbekannt:
+            print(f.rot(f"Unbekannte Tests: {', '.join(unbekannt)}"))
+            return 2
+        tests = [t for t in tests if t.id in ids]
+    env = umgebung()
+    try:
+        konfig = aus_umgebung(env)
+        router_llm = erzeugen(konfig) if konfig else None
+        judge_konfig = aus_umgebung(judge_mod.judge_umgebung(env) or {}) if args.judge else None
+        judge_llm = erzeugen(judge_konfig) if judge_konfig else None
+    except _LLMFehler as exc:
+        print(f.rot(f"LLM-Konfiguration fehlerhaft: {exc}"))
+        return 2
+    if args.judge and judge_llm is None:
+        print(f.rot("--judge braucht ein eigenes Modell: BUERGERAI_JUDGE_ANBIETER (und BUERGERAI_JUDGE_MODELL, "
+                    "Schlüssel wie beim Router), siehe tests/eval/judge/README.md"))
+        return 2
+    pause = (1.0 if router_llm or judge_llm else 0.0) if args.pause is None else args.pause
+    if router_llm:
+        router_llm = evaluation_mod._modell(router_llm, pause)
+    if judge_llm:
+        judge_llm = evaluation_mod._modell(judge_llm, pause)
+    print(f.grau(f"Router: {konfig.beschreibung() if konfig else 'kein LLM, Stichwortsuche'}"
+                 + (f" · Judge: {judge_konfig.beschreibung()}" if judge_konfig else "")
+                 + f" · {len(tests)} Tests"), file=sys.stderr)
+    wiederholungen = max(1, args.wiederholungen)
+    ergebnisse = judge_mod.ausfuehren(kb, tests, router_llm, judge_llm, wiederholungen)
+    datei = None
+    if not args.keine_datei:
+        daten = judge_mod.ergebnis_daten(
+            ergebnisse, f"{konfig.anbieter}/{konfig.modell}" if konfig else None,
+            f"{judge_konfig.anbieter}/{judge_konfig.modell}" if judge_konfig else None, wiederholungen)
+        try:
+            datei = judge_mod.ergebnis_speichern(daten, Path(args.ausgabe) if args.ausgabe else None)
+        except (OSError, judge_mod.JudgeFehler) as exc:
+            print(f.rot(f"Ergebnisdatei nicht geschrieben: {exc}"), file=sys.stderr)
+    if args.json:
+        print(json.dumps(judge_mod.als_json(ergebnisse), ensure_ascii=False, indent=2))
+    else:
+        print(judge_mod.als_text(ergebnisse, details=args.details))
+    if datei:
+        print(f.grau(f"Ergebnisse gespeichert: {datei}"), file=sys.stderr if args.json else sys.stdout)
+    return 0 if all(e.bestanden for e in ergebnisse) else 1
+
+
 def cmd_eval(args: argparse.Namespace) -> int:
+    if args.was == "judge":
+        return cmd_eval_judge(args)
     ev = evaluation_mod
     kb = _kb(args)
     f = Farbe(None if not args.keine_farbe else False)
@@ -1262,8 +1332,11 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--oeffnen", action="store_true", help="Browser automatisch öffnen")
     s.set_defaults(func=cmd_web)
 
-    s = sub.add_parser("eval", help="Evaluation der Freitext-Eingabe: Router, Abweisung, Extraktion (tests/eval/intake)")
-    s.add_argument("was", choices=["intake"], help="Was bewertet wird (bisher nur intake)")
+    s = sub.add_parser("eval", help="Evaluation der Freitext-Eingabe: Router, Abweisung, Extraktion (tests/eval/intake); "
+                                    "Judge-Tests (tests/eval/judge)")
+    s.add_argument("was", choices=["intake", "judge"],
+                   help="intake: Kennzahlen über alle Testfälle; judge: Tests aus tests/eval/judge/*.yaml "
+                        "(Exit 1, wenn einer fehlschlägt)")
     s.add_argument("--verfahren", default="stichwortsuche", choices=sorted(evaluation_mod.VERFAHREN),
                    help="stichwortsuche: Baseline ohne LLM; llm: Router mit dem konfigurierten LLM (#76); "
                         "llm-extraktion: Router und Fakten-Extraktion (#77); "
@@ -1274,9 +1347,16 @@ def parser() -> argparse.ArgumentParser:
                    help="nur diese Fälle, z. B. die nicht gemessenen eines Laufs (mehrfach möglich)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
-    s.add_argument("--ausgabe", metavar="DATEI.json",
-                   help="Ergebnisdatei (Standard: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json)")
+    s.add_argument("--ausgabe", metavar="DATEI",
+                   help="Ergebnisdatei (Standard intake: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json; "
+                        "judge: tests/eval/ergebnisse/judge/<Datum>_<Router>[_judge-<Modell>].yaml)")
     s.add_argument("--keine-datei", action="store_true", help="keine Ergebnisdatei schreiben")
+    s.add_argument("--judge", action="store_true",
+                   help="nur judge: Tests mit 'experte' zusätzlich vom Judge-LLM bewerten (BUERGERAI_JUDGE_*)")
+    s.add_argument("--datei", action="append", metavar="DATEI.yaml",
+                   help="nur judge: andere Testdatei (mehrfach möglich; Standard: tests/eval/judge/*.yaml)")
+    s.add_argument("--wiederholungen", type=int, default=1, metavar="N",
+                   help="nur judge: jedes Urteil N-mal einholen, bestanden nur einstimmig (Standard: 1)")
     s.set_defaults(func=cmd_eval)
 
     s = sub.add_parser("llm", help="LLM-Schicht: Konfiguration zeigen, mit --probe eine Testanfrage senden")

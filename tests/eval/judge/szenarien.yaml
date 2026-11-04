@@ -1,0 +1,836 @@
+# Judge-Tests aus den Szenarien (szenarien/*.json, #83)
+#
+# Je Szenario eine ausgedachte Anfrage im Stil der Persona. Erwartet sind die Lebenslagen des
+# Szenarios (ohne Angabe: geburt). Wo eine zweite Lebenslage vertretbar ist, steht statt einer
+# exakten Liste die Erwartung der Fachperson (experte), geprüft mit --judge.
+# leistungen: im Szenario mit "ja" erwartet (noch nicht geprüft, folgt mit Extraktion und Engine).
+# pytest prüft, dass jedes Szenario hier einen Test hat und die Lebenslagen übereinstimmen.
+# Ausführen: ./bai eval judge --datei tests/eval/judge/szenarien.yaml
+
+tests:
+
+  - id: szenario-arbeit-berlin-versicherung-unbekannt
+    stichtag: 2026-10-26
+    anfrage: "Mein befristeter Vertrag im Lager läuft Ende Februar aus. Ich war noch nie arbeitslos und weiß nicht genau, wie lange ich versichert war. Was muss ich machen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [jobverlust]
+      leistungen: [arbeitsuchend_melden, erwerbslosenberatung]
+      nicht_erwartet:
+        lebenslagen: [ruhestand, selbststaendig]
+    experte: "Es geht um Job verloren oder gekündigt. Ohne Angabe zur Versicherungszeit bleibt das Arbeitslosengeld unklar statt erfunden."
+    notiz: "Szenario szenarien/arbeit_berlin_versicherung_unbekannt.json: Job verloren: Befristung in Berlin, Versicherungszeit unbekannt"
+
+  - id: szenario-arbeit-hannover-insolvenz
+    stichtag: 2026-10-26
+    anfrage: "Unsere Firma hat Anfang Oktober Insolvenz angemeldet. Seit Wochen gibt es kaum noch Aufträge, die Löhne kamen zu spät und jetzt endet mein Arbeitsverhältnis zum 30. November. Ich arbeite dort als Buchhalterin. Ich habe gehört, dass es Insolvenzgeld gibt. Was steht mir zu und was muss ich jetzt tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [jobverlust]
+      leistungen: [insolvenzgeld, arbeitslosengeld, erwerbslosenberatung]
+      nicht_erwartet:
+        lebenslagen: [geringes_einkommen, selbststaendig]
+    experte: "Es geht um Job verloren oder gekündigt. Insolvenzgeld mit Ausschlussfrist zwei Monate nach dem Insolvenzereignis; Erwerbslosenberatung des Landes Niedersachsen."
+    notiz: "Szenario szenarien/arbeit_hannover_insolvenz.json: Job verloren: Insolvenz des Arbeitgebers in Hannover"
+
+  - id: szenario-arbeit-koeln-kuendigung
+    stichtag: 2026-10-21
+    anfrage: "Gestern gekündigt worden, zum 31.12. Was muss ich jetzt sofort erledigen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [jobverlust]
+      leistungen: [arbeitsuchend_melden, arbeitslosengeld, erwerbslosenberatung]
+      nicht_erwartet:
+        lebenslagen: [ruhestand]
+    experte: "Es geht um Job verloren oder gekündigt. Arbeitsuchend melden mit Drei-Tage-Frist ab Kündigung, Klagefrist drei Wochen, Arbeitslosengeld; Beratungsstelle Arbeit des Landes NRW."
+    notiz: "Szenario szenarien/arbeit_koeln_kuendigung.json: Job verloren: Kündigung durch den Arbeitgeber in Köln"
+
+  - id: szenario-arbeit-muenchen-aufhebungsvertrag
+    stichtag: 2026-10-26
+    anfrage: "Ich habe mit meinem Arbeitgeber einen Aufhebungsvertrag zum 31. März 2027 geschlossen. Droht mir eine Sperrzeit beim Arbeitslosengeld, und welche Schritte sind jetzt erforderlich?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [jobverlust]
+      leistungen: [arbeitsuchend_melden]
+      nicht_erwartet:
+        lebenslagen: [ruhestand]
+    experte: "Es geht um Job verloren oder gekündigt. Arbeitslosengeld unklar wegen möglicher Sperrzeit; keine Kündigungsschutzklage; in Bayern keine vom Land geförderte Erwerbslosenberatung (nur in anderen Ländern)."
+    notiz: "Szenario szenarien/arbeit_muenchen_aufhebungsvertrag.json: Job verloren: Aufhebungsvertrag in München"
+
+  - id: szenario-baunatal-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Frau ist schwanger, Termin 10. Januar. Sind verheiratet, beide angestellt. Was müssen wir beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Hessen: Elterngeld beim Amt für Versorgung und Soziales Kassel (Zuordnung je Kreis)."
+    notiz: "Szenario szenarien/baunatal_verheiratet_angestellt.json: Baunatal (Landkreis Kassel): verheiratet, beide angestellt"
+
+  - id: szenario-behinderung-dresden-erstantrag
+    stichtag: 2026-10-26
+    anfrage: "Ich hatte Brustkrebs und bin jetzt mit der Behandlung durch. Man hat mir gesagt, ich soll einen Grad der Behinderung beantragen. Ich habe das noch nie gemacht. Wie geht das und was bringt mir das?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [behinderung]
+      leistungen: [behinderung_feststellen]
+      nicht_erwartet:
+        lebenslagen: [pflege, ruhestand]
+    experte: "Es geht um Behinderung. Noch kein GdB: Feststellung bei der kreisfreien Stadt Dresden beantragen; Nachteilsausgleiche erst danach."
+    notiz: "Szenario szenarien/behinderung_dresden_erstantrag.json: Behinderung: Erstantrag in Dresden"
+
+  - id: szenario-behinderung-kiel-gdb40-unklar
+    stichtag: 2026-10-26
+    anfrage: "Habe wegen Rücken einen Bescheid mit GdB 40. Was bringt mir der?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [behinderung]
+      nicht_erwartet:
+        lebenslagen: [pflege, jobverlust]
+    experte: "Es geht um Behinderung. Gleichstellung bleibt unklar, wenn offen ist, ob die Person arbeitet; kein Zusatzurlaub unter GdB 50."
+    notiz: "Szenario szenarien/behinderung_kiel_gdb40_unklar.json: Behinderung: GdB 40 in Kiel, Beschäftigung unbekannt"
+
+  - id: szenario-behinderung-koeln-blind
+    stichtag: 2026-10-26
+    anfrage: "Guten Tag, ich bin blind und habe einen GdB von 100 mit dem Merkzeichen Bl. Welche Nachteilsausgleiche und Leistungen kann ich in Anspruch nehmen?"
+    erwartet:
+      kategorie: lebenslage
+      leistungen: [landesblindengeld, parkausweis_blau, wertmarke_freifahrt, kfz_steuer_behinderung]
+    experte: "Behinderung ist die Hauptsache. Pflege ist vertretbar, weil Blindengeld im Katalog unter Pflege steht; andere Lebenslagen nicht."
+    notiz: "Szenario szenarien/behinderung_koeln_blind.json: Behinderung: blinde Frau in Köln (GdB 100, Bl)"
+
+  - id: szenario-behinderung-muenchen-gdb80-gehbehindert
+    stichtag: 2026-10-26
+    anfrage: "Seit meinem Unfall vor zwei Jahren bin ich gehbehindert. Inzwischen habe ich einen GdB von 80 mit Merkzeichen G. Ich arbeite weiter in meinem Büro und fahre selbst mit dem Auto dorthin, das klappt mit Automatik gut. Welche Vergünstigungen gibt es für mich, zum Beispiel bei der Kfz-Steuer oder einem Parkausweis?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [behinderung]
+      leistungen: [wertmarke_freifahrt, zusatzurlaub]
+      nicht_erwartet:
+        lebenslagen: [pflege, jobverlust]
+    experte: "Es geht um Behinderung. Wertmarke beim ZBFS, Zusatzurlaub; Kfz-Steuer-Ermäßigung unklar, weil sie die Freifahrt ausschließt."
+    notiz: "Szenario szenarien/behinderung_muenchen_gdb80_gehbehindert.json: Behinderung: GdB 80 mit Merkzeichen G, angestellt, München"
+
+  - id: szenario-berlin-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "hey, wir kriegen im januar unser erstes baby 😍 sind verheiratet und arbeiten beide. was müssen wir alles beantragen??"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Berlin: Elterngeld beim Jugendamt des Bezirks; keine Landesleistungen."
+    notiz: "Szenario szenarien/berlin_verheiratet_angestellt.json: Berlin: verheiratet, beide angestellt"
+
+  - id: szenario-bildung-berlin-studium-alter-unbekannt
+    stichtag: 2026-10-26
+    anfrage: "hi, ich schreib mich grad für mein erstes semester ein 🙈 krieg ich bafög oder so?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ausbildung_studium]
+      nicht_erwartet:
+        lebenslagen: [schule, umzug]
+    experte: "Es geht um Ausbildung, Studium oder Meister. Mit „weiß nicht“ beim Alter bleiben BAföG und Kindergeld unklar statt erfunden."
+    notiz: "Szenario szenarien/bildung_berlin_studium_alter_unbekannt.json: Bildung: Studium in Berlin, Alter unbekannt"
+
+  - id: szenario-bildung-kiel-meister-ohne-bonus
+    stichtag: 2026-10-26
+    anfrage: "Kfz-Meister im September bestanden. Gibt es dafür eine Meisterprämie?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ausbildung_studium]
+      nicht_erwartet:
+        lebenslagen: [selbststaendig]
+    experte: "Es geht um Ausbildung, Studium oder Meister. Schleswig-Holstein zahlt keinen Meisterbonus (belegt); er erscheint nur unter „nur in anderen Ländern“."
+    notiz: "Szenario szenarien/bildung_kiel_meister_ohne_bonus.json: Bildung: Meister in Kiel – kein Landesbonus"
+
+  - id: szenario-bildung-koeln-meister-handwerk
+    stichtag: 2026-10-26
+    anfrage: "Ich habe am 15. September meine Meisterprüfung als Tischlerin bestanden. Ich habe gelesen, dass es dafür Prämien gibt. Welche bekomme ich und wo beantrage ich sie?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ausbildung_studium]
+      leistungen: [meisterbonus]
+      nicht_erwartet:
+        lebenslagen: [selbststaendig]
+    experte: "Es geht um Ausbildung, Studium oder Meister. Meisterprämie NRW (2.500 €) mit Frist drei Monate nach der Prüfung; Aufstiegs-BAföG unklar bis zur Prüfung des Lehrgangs."
+    notiz: "Szenario szenarien/bildung_koeln_meister_handwerk.json: Bildung: Handwerksmeister aus Köln, Prüfung bestanden"
+
+  - id: szenario-bildung-leipzig-azubi-eigene-wohnung
+    stichtag: 2026-10-26
+    anfrage: "bin 19 und mach seit september ne ausbildung. wohn allein. krieg ich da geld vom staat?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ausbildung_studium]
+      leistungen: [kindergeld_ausbildung]
+      nicht_erwartet:
+        lebenslagen: [umzug, schule]
+    experte: "Es geht um Ausbildung, Studium oder Meister. BAB unklar bis zur Einkommensrechnung der Arbeitsagentur; Kindergeld läuft weiter."
+    notiz: "Szenario szenarien/bildung_leipzig_azubi_eigene_wohnung.json: Bildung: Azubi (19) in Leipzig mit eigener Wohnung"
+
+  - id: szenario-bremerhaven-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Guten Tag, ich bin schwanger, der errechnete Termin ist der 10. Januar 2027. Mein Mann und ich sind verheiratet und beide angestellt. Welche Anträge sollten wir stellen? Vielen Dank im Voraus."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Bremen: die PLZ 27568 gehört zu Bremen und Bremerhaven; gewählt ist Bremerhaven."
+    notiz: "Szenario szenarien/bremerhaven_verheiratet_angestellt.json: Bremerhaven: verheiratet, beide angestellt"
+
+  - id: szenario-dresden-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Meine Frau und ich erwarten im Januar unser erstes Kind. Wir sind verheiratet und arbeiten beide. Ich habe mich schon zu Elterngeld und Elternzeit eingelesen und gehört, dass es in Sachsen ein Landeserziehungsgeld gibt. Gibt es das noch, und was müssen wir sonst beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Sachsen: kommunale Elterngeldstelle und Sächsisches Landeserziehungsgeld (unklar: Einkommen und Kita-Platz)."
+    notiz: "Szenario szenarien/dresden_verheiratet_angestellt.json: Dresden: verheiratet, beide angestellt"
+
+  - id: szenario-einkommen-berlin-wohngeld-zwei-kinder
+    stichtag: 2026-10-24
+    anfrage: "Entschuldigung, wenn das eine dumme Frage ist: Wir bekommen schon Wohngeld und haben zwei Kinder, aber das Geld reicht trotzdem kaum. Gibt es noch andere Hilfe für uns?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geringes_einkommen]
+      leistungen: [wohngeld, bildung_und_teilhabe, sozialticket]
+      nicht_erwartet:
+        lebenslagen: [geburt, schule]
+    experte: "Es geht um Geringes Einkommen. Landesleistung Berlin-Ticket S mit Wohngeld-Bescheid; Bildung und Teilhabe ja; keine Rundfunkbefreiung, weil Wohngeld nicht reicht."
+    notiz: "Szenario szenarien/einkommen_berlin_wohngeld_zwei_kinder.json: Berlin: Familie mit Wohngeld und zwei Kindern"
+
+  - id: szenario-einkommen-hamburg-grundsicherungsgeld
+    stichtag: 2026-10-24
+    anfrage: "Beziehe Grundsicherungsgeld, alleinstehend. Welche Vergünstigungen gibt es in Hamburg zusätzlich?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geringes_einkommen]
+      leistungen: [grundsicherungsgeld, sozialticket, rundfunkbeitrag_befreiung]
+      nicht_erwartet:
+        lebenslagen: [jobverlust]
+    experte: "Es geht um Geringes Einkommen. hvv-Sozialrabatt als Landesleistung, Rundfunkbefreiung; Wohngeld ausgeschlossen, weil die Miete schon im Grundsicherungsgeld steckt."
+    notiz: "Szenario szenarien/einkommen_hamburg_grundsicherungsgeld.json: Hamburg: alleinstehend mit Grundsicherungsgeld"
+
+  - id: szenario-einkommen-koeln-baby-kinderzuschlag
+    stichtag: 2026-10-24
+    anfrage: "wir kriegen anfang februar ein baby und haben echt wenig geld, zusammen so 2500 brutto. was können wir bekommen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt, geringes_einkommen]
+      leistungen: [geburtsanzeige]
+      nicht_erwartet:
+        lebenslagen: [schule, heirat]
+    experte: "Es geht um Geburt und Geringes Einkommen. Geburt und geringes Einkommen zusammen: Kinderzuschlag gehört zu beiden Lebenslagen und erscheint einmal; Bedarfsrechnung offen."
+    notiz: "Szenario szenarien/einkommen_koeln_baby_kinderzuschlag.json: Köln: Baby unterwegs, knappes Einkommen"
+
+  - id: szenario-einkommen-muenchen-rentnerin
+    stichtag: 2026-10-24
+    anfrage: "Es ist mir etwas unangenehm, aber meine Rente ist sehr klein und die Miete hier in München hoch. Gibt es eine Unterstützung, die mir zusteht?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geringes_einkommen]
+      nicht_erwartet:
+        lebenslagen: [ruhestand]
+    experte: "Es geht um Geringes Einkommen. Grundsicherung im Alter und Wohngeld unklar (Bedarfsrechnung); München-Pass kommunal; kein Sozialticket des Landes (nur in anderen Ländern)."
+    notiz: "Szenario szenarien/einkommen_muenchen_rentnerin.json: München: Rentnerin mit kleiner Rente"
+
+  - id: szenario-erfurt-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Erstes Kind kommt im Januar. Verheiratet, beide berufstätig. Was ist zu tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Thüringen: kommunale Elterngeldstelle; kein Landeserziehungsgeld mehr."
+    notiz: "Szenario szenarien/erfurt_verheiratet_angestellt.json: Erfurt: verheiratet, beide angestellt"
+
+  - id: szenario-freising-unverheiratet-privat
+    stichtag: 2026-10-24
+    anfrage: "Unsere Tochter ist am 10. Oktober geboren. Mein Partner und ich sind nicht verheiratet, ich bin privat krankenversichert. Ich weiß, dass es Elterngeld und Kindergeld gibt. Was gilt bei privater Versicherung für das Mutterschaftsgeld und was müssen wir wegen der Vaterschaft tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, mutterschaftsgeld_bas, arbeitgeberzuschuss_mutterschaftsgeld, elternzeit, familienversicherung_kind, vaterschaftsanerkennung, sorgeerklaerung]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Pilotkommune ohne eigene Kommunaldaten (Fallback auf Bayern). Partner arbeitet weiter Vollzeit."
+    notiz: "Szenario szenarien/freising_unverheiratet_privat.json: Freising: unverheiratet, Mutter privat versichert, Kind schon geboren"
+
+  - id: szenario-hamburg-unverheiratet
+    stichtag: 2026-10-24
+    anfrage: "Wir sind nicht verheiratet und bekommen im Januar ein Kind. Müssen wir deshalb etwas Besonderes beachten? Und was müssen wir allgemein beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind, vaterschaftsanerkennung, sorgeerklaerung]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Hamburg: Elterngeld beim Bezirksamt; Vaterschaft und Sorgeerklärung beim Jugendamt (nur allgemein erfasst)."
+    notiz: "Szenario szenarien/hamburg_unverheiratet.json: Hamburg: nicht verheiratet"
+
+  - id: szenario-hannover-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Meine Frau erwartet im Januar 2027 ein Kind. Wir sind verheiratet und beide angestellt. Welche Anträge sind in welcher Reihenfolge zu stellen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Niedersachsen: kommunale Elterngeldstelle (Region Hannover)."
+    notiz: "Szenario szenarien/hannover_verheiratet_angestellt.json: Hannover: verheiratet, beide angestellt"
+
+  - id: szenario-heirat-berlin-geplant
+    stichtag: 2026-10-26
+    anfrage: "Wir heiraten am 15. Juni 2027!!! Ich will seinen Namen annehmen! Was müssen wir vorher und nachher alles erledigen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [heirat]
+      leistungen: [eheschliessung_anmelden, ausweis_neuer_name, steuerklasse_ehe, familienversicherung_ehe]
+      nicht_erwartet:
+        lebenslagen: [geburt, umzug]
+    experte: "Es geht um Heirat. Anmeldung beim Standesamt frühestens sechs Monate vorher; neuer Ausweis wegen Namensänderung; nur einer angestellt; Familienversicherung möglich."
+    notiz: "Szenario szenarien/heirat_berlin_geplant.json: Heirat: Paar in Berlin plant die Hochzeit im Juni 2027"
+
+  - id: szenario-heirat-frankfurt-ausland-staatsangehoerigkeit-unklar
+    stichtag: 2026-10-27
+    anfrage: "Ich habe im August im Ausland geheiratet. Jetzt wohnen wir in Frankfurt. Was muss ich hier machen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [heirat]
+      nicht_erwartet:
+        lebenslagen: [umzug]
+    experte: "Es geht um Heirat. Ohne Angabe zur deutschen Staatsangehörigkeit bleiben Registereintrag und Namenserklärung unklar."
+    notiz: "Szenario szenarien/heirat_frankfurt_ausland_staatsangehoerigkeit_unklar.json: Heirat: im Ausland geheiratet, Frankfurt, unklar ob ein Ehegatte deutsch ist"
+
+  - id: szenario-heirat-hamburg-ausland-deutsch
+    stichtag: 2026-10-27
+    anfrage: "Meine Partnerin und ich haben im August in Dänemark geheiratet, es war eine wunderschöne kleine Feier am Strand. Sie ist Deutsche, wir leben in Hamburg. Gilt unsere Ehe hier automatisch, und was müssen wir jetzt ändern oder melden?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [heirat]
+      leistungen: [auslandsehe_beurkunden, ehename_erklaeren, ausweis_neuer_name]
+      nicht_erwartet:
+        lebenslagen: [umzug]
+    experte: "Es geht um Heirat. Die Ehe gilt auch so; Eintrag ins deutsche Eheregister (§ 34 PStG) ist möglich; für den gemeinsamen Ehenamen braucht es eine Erklärung beim Standesamt; keine Anmeldung zur Eheschließung."
+    notiz: "Szenario szenarien/heirat_hamburg_ausland_deutsch.json: Heirat: in Dänemark geheiratet, wohnhaft in Hamburg, eine Partnerin deutsch"
+
+  - id: szenario-heirat-koeln-versicherung-unbekannt
+    stichtag: 2026-10-26
+    anfrage: "Wir haben im September geheiratet. Ich will den Namen meines Mannes annehmen. Wie er versichert ist, weiß ich ehrlich gesagt nicht. Was müssen wir jetzt erledigen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [heirat]
+      leistungen: [ausweis_neuer_name, steuerklasse_ehe]
+      nicht_erwartet:
+        lebenslagen: [geburt]
+    experte: "Es geht um Heirat. Ohne Angabe zur Krankenversicherung des Partners bleibt die Familienversicherung unklar."
+    notiz: "Szenario szenarien/heirat_koeln_versicherung_unbekannt.json: Heirat: Köln, unklar ob der Partner gesetzlich versichert ist"
+
+  - id: szenario-heirat-muenchen-beide-angestellt
+    stichtag: 2026-10-26
+    anfrage: "Am 10. Oktober geheiratet, beide angestellt. Welche Steuerklassen sind sinnvoll und was ist sonst zu tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [heirat]
+      nicht_erwartet:
+        lebenslagen: [geburt]
+    experte: "Es geht um Heirat. Nach der Trauung keine Anmeldung mehr; Steuerklassen bleiben eine Abwägung (unklar); keine Familienversicherung; Bayern hat keine Landesleistung zur Heirat."
+    notiz: "Szenario szenarien/heirat_muenchen_beide_angestellt.json: Heirat: frisch verheiratet in München, beide angestellt"
+
+  - id: szenario-kiel-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Hallo ihr Lieben, bin schwanger, ET ist der 10.01. 🤰 Mein Mann und ich sind verheiratet und arbeiten beide. Was habt ihr alles beantragt?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Schleswig-Holstein: Elterngeld beim LASG, Standort Neumünster (zuständig für Kiel)."
+    notiz: "Szenario szenarien/kiel_verheiratet_angestellt.json: Kiel: verheiratet, beide angestellt"
+
+  - id: szenario-koeln-unverheiratet
+    stichtag: 2026-10-24
+    anfrage: "Freundin schwanger, Termin Januar. Nicht verheiratet. Was muss ich für die Vaterschaft tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind, vaterschaftsanerkennung]
+      nicht_erwartet:
+        lebenslagen: [heirat]
+    experte: "Es geht um Geburt. Nordrhein-Westfalen: Elterngeldstelle der Stadt Köln; Jugendamt nur allgemein erfasst."
+    notiz: "Szenario szenarien/koeln_unverheiratet.json: Köln: nicht verheiratet"
+
+  - id: szenario-magdeburg-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Wir erwarten im Januar unser erstes Kind und wollen alles richtig machen. Wir sind verheiratet und arbeiten beide Vollzeit. Welche Anträge gibt es? Wann müssen wir sie stellen? Wer ist zuständig? Und gibt es Fristen, die wir auf keinen Fall verpassen dürfen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Sachsen-Anhalt: kommunale Elterngeldstelle."
+    notiz: "Szenario szenarien/magdeburg_verheiratet_angestellt.json: Magdeburg: verheiratet, beide angestellt"
+
+  - id: szenario-mainz-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Ich erwarte am 10. Januar 2027 ein Kind. Mein Ehemann und ich sind beide angestellt. Bitte nennen Sie mir alle Anträge mit den jeweiligen Fristen."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Rheinland-Pfalz: Elterngeldstelle der Stadtverwaltung Mainz."
+    notiz: "Szenario szenarien/mainz_verheiratet_angestellt.json: Mainz: verheiratet, beide angestellt"
+
+  - id: szenario-muenchen-alleinerziehend-drittstaat
+    stichtag: 2026-10-24
+    anfrage: "Ich bin schwanger. Das Baby kommt im Februar. Ich bin allein, der Vater wohnt nicht bei mir. Ich habe keinen deutschen Pass. Was kann ich beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, mutterschaftsgeld_krankenkasse, arbeitgeberzuschuss_mutterschaftsgeld, elternzeit, familienversicherung_kind, vaterschaftsanerkennung, sorgeerklaerung]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Zeigt ehrliche 'unklar'-Ergebnisse, wenn der Aufenthaltstitel entscheidet."
+    notiz: "Szenario szenarien/muenchen_alleinerziehend_drittstaat.json: München: alleinerziehend, Staatsangehörigkeit außerhalb EU, geringes Einkommen"
+
+  - id: szenario-muenchen-familiengeld-2024
+    stichtag: 2026-10-24
+    anfrage: "Kind am 31.12.2024 geboren. Gibt es in Bayern noch Familiengeld dafür?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [bayerisches_familiengeld]
+      nicht_erwartet:
+        lebenslagen: [schule]
+    experte: "Es geht um Geburt. Letzter Jahrgang mit Bayerischem Familiengeld (vor dem 1.1.2025 geboren, Art. 9a Abs. 1 BayFamGG)."
+    notiz: "Szenario szenarien/muenchen_familiengeld_2024.json: München: Kind im Dezember 2024 geboren"
+
+  - id: szenario-muenchen-familiengeld-2026
+    stichtag: 2026-10-24
+    anfrage: "unser baby ist am 1. märz geboren und ich hab noch fast nichts beantragt 😬 geht da noch was??"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige]
+      nicht_erwartet:
+        lebenslagen: [schule]
+    experte: "Es geht um Geburt. Kein Familiengeld für ab dem 1.1.2025 geborene Kinder (Art. 9a BayFamGG); Fristen für Geburtsanzeige und Elterngeld bereits abgelaufen."
+    notiz: "Szenario szenarien/muenchen_familiengeld_2026.json: München: Kind im März 2026 geboren"
+
+  - id: szenario-muenchen-hohes-einkommen
+    stichtag: 2026-10-24
+    anfrage: "Kind kommt im März, wir verdienen beide gut, ich bin privat versichert. Gibt es überhaupt etwas für uns?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, kindergeld, mutterschaftsgeld_bas, arbeitgeberzuschuss_mutterschaftsgeld, elternzeit]
+      nicht_erwartet:
+        lebenslagen: [heirat, geringes_einkommen]
+    experte: "Es geht um Geburt. Einkommensgrenze beim Elterngeld überschritten; Familienversicherung hängt vom Einkommen ab."
+    notiz: "Szenario szenarien/muenchen_hohes_einkommen.json: München: verheiratet, hohes Einkommen, Mutter privat versichert"
+
+  - id: szenario-muenchen-postfach-plz
+    stichtag: 2026-10-24
+    anfrage: "Guten Tag, ich erwarte im Januar ein Kind. Mein Mann und ich sind verheiratet und beide berufstätig. Welche Leistungen kommen für uns in Betracht?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. 80001 ist keiner Gemeinde zugeordnet; mit Bundesland BY gelten Landes- und Bundesdaten (mit Warnung)."
+    notiz: "Szenario szenarien/muenchen_postfach_plz.json: Postfach-PLZ München mit Bundesland"
+
+  - id: szenario-muenchen-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Wir sind verheiratet und erwarten Mitte Dezember unser erstes Kind. Ich möchte nach der Geburt erst einmal ganz zu Hause bleiben, mein Mann will in Teilzeit gehen. Welche Leistungen gibt es dafür, und was müssen wir wann beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, mutterschaftsgeld_krankenkasse, arbeitgeberzuschuss_mutterschaftsgeld, elternzeit, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Kind noch nicht geboren; Mutter pausiert, Partner arbeitet 32 Stunden."
+    notiz: "Szenario szenarien/muenchen_verheiratet_angestellt.json: München: verheiratet, beide angestellt und gesetzlich versichert"
+
+  - id: szenario-nur-plz
+    stichtag: 2026-10-24
+    anfrage: "Ich bin schwanger und wohne in München. Ich weiß noch gar nichts."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige]
+      nicht_erwartet:
+        lebenslagen: [umzug]
+    experte: "Es geht um Geburt. Startpunkt für den interaktiven Modus: alles außer der Geburtsanzeige ist noch unklar."
+    notiz: "Szenario szenarien/nur_plz.json: Nur Wohnort bekannt"
+
+  - id: szenario-pflege-berlin-mutter-in-bayern
+    stichtag: 2026-10-26
+    anfrage: "Meine Mutter lebt in München und hat Pflegegrad 3. Ich wohne in Berlin, arbeite 30 Stunden die Woche und fahre alle zwei Wochen zu ihr, um sie zu pflegen, insgesamt sind das etwa 14 Stunden pro Woche. Ich bin völlig erschöpft. Welche Unterstützung gibt es für sie und für mich, auch bei meinem Arbeitgeber?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [pflege]
+      leistungen: [landespflegegeld, pflegegeld, pflegezeit, familienpflegezeit]
+      nicht_erwartet:
+        lebenslagen: [umzug, ruhestand]
+    experte: "Es geht um Pflege. Landespflegegeld Bayern über den Wohnort der pflegebedürftigen Person, obwohl die Nutzerin in Berlin wohnt; Pflegezeit und Familienpflegezeit im großen Betrieb."
+    notiz: "Szenario szenarien/pflege_berlin_mutter_in_bayern.json: Pflege: Tochter in Berlin pflegt Mutter in Bayern (Pflegegrad 3)"
+
+  - id: szenario-pflege-dresden-pflegegrad-unklar
+    stichtag: 2026-10-26
+    anfrage: "Ich kümmere mich um meinen Vater, er schafft den Alltag nicht mehr allein. Welchen Pflegegrad er hat, weiß ich gerade nicht. Was kann ich tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [pflege]
+      nicht_erwartet:
+        lebenslagen: [behinderung, ruhestand]
+    experte: "Es geht um Pflege. Mit „weiß nicht“ bleiben Pflegeleistungen unklar statt erfunden; ohne Wohnort der pflegebedürftigen Person werden keine Landesleistungen ausgewählt."
+    notiz: "Szenario szenarien/pflege_dresden_pflegegrad_unklar.json: Pflege: Sohn in Dresden, Pflegegrad und Wohnort des Vaters unbekannt"
+
+  - id: szenario-pflege-hamburg-akut-kleiner-betrieb
+    stichtag: 2026-10-26
+    anfrage: "Mein Vater braucht ab sofort Pflege, ganz plötzlich. Ich arbeite Vollzeit in einer kleinen Firma mit zehn Leuten. Kann ich freinehmen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [pflege]
+      leistungen: [pflegegrad_beantragen, arbeitsverhinderung_pflege]
+      nicht_erwartet:
+        lebenslagen: [jobverlust, ruhestand]
+    experte: "Es geht um Pflege. Zehn freie Arbeitstage gelten in jedem Betrieb; Pflegezeit und Familienpflegezeit nicht bei zehn Beschäftigten; Pflegegrad muss erst beantragt werden."
+    notiz: "Szenario szenarien/pflege_hamburg_akut_kleiner_betrieb.json: Pflege: Akuter Pflegefall, Arbeitnehmer in kleinem Hamburger Betrieb"
+
+  - id: szenario-pflege-koeln-heim-blind
+    stichtag: 2026-10-26
+    anfrage: "Guten Tag, ich lebe in einem Pflegeheim in Köln, habe Pflegegrad 4 und bin blind. Meine Betreuerin schreibt für mich. Welche Leistungen stehen mir zu?"
+    erwartet:
+      kategorie: lebenslage
+      leistungen: [landesblindengeld, pflege_im_heim]
+    experte: "Pflege ist die Hauptsache (Pflegegrad 4, Heim). Behinderung ist vertretbar, weil die Person blind ist; Ruhestand und andere Lebenslagen nicht."
+    notiz: "Szenario szenarien/pflege_koeln_heim_blind.json: Pflege: Blinde Heimbewohnerin in Köln (Pflegegrad 4)"
+
+  - id: szenario-pflege-muenchen-selbst-pflegegrad2
+    stichtag: 2026-10-26
+    anfrage: "Ich bin 81 und habe seit dem Frühjahr Pflegegrad 2. Meine Tochter und mein Schwiegersohn kümmern sich um mich, ich wohne noch in meiner Wohnung. Früher war ich Schreiner, das Knie macht nicht mehr mit. Was steht mir zu?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [pflege]
+      leistungen: [landespflegegeld, pflegegeld, entlastungsbetrag]
+      nicht_erwartet:
+        lebenslagen: [ruhestand, umzug]
+    experte: "Es geht um Pflege. Ohne Angehörigen-Rolle gilt der eigene Wohnort für Landesleistungen: Landespflegegeld Bayern; keine Leistungen für Pflegepersonen."
+    notiz: "Szenario szenarien/pflege_muenchen_selbst_pflegegrad2.json: Pflege: Rentner in München, selbst pflegebedürftig (Pflegegrad 2)"
+
+  - id: szenario-potsdam-unverheiratet
+    stichtag: 2026-10-24
+    anfrage: "wir werden im januar eltern, sind aber nicht verheiratet. keine ahnung was wir machen müssen 😅"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind, vaterschaftsanerkennung, sorgeerklaerung]
+      nicht_erwartet:
+        lebenslagen: [heirat]
+    experte: "Es geht um Geburt. Brandenburg: kommunale Elterngeldstelle; Jugendamt der Stadt Potsdam (allgemein)."
+    notiz: "Szenario szenarien/potsdam_unverheiratet.json: Potsdam: nicht verheiratet"
+
+  - id: szenario-rostock-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Schwanger, ET 10.01. Verheiratet, beide angestellt. Was muss ich beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Mecklenburg-Vorpommern: Elterngeld zentral beim LAGuS."
+    notiz: "Szenario szenarien/rostock_verheiratet_angestellt.json: Rostock: verheiratet, beide angestellt"
+
+  - id: szenario-ruhestand-hamburg-wenig-versicherungsjahre
+    stichtag: 2026-10-26
+    anfrage: "Ich war mein Leben lang selbstständig und habe nur drei Jahre in die Rentenversicherung eingezahlt. Ich bin 68 und möchte ab Dezember Rente beziehen. Bekomme ich überhaupt eine Rente? Ich bin privat krankenversichert."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ruhestand]
+      leistungen: [seniorenticket_land]
+      nicht_erwartet:
+        lebenslagen: [selbststaendig, geringes_einkommen]
+    experte: "Es geht um Ruhestand (in Rente gehen). Ohne fünf Jahre Wartezeit keine Altersrente; privat Versicherte kommen nicht in die KVdR; das Hamburger Seniorenticket gilt ab 67."
+    notiz: "Szenario szenarien/ruhestand_hamburg_wenig_versicherungsjahre.json: Ruhestand: Hamburg, 68 Jahre, nur drei Versicherungsjahre, privat versichert"
+
+  - id: szenario-ruhestand-muenchen-mit-63
+    stichtag: 2026-10-26
+    anfrage: "Werde im Juni 63, habe 40 Versicherungsjahre. Kann ich ab Juli in Rente?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ruhestand]
+      nicht_erwartet:
+        lebenslagen: [jobverlust]
+    experte: "Es geht um Ruhestand (in Rente gehen). Vor der Regelaltersgrenze bleibt die Altersrente unklar (Abschlag, Art der Rente prüft die Rentenversicherung); Bayern hat kein Seniorenticket des Landes."
+    notiz: "Szenario szenarien/ruhestand_muenchen_mit_63.json: Ruhestand: München, mit 63 in Rente nach 40 Versicherungsjahren"
+
+  - id: szenario-ruhestand-schwerin-regelaltersrente
+    stichtag: 2026-10-26
+    anfrage: "Seit August bin ich in Rente. Ich habe 42 Jahre gearbeitet, erst als Krankenschwester, später in der Verwaltung. Jetzt will ich alles in Ordnung bringen: Was muss ich jetzt als Rentnerin noch erledigen oder beantragen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [ruhestand]
+      leistungen: [altersrente, seniorenticket_land]
+      nicht_erwartet:
+        lebenslagen: [jobverlust, pflege]
+    experte: "Es geht um Ruhestand (in Rente gehen). Regelaltersgrenze 66 Jahre und 4 Monate ist erreicht; Seniorenticket MV ab 65; Krankenversicherung der Rentner prüft die Krankenkasse."
+    notiz: "Szenario szenarien/ruhestand_schwerin_regelaltersrente.json: Ruhestand: Schwerin, Jahrgang 1960, Rente ab August 2026"
+
+  - id: szenario-saarbruecken-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Sehr geehrte Damen und Herren, wir erwarten im Januar unser erstes Kind. Wir sind verheiratet und beide angestellt. Dürften wir fragen, welche Anträge wir stellen sollten?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Saarland: Elterngeld beim Landesamt für Soziales."
+    notiz: "Szenario szenarien/saarbruecken_verheiratet_angestellt.json: Saarbrücken: verheiratet, beide angestellt"
+
+  - id: szenario-schule-berlin-wohngeld
+    stichtag: 2026-10-26
+    anfrage: "Mein Sohn ist im März 2021 geboren. Muss ich ihn jetzt für die Schule anmelden? Ich habe Angst, die Anmeldung zu verpassen. Was muss ich mitbringen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [schule]
+      leistungen: [schulanmeldung, bildung_und_teilhabe]
+      nicht_erwartet:
+        lebenslagen: [geburt]
+    experte: "Es geht um Schulstart (Einschulung). Schulpflichtig nach dem Berliner Stichtag 30. September; mit Wohngeld gibt es Bildung und Teilhabe (Schulbedarf)."
+    notiz: "Szenario szenarien/schule_berlin_wohngeld.json: Schulstart: Familie mit Wohngeld in Berlin, Kind im März geboren"
+
+  - id: szenario-schule-kiel-augustkind
+    stichtag: 2026-10-26
+    anfrage: "Unser Sohn wird am 15. August sechs. Freunde in Bayern sagen, da ist er noch nicht schulpflichtig. Wie ist das bei uns in Kiel? Muss er 2027 in die Schule, und wo melden wir ihn an?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [schule]
+      nicht_erwartet:
+        lebenslagen: [geburt]
+    experte: "Es geht um Schulstart (Einschulung). Gleiches Geburtsdatum wie in München, aber Schleswig-Holstein hat den Stichtag 30. Juni: Das Kind ist 2027 nicht schulpflichtig – früher nur auf Antrag (unklar)."
+    notiz: "Szenario szenarien/schule_kiel_augustkind.json: Schulstart: Kind aus Kiel wird im August sechs (Einschulung 2027)"
+
+  - id: szenario-schule-muenchen-augustkind
+    stichtag: 2026-10-26
+    anfrage: "unser kleiner wird im august 6 und kommt dann wohl in die schule. wir brauchen nachmittags betreuung, gibts nen anspruch auf hort?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [schule]
+      leistungen: [schulanmeldung, ganztag_grundschule]
+      nicht_erwartet:
+        lebenslagen: [geburt]
+    experte: "Es geht um Schulstart (Einschulung). In Bayern gilt der 30. September: Das Kind ist schulpflichtig (Einschulungskorridor); Anspruch auf Ganztagsbetreuung."
+    notiz: "Szenario szenarien/schule_muenchen_augustkind.json: Schulstart: Kind aus München wird im August sechs (Einschulung 2027)"
+
+  - id: szenario-selbst-dresden-grundsicherung
+    stichtag: 2026-10-26
+    anfrage: "Ich bekomme Grundsicherungsgeld und möchte im Januar einen kleinen Laden eröffnen. Dafür müsste ich einen Kredit aufnehmen. Darf ich das überhaupt?"
+    erwartet:
+      kategorie: lebenslage
+      leistungen: [gewerbe_anmelden]
+    experte: "Selbstständigkeit (Gründung eines Gewerbes) ist die Hauptsache. Geringes Einkommen ist vertretbar, weil sie Grundsicherungsgeld bezieht; Jobverlust nicht."
+    notiz: "Szenario szenarien/selbst_dresden_grundsicherung.json: Selbstständig: Gründung aus dem Grundsicherungsgeld in Dresden, Kredit nötig"
+
+  - id: szenario-selbst-kiel-elektromeister
+    stichtag: 2026-10-26
+    anfrage: "Elektromeister, mache mich zum 1. Dezember mit eigenem Betrieb selbstständig. Reihenfolge der Schritte?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [selbststaendig]
+      leistungen: [handwerksrolle, gewerbe_anmelden, steuerliche_erfassung]
+      nicht_erwartet:
+        lebenslagen: [ausbildung_studium, jobverlust]
+    experte: "Es geht um Selbstständig machen. Handwerksrolle, Gewerbeanmeldung und steuerliche Erfassung mit Fristen; Meistergründungsprämie Schleswig-Holstein unklar bis zur Prüfung."
+    notiz: "Szenario szenarien/selbst_kiel_elektromeister.json: Selbstständig: Elektromeister gründet in Kiel"
+
+  - id: szenario-selbst-muenchen-grafikerin-alg
+    stichtag: 2026-10-26
+    anfrage: "bin grad arbeitslos und will mich ab mitte november als grafikerin selbstständig machen ✨ gibts dafür den gründungszuschuss?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [selbststaendig]
+      leistungen: [steuerliche_erfassung]
+      nicht_erwartet:
+        lebenslagen: [jobverlust]
+    experte: "Es geht um Selbstständig machen. Kein Gewerbe, aber steuerliche Erfassung; Gründungszuschuss unklar (Ermessen, Tragfähigkeit); keine Meistergründungsprämie."
+    notiz: "Szenario szenarien/selbst_muenchen_grafikerin_alg.json: Selbstständig: Freiberufliche Grafikerin aus der Arbeitslosigkeit, München"
+
+  - id: szenario-stuttgart-verheiratet-angestellt
+    stichtag: 2026-10-24
+    anfrage: "Meine Frau erwartet im Januar ein Kind. Wir sind verheiratet und beide angestellt. Welche Stellen sind für welche Anträge zuständig?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt]
+      leistungen: [geburtsanzeige, elterngeld, kindergeld, familienversicherung_kind]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt. Baden-Württemberg: Elterngeld bei der L-Bank."
+    notiz: "Szenario szenarien/stuttgart_verheiratet_angestellt.json: Stuttgart: verheiratet, beide angestellt"
+
+  - id: szenario-todesfall-berlin-lebensgefaehrte
+    stichtag: 2026-10-26
+    anfrage: "Mein Lebensgefährte ist gestern zu Hause gestorben. Wir waren nicht verheiratet. Darf ich mich überhaupt um alles kümmern?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [todesfall]
+      leistungen: [sterbefall_anzeigen]
+      nicht_erwartet:
+        lebenslagen: [heirat]
+    experte: "Es geht um Todesfall in der Familie. Ohne Ehe keine Witwenrente und keine Bestattungspflicht; der Tod zu Hause muss trotzdem beim Standesamt angezeigt werden."
+    notiz: "Szenario szenarien/todesfall_berlin_lebensgefaehrte.json: Todesfall: Lebensgefährte ohne Trauschein in Berlin"
+
+  - id: szenario-todesfall-koeln-vater-in-muenchen
+    stichtag: 2026-10-26
+    anfrage: "Vater ist am 22.10. in München im Krankenhaus gestorben. Ich wohne in Köln. Kann ich das Erbe ausschlagen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [todesfall]
+      nicht_erwartet:
+        lebenslagen: [umzug, ruhestand]
+    experte: "Es geht um Todesfall in der Familie. Die Bestattungsfrist richtet sich nach Bayern (Sterbeort), nicht nach NRW (Wohnort); das Krankenhaus zeigt den Tod an; Erbausschlagung und Sozialbestattung bleiben unklar."
+    notiz: "Szenario szenarien/todesfall_koeln_vater_in_muenchen.json: Todesfall: Sohn aus Köln, Vater im Krankenhaus in München gestorben"
+
+  - id: szenario-todesfall-koeln-witwe-zuhause
+    stichtag: 2026-10-26
+    anfrage: "Mein Mann ist vorgestern zu Hause gestorben, ich kann es noch gar nicht glauben. Er war schon in Rente. Der Arzt war da, aber ich weiß nicht, wer jetzt was macht, die Beerdigung, die Rente, die Bank. Was muss ich zuerst tun?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [todesfall]
+      leistungen: [sterbefall_anzeigen, bestattung_veranlassen, rentenvorschuss_witwe]
+      nicht_erwartet:
+        lebenslagen: [ruhestand, heirat]
+    experte: "Es geht um Todesfall in der Familie. Witwe muss den Tod beim Standesamt anzeigen und die Bestattung binnen zehn Tagen (NRW) veranlassen; Rentenvorschuss binnen 30 Tagen; Witwenrente prüft die Rentenversicherung."
+    notiz: "Szenario szenarien/todesfall_koeln_witwe_zuhause.json: Todesfall: Ehemann zu Hause in Köln gestorben, bezog Rente"
+
+  - id: szenario-umzug-dresden-nach-baunatal-mit-baby
+    stichtag: 2026-10-24
+    anfrage: "wir ziehen am 1.11. von dresden nach baunatal und im januar kommt unser baby 🙈 was müssen wir alles machen?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [geburt, umzug]
+      leistungen: [geburtsanzeige, wohnsitz_anmelden, rundfunkbeitrag_umzug]
+      nicht_erwartet:
+        lebenslagen: [heirat, schule]
+    experte: "Es geht um Geburt und Umzug. Zwei Lebenslagen: Geburt und Umzug. Das Sächsische Landeserziehungsgeld gibt es am neuen Wohnort nicht (nur in anderen Ländern); keine Stellen vor Ort erfasst."
+    notiz: "Szenario szenarien/umzug_dresden_nach_baunatal_mit_baby.json: Umzug Dresden → Baunatal (Hessen), Baby unterwegs"
+
+  - id: szenario-umzug-freising-nach-muenchen
+    stichtag: 2026-10-24
+    anfrage: "Bin Mitte Oktober von Freising nach München gezogen, mit Hund und Auto. Checkliste bitte."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [umzug]
+      leistungen: [wohnsitz_anmelden, hundesteuer_anmelden, hundesteuer_abmelden, kfz_umzug, rundfunkbeitrag_umzug]
+      nicht_erwartet:
+        lebenslagen: [wohneigentum]
+    experte: "Es geht um Umzug. Alles erfasst: Anmeldung und Hundesteuer mit Münchner Stellen, Abmeldung des Hundes in Freising (alter Wohnort), Kfz am neuen Wohnort."
+    notiz: "Szenario szenarien/umzug_freising_nach_muenchen.json: Umzug Freising → München mit Hund und Auto"
+
+  - id: szenario-umzug-hannover-nach-bremen-studium
+    stichtag: 2026-10-24
+    anfrage: "bin für mein studium von hannover nach bremen gezogen 🎉 hab gehört es gibt da begrüßungsgeld?"
+    erwartet:
+      kategorie: lebenslage
+      leistungen: [wohnsitz_anmelden, rundfunkbeitrag_umzug]
+    experte: "Umzug ist die Hauptsache. Ausbildung und Studium ist vertretbar, weil das Studium der Grund des Umzugs ist; andere Lebenslagen nicht."
+    notiz: "Szenario szenarien/umzug_hannover_nach_bremen_studium.json: Umzug Hannover → Bremen für das Studium"
+
+  - id: szenario-umzug-innerhalb-muenchen
+    stichtag: 2026-10-24
+    anfrage: "Wir sind am 20. Oktober innerhalb Münchens umgezogen und haben einen Hund. Welche Ummeldungen sind erforderlich?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [umzug]
+      leistungen: [wohnsitz_anmelden, wohngeld_umzug]
+      nicht_erwartet:
+        lebenslagen: [wohneigentum, heirat]
+    experte: "Es geht um Umzug. Gleiche Gemeinde: ummelden ja, Hundesteuer weder an- noch abmelden."
+    notiz: "Szenario szenarien/umzug_innerhalb_muenchen.json: Umzug innerhalb Münchens mit Hund"
+
+  - id: szenario-umzug-koeln-nach-berlin-buergergeld
+    stichtag: 2026-10-24
+    anfrage: "Ich ziehe Mitte November von Köln nach Berlin zu meiner Familie. Ich bekomme Geld vom Jobcenter. Was muss ich machen?"
+    erwartet:
+      kategorie: lebenslage
+      leistungen: [wohnsitz_anmelden, adresse_an_leistungstraeger, rundfunkbeitrag_umzug]
+    experte: "Umzug ist die Hauptsache. Geringes Einkommen ist vertretbar, weil er Grundsicherungsgeld bezieht; andere Lebenslagen nicht."
+    notiz: "Szenario szenarien/umzug_koeln_nach_berlin_buergergeld.json: Umzug Köln → Berlin mit Grundsicherungsgeld (früher Bürgergeld)"
+
+  - id: szenario-umzug-nur-plz
+    stichtag: 2026-10-24
+    anfrage: "Umgezogen. Jetzt München."
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [umzug]
+      leistungen: [wohnsitz_anmelden, rundfunkbeitrag_umzug]
+      nicht_erwartet:
+        lebenslagen: [wohneigentum]
+    experte: "Es geht um Umzug. Startpunkt: Anmeldung und Rundfunkbeitrag sind immer zu erledigen, alles andere ist noch unklar."
+    notiz: "Szenario szenarien/umzug_nur_plz.json: Umzug: nur neuer Wohnort bekannt"
+
+  - id: szenario-wohnen-berlin-einkommen-unbekannt
+    stichtag: 2026-10-26
+    anfrage: "Wir wollen in Berlin eine Wohnung kaufen und selbst darin wohnen. Wir haben ein Kind. Was ist eigentlich das zu versteuernde Einkommen, und gibt es Förderung?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [wohneigentum]
+      leistungen: [grunderwerbsteuer]
+      nicht_erwartet:
+        lebenslagen: [geringes_einkommen, umzug]
+    experte: "Es geht um Haus oder Wohnung kaufen oder bauen. Ohne Angabe zum Einkommen bleibt Jung kauft Alt unklar; Berlin hat keine Landesförderung (belegt), Grunderwerbsteuer 6,0 %."
+    notiz: "Szenario szenarien/wohnen_berlin_einkommen_unbekannt.json: Wohneigentum: Wohnungskauf in Berlin, Einkommen unbekannt"
+
+  - id: szenario-wohnen-dresden-vertrag-schon-unterschrieben
+    stichtag: 2026-10-26
+    anfrage: "Wir haben letzte Woche beim Notar den Kaufvertrag für ein Haus in Dresden unterschrieben. Die Suche hat ewig gedauert, am Ende ging alles ganz schnell. Wir haben zwei Kinder und wollen selbst einziehen. Jetzt erst habe ich gelesen, dass es Förderungen gibt. Ist es dafür zu spät?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [wohneigentum]
+      leistungen: [grunderwerbsteuer]
+      nicht_erwartet:
+        lebenslagen: [geringes_einkommen]
+    experte: "Es geht um Haus oder Wohnung kaufen oder bauen. Nach dem Kaufvertrag sind die KfW-Kredite nicht mehr möglich; die Grunderwerbsteuer (5,5 %) bleibt Pflicht."
+    notiz: "Szenario szenarien/wohnen_dresden_vertrag_schon_unterschrieben.json: Wohneigentum: Kaufvertrag in Dresden schon unterschrieben"
+
+  - id: szenario-wohnen-kassel-altbau-hessengeld
+    stichtag: 2026-10-26
+    anfrage: "Wir möchten mit unseren zwei Kindern ein älteres Haus in Baunatal kaufen und selbst bewohnen. Welche Voraussetzungen gelten für das Hessengeld?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [wohneigentum]
+      leistungen: [hessengeld, grunderwerbsteuer, kfw_jung_kauft_alt, kfw_wohneigentumsprogramm]
+      nicht_erwartet:
+        lebenslagen: [geringes_einkommen]
+    experte: "Es geht um Haus oder Wohnung kaufen oder bauen. Hessengeld als Landesleistung ohne Gegenstück, Grunderwerbsteuer 6,0 % in Hessen, Jung kauft Alt für Familien mit Kindern."
+    notiz: "Szenario szenarien/wohnen_kassel_altbau_hessengeld.json: Wohneigentum: Familie aus Kassel kauft altes Haus in Baunatal"
+
+  - id: szenario-wohnen-muenchen-neubau-familie
+    stichtag: 2026-10-26
+    anfrage: "Wir wollen in Freising neu bauen, ein Kind. Gibt es günstige Kredite?"
+    erwartet:
+      kategorie: lebenslage
+      lebenslagen: [wohneigentum]
+      nicht_erwartet:
+        lebenslagen: [geringes_einkommen, umzug]
+    experte: "Es geht um Haus oder Wohnung kaufen oder bauen. Außerhalb Hessens kein Hessengeld (nur in anderen Ländern); Bayerisches Zinsverbilligungsprogramm und KfW-Neubauförderung unklar bis zur Prüfung."
+    notiz: "Szenario szenarien/wohnen_muenchen_neubau_familie.json: Wohneigentum: Familie baut in Bayern (Freising)"

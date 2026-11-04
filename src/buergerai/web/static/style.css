@@ -229,31 +229,16 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
 .aenderung { font-size: .875rem; margin: 0 0 1rem; min-height: 1.4em; }
 
 /* ---------------------------------------------------------------- Checkliste */
-.liste-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; align-items: flex-start; }
-.liste-kopf h2 { font-size: 1.777rem; letter-spacing: -.015em; margin: 0; }
-.liste-kopf p { margin: .15rem 0 0; }
-.werkzeuge { display: flex; gap: .4rem; align-items: flex-start; }
-.zusammenfassung { margin: 1rem 0; padding: 1rem; border: 1px solid var(--linie-stark); border-radius: var(--r-klein); background: var(--flaeche); }
-.zusammenfassung h3 { margin: 0; }
-.zusammenfassung h4 { margin: 1rem 0 .25rem; }
-.zusammenfassung p { margin: .25rem 0; }
-.menue { position: relative; }
-.menue summary { list-style: none; min-height: 44px; display: inline-flex; align-items: center; padding: .55rem .9rem; border: 1px solid var(--linie-stark); border-radius: var(--r-klein); background: var(--flaeche); }
-.menue summary::-webkit-details-marker { display: none; }
-.menue summary::after { content: "▾"; margin-left: .4rem; font-size: .8em; }
-.menue-inhalt {
-  position: absolute; right: 0; top: calc(100% + 4px); z-index: 5; min-width: 15rem;
-  display: grid; padding: .3rem; background: var(--flaeche); border: 1px solid var(--linie); border-radius: var(--r-klein); box-shadow: var(--schatten);
-}
-.menue-inhalt button, .menue-inhalt .knopf { border: none; justify-content: flex-start; font-weight: 500; margin: 0; }
-
-.filter { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; margin: 1.1rem 0 .5rem; }
-.umschalter { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .25rem; }
-.umschalter > span { margin-right: .25rem; font-size: .875rem; }
-.umschalter button { min-height: 36px; padding: .25rem .7rem; font-size: .875rem; font-weight: 500; border-radius: 999px; }
-.umschalter button[aria-pressed="true"] { background: var(--tinte); color: var(--tinte-text); border-color: var(--tinte); font-weight: 600; }
-.warnungen { list-style: none; padding: 0; margin: .5rem 0; }
-.warnungen li { background: var(--unklar-bg); color: var(--unklar); border-left: 4px solid var(--unklar); border-radius: var(--r-klein); padding: .5rem .75rem; margin-bottom: .4rem; }
+.checkliste { margin-top: 2.5rem; }
+.checkliste > h2 { font-size: 2.25rem; letter-spacing: -.03em; line-height: 1.1; margin: 0; }
+#liste-kontext { margin: .25rem 0 0; }
+.filter { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin: 1.25rem 0 .5rem; }
+.umschalter { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .15rem; }
+.umschalter > span { margin-right: .4rem; font-size: .875rem; }
+.umschalter button { min-height: 36px; padding: .25rem .8rem; font-size: .875rem; font-weight: 500; color: var(--text-muted); background: none; box-shadow: none; border-radius: 999px; }
+.umschalter button[aria-pressed="true"] { color: var(--text-main); font-weight: 700; background: var(--bg-surface); box-shadow: var(--shadow-sm); }
+.warnungen { list-style: none; padding: 0; margin: .75rem 0; }
+.warnungen li { background: var(--bg-surface); border-radius: var(--r); padding: .75rem 1rem; margin-bottom: .5rem; }
 
 .gruppe h3 { margin: 2rem 0 .25rem; font-size: .875rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0; }
 .gruppe h3 .anzahl { font-weight: 400; }
@@ -288,6 +273,11 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
 .leer { color: var(--text-muted); margin-top: 1.5rem; }
 
 .werkzeuge { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin-top: 1.5rem; }
+/* Antworttext (#78): Fläche statt Rahmen */
+.zusammenfassung { margin-top: 1.5rem; padding: 1.25rem 1.5rem; background: var(--bg-surface); border-radius: var(--r); box-shadow: var(--shadow-sm); }
+.zusammenfassung h3 { font-size: 1.125rem; margin: 0; }
+.zusammenfassung h4 { font-size: 1rem; margin: 1.25rem 0 .25rem; }
+.zusammenfassung p { margin: .25rem 0; }
 .nebenliste { margin-top: 1.5rem; }
 .nebenliste summary { color: var(--text-muted); }
 .nebenliste ul:not(.zeilen) { margin: .5rem 0; padding-left: 1.25rem; font-size: .9375rem; }

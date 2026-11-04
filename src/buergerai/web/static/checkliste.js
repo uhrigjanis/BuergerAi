@@ -1,7 +1,7 @@
 // Checkliste (#86): kompakte Zeilen, gruppiert nach Zeit, Stelle oder Ergebnis.
 // Details öffnen sich in detail.js; "Jetzt klären" springt zur entscheidenden Frage.
 import {
-  $, ERGEBNIS_TEXT, anfrage, anzahl, api, aufzaehlung, ausloesen, datumText, download, el, ergebnisMarke, fuellen,
+  $, ERGEBNIS_TEXT, anfrage, anzahl, api, aufzaehlung, ausloesen, datumText, download, einblenden, el, ergebnisMarke, fuellen,
   meldung, sicherLink, sitzung, speichern, zustand,
 } from "./gemeinsam.js";
 import { detailOeffnen } from "./detail.js";
@@ -157,7 +157,7 @@ export function zeichneCheckliste() {
   fuellen($("#nicht-erfasst"), fehlt.map((n) => el("li", {}, el("strong", {}, n.name),
     b.lebenslagen.length > 1 ? ` (${n.lebenslage})` : "", " – ", n.grund)));
   zeichneFilter();
-  zeichneListe();
+  zeichneListe({ einblenden: true });
   $("#zusammenfassung").hidden = true; // gehört zum vorigen Bericht
 }
 
@@ -180,8 +180,10 @@ async function zusammenfassen() {
           a.quellen.map((q, i) => [i ? ", " : "", sicherLink(q.url, q.titel)])) : null)),
       r.offene_fragen.length ? [el("h4", {}, "Offene Fragen"),
         el("ul", {}, r.offene_fragen.map((f) => el("li", {}, f)))] : null,
-      el("p", { class: "hinweis-recht" }, r.hinweis));
-    $("#zusammenfassung").hidden = false;
+      el("p", { class: "hinweis-recht leise klein" }, r.hinweis));
+    const box = $("#zusammenfassung");
+    box.hidden = false;
+    einblenden(box);
     $("#zusammenfassung-titel").focus();
   } catch (e) {
     meldung(e.message);
@@ -247,9 +249,12 @@ function druckAufbauen() {
 
 export function checklisteEinrichten() {
   $("#kalender").addEventListener("click", kalender);
-  $("#zusammenfassen").addEventListener("click", () => { $("#menue").open = false; zusammenfassen(); });
-  $("#zusammenfassung-schliessen").addEventListener("click", () => { $("#zusammenfassung").hidden = true; });
-  $("#speichern").addEventListener("click", () => { $("#menue").open = false; angabenSpeichern(); });
+  $("#zusammenfassen").addEventListener("click", zusammenfassen);
+  $("#zusammenfassung-schliessen").addEventListener("click", () => {
+    $("#zusammenfassung").hidden = true;
+    $("#zusammenfassen").focus();
+  });
+  $("#speichern").addEventListener("click", angabenSpeichern);
   $("#drucken").addEventListener("click", () => {
     druckAufbauen();
     window.print();

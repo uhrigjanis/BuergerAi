@@ -1,13 +1,14 @@
 """Browser-Rauchtest der Web-Oberfläche (#99): Handy (420 px) und Desktop, hell und dunkel.
 
-Nicht Teil von pytest/CI, weil Playwright keine Projekt-Abhängigkeit ist (ADR 0002).
+Nicht Teil von pytest, weil Playwright keine Projekt-Abhängigkeit ist (ADR 0002). In GitHub läuft er
+als eigener Check „Web-Oberfläche“ (.github/workflows/web.yml) bei Änderungen an der Oberfläche.
 
     python -m pip install playwright pytest   # einmalig; nutzt das installierte Google Chrome
     PYTHONPATH=src:tests python scripts/web_rauchtest.py [--ausgabe ordner] [--chromium]
 
 Prüft je Variante: keine Fehler in der Konsole, keine CSP-Verstöße, kein waagrechtes Scrollen,
-Eingabezeile (Knopf erst mit Text gefüllt, Einwilligung beim Tippen), Checkliste, Schublade und
-Details. Dazu ein Durchlauf nur mit der Tastatur. Screenshots landen im Ausgabeordner.
+Eingabezeile (Knopf erst mit Text gefüllt, Einwilligung beim Tippen), Checkliste, Zusammenfassung,
+Schublade und Details. Dazu ein Durchlauf nur mit der Tastatur. Screenshots landen im Ausgabeordner.
 """
 
 import argparse
@@ -86,6 +87,14 @@ def durchlauf(browser, basis, name, groesse, schema, ausgabe):
     kein_querscrollen(seite, "Checkliste", fehler)
     seite.wait_for_timeout(300)  # Einblenden abwarten
     bild("3-checkliste")
+
+    # Zusammenfassung (#78): erscheint, Fokus auf die Überschrift, Schließen gibt ihn zurück
+    seite.locator("#zusammenfassen").click()
+    expect(seite.locator("#zusammenfassung-text h4").first).to_be_visible()
+    expect(seite.locator("#zusammenfassung-titel")).to_be_focused()
+    seite.locator("#zusammenfassung-schliessen").click()
+    expect(seite.locator("#zusammenfassung")).to_be_hidden()
+    expect(seite.locator("#zusammenfassen")).to_be_focused()
 
     # Schublade: öffnet als Dialog, Escape schließt, Fokus zurück auf den Knopf
     seite.locator("#schublade-auf").click()

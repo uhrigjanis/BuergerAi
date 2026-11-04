@@ -64,7 +64,7 @@ Jeder Lauf schreibt eine Ergebnisdatei nach [`tests/eval/ergebnisse`](../ergebni
 
 ## Kennzahlen
 
-Alle Kennzahlen hier sind **deterministisch**: Sie vergleichen exakt mit der Erwartung, ohne Modell als Prüfer. Der LLM-Judge aus #83 kommt nur für Antworttexte und Gesprächsverläufe hinzu und entscheidet nie über Lebenslagen, Fakten oder Ansprüche.
+Alle Kennzahlen hier sind **deterministisch**: Sie vergleichen exakt mit der Erwartung, ohne Modell als Prüfer. Der LLM-Judge aus #83 entscheidet nie über Fakten oder Ansprüche. In den Judge-Tests ([`../judge/`](../judge/README.md)) bewertet er die Auswahl der Lebenslagen zusätzlich gegen eine Expertenerwartung in Worten; die exakten Prüfungen gelten dort trotzdem.
 
 
 | Kennzahl | Bedeutung |

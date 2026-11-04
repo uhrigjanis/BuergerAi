@@ -41,6 +41,25 @@ def test_schema_und_prompt_aus_dem_katalog(kb):
 
 
 @pytest.mark.anforderung("ANF-LLM-11")
+def test_prompt_grenzt_mehrdeutige_woerter_ab(kb):
+    """Wörter, die zu mehreren Lebenslagen passen, lösen allein keine aus (#110, Test der Oberfläche)."""
+    p = router.SYSTEM_ANFANG
+    for teil in ['"Kind" allein ist kein Schulstart', "kein geringes Einkommen", "Ein Alter allein ist kein Ruhestand",
+                 "Kandidaten der Stichwortsuche sind nur ein Hinweis", "Zukunft und Vergangenheit zählen gleich",
+                 "Im Zweifel eine Lebenslage weniger"]:
+        assert teil in p, teil
+    # Beispiele nennen nur IDs aus dem Katalog
+    beispiele = p.split("Beispiele (Text -> Lebenslagen):")[1].split("Katalog der Lebenslagen:")[0]
+    ids = {i.strip() for zeile in beispiele.splitlines() if "->" in zeile for i in zeile.split("->")[1].split(",")}
+    assert ids and ids <= set(kb.lebenslagen)
+    # Kein Beispiel im Prompt ist wörtlich eine Anfrage aus den Judge-Tests (sonst prüft der Test das Beispiel)
+    from buergerai import judge
+
+    for t in judge.laden(kb)[0]:
+        assert t.anfrage not in p, t.id
+
+
+@pytest.mark.anforderung("ANF-LLM-11")
 def test_eingabe_mit_kandidaten_und_text_getrennt(kb):
     fake = _fake(_antwort("lebenslage", "geburt", "umzug"))
     erkennen(fake, kb, TEXT)
@@ -107,11 +126,12 @@ def test_fallback_hoechstens_drei_lebenslagen(kb):
     from buergerai.suche import lebenslagen_suchen
 
     faelle, _ = evaluation.laden(kb)
-    text = next(f.text for f in faelle if f.id == "wohnen-01")
-    alle = [ll.id for ll, _ in lebenslagen_suchen(kb, text)]
-    assert len(alle) > router.MAX_KANDIDATEN == 3  # ungekürzt wären es viel mehr
+    # ein Testfall, zu dem die Suche ungekürzt mehr als drei Lebenslagen findet
+    text, alle = next((f.text, ids) for f in faelle
+                      if len(ids := [ll.id for ll, _ in lebenslagen_suchen(kb, f.text)]) > router.MAX_KANDIDATEN)
+    assert router.MAX_KANDIDATEN == 3
     r = erkennen(_fake(fehler="rate_limit"), kb, text)
-    assert r.ids == alle[:3] and r.ids[0] == "wohneigentum"
+    assert r.ids == alle[:3]
 
 
 @pytest.mark.anforderung("ANF-LLM-11")

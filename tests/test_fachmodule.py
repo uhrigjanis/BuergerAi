@@ -364,6 +364,29 @@ def test_stichwortsuche(kb, probe_kb):
     assert lebenslagen_suchen(kb, "Steuern auf Kapitalerträge") == []
     assert [ll.id for ll, _ in lebenslagen_suchen(kb, "Wir ziehen nach Berlin, muss ich das Auto ummelden?")][0] == "umzug"
     treffer = [ll.id for ll, _ in lebenslagen_suchen(probe_kb, "Wir wollen ein Haus kaufen und haben wenig Geld")]
-    assert {"probe_kauf", "probe_einkommen", "geringes_einkommen"} <= set(treffer)
+    # Beide Lagen werden erkannt, auch aus dem Probe-Modul. probe_kauf (ohne Synonym "Haus kaufen")
+    # hat weniger als die Hälfte der Punkte von wohneigentum und fällt weg.
+    assert {"wohneigentum", "probe_einkommen", "geringes_einkommen"} <= set(treffer)
     assert [ll.id for ll, _ in lebenslagen_suchen(probe_kb, "Hauskauf")] == ["probe_kauf", "wohneigentum"]
     assert [ll.id for ll, _ in lebenslagen_suchen(kb, "Wir wollen ein altes Haus kaufen")][0] == "wohneigentum"
+
+
+@pytest.mark.anforderung("ANF-MOD-09")
+@pytest.mark.parametrize("text,erwartet", [
+    # Synonym aus mehreren Wörtern in anderer Reihenfolge; "Kind" allein zählt nicht
+    ("Wir bekommen im Mai ein Kind", ["geburt"]),
+    ("Wir erwarten unser erstes Kind", ["geburt"]),
+    ("Unser Sohn ist letzte Woche zur Welt gekommen.", ["geburt"]),
+    ("Unser Kind kommt in die Schule", ["schule"]),
+    ("Unsere Tochter wird 2027 eingeschult.", ["schule"]),
+    ("Wir sind eine Familie mit zwei Kindern und ziehen nach Köln.", ["umzug"]),
+    # zweite Lage im selben Text bleibt (Synonym ab einem Drittel der Punkte)
+    ("Wir bekommen im März ein Kind und ziehen vorher nach Freising.", ["umzug", "geburt"]),
+    ("Wir bekommen ein Kind und das Geld reicht nicht", ["geringes_einkommen", "geburt"]),
+    # Synonyme nur am Wortanfang: "Ehe" nicht in "gehen", "arm" nicht in "warm"
+    ("Wir gehen spazieren, es ist warm", []),
+    ("Wie wird das Wetter am Wochenende in Hamburg?", []),
+    ("Kind", []),
+])
+def test_stichwortsuche_ohne_mitlaeufer(kb, text, erwartet):
+    assert [ll.id for ll, _ in lebenslagen_suchen(kb, text)] == erwartet

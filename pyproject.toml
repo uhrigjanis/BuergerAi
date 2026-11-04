@@ -15,7 +15,7 @@ keywords = ["buergerai", "sozialleistungen", "deutschland", "behoerden"]
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0", "pyflakes>=3.0"]
+dev = ["pytest>=7.0", "pyflakes>=3.0", "pyyaml>=6.0"]  # PyYAML nur für die Judge-Tests (tests/eval/judge)
 
 [project.scripts]
 buergerai = "buergerai.cli:main"

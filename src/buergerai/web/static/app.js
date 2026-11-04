@@ -12,13 +12,33 @@ import { startEinrichten, startLeeren } from "./start.js";
 
 // Muss zu buergerai.__version__ passen (Test: tests/test_web.py); sonst warnt die Seite
 const VERSION = "0.6.0";
-const SCHMAL = window.matchMedia("(max-width: 860px)");
 let anfrageNr = 0;  // nur die Antwort auf die jüngste Anfrage wird angezeigt
 
 function ansichtZeigen(arbeit) {
   $("#start").hidden = arbeit;
   $("#arbeit").hidden = !arbeit;
-  document.body.classList.toggle("mit-reitern", arbeit);
+  $("#schublade-auf").hidden = !arbeit;
+  if (!arbeit && $("#schublade").open) $("#schublade").close();
+}
+
+// ------------------------------------------------------------------ Schublade (#99)
+// Angaben, Lebenslagen, Datum und Dateien liegen in einer Overlay-Schublade statt in einer Seitenleiste.
+function schubladeOeffnen() {
+  $("#schublade").showModal();
+  $("#schublade-zu").focus();
+}
+
+function schubladeEinrichten() {
+  const s = $("#schublade");
+  // Fokus zurück auf den Knopf – außer, er ist inzwischen woanders (z. B. bei "ändern" auf der Frage)
+  s.addEventListener("close", () => {
+    const f = document.activeElement;
+    if ((!f || f === document.body || s.contains(f)) && !$("#schublade-auf").hidden) $("#schublade-auf").focus();
+  });
+  s.addEventListener("click", (ev) => { if (ev.target === s) s.close(); });  // Klick daneben schließt
+  bus.addEventListener("schublade-zu", () => { if (s.open) s.close(); });
+  $("#schublade-auf").addEventListener("click", schubladeOeffnen);
+  $("#schublade-zu").addEventListener("click", () => s.close());
 }
 
 // ------------------------------------------------------------------ Bericht holen
@@ -69,7 +89,8 @@ function zeichnen(optionen = {}) {
     const ziel = $("#frage-karte").querySelector("button, input, select");
     if (ziel) {
       ziel.focus({ preventScroll: true });
-      $("#frage-karte").scrollIntoView({ block: "nearest", behavior: "smooth" });
+      const sanft = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+      $("#frage-karte").scrollIntoView({ block: "start", behavior: sanft ? "smooth" : "auto" });
     }
   }
 }
@@ -92,13 +113,6 @@ function lagenListe() {
         aktualisieren();
       },
     }), l.name)));
-}
-
-// ------------------------------------------------------------------ Handy: Reiter
-function reiterSetzen(name) {
-  $("#arbeit").dataset.reiter = name;
-  for (const k of document.querySelectorAll(".reiter [data-reiter]")) k.setAttribute("aria-pressed", String(k.dataset.reiter === name));
-  if (SCHMAL.matches) window.scrollTo({ top: 0 });
 }
 
 // ------------------------------------------------------------------ Laden, neu beginnen
@@ -133,6 +147,7 @@ function dateiLaden(ev) {
 
 function neuBeginnen() {
   if (!confirm("Alle Angaben löschen und neu beginnen?")) return;
+  $("#schublade").close();
   Object.assign(zustand, {
     ort: null, fakten: {}, erledigt: {}, stichtag: null, lebenslagen: null,
     bearbeiten: null, fokusFrage: null, pausiert: false, fuer: "alle",
@@ -160,14 +175,13 @@ async function init() {
   startEinrichten();
   checklisteEinrichten();
   detailEinrichten();
+  schubladeEinrichten();
 
   bus.addEventListener("aktualisieren", (ev) => aktualisieren(ev.detail || {}));
   bus.addEventListener("neu-zeichnen", (ev) => { if (sitzung.bericht) { sitzung.vorher = null; zeichnen(ev.detail || {}); } });
-  bus.addEventListener("reiter", (ev) => reiterSetzen(ev.detail));
   bus.addEventListener("angaben-laden", (ev) => angabenUebernehmen(ev.detail));
-  for (const k of document.querySelectorAll(".reiter [data-reiter]")) k.addEventListener("click", () => reiterSetzen(k.dataset.reiter));
 
-  $("#datei-laden").addEventListener("change", (ev) => { $("#menue").open = false; dateiLaden(ev); });
+  $("#datei-laden").addEventListener("change", (ev) => { $("#schublade").close(); dateiLaden(ev); });
   $("#datei-laden-start").addEventListener("change", dateiLaden);
   $("#neu").addEventListener("click", neuBeginnen);
   $("#stichtag").addEventListener("change", () => {

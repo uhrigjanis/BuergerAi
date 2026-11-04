@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>BürgerAI – Lebenslagen</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=0.6.0">
@@ -12,26 +13,26 @@
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
   <header class="kopf">
     <p class="marke">BürgerAI</p>
-    <p class="kopf-text" id="titel">Anträge, Pflichten und Fristen für Ihre Lebenslage</p>
+    <button type="button" id="schublade-auf" class="leise-knopf" aria-haspopup="dialog" aria-controls="schublade" hidden>Ihre Angaben</button>
   </header>
 
   <main id="inhalt">
     <div id="meldung" class="meldung" role="alert" hidden></div>
 
-    <!-- Einstieg: Freitext oder Suche, Kacheln, Wohnort -->
+    <!-- Einstieg: Eingabezeile (Freitext oder Suche), Kacheln, Wohnort -->
     <section id="start" class="start" aria-labelledby="start-titel">
       <h1 id="start-titel" class="start-titel">Was ist bei Ihnen los?</h1>
 
       <form id="text-form" class="text-form" novalidate>
-        <label id="text-label" for="freitext">Beschreiben Sie Ihre Lage in eigenen Worten</label>
-        <textarea id="freitext" rows="3" maxlength="2000" placeholder="z. B. „Wir bekommen im März ein Baby und ziehen nach Freising.“"></textarea>
+        <label id="text-label" for="freitext" class="unsichtbar">Beschreiben Sie Ihre Lage in eigenen Worten</label>
+        <div class="eingabe-leiste">
+          <textarea id="freitext" rows="1" maxlength="2000" placeholder="z. B. „Wir bekommen im März ein Baby und ziehen nach Freising.“"></textarea>
+          <button type="submit" id="text-senden" class="senden">Auswerten</button>
+        </div>
         <div id="einwilligung" class="einwilligung" hidden>
           <p>Ihr Text wird zur Auswertung an einen KI-Dienst geschickt und danach nicht gespeichert.
             Namen, Adressen oder Diagnosen sind nicht nötig. Ohne KI geht es weiter mit der Auswahl unten.</p>
           <label class="haken"><input type="checkbox" id="einwilligung-ja"> Einverstanden, meinen Text auswerten lassen</label>
-        </div>
-        <div class="zeile">
-          <button type="submit" id="text-senden" class="primaer">Text auswerten</button>
         </div>
       </form>
 
@@ -79,53 +80,19 @@
       </details>
     </section>
 
-    <!-- Arbeitsbereich: Fragen und Checkliste -->
-    <div id="arbeit" class="arbeit" data-reiter="fragen" hidden>
-      <section id="spalte-fragen" class="spalte-fragen" aria-label="Fragen und Angaben">
-        <p class="ort-zeile"><span class="leise">Wohnort</span> <strong id="ort-text"></strong>
-          <button type="button" class="link" id="neu">Neu beginnen</button></p>
-        <p id="stichtag-zeile" class="leise klein"></p>
-
-        <section id="frage-karte" class="frage" aria-labelledby="frage-titel"></section>
-        <p id="aenderung" class="aenderung" role="status"></p>
-
-        <section class="angaben-box" aria-labelledby="angaben-titel">
-          <h2 id="angaben-titel" class="klein-titel">Ihre Angaben</h2>
-          <ul id="angaben" class="angaben"></ul>
-          <details id="lebenslagen-aendern" class="nebenbei">
-            <summary>Lebenslagen ändern</summary>
-            <fieldset id="lebenslagen-wahl-arbeit" class="lagen-liste"><legend class="leise">Ihre Angaben bleiben erhalten.</legend></fieldset>
-          </details>
-          <details class="nebenbei">
-            <summary>Datum simulieren</summary>
-            <label for="stichtag">Fristen und Rechtsstand berechnen zum</label>
-            <div class="zeile">
-              <input type="date" id="stichtag">
-              <button type="button" id="stichtag-heute">Heute</button>
-            </div>
-          </details>
-        </section>
+    <!-- Arbeitsbereich: eine Spalte – Frage oben, Checkliste darunter -->
+    <div id="arbeit" class="arbeit" hidden>
+      <section class="kontext" aria-label="Ihre Lage">
+        <p id="titel" class="kontext-titel"></p>
+        <p class="leise klein"><span id="ort-text"></span>. <span id="stichtag-zeile"></span></p>
       </section>
 
-      <section id="spalte-liste" class="spalte-liste" aria-labelledby="ergebnis-titel">
-        <div class="liste-kopf">
-          <div>
-            <h2 id="ergebnis-titel">Ihre Checkliste</h2>
-            <p id="liste-kontext" class="leise"></p>
-          </div>
-          <div class="werkzeuge">
-            <button type="button" id="kalender" class="primaer">In Kalender eintragen</button>
-            <details class="menue" id="menue">
-              <summary aria-label="Weitere Aktionen">Mehr</summary>
-              <div class="menue-inhalt">
-                <button type="button" id="zusammenfassen">Als Text zusammenfassen</button>
-                <button type="button" id="drucken">Drucken (nach Stelle sortiert)</button>
-                <button type="button" id="speichern">Angaben speichern</button>
-                <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
-              </div>
-            </details>
-          </div>
-        </div>
+      <section id="frage-karte" class="frage" aria-labelledby="frage-titel"></section>
+      <p id="aenderung" class="aenderung" role="status"></p>
+
+      <section id="spalte-liste" class="checkliste" aria-labelledby="ergebnis-titel">
+        <h2 id="ergebnis-titel">Ihre Checkliste</h2>
+        <p id="liste-kontext" class="leise"></p>
 
         <div class="filter">
           <div class="umschalter" role="group" aria-label="Sortierung">
@@ -136,16 +103,22 @@
           <div id="fuer-filter" class="umschalter" role="group" aria-label="Für wen" hidden></div>
         </div>
 
-        <section id="zusammenfassung" class="zusammenfassung" aria-labelledby="zusammenfassung-titel" hidden>
-          <h3 id="zusammenfassung-titel" tabindex="-1">Zusammenfassung</h3>
-          <p id="zusammenfassung-quelle" class="leise"></p>
-          <div id="zusammenfassung-text" aria-live="polite"></div>
-          <button type="button" id="zusammenfassung-schliessen">Schließen</button>
-        </section>
-
         <p id="kind-text" class="leise"></p>
         <ul id="warnungen" class="warnungen"></ul>
         <div id="liste" class="liste"></div>
+
+        <div class="werkzeuge">
+          <button type="button" id="kalender" class="leise-knopf" hidden>Fristen in den Kalender eintragen</button>
+          <button type="button" id="zusammenfassen" class="leise-knopf">Als Text zusammenfassen</button>
+          <button type="button" id="drucken" class="leise-knopf">Drucken, nach Stelle sortiert</button>
+        </div>
+
+        <section id="zusammenfassung" class="zusammenfassung" aria-labelledby="zusammenfassung-titel" hidden>
+          <h3 id="zusammenfassung-titel" tabindex="-1">Zusammenfassung</h3>
+          <p id="zusammenfassung-quelle" class="leise klein"></p>
+          <div id="zusammenfassung-text" aria-live="polite"></div>
+          <button type="button" id="zusammenfassung-schliessen" class="leise-knopf">Schließen</button>
+        </section>
 
         <details id="nein-box" class="nebenliste" hidden>
           <summary id="nein-titel"></summary>
@@ -161,12 +134,45 @@
           <ul id="nicht-erfasst"></ul>
         </details>
       </section>
-
-      <nav class="reiter" aria-label="Bereich wählen">
-        <button type="button" data-reiter="fragen" aria-pressed="true">Fragen <span id="reiter-fragen"></span></button>
-        <button type="button" data-reiter="liste" aria-pressed="false">Checkliste <span id="reiter-liste"></span></button>
-      </nav>
     </div>
+
+    <!-- Schublade: alles Nebensächliche, erst auf Wunsch -->
+    <dialog id="schublade" class="schublade" aria-labelledby="schublade-titel">
+      <div class="tafel-kopf">
+        <h2 id="schublade-titel">Ihre Angaben</h2>
+        <button type="button" class="leise-knopf" id="schublade-zu">Schließen</button>
+      </div>
+      <div class="tafel-inhalt">
+        <ul id="angaben" class="angaben"></ul>
+
+        <section class="tafel-abschnitt" aria-labelledby="lagen-titel">
+          <h3 id="lagen-titel">Lebenslagen</h3>
+          <fieldset id="lebenslagen-wahl-arbeit" class="lagen-liste"><legend class="leise">Ihre Angaben bleiben erhalten, wenn Sie hier etwas ändern.</legend></fieldset>
+        </section>
+
+        <section class="tafel-abschnitt" aria-labelledby="datum-titel">
+          <h3 id="datum-titel">Datum simulieren</h3>
+          <label for="stichtag">Fristen und Rechtsstand berechnen zum</label>
+          <div class="zeile">
+            <input type="date" id="stichtag">
+            <button type="button" id="stichtag-heute">Heute</button>
+          </div>
+        </section>
+
+        <section class="tafel-abschnitt" aria-labelledby="datei-titel">
+          <h3 id="datei-titel">Speichern und öffnen</h3>
+          <p class="leise klein">Als Datei auf Ihrem Gerät. Nichts davon liegt auf dem Server.</p>
+          <div class="zeile">
+            <button type="button" id="speichern">Angaben speichern</button>
+            <label class="knopf">Angaben öffnen<input type="file" id="datei-laden" accept=".json,application/json"></label>
+          </div>
+        </section>
+
+        <section class="tafel-abschnitt">
+          <button type="button" class="link" id="neu">Alle Angaben löschen und neu beginnen</button>
+        </section>
+      </div>
+    </dialog>
 
     <dialog id="detail" class="detail" aria-labelledby="detail-titel"></dialog>
     <section id="druck" class="druck" aria-hidden="true"></section>
@@ -176,7 +182,7 @@
     <p>Unverbindliche Orientierung, keine Rechtsberatung. Verbindlich entscheidet die zuständige Stelle.
       Ob Ihnen etwas zusteht, ergibt sich aus festen, nachprüfbaren Regeln; die Quellen stehen bei jeder Leistung.
       Ihre Angaben werden zur Berechnung an den Server geschickt, dort aber weder gespeichert noch protokolliert.
-      Nur dieser Browser merkt sich Ihre Angaben; „Neu beginnen“ löscht sie. <span id="version"></span></p>
+      Nur dieser Browser merkt sich Ihre Angaben; unter „Ihre Angaben“ lassen sie sich löschen. <span id="version"></span></p>
   </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
 // Fragen (#86): Begründung je Frage ("Entscheidet über"), Fortschritt als Anteil geklärter
 // Leistungen, Änderungen nach einer Antwort. Mit LLM auch Antworten in eigenen Worten (#79).
 import {
-  $, ERGEBNIS_TEXT, anfrage, anzahl, api, ausloesen, el, fuellen, meldung, sitzung, zustand,
+  $, ERGEBNIS_TEXT, anfrage, anzahl, api, ausloesen, einblenden, el, fuellen, meldung, sitzung, zustand,
 } from "./gemeinsam.js";
 import { markierterText, vorschlagsliste } from "./vorschlaege.js";
 
@@ -77,11 +77,13 @@ export function zeichneFrage() {
           el("p", {}, "Mit diesen Angaben werden unklare Punkte der Checkliste genauer."),
           el("button", { type: "button", class: "primaer", onclick: () => { zustand.pausiert = false; ausloesen("neu-zeichnen"); } }, "Fragen fortsetzen")]
         : [el("h2", { id: "frage-titel", class: "fertig" }, "Alle nötigen Angaben sind gemacht"),
-          el("p", { class: "leise" }, "Was jetzt noch unklar ist, kann nur die zuständige Stelle entscheiden. Ihre Angaben können Sie unten jederzeit ändern.")],
+          el("p", { class: "leise" }, "Was jetzt noch unklar ist, kann nur die zuständige Stelle entscheiden. Ihre Angaben können Sie oben unter „Ihre Angaben“ jederzeit ändern.")],
       fortschrittElement());
+    einblenden(karte);
     return;
   }
   const bearbeiten = zustand.bearbeiten === f.id;
+  // "Weiß nicht" steht bei jeder Frage (ADR 0006)
   const fuss = el("div", { class: "frage-fuss" },
     el("button", { type: "button", onclick: () => antworten(f.id, "unbekannt") }, "Weiß nicht"),
     bearbeiten
@@ -91,7 +93,7 @@ export function zeichneFrage() {
   fuellen(karte,
     el("p", { class: "frage-kopf" },
       bearbeiten ? "Angabe ändern" : (zustand.fokusFrage === f.id ? "Diese Angabe fehlt" : "Nächste Frage"),
-      f.person_name ? el("span", { class: "person" }, f.person_name) : null),
+      f.person_name ? [" für ", el("span", { class: "person" }, f.person_name)] : null),
     el("h2", { id: "frage-titel" }, f.typ === "datum" ? f.frage.replace(/\s*\(TT\.MM\.JJJJ\)/, "") : f.frage),
     f.hilfe ? el("p", { class: "leise" }, f.hilfe) : null,
     eingabe(f, bearbeiten ? f.wert : undefined),
@@ -100,6 +102,7 @@ export function zeichneFrage() {
     bearbeiten ? null : betrifftElement(f),
     fortschrittElement(),
   );
+  einblenden(karte);
 }
 
 function eingabe(f, aktuell) {
@@ -171,7 +174,8 @@ function eigeneWorte(f) {
     }
     meldung("");
     knopf.disabled = true;
-    knopf.textContent = "Wird ausgewertet …";
+    knopf.textContent = "Wird ausgewertet";
+    knopf.classList.add("wartet");
     try {
       const r = await api("/api/antwort", { ...anfrage(), frage: f.id, text });
       vorschlaegeZeigen(ergebnis, text, r);
@@ -179,6 +183,7 @@ function eigeneWorte(f) {
       meldung(e.message);
     } finally {
       knopf.disabled = false;
+      knopf.classList.remove("wartet");
       knopf.textContent = "Antwort auswerten";
     }
   });
@@ -231,7 +236,7 @@ export function zeichneAngaben() {
       el("span", { class: "wert" }, a.wert === "unbekannt" ? "weiß nicht" : a.anzeige),
       el("button", {
         type: "button", class: "link", "aria-label": `Ändern: ${a.frage}`,
-        onclick: () => { zustand.bearbeiten = a.id; ausloesen("neu-zeichnen", { fokus: true }); },
+        onclick: () => { zustand.bearbeiten = a.id; ausloesen("schublade-zu"); ausloesen("neu-zeichnen", { fokus: true }); },
       }, "ändern"),
     ),
   )));

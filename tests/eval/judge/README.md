@@ -15,6 +15,10 @@ stehen in [`router.yaml`](router.yaml).
 ./bai eval judge --json                # Ergebnis als JSON
 ```
 
+Jeder Lauf schreibt die Ergebnisse als YAML nach `tests/eval/ergebnisse/judge/`, Dateiname
+`<Datum>_<Uhrzeit>_<Router-Modell>[_judge-<Modell>].yaml`. Anderer Ort: `--ausgabe datei.yaml`;
+nichts schreiben: `--keine-datei`. Inhalt und was eingecheckt wird: `tests/eval/ergebnisse/README.md`.
+
 Exit-Code: 0 alle bestanden, 1 mindestens ein Test fehlgeschlagen, 2 Fehler in den Tests oder in
 der Konfiguration. PyYAML ist nötig (`python -m pip install pyyaml`, steht in `.[dev]`).
 

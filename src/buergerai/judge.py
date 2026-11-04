@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Mapping, Optional
 
@@ -31,6 +31,7 @@ from .llm.router import KATEGORIEN, Routing, erkennen
 from .wissensbasis import Wissensbasis
 
 JUDGE_VERZEICHNIS = Path(__file__).resolve().parents[2] / "tests" / "eval" / "judge"
+ERGEBNIS_VERZEICHNIS = Path(__file__).resolve().parents[2] / "tests" / "eval" / "ergebnisse" / "judge"
 _ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MAX_TOKENS_JUDGE = 800
 
@@ -357,8 +358,8 @@ def als_json(ergebnisse: list[TestErgebnis]) -> dict[str, Any]:
         "zusammenfassung": zusammenfassung(ergebnisse),
         "tests": [{
             "id": e.test.id, "datei": e.test.datei, "bestanden": e.bestanden,
-            "kategorie": e.routing.kategorie, "lebenslagen": e.routing.ids, "quelle": e.routing.quelle,
-            "fehler": e.routing.fehler,
+            "erkannt": {"kategorie": e.routing.kategorie, "lebenslagen": e.routing.ids,
+                        "quelle": e.routing.quelle, "fallback_grund": e.routing.fehler},
             "befunde": [{"kriterium": b.kriterium, "bestanden": b.bestanden, "text": b.text} for b in e.befunde],
             "judge": None if not e.judge_gelaufen else {
                 "bestanden": e.judge_bestanden, "fehler": e.judge_fehler,
@@ -402,6 +403,51 @@ def als_text(ergebnisse: list[TestErgebnis], details: bool = False) -> str:
     return "\n".join(zeilen)
 
 
+# ---------------------------------------------------------------- Ergebnisdatei
+
+
+def ergebnis_daten(ergebnisse: list[TestErgebnis], router: Optional[str], judge: Optional[str] = None,
+                   wiederholungen: int = 1, zeitpunkt: Optional[datetime] = None) -> dict[str, Any]:
+    """Alles zu einem Lauf: wann, womit, Zusammenfassung und jeder Test. Kein Schlüssel.
+
+    Die Anfrage steht nicht darin, sondern in der Testdatei (über ``id`` und ``datei`` zu finden).
+    """
+    from .evaluation import _git_commit
+
+    zeitpunkt = zeitpunkt or datetime.now().astimezone()
+    daten = als_json(ergebnisse)
+    return {
+        "zeitpunkt": zeitpunkt.isoformat(timespec="seconds"),
+        "commit": _git_commit(),
+        "router": router or "stichwortsuche",
+        "judge": judge,
+        "wiederholungen": wiederholungen if judge else None,
+        "zusammenfassung": daten["zusammenfassung"],
+        "tests": daten["tests"],
+    }
+
+
+def dateiname(daten: dict[str, Any]) -> str:
+    zeitpunkt = datetime.fromisoformat(daten["zeitpunkt"])
+    teile = [zeitpunkt.strftime("%Y-%m-%d_%H%M%S"), daten["router"].split("/")[-1]]
+    if daten.get("judge"):
+        teile.append("judge-" + daten["judge"].split("/")[-1])
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", "_".join(teile)) + ".yaml"
+
+
+def ergebnis_speichern(daten: dict[str, Any], ziel: Optional[Path] = None) -> Path:
+    """Schreibt die Ergebnisse als YAML; ohne ``ziel`` nach ``tests/eval/ergebnisse/judge/``."""
+    try:
+        import yaml
+    except ImportError:
+        raise JudgeFehler("PyYAML fehlt: python -m pip install pyyaml (nur für die Judge-Tests)") from None
+    ziel = ziel or ERGEBNIS_VERZEICHNIS / dateiname(daten)
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    kopf = "# Ergebnis von ./bai eval judge (#83). Format: tests/eval/ergebnisse/README.md\n"
+    ziel.write_text(kopf + yaml.safe_dump(daten, allow_unicode=True, sort_keys=False, width=110), encoding="utf-8")
+    return ziel
+
+
 def judge_umgebung(env: Mapping[str, str]) -> Optional[dict[str, str]]:
     """Umgebung für das Judge-LLM: ``BUERGERAI_JUDGE_*`` ersetzt ``BUERGERAI_LLM_*``.
 
@@ -415,6 +461,7 @@ def judge_umgebung(env: Mapping[str, str]) -> Optional[dict[str, str]]:
     return neu
 
 
-__all__ = ["JUDGE_SYSTEM", "JUDGE_VERZEICHNIS", "KRITERIEN", "Befund", "JudgeFehler", "JudgeTest", "TestErgebnis", "Urteil",
-           "als_json", "als_text", "ausfuehren", "bewerten", "deterministisch", "judge_eingabe", "judge_pruefen",
+__all__ = ["ERGEBNIS_VERZEICHNIS", "JUDGE_SYSTEM", "JUDGE_VERZEICHNIS", "KRITERIEN", "Befund", "JudgeFehler", "JudgeTest", "TestErgebnis", "Urteil",
+           "als_json", "als_text", "ausfuehren", "bewerten", "dateiname", "deterministisch", "ergebnis_daten",
+           "ergebnis_speichern", "judge_eingabe", "judge_pruefen",
            "judge_schema", "judge_umgebung", "laden", "zusammenfassung"]

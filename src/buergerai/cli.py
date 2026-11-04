@@ -892,11 +892,23 @@ def cmd_eval_judge(args: argparse.Namespace) -> int:
     print(f.grau(f"Router: {konfig.beschreibung() if konfig else 'kein LLM, Stichwortsuche'}"
                  + (f" · Judge: {judge_konfig.beschreibung()}" if judge_konfig else "")
                  + f" · {len(tests)} Tests"), file=sys.stderr)
-    ergebnisse = judge_mod.ausfuehren(kb, tests, router_llm, judge_llm, max(1, args.wiederholungen))
+    wiederholungen = max(1, args.wiederholungen)
+    ergebnisse = judge_mod.ausfuehren(kb, tests, router_llm, judge_llm, wiederholungen)
+    datei = None
+    if not args.keine_datei:
+        daten = judge_mod.ergebnis_daten(
+            ergebnisse, f"{konfig.anbieter}/{konfig.modell}" if konfig else None,
+            f"{judge_konfig.anbieter}/{judge_konfig.modell}" if judge_konfig else None, wiederholungen)
+        try:
+            datei = judge_mod.ergebnis_speichern(daten, Path(args.ausgabe) if args.ausgabe else None)
+        except (OSError, judge_mod.JudgeFehler) as exc:
+            print(f.rot(f"Ergebnisdatei nicht geschrieben: {exc}"), file=sys.stderr)
     if args.json:
         print(json.dumps(judge_mod.als_json(ergebnisse), ensure_ascii=False, indent=2))
     else:
         print(judge_mod.als_text(ergebnisse, details=args.details))
+    if datei:
+        print(f.grau(f"Ergebnisse gespeichert: {datei}"), file=sys.stderr if args.json else sys.stdout)
     return 0 if all(e.bestanden for e in ergebnisse) else 1
 
 
@@ -1335,8 +1347,9 @@ def parser() -> argparse.ArgumentParser:
                    help="nur diese Fälle, z. B. die nicht gemessenen eines Laufs (mehrfach möglich)")
     s.add_argument("--details", "-d", action="store_true", help="Abweichungen je Fall zeigen")
     s.add_argument("--json", action="store_true", help="Kennzahlen als JSON")
-    s.add_argument("--ausgabe", metavar="DATEI.json",
-                   help="Ergebnisdatei (Standard: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json)")
+    s.add_argument("--ausgabe", metavar="DATEI",
+                   help="Ergebnisdatei (Standard intake: tests/eval/ergebnisse/<Datum>_<Verfahren>_<Modell>.json; "
+                        "judge: tests/eval/ergebnisse/judge/<Datum>_<Router>[_judge-<Modell>].yaml)")
     s.add_argument("--keine-datei", action="store_true", help="keine Ergebnisdatei schreiben")
     s.add_argument("--judge", action="store_true",
                    help="nur judge: Tests mit 'experte' zusätzlich vom Judge-LLM bewerten (BUERGERAI_JUDGE_*)")

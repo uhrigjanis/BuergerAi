@@ -7,6 +7,7 @@ import json
 import textwrap
 
 import pytest
+import yaml
 
 from buergerai import judge
 from buergerai.cli import main
@@ -171,6 +172,30 @@ def test_judge_umgebung_eigenes_modell():
     assert (j["BUERGERAI_LLM_ANBIETER"], j["BUERGERAI_LLM_MODELL"], j["GEMINI_API_KEY"]) == ("mistral", "gross", "k")
 
 
+# ------------------------------------------------------------------ Ergebnisdatei
+
+@pytest.mark.anforderung("ANF-LLM-23")
+def test_ergebnisdatei_yaml(kb, tmp_path, monkeypatch):
+    from datetime import datetime, timezone
+
+    t = judge.JudgeTest(id="mai", anfrage="Wir bekommen im Mai ein Kind", datei="router.yaml", lebenslagen=["geburt"])
+    ergebnisse = judge.ausfuehren(kb, [t], None)
+    zeit = datetime(2026, 11, 4, 19, 30, 5, tzinfo=timezone.utc)
+    daten = judge.ergebnis_daten(ergebnisse, None, zeitpunkt=zeit)
+    assert judge.dateiname(daten) == "2026-11-04_193005_stichwortsuche.yaml"
+    assert judge.dateiname({**daten, "router": "gemini/gemini-2.5-flash-lite", "judge": "mistral/mistral-large"}) \
+        == "2026-11-04_193005_gemini-2.5-flash-lite_judge-mistral-large.yaml"
+    monkeypatch.setattr(judge, "ERGEBNIS_VERZEICHNIS", tmp_path / "judge")
+    pfad = judge.ergebnis_speichern(daten)
+    assert pfad == tmp_path / "judge" / "2026-11-04_193005_stichwortsuche.yaml"
+    text = pfad.read_text(encoding="utf-8")
+    assert text.startswith("# Ergebnis von ./bai eval judge")
+    geladen = yaml.safe_load(text)
+    assert geladen["zusammenfassung"]["bestanden"] == 1 and geladen["router"] == "stichwortsuche"
+    assert geladen["tests"][0]["befunde"][0] == {"kriterium": "lebenslagen", "bestanden": True,
+                                                 "text": "erwartet geburt, erkannt geburt"}
+
+
 # ------------------------------------------------------------------ CLI
 
 @pytest.fixture
@@ -190,20 +215,20 @@ def test_cli_exit_codes(ohne_llm, tmp_path, capsys):
             anfrage: "Wir bekommen im Mai ein Kind"
             erwartet: {lebenslagen: [geburt], nicht_erwartet: {lebenslagen: [schule]}}
         """)
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut)]) == 0
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--keine-datei"]) == 0
     out = capsys.readouterr().out
     assert "OK     mai" in out and "1 von 1 Tests bestanden" in out
     schlecht = tmp_path / "schlecht.yaml"
     schlecht.write_text('tests:\n  - id: wetter\n    anfrage: "Wie wird das Wetter?"\n'
                         '    erwartet: {lebenslagen: [geburt]}\n', encoding="utf-8")
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(schlecht)]) == 1
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(schlecht), "--keine-datei"]) == 1
     assert "FEHLER wetter" in capsys.readouterr().out
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--nur", "gibtsnicht"]) == 2
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--judge"]) == 2
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--nur", "gibtsnicht", "--keine-datei"]) == 2
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--judge", "--keine-datei"]) == 2
     assert "BUERGERAI_JUDGE_ANBIETER" in capsys.readouterr().out
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--json"]) == 0
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(gut), "--json", "--keine-datei"]) == 0
     daten = json.loads(capsys.readouterr().out)
-    assert daten["zusammenfassung"]["bestanden"] == 1 and daten["tests"][0]["lebenslagen"] == ["geburt"]
+    assert daten["zusammenfassung"]["bestanden"] == 1 and daten["tests"][0]["erkannt"]["lebenslagen"] == ["geburt"]
 
 
 @pytest.mark.anforderung("ANF-LLM-23")
@@ -224,8 +249,19 @@ def test_cli_mit_fake_router_und_judge(ohne_llm, tmp_path, monkeypatch, capsys):
             erwartet: {lebenslagen: [geburt]}
             experte: "Nur Geburt."
         """)
-    assert main(["--keine-farbe", "eval", "judge", "--datei", str(pfad), "--judge", "--pause", "0"]) == 1
+    ziel = tmp_path / "ergebnis.yaml"
+    assert main(["--keine-farbe", "eval", "judge", "--datei", str(pfad), "--judge", "--pause", "0",
+                 "--ausgabe", str(ziel)]) == 1
     out = capsys.readouterr().out
+    assert f"Ergebnisse gespeichert: {ziel}" in out
+    daten = yaml.safe_load(ziel.read_text(encoding="utf-8"))
+    assert (daten["router"], daten["judge"], daten["wiederholungen"]) == ("fake/fake", "fake/fake", 1)
+    test = daten["tests"][0]
+    assert test["erkannt"] == {"kategorie": "lebenslage", "lebenslagen": ["geburt"], "quelle": "llm",
+                               "fallback_grund": None}
+    assert test["judge"]["kriterien"][2] == {"kriterium": "nichts_fehlt", "stimmen": [False],
+                                             "begruendungen": ["nichts_fehlt geprüft"]}
+    assert "Wir bekommen" not in ziel.read_text(encoding="utf-8")  # Anfrage steht nur in der Testdatei
     assert "FEHLER mai  → lebenslage: geburt" in out and "(Stichwortsuche)" not in out
     assert "✗ judge nichts_fehlt [n]: nichts_fehlt geprüft" in out
     assert "Judge: 1 bewertet, 0 bestanden" in out

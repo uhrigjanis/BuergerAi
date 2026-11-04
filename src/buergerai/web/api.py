@@ -550,6 +550,25 @@ def antwort(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
     return {"vorschlaege": vorschlaege, "hinweise": [] if vorschlaege else [HINWEIS_ANTWORT_LEER]}
 
 
+# ------------------------------------------------------------------ Antworttext (#78)
+def antworttext(kb: Wissensbasis, llm: Any, daten: Any, grund: Optional[str] = None) -> dict[str, Any]:
+    """Verständlicher Text zum Bericht. Gleiche Anfrage wie ``bericht``; ein Freitext darin wird ignoriert.
+
+    Das LLM sieht nur den Bericht (ADR 0009 §3). Ohne LLM, bei Fehlern oder wenn die
+    Nachprüfung fehlschlägt, kommt der Vorlagentext. ``grund`` (z. B. "rate_limit")
+    erzwingt die Vorlage.
+    """
+    from dataclasses import replace
+
+    from ..llm.formulierung import formulieren
+
+    _, b = bericht_berechnen(kb, daten)
+    antwort = formulieren(llm, kb, b)
+    if grund:
+        antwort = replace(antwort, fehler=grund)
+    return antwort.als_json()
+
+
 # ------------------------------------------------------------------ Kalender
 def _ics_text(text: str) -> str:
     return text.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")

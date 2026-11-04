@@ -931,6 +931,8 @@ def cmd_llm(args: argparse.Namespace) -> int:
 
             print(json.dumps(schema_fuer(kb, lagen), ensure_ascii=False, indent=2))
             return 0
+    if args.antwort is not None:
+        return _llm_antwort(args, f)
     try:
         konfig = llm_mod.aus_umgebung()
     except llm_mod.LLMFehler as exc:
@@ -982,6 +984,42 @@ def cmd_llm(args: argparse.Namespace) -> int:
         return 0
     print(f.rot(f"✗ Antwort im Schema, aber ok ist nicht true ({dauer:.1f} s)"))
     return 1
+
+
+def _llm_antwort(args: argparse.Namespace, f: "Farbe") -> int:
+    """Antworttext zu einem Szenario (#78): mit LLM, sonst bzw. mit --vorlage der Vorlagentext."""
+    from . import llm as llm_mod
+    from . import szenarien as szenarien_mod
+    from .llm.formulierung import formulieren
+    from .planer import planen
+
+    kb = _kb(args)
+    try:
+        szenario = szenarien_mod.finden(kb, args.antwort)
+    except FileNotFoundError:
+        print(f.rot(f"Szenario {args.antwort!r} nicht gefunden (siehe buergerai szenarien)"))
+        return 2
+    llm = None
+    if not args.vorlage:
+        try:
+            konfig = llm_mod.aus_umgebung()
+            llm = llm_mod.erzeugen(konfig) if konfig else None
+        except llm_mod.LLMFehler as exc:
+            print(f.rot(f"LLM-Konfiguration fehlerhaft: {exc}"))
+            return 2
+    antwort = formulieren(llm, kb, planen(kb, szenario.anfrage))
+    if args.json:
+        print(json.dumps({**antwort.als_json(), "gruende": antwort.gruende}, ensure_ascii=False, indent=2))
+        return 0
+    if antwort.quelle == "llm":
+        print(f.gruen("✓ Mit LLM formuliert, Nachprüfung bestanden"))
+    elif args.vorlage or antwort.fehler == "aus":
+        print(f.grau("Vorlagentext (ohne LLM)"))
+    else:
+        print(f.rot(f"✗ Vorlagentext, weil: {antwort.fehler}" + (f" ({', '.join(antwort.gruende)})" if antwort.gruende else "")))
+    print()
+    print(antwort.als_text())
+    return 0
 
 
 def _llm_router(args: argparse.Namespace, kb: Wissensbasis, konfig: Any, f: "Farbe") -> int:
@@ -1256,7 +1294,11 @@ def parser() -> argparse.ArgumentParser:
                    help="--extrahieren als freie Antwort auf eine Rückfrage: nur diese offenen Fakten "
                         "(mehrfach möglich; der erste ist die gestellte Frage)")
     s.add_argument("--stichtag", help="Bezugsdatum für relative Angaben, JJJJ-MM-TT (Standard: heute)")
-    s.add_argument("--json", action="store_true", help="Ergebnis von --router bzw. --extrahieren maschinenlesbar")
+    s.add_argument("--antwort", metavar="SZENARIO",
+                   help="Antworttext zum Bericht eines Szenarios: mit LLM formuliert und nachgeprüft, sonst Vorlage (#78)")
+    s.add_argument("--vorlage", action="store_true", help="mit --antwort: Vorlagentext ohne LLM (Messlatte)")
+    s.add_argument("--json", action="store_true",
+                   help="Ergebnis von --router, --extrahieren bzw. --antwort maschinenlesbar")
     s.set_defaults(func=cmd_llm)
 
     s = sub.add_parser("anforderungen", help="Testmatrix: Anforderungen und abdeckende Tests")

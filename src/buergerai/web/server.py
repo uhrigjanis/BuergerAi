@@ -31,8 +31,10 @@ DATEIEN = {
 MODULE = ("app", "gemeinsam", "start", "vorschlaege", "frage", "checkliste", "detail")
 DATEIEN.update({f"/{m}.js": (f"{m}.js", "text/javascript; charset=utf-8") for m in MODULE})
 MAX_BODY = 64 * 1024
-# Rate-Limit nur für Freitext (#82); Suche, Formular und Bericht bleiben ohne Limit
+# Rate-Limit nur für Aufrufe, die das LLM nutzen (#82); Suche, Formular und Bericht bleiben ohne Limit.
+# Freitext wird dann mit 429 abgelehnt, der Antworttext (#78) kommt aus der Vorlage.
 FREITEXT_ROUTEN = ("/api/intake", "/api/antwort")
+LLM_ROUTEN = FREITEXT_ROUTEN + ("/api/antworttext",)
 HINWEIS_RATE_LIMIT = ("Sie haben in kurzer Zeit viele Texte auswerten lassen. Bitte wählen Sie Ihre Lebenslage "
                       "unten aus und beantworten Sie die Fragen im Formular, oder versuchen Sie es später erneut.")
 SICHERHEIT = {
@@ -50,6 +52,8 @@ def handler_fuer(kb: Wissensbasis, llm: Any = None, rate_limit: Optional[RateLim
         "/api/ort": api.ort,
         "/api/bericht": api.bericht,
         "/api/suche": api.suche,
+        # Antworttext (#78): mit LLM formuliert, ohne LLM aus der Vorlage
+        "/api/antworttext": lambda k, d: api.antworttext(k, llm, d),
     }
     # Freitext (#79): ohne LLM-Konfiguration gibt es diese Endpunkte nicht
     if llm is not None:
@@ -104,10 +108,14 @@ def handler_fuer(kb: Wissensbasis, llm: Any = None, rate_limit: Optional[RateLim
             pfad = urlparse(self.path).path
             try:
                 # Vor dem Lesen des Bodys; die IP bleibt nur im Speicher des Rate-Limits
-                if pfad in post_routen and pfad in FREITEXT_ROUTEN and not rate_limit.erlaubt(self.client_address[0]):
+                gesperrt = (llm is not None and pfad in post_routen and pfad in LLM_ROUTEN
+                            and not rate_limit.erlaubt(self.client_address[0]))
+                if gesperrt and pfad in FREITEXT_ROUTEN:
                     raise api.ApiFehler(429, HINWEIS_RATE_LIMIT)
                 daten = self._body()
-                if pfad == "/api/kalender":
+                if gesperrt:  # Antworttext: Vorlage statt LLM
+                    self._json(200, api.antworttext(kb, None, daten, grund="rate_limit"))
+                elif pfad == "/api/kalender":
                     ics = api.kalender(kb, daten).encode("utf-8")
                     self._senden(200, ics, "text/calendar; charset=utf-8",
                                  {"Content-Disposition": 'attachment; filename="buergerai-fristen.ics"'})

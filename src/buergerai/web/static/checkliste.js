@@ -1,8 +1,8 @@
 // Checkliste (#86): kompakte Zeilen, gruppiert nach Zeit, Stelle oder Ergebnis.
 // Details öffnen sich in detail.js; "Jetzt klären" springt zur entscheidenden Frage.
 import {
-  $, ERGEBNIS_TEXT, anfrage, anzahl, aufzaehlung, ausloesen, datumText, download, einblenden, el, ergebnisMarke, fuellen, meldung,
-  sitzung, speichern, zustand,
+  $, ERGEBNIS_TEXT, anfrage, anzahl, api, aufzaehlung, ausloesen, datumText, download, el, ergebnisMarke, fuellen,
+  meldung, sicherLink, sitzung, speichern, zustand,
 } from "./gemeinsam.js";
 import { detailOeffnen } from "./detail.js";
 
@@ -157,7 +157,37 @@ export function zeichneCheckliste() {
   fuellen($("#nicht-erfasst"), fehlt.map((n) => el("li", {}, el("strong", {}, n.name),
     b.lebenslagen.length > 1 ? ` (${n.lebenslage})` : "", " – ", n.grund)));
   zeichneFilter();
-  zeichneListe({ einblenden: true });
+  zeichneListe();
+  $("#zusammenfassung").hidden = true; // gehört zum vorigen Bericht
+}
+
+// Antworttext (#78): Name, Ergebnis, Quellen und Hinweis setzt der Server aus dem Bericht,
+// das LLM nur den erklärenden Text. Ohne LLM oder wenn die Prüfung fehlschlägt: Vorlage.
+async function zusammenfassen() {
+  const knopf = $("#zusammenfassen");
+  knopf.disabled = true;
+  try {
+    const r = await api("/api/antworttext", anfrage());
+    $("#zusammenfassung-quelle").textContent = r.quelle === "llm"
+      ? "Mit KI formuliert und gegen die Checkliste geprüft."
+      : "Text aus der Checkliste (ohne KI).";
+    fuellen($("#zusammenfassung-text"),
+      el("p", {}, r.einleitung),
+      r.abschnitte.map((a) => el("section", {},
+        el("h4", {}, `${a.name} – ${a.ergebnis_text}`),
+        el("p", {}, a.text),
+        a.quellen.length ? el("p", { class: "leise" }, "Quelle: ",
+          a.quellen.map((q, i) => [i ? ", " : "", sicherLink(q.url, q.titel)])) : null)),
+      r.offene_fragen.length ? [el("h4", {}, "Offene Fragen"),
+        el("ul", {}, r.offene_fragen.map((f) => el("li", {}, f)))] : null,
+      el("p", { class: "hinweis-recht" }, r.hinweis));
+    $("#zusammenfassung").hidden = false;
+    $("#zusammenfassung-titel").focus();
+  } catch (e) {
+    meldung(e.message);
+  } finally {
+    knopf.disabled = false;
+  }
 }
 
 // ------------------------------------------------------------------ Werkzeuge
@@ -217,7 +247,9 @@ function druckAufbauen() {
 
 export function checklisteEinrichten() {
   $("#kalender").addEventListener("click", kalender);
-  $("#speichern").addEventListener("click", angabenSpeichern);
+  $("#zusammenfassen").addEventListener("click", () => { $("#menue").open = false; zusammenfassen(); });
+  $("#zusammenfassung-schliessen").addEventListener("click", () => { $("#zusammenfassung").hidden = true; });
+  $("#speichern").addEventListener("click", () => { $("#menue").open = false; angabenSpeichern(); });
   $("#drucken").addEventListener("click", () => {
     druckAufbauen();
     window.print();

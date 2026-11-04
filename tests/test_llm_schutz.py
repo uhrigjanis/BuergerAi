@@ -147,7 +147,7 @@ def test_max_tokens_fest_je_aufgabe(kb):
     api.intake(kb, llm, {"text": TEXT, "stichtag": STICHTAG})
     api.antwort(kb, llm, {**anfrage(kind_geboren=False), "plz": "85354", "lebenslagen": ["geburt"],
                           "frage": "errechneter_termin", "text": "am 14. März"})
-    assert MAX_TOKENS == {"router": 600, "extraktion": 1500}
+    assert MAX_TOKENS == {"router": 600, "extraktion": 1500, "formulierung": 3000}  # Formulierung: #78
     assert {a["aufgabe"] for a in llm.aufrufe} == {"router", "extraktion"}
     assert all(a["max_tokens"] == MAX_TOKENS[a["aufgabe"]] for a in llm.aufrufe)
 

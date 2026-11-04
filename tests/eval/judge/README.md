@@ -2,7 +2,8 @@
 
 Hier steht, welche Lebenslagen der Router zu einer Anfrage erkennen soll. Jede YAML-Datei in
 diesem Ordner wird gelesen. Das Format steht in [`vorlage.yaml`](vorlage.yaml), die Router-Fälle
-stehen in [`router.yaml`](router.yaml).
+stehen in [`router.yaml`](router.yaml), je ein Test pro Szenario aus `szenarien/` in
+[`szenarien.yaml`](szenarien.yaml).
 
 ## Ausführen
 
@@ -53,5 +54,7 @@ BUERGERAI_JUDGE_MODELL=gemini-2.5-pro
   prüft der Test nur das Beispiel. Ein pytest-Test achtet darauf.
 - Bei Verwechslungsgefahr die falsche Lebenslage unter `nicht_erwartet` nennen, z. B. `schule`
   bei „Wir bekommen ein Kind“.
+- Neues Szenario in `szenarien/`: einen Test `szenario-<name>` in `szenarien.yaml` ergänzen, mit
+  einer ausgedachten Anfrage im Stil der Persona. pytest schlägt sonst fehl.
 - `pytest` prüft, dass alle Tests gültig sind (IDs aus dem Katalog, keine doppelten IDs), führt
   sie aber nicht mit einem LLM aus.

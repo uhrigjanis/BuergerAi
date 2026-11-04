@@ -59,6 +59,27 @@ def test_mitgelieferte_tests_sind_gueltig(kb):
 
 
 @pytest.mark.anforderung("ANF-LLM-23")
+def test_jedes_szenario_hat_einen_judge_test(kb):
+    """szenarien.yaml passt zu szenarien/*.json: ein Test je Szenario, dieselben Lebenslagen."""
+    from buergerai.szenarien import SZENARIO_VERZEICHNIS
+
+    tests = {t.id: t for t in judge.laden(kb, [judge.JUDGE_VERZEICHNIS / "szenarien.yaml"])[0]}
+    dateien = sorted(SZENARIO_VERZEICHNIS.glob("*.json"))
+    assert len(tests) == len(dateien) > 60
+    for pfad in dateien:
+        roh = json.loads(pfad.read_text(encoding="utf-8"))
+        t = tests.get("szenario-" + pfad.stem.replace("_", "-"))
+        assert t, f"{pfad.name}: kein Test in szenarien.yaml"
+        lagen = roh.get("lebenslagen") or ["geburt"]
+        assert t.stichtag == roh["stichtag"] and t.kategorie == "lebenslage", t.id
+        if t.lebenslagen is None:  # zweite Lage vertretbar: dann entscheidet die Fachperson
+            assert t.experte and not set(lagen) & set(t.nicht_lebenslagen), t.id
+        else:
+            assert sorted(t.lebenslagen) == sorted(lagen), t.id
+        assert set(t.leistungen) == {k for k, v in roh["erwartet"].items() if v == "ja"}, t.id
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
 def test_fehler_in_den_tests_werden_gemeldet(kb, tmp_path):
     pfad = _datei(tmp_path, """
         tests:

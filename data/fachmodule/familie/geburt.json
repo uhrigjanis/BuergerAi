@@ -352,6 +352,9 @@
     },
     {
       "id": "mutterschaftsgeld_krankenkasse_bund",
+      "links": [
+        {"art": "info", "url": "https://www.familienportal.de/familienportal/familienleistungen/mutterschaftsleistungen", "titel": "Familienportal des Bundes – Mutterschaftsleistungen", "quellen": ["familienportal_mutterschaft"]}
+      ],
       "leistung_id": "mutterschaftsgeld_krankenkasse",
       "gebiet_id": "DE",
       "regel": {
@@ -429,6 +432,9 @@
     },
     {
       "id": "mutterschaftsgeld_bas_bund",
+      "links": [
+        {"art": "info", "url": "https://www.bundesamtsozialesicherung.de/de/mutterschaftsgeld/", "titel": "Bundesamt für Soziale Sicherung – Mutterschaftsgeld", "quellen": ["bas_mutterschaftsgeld"]}
+      ],
       "leistung_id": "mutterschaftsgeld_bas",
       "gebiet_id": "DE",
       "regel": {
@@ -576,6 +582,9 @@
     },
     {
       "id": "elterngeld_bund",
+      "links": [
+        {"art": "info", "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld", "titel": "Familienportal des Bundes – Elterngeld", "quellen": ["familienportal_elterngeld"]}
+      ],
       "leistung_id": "elterngeld",
       "gebiet_id": "DE",
       "regel": {
@@ -752,6 +761,9 @@
     },
     {
       "id": "kindergeld_bund",
+      "links": [
+        {"art": "info", "url": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld", "titel": "Familienkasse der Bundesagentur für Arbeit – Kindergeld", "quellen": ["ba_kindergeld"]}
+      ],
       "leistung_id": "kindergeld",
       "gebiet_id": "DE",
       "regel": {
@@ -847,12 +859,14 @@
             ]
           }
         ],
-        "kosten": "kostenlos",
-        "online_url": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld"
+        "kosten": "kostenlos"
       }
     },
     {
       "id": "kinderzuschlag_bund",
+      "links": [
+        {"art": "rechner", "url": "https://www.arbeitsagentur.de/familie-und-kinder/kiz-lotse", "titel": "KiZ-Lotse der Familienkasse (offizieller Vorab-Check)", "quellen": ["kiz_lotse"]}
+      ],
       "leistung_id": "kinderzuschlag",
       "gebiet_id": "DE",
       "regel": {
@@ -947,8 +961,7 @@
           "Mit dem KiZ-Lotsen vorab prüfen.",
           "Antrag bei der Familienkasse stellen (online möglich)."
         ],
-        "kosten": "kostenlos",
-        "online_url": "https://www.arbeitsagentur.de/familie-und-kinder/kiz-lotse"
+        "kosten": "kostenlos"
       }
     },
     {

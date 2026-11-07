@@ -363,6 +363,9 @@
   "varianten": [
     {
       "id": "wohnsitz_anmelden_bund",
+      "links": [
+        {"art": "portal", "url": "https://wohnsitzanmeldung.gov.de", "titel": "Portal zur elektronischen Wohnsitzanmeldung", "quellen": ["wohnsitzanmeldung_portal"]}
+      ],
       "leistung_id": "wohnsitz_anmelden",
       "gebiet_id": "DE",
       "zustaendigkeit_id": "meldebehoerde",
@@ -395,7 +398,6 @@
           }
         ],
         "kosten": "Anmeldung in der Regel gebührenfrei.",
-        "online_url": "https://wohnsitzanmeldung.gov.de",
         "hinweise": [
           "Ob Ihre Gemeinde die Online-Anmeldung anbietet, zeigt das Portal wohnsitzanmeldung.gov.de."
         ]
@@ -528,6 +530,9 @@
     },
     {
       "id": "rundfunkbeitrag_umzug_bund",
+      "links": [
+        {"art": "portal", "url": "https://www.rundfunkbeitrag.de", "titel": "Rundfunkbeitrag – Online-Formulare des Beitragsservice", "quellen": ["rundfunkbeitrag_portal"]}
+      ],
       "leistung_id": "rundfunkbeitrag_umzug",
       "gebiet_id": "DE",
       "zustaendigkeit_id": "beitragsservice",
@@ -551,8 +556,7 @@
               "rbstv_8"
             ]
           }
-        ],
-        "online_url": "https://www.rundfunkbeitrag.de"
+        ]
       }
     },
     {

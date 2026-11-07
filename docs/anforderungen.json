@@ -24,6 +24,11 @@
     {"id": "ANF-DAT-13", "bereich": "Datenmodell", "titel": "Wissensbasis mit allen Gemeinden lädt in unter 2 Sekunden"},
     {"id": "ANF-DAT-14", "bereich": "Datenmodell", "titel": "Wissensbasis in Zielgröße (500 Leistungen, 5.000 Varianten, 600 Fakten): Laden unter 2 s, Bericht mit 3 Lebenslagen unter 20 ms"},
 
+    {"id": "ANF-LNK-01", "bereich": "Links", "titel": "Link-Arten (Formular, Portal, Rechner, Info) in fester Reihenfolge; ein Rechner wird nie als Antrag beschriftet (#36)"},
+    {"id": "ANF-LNK-02", "bereich": "Links", "titel": "Fallback je Link-Art über Gemeinde → Kreis → Land → Bund, mit Ebene des Links und Hinweis bei Link von höherer Ebene (#36)"},
+    {"id": "ANF-LNK-03", "bereich": "Links", "titel": "Jeder Link hat eine Quelle (Prüfstatus wird angezeigt), bekannte Art und nur HTTPS; Konsistenzprüfung (#36)"},
+    {"id": "ANF-LNK-04", "bereich": "Links", "titel": "Ohne Antrags-Link ehrlicher Hinweis statt geratener Adresse; Web und Terminal zeigen dieselben Links (#36)"},
+
     {"id": "ANF-ENG-01", "bereich": "Regel-Engine", "titel": "Dreiwertige Logik (Ja/Nein/Unklar) für alle, eine, nicht"},
     {"id": "ANF-ENG-02", "bereich": "Regel-Engine", "titel": "Fehlende Angaben ergeben Unklar, nie Nein"},
     {"id": "ANF-ENG-03", "bereich": "Regel-Engine", "titel": "Rückfragen nur für Angaben, die das Ergebnis noch ändern können"},

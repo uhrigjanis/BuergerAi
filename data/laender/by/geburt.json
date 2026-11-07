@@ -110,6 +110,9 @@
   "varianten": [
     {
       "id": "elterngeld_by",
+      "links": [
+        {"art": "info", "url": "https://www.zbfs.bayern.de/familie/elterngeld/", "titel": "ZBFS – Bayerisches Elterngeld (Antrag)", "quellen": ["zbfs_elterngeld"]}
+      ],
       "leistung_id": "elterngeld",
       "gebiet_id": "09",
       "erbt_von": "elterngeld_bund",
@@ -133,6 +136,9 @@
     },
     {
       "id": "bayerisches_familiengeld_by",
+      "links": [
+        {"art": "info", "url": "https://stmas.bayern.de/imperia/md/content/stmas/stmas_inet/241114_infoblatt_homepage.pdf", "titel": "StMAS-Infoblatt Familiengeld/Krippengeld (Stand 14.11.2024)", "quellen": ["stmas_familiengeld_2024"]}
+      ],
       "leistung_id": "bayerisches_familiengeld",
       "gebiet_id": "09",
       "regel": {

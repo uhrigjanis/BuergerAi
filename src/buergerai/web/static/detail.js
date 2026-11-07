@@ -1,6 +1,6 @@
 // Details einer Leistung (#86): auf großen Bildschirmen als Seitenpanel, am Handy als
 // Vollbild. Ein <dialog> hält den Fokus und schließt mit Escape.
-import { $, ERGEBNIS_TEXT, SYMBOL, datumText, el, ergebnisMarke, fuellen, sicherLink, sitzung } from "./gemeinsam.js";
+import { $, ERGEBNIS_TEXT, SYMBOL, datumText, el, ergebnisMarke, fuellen, linkLeiste, sicherLink, sitzung } from "./gemeinsam.js";
 
 let ausloeser = null;
 
@@ -50,6 +50,7 @@ export function detailOeffnen(id) {
       el("button", { type: "button", class: "schliessen", onclick: () => dialog.close() }, "Schließen")),
     el("div", { class: "detail-inhalt" },
       el("p", {}, ergebnisMarke(l.ergebnis), " ", l.kurz),
+      relevant ? linkLeiste(l) : null,
       l.anspruch_hinweis ? el("p", { class: "hinweis" }, l.anspruch_hinweis) : null,
       l.hinweise.map((h) => el("p", { class: "hinweis" }, h)),
       el("dl", { class: "fakten-liste" },
@@ -62,11 +63,10 @@ export function detailOeffnen(id) {
         relevant && l.voraussetzungen.length ? [el("dt", {}, "Vorher erledigen"), el("dd", {}, l.voraussetzungen.join(", "))] : null,
       ),
       relevant && l.fristen.length ? abschnitt(l.fristen.length > 1 ? "Fristen" : "Frist", el("ul", { class: "fristen" }, l.fristen.map(fristZeile))) : null,
-      relevant && (v.schritte.length || v.kosten || v.online_url || v.hinweise.length)
+      relevant && (v.schritte.length || v.kosten || v.hinweise.length)
         ? abschnitt("So geht's",
           v.schritte.length ? el("ol", {}, v.schritte.map((s) => el("li", {}, s))) : null,
           v.kosten ? el("p", {}, el("strong", {}, "Kosten: "), v.kosten) : null,
-          v.online_url ? el("p", {}, el("strong", {}, "Online: "), sicherLink(v.online_url)) : null,
           v.hinweise.map((h) => el("p", { class: "hinweis" }, h)))
         : null,
       relevant && v.unterlagen.length ? abschnitt("Unterlagen", el("ul", {}, v.unterlagen.map((u) => el("li", {}, u)))) : null,

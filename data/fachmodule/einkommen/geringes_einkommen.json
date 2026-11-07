@@ -649,6 +649,9 @@
     },
     {
       "id": "rundfunkbeitrag_befreiung_bund",
+      "links": [
+        {"art": "portal", "url": "https://www.rundfunkbeitrag.de", "titel": "Rundfunkbeitrag – Online-Formulare des Beitragsservice", "quellen": ["rundfunkbeitrag_portal"]}
+      ],
       "leistung_id": "rundfunkbeitrag_befreiung",
       "gebiet_id": "DE",
       "zustaendigkeit_id": "beitragsservice",
@@ -699,8 +702,7 @@
               "rbstv_4"
             ]
           }
-        ],
-        "online_url": "https://www.rundfunkbeitrag.de"
+        ]
       },
       "hinweise": [
         "Wohngeld oder Arbeitslosengeld allein reichen für die Befreiung nicht."

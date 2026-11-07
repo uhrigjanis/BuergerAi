@@ -16,12 +16,14 @@ from . import gebiete as gebiete_mod
 from .fakten import ABLEITUNGEN, UNBEKANNT, EingabeFehler, abgeleitete_fakten, einstiegs_rueckfragen, widersprueche
 from .fristen import BerechneteFrist, berechne
 from .modell import (
+    LINK_ARTEN,
     Abdeckung,
     Betrag,
     Ebene,
     Gebiet,
     Leistung,
     Leistungsvariante,
+    Link,
     Pruefstatus,
     Quelle,
     Zustaendigkeit,
@@ -57,6 +59,22 @@ class PersonErgebnis:
     schritt: Schritt
 
 
+@dataclass(frozen=True)
+class AngezeigterLink:
+    """Bester Link einer Art für den Ort (#36), mit Herkunft und Prüfstatus.
+
+    ``ist_fallback``: Der Link stammt von einer höheren Ebene als der, auf der
+    die Leistung verwaltet wird (z. B. Landeslink für eine Gemeindeleistung).
+    """
+
+    art: str
+    url: str
+    titel: Optional[str]
+    gebiet: Gebiet  # Ebene, auf der der Link erfasst ist
+    pruefstatus: Pruefstatus
+    ist_fallback: bool
+
+
 @dataclass
 class Eintrag:
     leistung: Leistung
@@ -72,6 +90,9 @@ class Eintrag:
     pruefstatus: Pruefstatus
     fehlend: list[str]
     lebenslagen: list[str] = field(default_factory=list)  # gewählte Lebenslagen, zu denen die Leistung gehört
+    links: list[AngezeigterLink] = field(default_factory=list)  # je Art höchstens einer, in Anzeigereihenfolge
+    # Gebiet auf der Verwaltungsebene der Leistung (für den Hinweis "kein Link für ... erfasst")
+    verwaltungsgebiet: Optional[Gebiet] = None
 
     @property
     def naechste_frist(self) -> Optional[date]:
@@ -119,6 +140,38 @@ def beste_variante(
             if v.gebiet_id == gebiet.id:
                 return v, gebiet
     return None
+
+
+def beste_links(
+    kb: Wissensbasis, leistung: Leistung, hierarchie: list[Gebiet], stichtag: date
+) -> list[AngezeigterLink]:
+    """Je Link-Art der spezifischste Link aus allen gültigen Varianten der Hierarchie (#36).
+
+    Anders als bei ``beste_variante`` wird nicht nur eine Variante betrachtet:
+    Fehlt z. B. der Antrag in der Gemeindevariante, gilt der des Landes. Maßgeblich
+    ist die Ebene, auf der ein Link erfasst ist, auch wenn er per ``erbt_von``
+    in eine spezifischere Variante übernommen wurde.
+    """
+    rang = {g.id: i for i, g in enumerate(hierarchie)}  # 0 = spezifischstes Gebiet
+    beste: dict[str, tuple[tuple[int, int], Gebiet, Link]] = {}
+    for v in kb.varianten_von(leistung.id):
+        if v.gebiet_id not in rang or not v.zeitraum.enthaelt(stichtag):
+            continue
+        for ln in v.links:
+            herkunft = kb.gebiete[ln.gebiet_id]
+            schluessel = (-herkunft.ebene.rang, rang[v.gebiet_id])
+            if ln.art not in beste or schluessel < beste[ln.art][0]:
+                beste[ln.art] = (schluessel, herkunft, ln)
+    links = []
+    for art in LINK_ARTEN:
+        if art not in beste:
+            continue
+        _, herkunft, ln = beste[art]
+        status = max((kb.quellen[q].pruefstatus for q in ln.quellen), key=PRUEF_RANG.__getitem__,
+                     default=Pruefstatus.UNGEPRUEFT)
+        links.append(AngezeigterLink(art, ln.url, ln.titel, herkunft, status,
+                                     herkunft.ebene.rang < leistung.verwaltungsebene.rang))
+    return links
 
 
 def _gesamt(werte: list[Wert]) -> Wert:
@@ -468,6 +521,8 @@ def planen(kb: Wissensbasis, anfrage: Anfrage) -> Bericht:
                 pruefstatus=pruefstatus,
                 fehlend=eintrag_fehlend,
                 lebenslagen=[ll for ll in anfrage.lebenslagen if ll in leistung.lebenslagen],
+                links=beste_links(kb, leistung, ort, anfrage.stichtag),
+                verwaltungsgebiet=next((g for g in ort if g.ebene is leistung.verwaltungsebene), None),
             )
         )
     sortiert = _sortieren(eintraege)

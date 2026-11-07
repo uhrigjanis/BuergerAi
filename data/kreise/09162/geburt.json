@@ -27,6 +27,9 @@
   "varianten": [
     {
       "id": "vaterschaftsanerkennung_muenchen",
+      "links": [
+        {"art": "info", "url": "https://stadt.muenchen.de/service/info/beurkundungen/1075155/", "titel": "Stadt München – Beurkundung einer Sorgeerklärung", "quellen": ["muenchen_sorgeerklaerung"]}
+      ],
       "leistung_id": "vaterschaftsanerkennung",
       "gebiet_id": "09162",
       "erbt_von": "vaterschaftsanerkennung_bund",
@@ -41,6 +44,9 @@
     },
     {
       "id": "sorgeerklaerung_muenchen",
+      "links": [
+        {"art": "info", "url": "https://stadt.muenchen.de/service/info/beurkundungen/1075155/", "titel": "Stadt München – Beurkundung einer Sorgeerklärung", "quellen": ["muenchen_sorgeerklaerung"]}
+      ],
       "leistung_id": "sorgeerklaerung",
       "gebiet_id": "09162",
       "erbt_von": "sorgeerklaerung_bund",

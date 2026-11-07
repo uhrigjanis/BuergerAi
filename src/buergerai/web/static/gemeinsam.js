@@ -57,6 +57,20 @@ export function sicherLink(url, text) {
   return el("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, text || url);
 }
 
+// Links zu Antrag, Portal, Vorab-Check und Infoseite (#36), in der Reihenfolge des Servers.
+// Nur https; jeder Link nennt seine Ebene und seinen Prüfstatus. Ohne Antrags-Link: ehrlicher Hinweis.
+const LINK_KLASSE = { formular: "link-knopf haupt", portal: "link-knopf", rechner: "link-knopf", info: "link-text" };
+export function linkLeiste(l) {
+  const links = l.links.filter((x) => /^https:\/\//i.test(x.url));
+  if (!links.length && !l.link_hinweise.length) return null;
+  return el("div", { class: "links" },
+    links.length ? el("ul", { class: "link-liste" }, links.map((x) => el("li", {},
+      el("a", { href: x.url, target: "_blank", rel: "noopener noreferrer", class: LINK_KLASSE[x.art] || "link-text", title: x.titel },
+        x.text, el("span", { class: "unsichtbar" }, " (öffnet in neuem Tab)")),
+      el("span", { class: "leise link-meta" }, `${x.herkunft} · ${x.pruef_text}`)))) : null,
+    l.link_hinweise.map((h) => el("p", { class: "link-hinweis" }, h)));
+}
+
 export function speichern() {
   try {
     const { ort, stichtag, lebenslagen, fakten, erledigt, ansicht } = zustand;

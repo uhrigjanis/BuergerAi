@@ -25,6 +25,9 @@
   "varianten": [
     {
       "id": "geburtsanzeige_muenchen",
+      "links": [
+        {"art": "info", "url": "https://stadt.muenchen.de/service/info/geburtsurkunde-neugeborene/1063604/", "titel": "Stadt München – Geburtsurkunde für Neugeborene", "quellen": ["muenchen_geburtsurkunde"]}
+      ],
       "leistung_id": "geburtsanzeige",
       "gebiet_id": "09162000",
       "erbt_von": "geburtsanzeige_bund",

@@ -235,6 +235,24 @@
       "herausgeber": "Bundesfamilienministerium",
       "pruefstatus": "ungeprueft",
       "notiz": "Offizielle Suche nach der zuständigen Elterngeldstelle per PLZ. URL nicht geprüft."
+    },
+    {
+      "id": "wohnsitzanmeldung_portal",
+      "titel": "Portal zur elektronischen Wohnsitzanmeldung",
+      "url": "https://wohnsitzanmeldung.gov.de",
+      "typ": "behoerde",
+      "herausgeber": null,
+      "pruefstatus": "ungeprueft",
+      "notiz": "Aus verfahren.online_url übernommen (#36). Zeigt, ob die Gemeinde die Online-Anmeldung anbietet. Nicht geprüft."
+    },
+    {
+      "id": "rundfunkbeitrag_portal",
+      "titel": "Rundfunkbeitrag – Online-Formulare des Beitragsservice",
+      "url": "https://www.rundfunkbeitrag.de",
+      "typ": "behoerde",
+      "herausgeber": "ARD ZDF Deutschlandradio Beitragsservice",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Aus verfahren.online_url übernommen (#36). Nicht geprüft, ob Anmeldung bzw. Befreiung dort direkt online möglich ist."
     }
   ]
 }

@@ -31,8 +31,10 @@ from .modell import (
     Frist,
     Gebiet,
     Landesabdeckung,
+    LINK_ARTEN,
     Lebenslage,
     Leistung,
+    Link,
     Leistungsvariante,
     Pruefstatus,
     Quelle,
@@ -81,12 +83,13 @@ def _frist(roh: dict[str, Any]) -> Frist:
 
 
 def _verfahren(roh: dict[str, Any]) -> Verfahren:
+    if "online_url" in roh:
+        raise ValueError("'verfahren.online_url' entfällt, stattdessen 'links' der Variante (#36)")
     return Verfahren(
         unterlagen=tuple(roh.get("unterlagen", ())),
         schritte=tuple(roh.get("schritte", ())),
         fristen=tuple(_frist(f) for f in roh.get("fristen", ())),
         kosten=roh.get("kosten"),
-        online_url=roh.get("online_url"),
         hinweise=tuple(roh.get("hinweise", ())),
     )
 
@@ -341,15 +344,24 @@ class Wissensbasis:
 
     def _varianten_aufloesen(self, fehler: list[str]) -> None:
         """Baut Varianten; ``erbt_von`` übernimmt Regel, Verfahren und Quellen einer
-        anderen Variante (z. B. Landesvariante erbt die Bundesregel)."""
+        anderen Variante (z. B. Landesvariante erbt die Bundesregel).
+
+        Links (#36) werden je Art geerbt: Eigene Links einer Art ersetzen die
+        geerbten dieser Art. Jeder Link behält das Gebiet, in dem er erfasst ist.
+        """
         roh: dict[str, tuple[dict[str, Any], Path]] = {}
         for v, d in self._roh_varianten:
             if v["id"] in roh:
                 fehler.append(f"{d}: doppelte ID {v['id']}")
             roh[v["id"]] = (v, d)
 
+        def mit_herkunft(v: dict[str, Any]) -> dict[str, Any]:
+            if not v.get("links"):
+                return v
+            return {**v, "links": [{**l, "_gebiet": v["gebiet_id"]} for l in v["links"]]}
+
         def aufgeloest(vid: str, kette: tuple[str, ...] = ()) -> dict[str, Any]:
-            v, datei = roh[vid]
+            v = mit_herkunft(roh[vid][0])
             basis_id = v.get("erbt_von")
             if not basis_id:
                 return v
@@ -360,6 +372,9 @@ class Wissensbasis:
             basis = aufgeloest(basis_id, kette + (vid,))
             neu = {k: basis[k] for k in ("regel", "verfahren", "quellen", "hinweise") if k in basis}
             neu.update({k: w for k, w in v.items() if k != "erbt_von"})
+            eigene = v.get("links", [])
+            arten = {l.get("art") for l in eigene}
+            neu["links"] = eigene + [l for l in basis.get("links", []) if l.get("art") not in arten]
             return neu
 
         for vid, (_, datei) in roh.items():
@@ -377,6 +392,11 @@ class Wissensbasis:
                         zeitraum=_zeitraum(v),
                         quellen=tuple(v.get("quellen", ())),
                         hinweise=tuple(v.get("hinweise", ())),
+                        links=tuple(
+                            Link(art=l["art"], url=l["url"], quellen=tuple(l.get("quellen", ())),
+                                 gebiet_id=l["_gebiet"], titel=l.get("titel"))
+                            for l in v.get("links", ())
+                        ),
                     ),
                     datei,
                     fehler,
@@ -668,6 +688,21 @@ class Wissensbasis:
                 if fr.art not in FRIST_ARTEN:
                     fehler.append(f"{wo}: Frist-Art {fr.art} unbekannt")
                 quellen_ok(fr.quellen, f"{wo} (Frist)")
+            arten: set[str] = set()
+            for ln in v.links:
+                if ln.art in arten:
+                    fehler.append(f"{wo}: mehrere Links der Art {ln.art}")
+                arten.add(ln.art)
+                if ln.gebiet_id != v.gebiet_id:
+                    continue  # geerbt, wird bei der Variante geprüft, in der er erfasst ist
+                wo_link = f"{wo}: Link {ln.url}"
+                if ln.art not in LINK_ARTEN:
+                    fehler.append(f"{wo_link}: unbekannte Art {ln.art!r} (erlaubt: {', '.join(LINK_ARTEN)})")
+                if not ln.url.startswith("https://") or any(z.isspace() for z in ln.url):
+                    fehler.append(f"{wo_link}: nur https:// ohne Leerzeichen erlaubt")
+                if not ln.quellen:
+                    fehler.append(f"{wo_link}: braucht mindestens eine Quelle")
+                quellen_ok(ln.quellen, wo_link)
             fehler.extend(self._regel_pruefen(v.regel, wo, leistung.fuer, self._erlaubte_module(leistung), leistung))
 
         # Abdeckung der Länder: "erfasst" nur mit eigener Landesleistung, "keine" nur ohne

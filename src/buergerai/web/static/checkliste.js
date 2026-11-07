@@ -2,7 +2,7 @@
 // Details öffnen sich in detail.js; "Jetzt klären" springt zur entscheidenden Frage.
 import {
   $, ERGEBNIS_TEXT, anfrage, anzahl, api, aufzaehlung, ausloesen, datumText, download, el, ergebnisMarke, fuellen,
-  meldung, sicherLink, sitzung, speichern, zustand,
+  linkLeiste, meldung, sicherLink, sitzung, speichern, zustand,
 } from "./gemeinsam.js";
 import { detailOeffnen } from "./detail.js";
 
@@ -74,6 +74,7 @@ function zeile(l) {
         kerninfo(l),
         zustand.ansicht !== "stelle" ? el("span", {}, l.zustaendigkeit.name) : null,
         el("span", { class: `datenstand ${ds.art}` }, ds.text)),
+      relevant ? linkLeiste(l) : null,
       offen ? el("button", { type: "button", class: "klaeren", onclick: () => jetztKlaeren(l) },
         "Jetzt klären", el("span", { class: "leise" }, ` (${anzahl(l.offene_fragen, "Angabe fehlt", "Angaben fehlen")})`)) : null),
     ergebnisMarke(l.ergebnis));

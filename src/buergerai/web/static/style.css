@@ -250,6 +250,20 @@ progress::-moz-progress-bar { background: var(--ja); border-radius: 999px; }
 .datenstand.gut::before { background: currentColor; }
 .datenstand.mittel::before { background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
 .datenstand.warnung { color: var(--unklar); }
+/* Links zu Antrag, Portal, Vorab-Check, Infoseite (#36): nur der Antrag ist ein gefüllter Knopf */
+.link-liste { list-style: none; margin: .45rem 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; }
+.link-liste li { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .45rem; }
+.link-knopf {
+  display: inline-flex; align-items: center; min-height: 36px; padding: .25rem .8rem; border-radius: var(--r-klein);
+  border: 1px solid var(--linie-stark); background: var(--flaeche); color: var(--tinte); font-size: .875rem; font-weight: 600; text-decoration: none;
+}
+.link-knopf.haupt { background: var(--tinte); color: var(--tinte-text); border-color: var(--tinte); }
+.link-knopf:hover { border-color: var(--tinte); }
+.link-knopf:active { transform: scale(.98); }
+.link-text { color: var(--tinte); font-size: .875rem; font-weight: 600; text-underline-offset: .15em; }
+.link-knopf:focus-visible, .link-text:focus-visible { outline: 3px solid var(--tinte); outline-offset: 2px; }
+.link-meta { font-size: .8125rem; }
+.link-hinweis { margin: .3rem 0 0; font-size: .875rem; color: var(--leise); }
 .klaeren {
   all: unset; cursor: pointer; display: inline-block; margin-top: .3rem; padding: .2rem 0; font-size: .875rem; font-weight: 600;
   color: var(--tinte); text-decoration: underline; text-underline-offset: .15em;

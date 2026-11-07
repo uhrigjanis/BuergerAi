@@ -20,10 +20,14 @@ from ..ausgabe import (
     BEANTRAGT_TEXT,
     EBENE_TEXT,
     GEAENDERT_KURZ,
+    LINK_PRUEF_TEXT,
+    LINK_TEXT,
     PRUEF_TEXT,
     anspruch_text,
     frage_zu,
     geburt_text,
+    link_herkunft,
+    link_hinweise,
     person_name,
 )
 from ..fakten import UNBEKANNT, EingabeFehler, ist_jahreszahl, wert_als_text
@@ -371,9 +375,16 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis, fehlend: Optional[list[str]] = N
             "unterlagen": list(v.unterlagen),
             "schritte": list(v.schritte),
             "kosten": v.kosten,
-            "online_url": v.online_url,
             "hinweise": list(v.hinweise),
         },
+        "links": [
+            {"art": ln.art, "text": LINK_TEXT[ln.art], "url": ln.url, "titel": ln.titel,
+             "ebene": ln.gebiet.ebene.value, "herkunft": link_herkunft(ln),
+             "pruefstatus": ln.pruefstatus.value, "pruef_text": LINK_PRUEF_TEXT[ln.pruefstatus],
+             "ist_fallback": ln.ist_fallback}
+            for ln in e.links
+        ],
+        "link_hinweise": link_hinweise(e),
         "quellen": [
             {"id": q.id, "titel": q.titel, "url": q.url, "typ": q.typ, "pruefstatus": q.pruefstatus.value,
              "seit_pruefung_geaendert": q.seit_pruefung_geaendert.isoformat() if q.seit_pruefung_geaendert else None}

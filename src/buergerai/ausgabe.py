@@ -9,8 +9,8 @@ from typing import Any, Optional
 
 from .fakten import UNBEKANNT, ist_jahreszahl, wert_als_text
 from .fristen import BerechneteFrist
-from .modell import Abdeckung, Ebene, Leistung, Pruefstatus, Quelle
-from .planer import Bericht, Eintrag
+from .modell import Abdeckung, Ebene, Gebiet, Leistung, Pruefstatus, Quelle
+from .planer import AngezeigterLink, Bericht, Eintrag
 from .regeln import Schritt, Wert, begruendung
 from .wissensbasis import Wissensbasis
 
@@ -71,6 +71,58 @@ def geaendert_text(q: Quelle) -> str:
 
 
 EBENE_TEXT = {Ebene.BUND: "Bund", Ebene.LAND: "Land", Ebene.KREIS: "Kreis", Ebene.GEMEINDE: "Gemeinde"}
+
+# Links (#36): Beschriftung je Art. Ein Rechner heißt nie "Antrag".
+LINK_TEXT = {"formular": "Antrag stellen", "portal": "Zum Portal", "rechner": "Vorab prüfen", "info": "Infoseite"}
+LINK_PRUEF_TEXT = {
+    Pruefstatus.VERIFIZIERT: "geprüft",
+    Pruefstatus.TEILWEISE: "teilweise geprüft",
+    Pruefstatus.UNGEPRUEFT: "ungeprüft",
+    Pruefstatus.WIDERSPRUECHLICH: "widersprüchlich",
+}
+# Hinweis bei Fallback: "Kein <was> für <Ort> erfasst, hier <das> <Herkunft>."
+_LINK_FEHLT = {
+    "formular": ("Antrags-Link", "der Antrag"),
+    "portal": ("Portal-Link", "das Portal"),
+    "rechner": ("Vorab-Check", "der Vorab-Check"),
+    "info": ("Link", "die Infoseite"),
+}
+KEIN_ANTRAG = "Kein Online-Antrag erfasst, bitte bei der zuständigen Stelle nachfragen."
+
+
+def link_herkunft(link: AngezeigterLink) -> str:
+    """Von welcher Ebene der Link stammt, z. B. "Land Bayern"."""
+    if link.gebiet.ebene is Ebene.BUND:
+        return "Bund"
+    if link.gebiet.ebene is Ebene.KREIS:
+        return link.gebiet.name  # nennt die Art schon, z. B. "Landkreis Freising"
+    return f"{EBENE_TEXT[link.gebiet.ebene]} {link.gebiet.name}"
+
+
+def _des(g: Gebiet) -> str:
+    """Genitiv für den Fallback-Hinweis: "des Landes Bayern", "des Landkreises Freising"."""
+    if g.ebene is Ebene.BUND:
+        return "des Bundes"
+    if g.ebene is Ebene.LAND:
+        return f"des Landes {g.name}"
+    for wort, genitiv in (("Landkreis ", "des Landkreises "), ("Kreis ", "des Kreises "),
+                          ("Stadtkreis ", "des Stadtkreises "), ("Kreisfreie Stadt ", "der kreisfreien Stadt ")):
+        if g.name.startswith(wort):
+            return genitiv + g.name[len(wort):]
+    return f"für {g.name}"
+
+
+def link_hinweise(e: Eintrag) -> list[str]:
+    """Ehrliche Hinweise zu den Links (#36): kein Online-Antrag erfasst, Link von höherer Ebene."""
+    hinweise = []
+    if e.leistung.beantragt_von != "von_amts_wegen" and not any(l.art in ("formular", "portal") for l in e.links):
+        hinweise.append(KEIN_ANTRAG)
+    if e.links and e.links[0].ist_fallback:
+        bester = e.links[0]
+        was, das = _LINK_FEHLT[bester.art]
+        ort = e.verwaltungsgebiet.name if e.verwaltungsgebiet else "Ihren Ort"
+        hinweise.append(f"Kein {was} für {ort} erfasst, hier {das} {_des(bester.gebiet)}.")
+    return hinweise
 
 
 def person_name(kb: Wissensbasis, person: Optional[str]) -> str:
@@ -157,6 +209,15 @@ def _quellen_zeilen(e: Eintrag, f: Farbe) -> list[str]:
     return zeilen
 
 
+def _link_zeilen(e: Eintrag, f: Farbe) -> list[str]:
+    zeilen = ["   Links:"] if e.links else []
+    for l in e.links:
+        meta = f"{link_herkunft(l)} · {LINK_PRUEF_TEXT[l.pruefstatus]}"
+        zeilen.append(f"     {LINK_TEXT[l.art]}: {f.blau(l.url)}  {f.grau('[' + meta + ']')}")
+    zeilen.extend(f"   {f.gelb('Hinweis:')} {h}" for h in link_hinweise(e))
+    return zeilen
+
+
 def eintrag_text(
     e: Eintrag, nr: int, kb: Wissensbasis, f: Farbe, details: bool, mehrere_lebenslagen: bool = False
 ) -> list[str]:
@@ -216,10 +277,9 @@ def eintrag_text(
             zeilen.extend(f"     {i}. {s}" for i, s in enumerate(v.schritte, 1))
         if v.kosten:
             zeilen.append(f"   Kosten: {v.kosten}")
-        if v.online_url:
-            zeilen.append(f"   Online: {f.blau(v.online_url)}")
         for h in v.hinweise:
             zeilen.append(f"   Hinweis: {h}")
+        zeilen.extend(_link_zeilen(e, f))
     if details:
         zeilen.append("   Quellen:")
         zeilen.extend("     " + z for z in _quellen_zeilen(e, f))

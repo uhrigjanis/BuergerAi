@@ -27,6 +27,9 @@
   "varianten": [
     {
       "id": "vaterschaftsanerkennung_lk_freising",
+      "links": [
+        {"art": "info", "url": "https://www.kreis-freising.de/fileadmin/user_upload/Aemter/Amt_fuer_Jugend_und_Familie/Amtsvormundschaften__Beistandschaften/Belehrung_Vaterschaft.pdf", "titel": "Landratsamt Freising, Amt für Jugend und Familie – Belehrung Vaterschaft", "quellen": ["freising_belehrung_vaterschaft"]}
+      ],
       "leistung_id": "vaterschaftsanerkennung",
       "gebiet_id": "09178",
       "erbt_von": "vaterschaftsanerkennung_bund",

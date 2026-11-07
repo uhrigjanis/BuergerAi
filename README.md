@@ -244,6 +244,7 @@ docs/
 - Leistung: `lebenslagen` (eine oder mehrere), `fuer` (`"haushalt"` oder Liste von Rollen), `art` (`pflicht`, `antrag`, `geldleistung`, `foerderprogramm`, `information`), optional `rechtsanspruch`, `beantragt_von` (`selbst`, `arbeitgeber`, `angehoerige`, `von_amts_wegen`) und `ortsbezug` (Fakt vom Typ `ort`, z. B. Lage der Immobilie).
 - Fristen: `bezug` ist `geburt`, `termin`, `keiner` oder ein Datumsfakt (z. B. Kaufdatum).
 - Neue Kommune: `data/kommunen/<AGS>/geburt.json` mit Varianten; per `"erbt_von": "<varianten-id>"` übernimmt man Regel, Verfahren und Quellen und überschreibt nur, was vor Ort anders ist.
+- Links einer Variante (#36): `"links": [{"art": "formular", "url": "https://…", "titel": "…", "quellen": ["…"]}]`. Arten: `formular` (direkter Antrag), `portal`, `rechner` (Vorab-Check, wird nie „Antrag“ genannt), `info`. Je Art ein Link, nur `https://`, immer mit Quelle. Fehlt eine Art vor Ort, zeigt der Bericht den Link der nächsthöheren Ebene mit Hinweis. Per `erbt_von` werden Links je Art geerbt. Links nur aus geprüften Quellen eintragen, nicht raten.
 - Regelknoten: `alle`, `eine`, `nicht` (mit `text`), `fakt` (mit `op`, `wert`, `text`, `quellen`) und `pruefung_noetig`. Operatoren: `== != < <= > >= in nicht_in`.
 - Nach jeder Änderung: `./bai daten && ./bai szenarien --pruefen && python -m pytest`.
 

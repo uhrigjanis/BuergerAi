@@ -168,13 +168,34 @@ class Betrag:
     quellen: tuple[str, ...] = ()
 
 
+# Link-Arten (#36) in der Reihenfolge der Anzeige
+LINK_ARTEN = ("formular", "portal", "rechner", "info")
+
+
+@dataclass(frozen=True)
+class Link:
+    """Link zu Antrag, Portal, Vorab-Check oder Infoseite einer Variante (#36).
+
+    ``art``: ``formular`` (direkter Online-Antrag oder amtliches Formular),
+    ``portal`` (Behördenportal, über das der Antrag läuft), ``rechner``
+    (offizieller Vorab-Check, nie ein Antrag) oder ``info`` (Infoseite).
+    ``gebiet_id``: Gebiet der Variante, in der der Link erfasst ist. Bei
+    ``erbt_von`` bleibt das die Herkunft, nicht die erbende Variante.
+    """
+
+    art: str
+    url: str
+    quellen: tuple[str, ...]
+    gebiet_id: str
+    titel: Optional[str] = None
+
+
 @dataclass(frozen=True)
 class Verfahren:
     unterlagen: tuple[str, ...] = ()
     schritte: tuple[str, ...] = ()
     fristen: tuple[Frist, ...] = ()
     kosten: Optional[str] = None
-    online_url: Optional[str] = None
     hinweise: tuple[str, ...] = ()
 
 
@@ -265,3 +286,4 @@ class Leistungsvariante:
     zeitraum: Zeitraum
     quellen: tuple[str, ...]
     hinweise: tuple[str, ...] = ()
+    links: tuple[Link, ...] = ()  # #36, Reihenfolge wie in den Daten

@@ -11,6 +11,9 @@
   "varianten": [
     {
       "id": "wohnsitz_anmelden_berlin",
+      "links": [
+        {"art": "info", "url": "https://service.berlin.de/dienstleistung/120686/", "titel": "Service Berlin – Wohnsitz anmelden (Dienstleistung 120686)", "quellen": ["berlin_wohnsitz"]}
+      ],
       "leistung_id": "wohnsitz_anmelden",
       "gebiet_id": "11000000",
       "erbt_von": "wohnsitz_anmelden_bund",
@@ -41,8 +44,7 @@
             "tage": 14
           }
         ],
-        "kosten": "Anmeldung gebührenfrei.",
-        "online_url": "https://service.berlin.de/dienstleistung/120686/"
+        "kosten": "Anmeldung gebührenfrei."
       }
     }
   ]

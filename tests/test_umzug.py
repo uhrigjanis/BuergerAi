@@ -57,7 +57,7 @@ def test_anmeldung_frist_und_stellen(plane_umzug):
     assert [f.datum for f in spaetestens] == [date(2026, 10, 29)]  # 14 Tage nach dem 15.10.
     assert any(f.frist.art == "fruehestens" for f in e.fristen)  # München: erst nach dem Einzug
     berlin = plane_umzug(umzug(), plz="10115").eintrag("wohnsitz_anmelden")
-    assert berlin.zustaendigkeit.name == "Bürgeramt (Berlin)" and berlin.variante.verfahren.online_url
+    assert berlin.zustaendigkeit.name == "Bürgeramt (Berlin)" and berlin.links
     koeln = plane_umzug(umzug(), plz="50667").eintrag("wohnsitz_anmelden")
     assert koeln.zustaendigkeit.name == "Meldebehörde – Köln"
     assert koeln.variante.id == "wohnsitz_anmelden_bund"

@@ -19,6 +19,7 @@ from ..ausgabe import (
     ABDECKUNG_TEXT,
     BEANTRAGT_TEXT,
     EBENE_TEXT,
+    ERKLAERUNG_PRUEF_TEXT,
     GEAENDERT_KURZ,
     PRUEF_TEXT,
     anspruch_text,
@@ -374,6 +375,7 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis, fehlend: Optional[list[str]] = N
             "online_url": v.online_url,
             "hinweise": list(v.hinweise),
         },
+        "erklaerung": erklaerung_json(kb, e.leistung.id),
         "quellen": [
             {"id": q.id, "titel": q.titel, "url": q.url, "typ": q.typ, "pruefstatus": q.pruefstatus.value,
              "seit_pruefung_geaendert": q.seit_pruefung_geaendert.isoformat() if q.seit_pruefung_geaendert else None}
@@ -384,6 +386,32 @@ def _eintrag_json(e: Eintrag, kb: Wissensbasis, fehlend: Optional[list[str]] = N
         "leitfrist": leit,
         "zeitgruppe": zeitgruppe(e.fristen[leit]) if leit is not None else "ohne_frist",
     }
+
+
+def erklaerung_json(kb: Wissensbasis, leistung_id: str) -> Optional[dict[str, Any]]:
+    """Erklärtext einer Leistung (#113), ausgewählt über die Leistungs-ID; ``None``, wenn es keinen gibt."""
+    e = kb.erklaerungen.get(leistung_id)
+    if e is None:
+        return None
+    return {
+        "was": e.was,
+        "danach": e.danach,
+        "achtung": e.achtung,
+        "begriffe": list(e.begriffe),
+        "pruefstatus": e.pruefstatus.value,
+        "pruef_text": ERKLAERUNG_PRUEF_TEXT[e.pruefstatus],
+    }
+
+
+def glossar_json(kb: Wissensbasis, leistung_ids: list[str]) -> list[dict[str, Any]]:
+    """Glossarbegriffe, die in den Erklärtexten dieser Leistungen vorkommen, in der Reihenfolge des ersten Auftretens."""
+    ids: list[str] = []
+    for lid in leistung_ids:
+        for b in kb.erklaerungen[lid].begriffe if lid in kb.erklaerungen else ():
+            if b not in ids:
+                ids.append(b)
+    return [{"id": b, "begriff": kb.glossar[b].begriff, "erklaerung": kb.glossar[b].erklaerung,
+             "pruefstatus": kb.glossar[b].pruefstatus.value} for b in ids]
 
 
 def _zeitplan(bericht: Bericht) -> list[dict[str, Any]]:
@@ -434,6 +462,7 @@ def bericht(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
         ],
         "zaehler": zaehler,
         "leistungen": [_eintrag_json(e, kb, b.fehlend) for e in b.eintraege],
+        "glossar": glossar_json(kb, [e.leistung.id for e in b.eintraege]),
         "zeitgruppen": [{"id": gid, "text": text} for gid, text in ZEITGRUPPEN],
         "zeitplan": _zeitplan(b),
     }

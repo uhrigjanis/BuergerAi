@@ -23,6 +23,7 @@ from typing import Any, Optional
 
 from . import __version__
 from . import anforderungen as anforderungen_mod
+from . import erklaertexte as erklaerung_mod
 from . import evaluation as evaluation_mod
 from . import gebiete as gebiete_mod
 from . import quellenpruefung as qp
@@ -763,11 +764,85 @@ def cmd_daten(args: argparse.Namespace) -> int:
     unbenutzt = kb.unbenutzte_fakten()
     if unbenutzt:
         print("  Warnung – Fakten ohne Verwendung: " + ", ".join(unbenutzt))
+    erklaert = [kb.erklaerungen[lid] for lid in kb.leistungen if lid in kb.erklaerungen]
+    status = {s.value: sum(1 for e in erklaert if e.pruefstatus is s) for s in Pruefstatus}
+    print(f"  Erklärtexte: {len(erklaert)} von {len(kb.leistungen)} Leistungen ("
+          + ", ".join(f"{k}: {v}" for k, v in status.items() if v) + f"), Glossar: {len(kb.glossar)} Begriffe")
+    if erklaerung_mod.ohne_erklaerung(kb):
+        print("  Warnung – Leistungen ohne Erklärtext: " + ", ".join(erklaerung_mod.ohne_erklaerung(kb)))
+    if erklaerung_mod.unbenutzte_begriffe(kb):
+        print("  Warnung – Glossarbegriffe ohne Verwendung: " + ", ".join(erklaerung_mod.unbenutzte_begriffe(kb)))
     ohne = qp.ohne_protokoll(kb)
     if ohne:
         phase1 = set(qp.phase1_quellen(kb))
         print(f"  Warnung – {len(ohne)} geprüfte Quellen (teilweise/verifiziert) ohne verlinktes Prüfprotokoll, "
               f"davon {len(phase1.intersection(ohne))} aus Phase 1. Anlegen: buergerai quellen --protokoll ID")
+    return 0
+
+
+def cmd_erklaerungen(args: argparse.Namespace) -> int:
+    """Erklärtexte und Glossar durchsehen und abnehmen (#113)."""
+    kb = _kb(args)
+    f = Farbe(None if not args.keine_farbe else False)
+    try:
+        if args.formatieren:
+            geaendert = erklaerung_mod.formatieren(kb)
+            print(f"{len(geaendert)} Dateien neu formatiert" + "".join(f"\n  {d}" for d in geaendert))
+            return 0
+        if args.abnehmen:
+            if not args.von:
+                print("Bitte den eigenen Namen angeben: --von \"Vorname Nachname\"", file=sys.stderr)
+                return 2
+            am = _stichtag(args.am)
+            erklaerung_mod.status_setzen(kb, args.abnehmen, "verifiziert", args.von, am)
+            print(f.gruen(f"{args.abnehmen}: verifiziert von {args.von.strip()} am {datum(am)}"))
+            return 0
+        if args.zuruecksetzen:
+            erklaerung_mod.status_setzen(kb, args.zuruecksetzen, args.status)
+            print(f.gelb(f"{args.zuruecksetzen}: Prüfstatus jetzt '{args.status}'"))
+            return 0
+    except erklaerung_mod.AbnahmeFehler as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+    eintraege = erklaerung_mod.eintraege(kb)
+    if args.ids:
+        eintraege = [e for e in eintraege if e.id in args.ids]
+        unbekannt = sorted(set(args.ids) - {e.id for e in eintraege})
+        if unbekannt:
+            print("Unbekannt: " + ", ".join(unbekannt), file=sys.stderr)
+            return 1
+    if args.offen:
+        eintraege = [e for e in eintraege if e.pruefstatus != "verifiziert"]
+    zaehler: dict[str, int] = {}
+    for e in erklaerung_mod.eintraege(kb):
+        zaehler[e.pruefstatus] = zaehler.get(e.pruefstatus, 0) + 1
+    print(f.fett("Prüfstatus der Erklärtexte und Glossarbegriffe: ")
+          + ", ".join(f"{k}: {v}" for k, v in sorted(zaehler.items())))
+    datei = None
+    for e in eintraege:
+        if e.datei != datei:
+            datei = e.datei
+            print("\n" + f.fett("/".join(datei.parts[-3:] if datei.parent.parent.name == "fachmodule" else datei.parts[-2:])))
+        print(f"  [{e.pruefstatus}] {e.id} – {e.titel}")
+        if args.ids or args.text:
+            if e.art == "erklaerung":
+                x = kb.erklaerungen[e.id]
+                print(f"      Was: {x.was}")
+                if x.danach:
+                    print(f"      Danach: {x.danach}")
+                if x.achtung:
+                    print(f"      Achtung: {x.achtung}")
+                if x.begriffe:
+                    print(f"      Begriffe: {', '.join(x.begriffe)}")
+                quellen = x.quellen
+            else:
+                print(f"      {kb.glossar[e.id].erklaerung}")
+                quellen = kb.glossar[e.id].quellen
+            for q in quellen:
+                print(f.grau(f"      Quelle: {kb.quellen[q].titel}" + (f" – {kb.quellen[q].url}" if kb.quellen[q].url else "")))
+    print(f.grau("\nPrüfen: Text mit den Quellen vergleichen (--text zeigt alles), korrigieren und danach "
+                 "buergerai erklaerungen --abnehmen ID --von \"Name\". Nur ein Mensch setzt 'verifiziert'."))
     return 0
 
 
@@ -1240,6 +1315,20 @@ def parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_quellen)
 
     sub.add_parser("daten", help="Wissensbasis auf Konsistenz prüfen").set_defaults(func=cmd_daten)
+
+    s = sub.add_parser("erklaerungen", help="Erklärtexte der Leistungen und Glossar durchsehen und abnehmen")
+    s.add_argument("ids", nargs="*", metavar="ID", help="Nur diese Leistungen bzw. Glossarbegriffe (mit Text)")
+    s.add_argument("--offen", action="store_true", help="Nur noch nicht verifizierte Texte")
+    s.add_argument("--text", action="store_true", help="Texte und Quellen mit ausgeben")
+    aktion = s.add_mutually_exclusive_group()
+    aktion.add_argument("--abnehmen", metavar="ID", help="Text nach eigener Prüfung auf 'verifiziert' setzen (nur Menschen, mit --von)")
+    aktion.add_argument("--zuruecksetzen", metavar="ID", help="Abnahme zurücknehmen (Status aus --status)")
+    aktion.add_argument("--formatieren", action="store_true", help="Dateien in die maschinelle Form bringen")
+    s.add_argument("--status", default="ungeprueft", choices=["ungeprueft", "teilweise", "widerspruechlich"],
+                   help="Bei --zuruecksetzen: neuer Prüfstatus (Standard: ungeprueft)")
+    s.add_argument("--von", metavar="NAME", help="Bei --abnehmen: eigener Name")
+    s.add_argument("--am", metavar="DATUM", help="Bei --abnehmen: Prüfdatum (Standard: heute)")
+    s.set_defaults(func=cmd_erklaerungen)
 
     s = sub.add_parser("szenarien", help="Gespeicherte Testprofile auflisten oder prüfen")
     s.add_argument("--pruefen", action="store_true", help="Alle Szenarien gegen ihre Erwartungen prüfen")

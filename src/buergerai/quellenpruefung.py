@@ -36,6 +36,8 @@ _ART_DER_SAMMLUNG = {
     "abdeckung": "Landesabdeckung",
     "fakten": "Fakt",
     "lebenslagen": "Lebenslage",
+    "erklaerungen": "Erklärtext",
+    "glossar": "Glossarbegriff",
 }
 
 
@@ -77,6 +79,10 @@ def _einordnen(knoten: dict[str, Any], teile: list[str], eintrag: dict[str, Any]
     art = _ART_DER_SAMMLUNG.get(sammlung, sammlung)
     if sammlung == "varianten":
         text = f"Leistung {eintrag.get('leistung_id')} in Gebiet {eintrag.get('gebiet_id')}"
+    elif sammlung == "erklaerungen":
+        text = eintrag.get("was", "")
+    elif sammlung == "glossar":
+        text = f"{eintrag.get('begriff')} – {eintrag.get('erklaerung', '')}"
     elif sammlung == "abdeckung":
         text = (f"{eintrag.get('gebiet_id')}/{eintrag.get('lebenslage')}: "
                 f"Landesleistungen {eintrag.get('landesleistungen')}")
@@ -137,7 +143,7 @@ def verwendungen(kb: Wissensbasis, quelle_id: str, verzeichnis: Optional[Path] =
                     if not isinstance(quellen, list) or quelle_id not in quellen:
                         continue
                     art, text = _einordnen(knoten, teile[2:], eintrag, sammlung)
-                    objekt = str(eintrag.get("id") or eintrag.get("gebiet_id") or "")
+                    objekt = str(eintrag.get("id") or eintrag.get("gebiet_id") or eintrag.get("leistung_id") or "")
                     vererbt: tuple[str, ...] = ()
                     if sammlung == "varianten" and objekt not in erben_genannt:
                         erben_genannt.add(objekt)

@@ -1,0 +1,106 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "behinderung_feststellen",
+      "was": "Auf Antrag stellt die zuständige Behörde fest, ob eine Behinderung vorliegt und wie schwer sie ist. Das Ergebnis ist der Grad der Behinderung, dazu gegebenenfalls Merkzeichen. Erst damit gibt es Nachteilsausgleiche wie den Schwerbehindertenausweis, steuerliche Pauschbeträge oder besonderen Kündigungsschutz.",
+      "danach": "Die Behörde holt Berichte Ihrer Ärzte ein und lässt sie ärztlich auswerten. Danach kommt ein Bescheid mit Grad der Behinderung und Merkzeichen. Ab der Schwerbehinderung wird der Ausweis ausgestellt.",
+      "achtung": "Nennen Sie im Antrag alle Erkrankungen und behandelnden Ärzte. Ist der Bescheid zu niedrig, ist ein Widerspruch möglich.",
+      "begriffe": [
+        "versorgungsamt",
+        "grad_der_behinderung",
+        "merkzeichen",
+        "schwerbehindertenausweis",
+        "bescheid",
+        "widerspruch"
+      ],
+      "quellen": [
+        "sgb9_152"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "wertmarke_freifahrt",
+      "was": "Schwerbehinderte Menschen mit bestimmten Merkzeichen können Bus, Straßenbahn und Regionalzüge kostenlos nutzen. Dafür brauchen sie zum Ausweis ein Beiblatt mit Wertmarke. Für manche Gruppen ist die Wertmarke kostenlos, sonst kostet sie einen Eigenanteil.",
+      "danach": "Die Behörde, die den Ausweis ausgestellt hat, schickt Beiblatt und Wertmarke für den gewählten Zeitraum. Danach rechtzeitig eine neue Wertmarke beantragen.",
+      "achtung": "Die Freifahrt gilt nicht im Fernverkehr. Wer die Wertmarke nutzt, bekommt keine Ermäßigung der Kfz-Steuer; eine vollständige Befreiung bei bestimmten Merkzeichen bleibt davon unberührt.",
+      "begriffe": [
+        "merkzeichen",
+        "schwerbehindertenausweis",
+        "versorgungsamt"
+      ],
+      "quellen": [
+        "wertmarke_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfz_steuer_behinderung",
+      "was": "Schwerbehinderte Menschen mit bestimmten Merkzeichen müssen für ein auf sie zugelassenes Fahrzeug keine oder nur ermäßigte Kfz-Steuer zahlen. Die Ermäßigung gibt es nur, wenn Sie auf die Freifahrt im Nahverkehr verzichten; die vollständige Befreiung lässt sich mit der Freifahrt verbinden.",
+      "danach": "Das Hauptzollamt prüft den Ausweis und setzt die Steuer neu fest. Die Vergünstigung gilt für ein Fahrzeug und nur, solange es überwiegend für Fahrten der behinderten Person genutzt wird.",
+      "begriffe": [
+        "merkzeichen",
+        "schwerbehindertenausweis"
+      ],
+      "quellen": [
+        "berlin_lageso_kfz"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "parkausweis_blau",
+      "was": "Der blaue EU-Parkausweis erlaubt das Parken auf gekennzeichneten Behindertenparkplätzen und weitere Parkerleichterungen. Ihn bekommen Menschen mit außergewöhnlicher Gehbehinderung oder Blindheit. Er gilt in der ganzen Europäischen Union.",
+      "danach": "Die Straßenverkehrsbehörde stellt den Ausweis auf Ihren Namen aus. Er gilt für die Person, nicht für ein bestimmtes Auto, und wird bei jeder Fahrt gut sichtbar ausgelegt.",
+      "begriffe": [
+        "merkzeichen"
+      ],
+      "quellen": [
+        "berlin_parkausweis"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "rundfunk_ermaessigung",
+      "was": "Menschen mit dem Merkzeichen RF zahlen einen ermäßigten Rundfunkbeitrag. Taubblinde Menschen und Empfänger von Blindenhilfe können ganz befreit werden. Die Ermäßigung gibt es nur auf Antrag, auch wenn das Merkzeichen schon im Ausweis steht.",
+      "danach": "Der Beitragsservice prüft den Nachweis und setzt den Beitrag herab. Die Ermäßigung gilt so lange wie der Nachweis; bei einem neuen Bescheid erneut einreichen.",
+      "begriffe": [
+        "merkzeichen",
+        "beitragsservice"
+      ],
+      "quellen": [
+        "berlin_rundfunk_rf"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "zusatzurlaub",
+      "was": "Schwerbehinderte Beschäftigte haben jedes Jahr zusätzlichen bezahlten Urlaub. Der Anspruch hängt nicht von einem Antrag beim Amt ab, sondern davon, dass die Schwerbehinderung festgestellt ist und der Arbeitgeber davon weiß.",
+      "danach": "Der Arbeitgeber rechnet den Zusatzurlaub zum normalen Urlaub hinzu. Wird die Schwerbehinderung im laufenden Jahr festgestellt, gibt es ihn anteilig.",
+      "achtung": "Gleichgestellte Menschen haben keinen Zusatzurlaub. Den Arbeitgeber rechtzeitig informieren, damit der Urlaub nicht verfällt.",
+      "begriffe": [
+        "schwerbehindertenausweis",
+        "grad_der_behinderung"
+      ],
+      "quellen": [
+        "sachsen_zusatzurlaub"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "gleichstellung",
+      "was": "Menschen mit einem Grad der Behinderung unterhalb der Schwerbehinderung können sich mit schwerbehinderten Menschen gleichstellen lassen, wenn sie ohne Gleichstellung ihren Arbeitsplatz nicht behalten oder keinen bekommen. Das bringt vor allem besonderen Kündigungsschutz und Hilfen am Arbeitsplatz.",
+      "danach": "Die Agentur für Arbeit holt meist eine Stellungnahme von Arbeitgeber und Betriebsrat ein und entscheidet per Bescheid. Die Gleichstellung gilt ab dem Tag des Antrags.",
+      "achtung": "Zusatzurlaub und Schwerbehindertenausweis gibt es mit der Gleichstellung nicht.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "grad_der_behinderung",
+        "kuendigungsschutz",
+        "bescheid"
+      ],
+      "quellen": [
+        "ihk_schwerbehinderung"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

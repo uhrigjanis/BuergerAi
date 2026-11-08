@@ -99,6 +99,8 @@ Für den Terminal-Dialog: `./bai`. Tests laufen auch über die Test-Ansicht von 
 | Quellen-Links prüfen | `./bai quellen --links --phase1` |
 | Zitate und Zahlen gegen die Quelle prüfen | `./bai quellen --abgleich --phase1` (läuft auch in GitHub Actions) |
 | Haben sich geprüfte Quellen geändert? | `./bai quellen --aenderungen` (läuft wöchentlich in GitHub Actions) |
+| Erklärtexte und Glossar durchsehen | `./bai erklaerungen --offen`, mit Text: `./bai erklaerungen elterngeld` (siehe [docs/erklaertexte.md](docs/erklaertexte.md)) |
+| Erklärtext abnehmen (nur Menschen) | `./bai erklaerungen --abnehmen elterngeld --von "Vorname Nachname"` |
 | Datenkonsistenz | `./bai daten` |
 | Testmatrix (Anforderung → Tests) | `./bai anforderungen --details` |
 | Web-Oberfläche | `./bai web` |
@@ -217,8 +219,9 @@ Angaben (Fakten) ───────────────────► Re
 src/buergerai/      Code: modell, wissensbasis, gebiete, regeln, fakten, fristen, planer, suche, ausgabe, cli, evaluation, llm/
   web/                Web-Oberfläche: api (JSON-Logik), server (http.server), static/ (HTML, CSS, ES-Module)
 data/               Wissensbasis (getrennt vom Code)
-  kern/               Fakten, die alle Fachmodule nutzen (Wohnort, Haushalt, Einkommen, Personen)
-  fachmodule/<id>/    je Fachmodul: modul.json (Steckbrief, Lebenslagen, Rollen), fakten.json, Leistungen und Bundesvarianten
+  kern/               Fakten, die alle Fachmodule nutzen (Wohnort, Haushalt, Einkommen, Personen), glossar.json (Fachbegriffe)
+  fachmodule/<id>/    je Fachmodul: modul.json (Steckbrief, Lebenslagen, Rollen), fakten.json, Leistungen und Bundesvarianten,
+                      erklaerungen.json (Erklärtext je Leistung, #113)
     familie/            Familie und Kinder mit der Lebenslage Geburt
   bund/               Bund und Länder (Gebiete), Quellen
   generiert/          automatisch importiert: alle Kreise, Gemeinden und PLZ (nicht von Hand ändern, ODbL)
@@ -232,6 +235,7 @@ docs/
   anforderungen.json  Anforderungen mit IDs (Quelle der Testmatrix)
   validierung.md      Stand der Prüfung gegen Primärquellen (inkl. Stichprobe je Land)
   pruefprotokolle/    Prüfprotokoll je Quelle (Wortlaut, Ergebnis, Abnahme)
+  erklaertexte.md     Regeln für Erklärtexte und Glossar, Prüfung und Abnahme
   datenquellen.md     Quellen und Lizenzen der importierten Daten, Import-Anleitung
   adr/                Architekturentscheidungen
 ```
@@ -243,6 +247,7 @@ docs/
 - Neues Fachmodul: Ordner `data/fachmodule/<id>/` mit `modul.json` (`fachmodul`, `lebenslagen` mit Einstiegsfragen, Synonymen und Beispielen, ggf. `rollen`) und `fakten.json`. Eigene Fakten mit Präfix `<id>.`. Regeln dürfen nur Kern-Fakten, eigene Fakten und unter `importiert_fakten` genannte Fakten anderer Module nutzen.
 - Leistung: `lebenslagen` (eine oder mehrere), `fuer` (`"haushalt"` oder Liste von Rollen), `art` (`pflicht`, `antrag`, `geldleistung`, `foerderprogramm`, `information`), optional `rechtsanspruch`, `beantragt_von` (`selbst`, `arbeitgeber`, `angehoerige`, `von_amts_wegen`) und `ortsbezug` (Fakt vom Typ `ort`, z. B. Lage der Immobilie).
 - Fristen: `bezug` ist `geburt`, `termin`, `keiner` oder ein Datumsfakt (z. B. Kaufdatum).
+- Erklärtext: Jede Leistung bekommt in `erklaerungen.json` ihres Fachmoduls einen Eintrag mit `was`, optional `danach` und `achtung`, `begriffe` (IDs aus `data/kern/glossar.json`) und `quellen`. Keine Zahlen, Beträge, Fristen, Links oder Zusagen; `./bai daten` prüft das. Regeln: [docs/erklaertexte.md](docs/erklaertexte.md).
 - Neue Kommune: `data/kommunen/<AGS>/geburt.json` mit Varianten; per `"erbt_von": "<varianten-id>"` übernimmt man Regel, Verfahren und Quellen und überschreibt nur, was vor Ort anders ist.
 - Regelknoten: `alle`, `eine`, `nicht` (mit `text`), `fakt` (mit `op`, `wert`, `text`, `quellen`) und `pruefung_noetig`. Operatoren: `== != < <= > >= in nicht_in`.
 - Nach jeder Änderung: `./bai daten && ./bai szenarien --pruefen && python -m pytest`.
@@ -389,6 +394,14 @@ Die CI (`.github/workflows/tests.yml`) läuft bei jedem PR mit Python 3.10 und 3
 - ✅ Wer im Ausland geheiratet hat, wird nach dem Heiratsort gefragt: Eintrag ins deutsche Eheregister (§ 34 PStG, freiwillig, nur mit deutschem Ehegatten; zuständig das Standesamt am Wohnsitz bzw. Standesamt I in Berlin) und Erklärung zum Ehenamen beim Standesamt
 - ✅ 2 neue Szenarien, 169/169 Anforderungen mit Tests (gesamt)
 - ⏳ Namensrecht seit 1.5.2025 neu: wählbare Ehenamen noch amtlich prüfen ([docs/validierung.md](docs/validierung.md))
+
+## Stand Erklärtexte (#113)
+
+- ✅ Alle 101 Leistungen haben einen Erklärtext: was die Leistung ist, was nach dem Antrag passiert, Stolpersteine; dazu ein Glossar mit 59 Fachbegriffen
+- ✅ Textregeln beim Laden: keine Zahlen, Mengen, Beträge, Paragraphen, Links oder Zusagen; Beträge und Fristen kommen weiter aus den strukturierten Daten
+- ✅ Sichtbar in der Detailansicht („Was ist das?“ mit aufklappbaren Begriffen), im Terminal mit `--details` und im Antworttext (LLM und Vorlage)
+- ✅ Eigener Prüfstatus je Text; `./bai erklaerungen` zum Durchsehen und Abnehmen; die Texte erscheinen in den Verwendungen ihrer Quellen und damit in neuen Prüfprotokollen
+- ⏳ Alle Texte `ungeprueft`: Entwurf aus den Daten der Wissensbasis und allgemeinem Wissen, die amtlichen Seiten waren aus der Entwicklungsumgebung nicht abrufbar. Vor dem Betrieb Text für Text abnehmen ([docs/erklaertexte.md](docs/erklaertexte.md))
 
 Nächste Schritte: Alle Lebenslagen aus #41 sind erfasst; danach LLM-Schicht (Phase 3) mit Freitext-Intake. Die Web-Oberfläche bleibt als Notbremse ohne LLM bestehen.
 

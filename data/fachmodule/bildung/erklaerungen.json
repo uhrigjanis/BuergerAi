@@ -1,0 +1,105 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "bafoeg_studium",
+      "was": "BAföG unterstützt Studierende, deren eigenes Geld und das ihrer Eltern nicht für Lebensunterhalt und Ausbildung reicht. Ein Teil ist Zuschuss, der Rest ein zinsloses Darlehen. Die Höhe hängt vor allem vom Einkommen der Eltern, der Wohnsituation und der Versicherung ab.",
+      "danach": "Das Amt für Ausbildungsförderung beim Studierendenwerk prüft den Antrag und schickt einen Bescheid für einen Bewilligungszeitraum. Danach ist ein Folgeantrag nötig, ab einem bestimmten Semester mit Leistungsnachweis.",
+      "achtung": "BAföG gibt es frühestens ab dem Monat, in dem der Antrag gestellt wurde. Fehlende Unterlagen lassen sich nachreichen, der Antrag sollte deshalb früh gestellt werden.",
+      "begriffe": [
+        "darlehen",
+        "bescheid",
+        "bewilligungszeitraum"
+      ],
+      "quellen": [
+        "bmftr_bafoeg",
+        "dsw_bafoeg_saetze"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "berufsausbildungsbeihilfe",
+      "was": "Die Berufsausbildungsbeihilfe hilft Auszubildenden in einer betrieblichen Ausbildung, die nicht bei den Eltern wohnen, weil der Betrieb zu weit weg ist oder sie schon älter, verheiratet oder Eltern sind. Sie ist ein Zuschuss und muss nicht zurückgezahlt werden.",
+      "danach": "Die Agentur für Arbeit berechnet den Bedarf aus Ausbildungsvergütung, Miete und dem Einkommen der Eltern und schickt einen Bescheid. Bewilligt wird in der Regel für einen begrenzten Zeitraum, danach ist ein Weiterbewilligungsantrag nötig.",
+      "achtung": "Gezahlt wird frühestens ab dem Monat des Antrags. Für schulische Ausbildungen gibt es keine Berufsausbildungsbeihilfe, sondern unter Umständen Schüler-BAföG.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "bescheid",
+        "bewilligungszeitraum"
+      ],
+      "quellen": [
+        "ba_bab_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kindergeld_ausbildung",
+      "was": "Für volljährige Kinder in Ausbildung oder Studium gibt es weiter Kindergeld bis zu einer Altersgrenze. Es bekommen die Eltern, nicht das Kind selbst. Damit es weiterläuft, muss die Familienkasse von der Ausbildung wissen.",
+      "danach": "Die Familienkasse prüft die Bescheinigung von Schule, Hochschule oder Betrieb und zahlt weiter. Sie fragt zwischendurch nach, ob die Ausbildung noch andauert.",
+      "achtung": "Endet oder wechselt die Ausbildung, muss das der Familienkasse gemeldet werden. Zu Unrecht gezahltes Kindergeld wird zurückgefordert.",
+      "begriffe": [
+        "familienkasse",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "ba_kindergeld_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "aufstiegs_bafoeg",
+      "was": "Das Aufstiegs-BAföG fördert berufliche Fortbildungen zu Meisterin, Techniker, Fachwirtin, Erzieher und ähnlichen Abschlüssen, unabhängig vom Alter. Es gibt Zuschüsse und günstige Darlehen für Lehrgang und Prüfung, bei Vollzeit auch für den Lebensunterhalt.",
+      "danach": "Das zuständige Amt prüft den Antrag und den Fortbildungsplan und bewilligt die Förderung. Das Darlehen kommt von der KfW. Nach bestandener Prüfung kann ein Teil des Darlehens erlassen werden.",
+      "achtung": "Den Antrag möglichst vor Lehrgangsbeginn stellen. Den Erlass nach der Prüfung extra beantragen, er kommt nicht automatisch.",
+      "begriffe": [
+        "darlehen"
+      ],
+      "quellen": [
+        "aufstiegs_bafoeg_drv"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "meisterbonus",
+      "was": "Viele Länder belohnen eine bestandene Meisterprüfung oder eine vergleichbare berufliche Fortbildungsprüfung mit einer einmaligen Prämie. Name, Höhe und Voraussetzungen sind je Land verschieden; maßgeblich ist meist Wohnsitz oder Arbeitsort.",
+      "danach": "Nach dem Antrag mit Prüfungszeugnis prüft die zuständige Stelle, oft die Kammer, die Voraussetzungen und zahlt die Prämie aus.",
+      "achtung": "Manche Länder setzen eine Antragsfrist nach der Prüfung. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "handwerkskammer",
+        "ermessen"
+      ],
+      "quellen": [
+        "be_meisterbonus",
+        "bw_meisterpraemie",
+        "by_meisterbonus",
+        "hb_aufstiegspraemie"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "schulanmeldung",
+      "was": "In Deutschland gilt Schulpflicht. Wann ein Kind schulpflichtig wird, legt jedes Land mit einem Stichtag fest. Eltern müssen ihr Kind rechtzeitig an der zuständigen Grundschule anmelden; meist gehört eine Einschulungsuntersuchung dazu.",
+      "danach": "Die Schule bestätigt die Anmeldung und informiert über den Ablauf bis zur Einschulung. Das Gesundheitsamt lädt zur Untersuchung ein. Über eine frühere oder spätere Einschulung entscheidet die Schule auf Antrag.",
+      "achtung": "Welche Grundschule zuständig ist, richtet sich oft nach dem Wohnort. Eine andere Schule ist nur auf Antrag möglich.",
+      "begriffe": [],
+      "quellen": [
+        "bb_einschulung",
+        "bildungsserver_stichtage"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "ganztag_grundschule",
+      "was": "Für Grundschulkinder gibt es schrittweise einen Rechtsanspruch auf Ganztagsbetreuung an allen Werktagen, auch in den Ferien. Er beginnt mit den neu eingeschulten Kindern und wächst jedes Jahr um eine Klassenstufe. Wie die Betreuung aussieht, regeln die Länder.",
+      "danach": "Nach der Anmeldung bei Schule oder Träger wird ein Platz zugewiesen. Für die Betreuung können Elternbeiträge anfallen. Gibt es keinen Platz, kann der Anspruch beim Jugendamt geltend gemacht werden.",
+      "begriffe": [
+        "rechtsanspruch",
+        "jugendamt"
+      ],
+      "quellen": [
+        "bmbfsfj_ganztag"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

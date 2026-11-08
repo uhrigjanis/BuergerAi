@@ -8,7 +8,9 @@ Fachliches gehört an feste Orte (ADR 0008):
 
 - ``data/kern/``: Fakten und Rollen, die alle Fachmodule verwenden dürfen.
 - ``data/fachmodule/<id>/``: ein Fachmodul (``fachmodul``, ``lebenslagen``,
-  ``rollen``, ``fakten`` sowie seine Leistungen und Bundesvarianten).
+  ``rollen``, ``fakten`` sowie seine Leistungen und Bundesvarianten) und in
+  ``erklaerungen.json`` die Erklärtexte seiner Leistungen (#113).
+- ``glossar`` (Fachbegriffe für die Erklärtexte) gehört nach ``data/kern/``.
 
 Automatisch erzeugte Daten (Kreise, Gemeinden, PLZ) liegen unter
 ``data/generiert/`` (siehe ``gebietsimport.py``).
@@ -23,13 +25,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Optional
 
+from .erklaertexte import text_pruefen
 from .fakten import ABLEITUNGEN, TYPEN, FaktDefinition, ist_jahreszahl
 from .modell import (
     Betrag,
     Ebene,
+    Erklaerung,
     Fachmodul,
     Frist,
     Gebiet,
+    Glossarbegriff,
     Landesabdeckung,
     Lebenslage,
     Leistung,
@@ -125,6 +130,8 @@ class Wissensbasis:
     lebenslagen: dict[str, Lebenslage] = field(default_factory=dict)
     rollen: dict[str, Rolle] = field(default_factory=dict)
     landesabdeckung: dict[tuple[str, str], Landesabdeckung] = field(default_factory=dict)
+    erklaerungen: dict[str, Erklaerung] = field(default_factory=dict)  # Leistungs-ID -> Erklärtext (#113)
+    glossar: dict[str, Glossarbegriff] = field(default_factory=dict)
     dateien: list[Path] = field(default_factory=list)
     _roh_varianten: list[tuple[dict[str, Any], Path]] = field(default_factory=list, repr=False)
     # Indizes, die bei Bedarf neu aufgebaut werden, sobald sich die Zahl der Objekte ändert
@@ -174,16 +181,48 @@ class Wissensbasis:
 
     def _einlesen(self, inhalt: dict[str, Any], datei: Path, modul: Optional[str], fehler: list[str]) -> None:
         bekannt = {"gebiete", "leistungen", "varianten", "quellen", "zustaendigkeiten", "fakten", "abdeckung",
-                   "fachmodul", "lebenslagen", "rollen", "_hinweis", "_import"}
+                   "fachmodul", "lebenslagen", "rollen", "erklaerungen", "glossar", "_hinweis", "_import"}
         for schluessel in inhalt:
             if schluessel not in bekannt:
                 fehler.append(f"{datei}: unbekannter Schlüssel {schluessel}")
         for schluessel in ("fakten", "rollen"):
             if inhalt.get(schluessel) and modul is None:
                 fehler.append(f"{datei}: '{schluessel}' gehören nach data/kern/ oder data/fachmodule/<id>/")
-        for schluessel in ("fachmodul", "lebenslagen"):
+        for schluessel in ("fachmodul", "lebenslagen", "erklaerungen"):
             if inhalt.get(schluessel) and modul in (None, KERN):
                 fehler.append(f"{datei}: '{schluessel}' gehört nach data/fachmodule/<id>/")
+        if inhalt.get("glossar") and modul != KERN:
+            fehler.append(f"{datei}: 'glossar' gehört nach data/kern/")
+        for e in inhalt.get("erklaerungen", []) if modul not in (None, KERN) else []:
+            if e["leistung_id"] in self.erklaerungen:
+                fehler.append(f"{datei}: doppelter Erklärtext für {e['leistung_id']}")
+            self.erklaerungen[e["leistung_id"]] = Erklaerung(
+                leistung_id=e["leistung_id"],
+                was=e["was"],
+                danach=e.get("danach"),
+                achtung=e.get("achtung"),
+                begriffe=tuple(e.get("begriffe", ())),
+                quellen=tuple(e.get("quellen", ())),
+                pruefstatus=Pruefstatus(e.get("pruefstatus", "ungeprueft")),
+                geprueft_am=parse_datum(e.get("geprueft_am")),
+                geprueft_von=e.get("geprueft_von"),
+                modul=modul,
+            )
+        for g in inhalt.get("glossar", []) if modul == KERN else []:
+            self._neu(
+                self.glossar,
+                Glossarbegriff(
+                    id=g["id"],
+                    begriff=g["begriff"],
+                    erklaerung=g["erklaerung"],
+                    quellen=tuple(g.get("quellen", ())),
+                    pruefstatus=Pruefstatus(g.get("pruefstatus", "ungeprueft")),
+                    geprueft_am=parse_datum(g.get("geprueft_am")),
+                    geprueft_von=g.get("geprueft_von"),
+                ),
+                datei,
+                fehler,
+            )
         for g in inhalt.get("gebiete", []):
             self._neu(
                 self.gebiete,
@@ -639,6 +678,41 @@ class Wissensbasis:
                 quellen_ok(b.quellen, f"{wo} (Betrag)")
             if not self.varianten_von(l.id):
                 fehler.append(f"{wo}: keine Variante vorhanden")
+
+        # Erklärtexte und Glossar (#113)
+        def status_ok(objekt: Erklaerung | Glossarbegriff, wo: str) -> None:
+            if objekt.pruefstatus is Pruefstatus.VERIFIZIERT and not (objekt.geprueft_am and objekt.geprueft_von):
+                fehler.append(f"{wo}: 'verifiziert' braucht geprueft_am und geprueft_von")
+            if not objekt.quellen:
+                fehler.append(f"{wo}: braucht mindestens eine Quelle")
+            quellen_ok(objekt.quellen, wo)
+
+        for e in self.erklaerungen.values():
+            wo = f"Erklärtext {e.leistung_id}"
+            leistung = self.leistungen.get(e.leistung_id)
+            if leistung is None:
+                fehler.append(f"{wo}: unbekannte Leistung")
+                continue
+            if e.modul not in self.module_von_leistung(leistung):
+                fehler.append(f"{wo}: gehört in ein Modul der Leistung ({', '.join(sorted(self.module_von_leistung(leistung)))}), "
+                              f"nicht nach {e.modul}")
+            for art, text in (("was", e.was), ("danach", e.danach), ("achtung", e.achtung)):
+                if text is not None or art == "was":
+                    fehler.extend(f"{wo} ({art}): {f}" for f in text_pruefen(text, art))
+            for b in e.begriffe:
+                if b not in self.glossar:
+                    fehler.append(f"{wo}: unbekannter Glossarbegriff {b}")
+            if len(set(e.begriffe)) != len(e.begriffe):
+                fehler.append(f"{wo}: Glossarbegriff doppelt")
+            status_ok(e, wo)
+        begriffe_klein: dict[str, str] = {}
+        for g in self.glossar.values():
+            wo = f"Glossarbegriff {g.id}"
+            fehler.extend(f"{wo}: {f}" for f in text_pruefen(g.erklaerung, "glossar"))
+            if g.begriff.lower() in begriffe_klein:
+                fehler.append(f"{wo}: Begriff {g.begriff!r} ist schon als {begriffe_klein[g.begriff.lower()]} definiert")
+            begriffe_klein[g.begriff.lower()] = g.id
+            status_ok(g, wo)
 
         # Varianten
         for v in self.varianten.values():

@@ -62,6 +62,13 @@ PRUEF_TEXT = {
     Pruefstatus.WIDERSPRUECHLICH: "Quellen widersprüchlich",
 }
 GEAENDERT_KURZ = "Quelle seit Prüfung geändert"
+# Prüfstatus eines Erklärtextes oder Glossarbegriffs (#113): gilt für den Text, nicht für die Quellen
+ERKLAERUNG_PRUEF_TEXT = {
+    Pruefstatus.VERIFIZIERT: "Erklärung von einem Menschen geprüft",
+    Pruefstatus.TEILWEISE: "Erklärung teilweise geprüft",
+    Pruefstatus.UNGEPRUEFT: "Erklärung noch nicht geprüft",
+    Pruefstatus.WIDERSPRUECHLICH: "Erklärung widersprüchlich",
+}
 
 
 def geaendert_text(q: Quelle) -> str:
@@ -205,6 +212,19 @@ def eintrag_text(
             zeilen.append(f"{einrueck}{f.gruen('✓')} Keine besonderen Voraussetzungen")
         for s in gruende:
             zeilen.append(einrueck + schritt_text(s, kb, f))
+
+    erklaerung = kb.erklaerungen.get(l.id)
+    if details and erklaerung:
+        zeilen.append(f"   Was ist das? {f.grau('[' + ERKLAERUNG_PRUEF_TEXT[erklaerung.pruefstatus] + ']')}")
+        zeilen.append(f"     {erklaerung.was}")
+        if e.ergebnis is not Wert.NEIN:
+            if erklaerung.danach:
+                zeilen.append(f"   Nach dem Antrag: {erklaerung.danach}")
+            if erklaerung.achtung:
+                zeilen.append(f"   {f.gelb('Achtung:')} {erklaerung.achtung}")
+        for b in erklaerung.begriffe:
+            g = kb.glossar[b]
+            zeilen.append(f"   {f.grau('Begriff ' + g.begriff + ':')} {g.erklaerung}")
 
     if details and e.ergebnis is not Wert.NEIN:
         v = e.variante.verfahren

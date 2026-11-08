@@ -39,6 +39,8 @@ Du bekommst den Bericht als JSON. Er ist vollständig und richtig. Du entscheide
 Regeln:
 - Schreibe für jede Leistung im Bericht genau einen Eintrag mit ihrer id, keine weiteren.
 - 2 bis 4 kurze Sätze je Leistung: was es ist, was die Person jetzt tun sollte, bis wann.
+- Was eine Leistung ist und was nach dem Antrag passiert, steht in "erklaerung". Nutze nur das,
+  kein eigenes Wissen. Fehlt "erklaerung", reicht "kurz".
 - Das Ergebnis (ja, nein, unklar) übernimmst du. Mache keine Zusagen wie "sicher" oder "garantiert".
   Bei "nein" und "unklar" schreibe nie, dass die Person die Leistung bekommt.
 - Bei "unklar": sage, welche Angaben fehlen (fehlende_angaben).
@@ -74,6 +76,7 @@ def modell_daten(kb: Wissensbasis, bericht: Bericht) -> dict[str, Any]:
     leistungen = []
     for e in bericht.eintraege:
         hinweise = ([anspruch_text(e.leistung)] if anspruch_text(e.leistung) else []) + list(e.variante.hinweise)
+        erklaerung = kb.erklaerungen.get(e.leistung.id)
         leistungen.append({
             "id": e.leistung.id,
             "name": e.leistung.name,
@@ -84,6 +87,12 @@ def modell_daten(kb: Wissensbasis, bericht: Bericht) -> dict[str, Any]:
             "zustaendig": e.zustaendigkeit.name,
             "fehlende_angaben": [frage_zu(kb, fid) for fid in e.fehlend],
             "hinweise": hinweise,
+            # Geprüfter Erklärtext (#113), ausgewählt über die Leistungs-ID; bei "nein" nur, was die Leistung ist
+            "erklaerung": None if erklaerung is None else {
+                "was": erklaerung.was,
+                "danach": erklaerung.danach if e.ergebnis is not Wert.NEIN else None,
+                "achtung": erklaerung.achtung if e.ergebnis is not Wert.NEIN else None,
+            },
         })
     return {
         "stichtag": _datum(bericht.anfrage.stichtag),
@@ -175,16 +184,23 @@ def _zusammensetzen(kb: Wissensbasis, bericht: Bericht, einleitung: str, texte: 
 # ------------------------------------------------------------------ Vorlage
 def _vorlage_text(l: dict[str, Any]) -> str:
     saetze = [l["kurz"].rstrip(".") + "."]
+    erklaerung = l.get("erklaerung") or {}
     if l["ergebnis"] == "nein":
         saetze.append("Nach Ihren Angaben besteht voraussichtlich kein Anspruch.")
     else:
+        if erklaerung.get("was"):
+            saetze.append(erklaerung["was"])
         if l["betrag"]:
             saetze.append(f"Betrag: {l['betrag'].rstrip('.')}.")
         saetze += [f"Frist: {f.rstrip('.')}." for f in l["fristen"]]
         if l["fehlende_angaben"]:
             saetze.append("Dafür fehlt noch: " + "; ".join(f.rstrip("?") for f in l["fehlende_angaben"]) + ".")
         saetze.append(f"Zuständig: {l['zustaendig']}.")
+        if erklaerung.get("danach"):
+            saetze.append(f"Nach dem Antrag: {erklaerung['danach']}")
     saetze += [h.rstrip(".") + "." for h in l["hinweise"]]
+    if erklaerung.get("achtung"):
+        saetze.append(f"Achtung: {erklaerung['achtung']}")
     return " ".join(saetze)
 
 

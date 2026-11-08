@@ -1,0 +1,293 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "pflegegrad_beantragen",
+      "was": "Leistungen der Pflegeversicherung gibt es nur mit festgestelltem Pflegegrad. Der Antrag bei der Pflegekasse ist deshalb der erste Schritt. Er kann formlos, auch telefonisch, gestellt werden – von der pflegebedürftigen Person selbst oder mit Vollmacht von Angehörigen.",
+      "danach": "Die Pflegekasse beauftragt den Medizinischen Dienst, der die Person zu Hause oder in der Einrichtung besucht und begutachtet. Danach entscheidet die Pflegekasse per Bescheid über den Pflegegrad. Die Leistungen gelten ab dem Tag des Antrags.",
+      "achtung": "Bei der Begutachtung sollte eine vertraute Person dabei sein. Ein Pflegetagebuch hilft, den Hilfebedarf im Alltag vollständig zu schildern. Gegen einen zu niedrigen Pflegegrad ist ein Widerspruch möglich.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad",
+        "medizinischer_dienst",
+        "bescheid",
+        "widerspruch"
+      ],
+      "quellen": [
+        "bmg_pflegegrade",
+        "betanet_pflegeantrag"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegeberatung",
+      "was": "Pflegebedürftige und ihre Angehörigen haben Anspruch auf kostenlose, persönliche Pflegeberatung. Die Beratung hilft, die passenden Leistungen zu finden, Anträge zu stellen und die Pflege zu organisieren. Sie ist auch schon vor einem Pflegegrad möglich.",
+      "danach": "Nach dem Gespräch gibt es auf Wunsch einen Versorgungsplan mit den nächsten Schritten. Die Beratung kann zu Hause, telefonisch oder in einem Pflegestützpunkt stattfinden.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegestuetzpunkt",
+        "pflegegrad"
+      ],
+      "quellen": [
+        "betanet_pflegeantrag"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegegeld",
+      "was": "Pflegegeld gibt es, wenn Angehörige, Freunde oder andere ehrenamtlich Helfende die Pflege zu Hause übernehmen. Die pflegebedürftige Person bekommt das Geld und kann frei damit umgehen, etwa um die Pflegeperson anzuerkennen. Die Höhe richtet sich nach dem Pflegegrad.",
+      "danach": "Die Pflegekasse zahlt monatlich. Wer Pflegegeld bezieht, muss regelmäßig einen Beratungsbesuch zu Hause nachweisen; sonst kann das Pflegegeld gekürzt werden.",
+      "achtung": "Kommt zusätzlich ein Pflegedienst, wird das Pflegegeld anteilig gekürzt. Den Pflegegrad bei Verschlechterung neu prüfen lassen.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad",
+        "pflegeperson"
+      ],
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_sachleistungen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegesachleistung",
+      "was": "Mit der Pflegesachleistung bezahlt die Pflegekasse einen zugelassenen ambulanten Pflegedienst für Pflege und Hilfe im Haushalt, bis zu einem Höchstbetrag je Pflegegrad. Sie lässt sich mit dem Pflegegeld kombinieren, wenn Angehörige einen Teil der Pflege selbst übernehmen.",
+      "danach": "Der Pflegedienst schließt mit der pflegebedürftigen Person einen Pflegevertrag und rechnet direkt mit der Pflegekasse ab. Kosten über dem Höchstbetrag stellt er selbst in Rechnung.",
+      "achtung": "Nicht ausgeschöpfte Sachleistungen lassen sich teilweise für Angebote zur Unterstützung im Alltag nutzen. Danach bei der Pflegekasse fragen.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad"
+      ],
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_sachleistungen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "entlastungsbetrag",
+      "was": "Der Entlastungsbetrag steht allen Pflegebedürftigen zu Hause zu, auch mit dem niedrigsten Pflegegrad. Er ist zweckgebunden und dient dazu, pflegende Angehörige zu entlasten, etwa durch Haushaltshilfen, Betreuungsgruppen, Tages- oder Kurzzeitpflege.",
+      "danach": "Die Pflegekasse erstattet die Kosten, wenn Sie Rechnungen anerkannter Anbieter einreichen. Manche Anbieter rechnen auch direkt mit der Pflegekasse ab.",
+      "achtung": "Der Betrag wird nicht bar ausgezahlt. Nicht genutzte Beträge verfallen erst nach einer Übertragungsfrist.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad",
+        "tagespflege"
+      ],
+      "quellen": [
+        "bmg_leistungsbetraege_2026",
+        "bmg_entlastungsbetrag"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "verhinderungs_kurzzeitpflege",
+      "was": "Verhinderungspflege bezahlt eine Ersatzpflege, wenn die Pflegeperson Urlaub macht, krank ist oder aus anderen Gründen ausfällt. Kurzzeitpflege ist eine vorübergehende Pflege in einer Einrichtung, etwa nach einem Krankenhausaufenthalt. Beide teilen sich einen gemeinsamen Jahresbetrag.",
+      "danach": "Die Pflegekasse erstattet die Kosten nach Einreichen der Rechnungen bzw. zahlt bei Kurzzeitpflege direkt an die Einrichtung. Während der Ersatzpflege läuft ein Teil des Pflegegelds weiter.",
+      "achtung": "Die Ersatzpflege kann auch von Verwandten oder Nachbarn übernommen werden. Dann gelten andere Regeln für die Erstattung.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegeperson"
+      ],
+      "quellen": [
+        "bmg_leistungsbetraege_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegehilfsmittel",
+      "was": "Pflegehilfsmittel erleichtern die Pflege zu Hause. Die Pflegekasse übernimmt zum Verbrauch bestimmte Produkte wie Einmalhandschuhe, Bettschutzeinlagen und Desinfektionsmittel bis zu einem monatlichen Betrag. Technische Hilfen wie ein Pflegebett werden meist leihweise gestellt.",
+      "danach": "Nach der Genehmigung liefern Apotheken oder Anbieter die Verbrauchsprodukte regelmäßig und rechnen direkt mit der Pflegekasse ab. Technische Hilfsmittel kommen nach Prüfung durch die Pflegekasse.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad"
+      ],
+      "quellen": [
+        "sgb11_40",
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "wohnumfeld",
+      "was": "Die Pflegekasse bezuschusst Umbauten in der Wohnung, die die Pflege erleichtern oder ein selbstständigeres Leben ermöglichen, zum Beispiel eine bodengleiche Dusche, einen Treppenlift, breitere Türen oder Haltegriffe. Leben mehrere Pflegebedürftige zusammen, kann der Zuschuss höher ausfallen.",
+      "danach": "Die Pflegekasse prüft den Antrag mit Kostenvoranschlag, manchmal mit einem Hausbesuch, und sagt den Zuschuss zu. Danach lassen Sie den Umbau ausführen und reichen die Rechnung ein.",
+      "achtung": "Den Zuschuss beantragen, bevor der Umbau beginnt. Erst nach der Zusage beauftragen.",
+      "begriffe": [
+        "pflegekasse",
+        "pflegegrad"
+      ],
+      "quellen": [
+        "sgb11_40",
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflege_im_heim",
+      "was": "Lebt eine pflegebedürftige Person dauerhaft im Pflegeheim, beteiligt sich die Pflegekasse an den Pflegekosten. Unterkunft, Verpflegung und Investitionskosten tragen Bewohner selbst. Mit zunehmender Dauer im Heim gibt die Pflegekasse einen höheren Zuschuss zum Eigenanteil.",
+      "danach": "Die Pflegekasse zahlt direkt an das Heim. Den verbleibenden Eigenanteil stellt das Heim monatlich in Rechnung.",
+      "achtung": "Reichen Rente und Vermögen für den Eigenanteil nicht, kann das Sozialamt mit Hilfe zur Pflege einspringen. Den Antrag frühzeitig stellen.",
+      "begriffe": [
+        "pflegekasse",
+        "eigenanteil",
+        "sozialamt"
+      ],
+      "quellen": [
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "hilfe_zur_pflege",
+      "was": "Hilfe zur Pflege ist eine Leistung der Sozialhilfe. Das Sozialamt übernimmt Pflegekosten, die weder die Pflegeversicherung noch das eigene Einkommen und Vermögen decken – zu Hause wie im Heim. Das gilt auch für Menschen ohne Pflegeversicherung.",
+      "danach": "Das Sozialamt prüft Einkommen und Vermögen und schickt einen Bescheid. Kinder werden erst bei sehr hohem Einkommen zum Unterhalt herangezogen.",
+      "achtung": "Hilfe gibt es erst ab dem Zeitpunkt, zu dem das Sozialamt vom Bedarf erfährt. Deshalb früh Bescheid geben, Unterlagen lassen sich nachreichen.",
+      "begriffe": [
+        "sozialamt",
+        "eigenanteil",
+        "bescheid"
+      ],
+      "quellen": [
+        "gesund_bund_hzp",
+        "hoexter_hzp"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "arbeitsverhinderung_pflege",
+      "was": "Wer für einen nahen Angehörigen plötzlich Pflege organisieren oder sicherstellen muss, darf kurzzeitig der Arbeit fernbleiben, ohne Urlaub zu nehmen. Das gilt in jedem Betrieb, unabhängig von der Größe. Für die freien Tage kann es Pflegeunterstützungsgeld geben.",
+      "danach": "Der Arbeitgeber muss die Freistellung gewähren, kann aber eine ärztliche Bescheinigung verlangen. Von der Ankündigung bis zum Ende der Freistellung gilt Kündigungsschutz.",
+      "achtung": "Den Arbeitgeber sofort informieren, wie lange Sie voraussichtlich fehlen.",
+      "begriffe": [
+        "naher_angehoeriger",
+        "kuendigungsschutz"
+      ],
+      "quellen": [
+        "bmg_arbeitsverhinderung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegeunterstuetzungsgeld",
+      "was": "Pflegeunterstützungsgeld ersetzt den Lohn für die kurzfristige Freistellung bei einem akuten Pflegefall, wenn der Arbeitgeber nicht weiterzahlt. Es zahlt die Pflegekasse der pflegebedürftigen Person, nicht die eigene Krankenkasse.",
+      "danach": "Die Pflegekasse prüft die ärztliche Bescheinigung und die Verdienstbescheinigung des Arbeitgebers und zahlt danach aus.",
+      "achtung": "Den Antrag unverzüglich stellen. Das Geld gibt es nur für eine begrenzte Zahl von Tagen je pflegebedürftiger Person und Jahr.",
+      "begriffe": [
+        "pflegekasse",
+        "naher_angehoeriger"
+      ],
+      "quellen": [
+        "bmg_pflegeunterstuetzungsgeld",
+        "bmg_arbeitsverhinderung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegezeit",
+      "was": "Pflegezeit ist eine vollständige oder teilweise Freistellung von der Arbeit, um einen nahen Angehörigen zu Hause zu pflegen. Sie ist unbezahlt; für das fehlende Einkommen gibt es ein zinsloses Darlehen. Den Anspruch gibt es nur in Betrieben ab einer bestimmten Größe.",
+      "danach": "Der Arbeitgeber muss die angekündigte Pflegezeit gewähren. Während der Pflegezeit besteht Kündigungsschutz. Wie Sie in dieser Zeit kranken- und pflegeversichert bleiben, vorher mit der Krankenkasse klären.",
+      "achtung": "Die Pflegezeit muss rechtzeitig und schriftlich angekündigt werden. Pflegezeit und Familienpflegezeit dürfen zusammen eine Höchstdauer nicht überschreiten.",
+      "begriffe": [
+        "naher_angehoeriger",
+        "kuendigungsschutz",
+        "darlehen"
+      ],
+      "quellen": [
+        "bmbfsfj_familienpflegezeit",
+        "compass_infoblatt_pflegezeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "familienpflegezeit",
+      "was": "Familienpflegezeit erlaubt es, die Arbeitszeit für längere Zeit zu verringern, um einen nahen Angehörigen zu Hause zu pflegen. Eine Mindeststundenzahl pro Woche bleibt. Für das fehlende Einkommen gibt es ein zinsloses Darlehen.",
+      "danach": "Der Arbeitgeber und Sie vereinbaren schriftlich Umfang und Verteilung der Arbeitszeit. Während der Familienpflegezeit besteht Kündigungsschutz.",
+      "achtung": "In kleineren Betrieben gibt es keinen Rechtsanspruch, nur eine freiwillige Vereinbarung mit dem Arbeitgeber.",
+      "begriffe": [
+        "naher_angehoeriger",
+        "kuendigungsschutz",
+        "darlehen",
+        "rechtsanspruch"
+      ],
+      "quellen": [
+        "bmbfsfj_familienpflegezeit",
+        "compass_infoblatt_pflegezeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegezeit_darlehen",
+      "was": "Während Pflegezeit oder Familienpflegezeit fällt Einkommen weg. Das Bundesamt für Familie und zivilgesellschaftliche Aufgaben gleicht einen Teil davon mit einem zinslosen Darlehen aus. Es wird monatlich gezahlt und nach dem Ende der Freistellung in Raten zurückgezahlt.",
+      "danach": "Das Bundesamt prüft den Antrag mit der Bescheinigung des Arbeitgebers und zahlt monatlich aus. Nach der Freistellung beginnt die Rückzahlung; in Härtefällen ist eine Stundung oder ein Teilerlass möglich.",
+      "begriffe": [
+        "darlehen"
+      ],
+      "quellen": [
+        "bmbfsfj_familienpflegezeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "rente_pflegeperson",
+      "was": "Wer einen Pflegebedürftigen zu Hause in größerem Umfang pflegt und daneben nicht voll arbeitet, wird über die Pflegekasse rentenversichert. Die Pflegekasse zahlt die Beiträge; das erhöht später die eigene Rente. Auch Unfallversicherung und Arbeitslosenversicherung können hinzukommen.",
+      "danach": "Die Pflegekasse meldet die Pflegeperson an die Rentenversicherung und zahlt die Beiträge laufend. In Ihrem Rentenkonto erscheinen die Pflegezeiten als Beitragszeiten.",
+      "achtung": "Ändert sich der Umfang der Pflege oder Ihre Arbeitszeit, der Pflegekasse Bescheid geben.",
+      "begriffe": [
+        "pflegeperson",
+        "pflegekasse",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "sgb11_44",
+        "pflegestuetzpunkte_berlin_sicherung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "landespflegegeld",
+      "was": "Einige Länder zahlen Pflegebedürftigen zusätzlich zu den Leistungen der Pflegekasse ein eigenes Landespflegegeld. Es ist unabhängig von Einkommen und Vermögen und soll die Selbstbestimmung stärken, etwa um Helfenden etwas zurückzugeben.",
+      "danach": "Die zuständige Landesstelle prüft den Pflegegrad und zahlt die Leistung aus, in Bayern einmal im Jahr. Wer es schon bekommen hat, muss meist keinen neuen Antrag stellen.",
+      "begriffe": [
+        "pflegegrad"
+      ],
+      "quellen": [
+        "lfp_landespflegegeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "landesblindengeld",
+      "was": "Alle Länder zahlen blinden Menschen ein monatliches Blindengeld, in einigen Ländern auch hochgradig sehbehinderten oder gehörlosen Menschen. Es gleicht Mehraufwand aus und hängt nicht von Einkommen und Vermögen ab. Name und Höhe regelt jedes Land selbst.",
+      "danach": "Die zuständige Stelle des Landes prüft die augenärztlichen Unterlagen oder den Bescheid mit Merkzeichen Bl und zahlt danach monatlich. Leistungen der Pflegeversicherung werden teilweise angerechnet.",
+      "achtung": "Gezahlt wird meist erst ab dem Monat des Antrags. Deshalb nicht warten, bis der Ausweis da ist.",
+      "begriffe": [
+        "merkzeichen",
+        "versorgungsamt",
+        "bescheid"
+      ],
+      "quellen": [
+        "service_bw_blindenhilfe",
+        "zbfs_blindengeld",
+        "bremen_landespflegegeld",
+        "lwv_hessen_blindengeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "pflegewohngeld",
+      "was": "Pflegewohngeld ist ein Zuschuss einiger Länder zu den Investitionskosten im Pflegeheim, also dem Anteil für Gebäude und Ausstattung. Es gibt ihn, wenn Einkommen und Vermögen der Bewohnerin oder des Bewohners nicht reichen. Kinder werden dafür nicht herangezogen.",
+      "danach": "Meist stellt das Pflegeheim den Antrag mit Ihrer Einwilligung, und das Geld fließt direkt an das Heim. Der Eigenanteil sinkt entsprechend.",
+      "begriffe": [
+        "eigenanteil",
+        "sozialamt"
+      ],
+      "quellen": [
+        "vdk_hilfe_zur_pflege",
+        "vz_nrw_pflegewohngeld",
+        "paderborn_pflegewohngeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

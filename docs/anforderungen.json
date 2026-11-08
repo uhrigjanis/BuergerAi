@@ -23,6 +23,10 @@
     {"id": "ANF-DAT-12", "bereich": "Datenmodell", "titel": "Zuständigkeiten nennen Kreis, Gemeinde bzw. Land des Wohnorts (Platzhalter)"},
     {"id": "ANF-DAT-13", "bereich": "Datenmodell", "titel": "Wissensbasis mit allen Gemeinden lädt in unter 2 Sekunden"},
     {"id": "ANF-DAT-14", "bereich": "Datenmodell", "titel": "Wissensbasis in Zielgröße (500 Leistungen, 5.000 Varianten, 600 Fakten): Laden unter 2 s, Bericht mit 3 Lebenslagen unter 20 ms"},
+    {"id": "ANF-DAT-15", "bereich": "Datenmodell", "titel": "Jede Leistung hat einen Erklärtext (was sie ist, was nach dem Antrag passiert, Stolpersteine) in data/fachmodule/<id>/erklaerungen.json eines Moduls, zu dem sie gehört; je Leistung höchstens einer, mit Quellen (#113)"},
+    {"id": "ANF-DAT-16", "bereich": "Datenmodell", "titel": "Erklär- und Glossartexte enthalten keine Ziffern, Mengen (z. B. „drei Wochen“), Beträge, Paragraphen, Links oder Zusagen und halten Längengrenzen ein; Verstöße sind Ladefehler (#113)"},
+    {"id": "ANF-DAT-17", "bereich": "Datenmodell", "titel": "Fachbegriffe stehen einmal im Glossar data/kern/glossar.json; Erklärtexte verweisen nur auf vorhandene Begriffe, jeder Begriff wird verwendet (#113)"},
+    {"id": "ANF-DAT-18", "bereich": "Datenmodell", "titel": "Erklärtexte und Glossar haben einen eigenen Prüfstatus; 'verifiziert' braucht Name und Datum und wird nur über buergerai erklaerungen --abnehmen ID --von NAME gesetzt; die Dateien sind maschinell formatiert; die Texte erscheinen in den Verwendungen ihrer Quellen (#113)"},
 
     {"id": "ANF-ENG-01", "bereich": "Regel-Engine", "titel": "Dreiwertige Logik (Ja/Nein/Unklar) für alle, eine, nicht"},
     {"id": "ANF-ENG-02", "bereich": "Regel-Engine", "titel": "Fehlende Angaben ergeben Unklar, nie Nein"},
@@ -75,6 +79,7 @@
     {"id": "ANF-CLI-03", "bereich": "Terminal", "titel": "Szenarien laden und gegen Erwartungen prüfen"},
     {"id": "ANF-CLI-04", "bereich": "Terminal", "titel": "Fehlerhafte Eingaben werden verständlich gemeldet"},
     {"id": "ANF-CLI-05", "bereich": "Terminal", "titel": "Der geführte Dialog fragt zuerst nach der Lebenslage (mehrere möglich)"},
+    {"id": "ANF-CLI-06", "bereich": "Terminal", "titel": "Mit --details zeigt der Bericht je Leistung den Erklärtext mit Prüfstatus und die Fachbegriffe (#113)"},
 
     {"id": "ANF-WEB-01", "bereich": "Web-Oberfläche", "titel": "Server (nur Standardbibliothek) liefert Oberfläche und JSON-API, startbar mit 'buergerai web'"},
     {"id": "ANF-WEB-02", "bereich": "Web-Oberfläche", "titel": "Wohnort: mehrdeutige PLZ → Gemeindeauswahl, nicht erfasste PLZ → Bundeslandauswahl, ungültige PLZ → Meldung"},
@@ -90,6 +95,7 @@
     {"id": "ANF-WEB-12", "bereich": "Web-Oberfläche", "titel": "Jede Frage nennt die Leistungen, über die sie entscheidet; Fortschritt als Anteil geklärter Leistungen (#86)"},
     {"id": "ANF-WEB-13", "bereich": "Web-Oberfläche", "titel": "Checkliste als kompakte Zeilen, nach Zeit, Stelle oder Ergebnis gruppiert; Details, 'Jetzt klären', Datenstand je Zeile, Druck als Behördenmappe (#86)"},
     {"id": "ANF-WEB-14", "bereich": "Web-Oberfläche", "titel": "Oberfläche als ES-Module ohne Build-Schritt; Handy mit Reitern Fragen/Checkliste; Ergebnis nie nur über Farbe (#86)"},
+    {"id": "ANF-WEB-15", "bereich": "Web-Oberfläche", "titel": "Der Bericht enthält je Leistung den Erklärtext (ausgewählt über die Leistungs-ID) und die verwendeten Glossarbegriffe; die Detailansicht zeigt sie unter „Was ist das?“ mit aufklappbaren Begriffen und Prüfstatus (#113)"},
 
     {"id": "ANF-MOD-01", "bereich": "Fachmodule (ADR 0008)", "titel": "Fachmodule sind Datenpakete (Steckbrief, Lebenslagen, Rollen, Fakten); Regeln nutzen nur Kern-, eigene oder importierte Fakten"},
     {"id": "ANF-MOD-02", "bereich": "Fachmodule (ADR 0008)", "titel": "Mehrere Lebenslagen je Anfrage; jede Leistung erscheint einmal und nennt ihre Lebenslagen"},
@@ -215,6 +221,7 @@
     {"id": "ANF-LLM-20", "bereich": "LLM", "titel": "Nachprüfung des Antworttexts (#78) bei jeder Antwort: jede Leistung genau einmal und keine zusätzliche, Ergebnis unverändert (keine Zusage bei nein oder unklar, keine Verneinung bei ja), keine Zusagen wie „sicher“ oder „garantiert“, Beträge, Zahlen und Daten nur wie im Bericht der jeweiligen Leistung (auch in anderer Schreibweise), keine Links oder Adressen außerhalb des Berichts, keine Leistung außerhalb des Berichts, Längengrenzen; sonst Vorlage, Gründe nur als Codes im Log"},
     {"id": "ANF-LLM-21", "bereich": "LLM", "titel": "Vorlagentext aus dem Bericht (#78): ohne LLM, bei jedem LLMFehler und wenn die Nachprüfung fehlschlägt; besteht für alle Szenarien dieselbe Nachprüfung (ohne Längengrenze)"},
     {"id": "ANF-LLM-22", "bereich": "LLM", "titel": "POST /api/antworttext liefert zum Bericht den Antworttext (mit LLM oder Vorlage, Quelle angegeben); ist das Rate-Limit erreicht, kommt die Vorlage statt 429; die Checkliste zeigt ihn über „Als Text zusammenfassen“; buergerai llm --antwort SZENARIO [--vorlage] [--json] gibt ihn im Terminal aus (#78)"},
+    {"id": "ANF-LLM-23", "bereich": "LLM", "titel": "Die Formulierung bekommt die Erklärtexte der Leistungen im Bericht (bei „nein“ nur, was die Leistung ist) und keine anderen; der Vorlagentext enthält sie ebenfalls und besteht weiter die Nachprüfung (#113)"},
     {"id": "ANF-GR-01", "bereich": "Guardrails", "titel": "Länge (#82): Freitext höchstens 2.000 Zeichen, freie Antwort höchstens 500; längere Texte werden mit 400 abgelehnt, nicht gekürzt, und nichts geht an das Modell"},
     {"id": "ANF-GR-02", "bereich": "Guardrails", "titel": "Rate-Limit (#82): höchstens 10 Freitext-Anfragen je IP pro Minute und 100 pro Tag (/api/intake und /api/antwort), sonst 429 mit festem Hinweis auf Auswahl und Formular; der Antworttext (/api/antworttext) zählt mit und kommt dann aus der Vorlage; Suche, Formular und Bericht ohne Limit; die IP liegt nur im Speicher und nur so lange, wie das Zeitfenster sie braucht"},
     {"id": "ANF-GR-03", "bereich": "Guardrails", "titel": "Kostendeckel (#82): höchstens BUERGERAI_LLM_MAX_AUFRUFE_TAG (Standard 1000) und BUERGERAI_LLM_MAX_AUFRUFE_MONAT (Standard 10000) Modellaufrufe der Web-Oberfläche; ist der Deckel erreicht, gilt bis zum nächsten Zeitraum der Fallback wie ohne LLM; ungültige Werte schalten die Freitext-Eingabe aus; Umstellung auf Tokens mit #80"},

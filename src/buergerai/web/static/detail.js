@@ -33,6 +33,20 @@ function abschnitt(titel, ...inhalt) {
   return el("section", { class: "detail-abschnitt" }, el("h3", {}, titel), inhalt);
 }
 
+// Erklärtext und Fachbegriffe (#113): aus der Wissensbasis, nicht vom LLM
+function erklaerungAbschnitt(l, glossar, relevant) {
+  const e = l.erklaerung;
+  if (!e) return null;
+  const begriffe = e.begriffe.map((id) => glossar.find((g) => g.id === id)).filter(Boolean);
+  return abschnitt("Was ist das?",
+    el("p", {}, e.was),
+    relevant && e.danach ? el("p", {}, el("strong", {}, "Nach dem Antrag: "), e.danach) : null,
+    relevant && e.achtung ? el("p", { class: "hinweis" }, el("strong", {}, "Achtung: "), e.achtung) : null,
+    begriffe.length ? el("div", { class: "begriffe" }, begriffe.map((g) =>
+      el("details", {}, el("summary", {}, g.begriff), el("p", {}, g.erklaerung)))) : null,
+    el("p", { class: "leise" }, e.pruef_text));
+}
+
 export function detailOeffnen(id) {
   const b = sitzung.bericht;
   const l = b.leistungen.find((x) => x.id === id);
@@ -61,6 +75,7 @@ export function detailOeffnen(id) {
         relevant && l.betrag ? [el("dt", {}, "Betrag"), el("dd", {}, l.betrag)] : null,
         relevant && l.voraussetzungen.length ? [el("dt", {}, "Vorher erledigen"), el("dd", {}, l.voraussetzungen.join(", "))] : null,
       ),
+      erklaerungAbschnitt(l, b.glossar || [], relevant),
       relevant && l.fristen.length ? abschnitt(l.fristen.length > 1 ? "Fristen" : "Frist", el("ul", { class: "fristen" }, l.fristen.map(fristZeile))) : null,
       relevant && (v.schritte.length || v.kosten || v.online_url || v.hinweise.length)
         ? abschnitt("So geht's",

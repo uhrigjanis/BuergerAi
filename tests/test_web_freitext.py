@@ -271,6 +271,22 @@ def test_oberflaeche_uebernimmt_vorschlaege_nur_nach_bestaetigung():
     assert "text" not in gespeichert and "vorschlaege" not in gespeichert
 
 
+@pytest.mark.anforderung("ANF-LLM-25")
+def test_oberflaeche_zeigt_wohnort_und_uebernimmt_erst_nach_bestaetigung():
+    """Statisch (#115): Wohnort aus dem Text belegt das Gemeindefeld vor, ohne abzusenden."""
+    start = (STATIC / "start.js").read_text(encoding="utf-8")
+    vorschlaege = (STATIC / "vorschlaege.js").read_text(encoding="utf-8")
+    html = (STATIC / "index.html").read_text(encoding="utf-8")
+    assert 'id="verstanden-orte"' in html and 'id="gemeinde-label"' in html
+    assert "wohnortVorbelegen(wohnort)" in start and "fuellen($(\"#verstanden-orte\"), orte.map(ortZeile))" in start
+    # Die Auswahl im Gemeindefeld startet nur bei der PLZ-Rückfrage sofort, beim Text erst "Stimmt so"
+    assert "if ($(\"#gemeinde\").value && !wohnortAusText) ortAbsenden();" in start
+    assert "Bitte geben Sie unten die Postleitzahl ein." in start
+    # Mehrdeutiger Ortsfakt: ohne Wahl kein stilles "unbekannt"
+    assert "Bitte wählen Sie den Ort aus oder nehmen Sie den Haken weg" in vorschlaege
+    assert vorschlaege.index("ortsauswahl(v) && !roh") < vorschlaege.index('if (roh === "unbekannt" || roh === "")')
+
+
 # ------------------------------------------------------------------ Checkliste (#86)
 @pytest.mark.anforderung("ANF-WEB-12")
 def test_fragen_nennen_betroffene_leistungen(kb):

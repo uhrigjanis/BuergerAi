@@ -19,6 +19,8 @@ const KURZ = {
 
 const auswahl = new Set();
 let bestaetigung = null;  // Vorschlagsliste aus dem Freitext, bis zur Bestätigung
+let wohnortAusText = false;  // Gemeindefeld ist mit dem Wohnort aus dem Freitext vorbelegt (#115)
+const GEMEINDE_FRAGE_PLZ = "Die Postleitzahl gehört zu mehreren Gemeinden. Welche ist es?";
 
 function kachelnZeichnen() {
   const meta = sitzung.meta;
@@ -52,6 +54,45 @@ function bestaetigungZuruecksetzen() {
   bestaetigung = null;
   $("#verstanden").hidden = true;
   $("#ort-senden").textContent = "Checkliste erstellen";
+  if (wohnortAusText) startZuruecksetzen();
+}
+
+// ------------------------------------------------------------------ Orte aus dem Freitext (#115)
+// Der Server hat die Namen den Gemeinden zugeordnet. Übernommen wird erst mit "Stimmt so".
+function ortZeile(o) {
+  const name = `„${o.ortsname || o.plz}“`;
+  if (o.rolle === "wohnort") {
+    if (o.status === "eindeutig") {
+      const plz = o.gemeinde.plz_text ? `, ${o.gemeinde.plz_text}` : "";
+      return el("p", {}, el("strong", {}, "Wohnort: "), `${o.gemeinde.text}${plz} – stimmt das? Unten ist er schon eingetragen.`);
+    }
+    if (o.status === "mehrdeutig") {
+      const text = o.art === "plz" ? `Die Postleitzahl ${o.plz} gehört zu mehreren Gemeinden.`
+        : o.art === "tippfehler" ? `Meinten Sie ${o.kandidaten.map((k) => k.name).join(" oder ")}?`
+        : `${name} passt zu ${o.kandidaten.length === 1 ? "dieser Gemeinde" : `${o.kandidaten.length} Gemeinden`}.`;
+      return el("p", {}, el("strong", {}, "Wohnort: "), `${text} Bitte wählen Sie unten aus.`);
+    }
+    return el("p", { class: "hinweis" }, `Den Wohnort ${name} konnten wir keiner Gemeinde zuordnen. Bitte geben Sie unten die Postleitzahl ein.`);
+  }
+  if (o.status === "unbekannt" && !o.plz) {
+    return el("p", { class: "leise" }, `${name} konnten wir keiner Gemeinde zuordnen. Wir fragen später nach der Postleitzahl.`);
+  }
+  return null;  // steht in der Vorschlagsliste
+}
+
+function wohnortVorbelegen(o) {
+  if (!o) return;
+  if (o.plz) $("#plz").value = o.plz;
+  const gemeinden = o.gemeinde ? [o.gemeinde] : o.kandidaten;
+  if (!gemeinden.length) return;
+  if (!o.plz && o.gemeinde && o.gemeinde.plz.length === 1) $("#plz").value = o.gemeinde.plz[0];
+  fuellen($("#gemeinde"),
+    o.gemeinde ? null : el("option", { value: "" }, `Bitte wählen (${gemeinden.length}) …`),
+    gemeinden.map((g) => el("option", { value: g.id }, g.text)));
+  $("#gemeinde").value = o.gemeinde ? o.gemeinde.id : "";
+  $("#gemeinde-label").textContent = "Wohnort aus Ihrem Text – bitte prüfen. Oder geben Sie oben eine Postleitzahl ein.";
+  $("#gemeinde-wahl").hidden = false;
+  wohnortAusText = true;
 }
 
 // ------------------------------------------------------------------ Freitext und Suche
@@ -113,7 +154,13 @@ function verstandenZeigen(text, r) {
   box.hidden = false;
   fuellen($("#verstanden-hinweise"), r.hinweise.map((h) => el("p", { class: r.kategorie === "notlage" ? "hinweis wichtig" : "hinweis" }, h)));
   const zitat = $("#verstanden-text");
-  fuellen(zitat, markierterText(text, r.vorschlaege));
+  const orte = r.orte || [];
+  const wohnort = orte.find((o) => o.rolle === "wohnort");
+  // Markiert werden die Belege der Vorschläge und des Wohnorts (dieser ohne Zeile in der Liste)
+  fuellen(zitat, markierterText(text, wohnort ? [...r.vorschlaege, wohnort] : r.vorschlaege));
+  startZuruecksetzen();
+  wohnortVorbelegen(wohnort);
+  fuellen($("#verstanden-orte"), orte.map(ortZeile));
   auswahl.clear();
   r.lebenslagen.forEach((l) => auswahl.add(l.id));
   auswahlZeigen();
@@ -148,11 +195,18 @@ async function ortAbsenden(ev) {
     meldung("Bitte mindestens eine Lebenslage wählen.");
     return;
   }
-  if (!/^\d{5}$/.test(plz)) {
+  // Mit einer Gemeinde aus dem Freitext ist die PLZ nicht nötig (#115)
+  if (wohnortAusText && !daten.gemeinde && !plz) {
+    meldung("Bitte wählen Sie Ihren Wohnort aus oder geben Sie die Postleitzahl ein.");
+    $("#gemeinde").focus();
+    return;
+  }
+  if (!(daten.gemeinde && !plz) && !/^\d{5}$/.test(plz)) {
     meldung("Bitte eine fünfstellige Postleitzahl eingeben.");
     $("#plz").focus();
     return;
   }
+  if (!plz) delete daten.plz;
   // Bestätigte Angaben: nur, was in der Liste angehakt ist (#79)
   let bestaetigt = {};
   try {
@@ -168,7 +222,7 @@ async function ortAbsenden(ev) {
     return;
   }
   Object.assign(zustand, {
-    ort: { plz, gemeinde: daten.gemeinde || null, land: daten.land || null },
+    ort: { plz: plz || null, gemeinde: daten.gemeinde || null, land: daten.land || null },
     lebenslagen: lagen, fakten: bestaetigt, erledigt: {},
     bearbeiten: null, fokusFrage: null, pausiert: false, fuer: "alle",
   });
@@ -177,6 +231,8 @@ async function ortAbsenden(ev) {
 
 function ortFehler(e) {
   if (e.daten && e.daten.status === "mehrdeutig") {
+    wohnortAusText = false;
+    $("#gemeinde-label").textContent = GEMEINDE_FRAGE_PLZ;
     const s = $("#gemeinde");
     fuellen(s,
       el("option", { value: "" }, `Bitte wählen (${e.daten.gemeinden.length} Gemeinden) …`),
@@ -201,6 +257,8 @@ function ortFehler(e) {
 export function startZuruecksetzen() {
   $("#gemeinde-wahl").hidden = true;
   $("#land-wahl").hidden = true;
+  $("#gemeinde-label").textContent = GEMEINDE_FRAGE_PLZ;
+  wohnortAusText = false;
 }
 
 export function startLeeren() {
@@ -234,7 +292,8 @@ export function startEinrichten() {
   });
   $("#ort-form").addEventListener("submit", ortAbsenden);
   $("#plz").addEventListener("input", startZuruecksetzen);
-  $("#gemeinde").addEventListener("change", () => { if ($("#gemeinde").value) ortAbsenden(); });
+  // Bei der PLZ-Rückfrage startet die Wahl sofort; beim Wohnort aus dem Text erst "Stimmt so" (#115)
+  $("#gemeinde").addEventListener("change", () => { if ($("#gemeinde").value && !wohnortAusText) ortAbsenden(); });
   $("#land").addEventListener("change", () => { if ($("#land").value) ortAbsenden(); });
 
   // "Beispiel laden" nur im Entwicklermodus (?dev)

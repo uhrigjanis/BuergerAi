@@ -21,7 +21,21 @@ export function markierterText(text, vorschlaege) {
   return teile;
 }
 
+// Ortsfakt, den der Server einer Gemeinde zugeordnet hat (#115): Auswahl mit Ortsnamen statt Ziffern.
+// Eine PLZ aus dem Text bleibt ein Eingabefeld wie bisher.
+function ortsauswahl(v) {
+  return v.typ === "ort" && v.ort && v.ort.art !== "plz" && (v.ort.gemeinde || v.ort.kandidaten.length);
+}
+
 function editor(v, id) {
+  if (ortsauswahl(v)) {
+    const gemeinden = v.ort.gemeinde ? [v.ort.gemeinde] : v.ort.kandidaten;
+    const s = el("select", { id },
+      v.ort.gemeinde ? null : el("option", { value: "" }, `Bitte wählen (${gemeinden.length}) …`),
+      gemeinden.map((g) => el("option", { value: g.id }, g.text)));
+    s.value = v.wert || "";
+    return s;
+  }
   const unbekannt = el("option", { value: "unbekannt" }, "weiß nicht");
   if (v.typ === "ja_nein" || v.typ === "auswahl") {
     const optionen = v.typ === "ja_nein"
@@ -41,6 +55,7 @@ function editor(v, id) {
 
 function wertAus(v, feld) {
   const roh = feld.value.trim();
+  if (ortsauswahl(v) && !roh) throw new Error(`Bitte wählen Sie den Ort aus oder nehmen Sie den Haken weg: ${v.frage}`);
   if (roh === "unbekannt" || roh === "") return "unbekannt";
   if (v.typ === "ja_nein") return roh === "true";
   if (v.typ === "zahl") {
@@ -64,7 +79,7 @@ export function vorschlagsliste(vorschlaege, textElement) {
     const zeile = el("li", { class: "vorschlag", "data-nr": String(i) },
       haken,
       el("div", { class: "vorschlag-inhalt" },
-        el("label", { for: feldId }, v.person_name ? `${v.person_name}: ` : "", v.frage),
+        el("label", { for: feldId }, v.person_name ? `${v.person_name}: ` : "", v.typ === "ort" ? v.frage.replace(/\s*\(Postleitzahl\)/, "") : v.frage),
         feld,
         el("p", { class: "beleg" }, el("span", { class: "leise" }, "Aus Ihrem Text: "), el("q", {}, v.beleg)),
       ),

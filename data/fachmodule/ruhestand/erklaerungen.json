@@ -1,0 +1,47 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "altersrente",
+      "was": "Die Altersrente wird nicht automatisch gezahlt, sondern muss bei der Rentenversicherung beantragt werden. Ab der Regelaltersgrenze gibt es sie ohne Abschläge; mit langer Versicherungszeit ist ein früherer Beginn möglich, meist mit Abschlägen. Neben der Altersrente darf unbegrenzt hinzuverdient werden.",
+      "danach": "Die Rentenversicherung prüft das Versicherungskonto und schickt einen Rentenbescheid mit Beginn und Höhe. Die Rente wird am Monatsende für den laufenden Monat gezahlt; Beiträge zur Kranken- und Pflegeversicherung werden direkt abgezogen.",
+      "achtung": "Lücken im Versicherungsverlauf früh klären lassen, sonst verzögert sich der Bescheid. Den Antrag rechtzeitig vor dem gewünschten Beginn stellen.",
+      "begriffe": [
+        "regelaltersgrenze",
+        "kontenklaerung",
+        "bescheid"
+      ],
+      "quellen": [
+        "drv_regelaltersgrenze",
+        "drv_geburtstag_erster",
+        "drv_vorzeitige_rente"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kvdr",
+      "was": "Die Krankenversicherung der Rentner ist die Pflichtversicherung in der gesetzlichen Krankenkasse für Rentnerinnen und Rentner, die im Erwerbsleben überwiegend gesetzlich versichert waren. Sie ist meist deutlich günstiger als eine freiwillige Versicherung, weil Beiträge nur auf Rente und Versorgungsbezüge anfallen.",
+      "danach": "Mit dem Rentenantrag geht die Meldung an die Krankenkasse. Sie prüft die Vorversicherungszeit und teilt mit, ob Sie in der Krankenversicherung der Rentner pflichtversichert sind.",
+      "achtung": "Wer die Voraussetzung knapp verfehlt, kann sich Zeiten für Kinder anrechnen lassen. Bei der Krankenkasse nachfragen.",
+      "begriffe": [
+        "familienversicherung"
+      ],
+      "quellen": [
+        "kvdr_9_10"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "seniorenticket_land",
+      "was": "Einige Länder und Verkehrsverbünde bieten älteren Menschen ein vergünstigtes Ticket für Bus und Bahn an, oft als Jahreskarte oder Abo. Altersgrenze, Preis und Geltungsbereich sind je Land verschieden.",
+      "danach": "Nach der Bestellung kommt das Ticket als Karte oder auf das Smartphone. Bei einem Abo verlängert es sich meist automatisch.",
+      "achtung": "Prüfen Sie, ob das bundesweite Deutschlandticket für Sie günstiger ist.",
+      "begriffe": [],
+      "quellen": [
+        "he_seniorenticket",
+        "seniorenticket_uebersicht"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

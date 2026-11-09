@@ -1,0 +1,86 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "eheschliessung_anmelden",
+      "was": "Vor einer Heirat prüft das Standesamt, ob die Ehe geschlossen werden darf, etwa ob beide volljährig und nicht schon verheiratet sind. Dafür melden beide die Eheschließung mit Ausweisen und Urkunden an. Danach lässt sich ein Trautermin vereinbaren.",
+      "danach": "Das Standesamt prüft die Unterlagen und bestätigt, dass die Ehe geschlossen werden kann. Bei der Trauung wird die Ehe im Eheregister beurkundet, danach gibt es die Eheurkunde.",
+      "achtung": "Mit ausländischen Urkunden oder Staatsangehörigkeit dauert die Prüfung länger. Früh beim Standesamt nachfragen.",
+      "begriffe": [
+        "standesamt"
+      ],
+      "quellen": [
+        "berlin_eheschliessung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "ausweis_neuer_name",
+      "was": "Ändert sich durch die Heirat Ihr Familienname, ist der Personalausweis nicht mehr gültig. Sie brauchen einen neuen Ausweis mit dem neuen Namen, auch wenn der alte noch nicht abgelaufen ist.",
+      "danach": "Das Bürgeramt nimmt den Antrag mit Eheurkunde und biometrischem Foto auf. Der neue Ausweis wird in der Bundesdruckerei hergestellt und kann nach einigen Wochen abgeholt werden.",
+      "achtung": "Wer einen gültigen Reisepass auf den neuen Namen hat, braucht nicht zusätzlich einen neuen Personalausweis.",
+      "begriffe": [
+        "meldebehoerde"
+      ],
+      "quellen": [
+        "bund_ausweis_name"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "steuerklasse_ehe",
+      "was": "Nach der Heirat werden beide Ehegatten automatisch in Steuerklasse IV eingestuft. Verdient einer deutlich mehr oder allein, bringt die Kombination III und V oder das Faktorverfahren oft mehr Netto im Monat. Die Jahressteuer ändert sich dadurch nicht.",
+      "danach": "Das Finanzamt trägt die neue Steuerklasse ein; der Arbeitgeber übernimmt sie automatisch für die nächsten Lohnabrechnungen.",
+      "achtung": "Mit III und V oder Faktor muss eine Steuererklärung abgegeben werden. Die Steuerklasse wirkt sich auch auf Lohnersatzleistungen wie Elterngeld und Arbeitslosengeld aus.",
+      "begriffe": [
+        "steuerklasse",
+        "elster"
+      ],
+      "quellen": [
+        "bmf_steuerklasse_heirat"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "familienversicherung_ehe",
+      "was": "Ehepartner ohne oder mit nur geringem eigenem Einkommen können kostenlos über den gesetzlich versicherten Partner krankenversichert werden. Die Familienversicherung umfasst auch die Pflegeversicherung. Hauptberuflich Selbstständige und Beamte können nicht familienversichert werden.",
+      "danach": "Die Krankenkasse prüft das Einkommen und nimmt den Partner in die Familienversicherung auf. Sie fragt das Einkommen regelmäßig ab.",
+      "achtung": "Steigt das eigene Einkommen über die Grenze, endet die Familienversicherung. Das der Krankenkasse melden, sonst drohen Nachzahlungen.",
+      "begriffe": [
+        "familienversicherung",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "vdek_familienversicherung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "auslandsehe_beurkunden",
+      "was": "Eine im Ausland wirksam geschlossene Ehe gilt in Deutschland in der Regel auch ohne Eintrag. Auf Antrag trägt ein deutsches Standesamt sie aber in das Eheregister ein. Danach gibt es eine deutsche Eheurkunde, die bei Behörden, Rente und Namensfragen vieles erleichtert.",
+      "danach": "Das Standesamt prüft die ausländische Heiratsurkunde und weitere Unterlagen, oft mit Übersetzung oder Legalisation, und beurkundet die Ehe. Gleichzeitig lässt sich der Ehename erklären.",
+      "begriffe": [
+        "standesamt"
+      ],
+      "quellen": [
+        "aa_auslandsehe",
+        "muenchen_nachbeurkundung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "ehename_erklaeren",
+      "was": "Für deutsche Ehegatten gilt deutsches Namensrecht. Haben Sie im Ausland geheiratet, ändert sich Ihr Name nicht von selbst. Wer einen gemeinsamen Ehenamen oder einen Doppelnamen führen möchte, muss das beim Standesamt erklären.",
+      "danach": "Das Standesamt nimmt die Erklärung auf; mit dem Eingang wird sie wirksam. Danach kann der Ausweis auf den neuen Namen beantragt werden.",
+      "achtung": "Seit einer Reform gibt es mehr Möglichkeiten für Doppelnamen. Welche Namen erlaubt sind, sagt das Standesamt.",
+      "begriffe": [
+        "standesamt"
+      ],
+      "quellen": [
+        "aa_auslandsehe",
+        "muenchen_nachbeurkundung"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "wohnsitz_anmelden",
+      "was": "Wer in eine Wohnung zieht, muss sich bei der Meldebehörde des neuen Wohnorts anmelden. Bei einem Umzug innerhalb Deutschlands meldet die neue Gemeinde Sie bei der alten automatisch ab. Die Anschrift ist Grundlage für Wahlbenachrichtigung, Steuern und viele Leistungen.",
+      "danach": "Die Meldebehörde trägt die neue Anschrift ein, klebt einen Aufkleber in den Personalausweis und stellt auf Wunsch eine Meldebescheinigung aus. Andere Behörden wie das Finanzamt erfahren die Anschrift automatisch.",
+      "achtung": "Ohne Wohnungsgeberbestätigung ist die Anmeldung nicht vollständig. Wer sich zu spät anmeldet, riskiert ein Bußgeld.",
+      "begriffe": [
+        "meldebehoerde",
+        "wohnungsgeberbestaetigung",
+        "hauptwohnsitz"
+      ],
+      "quellen": [
+        "bmg_17",
+        "bmg_19"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfz_umzug",
+      "was": "Nach einem Umzug muss die neue Anschrift in die Zulassungsbescheinigung des Fahrzeugs eingetragen werden. Zuständig ist die Zulassungsbehörde am neuen Wohnort. Das alte Kennzeichen darf auch in einem anderen Zulassungsbezirk behalten werden.",
+      "danach": "Die Zulassungsbehörde trägt die Anschrift ein und gibt die Daten an das Hauptzollamt für die Kfz-Steuer weiter. Der Kfz-Versicherung die neue Anschrift selbst mitteilen.",
+      "achtung": "Wer die Änderung nicht meldet, riskiert ein Verwarnungsgeld.",
+      "begriffe": [
+        "zulassungsbescheinigung"
+      ],
+      "quellen": [
+        "fzv_15"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "hundesteuer_anmelden",
+      "was": "Viele Gemeinden erheben eine Steuer auf Hunde. Wer mit Hund zuzieht, muss ihn bei der neuen Gemeinde anmelden. Höhe, Fristen und Befreiungen, etwa für Blindenführhunde, regelt jede Gemeinde in ihrer Hundesteuersatzung.",
+      "danach": "Die Gemeinde schickt einen Steuerbescheid und je nach Ort eine Hundesteuermarke, die der Hund tragen muss.",
+      "begriffe": [
+        "bescheid"
+      ],
+      "quellen": [
+        "fim_hundesteuer"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "hundesteuer_abmelden",
+      "was": "Zieht ein Hund mit um, muss er bei der bisherigen Gemeinde abgemeldet werden. Sonst verlangt sie weiter Hundesteuer. Für die Abmeldung genügt meist ein kurzes Schreiben oder Online-Formular mit der neuen Anschrift.",
+      "danach": "Die bisherige Gemeinde beendet die Steuerpflicht und erstattet zu viel gezahlte Steuer. Die alte Steuermarke wird meist zurückgegeben.",
+      "begriffe": [],
+      "quellen": [
+        "fim_hundesteuer"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "rundfunkbeitrag_umzug",
+      "was": "Der Rundfunkbeitrag ist je Wohnung zu zahlen, nicht je Person. Bei einem Umzug muss der Beitragsservice die neue Anschrift erfahren. Wer zu jemandem zieht, der für die Wohnung schon zahlt, meldet das eigene Beitragskonto ab.",
+      "danach": "Der Beitragsservice ändert das Beitragskonto. Bei einer Abmeldung endet die Beitragspflicht für die bisherige Wohnung.",
+      "begriffe": [
+        "beitragsservice"
+      ],
+      "quellen": [
+        "rbstv_8"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "wohngeld_umzug",
+      "was": "Wohngeld gilt immer für eine bestimmte Wohnung. Mit dem Auszug endet der bisherige Bescheid, ohne dass er gekündigt werden muss. Für die neue Wohnung ist ein neuer Antrag bei der dort zuständigen Wohngeldbehörde nötig.",
+      "danach": "Die neue Wohngeldbehörde berechnet den Anspruch für Miete und Haushalt neu und schickt einen Bescheid. Gezahlt wird ab dem Monat des Antrags.",
+      "achtung": "Den Auszug der bisherigen Wohngeldbehörde sofort mitteilen, sonst kann zu viel gezahltes Wohngeld zurückgefordert werden.",
+      "begriffe": [
+        "bescheid",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "wogg_28",
+        "wogg_25"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "umzugskosten_jobcenter",
+      "was": "Wer Grundsicherungsgeld bekommt, kann sich Umzugskosten, Kaution und weitere Kosten für eine neue Wohnung vom Jobcenter übernehmen lassen. Voraussetzung ist eine Zusicherung vor dem Umzug, dass der Umzug nötig und die neue Wohnung angemessen ist.",
+      "danach": "Das Jobcenter prüft den Grund für den Umzug und die Kosten der neuen Wohnung und erteilt die Zusicherung schriftlich. Die Kaution wird meist als Darlehen gezahlt.",
+      "achtung": "Ohne Zusicherung vor der Unterschrift unter den Mietvertrag übernimmt das Jobcenter die Kosten unter Umständen nicht, und die neue Miete wird nur bis zur bisherigen Höhe anerkannt.",
+      "begriffe": [
+        "jobcenter",
+        "zusicherung",
+        "kosten_der_unterkunft",
+        "darlehen"
+      ],
+      "quellen": [
+        "sgb2_22",
+        "jobcenter_berlin_umzug"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "umzugskosten_arbeitsagentur",
+      "was": "Wer arbeitsuchend oder arbeitslos gemeldet ist und für eine neue Stelle umziehen muss, kann von der Agentur für Arbeit Unterstützung aus dem Vermittlungsbudget erhalten, etwa für Umzugskosten. Die Agentur entscheidet nach Ermessen.",
+      "danach": "Die Agentur für Arbeit prüft, ob der Umzug für die Arbeitsaufnahme nötig ist, und sagt die Kostenübernahme vorab zu. Nach dem Umzug werden die Belege eingereicht.",
+      "achtung": "Den Antrag vor dem Umzug und möglichst vor der Unterschrift unter den Arbeitsvertrag stellen.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "ermessen"
+      ],
+      "quellen": [
+        "sgb3_44"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "adresse_an_leistungstraeger",
+      "was": "Wer Sozialleistungen bekommt, muss Änderungen mitteilen, die für die Leistung wichtig sind. Ein Umzug gehört fast immer dazu, weil sich Zuständigkeit, Miete oder Haushalt ändern können. Das gilt etwa für Familienkasse, Jobcenter, Elterngeldstelle, Rentenversicherung und Pflegekasse.",
+      "danach": "Jede Stelle aktualisiert die Anschrift. Ändert sich die Zuständigkeit, gibt sie die Akte an die neue Stelle ab.",
+      "achtung": "Wer Änderungen nicht meldet, muss zu viel gezahlte Leistungen zurückzahlen.",
+      "begriffe": [
+        "mitwirkungspflicht",
+        "familienkasse",
+        "jobcenter"
+      ],
+      "quellen": [
+        "sgb1_60"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "begruessungsgeld_studium",
+      "was": "Einige Städte zahlen Studierenden und Auszubildenden eine einmalige Prämie, wenn sie für Studium oder Ausbildung zuziehen und dort ihren Hauptwohnsitz anmelden. Die Stadt profitiert davon, weil sich Zuweisungen nach der Einwohnerzahl richten.",
+      "danach": "Nach der Anmeldung des Hauptwohnsitzes und dem Antrag prüft die zuständige Stelle den Nachweis über Studium oder Ausbildung und zahlt die Prämie aus.",
+      "begriffe": [
+        "hauptwohnsitz",
+        "meldebehoerde"
+      ],
+      "quellen": [
+        "bremen_begruessungsgeld",
+        "hsb_begruessungsgeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

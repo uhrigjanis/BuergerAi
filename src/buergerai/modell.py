@@ -253,6 +253,41 @@ class Leistung:
 
 
 @dataclass(frozen=True)
+class Erklaerung:
+    """Verständliche Erklärung einer Leistung (#113): was sie ist und was nach dem Antrag passiert.
+
+    Liegt in ``data/fachmodule/<id>/erklaerungen.json`` eines Moduls, zu dem die
+    Leistung gehört. Die Texte enthalten keine Beträge, Fristen oder Zahlen; diese
+    kommen strukturiert aus Leistung und Variante, damit kein Text unbemerkt veraltet.
+    Der Prüfstatus gilt für den Text selbst, nicht für die Quellen.
+    """
+
+    leistung_id: str
+    was: str
+    danach: Optional[str]
+    achtung: Optional[str]
+    begriffe: tuple[str, ...]
+    quellen: tuple[str, ...]
+    pruefstatus: Pruefstatus
+    geprueft_am: Optional[date] = None
+    geprueft_von: Optional[str] = None
+    modul: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class Glossarbegriff:
+    """Fachbegriff mit kurzer Erklärung (``data/kern/glossar.json``, #113). Einmal definiert, überall verwendet."""
+
+    id: str
+    begriff: str
+    erklaerung: str
+    quellen: tuple[str, ...]
+    pruefstatus: Pruefstatus
+    geprueft_am: Optional[date] = None
+    geprueft_von: Optional[str] = None
+
+
+@dataclass(frozen=True)
 class Leistungsvariante:
     """Ausprägung einer Leistung für ein konkretes Gebiet."""
 

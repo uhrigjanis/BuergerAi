@@ -1,0 +1,143 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "grunderwerbsteuer",
+      "was": "Beim Kauf eines Grundstücks, Hauses oder einer Wohnung fällt Grunderwerbsteuer an. Den Steuersatz bestimmt das Land, in dem die Immobilie liegt. Sie ist eine der größten Nebenkosten beim Kauf und muss meist aus eigenem Geld bezahlt werden.",
+      "danach": "Der Notar meldet den Kaufvertrag dem Finanzamt, das einen Steuerbescheid schickt. Nach der Zahlung stellt das Finanzamt die Unbedenklichkeitsbescheinigung aus; erst dann kann die Eintragung im Grundbuch erfolgen.",
+      "achtung": "Einige Länder erstatten Erstkäufern einen Teil der Steuer. Prüfen Sie, ob es in Ihrem Land ein solches Programm gibt.",
+      "begriffe": [
+        "grundbuch",
+        "bescheid"
+      ],
+      "quellen": [
+        "grestg",
+        "grest_saetze"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfw_wohneigentum_familien",
+      "was": "Das Programm fördert Familien mit Kindern und kleinem bis mittlerem Einkommen, die eine selbst genutzte Immobilie klimafreundlich neu bauen oder einen solchen Neubau erstmals kaufen. Es gibt einen zinsgünstigen Kredit der KfW; die Kredithöhe hängt von der Zahl der Kinder ab.",
+      "danach": "Ihre Hausbank prüft das Vorhaben und beantragt den Kredit bei der KfW. Nach der Zusage wird er ausgezahlt; nach Fertigstellung bestätigen Energieeffizienz-Experten, dass die Anforderungen erfüllt sind.",
+      "achtung": "Den Kredit beantragen, bevor Bau- oder Kaufverträge unterschrieben werden. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "hausbank",
+        "energieeffizienz_experte",
+        "ermessen",
+        "darlehen"
+      ],
+      "quellen": [
+        "kfw_300"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfw_jung_kauft_alt",
+      "was": "Das Programm fördert Familien mit Kindern und begrenztem Einkommen, die ein älteres, energetisch schlechtes Haus oder eine solche Wohnung kaufen und anschließend sanieren. Es gibt einen zinsgünstigen Kredit der KfW für den Kauf.",
+      "danach": "Ihre Hausbank beantragt den Kredit bei der KfW. Nach dem Kauf muss die Immobilie innerhalb einer Frist auf den geforderten Standard saniert werden; Energieeffizienz-Experten bestätigen das.",
+      "achtung": "Die Sanierung selbst fördert dieses Programm nicht; dafür gibt es eigene Programme. Den Kredit vor dem Kaufvertrag beantragen.",
+      "begriffe": [
+        "hausbank",
+        "energieeffizienz_experte",
+        "ermessen",
+        "darlehen"
+      ],
+      "quellen": [
+        "kfw_308"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfw_wohneigentumsprogramm",
+      "was": "Das Wohneigentumsprogramm der KfW ist ein ergänzender Kredit für Kauf oder Bau einer selbst genutzten Wohnung oder eines Hauses. Es gibt keine Einkommensgrenze. Der Kredit kann neben einem normalen Baudarlehen genutzt werden.",
+      "danach": "Ihre Hausbank prüft das Vorhaben und beantragt den Kredit bei der KfW. Nach der Zusage wird er zusammen mit der übrigen Finanzierung ausgezahlt.",
+      "achtung": "Die Zinsen sind nicht immer günstiger als bei der Bank. Vergleichen lohnt sich. Den Kredit vor Kauf- oder Bauvertrag beantragen.",
+      "begriffe": [
+        "hausbank",
+        "darlehen",
+        "ermessen"
+      ],
+      "quellen": [
+        "kfw_124"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfw_klimafreundlicher_neubau",
+      "was": "Das Programm fördert den Bau oder Erstkauf besonders energieeffizienter Neubauten ohne Öl- oder Gasheizung mit einem zinsgünstigen Kredit der KfW. Die Förderung hängt vom erreichten Effizienzstandard ab.",
+      "danach": "Ihre Hausbank beantragt den Kredit bei der KfW. Energieeffizienz-Experten planen und bestätigen den Standard; nach Fertigstellung ist ein Nachweis nötig.",
+      "achtung": "Den Kredit beantragen, bevor Bau- oder Kaufverträge geschlossen werden. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "hausbank",
+        "energieeffizienz_experte",
+        "ermessen",
+        "darlehen"
+      ],
+      "quellen": [
+        "kfw_297"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "heizungsfoerderung",
+      "was": "Wer in einem bestehenden Gebäude eine alte Heizung durch eine klimafreundliche ersetzt, etwa eine Wärmepumpe, Biomasse- oder Fernwärmeanlage, kann einen Zuschuss der KfW bekommen. Zur Grundförderung können Boni für geringes Einkommen oder einen schnellen Austausch kommen.",
+      "danach": "Nach der Zusage im Kundenportal der KfW lassen Sie die Heizung einbauen. Danach reichen Sie die Rechnungen und den Nachweis des Fachbetriebs ein, und die KfW zahlt den Zuschuss aus.",
+      "achtung": "Der Antrag muss vor Beginn der Arbeiten gestellt werden. Der Vertrag mit dem Fachbetrieb sollte eine Bedingung enthalten, dass er nur bei Förderzusage gilt.",
+      "begriffe": [
+        "ermessen"
+      ],
+      "quellen": [
+        "heizung_2026_juli"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "bafa_sanierung",
+      "was": "Das BAFA bezuschusst einzelne Sanierungsmaßnahmen an bestehenden Gebäuden, etwa die Dämmung von Dach, Wänden und Kellerdecke, neue Fenster und Türen oder eine bessere Lüftung. Mit einem individuellen Sanierungsfahrplan kann der Zuschuss höher ausfallen.",
+      "danach": "Nach dem Zuwendungsbescheid lassen Sie die Arbeiten von einem Fachbetrieb ausführen. Anschließend reichen Sie Rechnungen und Nachweise ein, und das BAFA zahlt aus.",
+      "achtung": "Den Antrag stellen, bevor Handwerker beauftragt werden. Meist müssen Energieeffizienz-Experten die Maßnahme bestätigen.",
+      "begriffe": [
+        "energieeffizienz_experte",
+        "ermessen",
+        "bescheid"
+      ],
+      "quellen": [
+        "bafa_em_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "landesfoerderung_wohneigentum",
+      "was": "Viele Länder fördern selbst genutztes Wohneigentum zusätzlich zu den Programmen des Bundes, meist mit zinsgünstigen Darlehen oder Zuschüssen und oft für Familien mit Kindern und begrenztem Einkommen. Name, Höhe und Voraussetzungen sind je Land verschieden.",
+      "danach": "Die Förderbank des Landes oder die Hausbank prüft den Antrag und sagt die Förderung zu. Die Auszahlung folgt meist mit dem Baufortschritt oder nach dem Kauf.",
+      "achtung": "Fast immer muss der Antrag vor dem Kauf- oder Bauvertrag gestellt werden. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "hausbank",
+        "darlehen",
+        "ermessen"
+      ],
+      "quellen": [
+        "bremen_eigenheimzuschuss",
+        "lbank_z15",
+        "stmb_zinsverbilligung",
+        "ifb_eigenheim_neubau"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "hessengeld",
+      "was": "Hessen erstattet beim ersten Kauf einer selbst genutzten Wohnung oder eines Hauses einen Teil der gezahlten Grunderwerbsteuer, gestaffelt nach Zahl der Käufer und Kinder. Wer schon Wohneigentum hatte oder die Immobilie geschenkt oder geerbt hat, wird nicht gefördert.",
+      "danach": "Die WIBank prüft den Antrag nach Zahlung der Grunderwerbsteuer und dem Einzug. Das Geld wird in jährlichen Raten über mehrere Jahre gezahlt, solange Sie dort wohnen.",
+      "achtung": "Die Meldebescheinigungen nach dem Einzug fristgerecht hochladen, sonst entfällt die Förderung.",
+      "begriffe": [
+        "meldebehoerde",
+        "ermessen"
+      ],
+      "quellen": [
+        "hessengeld_wibank"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

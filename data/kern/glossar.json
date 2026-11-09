@@ -1,0 +1,578 @@
+{
+  "_hinweis": "Glossar der Fachbegriffe (#113). Erklärtexte verweisen über 'begriffe' darauf; jeder Begriff ist nur einmal definiert. Gleiche Textregeln wie bei den Erklärtexten. Datei maschinell formatiert.",
+  "glossar": [
+    {
+      "id": "agentur_fuer_arbeit",
+      "begriff": "Agentur für Arbeit",
+      "erklaerung": "Örtliche Stelle der Bundesagentur für Arbeit. Sie vermittelt Arbeit und Ausbildung und zahlt Leistungen der Arbeitslosenversicherung wie Arbeitslosengeld, Insolvenzgeld und Berufsausbildungsbeihilfe.",
+      "quellen": [
+        "ba_alg"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "jobcenter",
+      "begriff": "Jobcenter",
+      "erklaerung": "Stelle für Menschen, die arbeiten können, deren Geld aber nicht zum Leben reicht. Das Jobcenter zahlt das Grundsicherungsgeld (früher Bürgergeld) und hilft bei der Arbeitssuche.",
+      "quellen": [
+        "sgb2_7",
+        "bmas_neue_grundsicherung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "familienkasse",
+      "begriff": "Familienkasse",
+      "erklaerung": "Teil der Bundesagentur für Arbeit, der Kindergeld und Kinderzuschlag bearbeitet und auszahlt. Für Beschäftigte im öffentlichen Dienst gibt es teils eigene Familienkassen.",
+      "quellen": [
+        "ba_kindergeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "pflegekasse",
+      "begriff": "Pflegekasse",
+      "erklaerung": "Träger der Pflegeversicherung. Sie gehört zur Krankenkasse, bei der die pflegebedürftige Person versichert ist, und entscheidet über den Pflegegrad und die Leistungen der Pflegeversicherung.",
+      "quellen": [
+        "bmg_pflegegrade"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "sozialamt",
+      "begriff": "Sozialamt",
+      "erklaerung": "Stelle der Stadt oder des Kreises für Sozialhilfe. Es hilft, wenn Einkommen und Vermögen nicht reichen und keine andere Stelle vorrangig zuständig ist, etwa im Alter, bei Erwerbsminderung oder bei Pflegekosten.",
+      "quellen": [
+        "sgb12_41"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "standesamt",
+      "begriff": "Standesamt",
+      "erklaerung": "Behörde der Gemeinde, die Geburten, Eheschließungen und Sterbefälle beurkundet und die Urkunden dazu ausstellt, zum Beispiel Geburtsurkunde, Eheurkunde und Sterbeurkunde.",
+      "quellen": [
+        "pstg_18"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "jugendamt",
+      "begriff": "Jugendamt",
+      "erklaerung": "Stelle der Stadt oder des Kreises für Kinder, Jugendliche und Familien. Dort lassen sich unter anderem Vaterschaft und gemeinsames Sorgerecht kostenlos beurkunden.",
+      "quellen": [
+        "bgb_1626a",
+        "bgb_1592_1594"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "nachlassgericht",
+      "begriff": "Nachlassgericht",
+      "erklaerung": "Abteilung des Amtsgerichts, die sich um Erbschaften kümmert. Dort lässt sich ein Erbe ausschlagen, und dort wird auf Antrag der Erbschein ausgestellt.",
+      "quellen": [
+        "bgb_1944"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "meldebehoerde",
+      "begriff": "Meldebehörde (Bürgeramt)",
+      "erklaerung": "Stelle der Gemeinde, bei der Sie Ihre Wohnung anmelden. Je nach Ort heißt sie Bürgeramt, Bürgerbüro oder Einwohnermeldeamt. Dort gibt es auch Personalausweis und Meldebescheinigung.",
+      "quellen": [
+        "bmg_17"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "elterngeldstelle",
+      "begriff": "Elterngeldstelle",
+      "erklaerung": "Stelle, die das Elterngeld bearbeitet. Welche Behörde das ist, regelt jedes Land selbst: mal ein Landesamt, mal die Stadt oder der Kreis.",
+      "quellen": [
+        "bmfsfj_elterngeldstellen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "versorgungsamt",
+      "begriff": "Versorgungsamt",
+      "erklaerung": "Übliche Bezeichnung für die Behörde, die den Grad der Behinderung feststellt und den Schwerbehindertenausweis ausstellt. Je nach Land heißt sie anders, zum Beispiel Landesamt für Soziales.",
+      "quellen": [
+        "sgb9_152"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "beitragsservice",
+      "begriff": "Beitragsservice",
+      "erklaerung": "Stelle von ARD, ZDF und Deutschlandradio, die den Rundfunkbeitrag einzieht. Dort werden Wohnungen an- und abgemeldet und Befreiungen oder Ermäßigungen beantragt.",
+      "quellen": [
+        "rbstv_8",
+        "rbstv_4"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "handwerkskammer",
+      "begriff": "Handwerkskammer",
+      "erklaerung": "Selbstverwaltung des Handwerks in einer Region. Sie führt die Handwerksrolle, nimmt Meisterprüfungen ab und berät Betriebe, auch bei der Gründung.",
+      "quellen": [
+        "handwerksrolle"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "arbeitsgericht",
+      "begriff": "Arbeitsgericht",
+      "erklaerung": "Gericht für Streit zwischen Beschäftigten und Arbeitgebern, etwa über eine Kündigung. In der ersten Instanz braucht man keinen Anwalt; eine Klage lässt sich auch bei der Rechtsantragstelle des Gerichts aufnehmen.",
+      "quellen": [
+        "kschg_4"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "pflegestuetzpunkt",
+      "begriff": "Pflegestützpunkt",
+      "erklaerung": "Unabhängige, kostenlose Beratungsstelle für Pflegebedürftige und Angehörige. Pflegestützpunkte helfen bei Anträgen und vermitteln Hilfen vor Ort; nicht jedes Land hat sie überall eingerichtet.",
+      "quellen": [
+        "betanet_pflegeantrag"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "medizinischer_dienst",
+      "begriff": "Medizinischer Dienst",
+      "erklaerung": "Gutachterdienst der Kranken- und Pflegekassen. Er besucht die pflegebedürftige Person und schätzt ein, wie selbstständig sie im Alltag ist. Bei Privatversicherten übernimmt das ein anderer Gutachterdienst.",
+      "quellen": [
+        "bmg_pflegegrade"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bescheid",
+      "begriff": "Bescheid",
+      "erklaerung": "Schriftliche Entscheidung einer Behörde über einen Antrag, zum Beispiel eine Bewilligung oder Ablehnung. Ein Bescheid nennt, wie man sich dagegen wehren kann, und sollte gut aufbewahrt werden.",
+      "quellen": [
+        "sgb10_31"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "widerspruch",
+      "begriff": "Widerspruch",
+      "erklaerung": "Weg, einen Bescheid überprüfen zu lassen, wenn er falsch erscheint. Der Widerspruch geht schriftlich an die Behörde, die entschieden hat. Die Frist steht im Bescheid und ist kurz.",
+      "quellen": [
+        "sgg_84"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "rechtsanspruch",
+      "begriff": "Rechtsanspruch",
+      "erklaerung": "Sind die Voraussetzungen erfüllt, muss die Behörde die Leistung bewilligen. Sie darf nicht ablehnen, weil das Geld knapp ist oder sie es anders sieht.",
+      "quellen": [
+        "sgb1_38"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "ermessen",
+      "begriff": "Ermessen",
+      "erklaerung": "Die Stelle darf abwägen, ob und wie sie fördert. Auch wer alle Voraussetzungen erfüllt, hat keinen festen Anspruch. Bei Förderprogrammen kommt hinzu: Gefördert wird, solange Mittel da sind.",
+      "quellen": [
+        "sgb1_39"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "mitwirkungspflicht",
+      "begriff": "Mitwirkungspflicht",
+      "erklaerung": "Wer Sozialleistungen beantragt oder bekommt, muss die nötigen Angaben machen, Nachweise vorlegen und Änderungen von sich aus melden. Sonst kann die Leistung gekürzt oder gestoppt werden.",
+      "quellen": [
+        "sgb1_60"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bewilligungszeitraum",
+      "begriff": "Bewilligungszeitraum",
+      "erklaerung": "Zeitraum, für den eine Leistung bewilligt ist. Danach endet sie, wenn kein neuer Antrag (Weiterbewilligung) gestellt wird. Den Antrag deshalb rechtzeitig vor dem Ende stellen.",
+      "quellen": [
+        "wogg_25"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "darlehen",
+      "begriff": "Darlehen",
+      "erklaerung": "Geld, das später zurückgezahlt werden muss, oft zinslos oder günstig. Ein Zuschuss dagegen muss nicht zurückgezahlt werden. Manche Leistungen bestehen aus beidem.",
+      "quellen": [
+        "bmftr_bafoeg"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "hausbank",
+      "begriff": "Hausbank",
+      "erklaerung": "Bank oder Sparkasse, bei der Sie einen Förderkredit der KfW beantragen. Die KfW vergibt diese Kredite nicht direkt; die Bank prüft den Antrag und trägt meist ganz oder teilweise das Risiko.",
+      "quellen": [
+        "kfw_124"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "steuer_id",
+      "begriff": "Steuer-Identifikationsnummer",
+      "erklaerung": "Persönliche Nummer für Steuern, die jede Person in Deutschland einmal bekommt, Kinder nach der Geburt per Post. Sie ist für Kindergeld und viele Anträge nötig.",
+      "quellen": [
+        "ba_kindergeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "elster",
+      "begriff": "ELSTER",
+      "erklaerung": "Online-Portal der Steuerverwaltung. Über ELSTER gehen Steuererklärung, Fragebogen zur steuerlichen Erfassung und der Antrag auf Wechsel der Steuerklasse. Für den Zugang kommt ein Code per Post.",
+      "quellen": [
+        "steuerliche_erfassung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "hauptwohnsitz",
+      "begriff": "Hauptwohnsitz",
+      "erklaerung": "Die Wohnung, in der Sie sich überwiegend aufhalten. Wer mehrere Wohnungen hat, meldet die übrigen als Nebenwohnung an. Viele Leistungen richten sich nach dem Hauptwohnsitz.",
+      "quellen": [
+        "bmg_17"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "wohnungsgeberbestaetigung",
+      "begriff": "Wohnungsgeberbestätigung",
+      "erklaerung": "Bescheinigung des Vermieters oder Eigentümers, dass Sie eingezogen sind. Sie ist für die Anmeldung der Wohnung nötig; der Vermieter muss sie ausstellen.",
+      "quellen": [
+        "bmg_19"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "zulassungsbescheinigung",
+      "begriff": "Zulassungsbescheinigung Teil I",
+      "erklaerung": "Fahrzeugschein, der im Auto mitgeführt wird. Darin stehen unter anderem Halter und Anschrift; nach einem Umzug wird die neue Anschrift eingetragen.",
+      "quellen": [
+        "fzv_15"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "sperrzeit",
+      "begriff": "Sperrzeit",
+      "erklaerung": "Zeit, in der die Agentur für Arbeit kein Arbeitslosengeld zahlt, etwa nach eigener Kündigung oder zu später Meldung. Die Sperrzeit verkürzt meist auch die gesamte Bezugsdauer.",
+      "quellen": [
+        "ba_sperrzeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "kuendigungsschutz",
+      "begriff": "Kündigungsschutz",
+      "erklaerung": "Regeln, die eine Kündigung erschweren. Allgemein gilt er in größeren Betrieben nach einer Wartezeit; besonderen Schutz haben etwa Schwangere, Menschen in Elternzeit und schwerbehinderte Menschen.",
+      "quellen": [
+        "kschg_4"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "tragfaehigkeitsbescheinigung",
+      "begriff": "Tragfähigkeitsbescheinigung",
+      "erklaerung": "Stellungnahme einer fachkundigen Stelle, etwa Kammer oder Gründungsberatung, dass ein Geschäftsplan voraussichtlich trägt. Die Agentur für Arbeit verlangt sie für den Gründungszuschuss.",
+      "quellen": [
+        "ihk_gruendungszuschuss"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "zulassungspflichtiges_handwerk",
+      "begriff": "Zulassungspflichtiges Handwerk",
+      "erklaerung": "Handwerk, das nur mit Eintragung in die Handwerksrolle selbstständig betrieben werden darf, in der Regel mit Meisterbrief oder gleichwertiger Qualifikation. Beispiele sind Elektriker, Dachdecker und Friseure.",
+      "quellen": [
+        "handwerksrolle"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bedarfsgemeinschaft",
+      "begriff": "Bedarfsgemeinschaft",
+      "erklaerung": "Personen, die zusammenleben und füreinander einstehen, etwa Paare und ihre Kinder im Haushalt. Beim Grundsicherungsgeld wird ihr Einkommen gemeinsam betrachtet.",
+      "quellen": [
+        "sgb2_7"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "regelbedarf",
+      "begriff": "Regelbedarf",
+      "erklaerung": "Pauschaler Betrag für den Lebensunterhalt, etwa Essen, Kleidung, Strom und Telefon. Miete und Heizung kommen getrennt dazu. Die Höhe legt der Gesetzgeber jedes Jahr fest.",
+      "quellen": [
+        "regelbedarf_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "kosten_der_unterkunft",
+      "begriff": "Kosten der Unterkunft und Heizung",
+      "erklaerung": "Miete, Nebenkosten und Heizung, die Jobcenter und Sozialamt zusätzlich zum Regelbedarf übernehmen, soweit sie angemessen sind. Was angemessen ist, legt jede Stadt bzw. jeder Kreis fest.",
+      "quellen": [
+        "sgb2_22"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "zusicherung",
+      "begriff": "Zusicherung",
+      "erklaerung": "Vorherige schriftliche Zusage einer Behörde, dass sie bestimmte Kosten übernehmen wird, etwa für eine neue Wohnung. Ohne Zusicherung vor dem Umzug kann die Übernahme scheitern.",
+      "quellen": [
+        "sgb2_22"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "erwerbsminderung",
+      "begriff": "Volle Erwerbsminderung",
+      "erklaerung": "Wer wegen Krankheit oder Behinderung auf absehbare Zeit nur noch sehr wenige Stunden am Tag arbeiten kann, gilt als voll erwerbsgemindert. Das stellt in der Regel die Rentenversicherung fest.",
+      "quellen": [
+        "sgb12_41"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "belastungsgrenze",
+      "begriff": "Belastungsgrenze",
+      "erklaerung": "Grenze für Zuzahlungen bei der Krankenkasse, berechnet aus dem jährlichen Familieneinkommen. Für chronisch Kranke ist sie niedriger. Wer sie erreicht, wird für den Rest des Jahres befreit.",
+      "quellen": [
+        "sgb5_62"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "zuzahlung",
+      "begriff": "Zuzahlung",
+      "erklaerung": "Eigenanteil, den gesetzlich Versicherte selbst zahlen, etwa für Medikamente, Heilmittel oder einen Krankenhausaufenthalt. Kinder und Jugendliche sind meist davon ausgenommen.",
+      "quellen": [
+        "bmg_zuzahlungen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "basiselterngeld",
+      "begriff": "Basiselterngeld",
+      "erklaerung": "Grundform des Elterngelds. Es ersetzt einen Teil des Einkommens, das nach der Geburt wegfällt, und wird in der Zeit nach der Geburt gezahlt, in der ein Elternteil das Kind betreut.",
+      "quellen": [
+        "familienportal_elterngeld",
+        "beeg_1"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "elterngeldplus",
+      "begriff": "ElterngeldPlus",
+      "erklaerung": "Variante des Elterngelds für Eltern, die in Teilzeit arbeiten. Es ist monatlich niedriger als das Basiselterngeld, wird dafür aber doppelt so lange gezahlt.",
+      "quellen": [
+        "familienportal_elterngeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "mutterschutzfrist",
+      "begriff": "Mutterschutzfrist",
+      "erklaerung": "Schutzzeit vor und nach der Geburt, in der eine Schwangere bzw. Mutter nicht arbeiten muss bzw. nach der Geburt nicht arbeiten darf. In dieser Zeit gibt es Mutterschaftsgeld statt Lohn.",
+      "quellen": [
+        "muschg_19_20"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "familienversicherung",
+      "begriff": "Familienversicherung",
+      "erklaerung": "Kostenlose Mitversicherung von Ehepartnern und Kindern in der gesetzlichen Krankenkasse eines Mitglieds, wenn sie kein oder nur geringes eigenes Einkommen haben.",
+      "quellen": [
+        "sgb5_10"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "sorgerecht",
+      "begriff": "Sorgerecht",
+      "erklaerung": "Recht und Pflicht, für ein Kind zu sorgen und zu entscheiden, etwa über Wohnort, Schule und Gesundheit. Verheiratete Eltern haben es gemeinsam, nicht verheiratete nur mit Sorgeerklärung.",
+      "quellen": [
+        "bgb_1626a"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "steuerklasse",
+      "begriff": "Steuerklasse",
+      "erklaerung": "Einstufung, nach der der Arbeitgeber die monatliche Lohnsteuer abzieht. Sie verteilt die Steuer nur über das Jahr; wie viel Steuer tatsächlich anfällt, zeigt die Steuererklärung.",
+      "quellen": [
+        "bmf_steuerklasse_heirat"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "pflegegrad",
+      "begriff": "Pflegegrad",
+      "erklaerung": "Einstufung der Pflegebedürftigkeit von leicht bis schwerst. Er hängt davon ab, wie selbstständig jemand im Alltag ist, und bestimmt, welche Leistungen der Pflegeversicherung es gibt.",
+      "quellen": [
+        "bmg_pflegegrade"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "pflegeperson",
+      "begriff": "Pflegeperson",
+      "erklaerung": "Jemand, der einen pflegebedürftigen Menschen zu Hause nicht beruflich pflegt, meist ein Angehöriger. Pflegepersonen können über die Pflegekasse renten- und unfallversichert sein.",
+      "quellen": [
+        "sgb11_44"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "naher_angehoeriger",
+      "begriff": "Naher Angehöriger",
+      "erklaerung": "Für die Freistellung zur Pflege zählen unter anderem Eltern, Großeltern, Schwiegereltern, Ehe- und Lebenspartner, Geschwister, Kinder, Enkel und Schwiegerkinder.",
+      "quellen": [
+        "bmg_arbeitsverhinderung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "tagespflege",
+      "begriff": "Tagespflege",
+      "erklaerung": "Pflegebedürftige verbringen den Tag in einer Einrichtung und sind abends wieder zu Hause. Das entlastet Angehörige; die Pflegekasse beteiligt sich an den Kosten.",
+      "quellen": [
+        "bmg_entlastungsbetrag"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "eigenanteil",
+      "begriff": "Eigenanteil im Pflegeheim",
+      "erklaerung": "Der Teil der Heimkosten, den Bewohner selbst tragen: Unterkunft, Verpflegung, Investitionskosten und ein Teil der Pflegekosten. Reicht das Geld nicht, kann das Sozialamt helfen.",
+      "quellen": [
+        "bmg_pflegeleistungen_nachschlagen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "grad_der_behinderung",
+      "begriff": "Grad der Behinderung (GdB)",
+      "erklaerung": "Maß dafür, wie stark eine Behinderung die Teilhabe am Leben beeinträchtigt, in Zehnerstufen. Ab einem bestimmten Grad gilt ein Mensch als schwerbehindert.",
+      "quellen": [
+        "sgb9_152"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "merkzeichen",
+      "begriff": "Merkzeichen",
+      "erklaerung": "Buchstaben im Schwerbehindertenausweis, die zusätzliche Nachteilsausgleiche öffnen, etwa G für erheblich gehbehindert, aG für außergewöhnlich gehbehindert, H für hilflos, Bl für blind und RF für den Rundfunkbeitrag.",
+      "quellen": [
+        "sgb9_152"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "schwerbehindertenausweis",
+      "begriff": "Schwerbehindertenausweis",
+      "erklaerung": "Ausweis im Scheckkartenformat für schwerbehinderte Menschen. Er nennt den Grad der Behinderung und die Merkzeichen und dient als Nachweis bei Arbeitgeber, Finanzamt und Verkehrsbetrieben.",
+      "quellen": [
+        "sgb9_152"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "regelaltersgrenze",
+      "begriff": "Regelaltersgrenze",
+      "erklaerung": "Alter, ab dem die reguläre Altersrente ohne Abschläge beginnt. Sie hängt vom Geburtsjahr ab. Wer früher in Rente geht, muss meist dauerhafte Abschläge hinnehmen.",
+      "quellen": [
+        "drv_regelaltersgrenze"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "kontenklaerung",
+      "begriff": "Kontenklärung",
+      "erklaerung": "Prüfung des Rentenkontos auf Lücken, etwa fehlende Zeiten für Ausbildung, Kindererziehung oder Arbeitslosigkeit. Sie lässt sich jederzeit bei der Rentenversicherung beantragen.",
+      "quellen": [
+        "drv_regelaltersgrenze"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "bestattungspflicht",
+      "begriff": "Bestattungspflicht",
+      "erklaerung": "Pflicht der nächsten Angehörigen, für die Bestattung zu sorgen. Wer zuerst dran ist und welche Fristen gelten, regelt das Bestattungsgesetz des Landes.",
+      "quellen": [
+        "fim_bestattung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "grundbuch",
+      "begriff": "Grundbuch",
+      "erklaerung": "Öffentliches Register beim Amtsgericht, in dem Eigentümer und Belastungen eines Grundstücks stehen. Erst mit der Eintragung im Grundbuch wird ein Käufer Eigentümer.",
+      "quellen": [
+        "grestg"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "id": "energieeffizienz_experte",
+      "begriff": "Energieeffizienz-Experte",
+      "erklaerung": "Fachleute für Energieberatung, die in der Expertenliste des Bundes stehen. Für viele Förderungen von KfW und BAFA müssen sie das Vorhaben planen oder bestätigen.",
+      "quellen": [
+        "kfw_297"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ],
+  "quellen": [
+    {
+      "id": "sgb10_31",
+      "titel": "§ 31 SGB X – Begriff des Verwaltungsaktes",
+      "url": "https://www.gesetze-im-internet.de/sgb_10/__31.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Für den Glossarbegriff „Bescheid“ (#113). Volltext nicht gelesen."
+    },
+    {
+      "id": "sgg_84",
+      "titel": "§ 84 SGG – Widerspruch",
+      "url": "https://www.gesetze-im-internet.de/sgg/__84.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Für den Glossarbegriff „Widerspruch“ (#113). Volltext nicht gelesen."
+    },
+    {
+      "id": "sgb1_38",
+      "titel": "§ 38 SGB I – Rechtsanspruch",
+      "url": "https://www.gesetze-im-internet.de/sgb_1/__38.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Für den Glossarbegriff „Rechtsanspruch“ (#113). Volltext nicht gelesen."
+    },
+    {
+      "id": "sgb1_39",
+      "titel": "§ 39 SGB I – Ermessensleistungen",
+      "url": "https://www.gesetze-im-internet.de/sgb_1/__39.html",
+      "typ": "gesetz",
+      "herausgeber": "Bundesministerium der Justiz",
+      "pruefstatus": "ungeprueft",
+      "notiz": "Für den Glossarbegriff „Ermessen“ (#113). Volltext nicht gelesen."
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "sterbefall_anzeigen",
+      "was": "Jeder Todesfall muss beim Standesamt des Sterbeorts angezeigt werden. Das Standesamt beurkundet den Tod und stellt Sterbeurkunden aus. Sie sind nötig für Rente, Versicherungen, Banken, Verträge und das Nachlassgericht.",
+      "danach": "Mit der ärztlichen Todesbescheinigung und den Urkunden der verstorbenen Person beurkundet das Standesamt den Tod. Danach gibt es die Sterbeurkunden und die Freigabe für die Bestattung.",
+      "achtung": "Stirbt jemand im Krankenhaus oder Pflegeheim, zeigt die Einrichtung den Tod an. Oft übernimmt auch das Bestattungsunternehmen die Anzeige.",
+      "begriffe": [
+        "standesamt",
+        "nachlassgericht"
+      ],
+      "quellen": [
+        "fim_sterbefall",
+        "stuttgart_sterbefall"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "bestattung_veranlassen",
+      "was": "Die nächsten Angehörigen sind verpflichtet, für die Bestattung zu sorgen, in einer festen Reihenfolge, etwa Ehepartner, Kinder, Eltern, Geschwister. Wann bestattet werden muss und welche Bestattungsarten erlaubt sind, regelt das Bestattungsgesetz des Landes, in dem die Person gestorben ist.",
+      "danach": "Ein Bestattungsunternehmen übernimmt meist die Formalitäten, die Überführung und die Abstimmung mit Friedhof oder Krematorium. Die Kosten tragen in erster Linie die Erben.",
+      "achtung": "Wer bestattungspflichtig ist, muss die Kosten auch dann tragen, wenn er das Erbe ausschlägt. Reicht das Geld nicht, kann das Sozialamt helfen.",
+      "begriffe": [
+        "bestattungspflicht",
+        "sozialamt"
+      ],
+      "quellen": [
+        "fim_bestattung",
+        "berlin_bestattungskosten"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "rentenvorschuss_witwe",
+      "was": "Bekam die verstorbene Person eine Rente, erhalten Witwen und Witwer für eine Übergangszeit nach dem Tod deren volle Rente als Vorschuss auf die Hinterbliebenenrente. Das hilft über die ersten Ausgaben hinweg. Eigenes Einkommen wird in dieser Zeit nicht angerechnet.",
+      "danach": "Der Renten Service zahlt den Vorschuss in einer Summe aus. Danach läuft die reguläre Witwen- oder Witwerrente, wenn sie beantragt ist.",
+      "achtung": "Die Frist für den Vorschuss ist kurz und läuft ab dem Tod. Den Antrag deshalb früh stellen, am besten mit Hilfe der Rentenversicherung oder des Bestattungsunternehmens.",
+      "begriffe": [],
+      "quellen": [
+        "drv_vorschuss"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "hinterbliebenenrente",
+      "was": "Stirbt ein Mensch, der rentenversichert war, können Ehe- oder eingetragene Lebenspartner eine Witwen- oder Witwerrente und Kinder eine Waisenrente bekommen. Voraussetzung ist unter anderem eine Mindestversicherungszeit der verstorbenen Person. Eigenes Einkommen wird teilweise angerechnet.",
+      "danach": "Die Rentenversicherung prüft den Antrag und schickt einen Bescheid. Einkommen der Hinterbliebenen wird regelmäßig überprüft und kann die Rente mindern.",
+      "achtung": "Die Rente kommt nicht automatisch. Wird sie spät beantragt, gibt es sie nur begrenzt rückwirkend.",
+      "begriffe": [
+        "bescheid"
+      ],
+      "quellen": [
+        "drv_renten_wegen_todes",
+        "rente_antragsfrist"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "erbe_ausschlagen",
+      "was": "Wer erbt, übernimmt alles: Vermögen, aber auch Schulden. Ist ein Erbe überschuldet oder will man es aus anderen Gründen nicht, kann man es ausschlagen. Die Ausschlagung muss beim Nachlassgericht erklärt oder notariell beglaubigt werden.",
+      "danach": "Nach der Ausschlagung gilt man als nie Erbe geworden. Das Erbe geht an die Nächsten in der gesetzlichen Reihenfolge, oft an die eigenen Kinder, die dann ebenfalls ausschlagen können.",
+      "achtung": "Die Frist ist kurz. Wer sie verstreichen lässt oder über den Nachlass verfügt, hat das Erbe angenommen – mit allen Schulden.",
+      "begriffe": [
+        "nachlassgericht"
+      ],
+      "quellen": [
+        "bgb_1944",
+        "ag_achim_ausschlagung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "bestattungskosten_sozialamt",
+      "was": "Wer zur Bestattung verpflichtet ist und die Kosten nicht tragen kann, bekommt sie vom Sozialamt erstattet. Übernommen werden die Kosten einer einfachen, ortsüblichen Bestattung, soweit der Nachlass und andere Leistungen wie ein Sterbegeld nicht reichen.",
+      "danach": "Das Sozialamt prüft den Nachlass sowie Einkommen und Vermögen der verpflichteten Person und übernimmt die angemessenen Kosten per Bescheid.",
+      "achtung": "Möglichst vor dem Auftrag an das Bestattungsunternehmen mit dem Sozialamt sprechen. Teure Wünsche werden nicht übernommen.",
+      "begriffe": [
+        "sozialamt",
+        "bestattungspflicht",
+        "bescheid"
+      ],
+      "quellen": [
+        "berlin_bestattungskosten",
+        "koeln_bestattungskosten"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

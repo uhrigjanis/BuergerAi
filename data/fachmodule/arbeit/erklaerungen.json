@@ -1,0 +1,180 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "arbeitsuchend_melden",
+      "was": "Wer weiß, dass das Arbeitsverhältnis endet, muss sich bei der Agentur für Arbeit arbeitsuchend melden – egal ob durch Kündigung, Aufhebungsvertrag oder Befristung. Die Meldung ist noch kein Antrag auf Arbeitslosengeld, sondern startet die Vermittlung schon vor dem letzten Arbeitstag.",
+      "danach": "Die Agentur für Arbeit lädt zu einem Beratungsgespräch ein und schlägt passende Stellen vor. Kurz vor dem Ende der Beschäftigung folgen die Arbeitslosmeldung und der Antrag auf Arbeitslosengeld.",
+      "achtung": "Wer sich zu spät meldet, riskiert eine Sperrzeit beim Arbeitslosengeld. Die Meldung ist auch nötig, wenn Sie gegen die Kündigung klagen.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "sperrzeit"
+      ],
+      "quellen": [
+        "ba_arbeitsuchend_2026"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "arbeitslosengeld",
+      "was": "Arbeitslosengeld ist eine Leistung der Arbeitslosenversicherung. Es ersetzt einen Teil des letzten Nettolohns, wenn Sie arbeitslos sind und vorher lange genug versicherungspflichtig beschäftigt waren. Es hängt nicht von Vermögen oder Partnereinkommen ab.",
+      "danach": "Nach dem Antrag prüft die Agentur für Arbeit Ihre Beschäftigungszeiten und den Grund für das Ende der Arbeit. Danach kommt ein Bescheid über Höhe und Dauer. Während des Bezugs vereinbaren Sie mit der Vermittlung, wie Sie Arbeit suchen.",
+      "achtung": "Haben Sie selbst gekündigt oder einen Aufhebungsvertrag unterschrieben, kann eine Sperrzeit drohen. Lassen Sie sich vorher beraten.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "sperrzeit",
+        "bescheid"
+      ],
+      "quellen": [
+        "ba_alg",
+        "ba_sperrzeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kuendigungsschutzklage",
+      "was": "Mit der Kündigungsschutzklage lassen Sie vom Arbeitsgericht prüfen, ob eine Kündigung wirksam ist. Das kommt in Frage, wenn Sie die Kündigung für ungerechtfertigt halten oder Formfehler vermuten. Oft endet das Verfahren mit einem Vergleich, manchmal mit einer Abfindung.",
+      "danach": "Das Gericht setzt zunächst einen Gütetermin an, bei dem beide Seiten eine Einigung suchen. Gelingt das nicht, folgt ein Kammertermin mit Urteil.",
+      "achtung": "Die Klagefrist ist sehr kurz. Ist sie verpasst, gilt die Kündigung in der Regel als wirksam, auch wenn sie es eigentlich nicht wäre.",
+      "begriffe": [
+        "arbeitsgericht",
+        "kuendigungsschutz"
+      ],
+      "quellen": [
+        "kschg_4"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "insolvenzgeld",
+      "was": "Insolvenzgeld ersetzt den Lohn, den ein Arbeitgeber wegen seiner Insolvenz nicht mehr gezahlt hat. Es deckt einen begrenzten Zeitraum vor dem Insolvenzereignis ab und wird von der Agentur für Arbeit gezahlt, nicht vom Insolvenzverwalter.",
+      "danach": "Die Agentur für Arbeit holt beim Insolvenzverwalter eine Bescheinigung über den ausgefallenen Lohn ein und zahlt danach aus. Ist das Verfahren noch offen, ist ein Vorschuss möglich.",
+      "achtung": "Die Antragsfrist beginnt mit dem Insolvenzereignis und ist knapp. Stellen Sie den Antrag, sobald Sie von der Insolvenz erfahren.",
+      "begriffe": [
+        "agentur_fuer_arbeit"
+      ],
+      "quellen": [
+        "insolvenzgeld_fim"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "erwerbslosenberatung",
+      "was": "Unabhängige Beratungsstellen helfen Menschen ohne Arbeit oder mit drohendem Jobverlust kostenlos weiter, etwa bei Bescheiden der Agentur für Arbeit oder des Jobcenters, bei Fragen zum Arbeitsrecht und bei Anträgen. Einige Länder fördern solche Stellen.",
+      "danach": "Nach einem Termin wissen Sie, welche Leistungen und Rechte für Sie in Frage kommen. Die Beratung kann auch helfen, einen Widerspruch zu schreiben.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "jobcenter",
+        "widerspruch"
+      ],
+      "quellen": [
+        "be_balz",
+        "bw_arbeitslosenberatung",
+        "ni_erwerbslosenberatung",
+        "nw_beratungsstellen_arbeit"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "gewerbe_anmelden",
+      "was": "Wer selbstständig ein Gewerbe betreibt, zum Beispiel Handel, Gastronomie, Dienstleistungen oder Handwerk, muss das bei der Gemeinde anzeigen. Freie Berufe wie Ärztinnen, Anwälte, Künstlerinnen oder Journalisten brauchen keine Gewerbeanmeldung, sondern melden sich nur beim Finanzamt.",
+      "danach": "Das Gewerbeamt bestätigt die Anmeldung (Gewerbeschein) und gibt die Daten an Finanzamt, Kammer und Berufsgenossenschaft weiter, die sich danach bei Ihnen melden.",
+      "achtung": "Manche Gewerbe brauchen zusätzlich eine Erlaubnis, etwa Gaststätten, Bewachung oder Makler. Fragen Sie das beim Gewerbeamt nach.",
+      "begriffe": [
+        "handwerkskammer"
+      ],
+      "quellen": [
+        "gewerbeanmeldung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "steuerliche_erfassung",
+      "was": "Mit dem Fragebogen zur steuerlichen Erfassung teilen Sie dem Finanzamt mit, dass Sie selbstständig arbeiten. Darin schätzen Sie Umsatz und Gewinn und entscheiden, ob Sie die Kleinunternehmerregelung nutzen. Danach bekommt Ihr Unternehmen eine Steuernummer.",
+      "danach": "Das Finanzamt teilt Ihnen die Steuernummer mit und setzt gegebenenfalls Vorauszahlungen fest. Ab dann geben Sie regelmäßig Steuererklärungen ab.",
+      "achtung": "Ohne Steuernummer dürfen Sie keine ordnungsgemäßen Rechnungen schreiben. Den ELSTER-Zugang deshalb früh beantragen.",
+      "begriffe": [
+        "elster"
+      ],
+      "quellen": [
+        "steuerliche_erfassung"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "handwerksrolle",
+      "was": "Die Handwerksrolle ist das Verzeichnis der Betriebe eines zulassungspflichtigen Handwerks bei der Handwerkskammer. Wer ein solches Handwerk selbstständig ausüben will, muss eingetragen sein, in der Regel mit Meisterbrief oder gleichwertiger Qualifikation.",
+      "danach": "Nach der Eintragung stellt die Handwerkskammer die Handwerkskarte aus. Danach können Sie das Gewerbe anmelden und den Betrieb eröffnen.",
+      "achtung": "Ohne Eintragung ist der Betrieb eines zulassungspflichtigen Handwerks unzulässig und kann mit Bußgeld geahndet werden.",
+      "begriffe": [
+        "handwerkskammer",
+        "zulassungspflichtiges_handwerk"
+      ],
+      "quellen": [
+        "handwerksrolle"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "gruendungszuschuss",
+      "was": "Der Gründungszuschuss unterstützt Menschen, die aus dem Bezug von Arbeitslosengeld heraus eine hauptberufliche Selbstständigkeit beginnen. Er sichert in der Anfangszeit den Lebensunterhalt und die Sozialversicherung ab. Die Agentur für Arbeit entscheidet nach Ermessen.",
+      "danach": "Die Agentur für Arbeit prüft Geschäftsplan und Tragfähigkeitsbescheinigung und entscheidet, ob und wie lange sie fördert. Nach einer ersten Förderphase ist eine Verlängerung auf Antrag möglich.",
+      "achtung": "Der Antrag muss vor dem Start der Selbstständigkeit gestellt werden. Wer zuerst gründet und dann fragt, geht leer aus.",
+      "begriffe": [
+        "agentur_fuer_arbeit",
+        "ermessen",
+        "tragfaehigkeitsbescheinigung"
+      ],
+      "quellen": [
+        "ihk_gruendungszuschuss"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "einstiegsgeld",
+      "was": "Einstiegsgeld ist ein Zuschuss des Jobcenters für Menschen mit Grundsicherungsgeld, die eine Arbeit oder eine Selbstständigkeit aufnehmen. Es soll den Übergang erleichtern, solange das neue Einkommen noch nicht trägt. Das Jobcenter entscheidet nach Ermessen.",
+      "danach": "Das Jobcenter prüft Ihr Vorhaben, oft mit einer fachkundigen Stellungnahme, und bewilligt das Einstiegsgeld für einen begrenzten Zeitraum zusätzlich zum Grundsicherungsgeld.",
+      "achtung": "Sprechen Sie vor der Gründung mit dem Jobcenter. Eine Förderung im Nachhinein ist meist nicht möglich.",
+      "begriffe": [
+        "jobcenter",
+        "ermessen"
+      ],
+      "quellen": [
+        "sgb2_16b"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kfw_startgeld",
+      "was": "Das StartGeld ist ein Förderkredit der KfW für Gründerinnen, Gründer und junge Unternehmen mit kleinem Finanzierungsbedarf. Die KfW übernimmt einen Teil des Risikos, deshalb geben Banken den Kredit leichter. Gefördert werden Investitionen und Betriebsmittel.",
+      "danach": "Ihre Hausbank prüft das Vorhaben und leitet den Antrag an die KfW weiter. Nach der Zusage zahlt die Bank den Kredit aus; die Rückzahlung beginnt nach einer tilgungsfreien Anlaufzeit.",
+      "achtung": "Den Kredit beantragen, bevor Sie investieren oder Verträge unterschreiben. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "hausbank",
+        "darlehen",
+        "ermessen"
+      ],
+      "quellen": [
+        "kfw_067"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "meistergruendungspraemie",
+      "was": "Viele Länder zahlen Meisterinnen und Meistern einen Zuschuss, wenn sie einen Handwerksbetrieb gründen oder übernehmen und dabei Arbeits- oder Ausbildungsplätze schaffen. Name, Voraussetzungen und Höhe sind je Land verschieden.",
+      "danach": "Die Förderstelle des Landes prüft den Antrag, oft mit einer Stellungnahme der Handwerkskammer, und zahlt den Zuschuss bei Bewilligung aus – teils in Raten nach Nachweis der geschaffenen Stellen.",
+      "achtung": "Meist muss der Antrag vor der Gründung oder Übernahme gestellt werden. Es gibt keinen Rechtsanspruch.",
+      "begriffe": [
+        "handwerkskammer",
+        "ermessen"
+      ],
+      "quellen": [
+        "be_meistergruendung",
+        "bw_meistergruendung",
+        "hh_gruendung_handwerk",
+        "mv_meisterpraemie_gruendung"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

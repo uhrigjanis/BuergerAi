@@ -1,0 +1,188 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "geburtsanzeige",
+      "was": "Jede Geburt in Deutschland muss beim Standesamt des Geburtsorts angezeigt werden. Das Standesamt beurkundet die Geburt im Geburtenregister und stellt die Geburtsurkunde aus. Sie ist der Nachweis für fast alle weiteren Anträge wie Kindergeld, Elterngeld und Krankenversicherung.",
+      "danach": "Das Standesamt prüft die Unterlagen und beurkundet die Geburt. Danach gibt es Geburtsurkunden, darunter gebührenfreie Bescheinigungen für Elterngeld, Kindergeld und Mutterschaftsgeld. Die Steuer-Identifikationsnummer des Kindes kommt später per Post.",
+      "achtung": "Fehlen Unterlagen, kann sich die Beurkundung verzögern. Bei nicht verheirateten Eltern hilft es, die Vaterschaft schon vor der Geburt anzuerkennen.",
+      "begriffe": [
+        "standesamt",
+        "steuer_id"
+      ],
+      "quellen": [
+        "pstg_18"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "vaterschaftsanerkennung",
+      "was": "Sind die Eltern bei der Geburt nicht miteinander verheiratet, ist der Vater rechtlich erst Vater, wenn er die Vaterschaft anerkennt und die Mutter zustimmt. Erst dann steht er in der Geburtsurkunde, und erst dann gelten Unterhalt, Erbrecht und Namensrecht zwischen Vater und Kind.",
+      "danach": "Jugendamt, Standesamt oder Notar beurkunden die Anerkennung und die Zustimmung. Das Standesamt trägt den Vater danach in das Geburtenregister ein.",
+      "achtung": "Die Anerkennung ist auch schon vor der Geburt möglich. Sie regelt nicht das Sorgerecht; dafür ist eine eigene Sorgeerklärung nötig.",
+      "begriffe": [
+        "jugendamt",
+        "standesamt",
+        "sorgerecht"
+      ],
+      "quellen": [
+        "bgb_1592_1594"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "sorgeerklaerung",
+      "was": "Nicht verheiratete Eltern haben das gemeinsame Sorgerecht nur, wenn beide eine Sorgeerklärung abgeben. Ohne sie hat die Mutter das Sorgerecht allein. Mit gemeinsamer Sorge entscheiden beide Eltern gemeinsam über wichtige Fragen wie Schule, Wohnort und medizinische Eingriffe.",
+      "danach": "Jugendamt oder Notar beurkunden die Erklärung beider Eltern. Sie gilt sofort und bleibt auch bei einer Trennung bestehen, bis ein Familiengericht etwas anderes entscheidet.",
+      "achtung": "Die Erklärung ist freiwillig und auch schon vor der Geburt möglich. Voraussetzung ist in der Regel, dass die Vaterschaft anerkannt ist.",
+      "begriffe": [
+        "sorgerecht",
+        "jugendamt"
+      ],
+      "quellen": [
+        "bgb_1626a"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "mutterschaftsgeld_krankenkasse",
+      "was": "Mutterschaftsgeld ersetzt das Einkommen während der Mutterschutzfristen vor und nach der Geburt. Die gesetzliche Krankenkasse zahlt es an Frauen, die selbst Mitglied sind und Anspruch auf Krankengeld haben. Für Beschäftigte stockt der Arbeitgeber auf das bisherige Netto auf.",
+      "danach": "Nach Eingang der Bescheinigung über den errechneten Termin zahlt die Krankenkasse für die Zeit vor der Geburt. Nach der Geburt braucht sie die Geburtsbescheinigung, um die Zahlung für die Zeit danach abzuschließen.",
+      "achtung": "Mutterschaftsgeld nach der Geburt wird auf das Elterngeld angerechnet. Die Elterngeldstelle braucht deshalb die Bescheinigung der Krankenkasse darüber.",
+      "begriffe": [
+        "mutterschutzfrist",
+        "elterngeldstelle"
+      ],
+      "quellen": [
+        "sgb5_24i",
+        "muschg_19_20"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "mutterschaftsgeld_bas",
+      "was": "Angestellte Frauen, die nicht selbst gesetzlich versichert sind, also privat versichert oder familienversichert, bekommen statt des Mutterschaftsgelds der Krankenkasse eine einmalige Zahlung vom Bundesamt für Soziale Sicherung. Hinzu kommt der Zuschuss des Arbeitgebers.",
+      "danach": "Das Bundesamt prüft den Antrag mit der Bescheinigung über den errechneten Termin und zahlt den Betrag einmalig aus.",
+      "begriffe": [
+        "familienversicherung",
+        "mutterschutzfrist"
+      ],
+      "quellen": [
+        "muschg_19_20",
+        "bas_mutterschaftsgeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "arbeitgeberzuschuss_mutterschaftsgeld",
+      "was": "Während der Mutterschutzfristen zahlt der Arbeitgeber einen Zuschuss zum Mutterschaftsgeld. So bleibt das Nettoeinkommen etwa so hoch wie vorher. Der Arbeitgeber bekommt das Geld selbst über ein Umlageverfahren erstattet.",
+      "danach": "Der Arbeitgeber berechnet den Zuschuss aus dem durchschnittlichen Nettolohn der letzten Monate und zahlt ihn mit der Lohnabrechnung aus.",
+      "begriffe": [
+        "mutterschutzfrist"
+      ],
+      "quellen": [
+        "muschg_19_20"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "elternzeit",
+      "was": "Elternzeit ist eine unbezahlte Freistellung von der Arbeit, um ein Kind selbst zu betreuen. Jeder Elternteil hat einen eigenen Anspruch, auch gleichzeitig. Während der Elternzeit besteht besonderer Kündigungsschutz, und Teilzeit beim selben Arbeitgeber ist möglich.",
+      "danach": "Der Arbeitgeber bestätigt die Elternzeit. Am Ende kehren Sie auf Ihren oder einen gleichwertigen Arbeitsplatz zurück. Einen Teil der Elternzeit können Sie auch später nehmen, wenn das Kind älter ist.",
+      "achtung": "Die Anmeldefrist ist streng. Wer sie verpasst, kann die Elternzeit erst später beginnen. Mit der Anmeldung legen Sie verbindlich fest, in welchen Zeiträumen Sie Elternzeit nehmen.",
+      "begriffe": [
+        "kuendigungsschutz"
+      ],
+      "quellen": [
+        "beeg_15_16"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "elterngeld",
+      "was": "Elterngeld ersetzt einen Teil des Einkommens, das nach der Geburt wegfällt, wenn Eltern weniger oder gar nicht arbeiten. Auch wer vorher kein Einkommen hatte, bekommt einen Mindestbetrag. Es gibt Basiselterngeld, ElterngeldPlus und einen Partnerschaftsbonus, die sich kombinieren lassen.",
+      "danach": "Die Elterngeldstelle berechnet das Elterngeld aus dem Einkommen vor der Geburt und schickt einen Bescheid. Wer im Bezug Einkommen hat, bekommt oft zunächst einen vorläufigen Bescheid und reicht nach dem Bezug Nachweise ein.",
+      "achtung": "Rückwirkend wird Elterngeld nur begrenzt gezahlt. Den Antrag deshalb bald nach der Geburt stellen und die Monate mit dem anderen Elternteil abstimmen.",
+      "begriffe": [
+        "elterngeldstelle",
+        "basiselterngeld",
+        "elterngeldplus",
+        "bescheid"
+      ],
+      "quellen": [
+        "beeg_1",
+        "beeg_7",
+        "familienportal_elterngeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kindergeld",
+      "was": "Kindergeld gibt es für jedes Kind, unabhängig vom Einkommen der Eltern, in der Regel bis zur Volljährigkeit und während Ausbildung oder Studium darüber hinaus. Es wird an einen Elternteil gezahlt, meist an den, bei dem das Kind lebt.",
+      "danach": "Die Familienkasse prüft den Antrag mit der Steuer-Identifikationsnummer des Kindes und zahlt monatlich. Im Steuerbescheid prüft das Finanzamt später, ob der Kinderfreibetrag günstiger ist.",
+      "achtung": "Rückwirkend wird Kindergeld nur begrenzt gezahlt. Den Antrag stellen, sobald die Steuer-Identifikationsnummer des Kindes da ist.",
+      "begriffe": [
+        "familienkasse",
+        "steuer_id"
+      ],
+      "quellen": [
+        "estg_62",
+        "ba_kindergeld",
+        "estg_70"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "kinderzuschlag",
+      "was": "Der Kinderzuschlag unterstützt Familien, deren Einkommen für die Eltern selbst reicht, aber nicht oder nur knapp für den ganzen Haushalt. Er wird zusätzlich zum Kindergeld gezahlt und öffnet den Zugang zu Leistungen für Bildung und Teilhabe sowie zur Befreiung von Kita-Gebühren.",
+      "danach": "Die Familienkasse prüft das Einkommen der letzten Monate und bewilligt den Kinderzuschlag für einen Bewilligungszeitraum. Danach ist ein neuer Antrag nötig.",
+      "achtung": "Der Kinderzuschlag wird nur begrenzt rückwirkend gezahlt. Mit einem Vorab-Check lässt sich klären, ob sich ein Antrag lohnt.",
+      "begriffe": [
+        "familienkasse",
+        "bewilligungszeitraum"
+      ],
+      "quellen": [
+        "bkgg_6a",
+        "kiz_lotse"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "familienversicherung_kind",
+      "was": "Kinder sind über einen gesetzlich versicherten Elternteil kostenlos in der Familienversicherung mitversichert. Sind die Eltern verheiratet und verdient der privat versicherte Elternteil deutlich mehr, kann die kostenlose Mitversicherung ausgeschlossen sein.",
+      "danach": "Die Krankenkasse nimmt das Kind auf und schickt eine Gesundheitskarte. Ab dann sind Vorsorgeuntersuchungen und Behandlungen abgedeckt.",
+      "begriffe": [
+        "familienversicherung"
+      ],
+      "quellen": [
+        "sgb5_10"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "bayerisches_familiengeld",
+      "was": "Das Bayerische Familiengeld war eine Landesleistung für Kleinkinder im Anschluss an die typische Elterngeldzeit, unabhängig vom Einkommen und von der Art der Betreuung. Es wurde abgeschafft und gilt nur noch für Kinder, die vor dem Stichtag geboren sind.",
+      "danach": "Für berechtigte Kinder zahlt das Zentrum Bayern Familie und Soziales weiter bis zum Ende des Bezugszeitraums. Für später geborene Kinder sind Anträge unbeachtlich.",
+      "begriffe": [],
+      "quellen": [
+        "bayfamgg_9a",
+        "bayfamgg_3",
+        "stmas_familiengeld_2024"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "landeserziehungsgeld_sn",
+      "was": "Das Sächsische Landeserziehungsgeld unterstützt Eltern, die ihr Kind nach dem Basiselterngeld weiter selbst betreuen und dafür keinen staatlich geförderten Kita-Platz nutzen. Anspruch und Höhe hängen von der Zahl der Kinder und vom Einkommen ab.",
+      "danach": "Die Landkreis- bzw. Stadtverwaltung prüft den Antrag und zahlt für den bewilligten Zeitraum monatlich. Nimmt das Kind einen geförderten Kita-Platz, endet die Zahlung.",
+      "achtung": "Den Antrag gegen Ende des Basiselterngelds stellen, damit keine Lücke entsteht.",
+      "begriffe": [
+        "basiselterngeld"
+      ],
+      "quellen": [
+        "sachsen_landeserziehungsgeld"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

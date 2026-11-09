@@ -284,6 +284,8 @@ progress::-moz-progress-bar { background: var(--ja); border-radius: 999px; }
 .detail-abschnitt { margin-top: 1.25rem; }
 .detail-abschnitt h3 { font-size: 1rem; color: var(--tinte); margin-bottom: .3rem; }
 .detail-abschnitt ul, .detail-abschnitt ol { margin: .3rem 0; padding-left: 1.3rem; }
+.begriffe details { border-top: 1px solid var(--linie); padding: .35rem 0; }
+.begriffe details p { margin: .3rem 0 0; }
 .detail-abschnitt li { margin: .2rem 0; }
 .fakten-liste { display: grid; grid-template-columns: max-content 1fr; gap: .3rem .9rem; margin: .75rem 0 0; font-size: .9375rem; }
 .fakten-liste dt { color: var(--leise); }

@@ -1,0 +1,140 @@
+{
+  "_hinweis": "Erklärtexte der Leistungen dieses Fachmoduls (#113): was die Leistung ist (was), was nach dem Antrag passiert (danach) und Stolpersteine (achtung). Keine Zahlen, Beträge, Fristen, Links oder Zusagen – diese kommen aus den strukturierten Daten. Prüfstatus gilt für den Text; 'verifiziert' setzt nur ein Mensch (buergerai erklaerungen --abnehmen). Datei maschinell formatiert.",
+  "erklaerungen": [
+    {
+      "leistung_id": "grundsicherungsgeld",
+      "was": "Das Grundsicherungsgeld (früher Bürgergeld) sichert den Lebensunterhalt von Menschen, die arbeiten können, deren Einkommen und Vermögen aber nicht reichen. Es umfasst den Regelbedarf sowie angemessene Kosten für Miete und Heizung. Es kann auch ergänzend zu Lohn oder Arbeitslosengeld gezahlt werden.",
+      "danach": "Das Jobcenter prüft Einkommen und Vermögen aller Personen in der Bedarfsgemeinschaft und schickt einen Bescheid. Die Leistung wird für einen Bewilligungszeitraum gezahlt; danach ist ein Weiterbewilligungsantrag nötig.",
+      "achtung": "Wer Termine versäumt oder Pflichten nicht einhält, muss mit Kürzungen rechnen. Änderungen bei Einkommen, Wohnung oder Haushalt immer sofort melden.",
+      "begriffe": [
+        "jobcenter",
+        "bedarfsgemeinschaft",
+        "regelbedarf",
+        "kosten_der_unterkunft",
+        "bewilligungszeitraum",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "sgb2_7",
+        "bmas_neue_grundsicherung",
+        "jobcenter_berlin_geld"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "grundsicherung_alter_em",
+      "was": "Die Grundsicherung im Alter und bei Erwerbsminderung sichert den Lebensunterhalt von Menschen, die die Regelaltersgrenze erreicht haben oder dauerhaft voll erwerbsgemindert sind, wenn Rente, Einkommen und Vermögen nicht reichen. Sie umfasst den Regelbedarf und angemessene Kosten für Wohnung und Heizung.",
+      "danach": "Das Sozialamt prüft Einkommen und Vermögen und schickt einen Bescheid. Auf das Einkommen der Kinder wird nur bei sehr hohem Einkommen zurückgegriffen.",
+      "achtung": "Die Leistung kommt nicht automatisch mit der Rente, sie muss beantragt werden. Gezahlt wird in der Regel erst ab dem Monat des Antrags.",
+      "begriffe": [
+        "sozialamt",
+        "regelaltersgrenze",
+        "erwerbsminderung",
+        "regelbedarf",
+        "kosten_der_unterkunft",
+        "bescheid"
+      ],
+      "quellen": [
+        "sgb12_41"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "wohngeld",
+      "was": "Wohngeld ist ein Zuschuss zu den Wohnkosten für Haushalte mit geringem Einkommen, die ihren Lebensunterhalt sonst selbst bestreiten. Mieter bekommen einen Mietzuschuss, Eigentümer einen Lastenzuschuss. Die Höhe hängt von Haushaltsgröße, Einkommen, Miete und Mietenstufe des Wohnorts ab.",
+      "danach": "Die Wohngeldbehörde berechnet den Anspruch und schickt einen Bescheid. Wohngeld wird für einen Bewilligungszeitraum gezahlt; danach ist ein neuer Antrag nötig.",
+      "achtung": "Wer Grundsicherungsgeld oder Sozialhilfe bezieht, bekommt kein Wohngeld. Ändern sich Einkommen oder Miete deutlich, muss das gemeldet werden.",
+      "begriffe": [
+        "bescheid",
+        "bewilligungszeitraum",
+        "mitwirkungspflicht"
+      ],
+      "quellen": [
+        "wogg_7",
+        "fim_wohngeld",
+        "wogg_25"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "bildung_und_teilhabe",
+      "was": "Kinder und Jugendliche aus Familien mit Grundsicherungsgeld, Sozialhilfe, Wohngeld oder Kinderzuschlag können zusätzliche Leistungen bekommen: Schulbedarf, Mittagessen in Kita und Schule, Ausflüge und Klassenfahrten, Lernförderung, Schülerbeförderung sowie Beiträge für Sport, Musik und Kultur.",
+      "danach": "Die zuständige Stelle bewilligt die Leistungen meist für den laufenden Bewilligungszeitraum. Oft zahlt sie direkt an Schule, Verein oder Anbieter statt an die Familie.",
+      "achtung": "Wie die Leistungen beantragt werden, regelt jede Stadt bzw. jeder Kreis anders. Fragen Sie nach, ob ein eigener Antrag nötig ist.",
+      "begriffe": [
+        "jobcenter",
+        "sozialamt",
+        "bewilligungszeitraum"
+      ],
+      "quellen": [
+        "sgb2_28",
+        "bkgg_6b",
+        "betanet_but"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "rundfunkbeitrag_befreiung",
+      "was": "Wer bestimmte Sozialleistungen bezieht, zum Beispiel Grundsicherungsgeld, Sozialhilfe, BAföG ohne Eltern oder Hilfe zur Pflege, kann sich vom Rundfunkbeitrag befreien lassen. Die Befreiung gilt für die ganze Wohnung. Sie kommt nicht automatisch mit der Sozialleistung.",
+      "danach": "Der Beitragsservice prüft den eingereichten Bescheid und befreit für dessen Laufzeit. Bei einem Folgebescheid muss die Befreiung erneut beantragt werden.",
+      "achtung": "Wohngeld oder Arbeitslosengeld allein reichen nicht. In Härtefällen ist eine Befreiung trotzdem möglich.",
+      "begriffe": [
+        "beitragsservice",
+        "bescheid"
+      ],
+      "quellen": [
+        "rbstv_4"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "sozialticket",
+      "was": "Einige Länder und Verkehrsverbünde bieten Menschen mit Sozialleistungen eine vergünstigte Monatskarte oder ein vergünstigtes Deutschlandticket an. Name, Preis und Voraussetzungen sind je Land und Region verschieden.",
+      "danach": "Nach dem Nachweis der Sozialleistung gibt es eine Berechtigung, mit der das vergünstigte Ticket gekauft oder abonniert werden kann.",
+      "begriffe": [],
+      "quellen": [
+        "bremen_stadtticket",
+        "vbb_mobilitaetsticket",
+        "berlin_ticket_s"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "sozialpass",
+      "was": "Viele Städte geben Menschen mit geringem Einkommen einen Sozialpass. Er bringt Ermäßigungen etwa bei Nahverkehr, Schwimmbädern, Museen, Volkshochschule oder Bibliothek. Name und Angebote sind je Stadt verschieden.",
+      "danach": "Die Stadt stellt den Pass nach Prüfung des Einkommens oder der Sozialleistung aus, meist befristet. Danach ist ein neuer Antrag nötig.",
+      "begriffe": [],
+      "quellen": [
+        "bremen_stadtticket",
+        "muenchen_pass",
+        "saarbruecken_sozialcard"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "zuzahlungsbefreiung",
+      "was": "Gesetzlich Versicherte zahlen bei Medikamenten, Heilmitteln oder Krankenhausaufenthalten Zuzahlungen. Übersteigen sie im Jahr die Belastungsgrenze, befreit die Krankenkasse für den Rest des Jahres. Für chronisch Kranke ist die Grenze niedriger.",
+      "danach": "Die Krankenkasse prüft Quittungen und Einkommen, stellt einen Befreiungsausweis aus und erstattet zu viel gezahlte Beträge. Alternativ lässt sich die Grenze vorab zahlen und so gleich befreien.",
+      "achtung": "Quittungen das ganze Jahr sammeln. Zuzahlungen der ganzen Familie zählen zusammen.",
+      "begriffe": [
+        "zuzahlung",
+        "belastungsgrenze"
+      ],
+      "quellen": [
+        "sgb5_62",
+        "bmg_zuzahlungen"
+      ],
+      "pruefstatus": "ungeprueft"
+    },
+    {
+      "leistung_id": "landesfamilienpass",
+      "was": "Einige Länder geben Familien mit geringem Einkommen, vielen Kindern oder Alleinerziehenden einen Familienpass. Er bringt freien oder ermäßigten Eintritt in Einrichtungen des Landes, etwa Schlösser, Gärten und Museen.",
+      "danach": "Die Gemeinde stellt den Pass aus, oft zusammen mit Gutscheinen für das laufende Jahr. Danach muss er erneuert werden.",
+      "begriffe": [],
+      "quellen": [
+        "bw_landesfamilienpass"
+      ],
+      "pruefstatus": "ungeprueft"
+    }
+  ]
+}

@@ -54,12 +54,19 @@ def test_schema_fuer_alle_lebenslagen(kb):
         assert all(o.get("additionalProperties") is False for o in _objekte(schema)), ll
         felder = schema["properties"]["fakten"]["properties"]
         assert felder, ll
+        assert schema["properties"]["wohnort"]["required"] == ["ortsname", "plz", "beleg"]
+        assert schema["required"] == ["fakten"]  # der Wohnort ist freiwillig
         modul = kb.lebenslagen[ll].modul
         assert any(kb.fakt_definition(fid).modul == modul for fid in felder), ll
         for fid, feld in felder.items():
             d = kb.fakt_definition(fid)
             assert d is not None and not d.abgeleitet, fid
             assert not fid.startswith("person."), fid
+            if d.typ == "ort":
+                # Nur der Name aus dem Text, nie ein Gemeindeschlüssel (#115)
+                assert feld["required"] == ["ortsname", "plz", "beleg"] and "wert" not in feld["properties"]
+                assert "Postleitzahl)" not in feld["description"]
+                continue
             assert feld["required"] == ["wert", "beleg"]
             assert feld["description"] and "TT.MM.JJJJ" not in feld["description"]
             wert = feld["properties"]["wert"]

@@ -14,7 +14,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Callable, Optional
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from ..llm.schutz import RateLimit
 from ..wissensbasis import Wissensbasis
@@ -99,6 +99,9 @@ def handler_fuer(kb: Wissensbasis, llm: Any = None, rate_limit: Optional[RateLim
                     self._json(200, api.szenario(kb, unquote(pfad[len("/api/szenario/"):])))
                 elif pfad == "/api/gesund":
                     self._json(200, {"ok": True})
+                elif pfad == "/api/orte":
+                    name = parse_qs(urlparse(self.path).query).get("name", [None])[0]
+                    self._json(200, api.orte(kb, name))
                 else:
                     raise api.ApiFehler(404, "Nicht gefunden")
             except api.ApiFehler as exc:

@@ -112,7 +112,89 @@ def test_antwort_auf_offene_frage(kb):
 def test_antwort_ohne_ergebnis_mit_hinweis(kb):
     fake = FakeLLM([{"aufgabe": "extraktion", "fehler": "ungueltig"}])
     r = api.antwort(kb, fake, {**anfrage(kind_geboren=False), "frage": "errechneter_termin", "text": "bald"})
-    assert r == {"vorschlaege": [], "hinweise": [api.HINWEIS_ANTWORT_LEER]}
+    assert r == {"vorschlaege": [], "orte": [], "hinweise": [api.HINWEIS_ANTWORT_LEER]}
+
+
+# ------------------------------------------------------------------ Orte aus dem Freitext (#115)
+UMZUG_TEXT = "Wir bekommen ein Kind und ziehen von Köln nach Freising."
+
+
+def _ort(ortsname, beleg, plz=""):
+    return {"ortsname": ortsname, "plz": plz, "beleg": beleg}
+
+
+def orte_llm(wohnort, ort_alt=None):
+    fakten = {"umzug.ort_alt": ort_alt} if ort_alt else {}
+    return FakeLLM([
+        {"aufgabe": "router", "antwort": {"kategorie": "lebenslage", "lebenslagen": [
+            {"id": "geburt", "begruendung": "Kind"}, {"id": "umzug", "begruendung": "ziehen"}]}},
+        {"aufgabe": "extraktion", "enthaelt": "(geburt)", "antwort": {"wohnort": wohnort, "fakten": {
+            "kind_geboren": {"wert": "nein", "beleg": "Wir bekommen ein Kind"}}}},
+        {"aufgabe": "extraktion", "enthaelt": "(umzug)", "antwort": {"wohnort": wohnort, "fakten": fakten}},
+    ])
+
+
+@pytest.mark.anforderung("ANF-LLM-24")
+def test_intake_von_koeln_nach_freising_ende_zu_ende(kb):
+    llm = orte_llm(_ort("Freising", "nach Freising"), _ort("Köln", "von Köln"))
+    r = api.intake(kb, llm, {"text": UMZUG_TEXT, "stichtag": STICHTAG})
+    wohnort = next(o for o in r["orte"] if o["rolle"] == "wohnort")
+    assert wohnort["status"] == "eindeutig" and wohnort["rolle_text"] == "Wohnort"
+    g = wohnort["gemeinde"]
+    assert g["text"] == "Freising (Landkreis Freising, Bayern)" and g["plz_text"] == "PLZ 85354 oder 85356"
+    assert (g["id"], g["land_kuerzel"], g["plz"]) == ("09178124", "BY", ["85354", "85356"])
+    von, bis = wohnort["stelle"]
+    assert UMZUG_TEXT[von:bis] == "nach Freising"
+    # Der alte Wohnort ist ein Vorschlag mit Ortsname statt Ziffern
+    alt = next(v for v in r["vorschlaege"] if v["id"] == "umzug.ort_alt")
+    assert (alt["wert"], alt["anzeige"]) == ("05315000", "Köln (Nordrhein-Westfalen)")
+    assert alt["ort"]["status"] == "eindeutig" and alt["ort"]["kandidaten"] == []
+    assert "wohnort" not in {v["id"] for v in r["vorschlaege"]}
+
+    # Nach der Bestätigung: Bericht mit der Gemeinde statt einer PLZ
+    fakten = {v["id"]: v["wert"] for v in r["vorschlaege"]}
+    b = api.bericht(kb, {"gemeinde": g["id"], "stichtag": STICHTAG, "lebenslagen": ["geburt", "umzug"],
+                         "fakten": {**fakten, "kind_geboren": "nein"}})
+    assert b["ort"]["hierarchie"][0]["name"] == "Freising"
+    alt_angabe = next(a for a in b["angaben"] if a["id"] == "umzug.ort_alt")
+    assert alt_angabe["anzeige"] == "Köln (Nordrhein-Westfalen)"
+    assert "umzug.ort_alt" not in {f["id"] for f in b["fragen"]}
+
+
+@pytest.mark.anforderung("ANF-LLM-24")
+def test_intake_mehrdeutiger_und_unbekannter_ort(kb):
+    text = "Wir bekommen ein Kind und ziehen von Schwabing nach Neuenkirchen."
+    llm = orte_llm(_ort("Neuenkirchen", "nach Neuenkirchen"), _ort("Schwabing", "von Schwabing"))
+    r = api.intake(kb, llm, {"text": text, "stichtag": STICHTAG})
+    orte = {o["rolle"]: o for o in r["orte"]}
+    assert orte["wohnort"]["status"] == "mehrdeutig" and orte["wohnort"]["gemeinde"] is None
+    kandidaten = orte["wohnort"]["kandidaten"]
+    assert len(kandidaten) == 11 and all(k["kreis"] and k["land"] for k in kandidaten)
+    assert orte["umzug.ort_alt"]["status"] == "unbekannt"
+    # Unbekannt: kein Vorschlag, das Formular fragt nach der PLZ
+    assert "umzug.ort_alt" not in {v["id"] for v in r["vorschlaege"]}
+
+
+@pytest.mark.anforderung("ANF-LLM-24")
+def test_mehrdeutiger_ortsfakt_als_auswahl(kb):
+    text = "Wir bekommen ein Kind und ziehen von Frankfurt nach Freising."
+    llm = orte_llm(_ort("Freising", "nach Freising"), _ort("Frankfurt", "von Frankfurt"))
+    r = api.intake(kb, llm, {"text": text, "stichtag": STICHTAG})
+    alt = next(v for v in r["vorschlaege"] if v["id"] == "umzug.ort_alt")
+    assert alt["wert"] is None and alt["anzeige"] == "bitte wählen"
+    assert [k["text"] for k in alt["ort"]["kandidaten"]] == ["Frankfurt am Main (Hessen)", "Frankfurt (Oder) (Brandenburg)"]
+
+
+@pytest.mark.anforderung("ANF-LLM-24")
+def test_api_orte_suche(kb, server_mit):
+    assert api.orte(kb, "Berlin")["gemeinden"][0]["text"] == "Berlin"
+    assert api.orte(kb, "München")["gemeinden"][0]["plz_text"] == "mehrere PLZ"
+    basis = server_mit(None)  # ohne LLM verfügbar
+    status, _, inhalt = http(basis + "/api/orte?name=Frankfurt")
+    r = json.loads(inhalt)
+    assert status == 200 and r["status"] == "mehrdeutig" and len(r["gemeinden"]) == 2
+    assert http(basis + "/api/orte")[0] == 400
+    assert http(basis + "/api/orte?name=" + "x" * 61)[0] == 400
 
 
 # ------------------------------------------------------------------ Server

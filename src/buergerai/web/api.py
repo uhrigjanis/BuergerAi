@@ -107,6 +107,38 @@ def _gemeinde_wahl_json(kb: Wissensbasis, g: Gebiet) -> dict[str, Any]:
     return {"id": g.id, "name": g.name, "kreis": kreis.name if kreis else None}
 
 
+MAX_PLZ_ANZEIGE = 3  # mehr PLZ werden nicht aufgezählt ("mehrere PLZ"), München hat 75
+
+
+def gemeinde_text(kb: Wissensbasis, g: Gebiet) -> str:
+    """"Freising (Landkreis Freising, Bayern)", "Köln (Nordrhein-Westfalen)", "Berlin"."""
+    kreis, land = gebiete_mod.kreis_von(kb, g), gebiete_mod.land_von(kb, g)
+    zusatz = []
+    if kreis is not None and kreis.name not in (f"Kreisfreie Stadt {g.name}", f"Stadtkreis {g.name}"):
+        zusatz.append(kreis.name)
+    if land is not None and land.name != g.name:
+        zusatz.append(land.name)
+    return f"{g.name} ({', '.join(zusatz)})" if zusatz else g.name
+
+
+def plz_text(plz: tuple[str, ...]) -> str:
+    if not plz:
+        return ""
+    if len(plz) > MAX_PLZ_ANZEIGE:
+        return "mehrere PLZ"
+    return "PLZ " + (plz[0] if len(plz) == 1 else ", ".join(plz[:-1]) + " oder " + plz[-1])
+
+
+def gemeinde_json(kb: Wissensbasis, g: Gebiet) -> dict[str, Any]:
+    """Gemeinde für die Anzeige eines erkannten Orts (#115)."""
+    kreis, land = gebiete_mod.kreis_von(kb, g), gebiete_mod.land_von(kb, g)
+    return {
+        "id": g.id, "name": g.name, "kreis": kreis.name if kreis else None,
+        "land": land.name if land else None, "land_kuerzel": land.kuerzel if land else None,
+        "plz": list(g.plz), "plz_text": plz_text(g.plz), "text": gemeinde_text(kb, g),
+    }
+
+
 def frage_json(kb: Wissensbasis, fid: str) -> dict[str, Any]:
     """Alles, was die Oberfläche braucht, um eine Angabe abzufragen."""
     d = kb.fakt_definition(fid)
@@ -176,6 +208,10 @@ def anzeige(kb: Wissensbasis, fid: str, wert: Any) -> str:
         for w, text in d.optionen:
             if w == wert:
                 return text
+    if d is not None and d.typ == "ort" and isinstance(wert, str):
+        g = kb.gebiete.get(wert) if len(wert) == 8 else None
+        if g is not None:  # Gemeindeschlüssel als Ortsname statt Ziffern (#115)
+            return gemeinde_text(kb, g)
     return wert_als_text(wert, jahreszahl=ist_jahreszahl(fid))
 
 
@@ -490,6 +526,54 @@ def _vorschlag_json(kb: Wissensbasis, text: str, v: Any) -> dict[str, Any]:
     }
 
 
+def ort_json(kb: Wissensbasis, text: str, o: Any) -> dict[str, Any]:
+    """Ein erkannter Ort (``schema.Ortsangabe``) mit Zuordnung aus der Wissensbasis (#115)."""
+    from ..llm.schema import WOHNORT
+
+    mehrdeutig = o.status == gebiete_mod.ORT_MEHRDEUTIG
+    return {
+        "rolle": o.id,
+        "rolle_text": "Wohnort" if o.id == WOHNORT else frage_zu(kb, o.id),
+        "ortsname": o.ortsname,
+        "plz": o.plz or None,
+        "beleg": o.beleg,
+        "stelle": beleg_stelle(text, o.beleg),
+        "status": o.status,
+        "art": o.art,
+        "gemeinde": gemeinde_json(kb, o.gemeinde) if o.gemeinde is not None else None,
+        "kandidaten": [gemeinde_json(kb, g) for g in o.gemeinden] if mehrdeutig else [],
+    }
+
+
+def _vorschlaege_json(kb: Wissensbasis, text: str, pruefung: Any) -> list[dict[str, Any]]:
+    """Vorschläge zur Bestätigung. Ortsfakten kommen mit Ortsname und, wenn mehrdeutig, als Auswahl."""
+    from ..llm.schema import WOHNORT
+
+    orte = {o.id: o for o in pruefung.orte if o.id != WOHNORT}
+    ergebnis = [_vorschlag_json(kb, text, v) for v in pruefung.vorschlaege if v.id not in orte]
+    for o in orte.values():
+        if o.status == gebiete_mod.ORT_UNBEKANNT and not o.plz:
+            continue  # kein Vorschlag; das Formular fragt später nach der PLZ
+        wert = o.fakt_wert()
+        ergebnis.append({
+            **frage_json(kb, o.id),
+            "wert": wert,  # None: bitte aus "kandidaten" wählen
+            "anzeige": anzeige(kb, o.id, wert) if wert else "bitte wählen",
+            "beleg": o.beleg,
+            "stelle": beleg_stelle(text, o.beleg),
+            "ort": ort_json(kb, text, o),
+        })
+    return ergebnis
+
+
+def orte(kb: Wissensbasis, name: Optional[str]) -> dict[str, Any]:
+    """Ortssuche nach Namen zum Korrigieren, ohne LLM (#115)."""
+    if not isinstance(name, str) or not name.strip() or len(name) > 60:
+        raise ApiFehler(400, "Bitte einen Ortsnamen angeben (höchstens 60 Zeichen)")
+    t = gebiete_mod.ort_suchen(kb, name)
+    return {"status": t.status, "art": t.art, "gemeinden": [gemeinde_json(kb, g) for g in t.gemeinden]}
+
+
 def suche(kb: Wissensbasis, daten: Any) -> dict[str, Any]:
     """Stichwortsuche nach Lebenslagen: der Einstieg ohne LLM (#86)."""
     text = _freitext(daten, "text", MAX_SUCHE)
@@ -506,13 +590,15 @@ def intake(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
     stichtag = _stichtag(daten)
     routing = erkennen(llm, kb, text)
     vorschlaege: list[dict[str, Any]] = []
+    orte_liste: list[dict[str, Any]] = []
     hinweise = [routing.hinweis] if routing.hinweis else []
     if routing.kategorie not in ABWEISEN and routing.ids:
         try:
             if routing.quelle != "llm":
                 raise LLMFehler("Router im Fallback: keine Extraktion")
             pruefung = extrahieren(llm, kb, text, routing.ids, heute=stichtag)
-            vorschlaege = [_vorschlag_json(kb, text, v) for v in pruefung.vorschlaege]
+            vorschlaege = _vorschlaege_json(kb, text, pruefung)
+            orte_liste = [ort_json(kb, text, o) for o in pruefung.orte]
         except LLMFehler:
             hinweise.append(HINWEIS_OHNE_ANGABEN)
     return {
@@ -524,6 +610,7 @@ def intake(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
             for t in routing.lebenslagen
         ],
         "vorschlaege": vorschlaege,
+        "orte": orte_liste,
     }
 
 
@@ -545,9 +632,10 @@ def antwort(kb: Wissensbasis, llm: Any, daten: Any) -> dict[str, Any]:
     try:
         pruefung = antwort_extrahieren(llm, kb, text, offen, heute=anfrage.stichtag, bekannt=anfrage.fakten)
     except LLMFehler:
-        return {"vorschlaege": [], "hinweise": [HINWEIS_ANTWORT_LEER]}
-    vorschlaege = [_vorschlag_json(kb, text, v) for v in pruefung.vorschlaege]
-    return {"vorschlaege": vorschlaege, "hinweise": [] if vorschlaege else [HINWEIS_ANTWORT_LEER]}
+        return {"vorschlaege": [], "orte": [], "hinweise": [HINWEIS_ANTWORT_LEER]}
+    vorschlaege = _vorschlaege_json(kb, text, pruefung)
+    return {"vorschlaege": vorschlaege, "orte": [ort_json(kb, text, o) for o in pruefung.orte],
+            "hinweise": [] if vorschlaege else [HINWEIS_ANTWORT_LEER]}
 
 
 # ------------------------------------------------------------------ Antworttext (#78)

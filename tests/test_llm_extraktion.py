@@ -12,6 +12,8 @@ from buergerai.llm import FakeLLM, LLMTimeout
 from buergerai.llm.extraktion import SYSTEM, SYSTEM_ANTWORT, antwort_extrahieren, extrahieren
 from buergerai.llm.schema import (
     GRUND_BELEG,
+    GRUND_FORM,
+    GRUND_WERT,
     GRUND_NICHT_IM_SCHEMA,
     GRUND_NUR_WENN,
     GRUND_WIDERSPRUCH,
@@ -93,15 +95,117 @@ def test_nur_wenn_ueber_aufrufe_hinweg(kb):
     assert _gruende(p) == {"arbeit.kuendigung_zugang": GRUND_NUR_WENN}
 
 
-@pytest.mark.anforderung("ANF-LLM-13")
-def test_ort_nur_wenn_die_ziffern_im_text_stehen(kb):
+def _ort(ortsname, beleg, plz=""):
+    return {"ortsname": ortsname, "plz": plz, "beleg": beleg}
+
+
+def _mit_wohnort(lebenslage, wohnort, **fakten):
+    eintrag = _antwort(lebenslage, **fakten)
+    eintrag["antwort"]["wohnort"] = wohnort
+    return eintrag
+
+
+@pytest.mark.anforderung("ANF-LLM-13", "ANF-LLM-23")
+def test_plz_nur_wenn_die_ziffern_im_text_stehen(kb):
     text = "Wir ziehen von 80331 München nach Freising."
-    gut = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _fakt("80331", "von 80331 München")})])
-    assert extrahieren(gut, kb, text, ["umzug"], heute=HEUTE).fakten() == {"umzug.ort_alt": "80331"}
+    gut = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _ort("München", "von 80331 München", plz="80331")})])
+    p = extrahieren(gut, kb, text, ["umzug"], heute=HEUTE)
+    # Die PLZ aus dem Text hat Vorrang vor dem Namen
+    assert p.fakten() == {"umzug.ort_alt": "80331"} and p.ort("umzug.ort_alt").art == "plz"
     # Postleitzahl aus dem Ortsnamen abgeleitet: geraten, also verworfen
-    geraten = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _fakt("80331", "von München")})])
+    geraten = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _ort("München", "von München", plz="80331")})])
     p = extrahieren(geraten, kb, "Wir ziehen von München nach Freising.", ["umzug"], heute=HEUTE)
-    assert p.fakten() == {} and _gruende(p) == {"umzug.ort_alt": GRUND_BELEG}
+    assert p.fakten() == {} and p.orte == [] and _gruende(p) == {"umzug.ort_alt": GRUND_BELEG}
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
+@pytest.mark.parametrize("eintrag, grund", [
+    # Gemeindeschlüssel oder alte Form mit "wert": das Modell liefert nie einen Schlüssel
+    ({"wert": "09178124", "beleg": "nach Freising"}, GRUND_FORM),
+    (_ort("Freising", "nach Freising", plz="09178124"), GRUND_WERT),
+    # erfundene PLZ, die nicht im Text steht
+    (_ort("Freising", "nach Freising", plz="85354"), GRUND_BELEG),
+    # Name steht nicht im Beleg, Beleg nicht im Text
+    (_ort("Landshut", "nach Freising"), GRUND_BELEG),
+    (_ort("Freising", "nach Freising in Oberbayern"), GRUND_BELEG),
+    (_ort("", "nach Freising"), GRUND_FORM),
+])
+def test_ortsangabe_vom_modell_wird_geprueft(kb, eintrag, grund):
+    text = "Wir ziehen von Köln nach Freising."
+    fake = FakeLLM([_mit_wohnort("umzug", eintrag, **{"umzug.ort_alt": eintrag})])
+    p = extrahieren(fake, kb, text, ["umzug"], heute=HEUTE)
+    assert p.fakten() == {} and p.orte == []
+    assert _gruende(p) == {"wohnort": grund, "umzug.ort_alt": grund}
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
+def test_erfundener_ort_ergibt_keinen_schluessel(kb):
+    text = "Wir ziehen von Atlantis nach Schwabing."
+    fake = FakeLLM([_mit_wohnort("umzug", _ort("Schwabing", "nach Schwabing"),
+                                 **{"umzug.ort_alt": _ort("Atlantis", "von Atlantis")})])
+    p = extrahieren(fake, kb, text, ["umzug"], heute=HEUTE)
+    assert p.fakten() == {} and not p.verworfen
+    assert [(o.id, o.status, o.gemeinden) for o in p.orte] == [("wohnort", "unbekannt", ()),
+                                                               ("umzug.ort_alt", "unbekannt", ())]
+
+
+@pytest.mark.anforderung("ANF-LLM-23", "ANF-LLM-24")
+def test_von_koeln_nach_freising(kb):
+    text = "Wir bekommen ein Kind und ziehen von Köln nach Freising."
+    fake = FakeLLM([
+        _mit_wohnort("geburt", _ort("Freising", "ziehen von Köln nach Freising"),
+                     kind_geboren=_fakt("nein", "Wir bekommen ein Kind")),
+        _mit_wohnort("umzug", _ort("Freising", "nach Freising"),
+                     **{"umzug.ort_alt": _ort("Köln", "von Köln")}),
+    ])
+    p = extrahieren(fake, kb, text, ["geburt", "umzug"], heute=HEUTE)
+    wohnort = p.ort("wohnort")
+    assert (wohnort.status, wohnort.gemeinde.id, wohnort.gemeinde.plz) == ("eindeutig", "09178124", ("85354", "85356"))
+    # Der Wohnort ist kein Fakt; der alte Wohnort wird mit Gemeindeschlüssel vorgeschlagen
+    assert p.fakten() == {"kind_geboren": False, "umzug.ort_alt": "05315000"}
+    assert not p.verworfen
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
+def test_mehrdeutiger_ort_wird_nicht_vorgeschlagen(kb):
+    fake = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _ort("Neuenkirchen", "aus Neuenkirchen")})])
+    p = extrahieren(fake, kb, "Wir kommen aus Neuenkirchen.", ["umzug"], heute=HEUTE)
+    assert p.fakten() == {}
+    assert p.ort("umzug.ort_alt").status == "mehrdeutig" and len(p.ort("umzug.ort_alt").gemeinden) == 11
+    # Mit Kreis im Text: eingegrenzt und eindeutig
+    fake = FakeLLM([_antwort("umzug", **{"umzug.ort_alt": _ort("Neuenkirchen", "aus Neuenkirchen")})])
+    p = extrahieren(fake, kb, "Wir kommen aus Neuenkirchen im Kreis Steinfurt.", ["umzug"], heute=HEUTE)
+    assert p.fakten() == {"umzug.ort_alt": "05566060"}
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
+def test_zielort_grenzt_herkunftsort_nicht_ein(kb):
+    # Steinfurt ist auch ein Kreis mit einem Neuenkirchen, aber hier der neue Wohnort
+    text = "Wir ziehen von Neuenkirchen nach Steinfurt."
+    fake = FakeLLM([_mit_wohnort("umzug", _ort("Steinfurt", "nach Steinfurt"),
+                                 **{"umzug.ort_alt": _ort("Neuenkirchen", "von Neuenkirchen")})])
+    p = extrahieren(fake, kb, text, ["umzug"], heute=HEUTE)
+    assert p.ort("umzug.ort_alt").status == "mehrdeutig" and "umzug.ort_alt" not in p.fakten()
+    assert p.ort("wohnort").gemeinde.name == "Steinfurt"
+
+
+@pytest.mark.anforderung("ANF-LLM-13", "ANF-LLM-23")
+def test_widerspruechlicher_wohnort_wird_verworfen(kb):
+    text = "Wir ziehen von Köln nach Freising."
+    fake = FakeLLM([_mit_wohnort("geburt", _ort("Köln", "von Köln")),
+                    _mit_wohnort("umzug", _ort("Freising", "nach Freising"))])
+    p = extrahieren(fake, kb, text, ["geburt", "umzug"], heute=HEUTE)
+    assert p.orte == [] and _gruende(p) == {"wohnort": GRUND_WIDERSPRUCH}
+
+
+@pytest.mark.anforderung("ANF-LLM-23")
+def test_ortsname_in_antwort_auf_rueckfrage(kb):
+    fake = FakeLLM([{"aufgabe": "extraktion", "antwort": {"fakten": {
+        "umzug.ort_alt": _ort("Köln", "bisher in Köln")}}}])
+    p = antwort_extrahieren(fake, kb, "bisher in Köln", ["umzug.ort_alt"], heute=HEUTE)
+    assert p.fakten() == {"umzug.ort_alt": "05315000"}
+    # Bei Rückfragen fragt das Schema nicht nach dem Wohnort
+    assert "wohnort" not in fake.aufrufe[0]["schema"]["properties"]
 
 
 @pytest.mark.anforderung("ANF-LLM-13", "ANF-LLM-05")

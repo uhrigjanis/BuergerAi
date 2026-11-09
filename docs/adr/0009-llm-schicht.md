@@ -126,6 +126,17 @@ Ohne LLM läuft alles wie heute: Lebenslagen-Auswahl, Stichwortsuche über Synon
 - Rückfragen dürfen frei beantwortet werden. Derselbe Weg, aber das Schema enthält nur die offenen Fakten, und der Beleg muss in der Antwort stehen, nicht in der Frage.
 - Jeder Vorschlag hat einen Beleg, der wörtlich im Text des Nutzers steht. Nur geprüfte Vorschläge gehen an die Bestätigung (#79) und danach an die Engine.
 
+**Orte aus dem Freitext** (*ergänzt am 09.11.2026 mit #115*). Grundsatz: Das LLM erkennt den Namen, der Code ordnet zu, der Mensch bestätigt. Das Modell leitet weiterhin keine PLZ ab.
+
+1. **LLM:** Für den Wohnort (bei einem Umzug der neue) und jeden Ortsfakt (`umzug.ort_alt`, `wohnen.ort_immobilie`, `pflege.ort`, `todesfall.sterbeort`) liefert es `ortsname` genau wie im Text, `plz` nur als Ziffern aus dem Text und einen `beleg`. Die Rolle ergibt sich aus dem Feld im Schema, nicht aus freiem Text. Einen Gemeindeschlüssel nimmt die Prüfung vom Modell nie an.
+2. **Prüfung:** Der Name steht im Beleg, der Beleg im Text, eine PLZ als Ziffern im Beleg; sonst wird die Angabe verworfen. Eine PLZ aus dem Text hat Vorrang vor dem Namen.
+3. **Code:** `gebiete.ort_suchen` sucht den Namen lokal in den 10.712 Gemeinden der Wissensbasis (Normalisierung von Schreibweise, Umlauten, „St.“/„Sankt“, Bindestrichen, Klammerzusätzen, „Bad“, Kurzformen wie „Frankfurt“). Ergebnis: `eindeutig`, `mehrdeutig` (mit Kandidaten) oder `unbekannt` (z. B. Ortsteile wie „Schwabing“). Eingegrenzt wird nur deterministisch über Kreis, Land oder PLZ im Text hinter dem Namen, bis zum Satzende oder zum nächsten erkannten Ort. Kurzformen ohne Hinweis und Tippfehler (höchstens ein Zeichen Abstand, ab fünf Buchstaben) sind nie eindeutig.
+4. **Mensch:** Nur eindeutige Ortsfakten werden mit Gemeindeschlüssel vorgeschlagen; mehrdeutige erscheinen als Auswahl, unbekannte als Hinweis, und das Formular fragt nach der PLZ. Der Wohnort belegt das Gemeindefeld vor; für den Bericht reicht die Gemeinde (`aufloesen(gemeinde_id=…)`), die PLZ wird nur angezeigt („mehrere PLZ“ ab vier). Übernommen wird erst nach Bestätigung (#79).
+
+Warum nicht ganz ohne LLM: Viele Gemeindenamen sind auch normale Wörter („Essen“, „Hof“, „Weil“, „Lauf“), und eine Stichwortsuche kennt die Rolle nicht (alter oder neuer Wohnort). Warum nicht ganz mit LLM: Das Modell kennt nicht alle 10.712 Gemeinden mit Schlüssel, und eine erfundene Zuordnung wäre ein falsches Ergebnis ohne Rückfrage.
+
+**Kennzahl:** richtig zugeordnete Gemeinde und Rolle (`tests/eval/intake`, Abschnitt „Orte“, ANF-EVAL-10). Eine falsche Zuordnung zählt dreifach, eine fehlende oder eine Rückfrage einfach. Ziel: Falschzuordnung nahe null.
+
 ### 8. Schutzregeln (Guardrails, #82)
 
 BürgerAI beantwortet per Freitext nur Fragen zu Lebenslagen, Leistungen und Behörden. Missbrauch darf weder Kosten verursachen noch falsche Ergebnisse erzeugen. Die Regeln wirken in drei Schichten, deterministisch zuerst:

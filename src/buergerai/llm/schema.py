@@ -10,15 +10,25 @@ Form der Ausgabe::
 
 ``pruefen`` prüft jede Angabe unabhängig vom Anbieter. Was nicht besteht, wird
 verworfen, nicht repariert. Nichts geht ungeprüft in die Engine.
+
+Orte (#115): Für Ortsfakten und den Wohnort nennt das Modell nur den Namen, wie er im
+Text steht, und eine PLZ nur, wenn sie als Ziffern dasteht::
+
+    {"wohnort": {"ortsname": "Freising", "plz": "", "beleg": "ziehen nach Freising"},
+     "fakten": {"umzug.ort_alt": {"ortsname": "Köln", "plz": "", "beleg": "von Köln"}}}
+
+Gemeindeschlüssel und PLZ kommen ausschließlich aus der Wissensbasis (``gebiete.ort_suchen``).
 """
 
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
-from typing import Any, Iterable, Optional
+from dataclasses import dataclass, field, replace
+from typing import Any, Iterable, Optional, Union
 
+from .. import gebiete
 from ..fakten import UNBEKANNT, EingabeFehler, FaktDefinition, parse_wert
+from ..modell import Gebiet
 from ..regeln import fakten_in_regel
 from ..wissensbasis import Wissensbasis
 from .basis import LLMUngueltigeAusgabe
@@ -33,6 +43,9 @@ GRUND_WERT = "wert"  # parse_wert lehnt den Wert ab
 GRUND_BELEG = "beleg"  # Beleg fehlt oder steht nicht in der Eingabe
 GRUND_NUR_WENN = "nur_wenn"  # Bedingung des Fakts ist nachweislich nicht erfüllt
 GRUND_WIDERSPRUCH = "widerspruch"  # Aufrufe je Lebenslage liefern verschiedene Werte (#77)
+
+# Rolle des Wohnorts in ``Ortsangabe``; die anderen Rollen sind die IDs der Ortsfakten
+WOHNORT = "wohnort"
 
 
 # ------------------------------------------------------------------ Welche Fakten?
@@ -111,7 +124,29 @@ def _wert_schema(d: FaktDefinition) -> dict[str, Any]:
     return {"type": "string"}  # datum, ort, text
 
 
+def ort_schema(beschreibung: str) -> dict[str, Any]:
+    """Ortsangabe: nur der Name aus dem Text, eine PLZ nur als Ziffern aus dem Text (#115)."""
+    return {
+        "type": "object",
+        "description": beschreibung,
+        "properties": {
+            "ortsname": {"type": "string", "description": "Name der Stadt oder Gemeinde genau wie im Text; "
+                                                          "leer, wenn nur eine Postleitzahl dasteht"},
+            "plz": {"type": "string", "description": "Postleitzahl nur, wenn sie als Ziffern im Text steht; sonst leer"},
+            "beleg": {"type": "string", "description": "wörtliches Zitat aus dem Text, das den Ort nennt"},
+        },
+        "required": ["ortsname", "plz", "beleg"],
+        "additionalProperties": False,
+    }
+
+
+WOHNORT_BESCHREIBUNG = ("Wo wohnt die Person? Bei einem Umzug der neue Wohnort. "
+                        "Nur, wenn der Text den Ort ausdrücklich nennt.")
+
+
 def fakt_schema(kb: Wissensbasis, fid: str, d: FaktDefinition) -> dict[str, Any]:
+    if d.typ == "ort":
+        return ort_schema(re.sub(r"\s*\(Postleitzahl\)", "", _beschreibung(kb, fid, d)))
     return {
         "type": "object",
         "description": _beschreibung(kb, fid, d),
@@ -124,26 +159,27 @@ def fakt_schema(kb: Wissensbasis, fid: str, d: FaktDefinition) -> dict[str, Any]
     }
 
 
-def schema_aus(kb: Wissensbasis, erlaubt: dict[str, FaktDefinition]) -> dict[str, Any]:
-    """JSON-Schema der Extraktion für diese Fakten. Jede Angabe ist freiwillig."""
-    return {
-        "type": "object",
-        "properties": {
-            "fakten": {
-                "type": "object",
-                "description": "Nur Angaben, die der Text ausdrücklich enthält. Alles andere weglassen.",
-                "properties": {fid: fakt_schema(kb, fid, d) for fid, d in erlaubt.items()},
-                "additionalProperties": False,
-            },
+def schema_aus(kb: Wissensbasis, erlaubt: dict[str, FaktDefinition], wohnort: bool = False) -> dict[str, Any]:
+    """JSON-Schema der Extraktion für diese Fakten. Jede Angabe ist freiwillig.
+
+    ``wohnort``: auch nach dem Wohnort fragen (erster Freitext, nicht bei Rückfragen).
+    """
+    eigenschaften: dict[str, Any] = {
+        "fakten": {
+            "type": "object",
+            "description": "Nur Angaben, die der Text ausdrücklich enthält. Alles andere weglassen.",
+            "properties": {fid: fakt_schema(kb, fid, d) for fid, d in erlaubt.items()},
+            "additionalProperties": False,
         },
-        "required": ["fakten"],
-        "additionalProperties": False,
     }
+    if wohnort:
+        eigenschaften[WOHNORT] = ort_schema(WOHNORT_BESCHREIBUNG)
+    return {"type": "object", "properties": eigenschaften, "required": ["fakten"], "additionalProperties": False}
 
 
 def schema_fuer(kb: Wissensbasis, lebenslagen: Iterable[str]) -> dict[str, Any]:
-    """JSON-Schema der Extraktion für die Lebenslagen."""
-    return schema_aus(kb, erlaubte_fakten(kb, lebenslagen))
+    """JSON-Schema der Extraktion für die Lebenslagen (erster Freitext, mit Wohnort)."""
+    return schema_aus(kb, erlaubte_fakten(kb, lebenslagen), wohnort=True)
 
 
 def frage_text(kb: Wissensbasis, fid: str) -> Optional[str]:
@@ -172,10 +208,48 @@ class Verworfen:
     grund: str  # GRUND_*, ohne Wert
 
 
+@dataclass(frozen=True)
+class Ortsangabe:
+    """Ein Ort aus dem Text (#115). Das Modell liefert Name, Beleg und ggf. PLZ, der Code den Rest.
+
+    ``status``, ``gemeinden`` und ``art`` setzt ``orte_zuordnen`` aus der Wissensbasis.
+    """
+
+    id: str  # Rolle: WOHNORT oder die ID des Ortsfakts (z. B. "umzug.ort_alt")
+    ortsname: str  # wie im Text, "" wenn nur eine PLZ dasteht
+    plz: str  # nur als Ziffern aus dem Text, sonst ""
+    beleg: str
+    status: str = ""  # gebiete.ORT_EINDEUTIG, ORT_MEHRDEUTIG oder ORT_UNBEKANNT
+    gemeinden: tuple[Gebiet, ...] = ()  # eindeutig: genau eine; mehrdeutig: Kandidaten
+    art: str = ""  # "plz", "name", "kurzform", "tippfehler"
+
+    @property
+    def wert(self) -> tuple[str, str]:
+        """Vergleichswert, wenn zwei Aufrufe denselben Ort liefern."""
+        return (gebiete.ortsname_normalisieren(self.ortsname), self.plz)
+
+    @property
+    def gemeinde(self) -> Optional[Gebiet]:
+        return self.gemeinden[0] if self.status == gebiete.ORT_EINDEUTIG and self.gemeinden else None
+
+    def fakt_wert(self) -> Optional[str]:
+        """Wert für den Ortsfakt: die PLZ aus dem Text, sonst der Gemeindeschlüssel, wenn eindeutig."""
+        if self.plz:
+            return self.plz
+        g = self.gemeinde
+        return g.id if g is not None else None
+
+
 @dataclass
 class Pruefung:
     vorschlaege: list[Vorschlag] = field(default_factory=list)
     verworfen: list[Verworfen] = field(default_factory=list)
+    # Alle erkannten Orte mit Zuordnung, auch Wohnort, mehrdeutige und unbekannte (#115).
+    # Eindeutige Ortsfakten stehen zusätzlich als Vorschlag in ``vorschlaege``.
+    orte: list[Ortsangabe] = field(default_factory=list)
+
+    def ort(self, rolle: str) -> Optional[Ortsangabe]:
+        return next((o for o in self.orte if o.id == rolle), None)
 
     def fakten(self) -> dict[str, Any]:
         return {v.id: v.wert for v in self.vorschlaege}
@@ -205,23 +279,62 @@ def _bedingung_id(fid: str, d: FaktDefinition) -> Optional[str]:
     return ziel
 
 
-def eintraege_pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str,
-                      erlaubt: dict[str, FaktDefinition]) -> tuple[dict[str, Vorschlag], list[Verworfen]]:
+def _ort_pruefen(rolle: str, eintrag: Any, eingabe: str) -> Union[Ortsangabe, str]:
+    """Form und Beleg einer Ortsangabe; Ergebnis ist die (noch nicht zugeordnete) Angabe oder ein GRUND_*.
+
+    Der Name muss im Beleg stehen, der Beleg im Text. Eine PLZ gilt nur als Ziffern im Beleg;
+    einen Gemeindeschlüssel nimmt die Prüfung vom Modell nie an.
+    """
+    if not isinstance(eintrag, dict) or "beleg" not in eintrag or set(eintrag) - {"ortsname", "plz", "beleg"}:
+        return GRUND_FORM
+    name, plz, beleg = eintrag.get("ortsname") or "", eintrag.get("plz") or "", eintrag["beleg"]
+    if not all(isinstance(x, str) for x in (name, plz, beleg)):
+        return GRUND_FORM
+    name, plz = name.strip(), plz.strip()
+    if not name and not plz:
+        return GRUND_FORM
+    if plz and not gebiete.plz_gueltig(plz):
+        return GRUND_WERT
+    if not beleg_im_text(beleg, eingabe) or (plz and plz not in beleg):
+        return GRUND_BELEG
+    if name and not beleg_im_text(name, beleg):
+        if not plz:
+            return GRUND_BELEG
+        name = ""  # die PLZ aus dem Text hat Vorrang
+    return Ortsangabe(rolle, name, plz, beleg.strip())
+
+
+def eintraege_pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str, erlaubt: dict[str, FaktDefinition],
+                      wohnort: bool = False) -> tuple[dict[str, Union[Vorschlag, Ortsangabe]], list[Verworfen]]:
     """Jede Angabe für sich: ID erlaubt, Form, Wert (``parse_wert``), Beleg im Text.
 
-    ``nur_wenn`` prüft ``nur_wenn_pruefen`` danach, weil die Bedingung auch aus einem
-    anderen Aufruf kommen kann. Falsche äußere Form ist ``LLMUngueltigeAusgabe``.
+    Ortsfakten und (mit ``wohnort``) der Wohnort ergeben ``Ortsangabe``; die Zuordnung zur
+    Gemeinde macht ``orte_zuordnen``. ``nur_wenn`` prüft ``nur_wenn_pruefen`` danach, weil die
+    Bedingung auch aus einem anderen Aufruf kommen kann. Falsche äußere Form ist ``LLMUngueltigeAusgabe``.
     """
     if not isinstance(ausgabe, dict) or not isinstance(ausgabe.get("fakten"), dict):
         raise LLMUngueltigeAusgabe("Objekt mit 'fakten' erwartet")
-    gueltig: dict[str, Vorschlag] = {}
+    gueltig: dict[str, Union[Vorschlag, Ortsangabe]] = {}
     verworfen: list[Verworfen] = []
+    if wohnort and ausgabe.get(WOHNORT) is not None:
+        ort = _ort_pruefen(WOHNORT, ausgabe[WOHNORT], eingabe)
+        if isinstance(ort, Ortsangabe):
+            gueltig[WOHNORT] = ort
+        else:
+            verworfen.append(Verworfen(WOHNORT, ort))
     for fid, eintrag in ausgabe["fakten"].items():
         fid = str(fid)
         d = erlaubt.get(fid)
         if d is None:
             grund = GRUND_NICHT_IM_SCHEMA if kb.fakt_definition(fid) is not None else GRUND_UNBEKANNT
             verworfen.append(Verworfen(fid, grund))
+            continue
+        if d.typ == "ort":
+            ort = _ort_pruefen(fid, eintrag, eingabe)
+            if isinstance(ort, Ortsangabe):
+                gueltig[fid] = ort
+            else:
+                verworfen.append(Verworfen(fid, ort))
             continue
         if not isinstance(eintrag, dict) or "wert" not in eintrag or "beleg" not in eintrag:
             verworfen.append(Verworfen(fid, GRUND_FORM))
@@ -239,24 +352,65 @@ def eintraege_pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str,
         if not beleg_im_text(eintrag["beleg"], eingabe):
             verworfen.append(Verworfen(fid, GRUND_BELEG))
             continue
-        if d.typ == "ort" and wert is not UNBEKANNT and wert not in eintrag["beleg"]:
-            # PLZ oder Gemeindeschlüssel nur, wenn die Person sie selbst schreibt; sonst wären sie geraten
-            verworfen.append(Verworfen(fid, GRUND_BELEG))
-            continue
         gueltig[fid] = Vorschlag(fid, wert, eintrag["beleg"].strip())
     return gueltig, verworfen
 
 
-def nur_wenn_pruefen(kb: Wissensbasis, gueltig: dict[str, Vorschlag],
+def ort_hinweis(text: str, ortsname: str, andere: Iterable[str] = ()) -> str:
+    """Text hinter dem Ortsnamen bis zum Satzende, für Hinweise wie "im Kreis Steinfurt".
+
+    Er endet vor dem nächsten anderen erkannten Ort, damit in "von Neuenkirchen nach
+    Steinfurt" der Zielort den Herkunftsort nicht eingrenzt.
+    """
+    treffer = re.search(rf"(?<!\w){re.escape(ortsname)}(?!\w)", text, re.IGNORECASE) if ortsname else None
+    if treffer is None:
+        return ""
+    rest = re.split(r"[.!?;\n]", text[treffer.end():treffer.end() + 80], maxsplit=1)[0]
+    for name in andere:
+        if name and name.casefold() != ortsname.casefold():
+            stelle = re.search(rf"(?<!\w){re.escape(name)}(?!\w)", rest, re.IGNORECASE)
+            if stelle:
+                rest = rest[:stelle.start()]
+    return rest
+
+
+def orte_zuordnen(kb: Wissensbasis, gueltig: dict[str, Union[Vorschlag, Ortsangabe]],
+                  text: str) -> dict[str, Union[Vorschlag, Ortsangabe]]:
+    """Ordnet jede Ortsangabe einer Gemeinde der Wissensbasis zu (``gebiete.ort_suchen``).
+
+    Eine PLZ aus dem Text hat Vorrang vor dem Namen. Das Modell liefert nie einen Schlüssel.
+    """
+    namen = [o.ortsname for o in gueltig.values() if isinstance(o, Ortsangabe)]
+    ergebnis: dict[str, Union[Vorschlag, Ortsangabe]] = {}
+    for fid, o in gueltig.items():
+        if isinstance(o, Ortsangabe):
+            if o.plz:
+                treffer = gebiete.gemeinden_fuer_plz(kb, o.plz)
+                status = (gebiete.ORT_EINDEUTIG if len(treffer) == 1
+                          else gebiete.ORT_MEHRDEUTIG if treffer else gebiete.ORT_UNBEKANNT)
+                o = replace(o, status=status, gemeinden=tuple(treffer), art="plz")
+            else:
+                t = gebiete.ort_suchen(kb, o.ortsname, ort_hinweis(text, o.ortsname, namen))
+                o = replace(o, status=t.status, gemeinden=t.gemeinden, art=t.art)
+        ergebnis[fid] = o
+    return ergebnis
+
+
+def nur_wenn_pruefen(kb: Wissensbasis, gueltig: dict[str, Union[Vorschlag, Ortsangabe]],
                      bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
     """Verwirft Vorschläge, deren Bedingung bekannt ist und nicht zutrifft.
 
     Bekannt heißt: in ``bekannt`` (schon bestätigt) oder selbst vorgeschlagen.
     Fehlt die Bedingung ganz, bleibt der Vorschlag; der Nutzer sieht und bestätigt ihn.
+    Zugeordnete Ortsangaben kommen nach ``orte``; ein Ortsfakt mit PLZ oder eindeutiger
+    Gemeinde zusätzlich als Vorschlag.
     """
     ergebnis = Pruefung()
-    werte = {**(bekannt or {}), **{fid: v.wert for fid, v in gueltig.items()}}
+    werte = {**(bekannt or {}), **{fid: v.wert for fid, v in gueltig.items() if isinstance(v, Vorschlag)}}
     for fid, v in gueltig.items():
+        if fid == WOHNORT and isinstance(v, Ortsangabe):
+            ergebnis.orte.append(v)
+            continue
         d = kb.fakt_definition(fid)
         ziel = _bedingung_id(fid, d) if d else None
         if ziel is not None and ziel in werte:
@@ -268,26 +422,39 @@ def nur_wenn_pruefen(kb: Wissensbasis, gueltig: dict[str, Vorschlag],
             if werte[ziel] is UNBEKANNT or werte[ziel] != soll:
                 ergebnis.verworfen.append(Verworfen(fid, GRUND_NUR_WENN))
                 continue
+        if isinstance(v, Ortsangabe):
+            ergebnis.orte.append(v)
+            wert = v.fakt_wert()
+            if wert is not None:
+                ergebnis.vorschlaege.append(Vorschlag(fid, wert, v.beleg))
+            continue
         ergebnis.vorschlaege.append(v)
+    return ergebnis
+
+
+def abschliessen(kb: Wissensbasis, gueltig: dict[str, Union[Vorschlag, Ortsangabe]], verworfen: list[Verworfen],
+                 text: str, bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
+    """Orte zuordnen, dann ``nur_wenn``; die zuvor verworfenen Angaben stehen vorn."""
+    ergebnis = nur_wenn_pruefen(kb, orte_zuordnen(kb, gueltig, text), bekannt)
+    ergebnis.verworfen[:0] = verworfen
     return ergebnis
 
 
 def pruefen(kb: Wissensbasis, ausgabe: Any, eingabe: str, lebenslagen: Iterable[str],
             bekannt: Optional[dict[str, Any]] = None) -> Pruefung:
-    """Prüft die Ausgabe des LLM gegen Katalog, Eingabetext und ``nur_wenn``.
+    """Prüft die Ausgabe des LLM gegen Katalog, Eingabetext und ``nur_wenn`` und ordnet Orte zu.
 
     ``bekannt``: schon bestätigte Angaben (geparste Werte), für ``nur_wenn``.
     Ist die äußere Form falsch, gilt die ganze Ausgabe als ungültig (``LLMUngueltigeAusgabe``,
     der Aufrufer fällt dann aufs Formular zurück).
     """
-    gueltig, verworfen = eintraege_pruefen(kb, ausgabe, eingabe, erlaubte_fakten(kb, lebenslagen))
-    ergebnis = nur_wenn_pruefen(kb, gueltig, bekannt)
-    ergebnis.verworfen[:0] = verworfen
-    return ergebnis
+    gueltig, verworfen = eintraege_pruefen(kb, ausgabe, eingabe, erlaubte_fakten(kb, lebenslagen), wohnort=True)
+    return abschliessen(kb, gueltig, verworfen, eingabe, bekannt)
 
 
 __all__ = [
     "GRUND_BELEG", "GRUND_FORM", "GRUND_NICHT_IM_SCHEMA", "GRUND_NUR_WENN", "GRUND_UNBEKANNT", "GRUND_WERT",
-    "GRUND_WIDERSPRUCH", "Pruefung", "Verworfen", "Vorschlag", "beleg_im_text", "eintraege_pruefen",
-    "erlaubte_fakten", "fakt_schema", "frage_text", "nur_wenn_pruefen", "pruefen", "schema_aus", "schema_fuer",
+    "GRUND_WIDERSPRUCH", "WOHNORT", "Ortsangabe", "Pruefung", "Verworfen", "Vorschlag", "abschliessen",
+    "beleg_im_text", "eintraege_pruefen", "erlaubte_fakten", "fakt_schema", "frage_text", "nur_wenn_pruefen",
+    "ort_hinweis", "ort_schema", "orte_zuordnen", "pruefen", "schema_aus", "schema_fuer",
 ]

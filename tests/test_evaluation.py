@@ -42,6 +42,7 @@ def test_alle_testfaelle_gueltig(kb):
     ({"fakten": {"geburtsdatum_oder_termin": "2027-01-01"}}, "abgeleitet"),
     ({"fakten": {"umzug.ort_alt": "50667"}}, "gehört unter 'orte'"),
     ({"orte": {"wohnort": "Atlantis"}}, "keine Gemeinde"),
+    ({"orte": {"wohnort": "09178"}}, "keine Gemeinde"),
     ({"orte": {"kind_geboren": "Köln"}}, "weder 'wohnort' noch ein Ortsfakt"),
     ({"art": "mehrere"}, "mindestens zwei Lebenslagen"),
     ({"kategorie": "kein_thema"}, "erwartet keine Lebenslagen"),
@@ -67,7 +68,7 @@ def test_doppelte_ids_und_fehlender_stichtag(kb, tmp_path):
 
 @pytest.mark.anforderung("ANF-EVAL-02")
 def test_umfang_je_lebenslage(kb, faelle):
-    je_lage = Counter(f.datei[:-5] for f in faelle if f.datei != "guardrails.json")
+    je_lage = Counter(f.datei[:-5] for f in faelle if f.datei not in ("guardrails.json", "orte.json"))
     assert set(je_lage) == set(kb.lebenslagen)
     assert all(n >= 5 for n in je_lage.values()), je_lage
     assert sum(je_lage.values()) >= 65
@@ -99,6 +100,29 @@ def test_erwartung_ergibt_volle_punktzahl(kb, faelle):
     assert k["notlage"]["erkannt"] == 1
     x = k["extraktion"]
     assert (x["recall"], x["precision"], x["falsch"], x["fehlerpunkte"]) == (1, 1, 0, 0)
+    o = k["orte"]
+    assert o["erwartet"] > 20 and o["richtig"] == o["erwartet"] and (o["falsch"], o["offen"]) == (0, 0)
+
+
+@pytest.mark.anforderung("ANF-EVAL-10")
+def test_orte_bewertung(kb, tmp_path):
+    fall = _fall(kb, tmp_path, orte={"wohnort": "Freising", "umzug.ort_alt": "Köln"})
+    e = ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "09178124", "umzug.ort_alt": "09162000"}))
+    assert e.orte_richtig == ["wohnort"] and e.orte_falsch == ["umzug.ort_alt=München (erwartet Köln)"]
+    # Rückfrage statt Zuordnung: offen, nicht falsch; Rückfrage ohne erwarteten Ort: unnötig
+    e = ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "", "pflege.ort": ""}))
+    assert (e.orte_offen, e.orte_unnoetig, e.orte_falsch) == (["wohnort", "umzug.ort_alt"], ["pflege.ort"], [])
+    k = ev.kennzahlen([e, ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "05315000"}))])
+    assert (k["orte"]["falsch"], k["orte"]["offen"], k["orte"]["fehlerpunkte"]) == (1, 3, 3 + 3 * 1)
+    # "?Name": Rückfrage erwartet; Auswahl ist richtig, eine stille Zuordnung falsch, keine Angabe offen
+    fall = _fall(kb, tmp_path, orte={"wohnort": "?Neuenkirchen"})
+    assert ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": ""})).orte_richtig == ["wohnort"]
+    assert ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "05566060"})).orte_falsch
+    assert ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"])).orte_offen == ["wohnort"]
+    # Gleichnamige Gemeinden: erwartet als Schlüssel, damit das falsche Neuenkirchen nicht zählt
+    fall = _fall(kb, tmp_path, orte={"wohnort": "05566060"})
+    assert ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "05566060"})).orte_richtig
+    assert ev.fall_bewerten(kb, fall, ev.Vorhersage(["geburt"], orte={"wohnort": "03251028"})).orte_falsch
 
 
 def _fall(kb, tmp_path, **fall):
@@ -149,8 +173,11 @@ def test_relative_angaben_mit_stichtag(kb, tmp_path):
 
 @pytest.mark.anforderung("ANF-EVAL-04")
 def test_baseline_stichwortsuche(kb, faelle):
+    # Baseline dokumentiert in tests/eval/intake/README.md; Untergrenzen fangen Rückschritte der Suche ab.
+    # orte.json (#115) misst die Zuordnung von Orten; die Texte sind nicht für die Stichwortsuche
+    # ausgewählt und zählen deshalb nicht zur Untergrenze, die auf dem übrigen Bestand festgelegt wurde.
+    faelle = [f for f in faelle if f.datei != "orte.json"]
     k = ev.kennzahlen(ev.bewerten(kb, faelle, ev.stichwortsuche(kb)))
-    # Baseline dokumentiert in tests/eval/intake/README.md; Untergrenzen fangen Rückschritte der Suche ab
     assert k["router"]["top1"] >= 0.75
     assert k["abweisung"]["faelschlich"] == 0
     assert k["extraktion"]["richtig"] == 0 and k["extraktion"]["falsch"] == 0
@@ -210,7 +237,7 @@ def test_ergebnisdatei(kb, faelle, capsys, tmp_path):
     assert len(daten["faelle"]) == len(faelle)
     fall = daten["faelle"][0]
     assert set(fall) == {"id", "art", "kategorie", "lebenslagen", "top1", "top3", "abgewiesen", "fallback",
-                         "extraktion_fehler", "gemessen", "fakten", "injection_wirksam", "injection"}
+                         "extraktion_fehler", "gemessen", "fakten", "orte", "injection_wirksam", "injection"}
     assert set(fall["lebenslagen"]) == {"erwartet", "erkannt", "zusaetzlich"}
     roh = dateien[0].read_text(encoding="utf-8")
     assert not any(f.text in roh for f in faelle)  # keine Freitexte

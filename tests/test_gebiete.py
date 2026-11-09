@@ -117,6 +117,99 @@ def test_mehrdeutige_plz_bundesweit_mit_kreis(kb):
     assert {gebiete.kreis_von(kb, g).name for g in info.value.gemeinden} == {"Landkreis Freising", "Landkreis Erding"}
 
 
+# ------------------------------------------------------------------ Ortssuche nach Namen (#115)
+def _namen(treffer):
+    return [g.name for g in treffer.gemeinden]
+
+
+@pytest.mark.anforderung("ANF-GEB-08")
+@pytest.mark.parametrize("name, gemeinde_id", [
+    ("Freising", "09178124"),
+    ("Köln", "05315000"),
+    ("koeln", "05315000"),
+    ("MÜNCHEN", "09162000"),
+    ("Muenchen", "09162000"),
+    ("St. Augustin", "05382056"),
+    ("Sankt-Augustin", "05382056"),
+    ("Halle (Saale)", "15002000"),
+    ("Halle Saale", "15002000"),
+    ("Frankfurt (Oder)", "12053000"),
+    ("Bad Tölz", "09173112"),
+])
+def test_ortssuche_eindeutig(kb, name, gemeinde_id):
+    t = gebiete.ort_suchen(kb, name)
+    assert t.status == gebiete.ORT_EINDEUTIG and [g.id for g in t.gemeinden] == [gemeinde_id]
+
+
+@pytest.mark.anforderung("ANF-GEB-08")
+def test_ortssuche_mehrdeutig_mit_kandidaten(kb):
+    t = gebiete.ort_suchen(kb, "Neuenkirchen")
+    assert t.status == gebiete.ORT_MEHRDEUTIG and len(t.gemeinden) == 11
+    assert len({gebiete.kreis_von(kb, g).name for g in t.gemeinden}) == 10
+    # Kurzform: zwei Frankfurt, die große Stadt zuerst
+    t = gebiete.ort_suchen(kb, "Frankfurt")
+    assert (t.status, t.art, _namen(t)) == (gebiete.ORT_MEHRDEUTIG, "kurzform", ["Frankfurt am Main", "Frankfurt (Oder)"])
+    # Klammerzusatz: "Burg" findet auch "Burg (Dithmarschen)"
+    assert "Burg (Dithmarschen)" in _namen(gebiete.ort_suchen(kb, "Burg"))
+    # Auch ein exakter Name ist mehrdeutig, wenn es gleichnamige mit Zusatz gibt
+    assert _namen(gebiete.ort_suchen(kb, "Essen"))[0] == "Essen"
+    assert gebiete.ort_suchen(kb, "Essen").status == gebiete.ORT_MEHRDEUTIG
+
+
+@pytest.mark.anforderung("ANF-GEB-08")
+def test_kurzform_mit_einem_kandidaten_ist_nicht_eindeutig(kb):
+    for name, gemeinde in (("Tölz", "Bad Tölz"), ("Brandenburg", "Brandenburg an der Havel")):
+        t = gebiete.ort_suchen(kb, name)
+        assert (t.status, _namen(t)) == (gebiete.ORT_MEHRDEUTIG, [gemeinde])
+
+
+@pytest.mark.anforderung("ANF-GEB-08")
+@pytest.mark.parametrize("name", ["Schwabing", "Atlantis", "", "  ", "Ich"])
+def test_ortssuche_unbekannt(kb, name):
+    t = gebiete.ort_suchen(kb, name)
+    assert t.status == gebiete.ORT_UNBEKANNT and t.gemeinden == ()
+
+
+@pytest.mark.anforderung("ANF-GEB-09")
+@pytest.mark.parametrize("hinweis, kreis", [
+    ("im Kreis Steinfurt", "Kreis Steinfurt"),
+    ("bei Steinfurt", "Kreis Steinfurt"),
+    ("(Landkreis Diepholz)", "Landkreis Diepholz"),
+    (", 48485", "Kreis Steinfurt"),
+])
+def test_ortssuche_eingrenzen_ueber_kreis_und_plz(kb, hinweis, kreis):
+    t = gebiete.ort_suchen(kb, "Neuenkirchen", hinweis)
+    assert t.status == gebiete.ORT_EINDEUTIG and t.eingegrenzt
+    assert gebiete.kreis_von(kb, t.gemeinden[0]).name == kreis
+
+
+@pytest.mark.anforderung("ANF-GEB-09")
+def test_ortssuche_eingrenzen_ueber_land(kb):
+    assert _namen(gebiete.ort_suchen(kb, "Frankfurt", "in Hessen")) == ["Frankfurt am Main"]
+    assert _namen(gebiete.ort_suchen(kb, "Halle", "in Sachsen-Anhalt")) == ["Halle (Saale)"]
+    # Mehrere Neuenkirchen in Niedersachsen: eingegrenzt, aber weiter mehrdeutig
+    t = gebiete.ort_suchen(kb, "Neuenkirchen", "in Niedersachsen")
+    assert t.status == gebiete.ORT_MEHRDEUTIG and t.eingegrenzt and len(t.gemeinden) == 5
+
+
+@pytest.mark.anforderung("ANF-GEB-09")
+def test_ortssuche_hinweis_ohne_treffer_grenzt_nicht_ein(kb):
+    # Bremen ist weder Kreis noch Land eines Neuenkirchen: alle Kandidaten bleiben
+    t = gebiete.ort_suchen(kb, "Neuenkirchen", "bei Bremen")
+    assert t.status == gebiete.ORT_MEHRDEUTIG and not t.eingegrenzt and len(t.gemeinden) == 11
+
+
+@pytest.mark.anforderung("ANF-GEB-09")
+def test_tippfehler_nur_als_vorschlag(kb):
+    for name in ("Freisnig", "Freisingg", "Frising"):
+        t = gebiete.ort_suchen(kb, name)
+        assert (t.status, t.art, _namen(t)) == (gebiete.ORT_MEHRDEUTIG, "tippfehler", ["Freising"])
+    # Auch mit passendem Hinweis bleibt ein Tippfehler eine Rückfrage
+    assert gebiete.ort_suchen(kb, "Freisnig", "in Bayern").status == gebiete.ORT_MEHRDEUTIG
+    # Kurze Namen: keine Toleranz (sonst würde "Hog" zu "Hof")
+    assert gebiete.ort_suchen(kb, "Hog").status == gebiete.ORT_UNBEKANNT
+
+
 def test_kreise_und_gemeinden_vollstaendig(kb):
     kreise = [g for g in kb.gebiete.values() if g.ebene is Ebene.KREIS]
     gemeinden = [g for g in kb.gebiete.values() if g.ebene is Ebene.GEMEINDE]

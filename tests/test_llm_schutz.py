@@ -270,7 +270,7 @@ def test_injection_setzt_nichts_ausserhalb_von_katalog_und_text(kb, caplog):
 def test_injection_wirkt_nicht_ohne_bestaetigung(kb):
     """/api/intake rechnet keinen Bericht: ohne bestätigte Fakten ändert die Injection nichts."""
     r = api.intake(kb, _injection_llm(), {"text": INJECTION, "stichtag": STICHTAG})
-    assert set(r) == {"kategorie", "quelle", "hinweise", "lebenslagen", "vorschlaege"}
+    assert set(r) == {"kategorie", "quelle", "hinweise", "lebenslagen", "vorschlaege", "orte"}
     ohne = api.bericht(kb, {**anfrage(), "lebenslagen": ["geburt"]})
     assert all(a["id"] != "bezieht_buergergeld" for a in ohne["angaben"])
     assert not ohne["angaben"]

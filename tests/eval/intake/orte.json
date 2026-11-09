@@ -1,0 +1,116 @@
+{
+  "_hinweis": "Ausgedachte Testfälle für Orte aus dem Freitext (#115): eindeutig, mehrdeutig mit und ohne Hinweis, Ortsteile, Tippfehler, zwei Rollen, Gemeindenamen als normale Wörter. '?Name' heißt: Rückfrage erwartet, eine stille Zuordnung zählt als falsch. Format: README.md in diesem Verzeichnis.",
+  "stichtag": "2026-11-02",
+  "faelle": [
+    {
+      "id": "orte-01",
+      "art": "mehrere",
+      "text": "Wir bekommen ein Kind und ziehen von Köln nach Freising.",
+      "lebenslagen": ["geburt", "umzug"],
+      "fakten": {"kind_geboren": "nein"},
+      "orte": {"wohnort": "Freising", "umzug.ort_alt": "Köln"},
+      "notiz": "Beispiel aus #115: zwei Orte mit verschiedenen Rollen."
+    },
+    {
+      "id": "orte-02",
+      "art": "klar",
+      "text": "Ich ziehe nach Neuenkirchen und muss mich dort ummelden.",
+      "lebenslagen": ["umzug"],
+      "fakten": {},
+      "orte": {"wohnort": "?Neuenkirchen"},
+      "notiz": "Elf Gemeinden heißen Neuenkirchen, der Text grenzt nicht ein: Auswahl statt Zuordnung."
+    },
+    {
+      "id": "orte-03",
+      "art": "klar",
+      "text": "Wir ziehen zum 1.12.2026 nach Neuenkirchen im Kreis Steinfurt.",
+      "lebenslagen": ["umzug"],
+      "fakten": {"umzug.einzugsdatum": "2026-12-01"},
+      "orte": {"wohnort": "05566060"},
+      "notiz": "Der Kreis im Text grenzt auf eine Gemeinde ein."
+    },
+    {
+      "id": "orte-04",
+      "art": "umgangssprache",
+      "text": "Bin grad von Frankfurt nach Leipzig gezogen, was muss ich jetzt erledigen?",
+      "lebenslagen": ["umzug"],
+      "fakten": {},
+      "orte": {"wohnort": "Leipzig", "umzug.ort_alt": "?Frankfurt am Main"},
+      "notiz": "'Frankfurt' ist eine Kurzform für Frankfurt am Main und Frankfurt (Oder): Auswahl."
+    },
+    {
+      "id": "orte-05",
+      "art": "klar",
+      "text": "Wir ziehen von Halle in Sachsen-Anhalt nach Dresden.",
+      "lebenslagen": ["umzug"],
+      "fakten": {},
+      "orte": {"wohnort": "Dresden", "umzug.ort_alt": "15002000"},
+      "notiz": "Das Land im Text grenzt die vier Gemeinden namens Halle auf Halle (Saale) ein."
+    },
+    {
+      "id": "orte-06",
+      "art": "klar",
+      "text": "Ich bin letzte Woche nach Schwabing gezogen.",
+      "lebenslagen": ["umzug"],
+      "fakten": {},
+      "fakten_optional": {"umzug.einzugsdatum": "2026-10-28"},
+      "orte": {"wohnort": "München"},
+      "notiz": "Schwabing ist ein Stadtteil, keine Gemeinde: keine Zuordnung, das Formular fragt nach der PLZ (offen, nicht falsch)."
+    },
+    {
+      "id": "orte-07",
+      "art": "tippfehler",
+      "text": "ziehe am 15.11. von hamburg nach freisnig",
+      "lebenslagen": ["umzug"],
+      "fakten": {"umzug.einzugsdatum": "2026-11-15"},
+      "orte": {"wohnort": "?Freising", "umzug.ort_alt": "Hamburg"},
+      "notiz": "Tippfehler nur als 'Meinten Sie Freising?', nie still übernommen."
+    },
+    {
+      "id": "orte-08",
+      "art": "negativ",
+      "text": "Mein Mann ist gestorben. Früher haben wir sonntags zusammen gegessen, jetzt essen wir Kinder allein. Was muss ich erledigen?",
+      "lebenslagen": ["todesfall"],
+      "fakten": {},
+      "orte": {},
+      "notiz": "'essen' ist hier ein Verb, keine Gemeinde: kein Ort und keine Rückfrage."
+    },
+    {
+      "id": "orte-09",
+      "art": "negativ",
+      "text": "Weil meine Mutter jetzt Pflegegrad 3 hat, will ich sie bei uns zu Hause pflegen.",
+      "lebenslagen": ["pflege"],
+      "fakten": {"pflege.rolle": "angehoerig", "pflege.pflegegrad": 3},
+      "fakten_optional": {"pflege.wohnform": "zuhause", "pflege.pflege_durch_angehoerige": "ja"},
+      "orte": {},
+      "notiz": "'Weil' am Satzanfang ist eine Konjunktion, keine Gemeinde."
+    },
+    {
+      "id": "orte-10",
+      "art": "klar",
+      "text": "Wir ziehen von 50667 Köln nach 85354 Freising.",
+      "lebenslagen": ["umzug"],
+      "fakten": {},
+      "orte": {"wohnort": "Freising", "umzug.ort_alt": "Köln"},
+      "notiz": "PLZ als Ziffern im Text haben Vorrang vor dem Namen."
+    },
+    {
+      "id": "orte-11",
+      "art": "klar",
+      "text": "Wir kaufen ein gebrauchtes Haus in Landshut, wohnen aber noch in Stuttgart.",
+      "lebenslagen": ["wohneigentum"],
+      "fakten": {"wohnen.vorhaben": "kauf_bestand"},
+      "orte": {"wohnen.ort_immobilie": "Landshut", "wohnort": "Stuttgart"},
+      "notiz": "Ort der Immobilie und Wohnort sind verschiedene Rollen."
+    },
+    {
+      "id": "orte-12",
+      "art": "umgangssprache",
+      "text": "Meine Oma in Bad Tölz braucht jetzt Pflege, ich kümmere mich als Enkelin um sie.",
+      "lebenslagen": ["pflege"],
+      "fakten": {"pflege.rolle": "angehoerig"},
+      "orte": {"pflege.ort": "Bad Tölz"},
+      "notiz": "Wohnort der pflegebedürftigen Person, nicht der Person, die schreibt."
+    }
+  ]
+}
